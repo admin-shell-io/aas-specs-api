@@ -25,7 +25,7 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 * [Registry-and-Discovery/openapi.yaml](./Registry-and-Discovery/openapi.yaml) matches the [Registry-and-Discovery API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/Registry-and-Discovery)
 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
-* [art1-MetaModel-Schemas/openapi.yaml](./art1-MetaModel-Schemas/openapi.yaml) matches the [Part1-MetaModel-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)
+* [Part1-MetaModel-Schemas/openapi.yaml](./art1-MetaModel-Schemas/openapi.yaml) matches the [Part1-MetaModel-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)
 * [Part2-API-Schemas/openapi.yaml](./Part2-API-Schemas/openapi.yaml) matches the [Part2-API-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)
 * [DINSPEC16593-Schemas/openapi.yaml](./DINSPEC16593-Schemas/openapi.yaml) matches the [DINSPEC16593-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)
 
