@@ -1,0 +1,674 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Registry and Discovery Service Specification
+  description: The entire Registry & Discovery Service Specification as part of Details of the Asset Administration Shell Part 2
+  contact:
+    name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
+  version: V3.0
+  termsOfService: https://github.com/admin-shell-io/aas-specs
+servers:
+- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
+  variables:
+    protocol:
+      description: 'Allows access through http and https (recommended)'
+      enum:
+        - 'http'   
+        - 'https'
+      default: 'https'
+    host_name:
+      default: admin-shell.io
+      description: 'Hostname of server hosting the api'
+    port:
+      enum:
+        - '80'
+        - '443'
+      default: '443'
+      description: '80 is default for http, 443 for https'
+    version_prefix:
+      enum:
+        - 'v3'
+      default: v3
+paths:
+  /shell-descriptors:
+    get:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Returns all Asset Administration Shell Descriptors
+      operationId: GetAllAssetAdministrationShellDescriptors
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+      responses:
+        '200':
+          description: Requested Asset Administration Shell Descriptors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    post:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Creates a new Asset Administration Shell Descriptor, i.e. registers an AAS
+      operationId: PostAssetAdministrationShellDescriptor
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostAssetAdministrationShellDescriptor/3/0
+      requestBody:
+        description: Asset Administration Shell Descriptor object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        required: true
+      responses:
+        '201':
+          description: Asset Administration Shell Descriptor created successfully
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shell-descriptors/{aasIdentifier}:
+    get:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Returns a specific Asset Administration Shell Descriptor
+      operationId: GetAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '200':
+          description: Requested Asset Administration Shell Descriptor
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    put:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Updates an existing Asset Administration Shell Descriptor
+      operationId: PutAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      requestBody:
+        description: Asset Administration Shell Descriptor object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        required: true
+      responses:
+        '204':
+          description: Asset Administration Shell Descriptor updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Deletes an Asset Administration Shell Descriptor, i.e. de-registers an AAS
+      operationId: DeleteAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteAssetAdministrationShellDescriptorById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '204':
+          description: Asset Administration Shell Descriptor deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shell-descriptors/{aasIdentifier}/submodel-descriptors:
+    get:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Returns all Submodel Descriptors
+      operationId: GetAllSubmodelDescriptorsThroughSuperpath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+      responses:
+        '200':
+          description: Requested Submodel Descriptors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    post:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Creates a new Submodel Descriptor, i.e. registers a submodel
+      operationId: PostSubmodelDescriptorThroughSuperpath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      requestBody:
+        description: Submodel Descriptor object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        required: true
+      responses:
+        '201':
+          description: Submodel Descriptor created successfully
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shell-descriptors/{aasIdentifier}/submodel-descriptors/{submodelIdentifier}:
+    get:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Returns a specific Submodel Descriptor
+      operationId: GetSubmodelDescriptorByIdThroughSuperpath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+        - name: submodelIdentifier
+          in: path
+          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '200':
+          description: Requested Submodel Descriptor
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    put:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Updates an existing Submodel Descriptor
+      operationId: PutSubmodelDescriptorByIdThroughSuperpath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+        - name: submodelIdentifier
+          in: path
+          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      requestBody:
+        description: Submodel Descriptor object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        required: true
+      responses:
+        '204':
+          description: Submodel Descriptor updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell Registry API
+      summary: Deletes a Submodel Descriptor, i.e. de-registers a submodel
+      operationId: DeleteSubmodelDescriptorByIdThroughSuperpath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+        - name: submodelIdentifier
+          in: path
+          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '204':
+          description: Submodel Descriptor deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /submodel-descriptors:
+    get:
+      tags:
+        - Submodel Registry API
+      summary: Returns all Submodel Descriptors
+      operationId: GetAllSubmodelDescriptors
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+      responses:
+        '200':
+          description: Requested Submodel Descriptors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    post:
+      tags:
+        - Submodel Registry API
+      summary: Creates a new Submodel Descriptor, i.e. registers a submodel
+      operationId: PostSubmodelDescriptor
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/0
+      requestBody:
+        description: Submodel Descriptor object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        required: true
+      responses:
+        '201':
+          description: Submodel Descriptor created successfully
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /submodel-descriptors/{submodelIdentifier}:
+    get:
+      tags:
+        - Submodel Registry API
+      summary: Returns a specific Submodel Descriptor
+      operationId: GetSubmodelDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0
+      parameters:
+        - name: submodelIdentifier
+          in: path
+          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '200':
+          description: Requested Submodel Descriptor
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    put:
+      tags:
+        - Submodel Registry API
+      summary: Updates an existing Submodel Descriptor
+      operationId: PutSubmodelDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/0
+      parameters:
+        - name: submodelIdentifier
+          in: path
+          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      requestBody:
+        description: Submodel Descriptor object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        required: true
+      responses:
+        '204':
+          description: Submodel Descriptor updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'    
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Submodel Registry API
+      summary: Deletes a Submodel Descriptor, i.e. de-registers a submodel
+      operationId: DeleteSubmodelDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/0
+      parameters:
+        - name: submodelIdentifier
+          in: path
+          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '204':
+          description: Submodel Descriptor deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /lookup/shells:
+    get:
+      tags:
+        - Asset Administration Shell Basic Discovery API
+      summary: Returns a list of Asset Administration Shell ids linked to specific Asset identifiers 
+      operationId: GetAllAssetAdministrationShellIdsByAssetLink
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/0
+      parameters:
+        - name: assetIds
+          in: query
+          description: A list of specific Asset identifiers
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
+            example: '[ { "name": "some-asset-id", "value": "http://example-company.com/myAsset", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://example-company.com/example-companys-asset-keys" } ], "type": "GlobalReference" } }, { "name": "some-other-asset-id", "value": "12345ABC", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://my-own-company.com/keys" } ], "type": "GlobalReference" } } ]'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+      responses:
+        '200':
+          description: Requested Asset Administration Shell ids
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /lookup/shells/{aasIdentifier}:
+    get:
+      tags:
+        - Asset Administration Shell Basic Discovery API
+      summary: Returns a list of specific Asset identifiers based on an Asset Administration Shell id to edit discoverable content
+      operationId: GetAllAssetLinksById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '200':
+          description: Requested specific Asset identifiers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    post:
+      tags:
+        - Asset Administration Shell Basic Discovery API
+      summary: Creates specific Asset identifiers linked to an Asset Administration Shell to edit discoverable content
+      operationId: PostAllAssetLinksById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostAllAssetLinksById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      requestBody:
+        description: A list of specific Asset identifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
+        required: true
+      responses:
+        '201':
+          description: Specific Asset identifiers created successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell Basic Discovery API
+      summary: Deletes all specific Asset identifiers linked to an Asset Administration Shell to edit discoverable content
+      operationId: DeleteAllAssetLinksById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/0
+      parameters:
+        - name: aasIdentifier
+          in: path
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '204':
+          description: Specific Asset identifiers deleted successfully
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (Description)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Description'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
