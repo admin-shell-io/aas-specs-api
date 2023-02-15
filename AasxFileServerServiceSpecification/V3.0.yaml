@@ -6,6 +6,28 @@ info:
     name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
   version: V3.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
+servers:
+- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
+  variables:
+    protocol:
+      description: 'Allows access through http and https (recommended)'
+      enum:
+        - 'http'   
+        - 'https'
+      default: 'https'
+    host_name:
+      default: admin-shell.io
+      description: 'Hostname of server hosting the api'
+    port:
+      enum:
+        - '80'
+        - '443'
+      default: '443'
+      description: '80 is default for http, 443 for https'
+    version_prefix:
+      enum:
+        - 'v3.0'
+      default: v3.0
 paths:
   /packages:
     get:
