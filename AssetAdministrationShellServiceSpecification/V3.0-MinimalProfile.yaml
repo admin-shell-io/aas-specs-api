@@ -26,8 +26,8 @@ servers:
       description: '80 is default for http, 443 for https'
     version_prefix:
       enum:
-        - 'v3'
-      default: v3
+        - 'v3.0'
+      default: v3.0
 paths:
   /aas:
     get:
@@ -37,8 +37,6 @@ paths:
       operationId: GetAssetAdministrationShell
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShell/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: Requested Asset Administration Shell
