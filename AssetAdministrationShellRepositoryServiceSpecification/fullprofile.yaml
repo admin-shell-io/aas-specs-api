@@ -26,8 +26,8 @@ servers:
       description: '80 is default for http, 443 for https'
     version_prefix:
       enum:
-        - 'v3'
-      default: v3
+        - 'v3.0'
+      default: v3.0
 paths:
   /shells:
     get:
@@ -491,9 +491,9 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel
-      operationId: GetSubmodel
+      operationId: GetSubmodelById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
         - name: aasIdentifier
           in: path
@@ -514,6 +514,7 @@ paths:
             type: string
             format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: Requested Submodel
@@ -775,6 +776,7 @@ paths:
             type: string
             format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: Requested Submodel
@@ -960,8 +962,6 @@ paths:
       operationId: GetAllSubmodelElements
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsByParentPathAndSemanticId/3/0
       parameters:
         - name: aasIdentifier
           in: path
@@ -984,6 +984,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: List of found submodel elements
@@ -1064,8 +1065,6 @@ paths:
       operationId: GetAllSubmodelElementsMetadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsByParentPathAndSemanticId/3/0
       parameters:
         - name: aasIdentifier
           in: path
@@ -1115,8 +1114,6 @@ paths:
       operationId: GetAllSubmodelElementsValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsByParentPathAndSemanticId/3/0
       parameters:
         - name: aasIdentifier
           in: path
@@ -1139,6 +1136,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: List of found submodel elements in their ValueOnly representation
@@ -1166,8 +1164,6 @@ paths:
       operationId: GetAllSubmodelElementsReference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsByParentPathAndSemanticId/3/0
       parameters:
         - name: aasIdentifier
           in: path
@@ -1227,8 +1223,6 @@ paths:
       operationId: GetAllSubmodelElementsPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelElementsByParentPathAndSemanticId/3/0
       parameters:
         - name: aasIdentifier
           in: path
@@ -1309,6 +1303,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: Requested submodel element
@@ -1691,6 +1686,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
         '200':
           description: Requested submodel element in its ValueOnly representation
