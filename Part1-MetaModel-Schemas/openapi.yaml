@@ -12,410 +12,482 @@ components:
     AasSubmodelElements:
       type: string
       enum:
-        - AnnotatedRelationshipElement
-        - BasicEventElement
-        - Blob
-        - Capability
-        - DataElement
-        - Entity
-        - EventElement
-        - File
-        - MultiLanguageProperty
-        - Operation
-        - Property
-        - Range
-        - ReferenceElement
-        - RelationshipElement
-        - SubmodelElement
-        - SubmodelElementCollection
-        - SubmodelElementList
+      - AnnotatedRelationshipElement
+      - BasicEventElement
+      - Blob
+      - Capability
+      - DataElement
+      - Entity
+      - EventElement
+      - File
+      - MultiLanguageProperty
+      - Operation
+      - Property
+      - Range
+      - ReferenceElement
+      - RelationshipElement
+      - SubmodelElement
+      - SubmodelElementCollection
+      - SubmodelElementList
+    AbstractLangString:
+      type: object
+      properties:
+        language:
+          type: string
+          pattern: "^(([a-zA-Z]{2,3}(-[a-zA-Z]{3}(-[a-zA-Z]{3}){2})?|[a-zA-Z]{4}|[a-zA-Z]{5,8})(-[a-zA-Z]{4})?(-([a-zA-Z]{2}|[0-9]{3}))?(-(([a-zA-Z0-9]){5,8}|[0-9]([a-zA-Z0-9]){3}))*(-[0-9A-WY-Za-wy-z](-([a-zA-Z0-9]){2,8})+)*(-[xX](-([a-zA-Z0-9]){1,8})+)?|[xX](-([a-zA-Z0-9]){1,8})+|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$"
+        text:
+          type: string
+          minLength: 1
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+      required:
+      - language
+      - text
     AdministrativeInformation:
       allOf:
-        - $ref: '#/components/schemas/HasDataSpecification'
-        - properties:
-            version:
-              type: string
-              minLength: 1
-            revision:
-              type: string
-              minLength: 1
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          version:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          revision:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          creator:
+            "$ref": "#/components/schemas/Reference"
+          templateId:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
     AnnotatedRelationshipElement:
       allOf:
-        - $ref: '#/components/schemas/RelationshipElement'
-        - properties:
-            annotations:
-              type: array
-              items:
-                $ref: '#/components/schemas/DataElement'
-              minItems: 1
+      - "$ref": "#/components/schemas/RelationshipElement"
+      - properties:
+          annotations:
+            type: array
+            items:
+              "$ref": "#/components/schemas/DataElement"
+            minItems: 1
     AssetAdministrationShell:
       allOf:
-        - $ref: '#/components/schemas/Identifiable'
-        - $ref: '#/components/schemas/HasDataSpecification'
-        - properties:
-            derivedFrom:
-              $ref: '#/components/schemas/Reference'
-            assetInformation:
-              $ref: '#/components/schemas/AssetInformation'
-            submodels:
-              type: array
-              items:
-                $ref: '#/components/schemas/Reference'
-              minItems: 1
-          required:
-            - assetInformation
+      - "$ref": "#/components/schemas/Identifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          derivedFrom:
+            "$ref": "#/components/schemas/Reference"
+          assetInformation:
+            "$ref": "#/components/schemas/AssetInformation"
+          submodels:
+            type: array
+            items:
+              "$ref": "#/components/schemas/Reference"
+            minItems: 1
+        required:
+        - assetInformation
     AssetInformation:
       type: object
       properties:
         assetKind:
-          $ref: '#/components/schemas/AssetKind'
+          "$ref": "#/components/schemas/AssetKind"
         globalAssetId:
           type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         specificAssetIds:
           type: array
           items:
-            $ref: '#/components/schemas/SpecificAssetId'
+            "$ref": "#/components/schemas/SpecificAssetId"
           minItems: 1
+        assetType:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         defaultThumbnail:
-          $ref: '#/components/schemas/Resource'
+          "$ref": "#/components/schemas/Resource"
       required:
-        - assetKind
+      - assetKind
     AssetKind:
       type: string
       enum:
-        - Instance
-        - Type
+      - Instance
+      - Type
     BasicEventElement:
       allOf:
-        - $ref: '#/components/schemas/EventElement'
-        - properties:
-            observed:
-              $ref: '#/components/schemas/Reference'
-            direction:
-              $ref: '#/components/schemas/Direction'
-            state:
-              $ref: '#/components/schemas/StateOfEvent'
-            messageTopic:
-              type: string
-              minLength: 1
-            messageBroker:
-              $ref: '#/components/schemas/Reference'
-            lastUpdate:
-              type: string
-              pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)Z$
-            minInterval:
-              type: string
-              pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)Z$
-            maxInterval:
-              type: string
-              pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)Z$
-          required:
-            - observed
-            - direction
-            - state
+      - "$ref": "#/components/schemas/EventElement"
+      - properties:
+          observed:
+            "$ref": "#/components/schemas/Reference"
+          direction:
+            "$ref": "#/components/schemas/Direction"
+          state:
+            "$ref": "#/components/schemas/StateOfEvent"
+          messageTopic:
+            type: string
+            minLength: 1
+            maxLength: 255
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          messageBroker:
+            "$ref": "#/components/schemas/Reference"
+          lastUpdate:
+            type: string
+            pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
+          minInterval:
+            type: string
+            pattern: "^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S))))$"
+          maxInterval:
+            type: string
+            pattern: "^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S))))$"
+        required:
+        - observed
+        - direction
+        - state
     Blob:
       allOf:
-        - $ref: '#/components/schemas/DataElement'
-        - properties:
-            value:
-              type: string
-              format: byte
-            contentType:
-              type: string
-              minLength: 1
-              pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \t]*;[ \t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\t !-~]|[\\x80-\\xff]))*\"))*$"
-          required:
-            - contentType
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            type: string
+            format: byte
+          contentType:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 100
+            - pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([
+                \t]*;[ \t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\t
+                !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\t !-~]|[\\x80-\\xff]))*\"))*$"
+        required:
+        - contentType
     Capability:
-      $ref: '#/components/schemas/SubmodelElement'
+      "$ref": "#/components/schemas/SubmodelElement"
     ConceptDescription:
       allOf:
-        - $ref: '#/components/schemas/Identifiable'
-        - $ref: '#/components/schemas/HasDataSpecification'
-        - properties:
-            isCaseOf:
-              type: array
-              items:
-                $ref: '#/components/schemas/Reference'
-              minItems: 1
+      - "$ref": "#/components/schemas/Identifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          isCaseOf:
+            type: array
+            items:
+              "$ref": "#/components/schemas/Reference"
+            minItems: 1
     DataElement:
-      $ref: '#/components/schemas/SubmodelElement'
+      "$ref": "#/components/schemas/SubmodelElement"
     DataSpecificationContent:
       type: object
       properties:
         modelType:
-          $ref: '#/components/schemas/ModelType'
+          "$ref": "#/components/schemas/ModelType"
       required:
-        - modelType
+      - modelType
     DataSpecificationIEC61360:
       allOf:
-        - $ref: '#/components/schemas/DataSpecificationContent'
-        - properties:
-            preferredName:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            shortName:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            unit:
-              type: string
-              minLength: 1
-            unitId:
-              $ref: '#/components/schemas/Reference'
-            sourceOfDefinition:
-              type: string
-              minLength: 1
-            symbol:
-              type: string
-              minLength: 1
-            dataType:
-              $ref: '#/components/schemas/DataTypeIEC61360'
-            definition:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            valueFormat:
-              type: string
-              minLength: 1
-            valueList:
-              $ref: '#/components/schemas/ValueList'
-            value:
-              type: string
-            levelType:
-              $ref: '#/components/schemas/LevelType'
-          required:
-            - preferredName
+      - "$ref": "#/components/schemas/DataSpecificationContent"
+      - properties:
+          preferredName:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringPreferredNameTypeIEC61360"
+            minItems: 1
+          shortName:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringShortNameTypeIEC61360"
+            minItems: 1
+          unit:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          unitId:
+            "$ref": "#/components/schemas/Reference"
+          sourceOfDefinition:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          symbol:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          dataType:
+            "$ref": "#/components/schemas/DataTypeIEC61360"
+          definition:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringDefinitionTypeIEC61360"
+            minItems: 1
+          valueFormat:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          valueList:
+            "$ref": "#/components/schemas/ValueList"
+          value:
+            "$ref": "#/components/schemas/LangStringShortNameTypeIEC61360"
+          levelType:
+            "$ref": "#/components/schemas/LevelType"
+        required:
+        - preferredName
     DataSpecificationPhysicalUnit:
       allOf:
-        - $ref: '#/components/schemas/DataSpecificationContent'
-        - properties:
-            unitName:
-              type: string
-              minLength: 1
-            unitSymbol:
-              type: string
-              minLength: 1
-            definition:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            siNotation:
-              type: string
-              minLength: 1
-            siName:
-              type: string
-              minLength: 1
-            dinNotation:
-              type: string
-              minLength: 1
-            eceName:
-              type: string
-              minLength: 1
-            eceCode:
-              type: string
-              minLength: 1
-            nistName:
-              type: string
-              minLength: 1
-            sourceOfDefinition:
-              type: string
-              minLength: 1
-            conversionFactor:
-              type: string
-              minLength: 1
-            registrationAuthorityId:
-              type: string
-              minLength: 1
-            supplier:
-              type: string
-              minLength: 1
-          required:
-            - unitName
-            - unitSymbol
-            - definition
+      - "$ref": "#/components/schemas/DataSpecificationContent"
+      - properties:
+          unitName:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          unitSymbol:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          definition:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringTextType"
+            minItems: 1
+          siNotation:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          siName:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          dinNotation:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          eceName:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          eceCode:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          nistName:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          sourceOfDefinition:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          conversionFactor:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          registrationAuthorityId:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          supplier:
+            type: string
+            minLength: 1
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+        required:
+        - unitName
+        - unitSymbol
+        - definition
     DataTypeDefXsd:
       type: string
       enum:
-        - xs:NonNegativeInteger
-        - xs:anyURI
-        - xs:base64Binary
-        - xs:boolean
-        - xs:byte
-        - xs:date
-        - xs:dateTime
-        - xs:dateTimeStamp
-        - xs:dayTimeDuration
-        - xs:decimal
-        - xs:double
-        - xs:duration
-        - xs:float
-        - xs:gDay
-        - xs:gMonth
-        - xs:gMonthDay
-        - xs:gYear
-        - xs:gYearMonth
-        - xs:hexBinary
-        - xs:int
-        - xs:integer
-        - xs:long
-        - xs:negativeInteger
-        - xs:nonPositiveInteger
-        - xs:positiveInteger
-        - xs:short
-        - xs:string
-        - xs:time
-        - xs:unsignedByte
-        - xs:unsignedInt
-        - xs:unsignedLong
-        - xs:unsignedShort
-        - xs:yearMonthDuration
+      - xs:anyURI
+      - xs:base64Binary
+      - xs:boolean
+      - xs:byte
+      - xs:date
+      - xs:dateTime
+      - xs:decimal
+      - xs:double
+      - xs:duration
+      - xs:float
+      - xs:gDay
+      - xs:gMonth
+      - xs:gMonthDay
+      - xs:gYear
+      - xs:gYearMonth
+      - xs:hexBinary
+      - xs:int
+      - xs:integer
+      - xs:long
+      - xs:negativeInteger
+      - xs:nonNegativeInteger
+      - xs:nonPositiveInteger
+      - xs:positiveInteger
+      - xs:short
+      - xs:string
+      - xs:time
+      - xs:unsignedByte
+      - xs:unsignedInt
+      - xs:unsignedLong
+      - xs:unsignedShort
     DataTypeIEC61360:
       type: string
       enum:
-        - BLOB
-        - BOOLEAN
-        - DATE
-        - FILE
-        - HTML
-        - INTEGER_COUNT
-        - INTEGER_CURRENCY
-        - INTEGER_MEASURE
-        - IRDI
-        - IRI
-        - RATIONAL
-        - RATIONAL_MEASURE
-        - REAL_COUNT
-        - REAL_CURRENCY
-        - REAL_MEASURE
-        - STRING
-        - STRING_TRANSLATABLE
-        - TIME
-        - TIMESTAMP
+      - BLOB
+      - BOOLEAN
+      - DATE
+      - FILE
+      - HTML
+      - INTEGER_COUNT
+      - INTEGER_CURRENCY
+      - INTEGER_MEASURE
+      - IRDI
+      - IRI
+      - RATIONAL
+      - RATIONAL_MEASURE
+      - REAL_COUNT
+      - REAL_CURRENCY
+      - REAL_MEASURE
+      - STRING
+      - STRING_TRANSLATABLE
+      - TIME
+      - TIMESTAMP
     Direction:
       type: string
       enum:
-        - INPUT
-        - OUTPUT
+      - input
+      - output
     EmbeddedDataSpecification:
       type: object
       properties:
         dataSpecification:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         dataSpecificationContent:
-          $ref: '#/components/schemas/DataSpecificationContent'
+          "$ref": "#/components/schemas/DataSpecificationContent"
       required:
-        - dataSpecification
-        - dataSpecificationContent
+      - dataSpecification
+      - dataSpecificationContent
     Entity:
       allOf:
-        - $ref: '#/components/schemas/SubmodelElement'
-        - properties:
-            statements:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubmodelElement'
-              minItems: 1
-            entityType:
-              $ref: '#/components/schemas/EntityType'
-            globalAssetId:
-              type: string
-            specificAssetId:
-              $ref: '#/components/schemas/SpecificAssetId'
-          required:
-            - entityType
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          statements:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement"
+            minItems: 1
+          entityType:
+            "$ref": "#/components/schemas/EntityType"
+          globalAssetId:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          specificAssetIds:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SpecificAssetId"
+            minItems: 1
+        required:
+        - entityType
     EntityType:
       type: string
       enum:
-        - CoManagedEntity
-        - SelfManagedEntity
+      - CoManagedEntity
+      - SelfManagedEntity
     Environment:
       type: object
       properties:
         assetAdministrationShells:
           type: array
           items:
-            $ref: '#/components/schemas/AssetAdministrationShell'
+            "$ref": "#/components/schemas/AssetAdministrationShell"
           minItems: 1
         submodels:
           type: array
           items:
-            $ref: '#/components/schemas/Submodel'
+            "$ref": "#/components/schemas/Submodel"
           minItems: 1
         conceptDescriptions:
           type: array
           items:
-            $ref: '#/components/schemas/ConceptDescription'
+            "$ref": "#/components/schemas/ConceptDescription"
           minItems: 1
     EventElement:
-      $ref: '#/components/schemas/SubmodelElement'
+      "$ref": "#/components/schemas/SubmodelElement"
     EventPayload:
       type: object
       properties:
         source:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         sourceSemanticId:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         observableReference:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         observableSemanticId:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         topic:
           type: string
           minLength: 1
+          maxLength: 255
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         subjectId:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         timeStamp:
           type: string
-          pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)Z$
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
         payload:
           type: string
-          minLength: 1
+          format: byte
       required:
-        - source
-        - observableReference
-        - timeStamp
+      - source
+      - observableReference
+      - timeStamp
     Extension:
       allOf:
-        - $ref: '#/components/schemas/HasSemantics'
-        - properties:
-            name:
-              type: string
-              minLength: 1
-            valueType:
-              $ref: '#/components/schemas/DataTypeDefXsd'
-            value:
-              type: string
-            refersTo:
-              $ref: '#/components/schemas/Reference'
-          required:
-            - name
+      - "$ref": "#/components/schemas/HasSemantics"
+      - properties:
+          name:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: string
+            pattern: "(xs:anyURI)|(xs:base64Binary)|(xs:boolean)|(xs:byte)|(xs:date)|(xs:dateTime)|(xs:decimal)|(xs:double)|(xs:duration)|(xs:float)|(xs:gDay)|(xs:gMonth)|(xs:gMonthDay)|(xs:gYear)|(xs:gYearMonth)|(xs:hexBinary)|(xs:int)|(xs:integer)|(xs:long)|(xs:negativeInteger)|(xs:nonNegativeInteger)|(xs:nonPositiveInteger)|(xs:positiveInteger)|(xs:short)|(xs:string)|(xs:time)|(xs:unsignedByte)|(xs:unsignedInt)|(xs:unsignedLong)|(xs:unsignedShort)"
+          refersTo:
+            type: array
+            items:
+              "$ref": "#/components/schemas/Reference"
+            minItems: 1
+        required:
+        - name
     File:
       allOf:
-        - $ref: '#/components/schemas/DataElement'
-        - properties:
-            value:
-              type: string
-              minLength: 1
-              pattern: ^file:(//((localhost|(\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\.([a-zA-Z0-9\-._~]|[!$&'()*+,;=]|:)+)\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$
-            contentType:
-              type: string
-              minLength: 1
-              pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \t]*;[ \t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\t !-~]|[\\x80-\\xff]))*\"))*$"
-          required:
-            - contentType
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 2000
+            - pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            - pattern: "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$"
+          contentType:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 100
+            - pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([
+                \t]*;[ \t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\t
+                !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\t !-~]|[\\x80-\\xff]))*\"))*$"
+        required:
+        - contentType
     HasDataSpecification:
       type: object
       properties:
         embeddedDataSpecifications:
           type: array
           items:
-            $ref: '#/components/schemas/EmbeddedDataSpecification'
+            "$ref": "#/components/schemas/EmbeddedDataSpecification"
           minItems: 1
     HasExtensions:
       type: object
@@ -423,382 +495,431 @@ components:
         extensions:
           type: array
           items:
-            $ref: '#/components/schemas/Extension'
+            "$ref": "#/components/schemas/Extension"
           minItems: 1
     HasKind:
       type: object
       properties:
         kind:
-          $ref: '#/components/schemas/ModelingKind'
+          "$ref": "#/components/schemas/ModellingKind"
     HasSemantics:
       type: object
       properties:
         semanticId:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
         supplementalSemanticIds:
           type: array
           items:
-            $ref: '#/components/schemas/Reference'
+            "$ref": "#/components/schemas/Reference"
           minItems: 1
     Identifiable:
       allOf:
-        - $ref: '#/components/schemas/Referable'
-        - properties:
-            administration:
-              $ref: '#/components/schemas/AdministrativeInformation'
-            id:
-              type: string
-              minLength: 1
-          required:
-            - id
+      - "$ref": "#/components/schemas/Referable"
+      - properties:
+          administration:
+            "$ref": "#/components/schemas/AdministrativeInformation"
+          id:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+        required:
+        - id
     Key:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/KeyTypes'
+          "$ref": "#/components/schemas/KeyTypes"
         value:
           type: string
           minLength: 1
+          maxLength: 2000
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
       required:
-        - type
-        - value
+      - type
+      - value
     KeyTypes:
       type: string
       enum:
-        - AnnotatedRelationshipElement
-        - AssetAdministrationShell
-        - BasicEventElement
-        - Blob
-        - Capability
-        - ConceptDescription
-        - DataElement
-        - Entity
-        - EventElement
-        - File
-        - FragmentReference
-        - GlobalReference
-        - Identifiable
-        - MultiLanguageProperty
-        - Operation
-        - Property
-        - Range
-        - Referable
-        - ReferenceElement
-        - RelationshipElement
-        - Submodel
-        - SubmodelElement
-        - SubmodelElementCollection
-        - SubmodelElementList
-    LangString:
+      - AnnotatedRelationshipElement
+      - AssetAdministrationShell
+      - BasicEventElement
+      - Blob
+      - Capability
+      - ConceptDescription
+      - DataElement
+      - Entity
+      - EventElement
+      - File
+      - FragmentReference
+      - GlobalReference
+      - Identifiable
+      - MultiLanguageProperty
+      - Operation
+      - Property
+      - Range
+      - Referable
+      - ReferenceElement
+      - RelationshipElement
+      - Submodel
+      - SubmodelElement
+      - SubmodelElementCollection
+      - SubmodelElementList
+    LangStringDefinitionTypeIEC61360:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 1023
+    LangStringNameType:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 128
+    LangStringPreferredNameTypeIEC61360:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 255
+    LangStringShortNameTypeIEC61360:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 18
+    LangStringTextType:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 1023
+    LevelType:
       type: object
       properties:
-        language:
-          type: string
-          pattern: ^(([a-zA-Z]{2,3}(-[a-zA-Z]{3}(-[a-zA-Z]{3}){2})?|[a-zA-Z]{4}|[a-zA-Z]{5,8})(-[a-zA-Z]{4})?(-([a-zA-Z]{2}|[0-9]{3}))?(-(([a-zA-Z0-9]){5,8}|[0-9]([a-zA-Z0-9]){3}))*(-[0-9A-WY-Za-wy-z](-([a-zA-Z0-9]){2,8})+)*(-[xX](-([a-zA-Z0-9]){1,8})+)?|[xX](-([a-zA-Z0-9]){1,8})+|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$
-        text:
-          type: string
+        min:
+          type: boolean
+        nom:
+          type: boolean
+        typ:
+          type: boolean
+        max:
+          type: boolean
       required:
-        - language
-        - text
-    LevelType:
-      type: string
-      enum:
-        - Max
-        - Min
-        - Nom
-        - Typ
+      - min
+      - nom
+      - typ
+      - max
     ModelType:
       type: string
       enum:
-        - AnnotatedRelationshipElement
-        - AssetAdministrationShell
-        - BasicEventElement
-        - Blob
-        - Capability
-        - ConceptDescription
-        - DataSpecificationIEC61360
-        - DataSpecificationPhysicalUnit
-        - Entity
-        - File
-        - MultiLanguageProperty
-        - Operation
-        - Property
-        - Range
-        - ReferenceElement
-        - RelationshipElement
-        - Submodel
-        - SubmodelElementCollection
-        - SubmodelElementList
-    ModelingKind:
+      - AnnotatedRelationshipElement
+      - AssetAdministrationShell
+      - BasicEventElement
+      - Blob
+      - Capability
+      - ConceptDescription
+      - DataSpecificationIEC61360
+      - DataSpecificationPhysicalUnit
+      - Entity
+      - File
+      - MultiLanguageProperty
+      - Operation
+      - Property
+      - Range
+      - ReferenceElement
+      - RelationshipElement
+      - Submodel
+      - SubmodelElementCollection
+      - SubmodelElementList
+    ModellingKind:
       type: string
       enum:
-        - Instance
-        - Template
+      - Instance
+      - Template
     MultiLanguageProperty:
       allOf:
-        - $ref: '#/components/schemas/DataElement'
-        - properties:
-            value:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            valueId:
-              $ref: '#/components/schemas/Reference'
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringTextType"
+            minItems: 1
+          valueId:
+            "$ref": "#/components/schemas/Reference"
     Operation:
       allOf:
-        - $ref: '#/components/schemas/SubmodelElement'
-        - properties:
-            inputVariables:
-              type: array
-              items:
-                $ref: '#/components/schemas/OperationVariable'
-              minItems: 1
-            outputVariables:
-              type: array
-              items:
-                $ref: '#/components/schemas/OperationVariable'
-              minItems: 1
-            inoutputVariables:
-              type: array
-              items:
-                $ref: '#/components/schemas/OperationVariable'
-              minItems: 1
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          inputVariables:
+            type: array
+            items:
+              "$ref": "#/components/schemas/OperationVariable"
+            minItems: 1
+          outputVariables:
+            type: array
+            items:
+              "$ref": "#/components/schemas/OperationVariable"
+            minItems: 1
+          inoutputVariables:
+            type: array
+            items:
+              "$ref": "#/components/schemas/OperationVariable"
+            minItems: 1
     OperationVariable:
       type: object
       properties:
         value:
-          $ref: '#/components/schemas/SubmodelElement'
+          "$ref": "#/components/schemas/SubmodelElement"
       required:
-        - value
+      - value
     Property:
       allOf:
-        - $ref: '#/components/schemas/DataElement'
-        - properties:
-            valueType:
-              $ref: '#/components/schemas/DataTypeDefXsd'
-            value:
-              type: string
-            valueId:
-              $ref: '#/components/schemas/Reference'
-          required:
-            - valueType
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: string
+            pattern: "(xs:anyURI)|(xs:base64Binary)|(xs:boolean)|(xs:byte)|(xs:date)|(xs:dateTime)|(xs:decimal)|(xs:double)|(xs:duration)|(xs:float)|(xs:gDay)|(xs:gMonth)|(xs:gMonthDay)|(xs:gYear)|(xs:gYearMonth)|(xs:hexBinary)|(xs:int)|(xs:integer)|(xs:long)|(xs:negativeInteger)|(xs:nonNegativeInteger)|(xs:nonPositiveInteger)|(xs:positiveInteger)|(xs:short)|(xs:string)|(xs:time)|(xs:unsignedByte)|(xs:unsignedInt)|(xs:unsignedLong)|(xs:unsignedShort)"
+          valueId:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - valueType
     Qualifiable:
       type: object
       properties:
         qualifiers:
           type: array
           items:
-            $ref: '#/components/schemas/Qualifier'
+            "$ref": "#/components/schemas/Qualifier"
           minItems: 1
         modelType:
-          $ref: '#/components/schemas/ModelType'
+          "$ref": "#/components/schemas/ModelType"
       required:
-        - modelType
+      - modelType
     Qualifier:
       allOf:
-        - $ref: '#/components/schemas/HasSemantics'
-        - properties:
-            kind:
-              $ref: '#/components/schemas/QualifierKind'
-            type:
-              type: string
-              minLength: 1
-            valueType:
-              $ref: '#/components/schemas/DataTypeDefXsd'
-            value:
-              type: string
-            valueId:
-              $ref: '#/components/schemas/Reference'
-          required:
-            - type
-            - valueType
+      - "$ref": "#/components/schemas/HasSemantics"
+      - properties:
+          kind:
+            "$ref": "#/components/schemas/QualifierKind"
+          type:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: string
+            pattern: "(xs:anyURI)|(xs:base64Binary)|(xs:boolean)|(xs:byte)|(xs:date)|(xs:dateTime)|(xs:decimal)|(xs:double)|(xs:duration)|(xs:float)|(xs:gDay)|(xs:gMonth)|(xs:gMonthDay)|(xs:gYear)|(xs:gYearMonth)|(xs:hexBinary)|(xs:int)|(xs:integer)|(xs:long)|(xs:negativeInteger)|(xs:nonNegativeInteger)|(xs:nonPositiveInteger)|(xs:positiveInteger)|(xs:short)|(xs:string)|(xs:time)|(xs:unsignedByte)|(xs:unsignedInt)|(xs:unsignedLong)|(xs:unsignedShort)"
+          valueId:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - type
+        - valueType
     QualifierKind:
       type: string
       enum:
-        - ConceptQualifier
-        - TemplateQualifier
-        - ValueQualifier
+      - ConceptQualifier
+      - TemplateQualifier
+      - ValueQualifier
     Range:
       allOf:
-        - $ref: '#/components/schemas/DataElement'
-        - properties:
-            valueType:
-              $ref: '#/components/schemas/DataTypeDefXsd'
-            min:
-              type: string
-            max:
-              type: string
-          required:
-            - valueType
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          min:
+            type: string
+            pattern: "(xs:anyURI)|(xs:base64Binary)|(xs:boolean)|(xs:byte)|(xs:date)|(xs:dateTime)|(xs:decimal)|(xs:double)|(xs:duration)|(xs:float)|(xs:gDay)|(xs:gMonth)|(xs:gMonthDay)|(xs:gYear)|(xs:gYearMonth)|(xs:hexBinary)|(xs:int)|(xs:integer)|(xs:long)|(xs:negativeInteger)|(xs:nonNegativeInteger)|(xs:nonPositiveInteger)|(xs:positiveInteger)|(xs:short)|(xs:string)|(xs:time)|(xs:unsignedByte)|(xs:unsignedInt)|(xs:unsignedLong)|(xs:unsignedShort)"
+          max:
+            type: string
+            pattern: "(xs:anyURI)|(xs:base64Binary)|(xs:boolean)|(xs:byte)|(xs:date)|(xs:dateTime)|(xs:decimal)|(xs:double)|(xs:duration)|(xs:float)|(xs:gDay)|(xs:gMonth)|(xs:gMonthDay)|(xs:gYear)|(xs:gYearMonth)|(xs:hexBinary)|(xs:int)|(xs:integer)|(xs:long)|(xs:negativeInteger)|(xs:nonNegativeInteger)|(xs:nonPositiveInteger)|(xs:positiveInteger)|(xs:short)|(xs:string)|(xs:time)|(xs:unsignedByte)|(xs:unsignedInt)|(xs:unsignedLong)|(xs:unsignedShort)"
+        required:
+        - valueType
     Referable:
       allOf:
-        - $ref: '#/components/schemas/HasExtensions'
-        - properties:
-            category:
-              type: string
-              minLength: 1
-            idShort:
-              type: string
+      - "$ref": "#/components/schemas/HasExtensions"
+      - properties:
+          category:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          idShort:
+            type: string
+            allOf:
+            - minLength: 1
               maxLength: 128
-              pattern: ^[a-zA-Z][a-zA-Z0-9_]+$
-            displayName:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            description:
-              type: array
-              items:
-                $ref: '#/components/schemas/LangString'
-              minItems: 1
-            checksum:
-              type: string
-              minLength: 1
-            modelType:
-              $ref: '#/components/schemas/ModelType'
-          required:
-            - modelType
-    ReferenceParent:
-    # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+            - pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            - pattern: "^[a-zA-Z][a-zA-Z0-9_]*$"
+          displayName:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringNameType"
+            minItems: 1
+          description:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringTextType"
+            minItems: 1
+          modelType:
+            "$ref": "#/components/schemas/ModelType"
+        required:
+        - modelType
+    Reference:
+      type: object
       properties:
         type:
           "$ref": "#/components/schemas/ReferenceTypes"
+        referredSemanticId:
+          "$ref": "#/components/schemas/Reference"
         keys:
           type: array
           items:
             "$ref": "#/components/schemas/Key"
           minItems: 1
       required:
-        - type
-        - keys
-    Reference:
-      allOf:
-        - "$ref": "#/components/schemas/ReferenceParent"
-        - properties:
-            referredSemanticId: 
-              "$ref": "#/components/schemas/ReferenceParent"
+      - type
+      - keys
     ReferenceElement:
       allOf:
-        - $ref: '#/components/schemas/DataElement'
-        - properties:
-            value:
-              $ref: '#/components/schemas/Reference'
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            "$ref": "#/components/schemas/Reference"
     ReferenceTypes:
       type: string
       enum:
-        - GlobalReference
-        - ModelReference
+      - ExternalReference
+      - ModelReference
     RelationshipElement:
       allOf:
-        - $ref: '#/components/schemas/SubmodelElement'
-        - properties:
-            first:
-              $ref: '#/components/schemas/Reference'
-            second:
-              $ref: '#/components/schemas/Reference'
-          required:
-            - first
-            - second
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          first:
+            "$ref": "#/components/schemas/Reference"
+          second:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - first
+        - second
     Resource:
       type: object
       properties:
         path:
           type: string
-          minLength: 1
-          pattern: ^file:(//((localhost|(\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\.([a-zA-Z0-9\-._~]|[!$&'()*+,;=]|:)+)\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$
+          allOf:
+          - minLength: 1
+            maxLength: 2000
+          - pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          - pattern: "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$"
         contentType:
           type: string
-          minLength: 1
-          pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \t]*;[ \t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\t !-~]|[\\x80-\\xff]))*\"))*$"
+          allOf:
+          - minLength: 1
+            maxLength: 100
+          - pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([
+              \t]*;[ \t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\t
+              !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\t !-~]|[\\x80-\\xff]))*\"))*$"
       required:
-        - path
+      - path
     SpecificAssetId:
       allOf:
-        - $ref: '#/components/schemas/HasSemantics'
-        - properties:
-            name:
-              type: string
-              minLength: 1
-            value:
-              type: string
-              minLength: 1
-            externalSubjectId:
-              $ref: '#/components/schemas/Reference'
-          required:
-            - name
-            - value
-            - externalSubjectId
+      - "$ref": "#/components/schemas/HasSemantics"
+      - properties:
+          name:
+            type: string
+            minLength: 1
+            maxLength: 64
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          value:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          externalSubjectId:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - name
+        - value
     StateOfEvent:
       type: string
       enum:
-        - 'OFF'
-        - 'ON'
+      - 'off'
+      - 'on'
     Submodel:
       allOf:
-        - $ref: '#/components/schemas/Identifiable'
-        - $ref: '#/components/schemas/HasKind'
-        - $ref: '#/components/schemas/HasSemantics'
-        - $ref: '#/components/schemas/Qualifiable'
-        - $ref: '#/components/schemas/HasDataSpecification'
-        - properties:
-            submodelElements:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubmodelElement'
-              minItems: 1
+      - "$ref": "#/components/schemas/Identifiable"
+      - "$ref": "#/components/schemas/HasKind"
+      - "$ref": "#/components/schemas/HasSemantics"
+      - "$ref": "#/components/schemas/Qualifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          submodelElements:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement"
+            minItems: 1
     SubmodelElement:
       allOf:
-        - $ref: '#/components/schemas/Referable'
-        - $ref: '#/components/schemas/HasKind'
-        - $ref: '#/components/schemas/HasSemantics'
-        - $ref: '#/components/schemas/Qualifiable'
-        - $ref: '#/components/schemas/HasDataSpecification'
+      - "$ref": "#/components/schemas/Referable"
+      - "$ref": "#/components/schemas/HasSemantics"
+      - "$ref": "#/components/schemas/Qualifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
     SubmodelElementCollection:
       allOf:
-        - $ref: '#/components/schemas/SubmodelElement'
-        - properties:
-            value:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubmodelElement'
-              minItems: 1
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          value:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement"
+            minItems: 1
     SubmodelElementList:
       allOf:
-        - $ref: '#/components/schemas/SubmodelElement'
-        - properties:
-            orderRelevant:
-              type: boolean
-            value:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubmodelElement'
-              minItems: 1
-            semanticIdListElement:
-              $ref: '#/components/schemas/Reference'
-            typeValueListElement:
-              $ref: '#/components/schemas/AasSubmodelElements'
-            valueTypeListElement:
-              $ref: '#/components/schemas/DataTypeDefXsd'
-          required:
-            - typeValueListElement
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          orderRelevant:
+            type: boolean
+          semanticIdListElement:
+            "$ref": "#/components/schemas/Reference"
+          typeValueListElement:
+            "$ref": "#/components/schemas/AasSubmodelElements"
+          valueTypeListElement:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement"
+            minItems: 1
+        required:
+        - typeValueListElement
     ValueList:
       type: object
       properties:
         valueReferencePairs:
           type: array
           items:
-            $ref: '#/components/schemas/ValueReferencePair'
+            "$ref": "#/components/schemas/ValueReferencePair"
           minItems: 1
       required:
-        - valueReferencePairs
+      - valueReferencePairs
     ValueReferencePair:
       type: object
       properties:
         value:
-          type: string
+          type: array
+          items:
+            "$ref": "#/components/schemas/LangStringShortNameTypeIEC61360"
+          minItems: 1
         valueId:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/Reference"
       required:
-        - value
-        - valueId
+      - value
+      - valueId
