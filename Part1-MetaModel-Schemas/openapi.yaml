@@ -5,7 +5,7 @@ info:
   description: The schemas implementing Details of the Asset Administration Shell Part 1
   contact:
     name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
-  version: V3.0RC02
+  version: V3.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
 components: 
   schemas:
@@ -70,7 +70,7 @@ components:
         assetKind:
           $ref: '#/components/schemas/AssetKind'
         globalAssetId:
-          $ref: '#/components/schemas/Reference'
+          type: string
         specificAssetIds:
           type: array
           items:
@@ -324,7 +324,7 @@ components:
             entityType:
               $ref: '#/components/schemas/EntityType'
             globalAssetId:
-              $ref: '#/components/schemas/Reference'
+              type: string
             specificAssetId:
               $ref: '#/components/schemas/SpecificAssetId'
           required:
