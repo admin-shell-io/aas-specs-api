@@ -438,8 +438,10 @@ components:
           type: string
           maxLength: 128
         endpointProtocolVersion: 
-          type: string
-          maxLength: 128
+          type: array
+          items:  
+            type: string
+            maxLength: 128
         subprotocol: 
           type: string
           maxLength: 128
@@ -449,6 +451,26 @@ components:
         subprotocolBodyEncoding: 
           type: string
           maxLength: 128
+        securityAttributes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - "NONE"
+                - "RFC_TLSA"
+                - "W3C_DID"
+              key:
+                type: string
+              value:
+                type: string
+            required:
+            - type
+            - key
+            - value
+          minItems: 1
       required: 
         - href
       type: object
