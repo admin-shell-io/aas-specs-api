@@ -79,6 +79,24 @@ components:
       schema:
         type: string
         format: byte
+    AssetKind:
+      name: assetKind
+      in: query
+      required: false
+      description: The Asset's kind (Instance or Type)
+      schema:
+        $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetKind"
+    AssetType:
+      name: assetType
+      in: query
+      description: The Asset's type (UTF8-BASE64-URL-encoded)
+      required: false
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 2000
+        pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+        
   schemas: 
     AnnotatedRelationshipElementMetadata: 
       $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -214,7 +232,17 @@ components:
       type: object
     Descriptor: 
       example: '{ "endpoints": [ { "protocolInformation": { "endpointAddress": "https://localhost:1234", "endpointProtocolVersion": "1.1" }, "interface": "AAS-1.0" }, { "protocolInformation": { "endpointAddress": "opc.tcp://localhost:4840" }, "interface": "AAS-1.0" }, { "protocolInformation": { "endpointAddress": "https://localhost:5678", "endpointProtocolVersion": "1.1", "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-1.0" } ] }'
+      allOf:
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/HasExtensions"
       properties: 
+        description: 
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/LangStringTextType"
+        displayName: 
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/LangStringNameType"
         endpoints: 
           items: 
             $ref: "#/components/schemas/Endpoint"
@@ -484,14 +512,6 @@ components:
       properties: 
         administration: 
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AdministrativeInformation"
-        description: 
-          type: array
-          items:
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/LangStringTextType"
-        displayName: 
-          type: array
-          items:
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/LangStringNameType"
         idShort: 
           type: string
           maxLength: 128
@@ -609,6 +629,12 @@ components:
             $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
     'method-not-allowed':
       description: Method Not Allowed, the server does not offer this method for the client
+      content:
+        application/json:
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+    'conflict':
+      description: Conflict, a resource which shall be created exists already. Might be thrown if a Submodel or SubmodelElement with the same ShortId is contained in a POST request.
       content:
         application/json:
           schema:
