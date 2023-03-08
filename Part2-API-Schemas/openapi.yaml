@@ -52,23 +52,21 @@ components:
       schema:
         type: string
         maxLength: 3072
-    From:    
-      name: from
+    Cursor:    
+      name: cursor
       in: query
-      description: A non-negative number defining the offset item.
+      description: A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue
+      required: false
+      schema:
+        type: string
+    Limit:      
+      name: limit
+      in: query
+      description: The maximum number of elements in the response array      
       required: false
       schema:
         type: integer
-        minimum: 0
-        default: 0
-    Size:
-      name: size
-      in: query
-      description: The maximum number of elements in the response array.
-      required: false
-      schema:
-        type: integer
-        minimum: 0
+        minimum: 1
     SubmodelIdentifier:
       name: submodelIdentifier
       in: path
@@ -624,6 +622,138 @@ components:
     ValueOnly: 
       description: "The ValueOnly serialization of submodel elements (patternProperties and propertyNames will be supported propably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 9.4.3 in Details of the Asset Administration Shell Part 2.\n"
       type: object
+    ApiResult:
+      type: object
+      properties:
+        paging_metadata:
+          type: object
+          properties:
+            cursor:
+              type: string
+              example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
+    GetReferencesResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference"       
+    GetPathsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/PathItem"           
+    
+    GetConceptDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription"
+
+    GetAssetAdministrationShellDescriptorsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+    GetSubmodelDescriptorsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelDescriptor"
+
+    GetAssetAdministrationShellsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetAdministrationShell"
+    GetAssetAdministrationShellsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/AssetAdministrationShellMetadata"
+
+    GetSubmodelsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Submodel"
+    GetSubmodelsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelMetadata"
+    GetSubmodelsValueResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelValue"
+    
+    GetSubmodelElementsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SubmodelElement"
+    GetSubmodelElementsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementMetadata"
+    GetSubmodelElementsValueResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementValue"  
+
   responses:
     'no-content':
       description: No Content, request was successful but no content is returned
@@ -636,46 +766,46 @@ components:
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'forbidden':
       description: Forbidden
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'not-found':
       description: Not Found
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'method-not-allowed':
       description: Method Not Allowed, the server does not offer this method for the client
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'conflict':
       description: Conflict, a resource which shall be created exists already. Might be thrown if a Submodel or SubmodelElement with the same ShortId is contained in a POST request.
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'internal-server-error':
       description: Internal Server Error
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'not-implemented':
       description: Method Not Implemented by the server
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
     'default':
       description: Default error handling for unmentioned status codes
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+            $ref: '#/components/schemas/Result'
