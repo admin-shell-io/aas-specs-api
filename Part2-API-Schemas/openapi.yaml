@@ -77,6 +77,35 @@ components:
       schema:
         type: string
         format: byte
+    AssetAdministrationShellIdentifier:
+      name: aasIdentifier
+      in: path
+      description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: byte
+    IdShortPath:
+      name: idShortPath
+      in: path
+      description: IdShort path to the submodel element (dot-separated)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    HandleId:
+      name: handleId
+      in: path
+      description:  The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: byte
     AssetKind:
       name: assetKind
       in: query
@@ -469,6 +498,7 @@ components:
             - key
             - value
           minItems: 1
+          # TODO: align with content of the part 2 document
       required: 
         - href
       type: object
@@ -659,6 +689,16 @@ components:
               type: array
               items: 
                 $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription"
+    
+    GetPackageDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/PackageDescription"
 
     GetAssetAdministrationShellDescriptorsResult:
       allOf:
