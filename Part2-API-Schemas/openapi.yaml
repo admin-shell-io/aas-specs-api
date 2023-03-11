@@ -224,7 +224,7 @@ components:
     CapabilityMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    Description: 
+    ServiceDescription: 
       description: The Description object enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
       example: >-
         {
@@ -337,7 +337,8 @@ components:
       properties: 
         code: 
           type: string
-          maxLength: 8
+          maxLength: 32
+          minLength: 1
         messageType: 
           enum: 
             - Undefined
