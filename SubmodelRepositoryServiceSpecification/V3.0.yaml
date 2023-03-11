@@ -1805,7 +1805,6 @@ paths:
         - name: aasIds
           in: query
           description: The Asset Administration Shells' unique ids (UTF8-BASE64-URL-encoded)
-          required: true
           style: form
           explode: true
           schema:
@@ -1815,7 +1814,6 @@ paths:
         - name: submodelIds
           in: query
           description: The Submodels' unique ids (UTF8-BASE64-URL-encoded)
-          required: true
           style: form
           explode: true
           schema:
@@ -1825,7 +1823,6 @@ paths:
         - name: includeConceptDescriptions
           in: query
           description: Include Concept Descriptions?
-          required: true
           style: form
           explode: true
           schema:
@@ -1858,7 +1855,7 @@ paths:
     get:
       tags:
         - Description API
-      summary: Returns the self-describing information of a network resource (Description)
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
       operationId: GetDescription
       x-semanticIds:
         - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
@@ -1868,8 +1865,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Description'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/ServiceDescription'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
