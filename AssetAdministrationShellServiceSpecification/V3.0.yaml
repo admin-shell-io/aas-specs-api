@@ -385,7 +385,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'deep' is allowed for PUT # TODO: is PATCH not PUT
       requestBody:
         description: Submodel object
         content:
@@ -411,7 +411,7 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodelMetadata
+      operationId: GetSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -1455,7 +1455,6 @@ paths:
         - name: aasIds
           in: query
           description: The Asset Administration Shells' unique ids (UTF8-BASE64-URL-encoded)
-          required: true
           style: form
           explode: true
           schema:
@@ -1465,7 +1464,7 @@ paths:
         - name: submodelIds
           in: query
           description: The Submodels' unique ids (UTF8-BASE64-URL-encoded)
-          required: true
+          # TODO add in text that the recommended behavior is to also include all referenced and known Submodels directly
           style: form
           explode: true
           schema:
@@ -1475,7 +1474,7 @@ paths:
         - name: includeConceptDescriptions
           in: query
           description: Include Concept Descriptions?
-          required: true
+          required: true # TODO not reasonable
           style: form
           explode: true
           schema:
@@ -1510,7 +1509,7 @@ paths:
     get:
       tags:
         - Description API
-      summary: Returns the self-describing information of a network resource (Description)
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
       operationId: GetDescription
       x-semanticIds:
         - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
@@ -1520,8 +1519,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Description'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/ServiceDescription'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
