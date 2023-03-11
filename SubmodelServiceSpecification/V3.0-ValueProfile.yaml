@@ -130,7 +130,7 @@ paths:
     get:
       tags:
         - Description API
-      summary: Returns the self-describing information of a network resource (Description)
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
       operationId: GetDescription
       x-semanticIds:
         - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
@@ -140,8 +140,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Description'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/ServiceDescription'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
