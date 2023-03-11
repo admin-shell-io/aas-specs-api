@@ -169,6 +169,9 @@ paths:
     get:
       tags:
         - Asset Administration Shell API
+      operationId: GetThumbnail
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetThumbnail/3/0
       responses:
         '200':
           description: The thumbnail of the Asset Information.
@@ -188,6 +191,9 @@ paths:
     put:
       tags:
         - Asset Administration Shell API
+      operationId: PutThumbnail
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutThumbnail/3/0
       requestBody:
         description: Thumbnail to upload
         content:
@@ -215,7 +221,23 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
-  
+    delete:
+      tags:
+        - Asset Administration Shell API
+      operationId: DeleteThumbnail
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetThumbnail/3/0
+      responses:
+        '200':
+          description: Thumbnail deletion successful
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /aas/submodels:
     get:
       tags:
@@ -1340,6 +1362,36 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell API
+      summary: Deletes file content of an existing submodel element at a specified path within submodel elements hierarchy
+      operationId: DeleteFileByPath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteFileByPath/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+        - name: idShortPath
+          in: path
+          description: IdShort path to the submodel element (dot-separated)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Submodel element updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke:
     post:
       tags:
@@ -1356,7 +1408,6 @@ paths:
           schema:
             type: boolean
             default: false
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Content'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
         - name: idShortPath
           in: path
@@ -1380,6 +1431,55 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke/$value:
+    post:
+      tags:
+        - Asset Administration Shell API
+      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      operationId: InvokeOperation-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
+        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
+      parameters:
+        - name: async
+          in: query
+          description: Determines whether an operation invocation is performed asynchronously or synchronously
+          schema:
+            type: boolean
+            default: false
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+        - name: idShortPath
+          in: path
+          description: IdShort path to the submodel element (dot-separated), in this case an operation
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        description: Operation request object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequestValueOnly'
+        required: true
+      responses:
+        '200':
+          description: Operation result object
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
