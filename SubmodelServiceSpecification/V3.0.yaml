@@ -1,9 +1,13 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 2 | HTTP/REST | Submodel Service Specification
-  description: The entire Submodel Service Specification as part of Details of the Asset Administration Shell Part 2
+  description: "The entire Submodel Service Specification as part of Details of the Asset Administration Shell Part 2 - Copyright: Industrial Digital Twin Association (IDTA) 2023"
   contact:
-    name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
   version: V3.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
 servers:
@@ -134,7 +138,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns the metadata attributes of a specific Submodel
-      operationId: GetSubmodelMetadata
+      operationId: GetSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -158,7 +162,7 @@ paths:
       tags:
         - Submodel API
       summary: Updates the metadata attributes of the Submodel
-      operationId: PatchSubmodelMetadata
+      operationId: PatchSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       parameters:
@@ -196,7 +200,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns the Submodel in the ValueOnly representation
-      operationId: GetSubmodelValueOnly
+      operationId: GetSubmodel-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
@@ -221,7 +225,7 @@ paths:
       tags:
         - Submodel API
       summary: Updates the values of the Submodel
-      operationId: PatchSubmodelValueOnly
+      operationId: PatchSubmodel-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       parameters:
@@ -259,9 +263,10 @@ paths:
       tags:
         - Submodel API
       summary: Returns the Reference of the Submodel
-      operationId: GetSubmodelReference
+      operationId: GetSubmodel-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
+      parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -293,7 +298,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns the Submodel in the Path notation
-      operationId: GetSubmodelPath
+      operationId: GetSubmodel-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
@@ -383,7 +388,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns the metadata attributes of all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElementsMetadata
+      operationId: GetAllSubmodelElements-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -412,7 +417,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns all submodel elements including their hierarchy in the ValueOnly representation
-      operationId: GetAllSubmodelElementsValueOnly
+      operationId: GetAllSubmodelElements-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -442,7 +447,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns the References of all submodel elements
-      operationId: GetAllSubmodelElementsReference
+      operationId: GetAllSubmodelElements-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -480,7 +485,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns all submodel elements including their hierarchy in the Path notation
-      operationId: GetAllSubmodelElementsPath
+      operationId: GetAllSubmodelElements-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -715,7 +720,7 @@ paths:
         - Submodel API
       summary: Returns the matadata attributes of a specific submodel element from the Submodel at a specified
         path
-      operationId: GetSubmodelElementByPathMetadata
+      operationId: GetSubmodelElementByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -751,7 +756,7 @@ paths:
       tags:
         - Submodel API
       summary: Updates the metadata attributes an existing SubmodelElement
-      operationId: PatchSubmodelElementByPathMetadata
+      operationId: PatchSubmodelElementByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
@@ -800,7 +805,7 @@ paths:
         - Submodel API
       summary: Returns a specific submodel element from the Submodel at a specified
         path in the ValueOnly representation
-      operationId: GetSubmodelElementByPathValueOnly
+      operationId: GetSubmodelElementByPath-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -837,7 +842,7 @@ paths:
       tags:
         - Submodel API
       summary: Updates the value of an existing SubmodelElement
-      operationId: PatchSubmodelElementByPathValueOnly
+      operationId: PatchSubmodelElementByPath-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
@@ -886,7 +891,7 @@ paths:
         - Submodel API
       summary: Returns the Referene of a specific submodel element from the Submodel at a specified
         path
-      operationId: GetSubmodelElementByPathReference
+      operationId: GetSubmodelElementByPath-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -934,7 +939,7 @@ paths:
         - Submodel API
       summary: Returns a specific submodel element from the Submodel at a specified
         path in the Path notation
-      operationId: GetSubmodelElementByPathPath
+      operationId: GetSubmodelElementByPath-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -1168,7 +1173,7 @@ paths:
       tags:
         - Submodel API
       summary: Returns the value of the Operation result of an asynchronous invoked Operation
-      operationId: GetOperationAsyncResultValueOnly
+      operationId: GetOperationAsyncResult-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetOperationAsyncResult/3/0
       parameters:
