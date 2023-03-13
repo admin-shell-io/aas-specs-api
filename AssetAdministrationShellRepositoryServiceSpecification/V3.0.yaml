@@ -1,9 +1,13 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Repository Service Specification
-  description: The Asset Administration Shell Repository Service Specification as part of Details of the Asset Administration Shell Part 2
+  description: "The Asset Administration Shell Repository Service Specification as part of Details of the Asset Administration Shell Part 2 - Copyright: Industrial Digital Twin Association (IDTA) 2023"
   contact:
-    name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
   version: V3.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
 servers:
@@ -114,7 +118,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns References to all Asset Administration Shells
-      operationId: GetAllAssetAdministrationShellsReference
+      operationId: GetAllAssetAdministrationShells-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/0
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/0
@@ -267,7 +271,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns a specific Asset Administration Shell as a Reference
-      operationId: GetAssetAdministrationShellReferenceById
+      operationId: GetAssetAdministrationShellById-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/0
       parameters:
@@ -726,7 +730,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodelMetadata
+      operationId: GetSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -770,7 +774,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the metadata attributes of the Submodel
-      operationId: PatchSubmodelMetadata
+      operationId: PatchSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
@@ -828,7 +832,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's ValueOnly representation
-      operationId: GetSubmodelValueOnly
+      operationId: GetSubmodel-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -873,7 +877,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates teh values of the Submodel
-      operationId: PatchSubmodelValueOnly
+      operationId: PatchSubmodel-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
@@ -931,7 +935,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel as a Reference
-      operationId: GetSubmodelMetadataReference
+      operationId: GetSubmodelMetadata-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -987,7 +991,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodelPath
+      operationId: GetSubmodel-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -1139,7 +1143,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElementsMetadata
+      operationId: GetAllSubmodelElements-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -1188,7 +1192,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements including their hierarchy in the ValueOnly representation
-      operationId: GetAllSubmodelElementsValueOnly
+      operationId: GetAllSubmodelElements-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -1238,7 +1242,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements as a list of References
-      operationId: GetAllSubmodelElementsReference
+      operationId: GetAllSubmodelElements-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -1297,7 +1301,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElementsPath
+      operationId: GetAllSubmodelElements-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -1621,7 +1625,7 @@ paths:
         - Asset Administration Shell Repository API
       summary: Returns the metadata attributes if a specific submodel element from the Submodel at a specified
         path
-      operationId: GetSubmodelElementByPathMetadata
+      operationId: GetSubmodelElementByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -1675,7 +1679,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the metadata attributes of an existing submodel element value at a specified path within submodel elements hierarchy
-      operationId: PatchSubmodelElementValueByPathMetadata
+      operationId: PatchSubmodelElementValueByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
@@ -1732,7 +1736,7 @@ paths:
         - Asset Administration Shell Repository API
       summary: Returns a specific submodel element from the Submodel at a specified
         path in the ValueOnly representation
-      operationId: GetSubmodelElementByPathValueOnly
+      operationId: GetSubmodelElementByPath-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -1787,7 +1791,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the value of an existing submodel element value at a specified path within submodel elements hierarchy
-      operationId: PatchSubmodelElementValueByPathValueOnly
+      operationId: PatchSubmodelElementValueByPath-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
@@ -1844,7 +1848,7 @@ paths:
         - Asset Administration Shell Repository API
       summary: Returns the Reference of a specific submodel element from the Submodel at a specified
         path in the ValueOnly representation
-      operationId: GetSubmodelElementByPathReference
+      operationId: GetSubmodelElementByPath-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -1909,7 +1913,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns a specific submodel element from the Submodel at a specified path in the Path notation
-      operationId: GetSubmodelElementByPathPath
+      operationId: GetSubmodelElementByPath-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
@@ -2097,7 +2101,6 @@ paths:
           schema:
             type: boolean
             default: false
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Content'
         - name: aasIdentifier
           in: path
           description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
@@ -2138,6 +2141,49 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke/$value:
+    post:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      operationId: InvokeOperation-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
+        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
+      parameters:
+        - name: async
+          in: query
+          description: Determines whether an operation invocation is performed asynchronously or synchronously
+          schema:
+            type: boolean
+            default: false
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
+      requestBody:
+        description: Operation request object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequestValueOnly'
+        required: true
+      responses:
+        '200':
+          description: Operation result object
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
