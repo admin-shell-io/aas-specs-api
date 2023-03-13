@@ -40,36 +40,17 @@ paths:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/0
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByIdShort/3/0
       parameters:
-        - name: assetIds
-          in: query
-          description: A list of specific Asset identifiers
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
-            example: '[ { "name": "some-asset-id", "value": "http://example-company.com/myAsset", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://example-company.com/example-companys-asset-keys" } ], "type": "GlobalReference" } }, { "name": "some-other-asset-id", "value": "12345ABC", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://my-own-company.com/keys" } ], "type": "GlobalReference" } } ]e": "globalAssetId","value": "http://example.company/myAsset", "externalSubjectId": "http://example.company"},{"name": "myOwnInternalAssetId","value": "12345ABC", "externalSubjectId": "http://example.company"}]'
-        - name: idShort
-          in: query
-          description: The Asset Administration Shell’s IdShort
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetIds'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Asset Administration Shells
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetAdministrationShell'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetAssetAdministrationShellsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -114,42 +95,23 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns References to all Asset Administration Shells
-      operationId: GetAllAssetAdministrationShellsReference
+      operationId: GetAllAssetAdministrationShells-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/0
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/0
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByIdShort/3/0
       parameters:
-        - name: assetIds
-          in: query
-          description: A list of specific Asset identifiers
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
-            example: '[ { "name": "some-asset-id", "value": "http://example-company.com/myAsset", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://example-company.com/example-companys-asset-keys" } ], "type": "GlobalReference" } }, { "name": "some-other-asset-id", "value": "12345ABC", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://my-own-company.com/keys" } ], "type": "GlobalReference" } } ]e": "globalAssetId","value": "http://example.company/myAsset", "externalSubjectId": "http://example.company"},{"name": "myOwnInternalAssetId","value": "12345ABC", "externalSubjectId": "http://example.company"}]'
-        - name: idShort
-          in: query
-          description: The Asset Administration Shell’s IdShort
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetIds'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Asset Administration Shells as a list of References
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetReferencesResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -159,6 +121,8 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -166,16 +130,6 @@ paths:
       operationId: GetAssetAdministrationShellById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '200':
           description: Requested Asset Administration Shell
@@ -200,16 +154,6 @@ paths:
       operationId: PutAssetAdministrationShellById
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutAssetAdministrationShellById/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       requestBody:
         description: Asset Administration Shell object
         content:
@@ -237,25 +181,19 @@ paths:
       operationId: DeleteAssetAdministrationShellById
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteAssetAdministrationShellById/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '204':
           description: Asset Administration Shell deleted successfully
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
         '404':
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           description: Default error handling for unmentioned status codes
           content:
@@ -263,23 +201,15 @@ paths:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
   /shells/{aasIdentifier}/$reference:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns a specific Asset Administration Shell as a Reference
-      operationId: GetAssetAdministrationShellReferenceById
+      operationId: GetAssetAdministrationShellById-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '200':
           description: Requested Asset Administration Shell
@@ -298,6 +228,8 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/asset-information:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -305,16 +237,6 @@ paths:
       operationId: GetAssetInformation
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetInformation/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '200':
           description: Requested Asset Information
@@ -339,16 +261,6 @@ paths:
       operationId: PutAssetInformation
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutAssetInformation/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       requestBody:
         description: Asset Information object
         content:
@@ -370,19 +282,14 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/asset-information/thumbnail:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
+      operationId: GetThumbnail
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetThumbnail/3/0
       responses:
         '200':
           description: The thumbnail of the Asset Information.
@@ -395,6 +302,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
@@ -402,16 +311,9 @@ paths:
     put:
       tags:
         - Asset Administration Shell Repository API
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
+      operationId: PutThumbnail
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutThumbnail/3/0
       requestBody:
         description: Thumbnail to upload
         content:
@@ -435,11 +337,34 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell Repository API
+      operationId: DeleteThumbnail
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteThumbnail/3/0
+      responses:
+        '200':
+          description: Thumbnail deletion successful
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -448,17 +373,8 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelReferences/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested submodel references
@@ -467,7 +383,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference'
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetReferencesResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -485,16 +401,6 @@ paths:
       operationId: PostSubmodelReference
       x-semanticIds:
         - https://admin-shell.io/aas/API/PostSubmodelReference/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       requestBody:
         description: Reference to the Submodel
         content:
@@ -522,6 +428,9 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     delete:
       tags:
         - Asset Administration Shell Repository API
@@ -529,25 +438,6 @@ paths:
       operationId: DeleteSubmodelReferenceById
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelReference/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '204':
           description: Submodel reference deleted successfully
@@ -569,24 +459,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
@@ -614,24 +486,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -671,24 +525,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -721,32 +557,17 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/$metadata:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodelMetadata
+      operationId: GetSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       responses:
         '200':
@@ -769,28 +590,10 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the metadata attributes of the Submodel
-      operationId: PatchSubmodelMetadata
+      operationId: PatchSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -823,32 +626,17 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's ValueOnly representation
-      operationId: GetSubmodelValueOnly
+      operationId: GetSubmodel-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
@@ -872,28 +660,10 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates teh values of the Submodel
-      operationId: PatchSubmodelValueOnly
+      operationId: PatchSubmodel-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -926,34 +696,19 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/$reference:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel as a Reference
-      operationId: GetSubmodelMetadataReference
+      operationId: GetSubmodel-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
-        - name: level
+        - name: level # TODO: no level for GetSubmodel-Reference?
           in: query
           description: Determines the structural depth of the respective resource content
           required: false
@@ -982,32 +737,17 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
                 
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/$path:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodelPath
+      operationId: GetSubmodel-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       responses:
         '200':
@@ -1029,6 +769,9 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -1037,26 +780,8 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
@@ -1065,9 +790,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SubmodelElement'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1087,26 +810,7 @@ paths:
         - https://admin-shell.io/aas/API/PostSubmodelElement/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Content'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       requestBody:
         description: Requested submodel element
         content:
@@ -1134,34 +838,19 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/$metadata:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElementsMetadata
+      operationId: GetAllSubmodelElements-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       responses:
         '200':
@@ -1171,7 +860,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelElementMetadata'
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsMetadataResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1183,34 +872,19 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements including their hierarchy in the ValueOnly representation
-      operationId: GetAllSubmodelElementsValueOnly
+      operationId: GetAllSubmodelElements-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       responses:
         '200':
@@ -1220,7 +894,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelElementValue'
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsValueResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1232,34 +906,19 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/$reference:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements as a list of References
-      operationId: GetAllSubmodelElementsReference
+      operationId: GetAllSubmodelElements-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -1279,7 +938,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference'
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetReferencesResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1291,34 +950,19 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/$path:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElementsPath
+      operationId: GetAllSubmodelElements-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
@@ -1327,9 +971,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/PathItem'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetPathItemsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1341,6 +983,10 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -1350,34 +996,8 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
@@ -1386,7 +1006,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SubmodelElement'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1404,33 +1024,6 @@ paths:
       operationId: PostSubmodelElementByPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/PostSubmodelElementByPath/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
       requestBody:
         description: Requested submodel element
         content:
@@ -1465,33 +1058,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0
         - https://admin-shell.io/aas/API/SetSubmodelElementValueByPath/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
       requestBody:
         description: Requested submodel element
         content:
@@ -1520,32 +1086,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       requestBody:
         description: The updated value of the submodel element
@@ -1574,33 +1114,6 @@ paths:
       operationId: DeleteSubmodelElementByPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelElementByPath/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
       responses:
         '204':
           description: Submodel element deleted successfully
@@ -1615,43 +1128,21 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$metadata:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the metadata attributes if a specific submodel element from the Submodel at a specified
         path
-      operationId: GetSubmodelElementByPathMetadata
+      operationId: GetSubmodelElementByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       responses:
         '200':
@@ -1659,7 +1150,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelElementMetadata'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsMetadataResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1674,36 +1165,10 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the metadata attributes of an existing submodel element value at a specified path within submodel elements hierarchy
-      operationId: PatchSubmodelElementValueByPathMetadata
+      operationId: PatchSubmodelElementValueByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       requestBody:
         description: The updated metadata attributes of the submodel element
@@ -1726,43 +1191,21 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns a specific submodel element from the Submodel at a specified
         path in the ValueOnly representation
-      operationId: GetSubmodelElementByPathValueOnly
+      operationId: GetSubmodelElementByPath-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
       responses:
@@ -1771,7 +1214,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelElementValue'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsValueResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1786,36 +1229,10 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the value of an existing submodel element value at a specified path within submodel elements hierarchy
-      operationId: PatchSubmodelElementValueByPathValueOnly
+      operationId: PatchSubmodelElementValueByPath-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       requestBody:
         description: The updated value of the submodel element
@@ -1838,43 +1255,18 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$reference:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
-      summary: Returns the Reference of a specific submodel element from the Submodel at a specified
-        path in the ValueOnly representation
-      operationId: GetSubmodelElementByPathReference
+      summary: Returns the Reference of a specific submodel element from the Submodel at a specified path
+      operationId: GetSubmodelElementByPath-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
         - name: level
           in: query
@@ -1904,42 +1296,18 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/$path:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns a specific submodel element from the Submodel at a specified path in the Path notation
-      operationId: GetSubmodelElementByPathPath
+      operationId: GetSubmodelElementByPath-Path
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
       parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Level'
       responses:
         '200':
@@ -1959,6 +1327,10 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -1966,33 +1338,6 @@ paths:
       operationId: GetFileByPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetFileByPath/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
       responses:
         '200':
           description: Requested file
@@ -2024,33 +1369,6 @@ paths:
       operationId: PutFileByPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutFileByPath/3/0
-      parameters:
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
       requestBody:
         description: File to upload
         content:
@@ -2080,7 +1398,31 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Deletes file content of an existing submodel element at a specified path within submodel elements hierarchy
+      operationId: DeleteFileByPath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteFileByPath/3/0
+      responses:
+        '200':
+          description: Submodel element updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     post:
       tags:
         - Asset Administration Shell Repository API
@@ -2096,33 +1438,6 @@ paths:
           schema:
             type: boolean
             default: false
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Content'
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated), in this case an operation
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
       requestBody:
         description: Operation request object
         content:
@@ -2147,7 +1462,55 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
+    post:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      operationId: InvokeOperation-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
+        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
+      parameters:
+        - name: async
+          in: query
+          description: Determines whether an operation invocation is performed asynchronously or synchronously
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        description: Operation request object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequestValueOnly'
+        required: true
+      responses:
+        '200':
+          description: Operation result object
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-results/{handleId}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
     get:
       tags:
         - Asset Administration Shell Repository API
@@ -2156,40 +1519,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetOperationAsyncResult/3/0
       parameters:
-        - name: content
-          in: query
-          schema:
-            type: string
-            default: normal
-            enum:
-              - normal
-              - value
-        - name: aasIdentifier
-          in: path
-          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
-        - name: idShortPath
-          in: path
-          description: IdShort path to the submodel element (dot-separated), in this case an operation
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
         - name: handleId
           in: path
           description:  The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)
@@ -2216,6 +1545,47 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shells/{aasIdentifier}/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-results/{handleId}/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
+    get:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Returns the ValueOnly notation of the Operation result of an asynchronous invoked Operation
+      operationId: GetOperationAsyncResult-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetOperationAsyncResult/3/0
+      parameters:
+        - name: handleId
+          in: path
+          description:  The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '200':
+          description: Operation result object
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+
+# TODO: continue
 
   /submodels:
     get:
