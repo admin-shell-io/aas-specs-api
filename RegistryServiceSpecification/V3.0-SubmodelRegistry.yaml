@@ -38,8 +38,8 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/0
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Submodel Descriptors
@@ -89,6 +89,8 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /submodel-descriptors/{submodelIdentifier}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Submodel Registry API
@@ -96,16 +98,6 @@ paths:
       operationId: GetSubmodelDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0
-      parameters:
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '200':
           description: Requested Submodel Descriptor
@@ -130,16 +122,6 @@ paths:
       operationId: PutSubmodelDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/0
-      parameters:
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       requestBody:
         description: Submodel Descriptor object
         content:
@@ -167,16 +149,6 @@ paths:
       operationId: DeleteSubmodelDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/0
-      parameters:
-        - name: submodelIdentifier
-          in: path
-          description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: byte
       responses:
         '204':
           description: Submodel Descriptor deleted successfully
