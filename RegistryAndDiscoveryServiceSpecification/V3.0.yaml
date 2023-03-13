@@ -40,8 +40,8 @@ paths:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsByAssetKind/3/0
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsByAssetType/3/0
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetKind'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetType'
       responses:
@@ -202,8 +202,8 @@ paths:
           schema:
             type: string
             format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Submodel Descriptors
@@ -554,8 +554,8 @@ paths:
             items:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
             example: '[ { "name": "some-asset-id", "value": "http://example-company.com/myAsset", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://example-company.com/example-companys-asset-keys" } ], "type": "GlobalReference" } }, { "name": "some-other-asset-id", "value": "12345ABC", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://my-own-company.com/keys" } ], "type": "GlobalReference" } } ]'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Asset Administration Shell ids
