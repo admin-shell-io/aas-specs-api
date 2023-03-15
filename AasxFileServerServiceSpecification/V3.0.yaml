@@ -51,17 +51,15 @@ paths:
           schema:
             type: string
             format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/From'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Size'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested package list
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/PackageDescription'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetPackageDescriptionsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '500':
@@ -111,6 +109,16 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /packages/{packageId}:
+    parameters:
+      - name: packageId
+        in: path
+        description: The package Id (UTF8-BASE64-URL-encoded)
+        required: true
+        style: simple
+        explode: true
+        schema:
+          type: string
+          format: byte
     get:
       tags:
         - AASX File Server API
@@ -118,16 +126,6 @@ paths:
       operationId: GetAASXByPackageId
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAASXByPackageId/3/0
-      parameters:
-        - name: packageId
-          in: path
-          description: The package Id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: true
-          schema:
-            type: string
-            format: byte
       responses:
         '200':
           description: Requested AASX package
@@ -143,6 +141,8 @@ paths:
                 format: binary
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
         '404':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
         '500':
@@ -156,16 +156,6 @@ paths:
       operationId: PutAASXByPackageId
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutAASXByPackageId/3/0
-      parameters:
-        - name: packageId
-          in: path
-          description: The Package Id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: true
-          schema:
-            type: string
-            format: byte
       requestBody:
         description: AASX package
         content:
@@ -191,6 +181,8 @@ paths:
           description: AASX package updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
         '404':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
         '500':
@@ -204,31 +196,19 @@ paths:
       operationId: DeleteAASXByPackageId
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteAASXByPackageId/3/0
-      parameters:
-        - name: packageId
-          in: path
-          description: The Package Id (UTF8-BASE64-URL-encoded)
-          required: true
-          style: simple
-          explode: true
-          schema:
-            type: string
-            format: byte
       responses:
         '204':
           description: Deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'      
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found' 
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
-          description: Default error handling for unmentioned status codes
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
   /description:
     get:
       tags:
@@ -244,5 +224,13 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/ServiceDescription'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found' 
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
