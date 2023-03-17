@@ -248,7 +248,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
-  /aas/submodels:
+  /aas/submodel-refs:
     get:
       tags:
         - Asset Administration Shell API
@@ -305,7 +305,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
-  /aas/submodels/{submodelIdentifier}:
+  /aas/submodel-refs/{submodelIdentifier}:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     delete:
@@ -328,6 +328,9 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /aas/submodels/{submodelIdentifier}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell API
@@ -423,6 +426,26 @@ paths:
       responses:
         '204':
           description: Submodel updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+    delete:
+      tags:
+        - Asset Administration Shell API
+      summary: Deletes the submodel from the Asset Administration Shell.
+      operationId: DeleteSubmodelById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteSubmodelById/3/0
+      responses:
+        '204':
+          description: Submodel deleted successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
