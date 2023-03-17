@@ -366,7 +366,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
-  /shells/{aasIdentifier}/submodels:
+  /shells/{aasIdentifier}/submodel-refs:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
     get:
@@ -431,7 +431,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
-  /shells/{aasIdentifier}/submodels/{submodelIdentifier}:
+  /shells/{aasIdentifier}/submodel-refs/{submodelIdentifier}:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
@@ -455,11 +455,15 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /shells/{aasIdentifier}/submodels/{submodelIdentifier}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel
-      operationId: GetSubmodel
+      operationId: GetSubmodelById_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -486,7 +490,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the Submodel
-      operationId: PutSubmodel
+      operationId: PutSubmodelById_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
@@ -564,11 +568,31 @@ paths:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+    delete:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Deletes the submodel from the Asset Administration Shell and the Repository.
+      operationId: DeleteSubmodelById_AasRepository
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteSubmodelById/3/0
+      responses:
+        '204':
+          description: Submodel deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
     get:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodel-Metadata
+      operationId: GetSubmodelById-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -594,7 +618,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates the metadata attributes of the Submodel
-      operationId: PatchSubmodel-Metadata
+      operationId: PatchSubmodelById-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
@@ -637,7 +661,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's ValueOnly representation
-      operationId: GetSubmodel-ValueOnly
+      operationId: GetSubmodelById-ValueOnly_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -664,7 +688,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Updates teh values of the Submodel
-      operationId: PatchSubmodel-ValueOnly
+      operationId: PatchSubmodelById-ValueOnly_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
@@ -707,7 +731,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel as a Reference
-      operationId: GetSubmodel-Reference
+      operationId: GetSubmodelById-Reference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
@@ -748,7 +772,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodel-Path
+      operationId: GetSubmodelById-Path_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
       parameters:
