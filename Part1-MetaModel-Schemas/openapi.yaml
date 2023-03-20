@@ -2,9 +2,13 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 1 | Metamodel | Schemas
-  description: The schemas implementing Details of the Asset Administration Shell Part 1
+  description: "The schemas implementing Details of the Asset Administration Shell Part 1 - Copyright: Industrial Digital Twin Association (IDTA) 2023"
   contact:
-    name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
   version: V3.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
 components: 
@@ -115,6 +119,7 @@ components:
       enum:
       - Instance
       - Type
+      - NotApplicable
     BasicEventElement:
       allOf:
       - "$ref": "#/components/schemas/EventElement"
@@ -771,21 +776,25 @@ components:
             "$ref": "#/components/schemas/ModelType"
         required:
         - modelType
-    Reference:
-      type: object
+    ReferenceParent:
+    # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
       properties:
         type:
           "$ref": "#/components/schemas/ReferenceTypes"
-        referredSemanticId:
-          "$ref": "#/components/schemas/Reference"
         keys:
           type: array
           items:
             "$ref": "#/components/schemas/Key"
           minItems: 1
       required:
-      - type
-      - keys
+        - type
+        - keys
+    Reference:
+      allOf:
+        - "$ref": "#/components/schemas/ReferenceParent"
+        - properties:
+            referredSemanticId: 
+              "$ref": "#/components/schemas/ReferenceParent"
     ReferenceElement:
       allOf:
       - "$ref": "#/components/schemas/DataElement"
