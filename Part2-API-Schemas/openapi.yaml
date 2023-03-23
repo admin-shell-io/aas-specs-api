@@ -2,104 +2,20 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 2 | API | Schemas
-  description: The schemas implementing Details of the Asset Administration Shell Part 2
+  description: "The schemas implementing Details of the Asset Administration Shell Part 2. Publisher: Industrial Digital Twin Association (IDTA) 2023"
   contact:
-    name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
   version: V3.0
-  termsOfService: https://github.com/admin-shell-io/aas-specs
 components: 
   parameters:
-    Level:
-      name: level
-      in: query
-      description: Determines the structural depth of the respective resource content
-      required: false
-      schema:
-        type: string
-        default: deep
-        enum:
-          - deep
-          - core
-    Content:
-      name: content
-      in: query
-      description: Determines the request or response kind of the resource
-      required: false
-      schema:
-        type: string
-        default: normal
-        enum:
-          - normal
-          - metadata
-          - value
-          - reference
-          - path
-    Extent:
-      name: extent
-      in: query
-      description: Determines to which extent the resource is being serialized
-      required: false
-      schema:
-        type: string
-        default: withoutBlobValue
-        enum:
-          - withBlobValue
-          - withoutBlobValue
-    SemanticId:
-      name: semanticId
-      in: query
-      description: The value of the semantic id reference (BASE64-URL-encoded)
-      schema:
-        type: string
-        maxLength: 3072
-    Cursor:    
-      name: cursor
-      in: query
-      description: A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue
-      required: false
-      schema:
-        type: string
-    Limit:      
-      name: limit
-      in: query
-      description: The maximum number of elements in the response array      
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-    SubmodelIdentifier:
-      name: submodelIdentifier
-      in: path
-      description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        format: byte
     AssetAdministrationShellIdentifier:
       name: aasIdentifier
       in: path
       description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-        format: byte
-    IdShortPath:
-      name: idShortPath
-      in: path
-      description: IdShort path to the submodel element (dot-separated)
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    HandleId:
-      name: handleId
-      in: path
-      description:  The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)
       required: true
       style: simple
       explode: false
@@ -113,6 +29,18 @@ components:
       description: The Asset's kind (Instance or Type)
       schema:
         $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetKind"
+    AssetIds:
+      name: assetIds
+      in: query
+      description: A list of specific Asset identifiers
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId'
+        example: '[ { "name": "some-asset-id", "value": "http://example-company.com/myAsset", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://example-company.com/example-companys-asset-keys" } ], "type": "GlobalReference" } }, { "name": "some-other-asset-id", "value": "12345ABC", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://my-own-company.com/keys" } ], "type": "GlobalReference" } } ]e": "globalAssetId","value": "http://example.company/myAsset", "externalSubjectId": "http://example.company"},{"name": "myOwnInternalAssetId","value": "12345ABC", "externalSubjectId": "http://example.company"}]'
     AssetType:
       name: assetType
       in: query
@@ -123,6 +51,89 @@ components:
         minLength: 1
         maxLength: 2000
         pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+    Cursor:    
+      name: cursor
+      in: query
+      description: A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue
+      required: false
+      schema:
+        type: string
+    Extent:
+      name: extent
+      in: query
+      description: Determines to which extent the resource is being serialized
+      required: false
+      schema:
+        type: string
+        default: withoutBlobValue
+        enum:
+          - withBlobValue
+          - withoutBlobValue
+    HandleId:
+      name: handleId
+      in: path
+      description:  The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: byte
+    IdShort:
+      name: idShort
+      in: query
+      description: The Asset Administration Shell’s IdShort
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
+    IdShortPath:
+      name: idShortPath
+      in: path
+      description: IdShort path to the submodel element (dot-separated)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    Level:
+      name: level
+      in: query
+      description: Determines the structural depth of the respective resource content
+      required: false
+      schema:
+        type: string
+        default: deep
+        enum:
+          - deep
+          - core
+    Limit:      
+      name: limit
+      in: query
+      description: The maximum number of elements in the response array      
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    SemanticId:
+      name: semanticId
+      in: query
+      description: The value of the semantic id reference (BASE64-URL-encoded)
+      schema:
+        type: string
+        maxLength: 3072
+        minLength: 1
+    SubmodelIdentifier:
+      name: submodelIdentifier
+      in: path
+      description: The Submodel’s unique id (UTF8-BASE64-URL-encoded)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: byte
         
   schemas: 
     AnnotatedRelationshipElementMetadata: 
@@ -141,6 +152,15 @@ components:
         - first
         - second
       type: object
+    ApiResult:
+      type: object
+      properties:
+        paging_metadata:
+          type: object
+          properties:
+            cursor:
+              type: string
+              example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
     AssetAdministrationShellDescriptor: 
       allOf: 
         - $ref: "#/components/schemas/Descriptor"
@@ -164,6 +184,7 @@ components:
                 $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/LangStringNameType"
             globalAssetId: 
               type: string
+              minLength: 1
               maxLength: 2000
               pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
             idShort: 
@@ -172,6 +193,7 @@ components:
             id: 
               type: string
               maxLength: 2000
+              minLength: 1
               pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
             specificAssetIds: 
               $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SpecificAssetId"
@@ -273,6 +295,7 @@ components:
         endpoints: 
           items: 
             $ref: "#/components/schemas/Endpoint"
+          minItems: 1
           type: array
       type: object
     Endpoint: 
@@ -295,6 +318,9 @@ components:
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/EntityType"
         globalAssetId: 
           type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         specificAssetIds:
           type: array
           items: 
@@ -330,14 +356,141 @@ components:
     FileMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    SpecificAssetIdValue:
-      type: object
-      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
-    Message: # TODO correlationId missing
+    GetAssetAdministrationShellDescriptorsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+    GetAssetAdministrationShellsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/AssetAdministrationShellMetadata"
+    GetAssetAdministrationShellsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetAdministrationShell"
+    GetConceptDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription"
+    GetPackageDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/PackageDescription" 
+    GetPathItemsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/PathItem"
+    GetReferencesResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference"
+    GetSubmodelDescriptorsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelDescriptor"
+    GetSubmodelElementsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementMetadata"
+    GetSubmodelElementsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SubmodelElement"
+    GetSubmodelElementsValueResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementValue"  
+    GetSubmodelsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelMetadata"
+    GetSubmodelsResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Submodel"
+    GetSubmodelsValueResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelValue"
+    Message:
       properties: 
         code: 
           type: string
           maxLength: 32
+          minLength: 1
+        correlationId:
+          type: string
+          maxLength: 128
           minLength: 1
         messageType: 
           enum: 
@@ -351,6 +504,7 @@ components:
           type: string
         timestamp: 
           type: string
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
       type: object
     MultiLanguagePropertyMetadata: 
       allOf: 
@@ -363,9 +517,6 @@ components:
     OperationHandle: 
       properties: 
         handleId: 
-          type: string
-          maxLength: 128
-        requestId: 
           type: string
           maxLength: 128
       type: object
@@ -382,11 +533,9 @@ components:
           items: 
             $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/OperationVariable"
           type: array
-        requestId: 
+        timestamp: 
           type: string
-          maxLength: 128
-        timeout: 
-          type: integer
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
       type: object
     OperationRequestValueOnly: 
       properties: 
@@ -394,10 +543,9 @@ components:
           $ref: "#/components/schemas/ValueOnly"
         inputArguments: 
           $ref: "#/components/schemas/ValueOnly"
-        requestId: 
+        timestamp: 
           type: string
-        timeout: 
-          type: integer
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
       type: object
     OperationResult: 
       properties: 
@@ -413,9 +561,6 @@ components:
           items: 
             $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/OperationVariable"
           type: array
-        requestId: 
-          type: string
-          maxLength: 128
       type: object
     OperationResultValueOnly: 
       properties: 
@@ -427,9 +572,6 @@ components:
           $ref: "#/components/schemas/ValueOnly"
         outputArguments: 
           $ref: "#/components/schemas/ValueOnly"
-        requestId: 
-          type: string
-          maxLength: 128
       type: object
     PackageDescription: 
       properties: 
@@ -552,9 +694,12 @@ components:
           items: 
             $ref: "#/components/schemas/Message"
           type: array
-        success: 
-          type: boolean
+        success:  # remove as no additional added information?
+          type: boolean 
       type: object
+    SpecificAssetIdValue:
+      type: object
+      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
     StringValue: 
       type: string
     SubmodelDescriptor: 
@@ -568,6 +713,8 @@ components:
           maxLength: 128
         id: 
           type: string
+          minLength: 1
+          maxLength: 2000
           pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         semanticId: 
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference"
@@ -651,159 +798,39 @@ components:
             $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SubmodelElement'
           minItems: 1
     ValueOnly: 
-      description: "The ValueOnly serialization of submodel elements (patternProperties and propertyNames will be supported propably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 9.4.3 in Details of the Asset Administration Shell Part 2.\n"
+      description: "The ValueOnly serialization of submodel elements (patternProperties and propertyNames will be supported propably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 11.4.3 in Details of the Asset Administration Shell Part 2.\n"
       type: object
-    ApiResult:
-      type: object
-      properties:
-        paging_metadata:
-          type: object
-          properties:
-            cursor:
-              type: string
-              example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
-    GetReferencesResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Reference"       
-    GetPathsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/PathItem"           
     
-    GetConceptDescriptionsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription"
-    
-    GetPackageDescriptionsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/PackageDescription"
-
-    GetAssetAdministrationShellDescriptorsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
-    GetSubmodelDescriptorsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelDescriptor"
-
-    GetAssetAdministrationShellsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetAdministrationShell"
-    GetAssetAdministrationShellsMetadataResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/AssetAdministrationShellMetadata"
-
-    GetSubmodelsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Submodel"
-    GetSubmodelsMetadataResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelMetadata"
-    GetSubmodelsValueResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelValue"
-    
-    GetSubmodelElementsResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/SubmodelElement"
-    GetSubmodelElementsMetadataResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelElementMetadata"
-    GetSubmodelElementsValueResult:
-      allOf:
-        - $ref: '#/components/schemas/ApiResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelElementValue"  
 
   responses:
+    'accepted':
+      description: The server has accepted the request.
+      headers:
+        Location: 
+          description: The URL where the client can find more information about the request.
+          schema:
+            type: string
     'no-content':
       description: No Content, request was successful but no content is returned
       content:
         application/json:
           schema:
             $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetAdministrationShell'
+    'found':
+      description: The target resource is available but at a different location.
+      headers:
+        Location: 
+          description: The URL where the client can find the target resource.
+          schema:
+            type: string
     'bad-request':
       description: Bad Request, e.g. the request parameters of the format of the request body is wrong.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'unauthorized':
+      description: Unauthorized, e.g. the server refused the authorization attempt.
       content:
         application/json:
           schema:
