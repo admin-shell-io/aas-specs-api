@@ -1309,18 +1309,10 @@ paths:
     post:
       tags:
         - Asset Administration Shell API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
-      operationId: InvokeOperation_AAS
+      summary: Synchronously invokes an Operation at a specified path
+      operationId: InvokeOperationSync_AAS
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -1352,18 +1344,10 @@ paths:
     post:
       tags:
         - Asset Administration Shell API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
-      operationId: InvokeOperation-ValueOnly_AAS
+      summary: Synchronously invokes an Operation at a specified path
+      operationId: InvokeOperationSync-ValueOnly_AAS
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -1378,6 +1362,68 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
+    post:
+      tags:
+        - Asset Administration Shell API
+      summary: Synchronously invokes an Operation at a specified path
+      operationId: InvokeOperationAsync_AAS
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
+      requestBody:
+        description: Operation request object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequest'
+        required: true
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/accepted'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
+    post:
+      tags:
+        - Asset Administration Shell API
+      summary: Asynchronously invokes an Operation at a specified path
+      operationId: InvokeOperationAsync-ValueOnly_AAS
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
+      requestBody:
+        description: Operation request object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequestValueOnly'
+        required: true
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/accepted'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1408,6 +1454,8 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResult'
+        '302':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/found'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -1438,6 +1486,8 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
+        '302':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/found'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -2411,18 +2461,10 @@ paths:
     post:
       tags:
         - Submodel API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      summary: Synchronously invokes an Operation at a specified path
       operationId: InvokeOperation
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -2459,18 +2501,10 @@ paths:
     post:
       tags:
         - Submodel API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      summary: Asynchronously invokes an Operation at a specified path
       operationId: InvokeOperationAsync
       x-semanticIds:
-        - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
         - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -2479,12 +2513,8 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequest'
         required: true
       responses:
-        '200':
-          description: Operation result object
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResult'
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/accepted'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -2507,18 +2537,10 @@ paths:
     post:
       tags:
         - Submodel API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
-      operationId: InvokeOperation-ValueOnly
+      summary: Synchronously invokes an Operation at a specified path
+      operationId: InvokeOperationSync-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -2533,6 +2555,42 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '405':
+          description: Method not allowed - Invoke only valid for Operation submodel element
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/Result'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /submodel/submodel-elements/{idShortPath}/invoke-async/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/IdShortPath'
+    post:
+      tags:
+        - Submodel API
+      summary: Asynchronously invokes an Operation at a specified path
+      operationId: InvokeOperationAsync-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
+      requestBody:
+        description: Operation request object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationRequestValueOnly'
+        required: true
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/accepted'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -2567,6 +2625,8 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResult'
+        '302':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/found'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -2595,6 +2655,8 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/OperationResultValueOnly'
+        '302':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/found'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '403':
@@ -5626,11 +5688,10 @@ paths:
     post:
       tags:
         - Submodel Repository API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      summary: Synchronously invokes an Operation at a specified path
       operationId: InvokeOperation_SubmodelRepo # TODO
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
       parameters:
         - name: async
           in: query
@@ -5678,11 +5739,10 @@ paths:
     post:
       tags:
         - Submodel Repository API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      summary: Synchronously invokes an Operation at a specified path
       operationId: InvokeOperation-ValueOnly_SubmodelRepo # TODO
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
       parameters:
         - name: async
           in: query
