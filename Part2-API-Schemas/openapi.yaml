@@ -241,6 +241,17 @@ components:
       type: object
     BlobMetadata: 
       $ref: "#/components/schemas/SubmodelElementAttributes"
+    BlobValue: 
+      properties: 
+        contentType: 
+          type: string
+          maxLength: 100
+        value: 
+          type: string
+      required: 
+        - contentType
+        - value
+      type: object
     BooleanValue: 
       type: boolean
     CapabilityMetadata: 
@@ -342,7 +353,7 @@ components:
         - Failed
         - Timeout
       type: string
-    FileBlobValue: 
+    FileValue: 
       properties: 
         contentType: 
           type: string
@@ -775,7 +786,8 @@ components:
         - $ref: "#/components/schemas/BasicEventElementValue"
         - $ref: "#/components/schemas/PropertyValue"
         - $ref: "#/components/schemas/MultiLanguagePropertyValue"
-        - $ref: "#/components/schemas/FileBlobValue"
+        - $ref: "#/components/schemas/BlobValue"
+        - $ref: "#/components/schemas/FileValue"
         - $ref: "#/components/schemas/RangeValue"
         - $ref: "#/components/schemas/ReferenceElementValue"
         - $ref: "#/components/schemas/RelationshipElementValue"
