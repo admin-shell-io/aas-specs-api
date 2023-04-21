@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Asset Adminstration Shell Service Specification - Minimal Profile
+  description: An exemplary API combination for the use case of a standalone Asset Administration Shell, e.g., an Asset Administration Shell running in a Docker container
+  contact:
+    name: Constantin Ziesche, Andreas Orzelski, Florian Krebs, Bastian Rössl, Manuel Sauer, Jens Vialkowitsch, Michael Hoffmeister, Torben Miny, Sebastian Bader, Marko Ristin, Nico Braunisch
+  version: V3.0-MinimalProfile
+  termsOfService: https://github.com/admin-shell-io/aas-specs
+servers:
+- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
+  variables:
+    protocol:
+      description: 'Allows access through http and https (recommended)'
+      enum:
+        - 'http'
+        - 'https'
+      default: 'https'
+    host_name:
+      default: admin-shell.io
+      description: 'Hostname of server hosting the api'
+    port:
+      enum:
+        - '80'
+        - '443'
+      default: '443'
+      description: '80 is default for http, 443 for https'
+    version_prefix:
+      enum:
+        - 'v3.0'
+      default: v3.0
+paths:
+  /aas:
+    get:
+      tags:
+        - Asset Administration Shell API
+      summary: Returns a specific Asset Administration Shell
+      operationId: GetAssetAdministrationShell
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShell/3/0
+      responses:
+        '200':
+          description: Requested Asset Administration Shell
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/AssetAdministrationShell'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /aas/submodels/{submodelIdentifier}:
+    get:
+      tags:
+        - Asset Administration Shell API
+      summary: Returns the Submodel
+      operationId: GetSubmodel
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Extent'
+      responses:
+        '200':
+          description: Requested Submodel
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Submodel'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment:
+    get:
+      tags:
+        - Asset Administration Shell API
+      summary: Downloads file content from a specific submodel element from the Submodel at a specified path
+      operationId: GetFileByPath
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetFileByPath/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+        - name: idShortPath
+          in: path
+          description: IdShort path to the submodel element (dot-separated)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Requested file
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              description: In order to physically download the file usually set to attachment with a filename
+              example: 'attachment; filename="filename.jpg"'
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/ServiceDescription'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
