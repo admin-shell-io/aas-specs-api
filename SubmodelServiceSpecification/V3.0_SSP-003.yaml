@@ -8,7 +8,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0_SSP-003
+  version: V3.0.1_SSP-003
 servers:
 - url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
   variables:
@@ -200,9 +200,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsResult'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetSubmodelElementsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
         '401':
