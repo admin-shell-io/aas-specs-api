@@ -2,12 +2,15 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 1 | Metamodel | Schemas
-  description: "The schemas implementing Details of the Asset Administration Shell Part 1 - Copyright: Industrial Digital Twin Association (IDTA) 2023"
+  description: >- 
+    The schemas implementing the [Specification of the Asset Administration Shell: Part 1](https://industrialdigitaltwin.org/en/content-hub).
+    
+    Publisher: Industrial Digital Twin Association (IDTA) 2023
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
   license: 
-    name: CC BY-SA 4.0
+    name: CC BY 4.0
     url: https://creativecommons.org/licenses/by-sa/4.0/
   version: V3.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
@@ -793,6 +796,7 @@ components:
               "$ref": "#/components/schemas/ReferenceParent"
     ReferenceParent:
     # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+      type: object
       properties:
         type:
           "$ref": "#/components/schemas/ReferenceTypes"
