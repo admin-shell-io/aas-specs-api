@@ -1,7 +1,10 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 2 | HTTP/REST | Concept Description Repository Service Specification
-  description: "The ConceptDescription Repository Service Specification as part of Details of the Asset Administration Shell Part 2. Publisher: Industrial Digital Twin Association (IDTA) March 2023"
+  description: >-
+    The ConceptDescription Repository Service Specification as part of [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+  
+    Publisher: Industrial Digital Twin Association (IDTA) March 2023
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -71,23 +74,23 @@ paths:
           schema:
             type: string
             format: byte
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/Cursor'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Concept Descriptions
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/GetConceptDescriptionsResult'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetConceptDescriptionsResult'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
     post:
       tags:
         - Concept Description Repository API
@@ -100,7 +103,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
         required: true
       responses:
         '201':
@@ -108,17 +111,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '409':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/conflict'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/conflict'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
   /concept-descriptions/{cdIdentifier}:
     get:
       tags:
@@ -143,17 +146,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
     put:
       tags:
         - Concept Description Repository API
@@ -176,21 +179,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/ConceptDescription'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
         required: true
       responses:
         '204':
           description: Concept Description updated successfully
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
     delete:
       tags:
         - Concept Description Repository API
@@ -212,15 +215,15 @@ paths:
         '204':
           description: Concept Description deleted successfully
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
   /serialization:
     get:
       tags:
@@ -267,18 +270,18 @@ paths:
                 format: binary
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Environment'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Environment'
             application/xml:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0#/components/schemas/Environment'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Environment'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
   /description:
     get:
       tags:
@@ -293,6 +296,6 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/ServiceDescription'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/ServiceDescription'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
