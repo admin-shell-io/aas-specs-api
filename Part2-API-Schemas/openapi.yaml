@@ -258,39 +258,6 @@ components:
     CapabilityMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    ServiceDescription: 
-      description: The Description object enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
-      example: >-
-        {
-          "profiles": [
-            "RepositoryServiceSpecification/V3.0-MinimalProfile",
-            "RegistryServiceSpecification/V3.0"
-          ]
-        }
-      properties: 
-        profiles:
-          type: array
-          minItems: 1
-          items:
-            type: string
-            enum:
-              - "AssetAdministrationShellServiceSpecification/V3.0"
-              - "AssetAdministrationShellServiceSpecification/V3.0-MinimalProfile"
-              - "SubmodelServiceSpecification/V3.0"
-              - "SubmodelServiceSpecification/V3.0-ValueProfile"
-              - "SubmodelServiceSpecification/V3.0-MinimalProfile"
-              - "AasxFileServerServiceSpecification/V3.0"
-              - "RegistryServiceSpecification/V3.0"
-              - "RegistryServiceSpecification/V3.0- AssetAdministrationShellRegistry"
-              - "RegistryServiceSpecification/V3.0-SubmodelRegistry"
-              - "RepositoryServiceSpecification/V3.0"
-              - "RepositoryServiceSpecification/V3.0-MinimalProfile"
-              - "AssetAdministrationShellRepositoryServiceSpecification/V3.0"
-              - "AssetAdministrationShellRepositoryServiceSpecification/V3.0-MinimalProfile"
-              - "SubmodelRepositoryServiceSpecification/V3.0"
-              - "SubmodelRepositoryServiceSpecification/V3.0-MinimalProfile"
-              - "RegistryAndDiscoveryServiceSpecification/V3.0"
-      type: object
     Descriptor: 
       example: '{ "endpoints": [ { "protocolInformation": { "endpointAddress": "https://localhost:1234", "endpointProtocolVersion": "1.1" }, "interface": "AAS-1.0" }, { "protocolInformation": { "endpointAddress": "opc.tcp://localhost:4840" }, "interface": "AAS-1.0" }, { "protocolInformation": { "endpointAddress": "https://localhost:5678", "endpointProtocolVersion": "1.1", "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-1.0" } ] }'
       properties: 
@@ -714,6 +681,41 @@ components:
           items: 
             $ref: "#/components/schemas/Message"
           type: array
+      type: object
+    ServiceDescription: 
+      description: The Description object enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
+      example: >-
+        {
+          "profiles": [
+            "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002",
+            "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002"
+          ]
+        }
+      properties: 
+        profiles:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001"
       type: object
     SpecificAssetIdValue:
       type: object
