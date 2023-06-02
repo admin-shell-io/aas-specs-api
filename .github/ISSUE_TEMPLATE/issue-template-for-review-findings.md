@@ -16,3 +16,6 @@ assignees: ''
 ...
 
 This issue relates to finding `XX#??`.
+
+
+- [ ] I have signed the required Developer Certificate of Origin ([DCO](https://developercertificate.org)) already.

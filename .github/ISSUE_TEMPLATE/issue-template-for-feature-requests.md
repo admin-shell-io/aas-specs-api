@@ -18,3 +18,5 @@ assignees: ''
 *Describe which change will fix the problem.* 
 ...
 
+
+- [ ] I have signed the required Developer Certificate of Origin ([DCO](https://developercertificate.org)) already.

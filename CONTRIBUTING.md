@@ -1,10 +1,9 @@
 # Contributing
 
 The [Specification of the Asset Administration Shell - Part 2] is an official publication of the [IDTA] work stream "AAS in Detail".
-The API definitions must be particularly compliant with this specification.
-To ensure a faster adoption and improvement of AAS API, we invite the community to contribute with review, reporting issues and fixing them.  
+The API definitions in this repository must be particularly compliant with this specification.
+To ensure a faster adoption and improvement of AAS API, we invite the community to contribute with reviews, reporting issues, and fixing them.  
 Do you want to contribute? Great! But before you do it, please follow the defined procedure for the contribution in this repository. 
-? In particular, you need to create and electronically sign the [Eclipse Contributor Agreement (ECA)](http://www.eclipse.org/legal/ecafaq.php). ?
 
 [Specification of the Asset Administration Shell - Part 2]: https://industrialdigitaltwin.org/en/content-hub/
 
@@ -12,15 +11,17 @@ Do you want to contribute? Great! But before you do it, please follow the define
 ## Raising Issues
 
 [Github Issues](https://github.com/admin-shell-io/aas-specs-api/issues) are the preferred way to inform the community about bugs, shortcomings, feature requests and so on.  
-**Please note** that even submitting an issue or helping to solve it requires the agreement that the created content falls under a [Developer Certificate of Origin (DCO)](todo: add link, or already covered by ECA??), by which you declare that you have the legal right to contribute the content under the stated license and that the [IDTA] and the maintainers of this repository are allowed to use your contribution for publications, e.g., [Specification of the Asset Administration Shell - Part 2]. In these cases, an additional signing of a [Contributor License Agreement (CLA)](todo: add link) is required. It is up to the maintainers of this repository to decide whether an individual contribution needs also a signed CLA. In case the contributor does not sign it in an appropriate time span, the contribution cannot be used further.
+**Please note** that by submitting an issue, you aggree that the created content falls under a Developer Certificate of Origin ([DCO]), by which you declare that you have the legal right to contribute the content under the stated license and that the [IDTA] and the maintainers of this repository are allowed to use your contribution for publications, e.g., [Specification of the Asset Administration Shell - Part 2]. In certain cases, an additional signing of a Contributor License Agreement (CLA) can be required. It is up to the maintainers of this repository to decide whether an individual contribution needs also a signed CLA. In case the contributor does not sign it in an appropriate time span after being notified, the contribution cannot be used further and in particular can not appear in any release.
 
-**Use a template**. Several issue templates are available and help us to better structure the process. Depending on your issue, submit a review finding, a bug report, or a request for a new feature. Only if none of these fits, [open a new blank issue](https://github.com/admin-shell-io/aas-specs-api/issues/new).  
+[DCO]: https://developercertificate.org 
+
+**Use a template**. Several issue templates are available to better structure the process. Depending on your issue, submit a review finding, a bug report, or a request for a new feature. Only if none of these fits, [open a new blank issue](https://github.com/admin-shell-io/aas-specs-api/issues/new). Due to legal reasons, click also the checkmark stating that you have already signed the [DCO].  
 A maintainer will then assign additional labels, milestones, and individual other contributers if possible.
 
 
 ## Before the Pull Requests
 
-If you are contributing for the first time, please inform yourself about the [LICENSE](./LICENSE.txt) used for this repository. Also, you will be asked to sign a [Developer Certificate of Origin (DCO)](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjrldvf3_z-AhUSM-wKHTx_C3oQFnoECAsQAQ&url=https%3A%2F%2Fdevelopercertificate.org%2F&usg=AOvVaw1jLpqF5afZVxZD3dL2WLNH).
+If you are contributing for the first time, please inform yourself about the [LICENSE](./LICENSE.txt) used for this repository. Also, you will be asked to sign a [DCO] if not done already. Different to issues, Pull Requests are checked automatically through the [CLA Assistant](https://cla-assistant.io).
 
 
 **Create Feature branches**.
@@ -78,7 +79,7 @@ For the present development, however, this is not enforced.
 ## Approval Process
 All changes must be **reviewed** and **approved** by members of the IDTA workstream "AAS in Detail".
 
-Minor changes (simple failures, typos, *etc.*) and additional content (more examples, etc.) can be accepted straight away after a brief review by the responsible reviewers.
+Minor changes (simple failures, typos, *etc.*) and additional content (more examples, etc.) can be accepted straight away after a brief review by at least one responsible reviewers.
 
 Major changes must first be presented and approved in the [IDTA] workstream "AAS in Detail". If the creator of a PR is not a member of the workstream, a dedicated assignee will present it.
 
@@ -88,8 +89,8 @@ Major changes must first be presented and approved in the [IDTA] workstream "AAS
 
 ## Merge into `main` Branch
 
-After the approval the pull request can be merged into the repository. This is done by one of the maintainers.  
-Bugfixes might be collected together first and then be merged into one bugfix commit at once. Similarly, new features are first collected in defined minor/major release branches, and merged into the `main` at the time when the corresponding version of the specification is published.
+After the approval, the pull request can be merged into the repository. This is done by one of the maintainers.  
+Bugfixes might be collected together first and then be merged through one indivdual commit. Similarly, new features are first collected in defined minor/major release branches, and merged into the `main` at the time when the corresponding version of the specification is published.
 
 *Note:* Changes into external resources, e.g. Swaggerhub, are done by the members of the IDTA workstream immediatly after the indivdual PRs have been merged. The leading source is always the content of this repository. 
 
