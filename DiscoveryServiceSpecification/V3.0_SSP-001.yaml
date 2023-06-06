@@ -44,17 +44,7 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/0
       parameters:
-        - name: assetIds
-          in: query
-          description: A list of specific Asset identifiers
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/SpecificAssetId'
-            example: '[ { "name": "some-asset-id", "value": "http://example-company.com/myAsset", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://example-company.com/example-companys-asset-keys" } ], "type": "GlobalReference" } }, { "name": "some-other-asset-id", "value": "12345ABC", "externalSubjectId": { "keys": [ { "type": "GlobalReference", "value": "http://my-own-company.com/keys" } ], "type": "GlobalReference" } } ]'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/AssetIds'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
       responses:
