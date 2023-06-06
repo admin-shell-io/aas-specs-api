@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: DotAAS Part 2 | HTTP/REST | Submodel Repository Service Specification
   description: >-
-    The Read Template profile of the Submodel Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+    The Read Profile of the Submodel Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
     
     Publisher: Industrial Digital Twin Association (IDTA) 2023
   contact:
@@ -11,7 +11,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.1_SSP-004
+  version: V3.0.1_SSP-002
 servers:
 - url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
   variables:
@@ -138,6 +138,82 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/$reference:
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns the References for all Submodels
+      operationId: GetAllSubmodels-Reference
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
+        - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
+        - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SemanticId'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
+        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
+        - name: level
+          in: query
+          description: Determines the structural depth of the respective resource content
+          required: false
+          schema:
+            type: string
+            default: core
+            enum:
+              # - deep
+              - core # only 'core' is allowed for Content=Reference
+      responses:
+        '200':
+          description: References of the requested Submodels
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetReferencesResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/$path:
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns all Submodels in the Path notation
+      operationId: GetAllSubmodels-Path
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
+        - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
+        - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SemanticId'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
+      responses:
+        '200':
+          description: Requested Submodels
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetPathItemsResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
   /submodels/{submodelIdentifier}:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
@@ -201,6 +277,111 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/{submodelIdentifier}/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns a specific Submodel in the ValueOnly representation
+      operationId: GetSubmodelById-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Extent'
+      responses:
+        '200':
+          description: Requested Submodel
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/SubmodelValue'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/{submodelIdentifier}/$reference:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns the Reference of a specific Submodel
+      operationId: GetSubmodelById-Reference
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
+      parameters:
+        - name: level
+          in: query
+          description: Determines the structural depth of the respective resource content
+          required: false
+          schema:
+            type: string
+            default: core
+            enum:
+              # - deep
+              - core # only 'core' is allowed for Content=Reference
+      responses:
+        '200':
+          description: Requested Submodel
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/{submodelIdentifier}/$path:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns a specific Submodel in the Path notation
+      operationId: GetSubmodelById-Path
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
+      responses:
+        '200':
+          description: Requested Submodel
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/PathItem'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
   /submodels/{submodelIdentifier}/submodel-elements:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
@@ -246,7 +427,7 @@ paths:
       tags:
         - Submodel Repository API
       summary: Returns the metadata attributes of all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElements-Metadata_SubmodelRepo #TODO
+      operationId: GetAllSubmodelElements-Metadata_SubmodelRepo 
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -260,6 +441,115 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetSubmodelElementsMetadataResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/{submodelIdentifier}/submodel-elements/$value:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns all submodel elements including their hierarchy in the ValueOnly representation
+      operationId: GetAllSubmodelElements-ValueOnly_SubmodelRepo
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Extent'
+      responses:
+        '200':
+          description: List of found submodel elements
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetSubmodelElementsValueResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/{submodelIdentifier}/submodel-elements/$reference:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns the References of all submodel elements
+      operationId: GetAllSubmodelElements-Reference_SubmodelRepo
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
+        - name: level
+          in: query
+          description: Determines the structural depth of the respective resource content
+          required: false
+          schema:
+            type: string
+            default: core
+            enum:
+              # - deep
+              - core # only 'core' is allowed for Content=Reference
+      responses:
+        '200':
+          description: List of found submodel elements
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetReferencesResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /submodels/{submodelIdentifier}/submodel-elements/$path:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns all submodel elements including their hierarchy in the Path notation
+      operationId: GetAllSubmodelElements-Path_SubmodelRepo
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
+      responses:
+        '200':
+          description: List of found submodel elements in the Path notation
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetPathItemsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '401':
