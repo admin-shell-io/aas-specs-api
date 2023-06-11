@@ -3487,17 +3487,6 @@ paths:
       operationId: GetSubmodelById-Reference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
-      parameters:
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              # - deep
-              - core # only 'core' is allowed for Content=Reference
       responses:
         '200':
           description: Requested Submodel as a Reference
@@ -5001,18 +4990,6 @@ paths:
       operationId: GetSubmodelById-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelById/3/0
-      parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              # - deep
-              - core # only 'core' is allowed for Content=Reference
       responses:
         '200':
           description: Requested Submodel
