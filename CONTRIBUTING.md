@@ -8,20 +8,25 @@ Do you want to contribute? Great! But before you do it, please follow the define
 [Specification of the Asset Administration Shell - Part 2]: https://industrialdigitaltwin.org/en/content-hub/
 
 
-## Raising Issues
+## Prerequisites
 
-[Github Issues](https://github.com/admin-shell-io/aas-specs-api/issues) are the preferred way to inform the community about bugs, shortcomings, feature requests and so on.  
-**Please note** that by submitting an issue, you aggree that the created content falls under a Developer Certificate of Origin ([DCO]), by which you declare that you have the legal right to contribute the content under the stated license and that the [IDTA] and the maintainers of this repository are allowed to use your contribution for publications, e.g., [Specification of the Asset Administration Shell - Part 2]. In certain cases, an additional signing of a Contributor License Agreement (CLA) can be required. It is up to the maintainers of this repository to decide whether an individual contribution needs also a signed CLA. In case the contributor does not sign it in an appropriate time span after being notified, the contribution cannot be used further and in particular can not appear in any release.
+**Please note** that by submitting an Issue or a Pull Request (PR), you aggree that the created content falls under a Developer Certificate of Origin ([DCO]), by which you declare that you have the legal right to contribute the content under the stated license and that the [IDTA] and the maintainers of this repository are allowed to use your contribution for publications, e.g., [Specification of the Asset Administration Shell - Part 2]. In certain cases, an additional signing of a Contributor License Agreement (CLA) can be required. It is up to the maintainers of this repository to decide whether an individual contribution needs also a signed CLA. In case the contributor does not sign it in an appropriate time span after being notified, the contribution cannot be used further and in particular can not appear in any release.
 
 [DCO]: https://developercertificate.org 
 
-**Use a template**. Several issue templates are available to better structure the process. Depending on your issue, submit a review finding, a bug report, or a request for a new feature. Only if none of these fits, [open a new blank issue](https://github.com/admin-shell-io/aas-specs-api/issues/new). Due to legal reasons, click also the checkmark stating that you have already signed the [DCO].  
+
+## Raising Issues
+
+[Github Issues](https://github.com/admin-shell-io/aas-specs-api/issues) are the preferred way to inform the community about bugs, shortcomings, feature requests and so on.  
+
+
+**Use a template**. Several issue templates are available to better structure the process. Depending on your issue, submit a review finding, a bug report, or a request for a new feature. Only if none of these fits, [open a new blank issue](https://github.com/admin-shell-io/aas-specs-api/issues/new). Due to legal reasons, click also the checkmark stating that you have already signed the [DCO] (see [Section Prerequisites](#prerequisites)).  
 A maintainer will then assign additional labels, milestones, and individual other contributers if possible.
 
 
 ## Before the Pull Requests
 
-If you are contributing for the first time, please inform yourself about the [LICENSE](./LICENSE.txt) used for this repository. Also, you will be asked to sign a [DCO] if not done already. Different to issues, Pull Requests are checked automatically through the [CLA Assistant](https://cla-assistant.io).
+If you are contributing for the first time, please inform yourself about the [LICENSE](./LICENSE.txt) used for this repository. Also, you will be asked to sign a [DCO] if not done already (see [Section Prerequisites](#prerequisites)). Different to issues, Pull Requests are checked automatically through the [CLA Assistant](https://cla-assistant.io).
 
 
 **Create Feature branches**.
