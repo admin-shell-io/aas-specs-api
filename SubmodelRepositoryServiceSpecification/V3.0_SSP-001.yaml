@@ -528,17 +528,6 @@ paths:
       operationId: GetSubmodelById-Reference
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelById/3/0
-      parameters:
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              # - deep
-              - core # only 'core' is allowed for Content=Reference
       responses:
         '200':
           description: Requested Submodel
