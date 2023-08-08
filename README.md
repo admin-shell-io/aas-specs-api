@@ -13,7 +13,6 @@ https://industrialdigitaltwin.org/en/content-hub/
 ) published by the [IDTA](https://industrialdigitaltwin.org/en/).
 
 
-
 ## Content
 This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
 All published SwaggerHub APIs are synchronized all the time with the respective folders in this repository using the [GitHub Integration](https://support.smartbear.com/swaggerhub/docs/integrations/github-sync.html) feature. In particular, the following APIs are contained:
