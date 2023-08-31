@@ -1,0 +1,75 @@
+# OpenAPI version identifier - required for OpenAPI 3.0 domains
+openapi: 3.0.3
+info:
+  title: "DotAAS Part 2 | DIN SPEC 16593 | Schemas. Publisher: Industrial Digital Twin Association (IDTA) 2023"
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.0
+components: 
+  schemas: 
+    Endpoint: 
+      properties: 
+        interface: 
+          type: string
+          minLength: 1
+          maxLength: 128
+        protocolInformation: 
+          $ref: "#/components/schemas/ProtocolInformation"
+      required: 
+        - protocolInformation
+        - interface
+      type: object
+    ProtocolInformation: 
+      properties: 
+        href: 
+          type: string
+          maxLength: 2048
+        endpointProtocol: 
+          type: string
+          minLength: 1
+          maxLength: 128
+        endpointProtocolVersion: 
+          type: string
+          minLength: 1
+          maxLength: 128
+        subprotocol: 
+          type: string
+          minLength: 1
+          maxLength: 128
+        subprotocolBody: 
+          type: string
+          minLength: 1
+          maxLength: 128
+        subprotocolBodyEncoding: 
+          type: string
+          minLength: 1
+          maxLength: 128
+        securityAttributes:
+          type: array
+          items:
+            $ref: "#/components/schemas/SecurityAttribute"
+          minItems: 1
+      required: 
+        - href
+      type: object
+    SecurityAttribute:
+      type: object
+      properties: 
+        type: 
+          type: string
+          enum: 
+          - NONE
+          - RFC_TLSA
+          - W3C_DID
+        key: 
+          type: string
+        value: 
+          type: string
+      required: 
+      - type
+      - key
+      - value
