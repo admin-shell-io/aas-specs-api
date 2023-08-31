@@ -20,16 +20,16 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 
 |API SPEC|GitHub|SwaggerHub|
 |-----------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
-|Entire-API-Collection API |[Link](./Entire-API-Collection/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|
-|AssetAdministrationShell-Environment|[Link](./AssetAdministrationShell-Environment/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShell-Environment)|
-|Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|
-|Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|
-|Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|
-|Submodel Registry Service Specification |[Link](./SubmodelRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification)|
-|Submodel Repository Service Specification|[Link](./SubmodelRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification)|
-|Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|
-|Discovery Service Description API |[Link](./DiscoveryServiceDescription)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceDescription)|
-|AASX-File-Server API |[Link](./AASX-File-Server/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)|
+|Entire-API-Collection API |[Link](./Entire-API-Collection/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
+|Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/RegistryServiceSpecification/V3.0_SSP-001
+|Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.0_SSP-001
+|Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SSP-001
+|Submodel Registry Service Specification |[Link](./SubmodelRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.0_SSP-001
+|Submodel Repository Service Specification|[Link](./SubmodelRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.0_SSP-001
+|Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.0_SSP-001
+|Discovery Service Specification API |[Link](./DiscoveryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.0_SSP-001
+|Concept Description Repository Service Specification|[Link](./ConceptDescriptionRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.0_SSP-001
+|AASX-File-Server API |[Link](./AASX-File-Server/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)|https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001
 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
 |API SPEC|GitHub|SwaggerHub|
