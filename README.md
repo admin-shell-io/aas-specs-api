@@ -29,7 +29,7 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 |Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.0_SSP-001
 |Discovery Service Specification API |[Link](./DiscoveryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.0_SSP-001
 |Concept Description Repository Service Specification|[Link](./ConceptDescriptionServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.0_SSP-001
-|AASX-File-Server API |[Link](./AASX-File-Server/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)|https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001
+|AASX-File-Server API |[Link](./AasxFileServerServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)|https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001
 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
 |API SPEC|GitHub|SwaggerHub|
