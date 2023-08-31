@@ -17,22 +17,25 @@ https://industrialdigitaltwin.org/en/content-hub/
 ## Content
 This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
 All published SwaggerHub APIs are synchronized all the time with the respective folders in this repository using the [GitHub Integration](https://support.smartbear.com/swaggerhub/docs/integrations/github-sync.html) feature. In particular, the following APIs are contained:
-* [AssetAdministrationShellServiceSpecification](./AssetAdministrationShellServiceSpecification) matches the [Asset Administration Shell Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification) and contains all its profiles
-* [AssetAdministrationShellRepositoryServiceSpecification](./AssetAdministrationShellRepositoryServiceSpecification) matches the [Asset Administration Shell Repository Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification) and contains all its profiles
-* [SubmodelServiceSpecification](./SubmodelServiceSpecification) matches the [Submodel Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification) and contains all its profiles
-* [SubmodelRepositoryServiceSpecification](./SubmodelRepositoryServiceSpecification) matches the [Submodel Repository Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification) and contains all its profiles
-* [AssetAdministrationShellRegistryServiceSpecification](./AssetAdministrationShellRegistryServiceSpecification) matches the [Asset Administration Shell Registry Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification) and contains all its profiles
-* [SubmodelRegistryServiceSpecification](./SubmodelRegistryServiceSpecification) matches the [Submodel Registry Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification) and contains all its profiles
-* [AASX-File-Server/openapi.yaml](./AASX-File-Server/openapi.yaml) matches the [AASX-File-Server API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)
-* [DiscoveryServiceDescription](./DiscoveryServiceDescription) matches the [Discovery Service Description API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceDescription)
-* [Entire-API-Collection/openapi.yaml](./Entire-API-Collection/openapi.yaml) matches the [Entire-API-Collection API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)
+
+|API SPEC|GitHub|SwaggerHub|
+|-----------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
+| Entire-API-Collection API |[Link](./Entire-API-Collection/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|
+| Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|
+| Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|
+| Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|
+| Submodel Registry Service Specification |[Link](./SubmodelRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification)|
+| Submodel Repository Service Specification|[Link](./SubmodelRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification)|
+| Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|
+| Discovery Service Description API |[Link](./DiscoveryServiceDescription)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceDescription)|
+| AASX-File-Server API |[Link](./AASX-File-Server/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)|
 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
-* [Part1-MetaModel-Schemas/openapi.yaml](./Part1-MetaModel-Schemas/openapi.yaml) matches the [Part1-MetaModel-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)
-* [Part2-API-Schemas/openapi.yaml](./Part2-API-Schemas/openapi.yaml) matches the [Part2-API-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)
-* [DINSPEC16593-Schemas/openapi.yaml](./DINSPEC16593-Schemas/openapi.yaml) matches the [DINSPEC16593-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)
-
-
+|API SPEC|GitHub|SwaggerHub|
+|------------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
+| Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
+| Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
+| DINSPEC16593-Schemas Domain |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
 
 ## API Versions in GitHub Branches
 
