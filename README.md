@@ -20,7 +20,7 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 
 |API SPEC|GitHub|SwaggerHub|
 |-----------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
-|Entire-API-Collection API |[Link](./Entire-API-Collection/openapi.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
+|Entire-API-Collection API |[Link](./Entire-API-Collection/V3.0.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
 |Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/RegistryServiceSpecification/V3.0_SSP-001
 |Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.0_SSP-001
 |Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SSP-001
