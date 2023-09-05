@@ -36,7 +36,6 @@ The following *domains* are synchronized manually as domain synchronization is n
 |------------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
 | Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
 | Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
-| DINSPEC16593-Schemas Domain |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
 
 ## API Versions in GitHub Branches
 
