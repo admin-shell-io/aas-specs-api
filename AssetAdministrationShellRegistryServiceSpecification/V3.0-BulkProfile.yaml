@@ -1,0 +1,226 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Bulk Asset Administration Shell Registry Service Specification
+  description: "The Full Profile of the Bulk Asset Administration Shell Registry Service Specification as part of the Specification of the Asset Administration Shell: Part 2. Publisher: Industrial Digital Twin Association (IDTA) April 2023. 
+                The server processes all requests synchronously, ensuring atomic operations. This means that requested manipulations will either fully succeed or be completely rolled back if any error occurs during the process. Further the 
+                payload size is limited to max. 1MB."
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.1
+servers:
+  - url: '{protocol}://{host_name}:{port}/bulk-api/{version_prefix}'
+    variables:
+      protocol:
+        description: 'Allows access through http and https (recommended)'
+        enum:
+          - 'http'
+          - 'https'
+        default: 'https'
+      host_name:
+        default: admin-shell.io
+        description: 'Hostname of server hosting the api'
+      port:
+        enum:
+          - '80'
+          - '443'
+        default: '443'
+        description: '80 is default for http, 443 for https'
+      version_prefix:
+        enum:
+          - 'v3.0'
+        default: v3.0
+paths:
+  /shell-descriptors:
+    post:
+      tags:
+        - Bulk Asset Administration Shell Registry API
+      summary: Creates multiple new Asset Administration Shell Descriptors, i.e. registers multiple Asset Administration Shells
+      operationId: BulkPostAssetAdministrationShellDescriptor
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPostAssetAdministrationShellDescriptor/3/0
+      requestBody:
+        description: List of Asset Administration Shell Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        required: true
+      responses:
+        '204':
+          description: All Asset Administration Shell Descriptor created successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '409':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/conflict'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        '504':
+          description: Connection timed out. The operation could not be completed within the expected timeframe. The process continues on the backend, and your progress will be saved.
+    put:
+      tags:
+        - Bulk Asset Administration Shell Registry API
+      summary: Updates multiple existing Asset Administration Shell Descriptors
+      operationId: BulkPutAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/0
+      requestBody:
+        description: List of Asset Administration Shell Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/AssetAdministrationShellDescriptor'
+        required: true
+      responses:
+        '204':
+          description: All Asset Administration Shell Descriptor updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        '504':
+          description: Connection timed out. The operation could not be completed within the expected timeframe. The process continues on the backend, and your progress will be saved.
+    delete:
+      tags:
+        - Bulk Asset Administration Shell Registry API
+      summary: Deletes multiple Asset Administration Shell Descriptors, i.e. de-registers multiple Asset Administration Shells
+      operationId: BulkDeleteAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkDeleteAssetAdministrationShellDescriptorById/3/0
+      requestBody:
+        description: List of Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                type: string
+                format: byte
+      responses:
+        '204':
+          description: All Asset Administration Shell Descriptors deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        '504':
+          description: Connection timed out. The operation could not be completed within the expected timeframe. The process continues on the backend, and your progress will be saved.
+  /shell-descriptors/submodel-descriptors:
+    post:
+      tags:
+        - Bulk Asset Administration Shell Registry API
+      summary: Creates multiple new Submodel Descriptor, i.e. registers multiple submodels
+      operationId: BulkPostSubmodelDescriptor
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPostSubmodelDescriptor/3/0
+      requestBody:
+        description: Submodel Descriptor object
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                type: object
+                properties:
+                  assIdentifier:
+                    $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
+                  submodelDescriptor:
+                    $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        required: true
+      responses:
+        '204':
+          description: All Submodel Descriptors created successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '409':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/conflict'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        '504':
+          description: Connection timed out. The operation could not be completed within the expected timeframe. The process continues on the backend, and your progress will be saved.
+    put:
+      tags:
+        - Bulk Asset Administration Shell Registry API
+      summary: Updates multiple existing Submodel Descriptors
+      operationId: BulkPutSubmodelDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/0
+      requestBody:
+        description: List of Submodel Descriptor object
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/schemas/SubmodelDescriptor'
+        required: true
+      responses:
+        '204':
+          description: Submodel Descriptor updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        '504':
+          description: Connection timed out. The operation could not be completed within the expected timeframe. The process continues on the backend, and your progress will be saved.
+    delete:
+      tags:
+        - Bulk Asset Administration Shell Registry API
+      summary: Deletes multiple Submodel Descriptor, i.e. de-registers multiple submodels
+      operationId: BulkDeleteSubmodelDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkDeleteSubmodelDescriptorById/3/0
+      requestBody:
+        description: List of Submodel Indentifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
+      responses:
+        '204':
+          description: All Submodel Descriptors deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+        '504':
+          description: Connection timed out. The operation could not be completed within the expected timeframe. The process continues on the backend, and your progress will be saved.
