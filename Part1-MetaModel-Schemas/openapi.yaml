@@ -2,15 +2,17 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 1 | Metamodel | Schemas
-  description: "The schemas implementing Details of the Asset Administration Shell Part 1 - Copyright: Industrial Digital Twin Association (IDTA) 2023"
+  description: >- 
+    The schemas implementing the [Specification of the Asset Administration Shell: Part 1](http://industrialdigitaltwin.org/en/content-hub).  
+    
+    Publisher: Industrial Digital Twin Association (IDTA) 2023
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
   license: 
-    name: CC BY-SA 4.0
-    url: https://creativecommons.org/licenses/by-sa/4.0/
-  version: V3.0
-  termsOfService: https://github.com/admin-shell-io/aas-specs
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.0.1
 components: 
   schemas:
     AasSubmodelElements:
@@ -209,11 +211,6 @@ components:
     DataElement:
       allOf:
       - "$ref": "#/components/schemas/SubmodelElement"
-      - properties:
-          modelType:
-            "$ref": "#/components/schemas/ModelType"
-        required:
-        - modelType
     DataElement_choice:
       oneOf:
       - "$ref": "#/components/schemas/Blob"
@@ -357,7 +354,7 @@ components:
       - dataSpecificationContent
     Entity:
       allOf:
-      - "$ref": "#/components/schemas/SubmodelElement"
+      - $ref: "#/components/schemas/SubmodelElement"
       - properties:
           statements:
             type: array
@@ -407,11 +404,6 @@ components:
     EventElement:
       allOf:
       - "$ref": "#/components/schemas/SubmodelElement"
-      - properties:
-          modelType:
-            "$ref": "#/components/schemas/ModelType"
-        required:
-        - modelType
     EventPayload:
       type: object
       properties:
@@ -477,9 +469,7 @@ components:
             - minLength: 1
               maxLength: 100
             - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
-            - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([
-                \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t
-                !#-\\[\\]-~]|[\x80-ÿ])|\\\\([\\t !-~]|[\x80-ÿ]))*\"))*$"
+            - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([\\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t!#-\\[\\]-~]|[\x80-ÿ])|\\\\([\\t !-~]|[\x80-ÿ]))*\"))*$"
           modelType:
             type: string
             pattern: File
@@ -527,11 +517,8 @@ components:
             minLength: 1
             maxLength: 2000
             pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
-          modelType:
-            "$ref": "#/components/schemas/ModelType"
         required:
         - id
-        - modelType
     Key:
       type: object
       properties:
@@ -793,6 +780,7 @@ components:
               "$ref": "#/components/schemas/ReferenceParent"
     ReferenceParent:
     # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+      type: object
       properties:
         type:
           "$ref": "#/components/schemas/ReferenceTypes"
@@ -833,12 +821,9 @@ components:
             "$ref": "#/components/schemas/Reference"
           second:
             "$ref": "#/components/schemas/Reference"
-          modelType:
-            "$ref": "#/components/schemas/ModelType"
         required:
         - first
         - second
-        - modelType
     RelationshipElement_choice:
       oneOf:
       - "$ref": "#/components/schemas/RelationshipElement"
@@ -910,11 +895,6 @@ components:
       - "$ref": "#/components/schemas/HasSemantics"
       - "$ref": "#/components/schemas/Qualifiable"
       - "$ref": "#/components/schemas/HasDataSpecification"
-      - properties:
-          modelType:
-            "$ref": "#/components/schemas/ModelType"
-        required:
-        - modelType
     SubmodelElementCollection:
       allOf:
       - "$ref": "#/components/schemas/SubmodelElement"

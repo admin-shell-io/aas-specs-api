@@ -38,6 +38,7 @@ The following *domains* are synchronized manually as domain synchronization is n
 | Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
 | DINSPEC16593-Schemas Domain (Deprecated) |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
 
+
 ## API Versions in GitHub Branches
 
 The `main` branch contains the latest released version of all APIs and Domains. Current and previously released states are tagged with the corresponding release version in this repository, and marked with the `Published` tag in SwaggerHub.
@@ -46,11 +47,14 @@ Working versions may be marked as `private` in SwaggerHub and therfore may not b
 
 ### Releases
 
-The following versioning scheme is applied for release tags: 'V\<major>.\<minor>.\<patch>'. 
+The following versioning scheme is applied for release tags: 'V\<major>.\<minor>.\<patch>'.
 Major versions indicate breaking changes while minor updates are backward compatible.
-The patch position is increased whenever bugfixes need to be applied. 
+The patch position is increased whenever bugfixes need to be applied.
 The following release contains the latest version of the AAS schemas (see also the [releases](https://github.com/admin-shell-io/aas-specs-api/releases) section of this repository):
-* [3.0](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0) is the first major release for the `V3.0` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.0**". *Use this release if you want to work with the latest specified AAS version.*
+* [3.0.1](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.1) is the corresponding release for the `V3.0.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.0.1**". *Use this release if you want to work with the latest specified AAS version.*
+
+Previous releases (deprecated by [3.0.1](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.1)):
+* [3.0](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0) is the first major release for the AAS APIs, containing the normative API descriptions for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0".
 
 
 ## Contributing
