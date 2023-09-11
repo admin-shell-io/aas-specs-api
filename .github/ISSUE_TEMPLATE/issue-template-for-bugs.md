@@ -1,7 +1,7 @@
 ---
 name: Issue Template for Bug Reports
 about: Describe this issue's purpose here.
-title: '[BUG] Replace Title'
+title: 'Replace Title'
 labels: 'bug'
 assignees: ''
 
