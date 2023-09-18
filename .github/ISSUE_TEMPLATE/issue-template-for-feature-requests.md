@@ -1,7 +1,7 @@
 ---
 name: Issue Template for Requesting new AAS API Features
 about: Describe this issue's purpose here.
-title: '[Feat. Req.] Replace Title'
+title: 'Replace Title'
 labels: 'enhancement'
 assignees: ''
 

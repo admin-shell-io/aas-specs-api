@@ -1,0 +1,306 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Concept Description Repository Service Specification
+  description: >-
+    The ConceptDescription Repository Service Specification as part of [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+  
+    Publisher: Industrial Digital Twin Association (IDTA) March 2023
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.0.1_SSP-001
+  termsOfService: https://github.com/admin-shell-io/aas-specs
+servers:
+- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
+  variables:
+    protocol:
+      description: 'Allows access through http and https (recommended)'
+      enum:
+        - 'http'
+        - 'https'
+      default: 'https'
+    host_name:
+      default: admin-shell.io
+      description: 'Hostname of server hosting the api'
+    port:
+      enum:
+        - '80'
+        - '443'
+      default: '443'
+      description: '80 is default for http, 443 for https'
+    version_prefix:
+      enum:
+        - 'v3.0'
+      default: v3.0
+paths:
+  /concept-descriptions:
+    get:
+      tags:
+        - Concept Description Repository API
+      summary: Returns all Concept Descriptions
+      operationId: GetAllConceptDescriptions
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllConceptDescriptions/3/0
+        - https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIdShort/3/0
+        - https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIsCaseOf/3/0
+        - https://admin-shell.io/aas/API/GetAllConceptDescriptionsByDataSpecificationReference/3/0
+      parameters:
+        - name: idShort
+          in: query
+          description: The Concept Description’s IdShort
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: isCaseOf
+          in: query
+          description: IsCaseOf reference (UTF8-BASE64-URL-encoded)
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: byte
+        - name: dataSpecificationRef
+          in: query
+          description: DataSpecification reference (UTF8-BASE64-URL-encoded)
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: byte
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested Concept Descriptions
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/GetConceptDescriptionsResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+    post:
+      tags:
+        - Concept Description Repository API
+      summary: Creates a new Concept Description
+      operationId: PostConceptDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostConceptDescription/3/0
+      requestBody:
+        description: Concept Description object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
+        required: true
+      responses:
+        '201':
+          description: Concept Description created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '409':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/conflict'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /concept-descriptions/{cdIdentifier}:
+    get:
+      tags:
+        - Concept Description Repository API
+      summary: Returns a specific Concept Description
+      operationId: GetConceptDescriptionById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetConceptDescriptionById/3/0
+      parameters:
+        - name: cdIdentifier
+          in: path
+          description: The Concept Description’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: true
+          schema:
+            type: string
+            format: byte
+      responses:
+        '200':
+          description: Requested Concept Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+    put:
+      tags:
+        - Concept Description Repository API
+      summary: Updates an existing Concept Description
+      operationId: PutConceptDescriptionById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutConceptDescriptionById/3/0
+      parameters:
+        - name: cdIdentifier
+          in: path
+          description: The Concept Description’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      requestBody:
+        description: Concept Description object
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription'
+        required: true
+      responses:
+        '204':
+          description: Concept Description updated successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+    delete:
+      tags:
+        - Concept Description Repository API
+      summary: Deletes a Concept Description
+      operationId: DeleteConceptDescriptionById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteConceptDescriptionById/3/0
+      parameters:
+        - name: cdIdentifier
+          in: path
+          description: The Concept Description’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: byte
+      responses:
+        '204':
+          description: Concept Description deleted successfully
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /serialization:
+    get:
+      tags:
+        - Serialization API
+      summary: Returns an appropriate serialization based on the specified format (see SerializationFormat)
+      operationId: GenerateSerializationByIds
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GenerateSerializationByIds/3/0
+      parameters:
+        - name: aasIds
+          in: query
+          description: The Asset Administration Shells' unique ids (UTF8-BASE64-URL-encoded)
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: submodelIds
+          in: query
+          description: The Submodels' unique ids (UTF8-BASE64-URL-encoded)
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: includeConceptDescriptions
+          in: query
+          description: Include Concept Descriptions?
+          style: form
+          explode: true
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Requested serialization based on SerializationFormat
+          content:
+            application/asset-administration-shell-package+xml:
+              schema:
+                description: AASX package
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Environment'
+            application/xml:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Environment'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/ServiceDescription'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'

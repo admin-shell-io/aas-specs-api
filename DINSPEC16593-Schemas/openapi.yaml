@@ -2,50 +2,50 @@
 openapi: 3.0.3
 info:
   title: DotAAS Part 2 | DIN SPEC 16593 | Schemas
-  description: The schemas implementing DIN SPEC 16593
+  description: The depricated schemas implementing DIN SPEC 16593. This file is out of date. The publication of the DINSPEC16593 schemas never happened officially. The mirror standard in Part II DINSPEC16593 schemas is therefore obsolete. The specification of the ProtocolInformation is defined in Part2 API schemas.
   contact:
     name: Michael Hoffmeister, Torben Miny, Andreas Orzelski, Manuel Sauer, Constantin Ziesche, Sebastian Bader, Marko Ristin, Nico Braunisch
-  version: V1.0RC03
+  version: V3.0.1
   termsOfService: https://github.com/admin-shell-io/aas-specs
-components: 
-  schemas: 
-    Endpoint: 
-      properties: 
-        interface: 
+components:
+  schemas:
+    Endpoint:
+      properties:
+        interface:
           type: string
-        protocolInformation: 
+        protocolInformation:
           $ref: "#/components/schemas/ProtocolInformation"
-      required: 
+      required:
         - protocolInformation
         - interface
       type: object
-    ProtocolInformation: 
-      properties: 
-        endpointAddress: 
+    ProtocolInformation:
+      properties:
+        endpointAddress:
           type: string
-        endpointProtocol: 
+        endpointProtocol:
           type: string
-        endpointProtocolVersion: 
+        endpointProtocolVersion:
           type: string
-        subprotocol: 
+        subprotocol:
           type: string
-        subprotocolBody: 
+        subprotocolBody:
           type: string
-        subprotocolBodyEncoding: 
+        subprotocolBodyEncoding:
           type: string
         securityAttributes:
           type: array
           items:
             $ref: "#/components/schemas/SecurityAttribute"
-      required: 
+      required:
         - endpointAddress
       type: object
     SecurityAttribute:
       type: object
-      properties: 
-        type: 
+      properties:
+        type:
           type: string
-        key: 
+        key:
           type: string
-        value: 
+        value:
           type: string

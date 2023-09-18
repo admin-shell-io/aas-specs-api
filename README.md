@@ -17,21 +17,26 @@ https://industrialdigitaltwin.org/en/content-hub/
 ## Content
 This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
 All published SwaggerHub APIs are synchronized all the time with the respective folders in this repository using the [GitHub Integration](https://support.smartbear.com/swaggerhub/docs/integrations/github-sync.html) feature. In particular, the following APIs are contained:
-* [AssetAdministrationShellServiceSpecification](./AssetAdministrationShellServiceSpecification) matches the [Asset Administration Shell Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification) and contains all its profiles
-* [AssetAdministrationShellRepositoryServiceSpecification](./AssetAdministrationShellRepositoryServiceSpecification) matches the [Asset Administration Shell Repository Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification) and contains all its profiles
-* [SubmodelServiceSpecification](./SubmodelServiceSpecification) matches the [Submodel Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification) and contains all its profiles
-* [SubmodelRepositoryServiceSpecification](./SubmodelRepositoryServiceSpecification) matches the [Submodel Repository Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification) and contains all its profiles
-* [AssetAdministrationShellRegistryServiceSpecification](./AssetAdministrationShellRegistryServiceSpecification) matches the [Asset Administration Shell Registry Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification) and contains all its profiles
-* [SubmodelRegistryServiceSpecification](./SubmodelRegistryServiceSpecification) matches the [Submodel Registry Service Specification at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification) and contains all its profiles
-* [AASX-File-Server/openapi.yaml](./AASX-File-Server/openapi.yaml) matches the [AASX-File-Server API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/AASX-File-Server)
-* [DiscoveryServiceDescription](./DiscoveryServiceDescription) matches the [Discovery Service Description API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceDescription)
-* [Entire-API-Collection/openapi.yaml](./Entire-API-Collection/openapi.yaml) matches the [Entire-API-Collection API at SwaggerHub](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)
+
+|API SPEC|GitHub|SwaggerHub|
+|-----------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
+|Entire-API-Collection API |[Link](./Entire-API-Collection/V3.0.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
+|Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/RegistryServiceSpecification/V3.0_SSP-001
+|Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.0_SSP-001
+|Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SSP-001
+|Submodel Registry Service Specification |[Link](./SubmodelRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.0_SSP-001
+|Submodel Repository Service Specification|[Link](./SubmodelRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.0_SSP-001
+|Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.0_SSP-001
+|Discovery Service Specification API |[Link](./DiscoveryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.0_SSP-001
+|Concept Description Repository Service Specification|[Link](./ConceptDescriptionServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.0_SSP-001
+|Aasx-File-Server Service Specification |[Link](./AasxFileServerServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification)
 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
-* [Part1-MetaModel-Schemas/openapi.yaml](./Part1-MetaModel-Schemas/openapi.yaml) matches the [Part1-MetaModel-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)
-* [Part2-API-Schemas/openapi.yaml](./Part2-API-Schemas/openapi.yaml) matches the [Part2-API-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)
-* [DINSPEC16593-Schemas/openapi.yaml](./DINSPEC16593-Schemas/openapi.yaml) matches the [DINSPEC16593-Schemas Domain at SwaggerHub](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)
-
+|API SPEC|GitHub|SwaggerHub|
+|------------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
+| Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
+| Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
+| DINSPEC16593-Schemas Domain (Deprecated) |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
 
 
 ## API Versions in GitHub Branches
@@ -42,9 +47,9 @@ Working versions may be marked as `private` in SwaggerHub and therfore may not b
 
 ### Releases
 
-The following versioning scheme is applied for release tags: 'V\<major>.\<minor>.\<patch>'. 
+The following versioning scheme is applied for release tags: 'V\<major>.\<minor>.\<patch>'.
 Major versions indicate breaking changes while minor updates are backward compatible.
-The patch position is increased whenever bugfixes need to be applied. 
+The patch position is increased whenever bugfixes need to be applied.
 The following release contains the latest version of the AAS schemas (see also the [releases](https://github.com/admin-shell-io/aas-specs-api/releases) section of this repository):
 * [3.0.1](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.1) is the corresponding release for the `V3.0.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.0.1**". *Use this release if you want to work with the latest specified AAS version.*
 
