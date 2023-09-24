@@ -1,0 +1,207 @@
+openapi: 3.1.0
+info:
+  title: DotAAS Part 2 | HTTP/REST | Bulk Submodel Registry Service Specification (DRAFT, not official!)
+  description: "The Full Profile of the Bulk Submodel Registry Service Specification as part of the Specification of the Submodel: Part 2. Publisher: Industrial Digital Twin Association (IDTA) April 2023. 
+                The server processes all requests asynchronously, ensuring atomic operations. This means that requested manipulations will either fully succeed or be completely rolled back if any error occurs during the process."
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.1
+servers:
+  - url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
+    variables:
+      protocol:
+        description: 'Allows access through http and https (recommended)'
+        enum:
+          - 'http'
+          - 'https'
+        default: 'https'
+      host_name:
+        default: admin-shell.io
+        description: 'Hostname of server hosting the api'
+      port:
+        enum:
+          - '80'
+          - '443'
+        default: '443'
+        description: '80 is default for http, 443 for https'
+      version_prefix:
+        enum:
+          - 'v3.1'
+        default: v3.1
+paths:
+  /bulk/submodel-descriptors:
+    post:
+      tags:
+        - Async Bulk Submodel Registry API
+      summary: Creates multiple new Submodel Descriptors
+      operationId: BulkPostSubmodel
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPostSubmodelDescriptor/3/1
+      requestBody:
+        description: List of Submodel Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelDescriptor'
+        required: true
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+    put:
+      tags:
+        - Async Bulk Submodel Registry API
+      summary: Updates multiple existing Submodel Descriptors
+      operationId: BulkPutSubmodelDescriptorsById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPutSubmodelDescriptorsById/3/1
+      requestBody:
+        description: List of Submodel Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelDescriptor'
+        required: true
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+    delete:
+      tags:
+        - Async Bulk Submodel Registry API
+      summary: Deletes multiple Submodel Descriptors
+      operationId: BulkDeleteSubmodelDescriptorsById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkDeleteSubmodelDescriptorsById/3/1
+      requestBody:
+        description: List of Submodel Descriptor Identifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/SubmodelIdentifier'
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+  /status/{handleId}:
+    get:
+      tags:
+        - Async Bulk Status API
+      summary: Returns the status of an asynchronously invoked bulk operation
+      operationId: BulkGetAsyncStatus
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkGetAsyncStatus/3/1
+      parameters:
+        - in: path
+          name: handleId
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/HandleId'
+          required: true
+      responses:
+        '200':
+          description: Bulk operation result object containing information that the 'executionState' is still 'Running'
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              required: false
+              description: The number of seconds to wait before retrying the request.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/BaseOperationResult'
+        '302':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/found'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+  /result/{handleId}:
+    get:
+      tags:
+        - Async Bulk Result API
+      summary: Returns the result object of an asynchronously invoked bulk operation
+      operationId: BulkGetAsyncResult
+      parameters:
+        - in: path
+          name: handleId
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/HandleId'
+          required: true
+      responses:
+        '204':
+          description: >-
+            The bulk request itself was correct and all elements have been processed. The server may remove the result resource after 
+            it was requested once (by any client) or after a certain time period.
+        '400':
+          description: >-
+            There was an error in the processing of the request. Either the bulk request itself was not correct, or at least of it's part requests. 
+            The whole transaction has been rolled back.
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
+        '404':
+          description: The handleId is not known to the server. This means either it never came into existence or it was successfully completed a considerable time in the past.
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+
+
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/ServiceDescription'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden' 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'

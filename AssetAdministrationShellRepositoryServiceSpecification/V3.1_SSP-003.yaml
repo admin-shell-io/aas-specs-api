@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DotAAS Part 2 | HTTP/REST | Bulk Asset Administration Shell Repository Service Specification (DRAFT, not official!)
-  description: "The Full Profile of the Bulk Asset Administration Shell Registry Service Specification as part of the Specification of the Asset Administration Shell: Part 2. Publisher: Industrial Digital Twin Association (IDTA) April 2023. 
+  description: "The Full Profile of the Bulk Asset Administration Shell Repository Service Specification as part of the Specification of the Asset Administration Shell: Part 2. Publisher: Industrial Digital Twin Association (IDTA) April 2023. 
                 The server processes all requests asynchronously, ensuring atomic operations. This means that requested manipulations will either fully succeed or be completely rolled back if any error occurs during the process."
   contact:
     name: Industrial Digital Twin Association (IDTA)
@@ -40,7 +40,7 @@ paths:
       summary: Creates multiple new Asset Administration Shells
       operationId: BulkPostAssetAdministrationShell
       x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkPostAssetAdministrationShell/3/1
+        - https://admin-shell.io/aas/API/BulkPostAssetAdministrationShells/3/1
       requestBody:
         description: List of Asset Administration Shell objects
         content:
@@ -55,13 +55,13 @@ paths:
         '202':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '401':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
     put:
       tags:
         - Async Bulk Asset Administration Shell Repository API
@@ -83,13 +83,13 @@ paths:
         '202':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '401':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
     delete:
       tags:
         - Async Bulk Asset Administration Shell Repository API
@@ -98,7 +98,7 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/BulkDeleteAssetAdministrationShellById/3/1
       requestBody:
-        description: List of Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+        description: List of Asset Administration Shell’s unique ids
         content:
           application/json:
             schema:
@@ -106,107 +106,17 @@ paths:
               minItems: 1
               items:
                 type: string
-                format: byte
       responses:
         '202':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/bad-request'
         '401':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
-  /bulk/submodels:
-    post:
-      tags:
-        - Async Bulk Asset Administration Shell Repository API
-      summary: Creates multiple new Submodels
-      operationId: BulkPostSubmodel
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkPostSubmodel/3/1
-      requestBody:
-        description: List of Submodel objects
-        content:
-          application/json:
-            schema:
-              type: array
-              minItems: 1
-              items:
-                type: object
-                properties:
-                  assIdentifier:
-                    $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/AssetAdministrationShellIdentifier'
-                  submodel:
-                    $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Submodel'
-        required: true
-      responses:
-        '202':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
-        '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
-    put:
-      tags:
-        - Async Bulk Asset Administration Shell Repository API
-      summary: Updates multiple existing Submodels
-      operationId: BulkPutSubmodelById_AasRepository
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkPutSubmodelById_AasRepository/3/1
-      requestBody:
-        description: List of Submodel objects
-        content:
-          application/json:
-            schema:
-              type: array
-              minItems: 1
-              items:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Submodel'
-        required: true
-      responses:
-        '202':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
-        '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
-    delete:
-      tags:
-        - Async Bulk Asset Administration Shell Repository API
-      summary: Deletes multiple Submodels
-      operationId: BulkDeleteSubmodelById
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkDeleteSubmodelById/3/1
-      requestBody:
-        description: List of Submodel Identifiers
-        content:
-          application/json:
-            schema:
-              type: array
-              minItems: 1
-              items:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/parameters/SubmodelIdentifier'
-      responses:
-        '202':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/accepted'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/bad-request'
-        '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/unauthorized'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/forbidden'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#/components/responses/internal-server-error'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
   /status/{handleId}:
     get:
       tags:
@@ -275,3 +185,24 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/not-found'
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/internal-server-error'
+
+
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/schemas/ServiceDescription'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/forbidden' 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/responses/default'
