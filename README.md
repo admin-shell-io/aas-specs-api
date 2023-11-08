@@ -1,4 +1,4 @@
-# This is the repository for the AAS API Definitions
+# IDTA-01002 - APIs of the Asset Administration Shell
 
 [![Creative Commons License](
 https://licensebuttons.net/l/by/4.0/88x31.png
@@ -6,13 +6,13 @@ https://licensebuttons.net/l/by/4.0/88x31.png
 https://creativecommons.org/licenses/by/4.0/
 )
 
-This repository contains the normative specification and associated resources of the Asset Administration Shell APIs, including in particular the ASCIIDOC sources of the specification and the OpenAPI files of the AAS HTTP/REST API.
-This API specification represents the second part of the document series 
-["Specification of the Asset Administration Shell"](
-https://admin-shell-io.github.io/specs
-) published by the [IDTA](https://industrialdigitaltwin.org/en/) and is available as [website](https://admin-shell-io.github.io/specs/api) as well as a [PDF document](https://industrialdigitaltwin.org/en/content-hub/).
+This repository contains specifications of the APIs of the Asset Administration Shell (AAS), including the normative OpenAPI files of the AAS HTTP/REST API.
 
+## Industrial Digital Twin Association (IDTA)
 
+Governance of the specification is done in the working group Open Technology of the [IDTA](https://industrialdigitaltwin.org/en/)
+
+The specification number is: **IDTA-01002**
 
 ## Content
 This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
