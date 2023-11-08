@@ -6,11 +6,11 @@ https://licensebuttons.net/l/by/4.0/88x31.png
 https://creativecommons.org/licenses/by/4.0/
 )
 
-This repository contains specifications of the Asset Administration Shell APIs, including in particular the normative OpenAPI files of the AAS HTTP/REST API.
-These API descriptions are derived from the document series, part 2,
-["Specification of the Asset Administration Shell - Part 2"](
-https://industrialdigitaltwin.org/en/content-hub/
-) published by the [IDTA](https://industrialdigitaltwin.org/en/).
+This repository contains the normative specification and associated resources of the Asset Administration Shell APIs, including in particular the ASCIIDOC sources of the specification and the OpenAPI files of the AAS HTTP/REST API.
+This API specification represents the second part of the document series 
+["Specification of the Asset Administration Shell"](
+https://admin-shell-io.github.io/specs
+) published by the [IDTA](https://industrialdigitaltwin.org/en/) and is available as [website](https://admin-shell-io.github.io/specs/api) as well as a [PDF document](https://industrialdigitaltwin.org/en/content-hub/).
 
 
 
@@ -37,6 +37,8 @@ The following *domains* are synchronized manually as domain synchronization is n
 | Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
 | Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
 | DINSPEC16593-Schemas Domain (Deprecated) |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
+
+The sources of the specification, both website and PDF document, are maintained in the [documentation](./documentation/) folder. The different versions are identified through the respective release tags, while the latest state on the `main` branch always represents a `SNAPSHOT` version.
 
 
 ## API Versions in GitHub Branches
