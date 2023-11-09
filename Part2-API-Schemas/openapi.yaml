@@ -12,7 +12,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.1
+  version: V3.0.2
 components: 
   parameters:
     AssetAdministrationShellIdentifier:
@@ -35,16 +35,13 @@ components:
     AssetIds:
       name: assetIds
       in: query
-      description: A list of specific Asset identifiers. Each Asset identifier is a base64-url-encoded [SpecificAssetId](https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/SpecificAssetId)
+      description: A list of specific Asset identifiers. Each Asset identifier is a base64-url-encoded array of [AssetLinks](#/components/schemas/AssetLink)
       required: false
       style: form
-      explode: true
       schema:
-        type: array
         items:
           type: string
-          format: byte
-        example: '?assetIds=eyAibmFtZSI6ICJzb21lLWFzc2V0LWlkIiwgInZhbHVlIjogImh0dHA6Ly9leGFtcGxlLWNvbXBhbnkuY29tL215QXNzZXQiLCAiZXh0ZXJuYWxTdWJqZWN0SWQiOiB7ICJrZXlzIjogWyB7ICJ0eXBlIjogIkdsb2JhbFJlZmVyZW5jZSIsICJ2YWx1ZSI6ICJodHRwOi8vZXhhbXBsZS1jb21wYW55LmNvbS9leGFtcGxlLWNvbXBhbnlzLWFzc2V0LWtleXMiIH0gXSwgInR5cGUiOiAiR2xvYmFsUmVmZXJlbmNlIiB9IH0&assetIds=eyAibmFtZSI6ICJzb21lLW90aGVyLWFzc2V0LWlkIiwgInZhbHVlIjogIjEyMzQ1QUJDIiwgImV4dGVybmFsU3ViamVjdElkIjogeyAia2V5cyI6IFsgeyAidHlwZSI6ICJHbG9iYWxSZWZlcmVuY2UiLCAidmFsdWUiOiAiaHR0cDovL215LW93bi1jb21wYW55LmNvbS9rZXlzIiB9IF0sICJ0eXBlIjogIkdsb2JhbFJlZmVyZW5jZSIgfSB9'
+        example: '?assetIds=eyAibmFtZSI6ICJzb21lLWFzc2V0LWlkIiwgInZhbHVlIjogImh0dHA6Ly9leGFtcGxlLWNvbXBhbnkuY29tL215QXNzZXQiLCAiZXh0ZXJuYWxTdWJqZWN0SWQiOiB7ICJrZXlzIjogWyB7ICJ0eXBlIjogIkdsb2JhbFJlZmVyZW5jZSIsICJ2YWx1ZSI6ICJodHRwOi8vZXhhbXBsZS1jb21wYW55LmNvbS9leGFtcGxlLWNvbXBhbnlzLWFzc2V0LWtleXMiIH0gXSwgInR5cGUiOiAiR2xvYmFsUmVmZXJlbmNlIiB9IH0'
     AssetType:
       name: assetType
       in: query
@@ -206,6 +203,53 @@ components:
         - properties: 
             derivedFrom: 
               $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+    AssetLink:
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 64
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        value:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        externalSubjectId:
+          "$ref": "#/components/schemas/DeprecatedReference"
+        semanticId:
+          "$ref": "#/components/schemas/DeprecatedReference"
+        supplementalSemanticIds:
+          deprecated: true
+          type: array
+          items:
+            "$ref": "#/components/schemas/DeprecatedReference"
+          minItems: 1
+      required:
+      - name
+      - value
+    DeprecatedReference:
+      deprecated: true
+      type: object
+      allOf:
+        - "$ref": "#/components/schemas/DeprecatedReferenceParent"
+        - properties:
+            referredSemanticId: 
+              "$ref": "#/components/schemas/DeprecatedReferenceParent"
+    DeprecatedReferenceParent:
+    # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+      type: object
+      properties:
+        type:
+          "$ref": "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ReferenceTypes"
+        keys:
+          type: array
+          items:
+            "$ref": "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Key"
+          minItems: 1
+      required:
+        - type
+        - keys
     BaseOperationResult:
       allOf:
         - $ref: "#/components/schemas/Result"
