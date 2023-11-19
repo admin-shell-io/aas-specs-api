@@ -11,32 +11,13 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.2
+  version: V3.1.0
   termsOfService: https://github.com/admin-shell-io/aas-specs
 servers:
-- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
-  variables:
-    protocol:
-      description: 'Allows access through http and https (recommended)'
-      enum:
-        - 'http'
-        - 'https'
-      default: 'https'
-    host_name:
-      default: admin-shell.io
-      description: 'Hostname of server hosting the api'
-    port:
-      enum:
-        - '80'
-        - '443'
-      default: '443'
-      description: '80 is default for http, 443 for https'
-    version_prefix:
-      enum:
-        - 'v3.0'
-      default: v3.0
-paths:
+- url: 'https://admin-shell.io/api/v3.1'
+- url: 'https://example.com/'
 
+paths:
   /aas:
     get:
       tags:
@@ -5941,7 +5922,6 @@ paths:
           explode: true
           schema:
             type: string
-            format: byte
         - name: dataSpecificationRef
           in: query
           description: DataSpecification reference (UTF8-BASE64-URL-encoded)
@@ -5950,7 +5930,6 @@ paths:
           explode: true
           schema:
             type: string
-            format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Cursor'
       responses:
@@ -6021,7 +6000,6 @@ paths:
           explode: true
           schema:
             type: string
-            format: byte
       responses:
         '200':
           description: Requested Concept Description
@@ -6055,7 +6033,6 @@ paths:
           explode: false
           schema:
             type: string
-            format: byte
       requestBody:
         description: Concept Description object
         content:
@@ -6092,7 +6069,6 @@ paths:
           explode: false
           schema:
             type: string
-            format: byte
       responses:
         '204':
           description: Concept Description deleted successfully
@@ -6194,7 +6170,6 @@ paths:
           explode: false
           schema:
             type: string
-            format: byte
       responses:
         '200':
           description: Requested Asset Administration Shell Descriptor
@@ -6228,7 +6203,6 @@ paths:
           explode: false
           schema:
             type: string
-            format: byte
       requestBody:
         description: Asset Administration Shell Descriptor object
         content:
@@ -6265,7 +6239,6 @@ paths:
           explode: false
           schema:
             type: string
-            format: byte
       responses:
         '204':
           description: Asset Administration Shell Descriptor deleted successfully
@@ -6558,6 +6531,7 @@ paths:
 
   /lookup/shells:
     get:
+      deprecated: true
       tags:
         - Asset Administration Shell Basic Discovery API
       summary: Returns a list of Asset Administration Shell ids linked to specific Asset identifiers 
@@ -6584,6 +6558,43 @@ paths:
                         type: string
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/responses/default'
+  /lookup/shellsByAssetLink:
+    post:
+      tags:
+        - Asset Administration Shell Basic Discovery API
+      summary: Returns a list of Asset Administration Shell ids linked to specific Asset identifiers 
+      operationId: SearchAllAssetAdministrationShellIdsByAssetLink
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/SearchAllAssetAdministrationShellIdsByAssetLink/3/1
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
+      requestBody:
+        description: A list of specific Asset identifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                '$ref': 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/AssetLink'
+      responses:
+        '200':
+          description: Requested Asset Administration Shell ids
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PagedResult'
+                - type: object
+                  properties:
+                    result:
+                      type: array
+                      items:
+                        type: string
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/responses/bad-request'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
   /lookup/shells/{aasIdentifier}:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/AssetAdministrationShellIdentifier'
@@ -6678,7 +6689,6 @@ paths:
           explode: true
           schema:
             type: string
-            format: byte
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Cursor'
       responses:
@@ -6759,7 +6769,6 @@ paths:
         explode: true
         schema:
           type: string
-          format: byte
     get:
       tags:
         - AASX File Server API
