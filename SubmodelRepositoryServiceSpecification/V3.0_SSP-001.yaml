@@ -990,8 +990,6 @@ paths:
       operationId: GetSubmodelElementByPath-Metadata_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
       responses:
         '200':
           description: Metadata attributes of the requested submodel element
@@ -1137,17 +1135,6 @@ paths:
       operationId: GetSubmodelElementByPath-Reference_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
-      parameters:
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              # - deep
-              - core # only 'core' is allowed for Content=Reference
       responses:
         '200':
           description: Requested submodel element
@@ -1183,7 +1170,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.1#/components/parameters/Level'
       responses:
         '200':
-          description: Requested submodel element
+          description: Submodel elements in path notation
           content:
             application/json:
               schema:
