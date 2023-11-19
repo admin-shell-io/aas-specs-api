@@ -12,7 +12,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.1
+  version: V3.0.2
 components: 
   parameters:
     AssetAdministrationShellIdentifier:
@@ -405,15 +405,6 @@ components:
               type: array
               items: 
                 $ref: "#/components/schemas/SubmodelDescriptor"
-    GetSubmodelElementsMetadataResult:
-      allOf:
-        - $ref: '#/components/schemas/PagedResult'
-        - type: object
-          properties:
-            result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelElementMetadata"
     GetSubmodelElementsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
