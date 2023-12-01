@@ -1,4 +1,4 @@
-# This is the repository for the AAS API Definitions
+# IDTA-01002 - APIs of the Asset Administration Shell
 
 [![Creative Commons License](
 https://licensebuttons.net/l/by/4.0/88x31.png
@@ -6,13 +6,13 @@ https://licensebuttons.net/l/by/4.0/88x31.png
 https://creativecommons.org/licenses/by/4.0/
 )
 
-This repository contains specifications of the Asset Administration Shell APIs, including in particular the normative OpenAPI files of the AAS HTTP/REST API.
-These API descriptions are derived from the document series, part 2,
-["Specification of the Asset Administration Shell - Part 2"](
-https://industrialdigitaltwin.org/en/content-hub/
-) published by the [IDTA](https://industrialdigitaltwin.org/en/).
+This repository contains specifications of the APIs of the Asset Administration Shell (AAS), including the normative OpenAPI files of the AAS HTTP/REST API.
 
+## Industrial Digital Twin Association (IDTA)
 
+Governance of the specification is done in the working group Open Technology of the [IDTA](https://industrialdigitaltwin.org/en/)
+
+The specification number is: **IDTA-01002**
 
 ## Content
 This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
@@ -37,6 +37,8 @@ The following *domains* are synchronized manually as domain synchronization is n
 | Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
 | Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
 | DINSPEC16593-Schemas Domain (Deprecated) |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
+
+The sources of the specification, both website and PDF document, are maintained in the [documentation](./documentation/) folder. The different versions are identified through the respective release tags, while the latest state on the `main` branch always represents a `SNAPSHOT` version.
 
 
 ## API Versions in GitHub Branches
