@@ -10,16 +10,17 @@
 = image:../../../idta-logo.png[] Part 2: Application Programming Interfaces
 :author: IDTA
 :version-label: Number
-:revnumber: 01002-3-0
-:revdate: April 2023
+:revnumber: 01002-3-1
+:revdate: December 2023
 :revremark: Specification of the Asset Administration Shell
+:releasetag: 2024-1
 
 
 == Preamble
 
 === Editorial Notes
 
-This document (version 3.0) was produced from November 2021 to May 2023 by the joint sub working group "Asset Administration Shell" of the working group "Reference Architectures, Standards and Norms" of the Plattform Industrie 4.0 and the working group "Open Technology" of the Industrial Digital Twin Association (IDTA). It is the first release published by the Industrial Digital Twin Association.
+This document (version 3.1) was produced from November 2021 to October 2023 by the joint sub working group "Asset Administration Shell" of the working group "Reference Architectures, Standards and Norms" of the Plattform Industrie 4.0 and the working group "Open Technology" of the Industrial Digital Twin Association (IDTA). It enhances the first release (version 3.0) published by the Industrial Digital Twin Association in April 2023. 
 
 Earlier versions of this document were release candidates and used the version 1.0. It has been decided in the meantime that this first release will start with version 3.0, in line with the related release of the metamodel.
 
@@ -33,7 +34,7 @@ This specification is versioned using Semantic Versioning 2.0.0 and follows the 
 
 === Metamodel Versions
 
-This document (version 3.0) uses the following parts of the “Specification of the Asset Administration Shell” series:
+This document (version 3.1) uses the following parts of the “Specification of the Asset Administration Shell” series:
 
 * Part 1: Metamodel in version 3.0 link:#bib1[[1\]]
 * Part 3a: Data Specification – IEC 61360 in version 3.0 link:#bib2[[2\]]
@@ -319,9 +320,9 @@ ____
 |===
 |*<Interface Operation>* |*::=* |*<Method Verb><Model Element Name>[<Modifier>] +
 ["By"<By-Qualifier>]*
-|*<Method Verb>* |*::=* |*"Get" \| "GetAll" \| "Put" \| "Post" \| "Patch" \| "Delete" \| "Set" \| "Invoke"*
-|*<Model Element Name>* |*::=* |*"AssetAdministrationShell"["s"] \| "SubmodelReference" ["s"] \| +
-"AssetInformation" \| "Submodel"["s"] \| "SubmodelElement"["s"] \| "ConceptDescription"["s"]*
+|*<Method Verb>* |*::=* |*"Get" \| "GetAll" \| "Put" \| "PutBulk" \| "Post" \| "PostBulk" \| "Patch" \| "Delete" \| "DeleteBulk" \| "Set" \| "Invoke" \| "InvokeAsync" \| "SearchAll"*
+|*<Model Element Name>* |*::=* |*"AssetAdministrationShell"["s"] \| "AssetAdministrationShellDescriptor"["s"] \| "SubmodelReference" ["s"] \| +
+"AssetInformation" \| "Submodel"["s"] \| "SubmodelDescriptor"["s"] \| "SubmodelElement"["s"] \| "ConceptDescription"["s"]*
 |*<Modifier>* |*::=* |*"Value" \| "IdShortPath" \| "Reference"*
 |*<By-Qualifier>* |*::=* |*"Id" \| "SemanticId" \| "ParentPathAndSemanticId" \| "Path" \| "AssetId" \| "IdShort" \| "IsCaseOf" \| "DataSpecificationReference"*
 |===
@@ -386,7 +387,7 @@ The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
 
 === References and Keys
 
-The concept of references is introduced in Part 1 of the series “ Specification of the Asset Administration Shell” link:#bib1[[1\]].
+The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” link:#bib1[[1\]].
 
 When defining interfaces, a distinction is made between relative references and absolute references.
 
@@ -1132,7 +1133,7 @@ Note: values remain unchanged with content=metadata.
 |operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
 5+h|Output Parameter
 |statusCode |Status code |yes |StatusCode |1
-|payload |Execution state of the operation |yes |OperationResult |1
+|payload |Execution state of the operation |yes | BaseOperationResult |1
 |===
 
 ==== Operation GetOperationAsyncResult
@@ -1470,9 +1471,12 @@ h|*Operation Name* h|*Description*
 h|*Operation Name* h|*Description*
 |GetAllSubmodelDescriptors |Returns all submodel descriptors
 |GetSubmodelDescriptorById |Returns a specific submodel descriptor
-|PostSubmodelDescriptor |Creates a new submodel descriptor, i.e. registers a submodel
-|PutSubmodelDescriptorById |Replaces an existing submodel descriptor, i.e. replaces registration information
+|PostSubmodelDescriptor |Creates a new submodel descriptor, i.e., registers a submodel
+|PostBulkSubmodelDescriptors |Creates one or more new submodel descriptors, i.e., registers several submodels
+|PutSubmodelDescriptorById |Replaces an existing submodel descriptor, i.e., replaces registration information
+|PutBulkSubmodelDescriptorsById |Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
 |DeleteSubmodelDescriptorById |Deletes a submodel descriptor, i.e. de-registers a submodel
+|DeleteSubmodelDescriptorsById |Deletes one or more submodel descriptors, i.e., de-registers several submodels
 |===
 
 ==== Operation GetAllSubmodelDescriptors
@@ -1491,8 +1495,8 @@ h|*Operation Name* h|*Description*
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |The maximum size of the result set |yes |StatusCode |1
-|payload |The position from which to resume a result listing |no |SubmodelDescriptor |1..*
+|statusCode | StatusCode |yes |StatusCode |1
+|payload |List of requested submodel descriptors |no |SubmodelDescriptor |1..*
 |===
 
 ==== Operation GetSubmodelDescriptorById
@@ -1534,6 +1538,24 @@ Descriptor |Object containing the Submodel’s identification and endpoint infor
 |payload |Created submodel descriptor |yes |SubmodelDescriptor |1
 |===
 
+==== Operation PostBulkSubmodelDescriptors
+[%autowidth, width="100%", cols="h,d",]
+|===
+|*Operation Name* |PostBulkSubmodelDescriptors
+|*Explanation	|Creates one or more new submodel descriptors, i.e. registers several submodels
+|*semanticId* |https://admin-shell.io/aas/API/PostBulkSubmodelDescriptors/3/1
+|===
+[%autowidth, width="100%", options="header",]
+|===
+|*Name*	|*Description*	|*Mand.*	|*Type*	|*Card.*
+5+h|Input Parameter
+|submodel +
+Descriptor	|Object containing the Submodel’s identification and endpoint information |yes	|SubmodelDescriptor 	|1..*
+5+h|Output Parameter
+|statusCode	|Status code	|yes	|StatusCode	|1
+|===
+
+
 ==== Operation PutSubmodelDescriptorById
 
 [.table-with-appendix-table]
@@ -1554,6 +1576,27 @@ Descriptor |Object containing the Submodel’s identification and endpoint infor
 |payload |Replaced submodel descriptor |yes |SubmodelDescriptor |1
 |===
 
+
+==== Operation PutBulkSubmodelDescriptorsById
+
+[.table-with-appendix-table]
+[%autowidth, width="100%", cols="h,d",]
+|===
+|*Operation Name* |PutBulkSubmodelDescriptorsById
+|*Explanation* |Replaces one or more existing submodel descriptors, i.e. replaces registration information of several submodels
+|*semanticId* |https://admin-shell.io/aas/API/PutBulkSubmodelDescriptorsById/3/1
+|===
+[%autowidth, width="100%", options="header",]
+|===
+|*Name* |*Description* |*Mand.* |*Type* |*Card.*
+5+h|Input Parameter
+|submodel +
+Descriptor |Object containing the Submodel’s identification and endpoint information |yes |SubmodelDescriptor |1..*
+5+h|Output Parameter
+|statusCode |Status code |yes |StatusCode |1
+|payload |Replaced submodel descriptor |yes |SubmodelDescriptor |1
+|===
+
 ==== Operation DeleteSubmodelDescriptorById
 
 [.table-with-appendix-table]
@@ -1568,6 +1611,25 @@ Descriptor |Object containing the Submodel’s identification and endpoint infor
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
 |submodelIdentifier |The Submodel’s unique id |yes |Identifier |1
+5+h|Output Parameter
+|statusCode |Status code |yes |StatusCode |1
+|===
+
+
+==== Operation DeleteBulkSubmodelDescriptorsById
+
+[.table-with-appendix-table]
+[%autowidth, width="100%", cols="h,d",]
+|===
+|*Operation Name* |DeleteBulkSubmodelDescriptorsById
+|*Explanation* |Deletes one or more submodel descriptors, i.e., de-registers several submodels
+|*semanticId* |https://admin-shell.io/aas/API/DeleteBulkSubmodelDescriptorsById/3/1
+|===
+[%autowidth, width="100%", options="header",]
+|===
+|*Name* |*Description* |*Mand.* |*Type* |*Card.*
+5+h|Input Parameter
+|submodelIdentifier |The Submodel’s unique id |yes |Identifier |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |StatusCode |1
 |===
@@ -2424,7 +2486,7 @@ Note: the cardinality restriction for AssetAdministrationShellDescriptor/endpoin
 |===
 |*Attribute* |*Explanation* |*Type* |*Card.*
 |protocolInformation |Protocol information of the network resource endpoint |ProtocolInformation |1
-|interface |Name of the offered interface at the endpoint |IdShortType |1
+|interface |Name of the offered interface at the endpoint |NameType |1
 |===
 
 The following names will be used for the interfaces:
@@ -2470,16 +2532,18 @@ The information in this table is a 1:1 copy from DIN SPEC 16593-2. Required chan
 [%autowidth, width="100%", options="header"]
 |===
 |*Attribute* |*Explanation* |*Type* |*Card.*
-|href |The endpoint address as an URL |String 2048 |1
-|endpointProtocol |Either scheme of endpointAdress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |IdShortType |0..1
-|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |IdShortType |0..*
+|href |The endpoint address as an URL |LocatorType |1
+|endpointProtocol |Either scheme of endpointAdress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |SchemeType |0..1
+|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |LabelType |0..*
 |subprotocol |Allows for referencing sub-protocols that may be used in the context of that endpoint e.g. “OPC Basic SOAP” or UA Binary |IdShortType |0..1
-|subprotocolBody |If the sub-protocol field is present, a subprotocolBody might be given to hold extra information, e.g. node and namespace in an OPC UA server |IdShortType |0..1
-|subprotocolBodyEncoding |If subprotocolBody is present, the encoding might be explicitly defined, otherwise it shall default to subprotocols encoding scheme |IdShortType |0..1
+|subprotocolBody |If the sub-protocol field is present, a subprotocolBody might be given to hold extra information, e.g. node and namespace in an OPC UA server |TextType |0..1
+|subprotocolBodyEncoding |If subprotocolBody is present, the encoding might be explicitly defined, otherwise it shall default to subprotocols encoding scheme |LabelType |0..1
 |securityAttributes a|
 Array of securityAttribute objects, each attribute has 3 properties:
 
-\{ *type* = Enum security type or standard:
+{  
+
+*type* = Enum security type or standard:
 
 * ‘NONE’,
 * 'RFC_TLSA' - TLSA according to rfc6698
@@ -2487,7 +2551,9 @@ Array of securityAttribute objects, each attribute has 3 properties:
 
 *key* = security attribute key according to standard definitions of the security type,
 
-*value* = security attribute value e.g. DANE TLSA Ressource Record }
+*value* = security attribute value e.g. DANE TLSA Ressource Record  
+
+}
 
 The securityAttribute objects are treated as possible alternatives (logical “or”)
 
@@ -2582,10 +2648,10 @@ This class is not part of the metamodel.
 |https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Repository Service Specification Read Profile in version 3.0.
 |https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.0.
 |https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Specification Template Profile in version 3.0.
+|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.0.
+|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
+|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
+|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.0.
 |https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Service Specification Read Template Profile in version 3.0.
 |===
 
@@ -2622,7 +2688,7 @@ All primitive data types from Part 1 version 3.0 apply also to the specification
 “Bad_UserAccessDenied”
 
 |ShortIdType a|
-same as _NameType_
+same as _NameType_  (string with max 128 and min 1 characters)
 
 
 ====
@@ -2634,6 +2700,26 @@ a|
 “02063059-b81c-482b-97d1-d29cbe382ef6”
 
 “my-random-id”
+
+|LocatorType a|
+string with max 2048 and min 1 characters
+
+a|
+“https://example.org/”
+
+“https://provider-edc.data.plane/v3.0/shells/aas-1/submodels/submodel-1/submodel”
+
+|TextType a|
+string with max 2048 and min 1 characters
+
+a|
+“asset:prop:id=123;idsEndpoint=http://edc.control.plane/”
+
+|SchemeType a|
+same as NameType (string with max 128 and min 1 characters)
+
+a|
+“HTTP”
 
 |===
 
@@ -2741,6 +2827,23 @@ The following type definitions are used to call and handle the requests and resp
 |clientTimeoutDuration |Duration indicating when the client expects the server to have finished execution of the invoked operation |duration |0..1
 |===
 
+====== BaseOperationResult
+
+[.table-with-appendix-table]
+[%autowidth, width="100%", cols="h,d"]
+|===
+|*Class Name* |BaseOperationResult
+|*Explanation* |The object containing the intermediate state of an operation
+|*Inherits from* |Result
+|*semanticId* |https://admin-shell.io/aas/API/DataTypes/BaseOperationResult/3/0
+|===
+[%autowidth, width="100%", options="header"]
+|===
+|*Attribute* |*Explanation* |*Type* |*Card.*
+|executionState |Execution state |ExecutionState |1
+|success |Flag indicating whether the business operation behind the operation was successful (true) or not (false) |boolean |0..1
+|===
+
 ====== OperationResult
 
 [.table-with-appendix-table]
@@ -2748,17 +2851,14 @@ The following type definitions are used to call and handle the requests and resp
 |===
 |*Class Name* |OperationResult
 |*Explanation* |The operation’s invocation result object
-|*Inherits from* |Result
+|*Inherits from* |BaseOperationResult
 |*semanticId* |https://admin-shell.io/aas/API/DataTypes/OperationResult/3/0
 |===
 [%autowidth, width="100%", options="header"]
 |===
-|*Attribute +
-(* = mandatory)* |*Explanation* |*Type* |*Card.*
+|*Attribute* |*Explanation* |*Type* |*Card.*
 |outputArguments |Output argument |OperationVariable |0..*
 |inoutputArguments |InOutput argument |OperationVariable |0..*
-|executionState |Execution state |ExecutionState |1
-|success |Flag indicating whether the business operation behind the operation was successful (true) or not (false) |boolean |0..1
 |===
 
 ====== Enumeration ExecutionState 
@@ -3101,6 +3201,9 @@ With the SerializationModifier set to _Value,_ the payload is minimized to the f
   "MaxRotationSpeed": 5000
 }
 ----
+
+TODO: Example where precision in value string to ValueOnly to value string is critical.
+
 
 For a _SubmodelElementCollection,_ the struct is serialized as objects denoted by curly brackets:
 
@@ -3732,9 +3835,6 @@ Additional objects are needed for Part 2, e.g. for the ValueOnly-Serialization o
 https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0[https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0#] +
 This schema includes general objects, which are used in the further defined APIs.
 
-The definition of endpoints is based on DIN SPEC 16593. The related schema for DIN SPEC 16593 is available at: https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas/V3.0[https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas/V3.0#] +
-This schema includes general objects, which are used in the further defined APIs. These objects are the basis for the definition of Part 2 APIs.
-
 The AAS API including the Submodel API, Serialization API, and Self-Description API is available at: +
 https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SSP-001[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SSP-001#] +
 This is a combination of APIs, which forms a service specification according to the Industrie 4.0 Service Model in Clause 4.1.
@@ -3774,8 +3874,8 @@ Identifiers may also be passed as base64url-encoded query parameters, e.g. for s
 * When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter “?assetids=” can be specified. Such assetId may be a globalAssetId or specificAssetId. The corresponding key-value-pair is first serialized to JSON and then base64url-encoded. The resulting encoded string is the value of “?assetids=”.
 * In some operations, references are part of the query parameters e.g. “?semanticId=”. The corresponding reference is first serialized to JSON and then base64url-encoded. The resulting encoded string is the value of “?semanticId=”.
 * Even though the metamodel of the AAS distinguishes between the attributes “semanticId” and “supplementalSemanticId”, the query parameter “?semanticId” targets both.
-* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells). For the example “[\{"key": "globalAssetId","value": "http://example.company/myAsset"},\{"key": "myOwnInternalAssetId","value": "12345ABC"}]”, the resulting base64url-encoded value of the query parameter is +
-“?assetIds=W3sia2V5IjogImdsb2JhbEFzc2V0SWQiLCJ2YWx1ZSI6ICJodHRwOi8vZXhhbXBsZS5jb21wYW55L215QXNzZXQifSx7ImtleSI6ICJteU93bkludGVybmFsQXNzZXRJZCIsInZhbHVlIjogIjEyMzQ1QUJDIn1d”. +
+* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells). For the example “[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]”, the resulting base64url-encoded value of the query parameter is +
+“?assetIds=W3sibmFtZSI6ICJnbG9iYWxBc3NldElkIiwidmFsdWUiOiAiaHR0cDovL2V4YW1wbGUuY29tcGFueS9teUFzc2V0In0seyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifV0”. +
 If several key-value-pairs are included, all must be part of the key-value-pairs on the server.
 * Comparisons of idShort are made case-sensitive in the HTTP/REST API to avoid repeating toupper()/tolower() conversions.
 
@@ -3800,11 +3900,13 @@ API versioning provides a way to deal with different versions of the same API at
 There are different solutions regarding API versioning involving URL-based versioning, query parameter-based versioning, as well as HTTP header-oriented solutions using custom or standard headers. +
 As different solutions also provide different advantages and disadvantages, *URL-based versioning* has been selected as the most suitable method for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
-.Generic URL Scheme for AAS API Versioning
+.Example of an URL Scheme for AAS API Versioning
 image::image23.png[Ein Bild, das Dunkel enthält. Automatisch generierte Beschreibung,width=481,height=110]
 
+.Alternative URL example (TODO)
+image::image23.png[Ein Bild, das Dunkel enthält. Automatisch generierte Beschreibung,width=481,height=110]
 
-Upcoming implementations of AAS related servers need to implement the version prefix “*api/v<X.Y>/*” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version and <Y> denotes the minor version, e.g. “api/v3.0/” (see Figure 4).
+Upcoming implementations of AAS related servers may implement the version prefix “*api/v<X.Y>/*” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version and <Y> denotes the minor version, e.g. “api/v3.0/” (see Figure 4).
 
 ====
 Note:* all URLs mentioned in this document regarding the REST mapping of the AAS APIs have to be understood with this prefix in mind.
@@ -4322,6 +4424,43 @@ Note: the invocation of the SubmodelElement “Operation” may also be conducte
 ====
 
 
+
+==== Bulk Operations
+This chapter provides a description of the Bulk APIs. The Bulk APIs are designed to facilitate efficient and scalable operations on a large number of assets within the AAS. This chapter outlines the key concepts, functionalities, and guidelines for implementing and utilizing the Bulk APIs. 
+Bulk operations are intended for the simultaneous manipulation of many objects. Due to the size of bulk requests, it can be expected that the usual execution times takes significantly longer than for non-bulk requests. To avoid frequent timeout errors, the AAS API only defines asynchronous bulk operations for HTTP. The pattern for these operations follows the one introduced in Clause 12.9.1. 
+
+
+.Sequence of a Bulk API Operation
+image::image31.png[]
+
+Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment. A server may serve bulk endpoints together with non-bulk endpoints. However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/{handle-id}) and bulk result (/bulk/result/{handle-id}) endpoints.
+A client executing a bulk request will retrieve the location of the status endpoint through the Location header of the response (see Figure 7). As long as the request is processed, the status endpoint responds with “OK” with an optional information for the client when it shall ask again ("Retry-After”). 
+As soon as the server was able to process the request, the status endpoint provides a redirect to the location of the result. The result endpoint may either signal the client a success of the operation without any additional content, or an error together with a detailed error message in the body.
+A server may remove information about the result of a bulk request after a certain amount of time. A client requesting a bulk result may retrieve a ClientErrorResourceNotFound even though the bulk request has been processed if a certain amount of time has passed between the sending of the bulk request and the retrieval of the result.
+
+====
+Note: A server may remove a result object after a client has retrieved it at least once.
+====
+
+To ensure interoperability and consistency, the following guidelines should be adhered to when implementing and utilizing the Bulk APIs:
+
+. Request Validation  
+
+Bulk requests should be validated against the AAS data model to ensure compliance with the defined asset structure and constraints. Invalid or malformed requests should be rejected with appropriate error codes (see Clause 12.10) and error messages. In case the validation of the request as a whole would take too long, a server may accept the request at first hand but provide the – potential – validation result as the result object. In particular, a client must not expect a correct request solely because the server has accepted the request at the first time.
+
+[start=2]
+. Atomicity  
+
+Bulk operations should be performed atomically, ensuring that either all operations within a bulk request are successfully executed, or none of them are. If any individual operation fails, the entire bulk operation should be rolled back, and an appropriate error response should be generated. A client must not expect that any part of the request has been persisted.
+
+[start=3]
+. Error Handling  
+
+
+Bulk responses should provide detailed information about the outcome of each individual operation within the bulk request. In case of failures, error codes and error messages should be included to aid in troubleshooting and error resolution. For each failed operation, at least one item in the message array of the result object shall be provided, linking unambiguously to the problematic incoming request item. A client must not expect that the list of incorrect items is complete, as the server may terminate the execution already when the first error appears. 
+
+
+
 === Mapping of Status Codes
 
 The following table shows the mapping of the generic status codes to HTTP status codes according to IETF RFC 7231 (see Clause 6.1 https://datatracker.ietf.org/doc/html/rfc7231#section-6)
@@ -4689,6 +4828,7 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecific
 |*Service Specification / Profiles* |*Description*
 |AssetAdministrationShellRegistryServiceSpecification/SSP-001 |Full profile
 |AssetAdministrationShellRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
+|AssetAdministrationShellRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
 |===
 
 ===== Asset Administration Shell Registry Service Specification – Full Profile
@@ -4749,6 +4889,30 @@ GetDescription
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.0_SSP-002
 
+===== Asset Administration Shell Registry Service Specification – Read Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|*Name:* h|AAS Registry Read Profile
+h|*Profile Identifier:* h|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-003
+h|*Feature* h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+CreateBulkAssetAdministrationShellDescriptors 
+PutBulkAssetAdministrationShellDescriptorsById 
+DeleteBulkAssetAdministrationShellDescriptorsById
+
+
+_Description API:_ +
+GetDescription
+
+|SerializationModifier |not applicable
+|SerializationFormat |JSON
+|Pagination | Not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.0_SSP-003
+
 ==== Submodel Registry Service Specification
 
 [%autowidth, width="100%", options="header",]
@@ -4756,6 +4920,7 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegis
 |*Service Specification / Profiles* |*Description*
 |SubmodelRegistryServiceSpecification/SSP-001 |Full profile
 |SubmodelRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile SubmodelRegistryServiceSpecification/SSP-001.
+|SubmodelRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
 |===
 
 ===== Submodel Registry Service Specification – Full Profile
@@ -4804,6 +4969,30 @@ __GetDescription
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.0_SSP-002
+
+===== Submodel Registry Profile – Bulk Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|*Name:* h|Submodel Registry Bulk Profile
+h|*Profile Identifier:* h|https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-003
+h|*Feature* h|Appearance
+|APIs and API Operations a|
+__Submodel Registry API: +
+__PostBulkSubmodelDescriptors +
+PutBulkSubmodelDescriptorsById +
+DeleteBulkSubmodelDescriptorsById
+
+
+__Description API: +
+__GetDescription
+
+|SerializationModifier |not applicable
+|SerializationFormat |JSON
+|Pagination |Not Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.0_SSP-003
 
 ==== Discovery Service Specification
 
