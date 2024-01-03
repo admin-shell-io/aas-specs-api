@@ -311,29 +311,29 @@ Figure 2. They shall not be interpreted as new protocol methods, e.g. on HTTP le
 
 Naming rules for operations:
 
-____
+
 The following rules shall apply for the operation names in Asset Administration Shell Interface, Submodel Interface, Shell Repository Interface, Submodel Repository Interface, Concept Description Repository Interface:
-____
 
-[caption=]
-[%autowidth, width="100%", cols="29%,6%,65%",grid=none,]
-|===
-|*<Interface Operation>* |*::=* |*<Method Verb><Model Element Name>[<Modifier>] +
-["By"<By-Qualifier>]*
-|*<Method Verb>* |*::=* |*"Get" \| "GetAll" \| "Put" \| "PutBulk" \| "Post" \| "PostBulk" \| "Patch" \| "Delete" \| "DeleteBulk" \| "Set" \| "Invoke" \| "InvokeAsync" \| "SearchAll"*
-|*<Model Element Name>* |*::=* |*"AssetAdministrationShell"["s"] \| "AssetAdministrationShellDescriptor"["s"] \| "SubmodelReference" ["s"] \| +
-"AssetInformation" \| "Submodel"["s"] \| "SubmodelDescriptor"["s"] \| "SubmodelElement"["s"] \| "ConceptDescription"["s"]*
-|*<Modifier>* |*::=* |*"Value" \| "IdShortPath" \| "Reference"*
-|*<By-Qualifier>* |*::=* |*"Id" \| "SemanticId" \| "ParentPathAndSemanticId" \| "Path" \| "AssetId" \| "IdShort" \| "IsCaseOf" \| "DataSpecificationReference"*
-|===
+[listing]
+....
+<Interface Operation> ::= <Method Verb><Model Element Name>[<Modifier>]["By"<By-Qualifier>]
 
-____
+<Method Verb> ::= "Get" | "GetAll" | "Put" | "PutBulk" | "Post" | "PostBulk" | "Patch" | "Delete" | "DeleteBulk" | "SetInvoke" | "InvokeAsync" | "SearchAll"
+
+<Model Element Name> ::= "AssetAdministrationShell"["s"] | "AssetAdministrationShellDescriptor"["s"] | "SubmodelReference"["s"] | "AssetInformation" | "Submodel"["s"] | "SubmodelDescriptor"["s"] | "SubmodelElement"["s"] | "ConceptDescription"["s"]
+
+<Modifier> ::= "Value" | "IdShortPath" | "Reference"
+
+<By-Qualifier ::= |"Id" | "SemanticId" | "ParentPathAndSemanticId" | "Path" | "AssetId" | "IdShort" | "IsCaseOf" | "DataSpecificationReference"
+....
+
+
 [.underline]#Examples:#
 
-GetSubmodel has method verb “Get” and element name “Submodel”.
+_GetSubmodel_ has method verb “Get” and model element name “Submodel”.
 
-GetAllSubmodelElementsByPath has method verb “GetAll” and element name “SubmodelElements” plus a by-qualifier “Path”.
-____
+_GetAllSubmodelElementsByPath_ has method verb “GetAll” and model element name “SubmodelElements” plus a by-qualifier “Path”.
+
 
 === Semantic References for Operations 
 
@@ -353,37 +353,43 @@ Note 2: even though the usage of the ‘https’ scheme might indicate URLs, all
 
 The following grammar is used to create valid identifiers:
 
-*<Identifier> ::= <Namespace>"/aas/API/"<OperationName>"/"<Version>*
+[listing]
+....
 
-*<Namespace> ::= "https://admin-shell.io*
+<Identifier> ::= <Namespace>"/aas/API/"<OperationName>"/"<Version>
 
-*<OperationName> ::= \{<Character>}+*
+<Namespace> ::= "https://admin-shell.io
 
-*<Version> ::= \{<Digit>}+"/"\{<Digit>}+["/"\{<Character>}+]*
+<OperationName> ::= {<Character>}+
 
-*<Digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"*
+<Version> ::= {<Digit>}+"/"{<Digit>}+["/"{<Character>}+]
 
-*<Character> ::= an unreserved character permitted by DIN SPEC 91406*
+<Digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
-*? ::= zero or one*
+<Character> ::= an unreserved character permitted by DIN SPEC 91406
 
-*+ ::= one or more*
+? ::= zero or one
 
++ ::= one or more
+....
 
 Examples for valid identifiers:
 
-* https://admin-shell.io/aas/API/GetSubmodel/1/23
-* https://admin-shell.io/aas/API/GetAllSubmodelElements/1/0/RC03
-* https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
+[example]
+* \https://admin-shell.io/aas/API/GetSubmodel/1/23
+* \https://admin-shell.io/aas/API/GetAllSubmodelElements/1/0/RC03
+* \https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
 
 Examples for invalid identifiers:
 
-* http://admin-shell.io/API/GetSubmodel/1/0 +
+[example]
+* \http://admin-shell.io/API/GetSubmodel/1/0 +
 The scheme is different to ‘https’, and the ‘aas’ path segment is missing
-* https://admin-shell.io/aas/API/GetSubmodel +
+* \https://admin-shell.io/aas/API/GetSubmodel +
 Version information is missing
-* https://admin-shell.io/aas/API/GetSubmodel/1/0#0173-%20ABC#001 +
+* \https://admin-shell.io/aas/API/GetSubmodel/1/0#0173-%20ABC#001 +
 The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
+
 
 === References and Keys
 
@@ -2401,48 +2407,45 @@ The following type definitions are used to describe specific metamodel elements 
 ==== Descriptor
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |Descriptor
-|*Explanation* |The self-describing information of a network resource. This class is not part of the metamodel.
-|*Inherits from* |--
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/Descriptor/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|description a|
+h|Class Name 3+e|[[Descriptor]]Descriptor
+h|Explanation 3+a|The self-describing information of a network resource. This class is not part of the metamodel.
+h|Inherits from 3+|--
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Descriptor/3/0`
+h|Attribute h|Explanation h|Type h|Card.
+e|description a|
 Description or comments on the element
 
 The description can be provided in several languages
 
 |MultiLanguageTextType |0..1
-|displayName |Display name; can be provided in several languages |MultiLanguageNameType |0..1
-|extension |An extension of the element |Extension |0..*
+
+e|displayName a|Display name; can be provided in several languages |MultiLanguageNameType |0..1
+
+e|extension a|An extension of the element |Extension |0..*
 |===
 
 ==== AssetAdministrationShellDescriptor
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |AssetAdministrationShellDescriptor
-|*Explanation* |Descriptor of an Asset Administration Shell
-|*Inherits from* |Descriptor
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/AssetAdministrationShellDescriptor/3/1
-|===
-[%autowidth, width="100%", options="header",]
-|===
-|*Attribute* |*Explanation* | *Type* |*Card.*
-|administration |Administrative information of the Asset Administration Shell |AdministrativeInformation |0..1
-|assetKind |Denotes whether the asset of the described Asset Administration Shell is of kind “Type” or “Instance” |AssetKind |0..1
-|assetType |The type of the asset described by the Asset Administration Shell of this Descriptor. See AssetInformation/assetType for further information. |Identifier |0..1
-|endpoint |Endpoint of the network resource |Endpoint |0..*
-|globalAssetId |Global reference to the asset the AAS is representing |Identifier |0..1
-|idShort |Short name of the Asset Administration Shell |NameType |0..1
-|id |Globally unique identification of the Asset Administration Shell |Identifier |1
-|specificAssetId |Specific asset identifier |SpecificAssetId |0..*
-|submodelDescriptor |Descriptor of a submodel of the Asset Administration Shell |SubmodelDescriptor |0..*
+h|Class Name 3+e|[[AssetAdministrationShellDescriptor]]AssetAdministrationShellDescriptor
+h|Explanation 3+a|Descriptor of an Asset Administration Shell
+h|Inherits from 3+|xref:Descriptor[Descriptor]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/AssetAdministrationShellDescriptor/3/1`
+
+h|Attribute h|Explanation h| Type h|Card.
+e|administration |Administrative information of the Asset Administration Shell |AdministrativeInformation |0..1
+e|assetKind |Denotes whether the asset of the described Asset Administration Shell is of kind “Type” or “Instance” |AssetKind |0..1
+e|assetType |The type of the asset described by the Asset Administration Shell of this Descriptor. See AssetInformation/assetType for further information. |Identifier |0..1
+e|endpoint |Endpoint of the network resource |Endpoint |0..*
+e|globalAssetId |Global reference to the asset the AAS is representing |Identifier |0..1
+e|idShort |Short name of the Asset Administration Shell |NameType |0..1
+e|id |Globally unique identification of the Asset Administration Shell |Identifier |1
+e|specificAssetId |Specific asset identifier |SpecificAssetId |0..*
+e|submodelDescriptor |Descriptor of a submodel of the Asset Administration Shell |xref:SubmodelDescriptor[SubmodelDescriptor] |0..*
 |===
 
 
@@ -2454,46 +2457,42 @@ Note: the cardinality restriction for AssetAdministrationShellDescriptor/endpoin
 ==== SubmodelDescriptor
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |SubmodelDescriptor
-|*Explanation* |A descriptor of a submodel
-|*Inherits from* |Descriptor
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/SubmodelDescriptor/3/1
-|===
-[%autowidth, width="100%", options="header",]
-|===
-|*Attribute* |*Explanation* | *Type* |*Card.*
-|administration |Administrative information of the Submodel |AdministrativeInformation |0..1
-|endpoint |Endpoint of the network resource |Endpoint |1..*
-|idShort |Short name of the Submodel |NameType |0..1
-|id |Globally unique identification of the Submodel |Identifier |1
-|semanticId |Identifier of the semantic definition of the Submodel |Reference |0..1
-|supplementalSemanticId |Identifier of a supplemental semantic definition of the element called supplemental semantic ID of the element |Reference |0..*
+h|*Class Name* 3+|[[SubmodelDescriptor]]SubmodelDescriptor
+h|Explanation 3+|A descriptor of a submodel
+h|Inherits from 3+|xref:Descriptor[Descriptor]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/SubmodelDescriptor/3/1`
+
+h|Attribute h|Explanation h| Type h|Card.
+e|administration a|Administrative information of the Submodel |AdministrativeInformation |0..1
+e|endpoint a|Endpoint of the network resource |xref:Endpoint[Endpoint] |1..*
+e|idShort a|Short name of the Submodel |NameType |0..1
+e|id a|Globally unique identification of the Submodel |Identifier |1
+e|semanticId a|Identifier of the semantic definition of the Submodel |Reference |0..1
+e|supplementalSemanticId a|Identifier of a supplemental semantic definition of the element called supplemental semantic ID of the element |Reference |0..*
 |===
 
 ==== Endpoint
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |Endpoint
-|*Explanation* |The endpoint description of a network resource. This class is not part of the metamodel.
-|*Inherits from* |-
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/Endpoint/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|protocolInformation |Protocol information of the network resource endpoint |ProtocolInformation |1
-|interface |Name of the offered interface at the endpoint |NameType |1
+h|*Class Name* 3+e|[[Endpoint]]Endpoint
+h|Explanation 3+a|The endpoint description of a network resource. This class is not part of the metamodel.
+h|Inherits from 3+|-
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Endpoint/3/0`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|protocolInformation a|Protocol information of the network resource endpoint |xref:ProtocolInformation[ProtocolInformation] |1
+e|interface a|Name of the offered interface at the endpoint |NameType |1
 |===
 
 The following names will be used for the interfaces:
 
 [%autowidth, width="100%", options="header",]
 |===
-|*Interface* |*interface-shortName*
+h|*Interface* h|*interface-shortName*
 |Asset Administration Shell Interface |AAS
 |Submodel Interface |SUBMODEL
 |Serialization Interface |SERIALIZE
@@ -2517,28 +2516,32 @@ image:image5.png[image5]
 ==== ProtocolInformation
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |ProtocolInformation
-|*Explanation* a|
+h|Class Name 3+e|[[ProtocolInformation]]ProtocolInformation
+h|Explanation 3+a|
 The protocol information of a network resource endpoint will be defined in DIN SPEC 16593-2. After the release of DIN SPEC 16593-2, any required updates will be made. This class is not part of the metamodel.
 
 The information in this table is a 1:1 copy from DIN SPEC 16593-2. Required changes need to be made by the related DIN working group.
 
 
-|*Inherits from* |--
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/ProtocolInformation/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|href |The endpoint address as an URL |LocatorType |1
-|endpointProtocol |Either scheme of endpointAdress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |SchemeType |0..1
-|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |LabelType |0..*
-|subprotocol |Allows for referencing sub-protocols that may be used in the context of that endpoint e.g. “OPC Basic SOAP” or UA Binary |IdShortType |0..1
-|subprotocolBody |If the sub-protocol field is present, a subprotocolBody might be given to hold extra information, e.g. node and namespace in an OPC UA server |TextType |0..1
-|subprotocolBodyEncoding |If subprotocolBody is present, the encoding might be explicitly defined, otherwise it shall default to subprotocols encoding scheme |LabelType |0..1
-|securityAttributes a|
+h|Inherits from 3+|--
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/ProtocolInformation/3/0`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|href |The endpoint address as an URL |xref:LocatorType[LocatorType] |1
+
+e|endpointProtocol |Either scheme of endpointAdress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
+
+e|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |LabelType |0..*
+
+e|subprotocol |Allows for referencing sub-protocols that may be used in the context of that endpoint e.g. “OPC Basic SOAP” or UA Binary |xref:IdShortType[IdShortType] |0..1
+
+e|subprotocolBody |If the sub-protocol field is present, a subprotocolBody might be given to hold extra information, e.g. node and namespace in an OPC UA server |xref:TextType[TextType] |0..1
+
+e|subprotocolBodyEncoding |If subprotocolBody is present, the encoding might be explicitly defined, otherwise it shall default to subprotocols encoding scheme |LabelType |0..1
+
+e|securityAttributes a|
 Array of securityAttribute objects, each attribute has 3 properties:
 
 {  
@@ -2557,102 +2560,103 @@ Array of securityAttribute objects, each attribute has 3 properties:
 
 The securityAttribute objects are treated as possible alternatives (logical “or”)
 
-|SecurityAttributeObject |1..*
+|xref:SecurityAttributeObject[SecurityAttributeObject] |1..*
 |===
 
+
+
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |SecurityAttributeObject
-|*Explanation* a|
+h|Class Name 3+e|[[SecurityAttributeObject]]SecurityAttributeObject
+h|Explanation 3+a|
 Security attributes as defined by DIN SPEC 16593-2. After the release of DIN SPEC 16593-2, any required updates will be made. This class is not part of the metamodel.
 
 The information in this table is derived from DIN SPEC 16593-2. Required changes need to be made by the related DIN working group.
 
 
-|*Inherits from* |--
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/SecurityAttributeObject/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|type |Enum security type or standard |SecurityTypeEnum |1
-|key |Security attribute key according to standard definitions of the security type |string |1
-|value |Security attribute value e.g. DANE TLSA Ressource Record |string |1
+h|Inherits from 3+|--
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/SecurityAttributeObject/3/0`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|type |Enum security type or standard |xref:SecurityTypeEnum[SecurityTypeEnum] |1
+e|key |Security attribute key according to standard definitions of the security type |string |1
+e|value |Security attribute value e.g. DANE TLSA Ressource Record |string |1
 |===
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="30%h,70%"]
 |===
-|*Enumeration* |SecurityTypeEnum
-|*Explanation* a|
+h|Enumeration e|[[SecurityTypeEnum]]SecurityTypeEnum
+h|Explanation a|
 The security types as defined by DIN SPEC 16593-2. After the release of DIN SPEC 16593-2, any required updates will be made. This class is not part of the metamodel.
 
 The information in this table is derived from DIN SPEC 16593-2. Required changes need to be made by the related DIN working group.
 
-|*semanticId* |\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Literal* |*Explanation*
-|NONE |No predefined security type available
-|RFC_TLSA |TLSA according to RFC 6698
-|W3C_DID |Decentralized Identifiers according to the W3C Recommendation link:#bib7[[7\]]
+h|semanticId |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/3/0`
+
+.2+h|Literal h| ID
+   h|Explanation
+   
+.2+e|NONE |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/NONE/3/0`
+a|No predefined security type available
+
+.2+e|RFC_TLSA |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/RFC_TLSA/3/0`
+a|TLSA according to RFC 6698
+
+.2+e|W3C_DID |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/W3C_DID/3/0`
+a|Decentralized Identifiers according to the W3C Recommendation link:#bib7[[7\]]
 |===
 
 ==== ServiceDescription
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |ServiceDescription
-|*Explanation* a|
+h|Class Name 3+e|[[ServiceDescription]]ServiceDescription
+h|Explanation 3+a|
 The self-describing information of an API Implementation. It enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
 
 This class is not part of the metamodel.
 
 
-|*Inherits from* |--
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/ServiceDescription/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|profiles |List of implemented server specification profiles. |ServiceSpecificationProfileEnum |1..*
+h|Inherits from 3+|--
+h|semanticId 3+| `\https://admin-shell.io/aas/API/DataTypes/ServiceDescription/3/0`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|profiles |List of implemented server specification profiles. |xref:ServiceSpecificationProfileEnum[ServiceSpecificationProfileEnum] |1..*
 |===
 
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="43%h,57%"]
+[cols="30%h,70%"]
 |===
-|*Enumeration* |ServiceSpecificationProfileEnum
-|*Explanation* |The identifiers of the standardized service specification profiles. See also clause 12.12 for further details.
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/ ServiceSpecificationProfileEnum/3/0
-|===
-[%autowidth, width="100%", options="header",cols="43%,57%"]
-|===
-|*Literal* |*Explanation*
-|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Asset Administration Shell Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Asset Administration Shell Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Submodel Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001 |Indicates that the server implemented all details of the AASX File Server Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Registry Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Registry Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Registry Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Repository Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Repository Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.0.
-|https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Service Specification Read Template Profile in version 3.0.
+h|Enumeration e|[[ServiceSpecificationProfileEnum]]ServiceSpecificationProfileEnum
+h|Explanation a|The identifiers of the standardized service specification profiles. See also clause 12.12 for further details.
+h|semanticId |`\https://admin-shell.io/aas/API/DataTypes/ServiceSpecificationProfileEnum/3/0`
+
+h|*Literal* h|Explanation
+e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Asset Administration Shell Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Asset Administration Shell Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Submodel Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001 |Indicates that the server implemented all details of the AASX File Server Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Registry Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Registry Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Registry Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Repository Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Repository Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Service Specification Read Template Profile in version 3.0.
 |===
 
 An example ServiceDescription object might look like the following, indicating that the server supports two profiles at the same time (see Clause 12.12.3 for further details on service specifications and profiles):
@@ -2682,12 +2686,12 @@ All primitive data types from Part 1 version 3.0 apply also to the specification
 [%autowidth, width="100%", cols="14%,44%,42%",options="header",]
 |===
 |*Primitive* |*Definition* |*Value Examples*
-|CodeType |_string_ with max 32 and min 1 characters a|
+|[[CodeType]]CodeType |_string_ with max 32 and min 1 characters a|
 “409”
 
 “Bad_UserAccessDenied”
 
-|ShortIdType a|
+|[[ShortIdType]]ShortIdType a|
 same as _NameType_  (string with max 128 and min 1 characters)
 
 
@@ -2701,7 +2705,7 @@ a|
 
 “my-random-id”
 
-|LocatorType a|
+|[[LocatorType]]LocatorType a|
 string with max 2048 and min 1 characters
 
 a|
@@ -2709,13 +2713,13 @@ a|
 
 “https://provider-edc.data.plane/v3.0/shells/aas-1/submodels/submodel-1/submodel”
 
-|TextType a|
+|[[TextType]]TextType a|
 string with max 2048 and min 1 characters
 
 a|
 “asset:prop:id=123;idsEndpoint=http://edc.control.plane/”
 
-|SchemeType a|
+|[[SchemeType]]SchemeType a|
 same as NameType (string with max 128 and min 1 characters)
 
 a|
@@ -2758,51 +2762,46 @@ Table 4 shows generic status codes returned to the requester. Additionally, the 
 In case of a failed operation execution, a result object [.underline]#shall be returned# containing more information about the reasons why the operation failed to execute.
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |Result
-|*Explanation* |The result object
-|*Inherits from* |--
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/Result/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|message |Additional message containing information for the requester |Message |0..*
+h|Class Name 3+e|[[Result]]Result
+h|Explanation 3+a|The result object
+h|Inherits from 3+|--
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Result/3/0`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|message a|Additional message containing information for the requester |Message |0..*
 |===
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |Message
-|*Explanation* |A message containing more information for the requester about a certain happening in the backend
-|*Inherits from* |--
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/Message/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|messageType |The message type |MessageTypeEnum |1
-|text |The message text |string |1
-|code |Technology-dependent status or error code |CodeType |0..1
-|correlationId |Identifier to relate several result messages throughout several systems |ShortIdType |0..1
-|timestamp |Timestamp of the message |dateTime |0..1
+|*Class Name* 3+e|[[Message]]Message
+|*Explanation* 3+a|A message containing more information for the requester about a certain happening in the backend
+|Inherits from 3+|--
+|*semanticId* 3+|`\https://admin-shell.io/aas/API/DataTypes/Message/3/0`
+
+h|*Attribute* h|*Explanation* h|*Type* h|*Card.*
+e|messageType a|The message type |xref:MessageTypeEnum[MessageTypeEnum] |1
+e|text a|The message text |string |1
+e|code a|Technology-dependent status or error code |xref:CodeType[CodeType] |0..1
+e|correlationId a|Identifier to relate several result messages throughout several systems |xref:ShortIdType[ShortIdType] |0..1
+e|timestamp a|Timestamp of the message |dateTime |0..1
 |===
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="30%,70%"]
 |===
-|*Enumeration* |MessageTypeEnum
-|*Explanation* |The message type
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/MessageTypeEnum/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Literal* |*Explanation*
-|Info |Used to inform the user about a certain fact
-|Warning |Used for warnings; warnings may lead to errors in the subsequent execution
-|Error |Used for handling errors
-|Exception |Used in case of an internal and/or unhandled exception
+h|Enumeration e|[[MessageTypeEnum]]MessageTypeEnum
+h|Explanation a|The message type
+h|semanticId |`\https://admin-shell.io/aas/API/DataTypes/MessageTypeEnum/3/0`
+
+h|Literal h|Explanation
+
+e|Info a|Used to inform the user about a certain fact
+e|Warning a|Used for warnings; warnings may lead to errors in the subsequent execution
+e|Error a|Used for handling errors
+e|Exception a|Used in case of an internal and/or unhandled exception
 |===
 
 ===== Operation Objects
@@ -2812,89 +2811,80 @@ The following type definitions are used to call and handle the requests and resp
 ====== OperationRequest
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |OperationRequest
-|*Explanation* |The operation request object
-|*Inherits from* |--
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/OperationRequest/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|inputArguments |Input argument |OperationVariable |0..*
-|inoutputArguments |InOutput argument |OperationVariable |0..*
-|clientTimeoutDuration |Duration indicating when the client expects the server to have finished execution of the invoked operation |duration |0..1
+h|Class Name 3+e|[[OperationRequest]]OperationRequest
+h|Explanation 3+a|The operation request object
+h|Inherits from 3+|--
+h|semanticId* 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationRequest/3/0`
+
+h|Attribute h|Explanation h|Type h|Card.
+
+|inputArguments a|Input argument |OperationVariable |0..*
+|inoutputArguments a|InOutput argument |OperationVariable |0..*
+|clientTimeoutDuration a|Duration indicating when the client expects the server to have finished execution of the invoked operation |duration |0..1
 |===
 
 ====== BaseOperationResult
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |BaseOperationResult
-|*Explanation* |The object containing the intermediate state of an operation
-|*Inherits from* |Result
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/BaseOperationResult/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|executionState |Execution state |ExecutionState |1
-|success |Flag indicating whether the business operation behind the operation was successful (true) or not (false) |boolean |0..1
+h|*Class Name* 3+e|[[BaseOperationResult]]BaseOperationResult
+h|*Explanation* 3+a|The object containing the intermediate state of an operation
+h|Inherits from 3+|Result
+h|*semanticId* 3+|`\https://admin-shell.io/aas/API/DataTypes/BaseOperationResult/3/0`
+
+h|*Attribute* h|*Explanation* h|*Type* h|*Card.*
+e|executionState |Execution state |xref:ExecutionState[ExecutionState] |1
+e|success |Flag indicating whether the business operation behind the operation was successful (true) or not (false) |boolean |0..1
 |===
 
 ====== OperationResult
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |OperationResult
-|*Explanation* |The operation’s invocation result object
-|*Inherits from* |BaseOperationResult
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/OperationResult/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|outputArguments |Output argument |OperationVariable |0..*
-|inoutputArguments |InOutput argument |OperationVariable |0..*
+h|Class Name 3+e|[[OperationResult]]OperationResult
+h|*Explanation* 3+a|The operation’s invocation result object
+h|Inherits from 3+|BaseOperationResult
+h|*semanticId* 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationResult/3/0`
+
+h|*Attribute* h|*Explanation* h|*Type* h|*Card.*
+e|outputArguments |Output argument |OperationVariable |0..*
+e|inoutputArguments |InOutput argument |OperationVariable |0..*
 |===
 
 ====== Enumeration ExecutionState 
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="30%,70%"]
 |===
-|*Enumeration* |ExecutionState
-|*Explanation* |The operation’s invocation result state
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/ExecutionState/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Literal* |*Explanation*
-|Initiated |The operation is ready to be executed (initial state)
-|Running |The operation is running
-|Completed |The operation is completed
-|Canceled |The operation was cancelled externally
-|Failed |The operation failed
-|Timeout |The operation has timed out due to given client or server timeout
+h|Enumeration* |[[ExecutionState]]ExecutionState
+h|Explanation* |The operation’s invocation result state
+h|*semanticId* |`\https://admin-shell.io/aas/API/DataTypes/ExecutionState/3/0`
+
+h|*Literal* h|*Explanation*
+e|Initiated |The operation is ready to be executed (initial state)
+e|Running |The operation is running
+e|Completed |The operation is completed
+e|Canceled |The operation was cancelled externally
+e|Failed |The operation failed
+e|Timeout |The operation has timed out due to given client or server timeout
 |===
 
 ====== OperationHandle 
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |OperationHandle
-|*Explanation* |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution
-|*Inherits from* |--
-|*semanticId* |https://admin-shell.io/aas/API/DataTypes/OperationHandle/3/0
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|handleId |Handle id |ShortIdType |1
+h|Class Name 3+e|[[OperationHandle]]OperationHandle
+h|*Explanation* 3+a|The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution
+h|Inherits from 3+|--
+h|h|Class Name  3+|`\https://admin-shell.io/aas/API/DataTypes/OperationHandle/3/0`
+
+h|*Attribute* h|*Explanation* h|*Type* h|*Card.*
+|handleId |Handle id |xref:ShortIdType[ShortIdType] |1
 |===
 
 ==== File Content
@@ -3197,9 +3187,6 @@ Note 1: to avoid problems with IRI values in URLs, the identifiers shall be base
 Note 2: in the example above, “aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ” is the base64url-encoding of “https://admin-shell.io/sampleSM”, “sme1.sme2%5B0%5D.p1” is the URL-encoding of “sme1.sme2[0].p1”, and “sme1.sme2%5B0%5D” is the URL-encoding of “sme1.sme2[0]”.
 ====
 
-include::./IDTA-01002_MetaDataObjects.adoc[] 
-
-
 
 === Pagination
 
@@ -3214,13 +3201,14 @@ Pagination is controlled by the client via the query parameters “cursor” and
 .Parameters for Pagination
 [%autowidth, width="100%", cols="15%,19%,8%,58%",options="header",]
 |===
-|*Parameter* |*Values* |*Default* |*Explanation*
-|Cursor |string |- a|
+|Parameter |Values |Default |Explanation
+
+e|Cursor |string |- a|
 The position from which to resume a result listing. The value may be base64url-encoded and contain additional information which helps the server to respond more efficiently. However, the client must not expect any meaning and treat the cursor value as an arbitrary character sequence.
 
 The server must interpret a missing cursor as if the client wants to retrieve the first part of the result set.
 
-|Limit |nonNegativeInteger |100 |The maximum size of the result list.
+e|Limit |nonNegativeInteger |100 |The maximum size of the result list.
 |===
 
 [.underline]#Constraint AASa-001:# The value of the cursor query parameter must not be empty. If the client does not know the cursor value, it must omit the whole query parameter in the request.
@@ -3244,35 +3232,31 @@ Nevertheless, the inherent order of the result set must stay the same. Implement
 The server informs the client about pagination attributes through the Result object in the request response. In particular, the Result contains the cursor value for the next page. Additional information, e.g. the overall number of result items, may also be part of it.
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |Result
-|*Explanation* |An object connecting the actual list of returned items with metadata information to, e.g. fetch the next part of the result set.
-|*Inherits from* |--
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|result |List of returned items. Any kind of Referables is possible, depending on the endpoint which has been requested. |Referable |0..*
-|paging_metadata |Additional information for the client to, e.g. fetch the next part of the result set. |PagingMetadata |1
+h|*Class Name* 3+e|Result
+h|*Explanation* 3+a|An object connecting the actual list of returned items with metadata information to, e.g. fetch the next part of the result set.
+h|Inherits from 3+|--
+
+h|*Attribute* h|*Explanation* h|*Type* h|*Card.*
+e|result |List of returned items. Any kind of Referables is possible, depending on the endpoint which has been requested. |Referable |0..*
+e|paging_metadata |Additional information for the client to, e.g. fetch the next part of the result set. |xref:PagingMetadata[PagingMetadata] |1
 |===
 
 [.table-with-appendix-table]
-[%autowidth, width="100%", cols="h,d"]
+[cols="25%,40%,25%,10%"]
 |===
-|*Class Name* |PagingMetadata
-|*Explanation* a| Additional information for the client to, e.g. fetch the next part of the result set.
+h|*Class Name* 3+e|[[PagingMetadata]]PagingMetadata
+h|*Explanation* 3+a| Additional information for the client to, e.g. fetch the next part of the result set.
 
 ====
 Note: more attributes may be added to this class in future versions.
 ====
 
-|*Inherits from* |--
-|===
-[%autowidth, width="100%", options="header"]
-|===
-|*Attribute* |*Explanation* |*Type* |*Card.*
-|cursor |The cursor for the next part of the result set. No cursor attribute means that the end of the result set has been reached. |string |0..1
+h|*Inherits from* 3+|--
+
+h|*Attribute* h|*Explanation* h|*Type* h|*Card.*
+e|cursor a|The cursor for the next part of the result set. No cursor attribute means that the end of the result set has been reached. |string |0..1
 |===
 
 === Payload
@@ -4731,7 +4715,7 @@ If [.underline]#no# *_payload_* is mentioned as output parameter, the status cod
 
 Convention: all words in the interface name are written together in italics without a blank in between. The first letter of the first word and all other words are written in upper case letters.
 
-|*semanticId* |The unique identifier of this operation
+|h|Class Name  |The unique identifier of this operation
 |===
 [%autowidth, width="100%", options="header",]
 |===
@@ -4770,7 +4754,7 @@ The Class has following attributes:
 Convention: all words in the class name are written together in italics without a blank in between. The first letter of the first word and all other words are written in upper case letters.
 
 |*Inherits from* |Name of the class this class inherits from
-|*semanticId* |The unique identifier of this class
+|h|Class Name  |The unique identifier of this class
 |===
 [%autowidth, width="100%", options="header"]
 |===
@@ -4799,7 +4783,7 @@ The enumeration has following literals:
 
 Convention: all words in the enumeration name are written together in italics without a blank in between. The first letter of the first word and all other words are written in upper case letters.
 
-|*semanticId* |The unique identifier of this enumeration
+|h|Class Name  |The unique identifier of this enumeration
 |===
 [%autowidth, width="100%", options="header",]
 |===
