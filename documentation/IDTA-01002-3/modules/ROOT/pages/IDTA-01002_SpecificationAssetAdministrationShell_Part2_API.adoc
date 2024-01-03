@@ -15,6 +15,7 @@
 :revremark: Specification of the Asset Administration Shell
 :releasetag: 2024-1
 
+include::IDTA-01002_SpecialParameters.adoc[]
 
 == Preamble
 
@@ -401,24 +402,7 @@ Absolute references require a global unique id as starting point of the referenc
 
 Relative references do not start with a global unique id. Instead, it is assumed that the context is given and unique. In this case, the key list only contains keys with _Key/type_ that references a non-identifiable referable (e.g. a Property, a Range, a RelationshipElement, etc.).
 
-=== Special Parameters
 
-The following table describes special parameters used for consistency throughout the document.
-
-.Special Parameters
-[%autowidth, width="100%", cols="20%,80%",options="header",]
-|===
-|*Parameter* |*Description*
-|path |IdShort-Path via relative Reference/Keys to a submodel element
-|OperationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution
-|OperationResult |The returned result of an operation’s invocation
-|SerializationModifier |Defines the format of the input or the output of an operation
-|SerializationFormat |Determines the format of serialization, i.e. JSON, XML, RDF, AML, etc.
-|ShellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint information
-|SubmodelDescriptor |Object containing the Submodel’s identification and endpoint information
-|SpecificAssetId |The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_
-|SemanticId |Identifier of the semantic definition
-|===
 
 === Relation of Interfaces
 
@@ -802,7 +786,7 @@ h|*Operation Name* h|*Description*
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path | {path} |yes |Key |1..*
 |serializationModifier |Defines the format of the response |no |xref:SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
@@ -822,7 +806,7 @@ h|*Operation Name* h|*Description*
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |{path} |yes |Key |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
 |payload |Requested file |yes |File Content |0..1
@@ -841,7 +825,7 @@ h|*Operation Name* h|*Description*
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |{path} |yes |Key |1..*
 |payload |Replacing file |yes |File Content |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
@@ -961,7 +945,7 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |The IdShortPath to the SubmodelElement under which the new SubmodelElement shall be addedIdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |{path} under which the new SubmodelElement shall be added |yes |Key |1..*
 |submodelElement |Submodel element object |yes |SubmodelElement |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
@@ -987,7 +971,7 @@ Note: if the PostSubmodelElementByPath is executed towards a SubmodelElementList
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |The IdShortPath to the SubmodelElement which shall be replacedIdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |{path} which shall be replaced |yes |Key |1..*
 |submodelElement |Submodel element object |yes |SubmodelElement |1
 5+h|Output Parameter
 |StatusCode |Status code |yes |xref:StatusCode[StatusCode] |1
@@ -1017,10 +1001,13 @@ Note: values remain unchanged with content=metadata.
 
 
 |no |xref:SerializationModifier[SerializationModifier] |1
-|path |IdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+
+|path |{path} |yes |Key |1..*
 |submodelElement |Submodel element object |yes |SubmodelElement |1
+
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
+
 |payload |Updated submodel element |yes |SubmodelElement |1
 |===
 
@@ -1037,7 +1024,7 @@ Note: values remain unchanged with content=metadata.
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel elementhort-Path via relative Reference/Keys to a submodel element |yesIdShort-Path via relative Reference/Keys to a submodel element |Key |1..*
+|path |{path} |yes  |Key |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
 |payload |Requested submodel element value |yes |SubmodelElement |1
@@ -1056,7 +1043,7 @@ Note: values remain unchanged with content=metadata.
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel elementIdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |{path} |yes |Key |1..*
 |payload |The new value of the submodel element |yes |SubmodelElement |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
@@ -1075,7 +1062,7 @@ Note: values remain unchanged with content=metadata.
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |{path} |yes |Key |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
 |===
@@ -1093,7 +1080,7 @@ Note: values remain unchanged with content=metadata.
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel element, in this case an operation |yes |Key |1..*
+|path |{path}, in this case an operation |yes |Key |1..*
 |inputArgument |Input argument |no |OperationVariable |1..*
 |inoutputArgument |Inoutput argument |no |OperationVariable |1..*
 5+h|Output Parameter
@@ -1114,7 +1101,7 @@ Note: values remain unchanged with content=metadata.
 |===
 |*Name* |*Description* |*Mand.* |*Type* |*Card.*
 5+h|Input Parameter
-|path |IdShort-Path via relative Reference/Keys to a submodel element, in this case an operation |yes |Key |1..*
+|path |{path}, in this case an operation |yes |Key |1..*
 |inputArgument |Input argument |no |OperationVariable |1..*
 |inoutputArgument |Inoutput argument |no |OperationVariable |1..*
 |clientTimeoutDuration |Timestamp indicating when the client expects the server to have finished execution of the invoked operation |yes |duration |1
