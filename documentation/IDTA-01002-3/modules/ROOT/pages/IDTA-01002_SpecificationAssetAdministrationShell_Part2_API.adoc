@@ -18,7 +18,7 @@
 :releasetag: 2024-1 (TBD)
 ////
 
-include::IDTA-01002_SpecialParameters.adoc[]
+include::./includes/IDTA-01002_SpecialParameters.adoc[]
 
 == Preamble
 
@@ -3280,7 +3280,7 @@ Bulk operations are intended for the simultaneous manipulation of many objects. 
 .Sequence of a Bulk API Operation
 image::image31.png[]
 
-Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment. A server may serve bulk endpoints together with non-bulk endpoints. However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/{handle-id}) and bulk result (/bulk/result/{handle-id}) endpoints.
+Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment. A server may serve bulk endpoints together with non-bulk endpoints. However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/\{handle-id}) and bulk result (/bulk/result/\{handle-id}) endpoints.
 A client executing a bulk request will retrieve the location of the status endpoint through the Location header of the response (see Figure 7). As long as the request is processed, the status endpoint responds with “OK” with an optional information for the client when it shall ask again ("Retry-After”). 
 As soon as the server was able to process the request, the status endpoint provides a redirect to the location of the result. The result endpoint may either signal the client a success of the operation without any additional content, or an error together with a detailed error message in the body.
 A server may remove information about the result of a bulk request after a certain amount of time. A client requesting a bulk result may retrieve a ClientErrorResourceNotFound even though the bulk request has been processed if a certain amount of time has passed between the sending of the bulk request and the retrieval of the result.
