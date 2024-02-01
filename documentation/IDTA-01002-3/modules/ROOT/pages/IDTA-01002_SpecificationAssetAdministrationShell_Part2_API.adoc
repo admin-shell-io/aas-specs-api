@@ -483,14 +483,18 @@ e|payload a|Requested Asset Information |yes |AssetInformation |1
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|*Operation Name* 4+ePutAssetInformation
+h|*Operation Name* 4+e|PutAssetInformation
 h|Explanation 4+a|Replaces the Asset Information
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetInformation/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
+
 5+h|Input Parameter
+
 e|assetInfo a|Asset Information object |yes |AssetInformation |1
+
 5+h|Output Parameter
+
 e|statusCode a|Status code |yes |xref:StatusCode[StatusCode] |1
 |===
 
@@ -724,7 +728,7 @@ Note: values remain unchanged with content=metadata.
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodelElement
-h|Explanation a|
+h|Explanation 4+a|
 Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
 
 
@@ -736,9 +740,13 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElement/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
+
 5+h|Input Parameter
-|submodelElement |Submodel element object |yes |SubmodelElement |1
+
+|submodelElement |Submodel element object |yes |SubmodelElement |
+
 5+h|Output Parameter
+
 |StatusCode |Status code |yes |xref:StatusCode[StatusCode]|1
 |payload |Created submodel element |yes |SubmodelElement |1
 |===
@@ -749,7 +757,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodelElementByPath
-h|Explanation a|
+h|Explanation 4+a|
 Creates a new submodel element at a specified path within the submodel element hierarchy. The idShort of the new submodel element must be set in the payload.
 
 
@@ -1294,7 +1302,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|submodel +
-Descriptor a|Object containing the Submodel’s identification and endpoint information |yes |SubmodelDescriptor |1
+Descriptor a|Object containing the Submodel’s identification and endpoint information |yes |xref:SubmodelDescriptor[SubmodelDescriptor] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:StatusCode[StatusCode] |1
 e|payload a|Created submodel descriptor |yes | xref:SubmodelDescriptor[SubmodelDescriptor]  |1
@@ -1304,15 +1312,19 @@ e|payload a|Created submodel descriptor |yes | xref:SubmodelDescriptor[SubmodelD
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostBulkSubmodelDescriptors
-|*Explanation	|Creates one or more new submodel descriptors, i.e. registers several submodels
+h|Explanation	4+a|Creates one or more new submodel descriptors, i.e. registers several submodels
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostBulkSubmodelDescriptors/3/1
 
 h|Name h|Description h|Mand. h|Type h|Card.
+
 5+h|Input Parameter
+
 |submodel +
-Descriptor	|Object containing the Submodel’s identification and endpoint information |yes	| xref:SubmodelDescriptor[SubmodelDescriptor]  	|1..*
+Descriptor	a|Object containing the Submodel’s identification and endpoint information |yes	| xref:SubmodelDescriptor[SubmodelDescriptor]  	|1..*
+
 5+h|Output Parameter
-|statusCode	|Status code	|yes	|xref:StatusCode[StatusCode]	|1
+
+|statusCode	a|Status code	|yes	|xref:StatusCode[StatusCode]	|1
 |===
 
 
@@ -1507,7 +1519,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostAssetAdministrationShell
-h|Explanation a|
+h|Explanation 4+a|
 Creates a new Asset Administration Shell. The id of the new Asset Administration Shell must be set in the payload.
 
 
@@ -1519,11 +1531,16 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShell/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
+
+
 5+h|Input Parameter
 |aas |Asset Administration Shell object |yes |AssetAdministrationShell |1
+
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:StatusCode[StatusCode] |1
-|payload |Created Asset Administration Shell |yes |AssetAdministrationShell |1
+
+|statusCode a|Status code |yes |xref:StatusCode[StatusCode] |1
+
+|payload a|Created Asset Administration Shell |yes |AssetAdministrationShell |1
 |===
 
 ==== Operation PutAssetAdministrationShellById
@@ -1874,7 +1891,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostConceptDescription
-h|Explanation a|
+h|Explanation 4+a|
 Creates a new Concept Description. The id of the new Concept Description must be set in the payload.
 
 
@@ -1886,11 +1903,15 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostConceptDescription/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
+
 5+h|Input Parameter
-|conceptDescription |Concept Description object |yes |ConceptDescription |1
+
+|conceptDescription a|Concept Description object |yes |ConceptDescription |1
+
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:StatusCode[StatusCode]  |1
-|payload |Created Concept Description |yes |ConceptDescription |1
+
+|statusCode a|Status code |yes |xref:StatusCode[StatusCode]  |1
+|payload a|Created Concept Description |yes |ConceptDescription |1
 |===
 
 ==== Operation PutConceptDescriptionById
@@ -2969,20 +2990,18 @@ In addition, the modifiers can also be used for PUT operations. They define how 
 
 === Mapping of Operations
 
-The following
-
-Table 15 shows the mapping of the generic operations to the HTTP/REST API.
+The following Table 15 shows the mapping of the generic operations to the HTTP/REST API.
 
 The black entries correspond to the corresponding generic operations.
 
 [.blue]#The blue entries are operations which only exist in the HTTP/REST API.#
 
 .Mapping of the generic Interface Operations to HTTP API Operations
-[%autowidth, width="100%", cols="31%,7%,23%,39%",options="header",]
+[%autowidth, width="100%", cols="31%,7%,23%,39%"]
 |===
-h|Operation Name 4+e|*HTTP +
-                    Verb* |*REST-Path* |*Comment (e.g. optional query parameters)*
-4+h|*Asset Administration Shell Interface*
+h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query parameters)
+					
+4+h|Asset Administration Shell Interface
 |GetAssetAdministrationShell |GET |/aas |content-suffix: $reference
 |PutAssetAdministrationShell |PUT | |
 |GetAllSubmodelReferences |GET |/aas/submodel-refs |Pagination
@@ -2994,7 +3013,8 @@ h|Operation Name 4+e|*HTTP +
 |PutThumbnail |PUT |/aas/asset-information/thumbnail |
 |DeleteThumbnail |DELETE |/aas/asset-information/thumbnail |
 | |* |/aas/submodels/\{submodel-identifier}/* |superpath as defined in service specification or profile
-4+h|*Submodel Interface*
+
+4+h|Submodel Interface
 |GetSubmodel |GET |/submodel a|
 ?level=deep/core
 
