@@ -11,7 +11,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 = Interactions
 
-Interactions describe the sequence of calls of operations by a client application to achieve a defined goal in a use case. In the following exemplary interaction sequences are depicted.
+Interactions describe the sequence of calls of operations by a client application to achieve a defined goal in a use case. In the following, exemplary interaction sequences are depicted.
 
 Currently, only the key use case “Access a submodel in a distributed system” with focus on a completely decentralized Industry 4.0 system or dataspace is described.
 
@@ -23,11 +23,11 @@ Constraints and assumptions for calling an AAS and a submodel operation by a cli
 * Endpoints for infrastructure interfaces like AAS registries are known at design time of the client application or configured manually before start-up.
 * The asset IDs (either the global asset ID or some specific asset IDs) are known to the calling application.
 * Access to any API is allowed only if the caller is authenticated.
-* Response to any API call and responsetakes access rules as defined for the services into account, e.g. access rules for the AASs, the Submodels, SubmodelElements within a Submodel.
+* Response to any API call takes access rules as defined for the services into account, e.g. access rules for the AASs, the Submodels, or SubmodelElements within a Submodel.
 
-An interaction typcially starts with a client application using the discovery service to get the IDs of the AAS representing the asset under consideration. In the second step the AAS Registry is called to get the relevant endpoints for the AASs found. The AAS registry provides the AAS Descriptor object belonging to this AAS ID (and thus the asset ID used for discovery) and containing the Submodel Descriptors of the Submodels, which are part of the related AAS. 
+An interaction typcially starts with a client application using the discovery service to get the IDs of the AAS representing the asset under consideration. In the second step the AAS Registry is called to get the relevant endpoints for the AASs found. The AAS Registry provides the AAS Descriptor object belonging to this AAS ID (and thus the asset ID used for discovery) and containing the Submodel Descriptors of the Submodels, which are part of the related AAS. 
 
-As explained in Clause 10.2.1 there are two ways of using the AssetAdministrationShellDescriptor when registering an Asset Administration Shell:
+As explained in Clause 10.2.1, there are two ways of using the AssetAdministrationShellDescriptor when registering an Asset Administration Shell:
 
 1.	Either add the endpoint of the Asset Administration Shell (usage by client see Figure <<fig:seq-aas-endpoints>>)
 
@@ -36,10 +36,10 @@ As explained in Clause 10.2.1 there are two ways of using the AssetAdministratio
 There is also a third way to combine both. In this case the endpoint of the Asset Administration Shell and the information that can be retrieved at this endpoint is the master and a separate Submodel Registry would provide the Submodel endpoints as single source of truth.
 
 ====
-Note: It is not recommended to combine the two approaches in one and the same registry. A Registry either should always contain the AAS Endpoint or the AAS Endpoint should always be omitted and Submodel endpoints shall be added.
+Note: It is not recommended to combine the two approaches in one and the same AAS Registry. An AAS Registry either should always contain the AAS Endpoint or the AAS Endpoint should always be omitted and Submodel endpoints shall be added.
 ====
 
-In the second case the lookup of the Submodel IDs and the Submodel endpoints can be skipped (compare Figure <<fig:seq-sm-endpoints>> and Figure <<fig:seq-aas-endpoints>> ). No separate AAS Service or Submodel Registry Service needs to be offered to the Client. From the point of view of a data provider the Submodel Registry interfaces are still needed to add new SubmodelDescriptors to an existing AssetAdministrationShellDescriptor.
+In the second case, the lookup of the Submodel IDs and the Submodel endpoints can be skipped (compare Figure <<fig:seq-sm-endpoints>> and Figure <<fig:seq-aas-endpoints>> ). No separate AAS Service or Submodel Registry Service needs to be offered to the Client. From the point of view of a data provider the Submodel Registry interfaces are still needed to add new SubmodelDescriptors to an existing AssetAdministrationShellDescriptor.
 
 .Interaction for Client Application using Submodel Endpoints
 [[fig:seq-sm-endpoints]]
@@ -60,14 +60,14 @@ Note: The client application just uses the endpoint as provided in the Registry.
 Figure <<fig:seq-aas-endpoints>> shows a sequence with a Registry providing AAS endpoints. In this case the client needs to lookup the corresponding submodel IDs in an AAS or AAS Repository Service first. After looking up the relevant submodel IDs the client calls the Submodel Registry to get the Submodel Descriptors containing the endpoints of the submodels.
 
 ====
-Note: If the AAS or AAS Repository Service is used to get the submodel IDs it is recommended that the data provider adds a "referredSemanticId" to the references of the submodels. Otherwise it is not possible for the client to decide which of the submodels is relevant. This is typically done via the semanticId of the submodel.
+Note: If the AAS or AAS Repository Service is used to get the submodel IDs it is recommended that the data provider adds a "referredSemanticId" to the references of the submodels. Otherwise, it is not possible for the client to decide which of the submodels is relevant. This is typically done via the semanticId of the submodel.
 ====
 
 .Interaction for Client Application using AAS Endpoints and Repositories
 [[fig:seq-aas-endpoints]]
 image::SequenceDiagram_2.svg[SequenceDiagram_2,width=1242,height=750]
 
-The difference between Interface and API Operations is outlined in Figure <<fig:seq-sm-endpoints-http>>. This sequence translates the interaction on the interface level of Figure <<fig:seq-sm-endpoints>>, which is protocol-independent and therefore can be implemented in several different manners, to the specific HTTP API Operations. The generic operations are replaced with HTTP requests, e.g. “GetSubmodelById” can be realized by either “GET /shells/<aas-id>/aas/submodels/<submodel-id>” within an AAS Repository  or “GET /submodels/<submodel-id>” within a Submodel Repository.  The returned objects are shortened for better readability. 
+The difference between Interface and API Operations is outlined in Figure <<fig:seq-sm-endpoints-http>>. This sequence translates the interaction on the interface level of Figure <<fig:seq-sm-endpoints>>, which is protocol-independent and therefore can be implemented in several different manners, to the specific HTTP API Operations. The generic operations are replaced with HTTP requests, e.g. “GetSubmodelById” can be realized by either “GET /shells/<aas-id>/submodels/<submodel-id>” within an AAS Repository  or “GET /submodels/<submodel-id>” within a Submodel Repository.  The returned objects are shortened for better readability. 
 
 .Interaction for Client Application using Submodel Endpoints (for HTTP API Operations)
 [[fig:seq-sm-endpoints-http]]
