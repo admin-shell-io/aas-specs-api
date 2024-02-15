@@ -1,12 +1,13 @@
-[appendix]
-== Change Notes
 
-=== General
+= Change Notes
+
+== General
 
 * * Means not backward compatible
 * (*) means not backward compatible but just renaming
 
-=== Interface Changes w.r.t. V3.1 to V3.0
+== Changes w.r.t. V3.1 to V3.0
+
 
 Major Changes:
 
@@ -19,7 +20,28 @@ Major Changes:
 * Individual versioning of datatype IDs, operations, interfaces etc. 
 * Transfer from .docx to asciidoc (.adoc) and maintenance in github
 
-=== Interface Changes w.r.t. V1.0RC03 to V3.0
+
+=== Interface Changes w.r.t. V3.1 to V3.0
+
+=== Operation Changes w.r.t. V3.1 to V3.0
+
+[%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
+|===
+|*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
+|GetAllAssetAdministrationShellIdsByAssetLink | |deprecated | substituted by SearchAllAssetAdministrationShellIdsByAssetLink
+|SearchAllAssetAdministrationShellIdsByAssetLink | |new | substitute for GetAllAssetAdministrationShellIdsByAssetLink
+|===
+
+=== Profile Changes w.r.t. V3.1 to V3.0
+
+|===
+|Profile Change Old* |*Profile Change New* |*Kind of Change* |*Comment*
+|Asset Administration Shell Registry Profile – Bulk Profile | |new | 
+|Submodel Registry Profile – Bulk Profile | |new | 
+
+|===
+
+== Changes w.r.t. V1.0RC03 to V3.0
 
 Major Changes:
 
@@ -28,6 +50,8 @@ Major Changes:
 * Distinction between replace and update for operations
 * SerializationModifier Content as path: $metadata, $value, $reference, $path
 * Introduction of length constraints for string attributes
+
+=== Interface Changes w.r.t. V1.0RC03 to V3.0
 
 [%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
 |===
@@ -115,6 +139,8 @@ GetAllAASXPackageIds
 | |
 |===
 
+== Changes w.r.t. V1.0RC02 to V1.0RC03
+
 === Interface Changes w.r.t. V1.0RC02 to V1.0RC03
 
 [%autowidth, width="100%", cols="9%,29%,17%,45%",options="header",]
@@ -142,6 +168,8 @@ GetAllAASXPackageIds
 |GetAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpeicifcAssetId
 |PostAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpeicifcAssetId
 |===
+
+== Changes w.r.t. V1.0RC01 to V1.0RC02
 
 === Interface Changes w.r.t. V1.0RC01 to V1.0RC02
 
