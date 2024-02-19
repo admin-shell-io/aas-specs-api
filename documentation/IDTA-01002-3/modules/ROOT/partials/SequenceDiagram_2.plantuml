@@ -1,0 +1,59 @@
+@startuml
+
+participant Client as "Client Application"
+
+
+box "Discovery Service"
+  participant AASDiscovery as "AAS Discovery Interface"
+end box
+
+box "AAS Registry Service"
+   participant AASRegistry as "AAS Registy Interface"
+end box
+
+box "Submodel Registry Service"
+   participant SMRegistry as "Submodel Registy Interface"
+end box
+
+box "AAS or AAS Repository Service"
+  participant iAAS as "AAS or AAS Repository Interface"
+end box
+
+box "Submodel or Submodel Repository Service"
+  participant iSM as "Submodel or Submodel Repository Interface"
+end box
+
+
+
+Client -> Client : selection asset links
+
+Client -> AASDiscovery: SearchAllAssetAdministrationShellIdsByAssetLink
+Client <-- AASDiscovery : IDs of AAS
+Client -> Client : select AAS ID
+
+
+Client -> AASRegistry : GetAssetAdministrationShellDescriptorById
+Client <-- AASRegistry : AAS Descriptor with AAS Endpoint
+
+Client -> iAAS : GetAssetAdministrationShell or GetAssetAdministrationShellById
+note left
+get AAS 
+via Endpoint
+end note
+Client <-- iAAS : AAS with Submodel IDs
+Client -> Client : extract relevant Submodel IDs
+
+Client -> SMRegistry : GetSubmodelDescriptorById
+Client <-- SMRegistry: SubmodelDescritpor with endpoint of Submodel
+
+
+Client -> iSM : GetSubmodel or GetSubmodelById
+note left
+get submodel 
+via Endpoint
+end note
+Client <-- iSM : Submodel
+
+
+
+@enduml
