@@ -507,18 +507,20 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecif
 |===
 h|Service Specification / Profiles h|Description
 |DiscoveryServiceSpecification/SSP-001 |Full feature set
+|DiscoveryServiceSpecification/SSP-002 |only read operations; does not contain the deprecated read operation from DiscoveryServiceSpecification/SSP-001
 |===
 
 === Discovery Service Specification – Full Profile
 
 [%autowidth, width="100%", cols="36%,64%",options="header",]
 |===
-h|Name: h|Discovery Service Full Profile
-h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001`
-h|Feature h|Appearance
+h|*Name:* h|Discovery Service Full Profile
+h|*Profile Identifier:* h|https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001
+h|*Feature* h|Appearance
 |API and API Operations a|
 __AAS Basic Discovery API: +
-__GetAllAssetAdministrationShellIdsByAssetLink +
+__GetAllAssetAdministrationShellIdsByAssetLink (\<<deprecated>>) +
+SearchAllAssetAdministrationShellIdsByAssetLink + 
 GetAllAssetLinksById +
 PostAllAssetLinksById +
 DeleteAllAssetLinksById
@@ -531,7 +533,30 @@ GetDescription
 |Pagination |Not supported
 |===
 
-See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.0_SSP-001
+See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001
+
+=== Discovery Service Specification – Read Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|*Name:* h|Discovery Service Full Profile
+h|*Profile Identifier:* h|https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-002
+h|*Feature* h|Appearance
+|API and API Operations a|
+__AAS Basic Discovery API: +
+__SearchAllAssetAdministrationShellIdsByAssetLink +
+GetAllAssetLinksById +
+
+
+_Description API:_ +
+GetDescription
+
+|SerializationModifier |not applicable
+|SerializationFormat |JSON
+|Pagination |Not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-002
 
 == Asset Administration Shell Repository Service Specification
 
@@ -916,7 +941,7 @@ _ConceptDescription Repository API_ +
 GetAllConceptDescriptions +
 GetConceptDescriptionById +
 GetAllConceptDescriptionsByIdShort +
-GetAllConceptDescriptionsByIsCaseOf’ +
+GetAllConceptDescriptionsByIsCaseOf +
 GetAllConceptDescriptionsByDataSpecificationReference +
 PostConceptDescription +
 PutConceptDescriptionById +
