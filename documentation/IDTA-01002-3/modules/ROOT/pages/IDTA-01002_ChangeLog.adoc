@@ -11,7 +11,7 @@
 
 Major Changes:
 
-* Bulk Operations and Profile for Bulk Operations
+* Bulk Operations and Profiles for Bulk Operations
 * deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
 * new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink)
 * new Profile for Discovery Service: Read Only SSP-002
@@ -24,6 +24,24 @@ Major Changes:
 
 === Interface Changes w.r.t. V3.1 to V3.0
 
+[%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
+|===
+|*BWC* |*Interface Change* |*Kind of Change* |*Comment*
+| | AAS Basic Discovery | Changed a| deprecate GetAllAssetAdministrationShellIdsByAssetLink  
+
+add SearchAllAssetAdministrationShellIdsByAssetLink 
+| |AAS  Registry  | Changed a| add CreateBulkAssetAdministrationShellDescriptors
+
+add PutBulkAssetAdministrationShellDescriptorsById
+
+add DeleteBulkAssetAdministrationShellDescriptorsById
+
+| | Submodel Registry | Changed a| add PostBulkSubmodelDescriptors, 
+
+add PutBulkSubmodelDescriptorsById,  
+
+add DeleteBulkSubmodelDescriptorsById
+|===
 === Operation Changes w.r.t. V3.1 to V3.0
 
 [%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
