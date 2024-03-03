@@ -335,17 +335,6 @@ paths:
       operationId: PatchSubmodelById-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
-      parameters:
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              #- deep 
-              - core # only 'core' is allowed for PATCH
       requestBody:
         description: The metadata attributes of the Submodel object
         content:
@@ -693,17 +682,6 @@ paths:
       operationId: PatchSubmodelElementByPath-Metadata_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
-      parameters:
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              #- deep 
-              - core # only 'core' is allowed for PATCH
       requestBody:
         description: Metadata attributes of the SubmodelElement
         content:

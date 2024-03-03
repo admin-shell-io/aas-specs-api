@@ -659,18 +659,6 @@ paths:
       operationId: PatchSubmodelById-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
-      parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Level'
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              #- deep
-              - core  # only 'deep' is allowed for PUT
       requestBody:
         description: Submodel object
         content:
@@ -1250,8 +1238,6 @@ paths:
       operationId: PatchSubmodelElementValueByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Level'
       requestBody:
         description: The updated metadata attributes of the submodel element
         content:
