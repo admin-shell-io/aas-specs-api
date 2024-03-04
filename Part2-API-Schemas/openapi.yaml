@@ -810,14 +810,9 @@ components:
         - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/HasSemantics"
         - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/HasKind"
     SubmodelValue:
-      properties:
-        submodelElements:
-          type: array
-          items:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/SubmodelElement'
-          minItems: 1
+      $ref: "#/components/schemas/ValueOnly"
     ValueOnly: 
-      description: "The ValueOnly serialization of submodel elements (patternProperties and propertyNames will be supported propably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 11.4.3 in Details of the Asset Administration Shell Part 2.\n"
+      description: "The ValueOnly serialization (patternProperties and propertyNames will be supported probably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 11.4 in 'Specification of the Asset Administration Shell - Part 2'."
       type: object
     
 
