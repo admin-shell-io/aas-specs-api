@@ -255,7 +255,7 @@ GET /submodel/$value?level=deep&extent=withBlobValue
 
 The following constraints apply for the combination of modifiers:
 
-* For Content=Value, the requested object is always serialized to an unnamed JSON Object or Array. This means that the response object must not have with the object’s idShort at the root level.
+* For Content=Value, the requested object is always serialized to an unnamed JSON Object or Array. This means that the response object must not have a property with the object’s idShort at the root level.
 * If Level=Core and Content=Value, only the requested object and the direct children without their value (empty value) will be returned in value serialization. If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": \{} will be returned. If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": [] will be returned.
 * The combination of Content=Metadata and Extent=WithBLOBValue is not allowed.
 * The behavior of Level in combination with Content=Metadata is undefined. A server may ignore the Level modifier if it is set.
@@ -281,7 +281,7 @@ h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query paramete
 |GetAssetAdministrationShell |GET |/aas |content-suffix: $reference
 |PutAssetAdministrationShell |PUT | |
 |GetAllSubmodelReferences |GET |/aas/submodel-refs |Pagination
-|PostSubmodelReference |POST |/aas/submodel-refs | Location header of the response contains the value ‘<baseUrl>/aas/submodel-ref/{submodelIdentifier}’ 
+|PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-ref/{submodelIdentifier}’ 
   
 
 _Note 1: submodelIdentifier is the base64url-encoded Submodel.id value_
