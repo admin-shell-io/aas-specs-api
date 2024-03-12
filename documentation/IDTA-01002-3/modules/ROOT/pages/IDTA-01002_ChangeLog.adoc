@@ -79,7 +79,8 @@ Major:
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 | GetSubmodelElementByPath-Metadata had ‘level’ and/or ‘cursor’ parameters in OpenAPI |‘level’ and/or ‘cursor’ parameters have been removed GetSubmodelElementByPath-Metadata | Remove | Neither ‘level’ nor ‘cursor’ could influence the behavior of the operation, therefore, removing them has no effect on any implementation. 
-|CreateSubmodelReference| New comment in Table 15 clarifies the content of the Location header of the response. | New |
+|CreateSubmodelReference| New comment in Table 15 clarifies the content of the Location header of the response. | Change |
+|String attributes of Part 2 classes are restricted to the regex pattern "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$" | String attributes of Part 2 classes are restricted to the regex pattern "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]\|\\ud800[\\udc00-\\udfff]\|[\\ud801-\\udbfe][\\udc00-\\udfff]\|\\udbff[\\udc00-\\udfff])*$" |	Change | The new pattern has been introduced for the JSON schema and the Part 1 OpenAPI domain already. This change synchronizes the pattern for both Part 1 and  Part 2 classes. |
 |===
 
 
