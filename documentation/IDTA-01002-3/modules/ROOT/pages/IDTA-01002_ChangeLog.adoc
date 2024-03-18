@@ -82,6 +82,8 @@ Major:
 |CreateSubmodelReference| New comment in Table 15 clarifies the content of the Location header of the response. | Change |
 |GetSelfDescription output type “ServiceDescription” contains enum for "profiles" | GetSelfDescription output type “ServiceDescription” contains list of strings for “profiles”	| Change | Custom profiles can be added with the new structure. 
 |String attributes of Part 2 classes are restricted to the regex pattern "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$" | String attributes of Part 2 classes are restricted to the regex pattern "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]\|\\ud800[\\udc00-\\udfff]\|[\\ud801-\\udbfe][\\udc00-\\udfff]\|\\udbff[\\udc00-\\udfff])*$" |	Change | The new pattern has been introduced for the JSON schema and the Part 1 OpenAPI domain already. This change synchronizes the pattern for both Part 1 and  Part 2 classes. |
+| GetSubmodelElementByPath had single PathItem as the response object in some OpenAPI files | GetSubmodelElementByPath returns an array of PathItems |	Change |  |
+| PathItem regex did not allow SubmodelElementLists | PathItem regex does allow SubmodelElementLists |	Change |  |
 |===
 
 
