@@ -237,6 +237,22 @@ If applied to the Submodel:
 }
 ----
 
+If applied to the SubmodelElementCollection, i.e. idShortPath "RotationSpeed":
+
+[source,json,linenums]
+----
+{
+  "keys": [ {
+     "type": "Submodel",
+     "value": "http://i40.customer.com/type/1/1/7A7104BDAB57E184"
+  }, {
+     "type": "SubmodelElementCollection",
+     "value": "RotationSpeed"
+  } ],
+  "type": "ModelReference"
+}
+----
+
 
 If applied to the Property inside the SubmodelElementCollection, i.e. idShortPath “RotationSpeed.MaxRotationSpeed”:
 
@@ -255,18 +271,18 @@ If applied to the Property inside the SubmodelElementCollection, i.e. idShortPat
   }],
   "type": "ModelReference"
 }
-
 ----
 
 |*Path* a|
 If applied to the Submodel:
 
+*Note*: IdShortPaths always start at the first SubmodelElement.
+
 [source,json,linenums]
 ----
 [
-  "TechnicalData"
-  "TechnicalData.RotationSpeed",
-  "TechnicalData.RotationSpeed.MaxRotationSpeed"
+  "RotationSpeed",
+  "RotationSpeed.MaxRotationSpeed"
 ]
 
 ----
@@ -275,7 +291,16 @@ If applied to the SubmodelElementCollection:
 [source,json,linenums]
 ----
 [
-   "RotationSpeed.MaxRotationSpeed"
+  "RotationSpeed.MaxRotationSpeed"
+]
+
+----
+If applied to the Property inside the SubmodelElementCollection:
+
+[source,json,linenums]
+----
+[
+  "RotationSpeed.MaxRotationSpeed"
 ]
 
 
@@ -284,13 +309,23 @@ If applied to the SubmodelElementCollection:
 a|
 If applied to the Submodel:
 
+*Note*: The SubmodelElementCollection “RotationSpeed” is the only direct child of the Submodel, therefore, it’s the only entry.
+
 [source,json,linenums]
 ----
 [
-  "TechnicalData"
-  "TechnicalData.RotationSpeed"
+  "RotationSpeed"
 ]
 
+----
+
+If applied to the SubmodelElementCollection:
+
+[source,json,linenums]
+----
+[
+  "RotationSpeed.MaxRotationSpeed"
+]
 ----
 
 If applied to the Property inside the SubmodelElementCollection:
@@ -298,17 +333,8 @@ If applied to the Property inside the SubmodelElementCollection:
 [source,json,linenums]
 ----
 [
-   "MaxRotationSpeed"
+  "RotationSpeed.MaxRotationSpeed"
 ]
-
-----
-
-
-If applied to the Property inside the SubmodelElementCollection:
-
-[source,json,linenums]
-----
-[ ]
 ----
 
 |===
@@ -362,7 +388,7 @@ If applied to the Submodel:
 }
 ----
 
-If applied to the SubmodelElementCollection, i.e. idShortPath “OperatingManual”:
+If applied to the SubmodelElementCollection, i.e. idShortPath RotationSpeed:
 
 [source,json,linenums]
 ----
@@ -394,7 +420,7 @@ If applied to the SubmodelElementCollection, i.e. idShortPath “OperatingManual
 
 ----
 
-If applied to the Property, i.e. idShortPath “OperatingManual.DocumentId”:
+If applied to the Property, i.e. idShortPath RotationSpeed.MaxRotationSpeed:
 
 [source,json,linenums]
 ----
