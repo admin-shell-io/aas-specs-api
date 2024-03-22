@@ -255,7 +255,7 @@ GET /submodel/$value?level=deep&extent=withBlobValue
 
 The following constraints apply for the combination of modifiers:
 
-* For Content=Value, the requested object is always serialized to an unnamed JSON Object or Array. This means that the response object must not have a property with the object’s idShort at the root level.
+* For Content=Value, the requested object shall always be serialized to an unnamed JSON Object or Array. This means that the response object must not have a property with the object’s idShort at the root level.
 * If Level=Core and Content=Value, only the requested object and the direct children without their value (empty value) will be returned in value serialization. If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": \{} will be returned. If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": [] will be returned.
 * The combination of Content=Metadata and Extent=WithBLOBValue is not allowed.
 * If parameter Content is set to "Metadata" then Level shall not be used. A server shall respond with a ClientErrorBadRequest in this case. 
