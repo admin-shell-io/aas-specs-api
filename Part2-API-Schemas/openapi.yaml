@@ -52,7 +52,7 @@ components:
         type: string
         minLength: 1
         maxLength: 2000
-        pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+        pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
     Cursor:    
       name: cursor
       in: query
@@ -164,7 +164,7 @@ components:
               type: string
               minLength: 1
               maxLength: 2000
-              pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+              pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             endpoints: 
               items: 
                 $ref: "#/components/schemas/Endpoint"
@@ -174,7 +174,7 @@ components:
               type: string
               minLength: 1
               maxLength: 2000
-              pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+              pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             idShort: 
               type: string
               maxLength: 128
@@ -182,7 +182,7 @@ components:
               type: string
               maxLength: 2000
               minLength: 1
-              pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+              pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             specificAssetIds: 
               type: array
               items:
@@ -306,7 +306,7 @@ components:
           type: string
           minLength: 1
           maxLength: 2000
-          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
         specificAssetIds:
           type: array
           items: 
@@ -565,7 +565,7 @@ components:
         aasIds: 
           items: 
             type: string
-            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             maxLength: 2000
           type: array
         packageId: 
@@ -574,7 +574,7 @@ components:
       type: object
     PathItem:
       type: string
-      pattern: "[A-Za-z][A-Za-z0-9_]+(\\.[A-Za-z][A-Za-z0-9_]+){0,}"
+      pattern: "^(([A-Za-z][A-Za-z0-9_]+)|(\\[[0-9]+\\]))((\\.[A-Za-z][A-Za-z0-9_]+)|(\\[[0-9]+\\])){0,}$"
     PropertyMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -740,7 +740,7 @@ components:
           type: string
           minLength: 1
           maxLength: 2000
-          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+          pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
         semanticId: 
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/Reference"
         supplementalSemanticId:
@@ -822,14 +822,9 @@ components:
         - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/HasSemantics"
         - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/HasKind"
     SubmodelValue:
-      properties:
-        submodelElements:
-          type: array
-          items:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/SubmodelElement'
-          minItems: 1
+      $ref: "#/components/schemas/ValueOnly"
     ValueOnly: 
-      description: "The ValueOnly serialization of submodel elements (patternProperties and propertyNames will be supported propably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 11.4.3 in Details of the Asset Administration Shell Part 2.\n"
+      description: "The ValueOnly serialization (patternProperties and propertyNames will be supported probably with OpenApi 3.1). For the full description of the generic JSON validation schema see the ValueOnly-Serialization as defined in the 'Specification of the Asset Administration Shell - Part 2'."
       type: object
     
 
