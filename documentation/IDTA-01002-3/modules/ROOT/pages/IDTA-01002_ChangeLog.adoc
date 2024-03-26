@@ -6,7 +6,7 @@
 * * Means not backward compatible
 * (*) means not backward compatible but just renaming
 
-== Changes w.r.t. V3.1 to V3.0
+== Changes w.r.t. V3.0.2 to V3.1
 
 
 Major Changes:
@@ -22,7 +22,7 @@ Major Changes:
 * Transfer from .docx to asciidoc (.adoc) and maintenance in github
 * *tbd* The AAS metamodel includes a security metamodel, which is defined in the chapter “Overview Metamodel of Administration Shell w.r.t. Security”. This chapter was part of “Details of the Asset Administration Shell Part 1” until version 3.0 RC02. Since Part 1 has been split for the release of version 3.0, this chapter will become the basis of “Specification of the Asset Administration Shell. Part 4: Security”. In addition to the security metamodel, Part 4 will define e.g. authentication, further details about authorization, and signature of data.
 
-=== Interface Changes w.r.t. V3.1 to V3.0
+=== Interface Changes w.r.t. V3.0.2 to V3.1
 
 [%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
 |===
@@ -42,7 +42,7 @@ add PutBulkSubmodelDescriptorsById,
 
 add DeleteBulkSubmodelDescriptorsById
 |===
-=== Operation Changes w.r.t. V3.1 to V3.0
+=== Operation Changes w.r.t. V3.0.2 to V3.1
 
 [%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
 |===
@@ -54,7 +54,7 @@ add DeleteBulkSubmodelDescriptorsById
 ||DeleteBulkSubmodelDescriptorsById|new | 
 |===
 
-=== Profile Changes w.r.t. V3.1 to V3.0
+=== Profile Changes w.r.t. V3.0.2 to V3.1
 
 |===
 |*Profile Change Old* |*Profile Change New* |*Kind of Change* |*Comment*
@@ -63,6 +63,77 @@ add DeleteBulkSubmodelDescriptorsById
 |Discovery Profile – Full Profile| |update |GetAllAssetAdministrationShellIdsByAssetLink set to deprecated, added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
 | |Discovery Profile – Read Profile |new | 
 |===
+
+
+== Changes w.r.t. V3.0.1 to V3.0.2
+
+Major:
+
+* Remove “format: byte” from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required.
+* Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
+* Change the values for the ServiceDescription class from enum to a list of strings in the OpenAPI definition for the Part 2 classes.
+* (Editorial) Clause 12.8: Added constraint on the return object for ValueOnly requests and that the Level modifier is undefined for Metadata requests
+
+Minor:
+
+* (Editorial) Fix links to SwaggerHub in Clause 4.6 and Clause 12
+* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of "globalAssetId” for the “assetIds” parameter.
+* (Editorial) ServiceSpecificationProfileEnum: Corrected explanations for Submodel Repository and Registry profile entries
+* (Editorial) Clause 11.4.2: Add “Submodel” to the list of possible ValueOnly objects and add more details how SubmodelElementLists have to be serialized.
+* (Editorial) Clause 11.4.4: Added sentence explaining where the idShortPath has to start.
+* (Editorial) Clause 12.2: Correct example for GetAllAssetAdministrationShellIdsByAssetLink
+* (Editorial) Correct Note 1 in Clause 12.4: “[…] IdshortPaths are base64url-encoded …” to “[…] IdshortPaths are url-encoded …”
+* (Editorial) Clause 12.13: Corrected the list of constraints.
+* (Editorial) Annex C.2: Adjusted and extended the examples for GETs on Metadata, Path, and Value
+* (Editorial) Annex C.3: Adjusted the examples for PATCH on Value
+
+
+=== Interface Changes w.r.t. V3.0.2 to V3.1
+
+[%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
+|===
+|*BWC* |*Interface Change* |*Kind of Change* |*Comment*
+| | GetOperationAsnycStatus	| Changed	| Replace payload type ‘OperationResult’ with ‘BaseOperationResult’ that OpenAPI descriptions already contained ‘BaseOperationResult’ from V3.0 on.
+| | ServiceSpecificationProfileEnum	| Remove	| Removed profiles https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002. Both profiles were not included in the V3.0.1 ServiceDescription class in the OpenAPI definition and only left-overs from previous drafts.
+
+| | PutAssetAdministrationShell	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no” 
+| | PutSubmodel	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PatchSubmodel	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodelElementByPath	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PatchSubmodelElementByPath	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutAssetAdministrationShellDescriptorById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodelDescriptorById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutAssetAdministrationShellById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodelById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PatchSubmodelById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutConceptDescriptionById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+|===
+
+=== Operation Changes w.r.t. V3.0.1 to V3.0.2
+
+|===
+|*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
+| GetSubmodelElementByPath-Metadata had ‘level’ and/or ‘cursor’ parameters in OpenAPI |‘level’ and/or ‘cursor’ parameters have been removed GetSubmodelElementByPath-Metadata | Remove | Neither ‘level’ nor ‘cursor’ could influence the behavior of the operation, therefore, removing them has no effect on any implementation. 
+|CreateSubmodelReference| New comment in Table 15 clarifies the content of the Location header of the response. | Change |
+|GetSelfDescription output type “ServiceDescription” contains enum for "profiles" | GetSelfDescription output type “ServiceDescription” contains list of strings for “profiles”	| Change | Custom profiles can be added with the new structure. 
+|String attributes of Part 2 classes are restricted to the regex pattern "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$" | String attributes of Part 2 classes are restricted to the regex pattern "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]\|\\ud800[\\udc00-\\udfff]\|[\\ud801-\\udbfe][\\udc00-\\udfff]\|\\udbff[\\udc00-\\udfff])*$" |	Change | The new pattern has been introduced for the JSON schema and the Part 1 OpenAPI domain already. This change synchronizes the pattern for both Part 1 and  Part 2 classes.
+| GetSubmodelElementByPath had single PathItem as the response object in some OpenAPI files | GetSubmodelElementByPath returns an array of PathItems |	Change |
+| PathItem regex did not allow SubmodelElementLists | PathItem regex does allow SubmodelElementLists |	Change |  |
+|===
+
+
+
+== Changes w.r.t. V3.0 to V3.0.1
+
+Major:
+
+* Added Location header for POSTs that create a new resource, according to RFC 9110 Section 15.3.2
+* Correcting definitions of SerialisationModifiers and Pagination parameters in the OpenAPI files.
+* Cleaning of incorrectly located API Operations from the OpenAPI files.
+* Removing several outdated/inconsistently named OpenAPI files from the https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.1[Github Release].
+* Fixing the values of the ServiceDescription/profiles enum in the OpenAPI Domain.
+
+
 
 == Changes w.r.t. V1.0RC03 to V3.0
 
