@@ -1,0 +1,83 @@
+[appendix]
+== Templates for Specification of APIs and API Operations
+
+This Annex explains the table templates used for documentation of interfaces, operations, data types, etc.
+
+_Card._ is the cardinality (or multiplicity) defining the lower and upper bound of the number of instances of the member element. "*" denotes an arbitrary infinite number of elements of the corresponding Type. "0..1" means optional. "0..*" or "0..3" etc. means that the list may be either not available (null object) or empty or has infinitely many / exactly three elements.
+
+
+====
+Note: attributes having a default value are always considered to be optional; there is always a value for the attribute because the default value is used for initialization in this case.
+====
+
+
+.Interface Description
+[%autowidth, width="100%", cols="19%,81%",options="header",]
+|===
+2+h|Interface: <Interface Name>
+h|Operation Name h|Description
+e|Oper1 a|
+Human-understandable description of the operation of the interface. Only major input and output information shall be described, no individual request and result parameters.
+
+
+====
+Note: all words in the service operation name are written together in italics without a blank in between. The first letter of the first word is lower case, all other words are upper case.
+====
+
+
+e|… a|
+e|operN (optional) a|Human-understandable description of the operation n of the interface. Optional operations are to be marked by suffix (optional) after the operation name.
+|===
+
+
+
+[.table-with-appendix-table]
+.Operation Description
+:table-caption: Template
+[cols="25%,30%,25%,10%,10%"]
+|===
+h|Operation Name: 4+e|Name of the operation: all individual words in the operation name are capitalized
+h|Explanation: 4+a|
+Human-understandable description of the functionality
+
+The operation provides its functionality through the following input and output parameters:
+
+• Input parameter 1: human-understandable description of the purpose of the input parameter 1
+
+• …
+
+• Input parameter N: human-understandable description of the purpose of input parameter N
+
+• Output parameter 1: human-understandable description of the purpose of output parameter 1: human-understandable description of the purpose of the input parameter 1
+
+• …
+
+• Output Parameter N: human-understandable description of the purpose of output parameter N:
+
+If *_payload_* is mentioned as output parameter, only the returned payload in case of a successful operation (status code: Success, SuccessCreated) is denoted in column _Type_. In case of failure see Clause 10.2.9.1.
+
+If [.underline]#no# *_payload_* is mentioned as output parameter, the status code shall be SuccessNoContent in case of success, otherwise see Clause 0.
+
+Convention: all words in the interface name are written together in italics without a blank in between. The first letter of the first word and all other words are written in upper case letters.
+
+h|semanticId  4+|`The unique identifier of this operation`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+
+5+h|Input Parameter
+
+e|inputParameter1 a|Human-understandable description of the input parameter 1 of the operation. |States whether the inputParameter1 is mandatory (“yes”) or optional (“no”) |Type of the input parameter 1 |The cardinality of type of the inputParameter1, e.g. zero-to-one (“0..1”) or at-least-one (“1..*”).
+e|… | | | |
+e|inputParameterN |Human-understandable description of the input parameter N of the operation. |States whether the inputParameterN is mandatory (“yes”) or optional (“no”) |Type of the input parameter N |The cardinality of type of the inputParameterN, e.g. zero-to-one (“0..1”) or at-least-one (“1..*”).
+
+5+h|Output Parameter
+
+e|outputParameter1 |Human-understandable description of the output parameter 1 of the operation. |States whether the outputParameter1 is mandatory (“yes”) or optional (“no”) a|
+Type of the output
+
+parameter 1
+
+|The cardinality of type of the outputParameter1, e.g. zero-to-one (“0..1”) or at-least-one (“1..*”).
+e|… | | | | 
+e|outputParameterN a|Human-understandable description of the output parameter N of the operation. |States whether the outputParameterN is mandatory (“yes”) or optional (“no”) |Type of the output eparameter N a|The cardinality of type of the outputParameterN, e.g. zero-to-one (“0..1”) or at-least-one (“1..*”).
+|===

@@ -1,4 +1,4 @@
-# This is the repository for the AAS API Definitions
+# IDTA-01002 - APIs of the Asset Administration Shell
 
 [![Creative Commons License](
 https://licensebuttons.net/l/by/4.0/88x31.png
@@ -6,13 +6,13 @@ https://licensebuttons.net/l/by/4.0/88x31.png
 https://creativecommons.org/licenses/by/4.0/
 )
 
-This repository contains specifications of the Asset Administration Shell APIs, including in particular the normative OpenAPI files of the AAS HTTP/REST API.
-These API descriptions are derived from the document series, part 2,
-["Specification of the Asset Administration Shell - Part 2"](
-https://industrialdigitaltwin.org/en/content-hub/
-) published by the [IDTA](https://industrialdigitaltwin.org/en/).
+This repository contains specifications of the APIs of the Asset Administration Shell (AAS), including the normative OpenAPI files of the AAS HTTP/REST API.
 
+## Industrial Digital Twin Association (IDTA)
 
+Governance of the specification is done in the working group Open Technology of the [IDTA](https://industrialdigitaltwin.org/en/)
+
+The specification number is: **IDTA-01002**
 
 ## Content
 This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
@@ -38,6 +38,8 @@ The following *domains* are synchronized manually as domain synchronization is n
 | Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
 | DINSPEC16593-Schemas Domain (Deprecated) |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
 
+The sources of the specification, both website and PDF document, are maintained in the [documentation](./documentation/) folder. The different versions are identified through the respective release tags, while the latest state on the `main` branch always represents a `SNAPSHOT` version.
+
 
 ## API Versions in GitHub Branches
 
@@ -51,9 +53,15 @@ The following versioning scheme is applied for release tags: 'V\<major>.\<minor>
 Major versions indicate breaking changes while minor updates are backward compatible.
 The patch position is increased whenever bugfixes need to be applied.
 The following release contains the latest version of the AAS schemas (see also the [releases](https://github.com/admin-shell-io/aas-specs-api/releases) section of this repository):
-* [3.0.1](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.1) is the corresponding release for the `V3.0.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.0.1**". *Use this release if you want to work with the latest specified AAS version.*
 
-Previous releases (deprecated by [3.0.1](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.1)):
+* [3.1.0](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.1.0) is the latest release for the `V3.1.0` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.1.0**". *Use this release if you want to work with the latest specified AAS version.*
+
+Previous releases (deprecated by [3.1.0](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.1.0)):
+
+* [3.0.2](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.2) is the bugfix release for the `V3.0.2` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.2".
+
+* [3.0.1](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0.1) is the bugfix release for the `V3.0.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.1".
+
 * [3.0](https://github.com/admin-shell-io/aas-specs/releases/tag/V3.0) is the first major release for the AAS APIs, containing the normative API descriptions for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0".
 
 
