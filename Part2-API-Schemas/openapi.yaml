@@ -51,7 +51,7 @@ components:
       schema:
         type: string
         minLength: 1
-        maxLength: 2000
+        maxLength: 2048
         pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
     Cursor:    
       name: cursor
@@ -163,7 +163,7 @@ components:
             assetType:
               type: string
               minLength: 1
-              maxLength: 2000
+              maxLength: 2048
               pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
             endpoints: 
               items: 
@@ -173,14 +173,14 @@ components:
             globalAssetId: 
               type: string
               minLength: 1
-              maxLength: 2000
+              maxLength: 2048
               pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
             idShort: 
               type: string
               maxLength: 128
             id: 
               type: string
-              maxLength: 2000
+              maxLength: 2048
               minLength: 1
               pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
             specificAssetIds: 
@@ -212,7 +212,7 @@ components:
         value:
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
           pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
     BaseOperationResult:
       allOf:
@@ -305,7 +305,7 @@ components:
         globalAssetId: 
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
           pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         specificAssetIds:
           type: array
@@ -337,7 +337,7 @@ components:
         value: 
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
       required: 
         - contentType
         - value
@@ -566,7 +566,7 @@ components:
           items: 
             type: string
             pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
-            maxLength: 2000
+            maxLength: 2048
           type: array
         packageId: 
           type: string
@@ -739,7 +739,7 @@ components:
         id: 
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
           pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
         semanticId: 
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/Reference"
