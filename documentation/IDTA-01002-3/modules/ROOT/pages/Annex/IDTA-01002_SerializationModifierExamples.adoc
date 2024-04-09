@@ -103,8 +103,9 @@ If applied to the Submodel:
 
 ----
 
-|*Metadata* a|
-If applied to the Submodel:
+|*Metadata* 2+<a|
+
+If applied to the Submodel (no “Level” modifier for “Metadata”):
 
 [source,json,linenums]
 ----
@@ -118,52 +119,15 @@ If applied to the Submodel:
         "value": "0173-1#01-AFZ615#016"
     } ],
     "type": "ExternalReference"
-  },
-  "submodelElements": [ {
-    "modelType":  "SubmodelElementCollection",
-    "idShort": "RotationSpeed",
-    "semanticId": {
-      "keys": [ {
-          "type": "GlobalReference",
-          "value": "http://purl.org/iot/vocab/iot-taxonomy-lite#RotationalSpeed"
-      } ],
-      "type": "ExternalReference"
-    },
-    "value": [ {
-        "modelType": "Property",
-        "idShort": "MaxRotationSpeed",
-        "category": "PARAMETER",
-        "semanticId": {
-          "keys": [ {
-              "type": "ConceptDescription",
-              "value": "0173-1#02-BAA120#008"
-          } ],
-          "type": "ExternalReference"
-        },
-        "valueType": "xs:int"
-      } ]
-  } ]
+  }
 }
-
 ----
 
-a|
-If applied to the Submodel:
+If applied to the SubmodelElementCollection, i.e., idShortPath “RotationSpeed”:
 
 [source,json,linenums]
 ----
 {
-  "modelType": "Submodel",
-  "id": "http://i40.customer.com/type/1/1/7A7104BDAB57E184",
-  "idShort": "TechnicalData",
-  "semanticId": {
-    "keys": [ {
-        "type": "GlobalReference",
-        "value": "0173-1#01-AFZ615#016"
-    } ],
-    "type": "ExternalReference"
-  },
-  "submodelElements": [ {
     "modelType":  "SubmodelElementCollection",
     "idShort": "RotationSpeed",
     "semanticId": {
@@ -173,11 +137,9 @@ If applied to the Submodel:
       } ],
       "type": "ExternalReference"
     }
-  } ]
 }
 
 ----
-
 
 If applied to the Property, i.e. idShortPath “RotationSpeed.MaxRotationSpeed”:
 
@@ -205,11 +167,26 @@ If applied to the Submodel:
 [source,json,linenums]
 ----
 {
-  "TechnicalData": {
-    "RotationSpeed": {
-      "MaxRotationSpeed": "5000"
-    }
+  "RotationSpeed": {
+    "MaxRotationSpeed": 5000
   }
+}
+
+----
+
+If applied to the SubmodelElementCollection, i.e., idShortPath “RotationSpeed”:
+[source,json,linenums]
+----
+{
+  "MaxRotationSpeed": 5000
+}
+
+----
+
+If applied to the Property, i.e. idShortPath “RotationSpeed.MaxRotationSpeed”:
+[source,json,linenums]
+----
+5000
 
 ----
 
@@ -219,12 +196,27 @@ If applied to the Submodel:
 [source,json,linenums]
 ----
 {
-  "TechnicalData": {
-    "RotationSpeed": {}
-  }
+  "RotationSpeed": {}
 }
 
 ----
+
+If applied to the SubmodelElementCollection, i.e., idShortPath “RotationSpeed”:
+[source,json,linenums]
+----
+{
+  "MaxRotationSpeed": 5000
+}
+
+----
+
+If applied to the Property, i.e. idShortPath “RotationSpeed.MaxRotationSpeed”:
+[source,json,linenums]
+----
+5000
+
+----
+
 
 |*Reference* a|
 Not allowed, see Clause 12.8:
@@ -240,6 +232,22 @@ If applied to the Submodel:
   "keys": [ {
      "type": "Submodel",
      "value": "http://i40.customer.com/type/1/1/7A7104BDAB57E184"
+  } ],
+  "type": "ModelReference"
+}
+----
+
+If applied to the SubmodelElementCollection, i.e. idShortPath "RotationSpeed":
+
+[source,json,linenums]
+----
+{
+  "keys": [ {
+     "type": "Submodel",
+     "value": "http://i40.customer.com/type/1/1/7A7104BDAB57E184"
+  }, {
+     "type": "SubmodelElementCollection",
+     "value": "RotationSpeed"
   } ],
   "type": "ModelReference"
 }
@@ -263,23 +271,46 @@ If applied to the Property inside the SubmodelElementCollection, i.e. idShortPat
   }],
   "type": "ModelReference"
 }
-
 ----
 
 |*Path* a|
 If applied to the Submodel:
 
+*Note*: IdShortPaths always start at the first SubmodelElement.
+
 [source,json,linenums]
 ----
 [
- "RotationSpeed",
- "RotationSpeed.MaxRotationSpeed"
+  "RotationSpeed",
+  "RotationSpeed.MaxRotationSpeed"
 ]
+
+----
+If applied to the SubmodelElementCollection:
+
+[source,json,linenums]
+----
+[
+  "RotationSpeed",
+  "RotationSpeed.MaxRotationSpeed"
+]
+
+----
+If applied to the Property inside the SubmodelElementCollection:
+
+[source,json,linenums]
+----
+[
+  "RotationSpeed.MaxRotationSpeed"
+]
+
 
 ----
 
 a|
 If applied to the Submodel:
+
+*Note*: The SubmodelElementCollection “RotationSpeed” is the only direct child of the Submodel, therefore, it’s the only entry.
 
 [source,json,linenums]
 ----
@@ -289,12 +320,23 @@ If applied to the Submodel:
 
 ----
 
+If applied to the SubmodelElementCollection:
+
+[source,json,linenums]
+----
+[
+  "RotationSpeed",
+  "RotationSpeed.MaxRotationSpeed"
+]
+----
 
 If applied to the Property inside the SubmodelElementCollection:
 
 [source,json,linenums]
 ----
-[ ]
+[
+  "RotationSpeed.MaxRotationSpeed"
+]
 ----
 
 |===
@@ -348,7 +390,7 @@ If applied to the Submodel:
 }
 ----
 
-If applied to the SubmodelElementCollection, i.e. idShortPath “OperatingManual”:
+If applied to the SubmodelElementCollection, i.e. idShortPath RotationSpeed:
 
 [source,json,linenums]
 ----
@@ -380,7 +422,7 @@ If applied to the SubmodelElementCollection, i.e. idShortPath “OperatingManual
 
 ----
 
-If applied to the Property, i.e. idShortPath “OperatingManual.DocumentId”:
+If applied to the Property, i.e. idShortPath RotationSpeed.MaxRotationSpeed:
 
 [source,json,linenums]
 ----
@@ -453,10 +495,8 @@ If applied to the Submodel:
 [source,json,linenums]
 ----
 {
-  "TechnicalData": {
-    "RotationSpeed": {
-      "MaxRotationSpeed": "5000"
-    }
+  "RotationSpeed": {
+    "MaxRotationSpeed": 5000
   }
 }
 ----
@@ -466,9 +506,7 @@ If applied to the SubmodelElementCollection, i.e. idShortPath “RotationSpeed�
 [source,json,linenums]
 ----
 {
-    "RotationSpeed": {
-      "MaxRotationSpeed": "5000"
-    }
+  "MaxRotationSpeed": 5000
 }
 ----
 
@@ -476,9 +514,7 @@ If applied to the Property, i.e. idShortPath “RotationSpeed.MaxRotationSpeed�
 
 [source,json,linenums]
 ----
-{
-   "MaxRotationSpeed": "5000"
-}
+5000
 ----
 
 |===
