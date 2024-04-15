@@ -11,6 +11,7 @@ SPDX-License-Identifier: CC-BY-4.0
 include::./includes/IDTA-01002_SpecialParameters.adoc[]
 
 
+[#aas-interfaces]
 == Asset Administration Shell Interfaces
 
 === General
@@ -792,13 +793,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
 |===
 
+[#registration-interfaces]
 == Registration Interfaces
 
 === General
 
-These interfaces allow to register and unregister descriptors of administration shells or submodels. The descriptors contain the information needed to access the interfaces (as described in Clause 5) of the corresponding element. This required information includes the endpoint in the dedicated environment.
+These interfaces allow to register and unregister descriptors of administration shells or submodels. The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element. This required information includes the endpoint in the dedicated environment.
 
-Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID). These identifiers may be discovered through the interfaces described in Clause 8.
+Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID). These identifiers may be discovered through the interfaces described in <<publish-and-discovery-interfaces>>.
 
 === Asset Administration Shell Registry Interface and Operations
 
@@ -1125,7 +1127,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 === General
 
-These interfaces allow to manage Asset Administration Shells, Submodels, and Concept Descriptions. They further provide access to the data of these elements through interfaces described in Clause 5. A repository can host multiple entities. These entities can be stored in individual repositories of a decentral system. The endpoints of the entities managed by one repository shall be resolved by subsequent calls to discover (Clause 8) and lookup (Clause 6) interfaces to such decentralized systems.
+These interfaces allow to manage Asset Administration Shells, Submodels, and Concept Descriptions. They further provide access to the data of these elements through interfaces described in <<aas-interfaces>>. A repository can host multiple entities. These entities can be stored in individual repositories of a decentral system. The endpoints of the entities managed by one repository shall be resolved by subsequent calls to discover (<<publish-and-discovery-interfaces>>) and lookup (<<registration-interfaces>>) interfaces to such decentralized systems.
 
 Sometimes, these kinds of services are also classified as Asset Administration Shell management services.
 
@@ -1670,6 +1672,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
 |===
 
+[#publish-and-discovery-interfaces]
 == Publish and Discovery Interfaces
 
 === General
