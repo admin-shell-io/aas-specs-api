@@ -18,7 +18,7 @@ Authentication is mandatory. Depending on the ecosystem the AAS uses, different 
 The following paragraphs describe the most important steps for token-based authentication of the HTTP/REST APIs. For more details, see “Secure Downloadservice” (https://www.plattform-i40.de/PI40/Redaktion/EN/Downloads/Publikation/secure_downloadservice.html). Figure 10 gives an overview.
 
 .The private_key_certchain_jwt Method [...download service]
-image::image29.png[Ein Bild, das Diagramm enthält. Automatisch generierte Beschreibung,width=608,height=356]
+image::private_key_certchain_jwt-method.png[width=608,height=356]
 
 A client application uses a client certificate to create a certificate chain. The certificate chain can be checked on the authentication server by the corresponding Root CA certificate, which is signed by a certification authority (CA). The client application sends the certificate chain to the authentication server as token request by a JSON Web Token (JWT). The JWT is signed by the client’s private key corresponding to the client certificate (JWT = Data + Signature).
 

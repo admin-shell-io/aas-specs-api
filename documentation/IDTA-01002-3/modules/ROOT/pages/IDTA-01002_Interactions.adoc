@@ -43,7 +43,7 @@ In the second case, the lookup of the Submodel IDs and the Submodel endpoints ca
 
 .Interaction for Client Application using Submodel Endpoints
 [[fig:seq-sm-endpoints]]
-image::SequenceDiagram_1.svg[SequenceDiagram_1,width=1242,height=750]
+image::seq-sm-endpoints.svg[width=1242,height=750]
 
 For accessing Submodels there are two different ways to do so:
 
@@ -65,10 +65,10 @@ Note: If the AAS or AAS Repository Service is used to get the submodel IDs it is
 
 .Interaction for Client Application using AAS Endpoints and Repositories
 [[fig:seq-aas-endpoints]]
-image::SequenceDiagram_2.svg[SequenceDiagram_2,width=1242,height=750]
+image::seq-aas-endpoints.svg[SequenceDiagram_2,width=1242,height=750]
 
 The difference between Interface and API Operations is outlined in Figure <<fig:seq-sm-endpoints-http>>. This sequence translates the interaction on the interface level of Figure <<fig:seq-sm-endpoints>>, which is protocol-independent and therefore can be implemented in several different manners, to the specific HTTP API Operations. The generic operations are replaced with HTTP requests, e.g. “GetSubmodelById” can be realized by either “GET /shells/<aas-id>/submodels/<submodel-id>” within an AAS Repository  or “GET /submodels/<submodel-id>” within a Submodel Repository.  The returned objects are shortened for better readability. 
 
 .Interaction for Client Application using Submodel Endpoints (for HTTP API Operations)
 [[fig:seq-sm-endpoints-http]]
-image::SequenceDiagram_1_http.svg[SequenceDiagram_1_http,width=1242,height=750]
+image::seq-sm-endpoints-http.svg[SequenceDiagram_1_http,width=1242,height=750]

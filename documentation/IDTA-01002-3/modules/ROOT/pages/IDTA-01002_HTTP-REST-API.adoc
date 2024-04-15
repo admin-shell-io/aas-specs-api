@@ -100,10 +100,10 @@ There are different solutions regarding API versioning involving URL-based versi
 As different solutions also provide different advantages and disadvantages, *URL-based versioning* has been selected as the most suitable method for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
 .Example of an URL Scheme for AAS API Versioning
-image::image23.png[Ein Bild, das Dunkel enthält. Automatisch generierte Beschreibung,width=481,height=110]
+image::aas-api-versioning-url-scheme.png[width=481,height=110]
 
 .Alternative URL example (TODO)
-image::image23.png[Ein Bild, das Dunkel enthält. Automatisch generierte Beschreibung,width=481,height=110]
+image::aas-api-versioning-url-scheme.png[width=481,height=110]
 
 Upcoming implementations of AAS related servers may implement the version prefix “*api/v<X.Y>/*” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version and <Y> denotes the minor version, e.g. “api/v3.0/” (see Figure 4).
 
@@ -134,7 +134,7 @@ If the referable element is an identifiable, it can only be addressed by the glo
 The idShort-path is a chain of idShorts or SubmodelElementList-indexes, which points to an element within a hierarchy of elements. The root of the idShort-path is always a submodel and the first element in an idShort-path is always an idShort of a first level SubmodelElement within a Submodel. Technically, the idShort path is a string and the idShorts are separated by a dot while the SubmodelElementList-indexes are written in brackets.
 
 .Example Hierarchy of Submodel Elements
-image::image24.jpeg[image24,width=642,height=367]
+image::se-hierarchy.jpeg[image24,width=642,height=367]
 
 The example hierarchy in Figure 5 shows a Submodel with a hierarchical structure of SubmodelElements. The submodel can be addressed by its global identifier “https://admin-shell.io/sampleSM”. The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShort-path. The idShort-path in this example pointing to the Property p1 is “sme1.sme2[0].p1”. The hierarchy is built on parent-child relations between the elements. There are four elements which can aggregate SubmodelElements and create deeper hierarchal structures. The elements are Submodel, SubmodelElementCollection, SubmodelElementList, and Entity. The fields used to navigate to a deeper level of the hierarchy can be seen in the following table.
 
@@ -534,7 +534,7 @@ assetType= base64url-encoded identifier
 The invocation of the SubmodelElement “Operation” is the only call that can appear either synchronously or asynchronously in the current version of the specification. The expected behavior is therefore explained in detail.
 
 .Sequence for asynchronous invocations of the SubmodelElement 'Operation'
-image::image25.png[image25,width=642,height=488]
+image::se-operation-invocation.png[image25,width=642,height=488]
 
 The client informs the server whether it is interested in a synchronous (asynchronous) call by targeting the /invoke (/invoke-async) endpoint. In case of a synchronous interaction, the communication channel is kept open until the server has processed the request and responds with an OperationResult object, or a timeout or other kind of error occurs.
 
@@ -559,7 +559,7 @@ Bulk operations are intended for the simultaneous manipulation of many objects. 
 
 
 .Sequence of a Bulk API Operation
-image::image31.png[]
+image::sequence-of-bulk.png[]
 
 Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment. A server may serve bulk endpoints together with non-bulk endpoints. However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/\{handle-id}) and bulk result (/bulk/result/\{handle-id}) endpoints.
 A client executing a bulk request will retrieve the location of the status endpoint through the Location header of the response (see Figure 7). As long as the request is processed, the status endpoint responds with “OK” with an optional information for the client when it shall ask again ("Retry-After”). 
