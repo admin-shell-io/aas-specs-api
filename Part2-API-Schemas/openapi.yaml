@@ -248,7 +248,6 @@ components:
           type: string
       required: 
         - contentType
-        - value
       type: object
     BooleanValue: 
       type: boolean
@@ -299,12 +298,11 @@ components:
           type: array
           items: 
             $ref: "#/components/schemas/SpecificAssetIdValue"
-        statements: 
+        statements:
           items: 
             $ref: "#/components/schemas/ValueOnly"
           type: array
-      required: 
-        - statements
+      required:
         - entityType
       type: object
     ExecutionState:
@@ -629,13 +627,15 @@ components:
     RangeValue: 
       properties: 
         max: 
-          type: number
+          $ref: "#/components/schemas/RangeValueType"
         min: 
-          type: number
-      required: 
-        - min
-        - max
+          $ref: "#/components/schemas/RangeValueType"
       type: object
+    RangeValueType:
+      oneOf:
+        - $ref: "#/components/schemas/StringValue"
+        - $ref: "#/components/schemas/NumberValue"
+        - $ref: "#/components/schemas/BooleanValue"
     ReferenceElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
