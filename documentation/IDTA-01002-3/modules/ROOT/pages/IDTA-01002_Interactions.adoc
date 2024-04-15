@@ -29,9 +29,9 @@ An interaction typcially starts with a client application using the discovery se
 
 As explained in Clause 10.2.1, there are two ways of using the AssetAdministrationShellDescriptor when registering an Asset Administration Shell:
 
-1.	Either add the endpoint of the Asset Administration Shell (usage by client see Figure <<fig:seq-aas-endpoints>>)
+1.	Either add the endpoint of the Asset Administration Shell (usage by client see <<fig:seq-aas-endpoints>>)
 
-2.	Or add the endpoints of its Submodels (usage by client see Figure <<fig:seq-sm-endpoints>>)
+2.	Or add the endpoints of its Submodels (usage by client see <<fig:seq-sm-endpoints>>)
 
 There is also a third way to combine both. In this case the endpoint of the Asset Administration Shell and the information that can be retrieved at this endpoint is the master and a separate Submodel Registry would provide the Submodel endpoints as single source of truth.
 
@@ -39,7 +39,7 @@ There is also a third way to combine both. In this case the endpoint of the Asse
 Note: It is not recommended to combine the two approaches in one and the same AAS Registry. An AAS Registry either should always contain the AAS Endpoint or the AAS Endpoint should always be omitted and Submodel endpoints shall be added.
 ====
 
-In the second case, the lookup of the Submodel IDs and the Submodel endpoints can be skipped (compare Figure <<fig:seq-sm-endpoints>> and Figure <<fig:seq-aas-endpoints>> ). No separate AAS Service or Submodel Registry Service needs to be offered to the Client. From the point of view of a data provider the Submodel Registry interfaces are still needed to add new SubmodelDescriptors to an existing AssetAdministrationShellDescriptor.
+In the second case, the lookup of the Submodel IDs and the Submodel endpoints can be skipped (compare <<fig:seq-sm-endpoints>> and <<fig:seq-aas-endpoints>> ). No separate AAS Service or Submodel Registry Service needs to be offered to the Client. From the point of view of a data provider the Submodel Registry interfaces are still needed to add new SubmodelDescriptors to an existing AssetAdministrationShellDescriptor.
 
 .Interaction for Client Application using Submodel Endpoints
 [[fig:seq-sm-endpoints]]
@@ -51,13 +51,13 @@ For accessing Submodels there are two different ways to do so:
 
 2.	Access a Submodel via a standardized Repository, either AAS or Submodel Repository
 
-In the sequence shown in Figure <<fig:seq-sm-endpoints>>, the first submodel is get via an AAS or Submodel interface whereas the second submodel is get via an AAS or Submodel Repository Service.
+In the sequence shown in <<fig:seq-sm-endpoints>>, the first submodel is get via an AAS or Submodel interface whereas the second submodel is get via an AAS or Submodel Repository Service.
 
 ====
 Note: The client application just uses the endpoint as provided in the Registry. Thus, for the client there is no difference in the interaction with a pure submodel server or a submodel repository server.
 ====
 
-Figure <<fig:seq-aas-endpoints>> shows a sequence with a Registry providing AAS endpoints. In this case the client needs to lookup the corresponding submodel IDs in an AAS or AAS Repository Service first. After looking up the relevant submodel IDs the client calls the Submodel Registry to get the Submodel Descriptors containing the endpoints of the submodels.
+<<fig:seq-aas-endpoints>> shows a sequence with a Registry providing AAS endpoints. In this case the client needs to lookup the corresponding submodel IDs in an AAS or AAS Repository Service first. After looking up the relevant submodel IDs the client calls the Submodel Registry to get the Submodel Descriptors containing the endpoints of the submodels.
 
 ====
 Note: If the AAS or AAS Repository Service is used to get the submodel IDs it is recommended that the data provider adds a "referredSemanticId" to the references of the submodels. Otherwise, it is not possible for the client to decide which of the submodels is relevant. This is typically done via the semanticId of the submodel.
@@ -67,7 +67,7 @@ Note: If the AAS or AAS Repository Service is used to get the submodel IDs it is
 [[fig:seq-aas-endpoints]]
 image::seq-aas-endpoints.svg[SequenceDiagram_2,width=1242,height=750]
 
-The difference between Interface and API Operations is outlined in Figure <<fig:seq-sm-endpoints-http>>. This sequence translates the interaction on the interface level of Figure <<fig:seq-sm-endpoints>>, which is protocol-independent and therefore can be implemented in several different manners, to the specific HTTP API Operations. The generic operations are replaced with HTTP requests, e.g. “GetSubmodelById” can be realized by either “GET /shells/<aas-id>/submodels/<submodel-id>” within an AAS Repository  or “GET /submodels/<submodel-id>” within a Submodel Repository.  The returned objects are shortened for better readability. 
+The difference between Interface and API Operations is outlined in <<fig:seq-sm-endpoints-http>>. This sequence translates the interaction on the interface level of <<fig:seq-sm-endpoints>>, which is protocol-independent and therefore can be implemented in several different manners, to the specific HTTP API Operations. The generic operations are replaced with HTTP requests, e.g. “GetSubmodelById” can be realized by either “GET /shells/<aas-id>/submodels/<submodel-id>” within an AAS Repository  or “GET /submodels/<submodel-id>” within a Submodel Repository.  The returned objects are shortened for better readability.
 
 .Interaction for Client Application using Submodel Endpoints (for HTTP API Operations)
 [[fig:seq-sm-endpoints-http]]
