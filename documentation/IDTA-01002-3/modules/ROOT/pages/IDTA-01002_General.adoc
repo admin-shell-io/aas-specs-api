@@ -14,7 +14,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 This document uses the Industrie 4.0 Service Model illustrated in
 
-Figure 2 for a uniform understanding and naming. It basically distinguishes between associated concepts on several levels (from left to right):
+<<i40-service-model>> for a uniform understanding and naming. It basically distinguishes between associated concepts on several levels (from left to right):
 
 * technology-neutral level: concepts that are independent from selected technologies;
 * technology-specific level: concepts that are instantiated for a given technology and/or architectural style (e.g. HTTP/REST, OPC UA, MQTT);
@@ -57,7 +57,8 @@ The runtime level comprises the following concepts:
 * *API-Operation-Instance*: instance of an API-Operation-Implementation which has an endpoint to get invoked.
 
 .Services, Interfaces & APIs and Operations
-image::image3.png[image3,width=608,height=361]
+[[i40-service-model]]
+image::i40-service-model.png[image3,width=608,height=361]
 
 One important message from the Industrie 4.0 Service Model is that it is the level of the interface (mapped to technology-specific APIs) that
 
@@ -72,12 +73,12 @@ Therefore, this document defines the interfaces and operations which are needed 
 The operations of the interfaces follow a resource-oriented approach which is close to general REST principles but not as strict in every situation. The approach consists of the three main agreements:
 
 * Stateless: the API is stateless. Each operation is independent. The server is always consistent after each operation.
-* Resources (nouns): each resource is a clearly defined noun. This means that it has a specific name and its relation to other nouns is defined. The nouns and the relationships between them are taken from the list of referable objects of “Specification of the Asset Administration Shell Part 1” and their relationships. Clause 10.2 gives an additional list of resources.
+* Resources (nouns): each resource is a clearly defined noun. This means that it has a specific name and its relation to other nouns is defined. The nouns and the relationships between them are taken from the list of referable objects of “Specification of the Asset Administration Shell Part 1” and their relationships. xref:IDTA-01002_Spec_InterfacesPayload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
 * Methods (verbs): a small set of standard REST methods (GET, POST, PUT, DELETE) is used to describe the semantic of the most common operations. There are only a few exceptions for situations where the standard methods do not fit (e.g. GETALL, SET, INVOKE).
 
 The methods are:
 
-* GET: a GET returns a single resource based on the resource identifier which is the identifier link:#bib1[[1\]] for identifiables and the idShortPath for referables.
+* GET: a GET returns a single resource based on the resource identifier which is the identifier xref:IDTA-01002_Bibliography.adoc#bib1[[1\]] for identifiables and the idShortPath for referables.
 * GETALL: returns a list of resources based on optionally available parameters such as filters.
 * POST: creates a new resource. The identifier of the resource is part of the resource description. This is necessary because the id of identifiables is globally unique and should be the identifier for the object in every system. This implies that the creation of an identifiable is idempotent. There shall never be more than one identifiable with the same ID in one system. For example, trying to post the same AAS object twice will not create two AAS resources.
 * PUT: replaces an existing resource.
@@ -97,7 +98,7 @@ Note: values remain unchanged with content=metadata.
 
 ====
 Note: these methods are intended for the naming of interfaces as described in
-Figure 2. They shall not be interpreted as new protocol methods, e.g. on HTTP level.
+<<i40-service-model>>. They shall not be interpreted as new protocol methods, e.g. on HTTP level.
 ====
 
 
@@ -131,9 +132,9 @@ _GetAllSubmodelElementsByPath_ has method verb “GetAll” and model element na
 
 The operations of this document need unique identifiers to reach a common understanding and allow all involved parties to reference the same things. These identifiers need to be globally unique and understandable by the community and implementing systems. Furthermore, the identifiers need to support a versioning scheme for future updates and extensions of the metamodel. The identifiers defined in this document are reused in related resources, for instance REST API operations or in self-descriptions of implementing services.
 
-Internationalized Resource Identifiers (IRIs), Uniform Resource Identifiers (URIs) link:#bib5[[5\]] in particular, and the requirements of DIN SPEC 91406 link:#bib6[[6\]], serve as the basic format. Further design decisions include ‘https’ as the URI scheme, and the controlled domain name ‘admin-shell.io’ as the chosen authority. Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Plattform Industrie 4.0. All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of markdown documents; they are continuously maintained and updated [https://github.com/admin-shell-io/id]. The catalogue itself is structured in several sub-namespaces specified by the first path parameter. All URIs of this document reflect entities of the core metamodel, which are contained in the sub-namespace identified with the ‘/aas/API’ path.
+Internationalized Resource Identifiers (IRIs), Uniform Resource Identifiers (URIs) xref:IDTA-01002_Bibliography.adoc#bib5[[5\]] in particular, and the requirements of DIN SPEC 91406 xref:IDTA-01002_Bibliography.adoc#bib6[[6\]], serve as the basic format. Further design decisions include ‘https’ as the URI scheme, and the controlled domain name ‘admin-shell.io’ as the chosen authority. Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Plattform Industrie 4.0. All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of markdown documents; they are continuously maintained and updated [https://github.com/admin-shell-io/id]. The catalogue itself is structured in several sub-namespaces specified by the first path parameter. All URIs of this document reflect entities of the core metamodel, which are contained in the sub-namespace identified with the ‘/aas/API’ path.
 
-The described identifiers appear mainly in the semanticId field of every class and operation. They are required since the class name is not necessarily constant over time. The respective semanticIds, however, guarantee the unique and certain relation between a reference and the referenced class or operation. The URIs are constructed as follows (compare to Clause Semantic Identifiers for Metamodel and Data Specifications in Part 1 link:#bib1[[1\]]).
+The described identifiers appear mainly in the semanticId field of every class and operation. They are required since the class name is not necessarily constant over time. The respective semanticIds, however, guarantee the unique and certain relation between a reference and the referenced class or operation. The URIs are constructed as follows (compare to Clause Semantic Identifiers for Metamodel and Data Specifications in Part 1 xref:IDTA-01002_Bibliography.adoc#bib1[[1\]]).
 
 
 ====
@@ -185,7 +186,7 @@ The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
 
 == References and Keys
 
-The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” link:#bib1[[1\]].
+The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” xref:IDTA-01002_Bibliography.adoc#bib1[[1\]].
 
 When defining interfaces, a distinction is made between relative references and absolute references.
 
@@ -206,10 +207,11 @@ There are three major components of the overall system:
 . Registries are “directories” which store AAS-IDs and Submodel-IDs together with the related endpoints (typically a URL-path into a repository or to a single AAS/Submodel),
 . discovery (servers) supports a fast search and only store copies of essential information, i.e. key value pairs to find IDs by other IDs.
 
-Figure 3 shows a typical sequence. Discovery finds the AAS-ID for a given Asset-ID. A Registry provides the endpoint for a given AAS-ID. Such an endpoint for an AAS and the related Submodel-IDs make the submodels with their submodelElements accessible.
+<<asset-related-info-retrieval>> shows a typical sequence. Discovery finds the AAS-ID for a given Asset-ID. A Registry provides the endpoint for a given AAS-ID. Such an endpoint for an AAS and the related Submodel-IDs make the submodels with their submodelElements accessible.
 
 .Retrieval of Asset-related Information by AAS and Submodels
-image::image4.jpeg[Ein Bild, das Diagramm enthält. Automatisch generierte Beschreibung,width=642,height=610]
+[[asset-related-info-retrieval]]
+image::asset-related-info-retrieval.jpeg[width=642,height=610]
 
 The Asset Administration Shell model is an asset-oriented model.
 
