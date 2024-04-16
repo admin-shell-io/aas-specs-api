@@ -16,12 +16,14 @@ include::./includes/IDTA-01002_SpecialParameters.adoc[]
 
 == General
 
-For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc. that are specified in Part 1 link:#bib1[[1\]], please refer to the specification in Bibliography. The AAS package format and the AAS Package type are defined in Part 5 link:#bib3[[3\]]. This clause only defines additional classes that are needed for communication with the API.
+For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc. that are specified in Part 1 xref:IDTA-01002_Bibliography.adoc#bib1[[1\]], please refer to the specification in Bibliography. The AAS package format and the AAS Package type are defined in Part 5 xref:IDTA-01002_Bibliography.adoc#bib3[[3\]]. This clause only defines additional classes that are needed for communication with the API.
 
+[#metamodel-specification-details]
 == Metamodel Specification Details
 
 The following type definitions are used to describe specific metamodel elements like Asset Administration Shells and submodels regarding their network and deployment configuration. They use certain attributes copied from the model element itself to describe it – hence the name _Descriptor_.
 
+[#descriptor]
 === Descriptor
 
 [.table-with-appendix-table]
@@ -63,7 +65,7 @@ e|globalAssetId |Global reference to the asset the AAS is representing |Identifi
 e|idShort |Short name of the Asset Administration Shell |NameType |0..1
 e|id |Globally unique identification of the Asset Administration Shell |Identifier |1
 e|specificAssetId |Specific asset identifier |SpecificAssetId |0..*
-e|submodelDescriptor |Descriptor of a submodel of the Asset Administration Shell |xref:SubmodelDescriptor[SubmodelDescriptor] |0..*
+e|submodelDescriptor |Descriptor of a submodel of the Asset Administration Shell |xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor] |0..*
 |===
 
 
@@ -129,7 +131,7 @@ The interface-version of this specification is “3.0”, e.g. the entry for the
 
 See the following example for a descriptor with several endpoints:
 
-image:image5.png[image5]
+image:descriptor.png[image5]
 
 === ProtocolInformation
 
@@ -223,7 +225,7 @@ a|No predefined security type available
 a|TLSA according to RFC 6698
 
 .2+e|W3C_DID |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/W3C_DID/3/0`
-a|Decentralized Identifiers according to the W3C Recommendation link:#bib7[[7\]]
+a|Decentralized Identifiers according to the W3C Recommendation xref:IDTA-01002_Bibliography.adoc#bib7[[7\]]
 |===
 
 === ServiceDescription
@@ -278,11 +280,11 @@ e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-
 
 An example ServiceDescription object might look like the following, indicating that the server supports two profiles at the same time (see Clause 12.12.3 for further details on service specifications and profiles):
 
-image:image6.png[image6]
+image:service-description.png[image6]
 
 === Simple Data Types
 
-All simple data types from Part 1 link:#bib1[[1\]] apply also to the specifications described in this document. Additional data types are defined in Table 2.
+All simple data types from Part 1 xref:IDTA-01002_Bibliography.adoc#bib1[[1\]] apply also to the specifications described in this document. Additional data types are defined in Table 2.
 
 .Simple Data Types used for API-specific Classes
 [%autowidth, width="100%", cols="22%,30%,48%",options="header",]
@@ -350,7 +352,8 @@ This clause deals with the error and result handling of an operation’s executi
 
 The first clause covers generic status codes that are returned on each request, independent of the operation’s success or failure. The subsequent clause describes the result object that is returned in case of failure.
 
-==== [[StatusCode]]Generic Status Codes
+[[StatusCode]]
+==== Generic Status Codes
 
 Successful operations return one of the success status codes and their respective payload. Unsuccessful operations return one of the failure status codes and a result object as defined in Clause 0.
 
