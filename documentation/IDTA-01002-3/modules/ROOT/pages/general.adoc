@@ -73,12 +73,12 @@ Therefore, this document defines the interfaces and operations which are needed 
 The operations of the interfaces follow a resource-oriented approach which is close to general REST principles but not as strict in every situation. The approach consists of the three main agreements:
 
 * Stateless: the API is stateless. Each operation is independent. The server is always consistent after each operation.
-* Resources (nouns): each resource is a clearly defined noun. This means that it has a specific name and its relation to other nouns is defined. The nouns and the relationships between them are taken from the list of referable objects of “Specification of the Asset Administration Shell Part 1” and their relationships. xref:IDTA-01002_Spec_InterfacesPayload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
+* Resources (nouns): each resource is a clearly defined noun. This means that it has a specific name and its relation to other nouns is defined. The nouns and the relationships between them are taken from the list of referable objects of “Specification of the Asset Administration Shell Part 1” and their relationships. xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
 * Methods (verbs): a small set of standard REST methods (GET, POST, PUT, DELETE) is used to describe the semantic of the most common operations. There are only a few exceptions for situations where the standard methods do not fit (e.g. GETALL, SET, INVOKE).
 
 The methods are:
 
-* GET: a GET returns a single resource based on the resource identifier which is the identifier xref:IDTA-01002_Bibliography.adoc#bib1[[1\]] for identifiables and the idShortPath for referables.
+* GET: a GET returns a single resource based on the resource identifier which is the identifier xref:bibliography.adoc#bib1[[1\]] for identifiables and the idShortPath for referables.
 * GETALL: returns a list of resources based on optionally available parameters such as filters.
 * POST: creates a new resource. The identifier of the resource is part of the resource description. This is necessary because the id of identifiables is globally unique and should be the identifier for the object in every system. This implies that the creation of an identifiable is idempotent. There shall never be more than one identifiable with the same ID in one system. For example, trying to post the same AAS object twice will not create two AAS resources.
 * PUT: replaces an existing resource.
@@ -132,9 +132,9 @@ _GetAllSubmodelElementsByPath_ has method verb “GetAll” and model element na
 
 The operations of this document need unique identifiers to reach a common understanding and allow all involved parties to reference the same things. These identifiers need to be globally unique and understandable by the community and implementing systems. Furthermore, the identifiers need to support a versioning scheme for future updates and extensions of the metamodel. The identifiers defined in this document are reused in related resources, for instance REST API operations or in self-descriptions of implementing services.
 
-Internationalized Resource Identifiers (IRIs), Uniform Resource Identifiers (URIs) xref:IDTA-01002_Bibliography.adoc#bib5[[5\]] in particular, and the requirements of DIN SPEC 91406 xref:IDTA-01002_Bibliography.adoc#bib6[[6\]], serve as the basic format. Further design decisions include ‘https’ as the URI scheme, and the controlled domain name ‘admin-shell.io’ as the chosen authority. Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Plattform Industrie 4.0. All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of markdown documents; they are continuously maintained and updated [https://github.com/admin-shell-io/id]. The catalogue itself is structured in several sub-namespaces specified by the first path parameter. All URIs of this document reflect entities of the core metamodel, which are contained in the sub-namespace identified with the ‘/aas/API’ path.
+Internationalized Resource Identifiers (IRIs), Uniform Resource Identifiers (URIs) xref:bibliography.adoc#bib5[[5\]] in particular, and the requirements of DIN SPEC 91406 xref:bibliography.adoc#bib6[[6\]], serve as the basic format. Further design decisions include ‘https’ as the URI scheme, and the controlled domain name ‘admin-shell.io’ as the chosen authority. Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Plattform Industrie 4.0. All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of markdown documents; they are continuously maintained and updated [https://github.com/admin-shell-io/id]. The catalogue itself is structured in several sub-namespaces specified by the first path parameter. All URIs of this document reflect entities of the core metamodel, which are contained in the sub-namespace identified with the ‘/aas/API’ path.
 
-The described identifiers appear mainly in the semanticId field of every class and operation. They are required since the class name is not necessarily constant over time. The respective semanticIds, however, guarantee the unique and certain relation between a reference and the referenced class or operation. The URIs are constructed as follows (compare to Clause Semantic Identifiers for Metamodel and Data Specifications in Part 1 xref:IDTA-01002_Bibliography.adoc#bib1[[1\]]).
+The described identifiers appear mainly in the semanticId field of every class and operation. They are required since the class name is not necessarily constant over time. The respective semanticIds, however, guarantee the unique and certain relation between a reference and the referenced class or operation. The URIs are constructed as follows (compare to Clause Semantic Identifiers for Metamodel and Data Specifications in Part 1 xref:bibliography.adoc#bib1[[1\]]).
 
 
 ====
@@ -186,7 +186,7 @@ The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
 
 == References and Keys
 
-The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” xref:IDTA-01002_Bibliography.adoc#bib1[[1\]].
+The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” xref:bibliography.adoc#bib1[[1\]].
 
 When defining interfaces, a distinction is made between relative references and absolute references.
 
