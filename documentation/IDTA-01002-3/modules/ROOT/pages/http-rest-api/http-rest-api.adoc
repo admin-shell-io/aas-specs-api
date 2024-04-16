@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ////
 
-include::./includes/IDTA-01002_SpecialParameters.adoc[]
+include::../includes/special-parameters.adoc[]
 
 = HTTP/REST API
 
@@ -80,7 +80,7 @@ If several key-value-pairs are included, all must be part of the key-value-pairs
 
 
 ====
-Note: this is conformant to the change made in Part 1 V3.0 xref:IDTA-01002_Bibliography.adoc#bib1[[1\]].
+Note: this is conformant to the change made in Part 1 V3.0 xref:bibliography.adoc#bib1[[1\]].
 ====
 
 
@@ -118,7 +118,7 @@ The versioning scheme for AAS API related services follows semantic versioning f
 
 The major version changes in case of breaking or incompatible changes that need to be addressed by clients. Minor versions add (new) functionality in a backwards compatible way and allow clients with lower minor versions to keep their existing functionality. Patch versions only include backwards compatible bug fixes.
 
-AAS API versioning uses the major and minor version as described above. A specific AAS API version uses specific related versions of the metamodel as defined in Clause xref:IDTA-01002_Preamble.adoc#metamodel-versions[Metamodel Versions]. AAS API versions with the same major version must remain compatible, i.e. a client written for an older or a newer minor version must still work. This requires corresponding testing of clients and servers.
+AAS API versioning uses the major and minor version as described above. A specific AAS API version uses specific related versions of the metamodel as defined in Clause xref:index.adoc#metamodel-versions[Metamodel Versions]. AAS API versions with the same major version must remain compatible, i.e. a client written for an older or a newer minor version must still work. This requires corresponding testing of clients and servers.
 
 Additionally, “Release candidates” are variants of the implementation of the denoted major version. For example, “3.1.0 RC2” should be interpreted as the second (alternative) release candidate for version 3.1.0. This will still result in the version prefix “/api/v3.1/”.
 
@@ -175,7 +175,7 @@ Note 2: in the example above, “aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ” i
 [#pagination]
 == Pagination
 
-Pagination is a commonly used pattern to break down potentially long result lists into smaller pieces for a better control of the network and computational load on both the server and the client side. For instance, the OData protocol xref:IDTA-01002_Bibliography.adoc#bib8[[8\]] provides guidelines for parameters and behavior on the client and server side. In addition, the proposals of the RFC 8977 footnote:[see Chapter 2.4 of RFC 8977] present a best practice for web APIs. In the scope of the AAS HTTP/REST API, the query parameter “cursor” controls, which part of a longer result set is returned.
+Pagination is a commonly used pattern to break down potentially long result lists into smaller pieces for a better control of the network and computational load on both the server and the client side. For instance, the OData protocol xref:bibliography.adoc#bib8[[8\]] provides guidelines for parameters and behavior on the client and server side. In addition, the proposals of the RFC 8977 footnote:[see Chapter 2.4 of RFC 8977] present a best practice for web APIs. In the scope of the AAS HTTP/REST API, the query parameter “cursor” controls, which part of a longer result set is returned.
 
 The AAS client may decide on the appropriate size of the result list through the limit parameter. If it is not specified, the server must comply to the default value or explicitly indicate it in the response object.
 
@@ -246,11 +246,11 @@ e|cursor a|The cursor for the next part of the result set. No cursor attribute m
 
 == Payload
 
-The payload is generated from the technology-neutral specification as described in Part 1 of the Asset Administration Shell Series for JSON xref:IDTA-01002_Bibliography.adoc#bib1[[1\]].
+The payload is generated from the technology-neutral specification as described in Part 1 of the Asset Administration Shell Series for JSON xref:bibliography.adoc#bib1[[1\]].
 
 The serialization of JSON values is described in Clause 11.4.2.
 
-Additional classes needed for payload of the HTTP/REST API specification can be found in xref:IDTA-01002_Spec_InterfacesPayload.adoc#metamodel-specification-details[Metamodel Specification Details].
+Additional classes needed for payload of the HTTP/REST API specification can be found in xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details].
 
 [#modifier-constraints]
 == Modifier Constraints
@@ -605,7 +605,7 @@ The following table shows the mapping of the generic status codes to HTTP status
 .Status Code Mapping for HTTP
 [%autowidth, width="100%", cols="29%,26%,18%,27%",options="header",]
 |===
-|*xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[Generic status code]* |*Meaning* |*HTTP status code* h|Explanation
+|*xref:specification/interfaces-payload.adoc#StatusCode[Generic status code]* |*Meaning* |*HTTP status code* h|Explanation
 |Success |Success |200 (OK) |Standard response for successful requests
 |SuccessCreated |Successful creation of a new resource |201 (Created) |Successful request resulting in the creation of a new resource, e.g. SubmodelElement
 |SuccessAccepted |The reception of the request was successful |202 (Accepted) |The server has accepted the request, but the result will be supplied later

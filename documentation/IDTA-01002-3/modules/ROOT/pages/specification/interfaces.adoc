@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ////
 
-include::./includes/IDTA-01002_SpecialParameters.adoc[]
+include::../includes/special-parameters.adoc[]
 
 
 [#aas-interfaces]
@@ -54,9 +54,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShell/3/0
 h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
-e|serializationModifier a|Defines the format of the response |no |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier] |1
+e|serializationModifier a|Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested Asset Administration Shell |yes |AssetAdministrationShell |1
 |===
 
@@ -73,7 +73,7 @@ h|Name h|*Description* h|*Mand.* h|*Type* h|*Card.*
 5+h|Input Parameter
 e|aas a|AssetAdministrationShell |yes |Asset Administration Shell object |1
 5+h|Output Parameter
-e|statusCode a|StatusCode |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode]  |1
+e|statusCode a|StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
 e|payload a|AssetAdministrationShell |yes |Replaced Asset Administration Shell |1
 |===
 
@@ -93,7 +93,7 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested Submodel References |yes |Reference |0..*
 |===
 
@@ -110,7 +110,7 @@ h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|submodelRef | Reference to the Submodel |yes |Reference |1
 5+h|Output Parameter
-e|statusCode | Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload | Created Submodel Reference |yes |Reference |1
 |===
 
@@ -127,7 +127,7 @@ h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|submodelId | The unique id of the Submodel for the reference to be deleted |yes |Identifier |1
 5+h|Output Parameter
-e|statusCode | Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation GetAssetInformation
@@ -142,7 +142,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetInformation/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested Asset Information |yes |AssetInformation |1
 |===
 
@@ -163,7 +163,7 @@ e|assetInfo a|Asset Information object |yes |AssetInformation |1
 
 5+h|Output Parameter
 
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation GetThumbnail
@@ -178,7 +178,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetThumbnail/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested thumbnail file |yes |File Content |1
 |===
 
@@ -195,7 +195,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|file a|Thumbnail file |yes |File Content |1
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation DeleteThumbnail
@@ -210,7 +210,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteThumbnail/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 === Submodel Interface and Operations
@@ -253,9 +253,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodel/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|serializationModifier |Defines the format of the response |no |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Submodel |yes |Submodel |1
 |===
 
@@ -270,11 +270,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|serializationModifier |Defines the format of the response |no |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested submodel elements |yes |SubmodelElement |0..*
 |===
 
@@ -290,9 +290,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path | {path} |yes |Key |1..*
-|serializationModifier |Defines the format of the response |no |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested submodel element |yes |SubmodelElement |0..1
 |===
 
@@ -309,7 +309,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path} |yes |Key |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested file |yes |File Content |0..1
 |===
 
@@ -327,7 +327,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |path |{path} |yes |Key |1..*
 |payload |Replacing file |yes |File Content |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation DeleteFileByPath
@@ -343,7 +343,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |IdShort-Path via relative Reference/Keys to a submodel element |yes |Key |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation PutSubmodel
@@ -359,7 +359,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |submodel |Submodel object |yes |Submodel |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced submodel |yes |Submodel |1
 |===
 
@@ -383,10 +383,10 @@ Note: values remain unchanged with content=metadata.
 ====
 
 
-|no |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |submodel |Submodel object |yes |Submodel |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Updated submodel |yes |Submodel |1
 |===
 
@@ -415,7 +415,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Output Parameter
 
-|StatusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode]|1
+|StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
 |payload |Created submodel element |yes |SubmodelElement |1
 |===
 
@@ -441,7 +441,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |path |{path} under which the new SubmodelElement shall be added |yes |Key |1..*
 |submodelElement |Submodel element object |yes |SubmodelElement |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Created submodel element |yes |SubmodelElement |1
 |===
 
@@ -465,7 +465,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |path |{path} which shall be replaced |yes |Key |1..*
 |submodelElement |Submodel element object |yes |SubmodelElement |1
 5+h|Output Parameter
-|StatusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced submodel element |yes |SubmodelElement |1
 |===
 
@@ -489,13 +489,13 @@ Note: values remain unchanged with content=metadata.
 ====
 
 
-|no |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier] |1
+|no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 
 |path |{path} |yes |Key |1..*
 |submodelElement |Submodel element object |yes |SubmodelElement |1
 
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 
 |payload |Updated submodel element |yes |SubmodelElement |1
 |===
@@ -513,7 +513,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path} |yes  |Key |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested submodel element value |yes |SubmodelElement |1
 |===
 
@@ -531,7 +531,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |path |{path} |yes |Key |1..*
 |payload |The new value of the submodel element |yes |SubmodelElement |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation DeleteSubmodelElementByPath
@@ -547,7 +547,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path} |yes |Key |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation InvokeOperationSync
@@ -565,7 +565,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |inputArgument |Input argument |no |OperationVariable |1..*
 |inoutputArgument |Inoutput argument |no |OperationVariable |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |The Operation Result |yes |OperationResult |1
 |===
 
@@ -585,7 +585,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |inoutputArgument |Inoutput argument |no |OperationVariable |1..*
 |clientTimeoutDuration |Timestamp indicating when the client expects the server to have finished execution of the invoked operation |yes |duration |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
 |===
 
@@ -602,7 +602,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Execution state of the operation |yes | BaseOperationResult |1
 |===
 
@@ -619,7 +619,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Operation Result |yes |OperationResult |1
 |===
 
@@ -651,7 +651,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |includeConceptDescriptions |Include concept descriptions |no |boolean |1
 |serializationFormat |Denotes in which serialization format the requested content shall be delivered |no |SerializationFormat |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Serialization of the requested Asset Administration Shells and/or Submodels with or without ConceptDescriptions in specified SerializationFormat. |yes |Environment |1
 |===
 
@@ -699,7 +699,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Matching package list; the PackageDescription includes all Asset Administration Shell identifiers, also those which may have not been requested through the aasId input parameter |yes |PackageDescription |0..*
 |===
 
@@ -716,7 +716,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |packageId |Requested package ID from the package list |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |filename |Filename of the AASX package |yes |string |1
 |payload |Requested AASX package |yes |AASX Package |1
 |===
@@ -745,7 +745,7 @@ Note: it is not mandatory for servers to read and parse AASX packages. Servers m
 |file |New AASX package |yes |AASX package |1
 |filename |Filename of the AASX package |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |packageId |New Package ID |yes |string |1
 |===
 
@@ -774,7 +774,7 @@ Note: it is not mandatory for servers to read and parse AASX packages. Servers m
 |file |New AASX package |yes |AASX package |1
 |filename |Filename of the AASX package |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation DeleteAASXPackageById
@@ -790,7 +790,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |packageId |Package ID from the package list |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 [#registration-interfaces]
@@ -837,8 +837,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |assetKind |The kind of the assets to retrieve (Type, Instance) |Yes |AssetKind |1
 |assetType |The type of the assets to retrieve, encoded as unique id |Yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
-|payload |List of Asset Administration Shell Descriptors |no | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
 |===
 
 ==== Operation GetAssetAdministrationShellDescriptorById
@@ -854,8 +854,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |aasIdentifier |The Asset Administration Shell’s unique id |yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode]|1
-|payload |Requested Asset Administration Shell Descriptor |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
+|payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
 ==== Operation PostAssetAdministrationShellDescriptor
@@ -869,10 +869,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShellDes
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint information  |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint information  |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 5+h|Output Parameter
-|StatusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
-|payload |Created Asset Administration Shell Descriptor |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Created Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
 ==== Operation CreateBulkAssetAdministrationShellDescriptors
@@ -886,9 +886,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/CreateBulkAssetAdministrationSh
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|shellDescriptors |List of Asset Administration Shell Descriptor objects |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor] |1..*
+|shellDescriptors |List of Asset Administration Shell Descriptor objects |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor] |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation PutAssetAdministrationShellDescriptorById
@@ -902,10 +902,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellDesc
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint informationcontaining the Asset Administration Shell’s identification and endpoint information |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint informationcontaining the Asset Administration Shell’s identification and endpoint information |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Asset Administration Shell Descriptor |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Replaced Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
 
@@ -920,9 +920,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkAssetAdministrationShell
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|shellDescriptors |List of Asset Administration Shell Descriptor objects |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor] |1..*
+|shellDescriptors |List of Asset Administration Shell Descriptor objects |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor] |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 ==== Operation DeleteAssetAdministrationShellDescriptorById
@@ -938,7 +938,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |aasIdentifier |The Asset Administration Shell’s unique id |yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 
@@ -956,9 +956,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkAssetAdministrationSh
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|shellDescriptors |List of Asset Administration Shell Descriptor objects |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor] |1..*
+|shellDescriptors |List of Asset Administration Shell Descriptor objects |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor] |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 === Submodel Registry Interface and Operations
@@ -994,7 +994,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-e|statusCode a| StatusCode |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a| StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|List of requested submodel descriptors |no |SubmodelDescriptor |1..*
 |===
 
@@ -1011,7 +1011,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|submodelIdentifier a|The Submodel’s unique id |yes |Identifier |1
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested submodel descriptor |yes |SubmodelDescriptor |1
 |===
 
@@ -1027,10 +1027,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|submodel +
-Descriptor a|Object containing the Submodel’s identification and endpoint information |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor] |1
+Descriptor a|Object containing the Submodel’s identification and endpoint information |yes |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor] |1
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
-e|payload a|Created submodel descriptor |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|Created submodel descriptor |yes | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
 |===
 
 ==== Operation PostBulkSubmodelDescriptors
@@ -1045,11 +1045,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 
 |submodel +
-Descriptor	a|Object containing the Submodel’s identification and endpoint information |yes	| xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor]  	|1..*
+Descriptor	a|Object containing the Submodel’s identification and endpoint information |yes	| xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  	|1..*
 
 5+h|Output Parameter
 
-|statusCode	a|Status code	|yes	|xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode]	|1
+|statusCode	a|Status code	|yes	|xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]	|1
 |===
 
 
@@ -1065,10 +1065,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|submodel +
-Descriptor a|Object containing the Submodel’s identification and endpoint information |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
+Descriptor a|Object containing the Submodel’s identification and endpoint information |yes | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
 5+h|Output Parameter
-e|xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
-e|payload a|Replaced submodel descriptor |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
+e|xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|Replaced submodel descriptor |yes | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
 |===
 
 
@@ -1084,10 +1084,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkSubmodelDescriptorsById/
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |submodel +
-Descriptor |Object containing the Submodel’s identification and endpoint information |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
+Descriptor |Object containing the Submodel’s identification and endpoint information |yes | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced submodel descriptor |yes | xref:IDTA-01002_Spec_InterfacesPayload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Replaced submodel descriptor |yes | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
 |===
 
 ==== Operation DeleteSubmodelDescriptorById
@@ -1103,7 +1103,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |submodelIdentifier |The Submodel’s unique id |yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 
@@ -1120,7 +1120,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |submodelIdentifier |The Submodel’s unique id |yes |Identifier |1..*
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 == Repository Interfaces
@@ -1169,11 +1169,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|serializationModifier a|Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+e|serializationModifier a|Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|List of Asset Administration Shells |no |AssetAdministrationShell |1
 |===
 
@@ -1189,11 +1189,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |id |The Asset Administration Shell’s unique id |yes |Identifier |1
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Asset Administration Shell |yes |AssetAdministrationShell |1
 |===
 
@@ -1210,11 +1210,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |key |The key of the AssetId The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
 |keyIdentifier |The key identifier object |yes |string |1
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |yes |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1..*
 |===
 
@@ -1230,11 +1230,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |idShort |The Asset Administration Shell’s idShort |yes |NameType |
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1
 |===
 
@@ -1263,7 +1263,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Output Parameter
 
-|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 
 |payload a|Created Asset Administration Shell |yes |AssetAdministrationShell |1
 |===
@@ -1281,7 +1281,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |aas |Asset Administration Shell object |yes |AssetAdministrationShell |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced Asset Administration Shell |yes |AssetAdministrationShell |1
 |===
 
@@ -1298,7 +1298,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |id |The Asset Administration Shell’s unique id |yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 === Submodel Repository Interface and Operations
@@ -1340,11 +1340,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodels/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier] |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Submodels |no |Submodel |1..*
 |===
 
@@ -1360,9 +1360,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |id |The Submodel’s unique id |yes |Identifier |1
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Submodel |yes |Submodel |1
 |===
 
@@ -1378,11 +1378,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |semanticId |Identifier of the semantic definition |yes |Reference |1
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Submodels |no |Submodel |1..*
 |===
 
@@ -1398,11 +1398,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |idShort |The Submodel’s idShort |yes |NameType |1
-|serializationModifier |Defines the format of the response |yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier]  |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Submodels |no |Submodel |1..*
 |===
 
@@ -1427,7 +1427,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |submodel |Submodel object |yes |Submodel |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Created Submodel |yes |Submodel |1
 |===
 
@@ -1444,7 +1444,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |submodel |Submodel object |yes |Submodel |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced Submodel |yes |Submodel |1
 |===
 
@@ -1468,10 +1468,10 @@ Note: values remain unchanged with content=metadata.
 ====
 
 
-|yes |xref:IDTA-01002_Spec_InterfacesOperationParameters.adoc#SerializationModifier[SerializationModifier] |1
+|yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 |submodel |Submodel object |yes |Submodel |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Updated submodel |yes |Submodel |1
 |===
 
@@ -1488,7 +1488,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|id a|The Submodel’s unique id |yes |Identifier |1
 5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 === Concept Description Repository Interface and Operations
@@ -1532,7 +1532,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |limit |The maximum size of the result set |No |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |String |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Concept Descriptions |no |ConceptDescription |1..*
 |===
 
@@ -1549,7 +1549,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |id |The Concept Description’s unique id |yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Concept Description |yes |ConceptDescription |1
 |===
 
@@ -1568,7 +1568,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Concept Descriptions |no |ConceptDescription |1..*
 |===
 
@@ -1587,7 +1587,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode]  |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
 |payload |Requested Concept Descriptions |no |ConceptDescription |1..*
 |===
 
@@ -1606,7 +1606,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Concept Descriptions |no |ConceptDescription |1..*
 |===
 
@@ -1635,7 +1635,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Output Parameter
 
-|statusCode a|Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode]  |1
+|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
 |payload a|Created Concept Description |yes |ConceptDescription |1
 |===
 
@@ -1652,7 +1652,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |conceptDescription |Concept Description object |yes |ConceptDescription |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced Concept Description |yes |ConceptDescription |1
 |===
 
@@ -1669,7 +1669,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |cdIdentifier |The Concept Description’s unique id |yes |Identifier |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 [#publish-and-discovery-interfaces]
@@ -1718,7 +1718,7 @@ Note: The key of the asset identifier key-value-pair for the globalAssetId is de
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |yes |Identifier |1..*
 |===
 
@@ -1736,7 +1736,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |aasIdentifier |The Asset Administration Shell’s unique id |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload a|
 Requested asset identifier, which could be the globalAssetId or specificAssetIds.
 
@@ -1772,7 +1772,7 @@ Note: the name for the globalAssetId is defined in Clause 4.5. It is the predefi
 
 |yes |SpecificAssetId |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Asset identifier created successfully |yes |SpecificAssetId |1
 |===
 
@@ -1789,7 +1789,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |aasIdentifier |The Asset Administration Shell’s unique id |yes |string |1
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
 == Self Description Interface
@@ -1815,7 +1815,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSelfDescription/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
-|statusCode |Status code |yes |xref:IDTA-01002_Spec_InterfacesPayload.adoc#StatusCode[StatusCode] |1
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |description |Key-value-pairs that describe the capabilities of the providing server |yes |ServiceDescription |1
 |===
 
