@@ -51,8 +51,8 @@ components:
       schema:
         type: string
         minLength: 1
-        maxLength: 2000
-        pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+        maxLength: 2048
+        pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
     Cursor:    
       name: cursor
       in: query
@@ -163,8 +163,8 @@ components:
             assetType:
               type: string
               minLength: 1
-              maxLength: 2000
-              pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+              maxLength: 2048
+              pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             endpoints: 
               items: 
                 $ref: "#/components/schemas/Endpoint"
@@ -173,14 +173,14 @@ components:
             globalAssetId: 
               type: string
               minLength: 1
-              maxLength: 2000
-              pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+              maxLength: 2048
+              pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             idShort: 
               type: string
               maxLength: 128
             id: 
               type: string
-              maxLength: 2000
+              maxLength: 2048
               minLength: 1
               pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
             specificAssetIds: 
@@ -212,7 +212,7 @@ components:
         value:
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
           pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
     BaseOperationResult:
       allOf:
@@ -305,8 +305,8 @@ components:
         globalAssetId: 
           type: string
           minLength: 1
-          maxLength: 2000
-          pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+          maxLength: 2048
+          pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
         specificAssetIds:
           type: array
           items: 
@@ -337,7 +337,7 @@ components:
         value: 
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
       required: 
         - contentType
         - value
@@ -565,8 +565,8 @@ components:
         aasIds: 
           items: 
             type: string
+            maxLength: 2048
             pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
-            maxLength: 2000
           type: array
         packageId: 
           type: string
@@ -739,7 +739,7 @@ components:
         id: 
           type: string
           minLength: 1
-          maxLength: 2000
+          maxLength: 2048
           pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
         semanticId: 
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/Reference"
