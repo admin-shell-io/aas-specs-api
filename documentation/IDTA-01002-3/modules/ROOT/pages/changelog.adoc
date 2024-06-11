@@ -69,10 +69,18 @@ add DeleteBulkSubmodelDescriptorsById
 
 Major:
 
-* Remove “format: byte” from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required.
-* Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
+* Remove “format: byte” from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required. Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
 * Change the values for the ServiceDescription class from enum to a list of strings in the OpenAPI definition for the Part 2 classes.
-* (Editorial) Clause 12.8: Added constraint on the return object for ValueOnly requests and that the Level modifier is undefined for Metadata requests
+* Clause 11.4.2 and 11.4.3: Change the ValueOnly attribute “annotation” to “annotations” and its value from an array to ValueOnly for the AnnotatedRelationshipElementValue class in the examples and schema to match the “AnnotatedRelationshipElement/annotations” attribute. Furthermore, “AnnotatedRelationshipElementValue/annotations“ is optional now. 
+* Clause 11.4.2: Add serialisation rule for empty "FileValue/value" and "BlobValue/value".
+* Clause 11.4.3: "FileValue/value" and "BlobValue/value" are optional but non-empty attributes. 
+* Clause 11.4.3: "EntityValue/statements" made optional.
+* Clause 11.4.3: Fix maxLength for "FileValue/value" from 200 to 2000 characters.
+* Clause 12.2: Remove the design decision for the ReferenceParent class, also removing it from the OpenAPI file.
+* Clause 12.3: Relax the requirements for API paths and version declaration.
+* (Editorial) Clause 12.8: Added constraint on the return object for ValueOnly requests and that the Level modifier is undefined for Metadata requests.
+* Adopt the V3.0.1 bugfix changes of the AAS Metamodel in the OpenAPI files and references.
+
 
 Minor:
 
