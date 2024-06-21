@@ -174,7 +174,7 @@ components:
               type: string
               minLength: 1
               maxLength: 2048
-              pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+              pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
             idShort: 
               type: string
               maxLength: 128
@@ -182,7 +182,7 @@ components:
               type: string
               maxLength: 2048
               minLength: 1
-              pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+              pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
             specificAssetIds: 
               type: array
               items:
@@ -740,7 +740,7 @@ components:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: ^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+          pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
         semanticId: 
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.2#/components/schemas/Reference"
         supplementalSemanticId:
