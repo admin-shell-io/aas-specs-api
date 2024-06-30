@@ -1672,6 +1672,82 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+
+[#query-interfaces]
+== Query Interfaces
+
+=== General
+
+The Query Interface is substantially different to the other Interfaces
+
+
+=== Query Interface and Operations
+
+==== Query Interface
+
+
+[%autowidth, width="100%", cols="45%,55%",options="header",]
+|===
+2+|Interface: Query
+h|Operation Name h|Description
+e|GetAllAssetAdministrationShellIdsByQuery | Returns a list of Asset Administration Shell identifiers based on an input query.
+e|GetAllAssetAdministrationShellsByQuery | Returns a list of Asset Administration Shells based on an input query.
+e|GetAllSubmodelIdsByQuery | Returns a list of Submodel identifiers based on an input query.
+e|GetAllSubmodelsByQuery | Returns a list of Submodels based on an input query.
+e|GetAllAssetAdministrationShellDescriptorIdsByQuery | Returns a list of Asset Administration Shell Descriptor identifiers based on an input query.
+e|GetAllAssetAdministrationShellDescriptorsByQuery | Returns a list of Asset Administration Shell Descriptors based on an input query.
+e|GetAllSubmodelDescriptorIdsByQuery | Returns a list of Submodel Descriptor identifiers based on an input query.
+e|GetAllSubmodelDescriptorsByQuery | Returns a list of Submodel Descriptors based on an input query.
+e|GetAllConceptDescriptionIdsByQuery | Returns a list of Concept Description identifiers based on an input query.
+e|GetAllConceptDescriptionsByQuery | Returns a list of Concept Descriptions based on an input query.
+|===
+
+
+==== Operation GetAllAssetAdministrationShellIdsByQuery
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|GetAllAssetAdministrationShellIdsByQuery
+h|Explanation 4+a|Returns a list of Asset Administration Shell identifiers based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByQuery/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|queryString | The specific string conformant to the AAS Query Language, containing filter conditions for the required Asset Administration Shells. | yes | QueryString |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | Identifiers of the requested Asset Administration Shells |no | Identifier |1..*
+|===
+
+==== Operation GetAllAssetAdministrationShellsByQuery
+todo
+
+==== Operation GetAllSubmodelIdsByQuery
+todo
+
+==== Operation GetAllSubmodelsByQuery
+todo
+
+==== Operation GetAllAssetAdministrationShellDescriptorIdsByQuery
+todo
+
+==== Operation GetAllAssetAdministrationShellDescriptorsByQuery
+todo
+
+==== Operation GetAllSubmodelDescriptorIdsByQuery
+todo
+
+==== Operation GetAllSubmodelDescriptorsByQuery
+todo
+
+==== Operation GetAllConceptDescriptionIdsByQuery
+todo
+
+==== Operation GetAllConceptDescriptionsByQuery
+todo
+
+
 [#publish-and-discovery-interfaces]
 == Publish and Discovery Interfaces
 
