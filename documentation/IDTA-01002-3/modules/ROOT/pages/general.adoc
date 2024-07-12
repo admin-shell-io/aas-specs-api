@@ -340,7 +340,7 @@ The comparison operators follow the proposals of RFC [add reference to the JSONP
 
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,50%"]
+[width=100%, cols="45%,10%,45%"]
 |===
 h| Comparison h| Result h| Comment
 | eq( "displayName", "description" ) | true | Empty nodelists
@@ -374,6 +374,29 @@ h| Comparison h| Result h| Comment
 |===
 
 
+=== Nested Comparisons (todo: find better name for this effect)
+
+[.table-with-appendix-table]
+[width=100%, cols="50%,10%,30%"]
+|===
+h| Comparison h| Result h| Comment
+| eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,  
+
+eq( "assetInformation.specificAssetIds.value", 'aas-1' )
+| "https://example.com/asset-administration-shell-1" | The values for 'supplierId' and 'aas-2' exist in the same SpecificAssetId object.
+| eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,  
+
+eq( "assetInformation.specificAssetIds.value", 'aas-2' )
+| "https://example.com/asset-administration-shell-1" | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
+| "assetInformation.specificAssetIds"( 
+    
+and (
+    
+eq( "name", 'supplierId' ) , eq( "value", 'aas-2' )
+
+)
+| empty list | The values for 'supplierId' and 'aas-2' in the same SpecificAssetId object.
+|===
 
 
 === Logical Operators
