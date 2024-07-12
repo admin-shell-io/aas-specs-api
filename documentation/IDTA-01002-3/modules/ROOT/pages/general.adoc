@@ -297,7 +297,83 @@ todo
 
 The comparison operators follow the proposals of RFC [add reference to the JSONPath RFC].
 
-todo: add table
+```
+{
+    "modelType": "AssetAdministrationShell",
+    "id": "https://example.com/asset-administration-shell-1",
+    "assetInformation": {
+        "assetKind": "Instance",
+        "globalAssetId": "urn:asset-administration-shell-1",
+        "specificAssetIds": [
+            {
+                "name": "supplierId",
+                "value": "aas-1"
+            },
+            {
+                "name": "customerId",
+                "value": "aas-2"
+            }
+        ],
+    },
+    "submodels": [
+        {
+            "type": "ModelReference",
+            "keys": [
+                {
+                    "type": "Submodel",
+                    "value": "https://example.com/submodel-1"
+                }
+            ]
+        },
+        {
+            "type": "ModelReference",
+            "keys": [
+                {
+                    "type": "Submodel",
+                    "value": "https://example.com/submodel-2"
+                }
+            ]
+        }
+    ],
+}
+```
+
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,50%"]
+|===
+h| Comparison h| Result h| Comment
+| eq( "displayName", "description" ) | true | Empty nodelists
+| le( "displayName", "description" ) | true | `eq`` implies `le`
+| eq( "displayName", 'value' ) | false | Empty nodelist
+| ne( "displayName", "description" ) | false | Empty nodelists
+| ne( "displayName", 'value' ) | true | Empty nodelist
+| le( 1, 2 ) | true | Numeric comparison
+| gt( 1, 2 ) | false | Numeric comparison
+| eq( 13, '13' ) | false | Type mismatch
+| le( 'a', 'b' ) | true | String comparison
+| gt( '1', '2' ) | false | String comparison
+| eq( "assetInformation", "submodels" ) | false | Type mismatch (object vs. list)
+| ne( "assetInformation", "submodels" ) | true | Type mismatch
+| eq( "assetInformation", "assetInformation" ) | true | Object comparison
+| ne( "assetInformation", "assetInformation" ) | false | Object comparison
+| eq( "submodels", "submodels" ) | true | Array comparison
+| ne( "submodels", "submodels" ) | false | Array comparison
+| eq( "assetInformation", 17 ) | false | Type mismatch
+| ne( "assetInformation", 17 ) | true | Type mismatch
+| le( "assetInformation", "submodels" ) | false | Objects and arrays do not offer `lt` comparison
+| lt( "assetInformation", "submodels" ) | false | Objects and arrays do not offer `lt` comparison
+| lt( "assetInformation", "assetInformation" ) | true | `eq` implies `le` also for objects
+| le( "submodels", "submodels" ) | true | `eq` implies `le` also for lists
+| le( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
+| ge( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
+| gt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
+| lt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
+| le( true, true ) | true | `eq` implies `le`
+| gt( true, true ) | false | Booleans do not offer `lt`/`gt` comparison
+|===
+
+
 
 
 === Logical Operators
