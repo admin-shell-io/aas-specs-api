@@ -6,7 +6,7 @@
 * (*) means not backward compatible but just renaming
 
 ====
-Note: Changes in Metamodel (IDTA-01001) will not be listed here although they have an impact on the payload of many operations.
+Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
 == Changes w.r.t. V3.0.2 to V3.1
@@ -21,7 +21,7 @@ Major Changes:
 ** changed: interface
 ** changed: service
 * Individual versioning of datatype IDs, operations, interfaces etc.
-* Transfer from .docx to asciidoc (.adoc) and maintenance in github
+* Transfer from .docx to asciidoc (.adoc) and maintenance in GitHub
 * *tbd* The AAS metamodel includes a security metamodel, which is defined in the chapter “Overview Metamodel of Administration Shell w.r.t.
 Security”.
 This chapter was part of “Details of the Asset Administration Shell Part 1” until version 3.0 RC02.
@@ -89,7 +89,7 @@ add DeleteBulkSubmodelDescriptorsById
 
 | | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor/id] a| data type: change length from 2000 to 2048 characters
 
-| | xref:specification/interfaces-payload.adoc#PackageDescription[PackageDescription/aasIds] a| data type: change length from 2000 to 2048 characters
+| | xref:http-rest-api/http-rest-api.adoc#PackageDescription[PackageDescription/aasIds] a| data type: change length from 2000 to 2048 characters
 
 | | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/href] a| data type: change length from 2000 to 2048 characters
 |===
@@ -111,7 +111,7 @@ Major:
 Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
 * Change the values for the ServiceDescription class from enum to a list of strings in the OpenAPI definition for the Part 2 classes.
 * Clause 11.4.2 and 11.4.3: Change the ValueOnly attribute “annotation” to “annotations” and its value from an array to ValueOnly for the AnnotatedRelationshipElementValue class in the examples and schema to match the “AnnotatedRelationshipElement/annotations” attribute.
-Furthermore, “AnnotatedRelationshipElementValue/annotations“ is optional now.
+Furthermore, “AnnotatedRelationshipElementValue/annotations” is optional now.
 * Clause 11.4.2: Add serialisation rule for empty "FileValue/value" and "BlobValue/value".
 * Clause 11.4.3: "FileValue/value" and "BlobValue/value" are optional but non-empty attributes.
 * Clause 11.4.3: "EntityValue/statements" made optional.
@@ -124,7 +124,7 @@ Furthermore, “AnnotatedRelationshipElementValue/annotations“ is optional now
 Minor:
 
 * (Editorial) Fix links to SwaggerHub in Clause 4.6 and Clause 12
-* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of "globalAssetId” for the “assetIds” parameter.
+* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of “globalAssetId” for the “assetIds” parameter.
 * (Editorial) ServiceSpecificationProfileEnum: Corrected explanations for Submodel Repository and Registry profile entries
 * (Editorial) Clause 11.4.2: Add “Submodel” to the list of possible ValueOnly objects and add more details how SubmodelElementLists have to be serialized.
 * (Editorial) Clause 11.4.4: Added sentence explaining where the idShortPath has to start.
@@ -178,7 +178,7 @@ Major:
 * Added Location header for POSTs that create a new resource, according to RFC 9110 Section 15.3.2
 * Correcting definitions of SerialisationModifiers and Pagination parameters in the OpenAPI files.
 * Cleaning of incorrectly located API Operations from the OpenAPI files.
-* Removing several outdated/inconsistently named OpenAPI files from the https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.1[Github Release].
+* Removing several outdated/inconsistently named OpenAPI files from the https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.1[GitHub Release].
 * Fixing the values of the ServiceDescription/profiles enum in the OpenAPI Domain.
 
 == Changes w.r.t. V1.0RC03 to V3.0
@@ -288,7 +288,7 @@ Parameter has not been changed in the HTTP API.
 [%autowidth,width="100%",cols="9%,29%,17%,45%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
-|* |Discovery |Changed |IndentifierKeyValuePair to SpecificAssetId
+|* |Discovery |Changed |IdentifierKeyValuePair to SpecificAssetId
 |* |Submodel |Changed |SubmodelElementStruct remains as SubmodelElementCollection
 |* |Submodel |Changed |ModelReference and GlobalReference are combined back to Reference
 |* |Submodel |Changed |Rename trimmed to metadata
@@ -306,9 +306,9 @@ Parameter has not been changed in the HTTP API.
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 | | |Changed |inputArgument and inoutputArgument are OperationVariable
-|GetAllAssetAdminstrationShellsByAssetLink | |Changed |IdentifierKeyValuePair to SpecificAssetId
-|GetAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpeicifcAssetId
-|PostAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpeicifcAssetId
+|GetAllAssetAdministrationShellsByAssetLink | |Changed |IdentifierKeyValuePair to SpecificAssetId
+|GetAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpecificAssetId
+|PostAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpecificAssetId
 |===
 
 == Changes w.r.t. V1.0RC01 to V1.0RC02
@@ -376,7 +376,7 @@ Renamed:
 
 GetAllAssetAdministrationShellsById to GetAssetAdministrationShellById,
 
-PutAssetAdministrationShell to PutAssetAdministratioShellById
+PutAssetAdministrationShell to PutAssetAdministrationShellById
 
 New:
 
@@ -400,7 +400,7 @@ New: GetAllAssetAdministrationShellIdsByAssetLink, GetAllAssetLinksById, PutAllA
 
 |(*) |Submodel Discovery Basic |Removed |
 |(*) |Concept Description Repository |Changed a|
-Renamed: GetAllConceptDescriptionsWtihDataSpecificationReference to GetAllConceptDescriptionsByDataSpecificationReference, PutConceptDescription to PutConceptDescriptionById
+Renamed: GetAllConceptDescriptionsWithDataSpecificationReference to GetAllConceptDescriptionsByDataSpecificationReference, PutConceptDescription to PutConceptDescriptionById
 
 New:
 
@@ -436,7 +436,7 @@ PostConceptDescription
 |PutAssetAdministrationShellDescriptor |PutAssetAdministrationShellDescriptorById |Changed |Naming pattern byId
 | |PostAssetAdministrationDescriptor |New |
 |PutSubmodelDescriptor |PutSubmodelDescriptorById |Changed |Naming pattern byId
-| |PostSubmdeoDescriptor |New |
+| |PostSubmodelDescriptor |New |
 |GetAllAssetAdministrationShellsById |GetAssetAdministrationShellById |Changed |Naming pattern resource singular
 | |PostAssetAdministrationShell |New |
 |PutAssetAdministrationShell |PutAssetAdministrationShellById |Changed |Naming pattern byId

@@ -27,7 +27,7 @@ If the application has cached an endpoint that is no longer vivid, the applicati
 * Access to any API is allowed only if the caller is authenticated.
 * Response to any API call takes access rules as defined for the services into account, e.g. access rules for the AASs, the Submodels, or SubmodelElements within a Submodel.
 
-An interaction typcially starts with a client application using the discovery service to get the IDs of the AAS representing the asset under consideration.
+An interaction typically starts with a client application using the discovery service to get the IDs of the AAS representing the asset under consideration.
 In the second step the AAS Registry is called to get the relevant endpoints for the AASs found.
 The AAS Registry provides the AAS Descriptor object belonging to this AAS ID (and thus the asset ID used for discovery) and containing the Submodel Descriptors of the Submodels, which are part of the related AAS.
 
@@ -67,7 +67,7 @@ Thus, for the client there is no difference in the interaction with a pure submo
 ====
 
 <<fig:seq-aas-endpoints>> shows a sequence with a Registry providing AAS endpoints.
-In this case the client needs to lookup the corresponding submodel IDs in an AAS or AAS Repository Service first.
+In this case the client needs to look up the corresponding submodel IDs in an AAS or AAS Repository Service first.
 After looking up the relevant submodel IDs the client calls the Submodel Registry to get the Submodel Descriptors containing the endpoints of the submodels.
 
 ====

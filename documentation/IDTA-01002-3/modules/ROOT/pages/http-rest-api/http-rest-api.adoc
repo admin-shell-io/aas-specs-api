@@ -54,7 +54,7 @@ This clause gives an overview of the HTTP/REST API and describes general design 
 
 The following design decisions and constraints hold for the HTTP/REST API:
 
-* OpenAPI and Swaggerhub shall be used for specification.
+* OpenAPI and SwaggerHub shall be used for specification.
 This leads to the constraint that one operation can only provide one type of a resulting payload.
 * This document assumes version 1.1 of HTTP.
 * An endpoint of the HTTP/REST API shall always use HTTPS (Port 443) with an up-to-date level of encryption.
@@ -125,7 +125,7 @@ There are different solutions regarding API versioning involving URL-based versi
 As different solutions also provide different advantages and disadvantages, *URL-based versioning* has been selected as the most suitable method for the AAS API.
 Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
-.Example of an URL Scheme for AAS API Versioning
+.Example of a URL Scheme for AAS API Versioning
 [[aas-api-versioning-url-scheme]]
 image::aas-api-versioning-url-scheme.png[width=481,height=110]
 
@@ -182,7 +182,7 @@ The submodel can be addressed by its global identifier “https://admin-shell.io
 The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShort-path.
 The idShort-path in this example pointing to the Property p1 is “sme1.sme2[0].p1”.
 The hierarchy is built on parent-child relations between the elements.
-There are four elements which can aggregate SubmodelElements and create deeper hierarchal structures.
+There are four elements which can aggregate SubmodelElements and create deeper hierarchical structures.
 The elements are Submodel, SubmodelElementCollection, SubmodelElementList, and Entity.
 The fields used to navigate to a deeper level of the hierarchy can be seen in the following table.
 
@@ -709,6 +709,7 @@ The following table shows the mapping of the generic status codes to HTTP status
 
 In addition to the data types used in the technology-neutral specification, the HTTP/REST API uses the data types as defined in this clause.
 
+[#PackageDescription]
 === PackageDescription
 
 [.table-with-appendix-table]
