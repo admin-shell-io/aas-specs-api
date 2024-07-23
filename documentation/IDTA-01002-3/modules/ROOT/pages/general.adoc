@@ -2,7 +2,7 @@
 Copyright (c) 2023 Industrial Digital Twin Association
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](
-https://creativecommons.org/licenses/by/4.0/). 
+https://creativecommons.org/licenses/by/4.0/).
 
 SPDX-License-Identifier: CC-BY-4.0
 
@@ -129,7 +129,7 @@ _GetSubmodel_ has method verb “Get” and model element name “Submodel”.
 _GetAllSubmodelElementsByPath_ has method verb “GetAll” and model element name “SubmodelElements” plus a by-qualifier “Path”.
 
 
-== Semantic References for Operations 
+== Semantic References for Operations
 
 The operations of this document need unique identifiers to reach a common understanding and allow all involved parties to reference the same things. These identifiers need to be globally unique and understandable by the community and implementing systems. Furthermore, the identifiers need to support a versioning scheme for future updates and extensions of the metamodel. The identifiers defined in this document are reused in related resources, for instance REST API operations or in self-descriptions of implementing services.
 
@@ -371,27 +371,43 @@ h| Comparison h| Result h| Comment
 | lt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
 | le( true, true ) | true | `eq` implies `le`
 | gt( true, true ) | false | Booleans do not offer `lt`/`gt` comparison
+| like( "id", "https://example.com/asset-administration-shell-*" ) | true | Like comparison matches entities based on the specified attribute's value,
+including case sensitivity — either upper or lower case. Typically, the value includes wildcards such as '?' or '*', allowing for more flexible matching.
 |===
 
 
-=== Nested Comparisons (todo: find better name for this effect)
+=== Nested Comparisons (todo: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
 
 [.table-with-appendix-table]
 [width=100%, cols="50%,10%,30%"]
 |===
 h| Comparison h| Result h| Comment
-| eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,  
+| and (
 
-eq( "assetInformation.specificAssetIds.value", 'aas-1' )
-| "https://example.com/asset-administration-shell-1" | The values for 'supplierId' and 'aas-2' exist in the same SpecificAssetId object.
-| eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,  
+    eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,
 
-eq( "assetInformation.specificAssetIds.value", 'aas-2' )
-| "https://example.com/asset-administration-shell-1" | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
-| "assetInformation.specificAssetIds"( 
-    
+    eq( "assetInformation.specificAssetIds.value", 'aas-1' )
+
+ )
+| [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'supplierId' and 'aas-2' exist in the same SpecificAssetId object.
+| and (
+
+    eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,
+
+    eq( "assetInformation.specificAssetIds.value", 'aas-2' )
+
+ )
+| [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
+|
+  like( "assetInformation.specificAssetIds.value", 'aas-*' )
+| [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'aas-1' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
+|
+TODO: This doesn't align well with the existing RQL definitions and would be hard challenge to parse it. We need sonthing different which is more aligend with RQL
+
+"assetInformation.specificAssetIds"(
+
 and (
-    
+
 eq( "name", 'supplierId' ) , eq( "value", 'aas-2' )
 
 )
@@ -401,9 +417,67 @@ eq( "name", 'supplierId' ) , eq( "value", 'aas-2' )
 
 === Logical Operators
 
-todo: explain AND, OR, NOT
-
+[.table-with-appendix-table]
+[width=100%, cols="25%,75%"]
+|===
+h| Logical operator h| Description
+| and | The "and" operator returns true if all operands are true.
+| or | The "or" operator returns true if at least one of the operands are true.
+| not | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true.
+|===
 
 === Sorting and Pagination
 
-todo: Explain LIMIT, OFFSET/SKIP, SORT 
+==== Pagination
+To manage the pagination of the retrieved data, incorporate the limit operator within the options configuration.
+
+[source,javascript]
+----
+option=limit(start,count)
+----
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,75%"]
+|===
+h| Operator h| Description
+| limit | To control the pagination of the retrieved data, use the limit operator
+| start | specifies where to start fetching data, also known as offset
+| count | indicates how many results to fetch per page
+|===
+
+Example
+[source,javascript]
+----
+option=limit(10,5)
+----
+
+==== Sorting
+
+To organize the retrieved data in a specific order, incorporate the sort operator within the options configuration.
+
+[source,javascript]
+----
+option=sort([+-]attributeN)
+----
+
+The sort operator organizes data based on the specified attributes. It begins with the first attribute and continues sequentially to subsequent attributes.
+Attribute names should be separated by commas. For each attribute, you can designate the sorting direction - ascending or descending.
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,75%"]
+|===
+h| Operator h| Description
+| sort | To sort the retrieved data, use the sort operator as part of the option operator.
+| - | For descending sort order.
+| + | For ascending sort order.
+
+|===
+
+Example
+[source,javascript]
+----
+option=sort(+assetInformation, -assetInformation.globalAssetId)
+----
+
+
+todo: Explain LIMIT, OFFSET/SKIP, SORT
