@@ -18,6 +18,7 @@ Major Changes:
 * Bulk Operations and Profiles for Bulk Operations
 * deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
 * new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink)
+* new Query Interface and API Operations
 * new Profile for Discovery Service: Read Only SSP-002
 * updated: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions:
 	** changed: interface
@@ -32,6 +33,7 @@ Major Changes:
 [%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
+| | Query Interface | New a| Newly introduced Interface
 | | AAS Basic Discovery | Changed a| deprecate GetAllAssetAdministrationShellIdsByAssetLink  
 
 add SearchAllAssetAdministrationShellIdsByAssetLink 
@@ -47,11 +49,22 @@ add PutBulkSubmodelDescriptorsById,
 
 add DeleteBulkSubmodelDescriptorsById
 |===
+
 === Operation Changes w.r.t. V3.0.2 to V3.1
 
 [%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
+|GetAllAssetAdministrationShellIdsByQuery | |new | 
+|GetAllAssetAdministrationShellsByQuery | |new | 
+|GetAllSubmodelIdsByQuery | |new | 
+|GetAllSubmodelsByQuery | |new | 
+|GetAllAssetAdministrationShellDescriptorIdsByQuery | |new | 
+|GetAllAssetAdministrationShellDescriptorsByQuery | |new | 
+|GetAllSubmodelDescriptorIdsByQuery | |new | 
+|GetAllSubmodelDescriptorsByQuery | |new | 
+|GetAllConceptDescriptionIdsByQuery | |new | 
+|GetAllConceptDescriptionsByQuery | |new | 
 |GetAllAssetAdministrationShellIdsByAssetLink | |deprecated | substituted by SearchAllAssetAdministrationShellIdsByAssetLink
 | | SearchAllAssetAdministrationShellIdsByAssetLink|new | substitute for GetAllAssetAdministrationShellIdsByAssetLink
 ||PostBulkSubmodelDescriptors |new | 
@@ -63,6 +76,7 @@ add DeleteBulkSubmodelDescriptorsById
 
 |===
 |*Profile Change Old* |*Profile Change New* |*Kind of Change* |*Comment*
+| |Query Profile |new | 
 | |Asset Administration Shell Registry Profile – Bulk Profile |new | 
 | |Submodel Registry Profile – Bulk Profile |new | 
 |Discovery Profile – Full Profile| |update |GetAllAssetAdministrationShellIdsByAssetLink set to deprecated, added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink

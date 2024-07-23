@@ -1672,6 +1672,118 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+
+[#query-interfaces]
+== Query Interfaces
+
+=== General
+
+The Query Interface is substantially different to the other Interfaces
+
+
+=== Query Interface and Operations
+
+==== Query Interface
+
+
+[%autowidth, width="100%", cols="45%,55%",options="header",]
+|===
+2+|Interface: Query
+h|Operation Name h|Description
+e|QueryAssetAdministrationShells | Returns a list of Asset Administration Shells based on an input query.
+e|QuerySubmodels | Returns a list of Submodels based on an input query.
+e|QueryAssetAdministrationShellDescriptorsByQuery | Returns a list of Asset Administration Shell Descriptors based on an input query.
+e|QuerySubmodelDescriptors | Returns a list of Submodel Descriptors based on an input query.
+e|QueryConceptDescriptions | Returns a list of Concept Descriptions based on an input query.
+|===
+
+
+==== Operation QueryAssetAdministrationShells
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QueryAssetAdministrationShells
+h|Explanation 4+a|Returns a list of Asset Administration Shells based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|queryString | The specific string conformant to the AAS Query Language, containing filter conditions for the required Asset Administration Shells. | yes | QueryString |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | List of requested Asset Administration Shells |no | Identifier / Asset Administration Shell |1..*
+|===
+
+==== Operation QuerySubmodels
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QuerySubmodels
+h|Explanation 4+a|Returns a list of Submodels based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|queryString | The specific string conformant to the AAS Query Language, containing filter conditions for the required Submodels. | yes | QueryString |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | List of requested Submodels |no | Identifier / Submodel |1..*
+|===
+
+==== Operation QueryAssetAdministrationShellDescriptors
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QueryAssetAdministrationShellDescriptors
+h|Explanation 4+a|Returns a list of Asset Administration Shell Descriptors based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|queryString | The specific string conformant to the AAS Query Language, containing filter conditions for the required Asset Administration Shell Descriptors. | yes | QueryString |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | List of requested Asset Administration Shell Descriptors |no | Identifier / Asset Administration Shell Descriptor |1..*
+|===
+
+==== Operation QuerySubmodelDescriptors
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QuerySubmodelDescriptors
+h|Explanation 4+a|Returns a list of Submodel Descriptors based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|queryString | The specific string conformant to the AAS Query Language, containing filter conditions for the required Submodel Descriptors. | yes | QueryString |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | List of requested Submodel Descriptors |no | Identifier / Submodel Descriptor |1..*
+|===
+
+==== Operation QueryConceptDescriptions
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QueryConceptDescriptions
+h|Explanation 4+a|Returns a list of Concept Descriptions based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|queryString | The specific string conformant to the AAS Query Language, containing filter conditions for the required Concept Descriptions. | yes | QueryString |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | List of requested Concept Descriptions |no | Identifier / Concept Description |1..*
+|===
+
+
 [#publish-and-discovery-interfaces]
 == Publish and Discovery Interfaces
 
