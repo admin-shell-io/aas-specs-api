@@ -23,13 +23,14 @@ This clause specifies the parameters for API operations.
 
 *Definition*
 
-For GET operations, a SerializationModifier indicates the requester’s expected or desired response content. For PUT and PATCH operations, a SerializationModifier indicates the input content. The SerializationModifier comprises three orthogonal enumerations. When combined, these enumerations influence the input or response content of the requested operation.
-
+For GET operations, a SerializationModifier indicates the requester’s expected or desired response content.
+For PUT and PATCH operations, a SerializationModifier indicates the input content.
+The SerializationModifier comprises three orthogonal enumerations.
+When combined, these enumerations influence the input or response content of the requested operation.
 
 ====
 Note: values remain unchanged with content=metadata.
 ====
-
 
 [arabic]
 . *Enumeration: Level*
@@ -37,20 +38,22 @@ Note: values remain unchanged with content=metadata.
 The first enumeration _Level_ indicates the depth of the structure of the response or input content.
 
 .Level Parameters
-[%autowidth, width="100%", cols="35%,65%",options="header",]
+[%autowidth,width="100%",cols="35%,65%",options="header",]
 |===
 h|Value h|Explanation
-e|Deep (Default) a|All elements of a requested hierarchy level and all children on all sublevels are returned. Children in this sense are SubmodelElements which are contained at the ‘submodelElements’ field of Submodels, the ‘value’ field of SubmodelElementCollections or SubmodelElementLists, the ‘statements’ field of Entities, or the ‘annotations’ field of AnnotatedRelationshipElements.
-e|Core a|Only elements of a requested hierarchy level as well as direct children are returned. By this, a client can iterate the hierarchy step by step.
+e|Deep (Default) a|
+All elements of a requested hierarchy level and all children on all sublevels are returned.
+Children in this sense are SubmodelElements which are contained at the ‘submodelElements’ field of Submodels, the ‘value’ field of SubmodelElementCollections or SubmodelElementLists, the ‘statements’ field of Entities, or the ‘annotations’ field of AnnotatedRelationshipElements.
+e|Core a|
+Only elements of a requested hierarchy level as well as direct children are returned.
+By this, a client can iterate the hierarchy step by step.
 |===
-
 
 ====
 Note: level parameters are mapped to the query parameter “?level” in the HTTP/REST APIs, see also xref:http-rest-api/http-rest-api.adoc#modifier-constraints[Modifier Constraints].
 ====
 
-
-[arabic, start=2]
+[arabic,start=2]
 . *Enumeration: Content*
 
 The second enumeration _Content_ indicates the kind of serialization of the response or input content.
@@ -58,7 +61,7 @@ The second enumeration _Content_ indicates the kind of serialization of the resp
 For Content equal to Value see Clause 0 for details.
 
 .Content Parameters
-[%autowidth, width="100%", cols="35%,65%",options="header",]
+[%autowidth,width="100%",cols="35%,65%",options="header",]
 |===
 |*Value* h|Explanation
 e|Normal (Default) a|The standard serialization of the model element or child elements is applied.
@@ -68,39 +71,41 @@ e|Reference a|Only applicable to Referables. Only the reference to the found ele
 e|Path a|Returns the idShort of the requested element and a list of _idShort_ paths to child elements if the requested element is a Submodel, a SubmodelElementCollection, a SubmodelElementList, a AnnotatedRelationshipElement, or an Entity.
 |===
 
-
 ====
 Note: level parameters are mapped to path suffixes “/$<content>” in the HTTP/REST APIs, see also xref:http-rest-api/http-rest-api.adoc#modifier-constraints[Modifier Constraints].
 ====
 
-
-[arabic, start=3]
+[arabic,start=3]
 . *Enumeration: Extent*
 
-The third enumeration _Extent_ indicates to which extent the response or input content is being serialized. At this stage, the listed values could also be represented as binary values on BLOB-elements. They are, however, kept as generic extent values for the sake of extension.
+The third enumeration _Extent_ indicates to which extent the response or input content is being serialized.
+At this stage, the listed values could also be represented as binary values on BLOB-elements.
+They are, however, kept as generic extent values for the sake of extension.
 
 .Extent Parameters
-[%autowidth, width="100%", cols="35%,65%",options="header",]
+[%autowidth,width="100%",cols="35%,65%",options="header",]
 |===
 h|Value h|Explanation
 e|WithoutBLOBValue (Default) |Only applicable to BLOB-elements; the BLOB content is not returned.
 e|WithBLOBValue |Only applicable to BLOB-elements; the BLOB content is returned as _base64_-encoded string.
 |===
 
-
 ====
 Note: level parameters are mapped to the query parameter “?extent” in the HTTP/REST APIs, see also xref:http-rest-api/http-rest-api.adoc#modifier-constraints[Modifier Constraints].
 ====
 
-
 == Applicability of SerializationModifiers
 
-The defined SerializationModifiers are only valid for specific operations due to their generic nature. Also, the applicability depends on the kind of the accessed resource. The following list defines the applicability of the modifiers to the resources.
+The defined SerializationModifiers are only valid for specific operations due to their generic nature.
+Also, the applicability depends on the kind of the accessed resource.
+The following list defines the applicability of the modifiers to the resources.
 
-GET and PATCH operations may combine all SerializationModifiers as listed below. PUT operations may only use the Extent Modifier. POST operations do not use SerializationModifiers.
+GET and PATCH operations may combine all SerializationModifiers as listed below.
+PUT operations may only use the Extent Modifier.
+POST operations do not use SerializationModifiers.
 
 .Applicability of SerializationModifiers
-[%autowidth, width="100%", cols="37%,13%,28%,22%",options="header",]
+[%autowidth,width="100%",cols="37%,13%,28%,22%",options="header",]
 |===
 |*Resource Name* |*Level Modifier* |*Content Modifier* |*Extent Modifier*
 |Asset Administration Shell |No |Normal/ Reference |No
@@ -146,8 +151,8 @@ WithBLOBValue
 |File |No |Normal/ Metadata/Value/Reference |No
 |===
 
-
 ====
-Note: EventPayload defines the necessary information of an event instance sent out or received. It is, however not part of the AAS and submodel hierarchical structure.
+Note: EventPayload defines the necessary information of an event instance sent out or received.
+It is, however not part of the AAS and submodel hierarchical structure.
 ====
 

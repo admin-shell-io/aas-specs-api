@@ -11,25 +11,37 @@ SPDX-License-Identifier: CC-BY-4.0
 
 = Security
 
-In this clause security aspects relevant for the API are discussed. See Part 4 for more information on Security.
+In this clause security aspects relevant for the API are discussed.
+See Part 4 for more information on Security.
 
-Authentication is mandatory. Depending on the ecosystem the AAS uses, different authentication mechanisms might be in place. This clause explains one exemplary authentication mechanisms, which has been developed by the security working group (AG3) of Plattform Industrie 4.0. Other authentication services (e.g. Username/Password, DID=Decentralized Identifiers, Verifiable Credentials, EDC=Eclipse Data Space Connector, or IDS=International Data Spaces) may also be used to receive an access token for authorization.
+Authentication is mandatory.
+Depending on the ecosystem the AAS uses, different authentication mechanisms might be in place.
+This clause explains one exemplary authentication mechanisms, which has been developed by the security working group (AG3) of Plattform Industrie 4.0.
+Other authentication services (e.g. Username/Password, DID=Decentralized Identifiers, Verifiable Credentials, EDC=Eclipse Data Space Connector, or IDS=International Data Spaces) may also be used to receive an access token for authorization.
 
-The following paragraphs describe the most important steps for token-based authentication of the HTTP/REST APIs. For more details, see “Secure Downloadservice” (https://www.plattform-i40.de/PI40/Redaktion/EN/Downloads/Publikation/secure_downloadservice.html). <<private_key_certchain_jwt-method>> gives an overview.
+The following paragraphs describe the most important steps for token-based authentication of the HTTP/REST APIs.
+For more details, see “Secure Downloadservice” (https://www.plattform-i40.de/PI40/Redaktion/EN/Downloads/Publikation/secure_downloadservice.html). <<private_key_certchain_jwt-method>> gives an overview.
 
 .The private_key_certchain_jwt Method [...download service]
 [[private_key_certchain_jwt-method]]
 image::private_key_certchain_jwt-method.png[width=608,height=356]
 
-A client application uses a client certificate to create a certificate chain. The certificate chain can be checked on the authentication server by the corresponding Root CA certificate, which is signed by a certification authority (CA). The client application sends the certificate chain to the authentication server as token request by a JSON Web Token (JWT). The JWT is signed by the client’s private key corresponding to the client certificate (JWT = Data + Signature).
+A client application uses a client certificate to create a certificate chain.
+The certificate chain can be checked on the authentication server by the corresponding Root CA certificate, which is signed by a certification authority (CA).
+The client application sends the certificate chain to the authentication server as token request by a JSON Web Token (JWT).
+The JWT is signed by the client’s private key corresponding to the client certificate (JWT = Data + Signature).
 
 If the authentication is approved, the client application receives an access token from the authentication server (not shown in <<private_key_certchain_jwt-method>>).
 
-Such an access token contains attributes from the client certificate (e.g. username, email address) which will be sent as HTTP header bearer token to the AAS server application. The latter will check, whether the access token has been signed by a trusted authentication server and will make the authorization according to the AAS security metamodel.
+Such an access token contains attributes from the client certificate (e.g. username, email address) which will be sent as HTTP header bearer token to the AAS server application.
+The latter will check, whether the access token has been signed by a trusted authentication server and will make the authorization according to the AAS security metamodel.
 
-A running demo is explained in “Secure Downloadservice”. A corresponding server can be seen on https://admin-shell-io.com/5011/ with a related security AAS at the bottom.
+A running demo is explained in “Secure Downloadservice”.
+A corresponding server can be seen on https://admin-shell-io.com/5011/ with a related security AAS at the bottom.
 
-The AAS security metamodel does not deal with authentication; it assumes that the user is already authenticated. The example security AAS is only created for demonstration purposes and is not standardized. Since the version of the AASX Package Explorer used does not yet support the AAS security metamodel, the required information in subsequent steps like the access permission rules for AAS are modelled as a submodel.
+The AAS security metamodel does not deal with authentication; it assumes that the user is already authenticated.
+The example security AAS is only created for demonstration purposes and is not standardized.
+Since the version of the AASX Package Explorer used does not yet support the AAS security metamodel, the required information in subsequent steps like the access permission rules for AAS are modelled as a submodel.
 
 The different security and authentication steps are explained in the video https://admin-shell-io.com/screencasts/security/Industrie_40_Security_with_AASX_Server.mp4.
 
