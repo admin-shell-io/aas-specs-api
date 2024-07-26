@@ -20,6 +20,7 @@ The profiles defined in this clause present complete service specifications and 
 For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “PostSubmodelElementByPath”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both.
 Furthermore, profiles also define which of the SerializationModifiers (content, extent, level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
 
+
 .Overview of Service Specifications and the Contained APIs
 [%autowidth,width="100%",cols="52%,4%,4%,4%,4%,5%,4%,4%,4%,5%,5%,5%",options="header",]
 |===
@@ -98,7 +99,7 @@ PutThumbnail +
 DeleteThumbnail
 
 _Submodel API as superpath:_ +
-GetSubmodel +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath +
@@ -120,9 +121,9 @@ _Serialization API:_[.underline]# +
 #GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -152,15 +153,15 @@ GetAssetInformation +
 GetThumbnail
 
 _Submodel API as superpath:_ +
-GetSubmodel +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -194,7 +195,7 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpeci
 h|Feature h|Appearance
 |APIs and API Operations a|
 _Submodel API:_ +
-GetSubmodel +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath +
@@ -216,9 +217,9 @@ _Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -242,7 +243,7 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |API and API Operations a|
 _Submodel API:_ +
-GetSubmodel +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath
@@ -251,9 +252,9 @@ _Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -276,14 +277,14 @@ h|Name: h|Submodel Value Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003`
 h|Feature h|Appearance
 |APIs and API Operations a|
-__Submodel API: +
-__GetSubmodel +
-InvokeOperationSync
+__Submodel API:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync]
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Deep
 
 Content: Normal, Value
@@ -313,16 +314,16 @@ h|Profile Identifier |`\https://admin-shell.io/aas/API/3/0/AasxFileServerService
 h|Feature  h|Appearance
 |APIs and API Operations a|
 _File Server API:_ +
-GetAllAASXPackageIds +
-GetAASXByPackageId +
-PostAASXPackage +
-PutAASXByPackageId +
-DeleteAASXByPackageId
+xref:specification/interfaces.adoc#GetAllAASXPackageIds[GetAllAASXPackageIds] +
+xref:specification/interfaces.adoc#GetAASXByPackageId[GetAASXByPackageId] +
+xref:specification/interfaces.adoc#PostAASXPackage[PostAASXPackage] +
+xref:specification/interfaces.adoc#PutAASXByPackageId[PutAASXByPackageId] +
+xref:specification/interfaces.adoc#DeleteAASXByPackageId[DeleteAASXByPackageId]
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat a|
 JSON for descriptions and error messages
 
@@ -352,23 +353,23 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |APIs and API Operations a|
 _AAS Registry API:_ +
-GetAllAssetAdministrationShellDescriptors +
-GetAssetAdministrationShellDescriptorById +
-PostAssetAdministrationShellDescriptor +
-PutAssetAdministrationShellDescriptorById +
-DeleteAssetAdministrationShellDescriptorById
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors]  +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] +
+xref:specification/interfaces.adoc#PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] +
+xref:specification/interfaces.adoc#PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] +
+xref:specification/interfaces.adoc#DeleteAssetAdministrationShellDescriptorById[DeleteAssetAdministrationShellDescriptorById]
 
 _Submodel Registry API as superpath:_ +
-GetAllSubmodelDescriptors +
-GetSubmodelDescriptorById +
-PostSubmodelDescriptor +
-PutSubmodelDescriptorById +
-DeleteSubmodelDescriptorById
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSubmodelDescriptorById[GetSubmodelDescriptorById] +
+xref:specification/interfaces.adoc#PostSubmodelDescriptor[PostSubmodelDescriptor] +
+xref:specification/interfaces.adoc#PutSubmodelDescriptorById[PutSubmodelDescriptorById] +
+xref:specification/interfaces.adoc#DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById]
 
-__Description API: +
-__GetDescription
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Supported
 |===
@@ -384,17 +385,17 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |APIs and API Operations a|
 _AAS Registry API:_ +
-GetAllAssetAdministrationShellDescriptors +
-GetAssetAdministrationShellDescriptorById
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById]
 
 _Submodel Registry API as superpath:_ +
-GetAllSubmodelDescriptors +
-GetSubmodelDescriptorById
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |supported
 |===
@@ -410,15 +411,14 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |APIs and API Operations a|
 _AAS Registry API:_ +
-CreateBulkAssetAdministrationShellDescriptors +
-PutBulkAssetAdministrationShellDescriptorsById +
-DeleteBulkAssetAdministrationShellDescriptorsById
-
+xref:specification/interfaces.adoc#CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] +
+xref:specification/interfaces.adoc#DeleteBulkAssetAdministrationShellDescriptorsById[DeleteBulkAssetAdministrationShellDescriptorsById]
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination | Not supported
 |===
@@ -444,16 +444,16 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServ
 h|Feature h|Appearance
 |APIs and API Operations a|
 __Submodel Registry API: +
-__GetAllSubmodelDescriptors +
-GetSubmodelDescriptorById +
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription] +
 PostSubmodelDescriptor +
 PutSubmodelDescriptorById +
 DeleteSubmodelDescriptorById
 
-__Description API: +
-__GetDescription
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |supported
 |===
@@ -464,18 +464,18 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecif
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
 |===
-h|Name: h|Submodel Registry Read Profile
+h|Name: h|[[Submodel-Registry-Read-Profile]]Submodel Registry Read Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002`
 h|Feature h|Appearance
 |APIs and API Operations a|
-__Submodel Registry API: +
-__GetAllSubmodelDescriptors +
-GetSubmodelDescriptorById
+__Submodel Registry API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSubmodelDescriptorById[GetSubmodelDescriptorById]
 
-__Description API: +
-__GetDescription
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Supported
 |===
@@ -490,16 +490,16 @@ h|Name: h|Submodel Registry Bulk Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-003`
 h|Feature h|Appearance
 |APIs and API Operations a|
-__Submodel Registry API: +
-__PostBulkSubmodelDescriptors +
+__Submodel Registry API:__ +
+PostBulkSubmodelDescriptors +
 PutBulkSubmodelDescriptorsById +
 DeleteBulkSubmodelDescriptorsById
 
 
-__Description API: +
-__GetDescription
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Not Supported
 |===
@@ -531,9 +531,9 @@ PostAllAssetLinksById +
 DeleteAllAssetLinksById
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Not supported
 |===
@@ -554,9 +554,9 @@ GetAllAssetLinksById +
 
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Not supported
 |===
@@ -612,8 +612,8 @@ PostSubmodel +
 PutSubmodelById +
 DeleteSubmodelById
 
-__Submodel API by superpath: +
-__GetSubmodel +
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath +
@@ -635,9 +635,9 @@ _AAS Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -676,8 +676,8 @@ GetSubmodelById +
 GetAllSubmodelsBySemanticId +
 GetAllSubmodelsByIdShort
 
-__Submodel API by superpath: +
-__GetSubmodel +
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath
@@ -686,9 +686,9 @@ _Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -730,8 +730,8 @@ PutSubmodelById +
 PatchSubmodelById +
 DeleteSubmodelById
 
-__Submodel API by superpath: +
-__GetSubmodel +
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath +
@@ -753,9 +753,9 @@ _AAS Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -782,8 +782,8 @@ GetSubmodelById +
 GetAllSubmodelsBySemanticId +
 GetAllSubmodelsByIdShort
 
-__Submodel API by superpath: +
-__GetSubmodel +
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath
@@ -792,9 +792,9 @@ _Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -839,8 +839,8 @@ PutSubmodelById +
 PatchSubmodelById +
 DeleteSubmodelById
 
-__Submodel API by superpath: +
-__GetSubmodel +
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath +
@@ -858,9 +858,9 @@ _AAS Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata
@@ -897,8 +897,8 @@ GetSubmodelById +
 GetAllSubmodelsBySemanticId +
 GetAllSubmodelsByIdShort
 
-__Submodel API by superpath: +
-__GetSubmodel +
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
 GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath
@@ -907,9 +907,9 @@ _Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a|
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata
@@ -952,9 +952,9 @@ _Serialization API:_ +
 GenerateSerializationByIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Supported
 |===

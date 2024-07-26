@@ -51,7 +51,7 @@ e|DeleteThumbnail a|Deletes the thumbnail
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAssetAdministrationShell
+h|Operation Name 4+e|[[GetAssetAdministrationShell]]GetAssetAdministrationShell
 h|Explanation 4+a|Returns the Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShell/3/0`
 
@@ -61,7 +61,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 e|serializationModifier a|Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Asset Administration Shell |yes |AssetAdministrationShell |1
+e|payload a|Requested Asset Administration Shell |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation PutAssetAdministrationShell
@@ -69,16 +69,16 @@ e|payload a|Requested Asset Administration Shell |yes |AssetAdministrationShell 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|*Operation Name* 4+e|PutAssetAdministrationShell
+h|*Operation Name* 4+e|[[PutAssetAdministrationShell]]PutAssetAdministrationShell
 hh|Explanation 4+a|Replaces the Asset Administration Shell
 h|*semanticId* 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShell/3/0`
 
 h|Name h|*Description* h|*Mand.* h|*Type* h|*Card.*
 5+h|Input Parameter
-e|aas a|AssetAdministrationShell |yes |Asset Administration Shell object |1
+e|aas a|AssetAdministrationShell |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] object |1
 5+h|Output Parameter
 e|statusCode a|StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
-e|payload a|AssetAdministrationShell |yes |Replaced Asset Administration Shell |1
+e|payload a|AssetAdministrationShell |yes |Replaced link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation GetAllSubmodelReferences
@@ -86,7 +86,7 @@ e|payload a|AssetAdministrationShell |yes |Replaced Asset Administration Shell |
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllSubmodelReferences
+h|Operation Name 4+e|[[GetAllSubmodelReferences]]GetAllSubmodelReferences
 h|Explanation 4+a|Returns all Submodel References
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelReferences/3/0`
 
@@ -98,7 +98,7 @@ e|cursor a|The position from which to resume a result listing |no |string |1
 
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Submodel References |yes |Reference |0..*
+e|payload a|Requested Submodel References |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |0..*
 |===
 
 ==== Operation PostSubmodelReference
@@ -106,16 +106,16 @@ e|payload a|Requested Submodel References |yes |Reference |0..*
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostSubmodelReference
+h|Operation Name 4+e|[[PostSubmodelReference]]PostSubmodelReference
 h|Explanation 4+a|Creates a Submodel Reference at the Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelReference/3/0`
 
 h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelRef | Reference to the Submodel |yes |Reference |1
+e|submodelRef | Reference to the Submodel |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |1
 5+h|Output Parameter
 e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload | Created Submodel Reference |yes |Reference |1
+e|payload | Created Submodel Reference |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |1
 |===
 
 ==== Operation DeleteSubmodelReference
@@ -123,13 +123,13 @@ e|payload | Created Submodel Reference |yes |Reference |1
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteSubmodelReference
+h|Operation Name 4+e|[[DeleteSubmodelReference]]DeleteSubmodelReference
 h|Explanation 4+a|Deletes the Submodel Reference from the Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelReference/3/0`
 
 h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelId | The unique id of the Submodel for the reference to be deleted |yes |Identifier |1
+e|submodelId | The unique id of the Submodel for the reference to be deleted |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -139,7 +139,7 @@ e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAssetInformation
+h|Operation Name 4+e|[[GetAssetInformation]]GetAssetInformation
 h|Explanation 4+a|Returns the Asset Information
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetInformation/3/0`
 
@@ -147,7 +147,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Asset Information |yes |AssetInformation |1
+e|payload a|Requested Asset Information |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
 |===
 
 ==== Operation PutAssetInformation
@@ -155,7 +155,7 @@ e|payload a|Requested Asset Information |yes |AssetInformation |1
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|*Operation Name* 4+e|PutAssetInformation
+h|*Operation Name* 4+e|[[PutAssetInformation]]PutAssetInformation
 h|Explanation 4+a|Replaces the Asset Information
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetInformation/3/0`
 
@@ -163,7 +163,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
 
-e|assetInfo a|Asset Information object |yes |AssetInformation |1
+e|assetInfo a|Asset Information object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
 
 5+h|Output Parameter
 
@@ -175,7 +175,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetThumbnail
+h|Operation Name 4+e|[[GetThumbnail]]GetThumbnail
 h|Explanation 4+a|Returns the thumbnail file
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetThumbnail/3/0`
 
@@ -191,7 +191,7 @@ e|payload a|Requested thumbnail file |yes |File Content |1
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutThumbnail
+h|Operation Name 4+e|[[PutThumbnail]]PutThumbnail
 h|Explanation 4+a|Replaces the thumbnail file
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutThumbnail/3/0`
 
@@ -207,7 +207,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteThumbnail
+h|Operation Name 4+e|[[DeleteThumbnail]]DeleteThumbnail
 h|Explanation 4+a|Deletes the thumbnail file
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteThumbnail/3/0`
 
@@ -223,7 +223,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 
 [%autowidth,width="100%",cols="42%,58%",options="header",]
 |===
-2+|Interface: Submodel
+2+|Interface: [[Submodel]]Submodel
 h|Operation Name h|Description
 
 e|GetSubmodel a|Returns the Submodel
@@ -251,7 +251,7 @@ e|GetOperationAsyncResult a|Returns the OperationResult of an asynchronously inv
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetSubmodel
+h|Operation Name 4+e|[[GetSubmodel]]GetSubmodel
 h|Explanation 4+a|Returns the Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodel/3/0`
 
@@ -260,7 +260,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodel |yes |Submodel |1
+|payload |Requested Submodel |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation GetAllSubmodelElements
@@ -268,7 +268,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllSubmodelElements
+h|Operation Name 4+e|[[GetAllSubmodelElements]]GetAllSubmodelElements
 h|Explanation 4+a|Returns all submodel elements including their hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
 
@@ -279,7 +279,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested submodel elements |yes |SubmodelElement |0..*
+|payload |Requested submodel elements |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |0..*
 |===
 
 ==== Operation GetSubmodelElementByPath
@@ -287,7 +287,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetSubmodelElementByPath
+h|Operation Name 4+e|[[GetSubmodelElementByPath]]GetSubmodelElementByPath
 h|Explanation 4+a|Returns a specific submodel element from the Submodel at a specified path
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
 
@@ -297,7 +297,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested submodel element |yes |SubmodelElement |0..1
+|payload |Requested submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |0..1
 |===
 
 ==== Operation GetFileByPath
@@ -305,7 +305,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetFileByPath
+h|Operation Name 4+e|[[GetFileByPath]]GetFileByPath
 h|Explanation 4+a|Returns a specific file from the Submodel at a specified path
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetFileByPath/3/0
 
@@ -322,7 +322,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutFileByPath
+h|Operation Name 4+e|[[PutFileByPath]]PutFileByPath
 h|Explanation 4+a|Replaces the file of an existing submodel element at a specified path within the submodel element hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutFileByPath/3/0
 
@@ -339,7 +339,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteFileByPath
+h|Operation Name 4+e|[[DeleteFileByPath]]DeleteFileByPath
 h|Explanation 4+a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteFileByPath/3/0
 
@@ -355,7 +355,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutSubmodel
+h|Operation Name 4+e|[[PutSubmodel]]PutSubmodel
 h|Explanation 4+a|Replaces the Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodel/3/0
 
@@ -372,7 +372,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PatchSubmodel
+h|Operation Name 4+e|[[PatchSubmodel]]PatchSubmodel
 h|Explanation 4+a|Updates the Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodel/3/0
 
@@ -399,7 +399,7 @@ Note: values remain unchanged with content=metadata.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostSubmodelElement
+h|Operation Name 4+e|[[PostSubmodelElement]]PostSubmodelElement
 h|Explanation 4+a|
 Creates a new submodel element as a child of the submodel.
 The idShort of the new submodel element must be set in the payload.
@@ -421,7 +421,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
 
 |StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
-|payload |Created submodel element |yes |SubmodelElement |1
+|payload |Created submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PostSubmodelElementByPath
@@ -429,7 +429,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostSubmodelElementByPath
+h|Operation Name 4+e|[[PostSubmodelElementByPath]]PostSubmodelElementByPath
 h|Explanation 4+a|
 Creates a new submodel element at a specified path within the submodel element hierarchy.
 The idShort of the new submodel element must be set in the payload.
@@ -445,10 +445,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElementByPath/3/0`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path} under which the new SubmodelElement shall be added |yes |Key |1..*
-|submodelElement |Submodel element object |yes |SubmodelElement |1
+|submodelElement |Submodel element object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Created submodel element |yes |SubmodelElement |1
+|payload |Created submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ====
@@ -460,17 +460,17 @@ Note: if the PostSubmodelElementByPath is executed towards a SubmodelElementList
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutSubmodelElementByPath
+h|Operation Name 4+e|[[PutSubmodelElementByPath]]PutSubmodelElementByPath
 h|Explanation 4+a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path} which shall be replaced |yes |Key |1..*
-|submodelElement |Submodel element object |yes |SubmodelElement |1
+|submodelElement |Submodel element object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced submodel element |yes |SubmodelElement |1
+|payload |Replaced submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PatchSubmodelElementByPath
@@ -478,7 +478,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PatchSubmodelElementByPath
+h|Operation Name 4+e|[[PatchSubmodelElementByPath]]PatchSubmodelElementByPath
 h|Explanation 4+a|Updates an existing submodel element at a specified path within the submodel element hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0`
 
@@ -496,12 +496,12 @@ Note: values remain unchanged with content=metadata.
 |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 
 |path |{path} |yes |Key |1..*
-|submodelElement |Submodel element object |yes |SubmodelElement |1
+|submodelElement |Submodel element object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 
-|payload |Updated submodel element |yes |SubmodelElement |1
+|payload |Updated submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation GetSubmodelElementValueByPath
@@ -509,7 +509,7 @@ Note: values remain unchanged with content=metadata.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetSubmodelElementValueByPath
+h|Operation Name 4+e|[[GetSubmodelElementValueByPath]]GetSubmodelElementValueByPath
 h|Explanation 4+a|Returns a specific submodel element value from the Submodel at a specified path according to the ValueOnly-serialization as defined in clause 11.4.1
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementValueByPath/3/0`
 
@@ -518,7 +518,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |path |{path} |yes  |Key |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested submodel element value |yes |SubmodelElement |1
+|payload |Requested submodel element value |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PatchSubmodelElementValueByPath
@@ -526,14 +526,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PatchSubmodelElementValueByPath
+h|Operation Name 4+e|[[PatchSubmodelElementValueByPath]]PatchSubmodelElementValueByPath
 h|Explanation 4+a|Sets the value of the submodel element at a specified path according to the ValueOnly-serialization as defined in clause 11.4.1
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementValueByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path} |yes |Key |1..*
-|payload |The new value of the submodel element |yes |SubmodelElement |1
+|payload |The new value of the submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -543,7 +543,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteSubmodelElementByPath
+h|Operation Name 4+e|[[DeleteSubmodelElementByPath]]DeleteSubmodelElementByPath
 h|Explanation 4+a|Deletes a submodel element at a specified path within the submodel elements hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelElementByPath/3/0`
 
@@ -559,18 +559,18 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|InvokeOperationSync
+h|Operation Name 4+e|[[InvokeOperationSync]]InvokeOperationSync
 h|Explanation 4+a|Synchronously invokes an Operation at a specified path
 h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationSync/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path}, in this case an operation |yes |Key |1..*
-|inputArgument |Input argument |no |OperationVariable |1..*
-|inoutputArgument |Inoutput argument |no |OperationVariable |1..*
+|inputArgument |Input argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
+|inoutputArgument |Inoutput argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |The Operation Result |yes |OperationResult |1
+|payload |The Operation Result |yes |xref:OperationResult[OperationResult] |1
 |===
 
 ==== Operation InvokeOperationAsync
@@ -578,15 +578,15 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|InvokeOperationAsync
+h|Operation Name 4+e|[[InvokeOperationAsync]]InvokeOperationAsync
 h|Explanation 4+a|Asynchronously invokes an Operation at a specified path
 h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationAsync/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |path |{path}, in this case an operation |yes |Key |1..*
-|inputArgument |Input argument |no |OperationVariable |1..*
-|inoutputArgument |Inoutput argument |no |OperationVariable |1..*
+|inputArgument |Input argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
+|inoutputArgument |Inoutput argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 |clientTimeoutDuration |Timestamp indicating when the client expects the server to have finished execution of the invoked operation |yes |duration |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -598,16 +598,16 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetOperationAsyncStatus
+h|Operation Name 4+e|[[GetOperationAsyncStatus]]GetOperationAsyncStatus
 h|Explanation 4+a|Returns the current status of an asynchronously invoked operation
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycStatus/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
+|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |xref:OperationHandle[OperationHandle] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Execution state of the operation |yes | BaseOperationResult |1
+|payload |Execution state of the operation |yes | xref:BaseOperationResult[BaseOperationResult] |1
 |===
 
 ==== Operation GetOperationAsyncResult
@@ -615,7 +615,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetOperationAsyncResult
+h|Operation Name 4+e|[[GetOperationAsyncResult]]GetOperationAsyncResult
 h|Explanation 4+a|Returns the OperationResult of an asynchronously invoked operation
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycResult/3/0`
 
@@ -624,7 +624,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Operation Result |yes |OperationResult |1
+|payload |Operation Result |yes |xref:OperationResult[OperationResult] |1
 |===
 
 === Serialization Interface and Operations
@@ -633,8 +633,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 [%autowidth,width="100%",cols="27%,73%",options="header",]
 |===
-2+|Interface: Serialization
-h|Operation Name h|Description
+2+|Interface: [[Serialization]]Serialization
+h|Operation Name h|[[Description]]Description
 |GenerateSerializationByIds |Returns an appropriate serialization based on the specified format (see SerializationFormat).
 |===
 
@@ -643,7 +643,7 @@ h|Operation Name h|Description
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GenerateSerializationByIds
+h|Operation Name 4+e|[[GenerateSerializationByIds]]GenerateSerializationByIds
 h|Explanation 4+a|Returns an appropriate serialization based on the specified format (see SerializationFormat).
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GenerateSerializationByIds/3/0`
 
@@ -655,16 +655,16 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |serializationFormat |Denotes in which serialization format the requested content shall be delivered |no |SerializationFormat |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Serialization of the requested Asset Administration Shells and/or Submodels with or without ConceptDescriptions in specified SerializationFormat. |yes |Environment |1
+|payload |Serialization of the requested Asset Administration Shells and/or Submodels with or without ConceptDescriptions in specified SerializationFormat. |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/environment.html#Environment[Environment] |1
 |===
 
 [.table-with-appendix-table]
 [cols="30%h,70%"]
 |===
-h|Enumeration: e|SerializationFormat
-h|Explanation: a|Determines the format of serialization, i.e. JSON, XML, RDF, AML, etc. RFC 6838, IANA Media Types, and defined custom content types; additional elements may be added in future versions
-h|Set of: |--
 
+h|Enumeration: e|[[SerializationFormat]]SerializationFormat
+h|Explanation: a|Determines the format of serialization, i.e. JSON, XML, RDF, AML, etc.RFC 6838, IANA Media Types, and defined custom content types; additional elements may be added in future versions
+h|Set of: |--
 h|Literal h|Explanation
 e|application/json a|JSON serialization of the requested data object inside an AAS Environment structure
 e|application/xml a|XML serialization of the requested data object inside an AAS Environment structure (default)
@@ -677,7 +677,7 @@ e|application/asset-administration-shell-package+xml a|AASX-Package (binary data
 
 [%autowidth,width="100%",cols="33%,67%",options="header",]
 |===
-2+|Interface: AASX File Server
+2+|Interface: [[AASX-File-Server]]AASX File Server
 h|Operation Name h|Description
 e|GetAllAASXPackageIds |Returns a list of available AASX packages at the server
 e|GetAASXByPackageId |Returns a specific AASX package from the server
@@ -691,7 +691,7 @@ e|DeleteAASXByPackageId |Deletes a specific AASX package
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAASXPackageIds
+h|Operation Name 4+e|[[GetAllAASXPackageIds]]GetAllAASXPackageIds
 h|Explanation 4+a|Returns a list of available AASX packages at the server
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAASXPackageIds/3/0`
 
@@ -710,7 +710,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAASXByPackageId
+h|Operation Name 4+e|[[GetAASXByPackageId]]GetAASXByPackageId
 h|Explanation 4+a|Returns a specific AASX package from the server
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAASXByPackageId/3/0`
 
@@ -728,7 +728,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostAASXPackage
+h|Operation Name 4+e|[[PostAASXPackage]]PostAASXPackage
 h|Explanation 4+a|Creates an AASX package at the server
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAASXPackage/3/0`
 
@@ -757,7 +757,7 @@ Servers may simply store the AASX files with their related given aasIds.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutAASXPackageById
+h|Operation Name 4+e|[[PutAASXPackageById]]PutAASXPackageById
 h|Explanation 4+a|Replaces the AASX package at the server
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAASXPackageById/3/0`
 
@@ -786,7 +786,7 @@ Servers may simply store the AASX files with their related given aasIds.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteAASXPackageById
+h|Operation Name 4+e|[[DeleteAASXPackageById]]DeleteAASXPackageById
 h|Explanation 4+a|Deletes a specific AASX package from the server
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAASXPackageById/3/0`
 
@@ -886,7 +886,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|CreateBulkAssetAdministrationShellDescriptors
+h|Operation Name 4+e|[[CreateBulkAssetAdministrationShellDescriptors]]CreateBulkAssetAdministrationShellDescriptors
 h|Explanation 4+a|Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
 h|semanticId 4+|`\https://admin-shell.io/aas/API/CreateBulkAssetAdministrationShellDescriptors/3/1`
 
@@ -902,7 +902,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutAssetAdministrationShellDescriptorById
+h|Operation Name 4+e|[[PutAssetAdministrationShellDescriptorById]]PutAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/0`
 
@@ -919,8 +919,9 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutBulkAssetAdministrationShellDescriptorsById
-h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors
+
+h|Operation Name 4+e|[[PutBulkAssetAdministrationShellDescriptorsById]]PutBulkAssetAdministrationShellDescriptorsById
+h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors 
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkAssetAdministrationShellDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -935,7 +936,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteAssetAdministrationShellDescriptorById
+h|Operation Name 4+e|[[DeleteAssetAdministrationShellDescriptorById]]DeleteAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellDescriptorById/3/0`
 
@@ -951,7 +952,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteBulkAssetAdministrationShellDescriptorsById
+h|Operation Name 4+e|[[DeleteBulkAssetAdministrationShellDescriptorsById]]DeleteBulkAssetAdministrationShellDescriptorsById
 h|Explanation 4+a|Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkAssetAdministrationShellDescriptorsById/3/1`
 
@@ -985,7 +986,7 @@ e|DeleteBulkSubmodelDescriptorsById a|Deletes one or more submodel descriptors, 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllSubmodelDescriptors
+h|Operation Name 4+e|[[GetAllSubmodelDescriptors]]GetAllSubmodelDescriptors
 h|Explanation 4+a|Returns all submodel descriptors
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/0`
 
@@ -1003,7 +1004,7 @@ e|payload a|List of requested submodel descriptors |no |SubmodelDescriptor |1..*
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetSubmodelDescriptorById
+h|Operation Name 4+e|[[GetSubmodelDescriptorById]]GetSubmodelDescriptorById
 h|Explanation 4+a|Returns a specific Submodel Descriptor
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0`
 =
@@ -1020,7 +1021,7 @@ e|payload a|Requested submodel descriptor |yes |SubmodelDescriptor |1
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostSubmodelDescriptor
+h|Operation Name 4+e|[[PostSubmodelDescriptor]]PostSubmodelDescriptor
 h|Explanation 4+a|Creates a new submodel descriptor, i.e. registers a submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/0`
 
@@ -1058,7 +1059,7 @@ Descriptor    a|Object containing the Submodel’s identification and endpoint i
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutSubmodelDescriptorById
+h|Operation Name 4+e|[[PutSubmodelDescriptorById]]PutSubmodelDescriptorById
 h|Explanation 4+a|Replaces an existing submodel descriptor, i.e., replaces registration information
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/0`
 
@@ -1094,7 +1095,7 @@ Descriptor |Object containing the Submodel’s identification and endpoint infor
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteSubmodelDescriptorById
+h|Operation Name 4+e|[[DeleteSubmodelDescriptorById]]DeleteSubmodelDescriptorById
 h|Explanation 4+a|Deletes a Submodel Descriptor, i.e., de-registers a submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/0`
 
@@ -1820,7 +1821,7 @@ e|GetSelfDescription |Returns a description object containing the capabilities a
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetSelfDescription
+h|Operation Name 4+e|[[GetSelfDescription]]GetSelfDescription
 h|Explanation 4+a|Returns a description object containing the capabilities and supported features of the server.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSelfDescription/3/0`
 
