@@ -18,15 +18,19 @@ include::../includes/special-parameters.adoc[]
 
 These interfaces make it possible to access the elements of Asset Administration Shells or Submodels.
 
-The AASX File Server Interface enables management of AASX packages on a server. A list of available packages can be retrieved. Each package in the list can be downloaded, uploaded, or deleted. New packages can also be added.
+The AASX File Server Interface enables management of AASX packages on a server.
+A list of available packages can be retrieved.
+Each package in the list can be downloaded, uploaded, or deleted.
+New packages can also be added.
 
-AASX packages are stored and managed independently from instantiated Asset Administration Shells or submodels on a server. The server documentation shall contain a description of when and how AASX packages are handled, e.g. if Asset Administration Shells or Submodels in AASX packages are instantiated at startup of the server and/or if they are also instantiated when an AASX package is changed by an API operation.
+AASX packages are stored and managed independently of instantiated Asset Administration Shells or submodels on a server.
+The server documentation shall contain a description of when and how AASX packages are handled, e.g. if Asset Administration Shells or Submodels in AASX packages are instantiated at startup of the server and/or if they are also instantiated when an AASX package is changed by an API operation.
 
 === Asset Administration Shell Interface and Operations
 
 ==== Asset Administration Shell Interface
 
-[%autowidth, width="100%", options=header]
+[%autowidth,width="100%",options=header]
 |===
 2+h|Interface: _Asset Administration Shell_
 h|Operation Name h|Description
@@ -45,7 +49,7 @@ e|DeleteThumbnail a|Deletes the thumbnail
 ==== Operation GetAssetAdministrationShell
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAssetAdministrationShell
 h|Explanation 4+a|Returns the Asset Administration Shell
@@ -63,7 +67,7 @@ e|payload a|Requested Asset Administration Shell |yes |AssetAdministrationShell 
 ==== Operation PutAssetAdministrationShell
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|*Operation Name* 4+e|PutAssetAdministrationShell
 hh|Explanation 4+a|Replaces the Asset Administration Shell
@@ -80,7 +84,7 @@ e|payload a|AssetAdministrationShell |yes |Replaced Asset Administration Shell |
 ==== Operation GetAllSubmodelReferences
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllSubmodelReferences
 h|Explanation 4+a|Returns all Submodel References
@@ -100,7 +104,7 @@ e|payload a|Requested Submodel References |yes |Reference |0..*
 ==== Operation PostSubmodelReference
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodelReference
 h|Explanation 4+a|Creates a Submodel Reference at the Asset Administration Shell
@@ -117,7 +121,7 @@ e|payload | Created Submodel Reference |yes |Reference |1
 ==== Operation DeleteSubmodelReference
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteSubmodelReference
 h|Explanation 4+a|Deletes the Submodel Reference from the Asset Administration Shell
@@ -133,7 +137,7 @@ e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 ==== Operation GetAssetInformation
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAssetInformation
 h|Explanation 4+a|Returns the Asset Information
@@ -149,7 +153,7 @@ e|payload a|Requested Asset Information |yes |AssetInformation |1
 ==== Operation PutAssetInformation
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|*Operation Name* 4+e|PutAssetInformation
 h|Explanation 4+a|Replaces the Asset Information
@@ -169,7 +173,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 ==== Operation GetThumbnail
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetThumbnail
 h|Explanation 4+a|Returns the thumbnail file
@@ -185,7 +189,7 @@ e|payload a|Requested thumbnail file |yes |File Content |1
 ==== Operation PutThumbnail
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutThumbnail
 h|Explanation 4+a|Replaces the thumbnail file
@@ -201,7 +205,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 ==== Operation DeleteThumbnail
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteThumbnail
 h|Explanation 4+a|Deletes the thumbnail file
@@ -217,7 +221,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 
 ==== Submodel Interface
 
-[%autowidth, width="100%", cols="42%,58%",options="header",]
+[%autowidth,width="100%",cols="42%,58%",options="header",]
 |===
 2+|Interface: Submodel
 h|Operation Name h|Description
@@ -230,8 +234,8 @@ e|PutFileByPath a|Replaces the file of an existing submodel element at a specifi
 e|DeleteFileByPath a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
 e|PutSubmodel a|Replaces the Submodel
 e|PatchSubmodel a|Updates the Submodel
-e|PostSubmodelElement a|Creates a new submodel element as a child of the submodel. The idShort of the the new submodel element must be set in the payload.
-e|PostSubmodelElementByPath a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the the new submodel element must be set in the payload.
+e|PostSubmodelElement a|Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
+e|PostSubmodelElementByPath a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload.
 e|PutSubmodelElementByPath a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
 e|PatchSubmodelElementByPath a|Updates an existing submodel element at a specified path within the submodel element hierarchy
 e|GetSubmodelElementValueByPath a|Returns the value of the submodel element at a specified path according to the protocol-specific RAW-value payload
@@ -245,7 +249,7 @@ e|GetOperationAsyncResult a|Returns the OperationResult of an asynchronously inv
 ==== Operation GetSubmodel
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetSubmodel
 h|Explanation 4+a|Returns the Submodel
@@ -262,7 +266,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllSubmodelElements
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllSubmodelElements
 h|Explanation 4+a|Returns all submodel elements including their hierarchy
@@ -281,7 +285,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetSubmodelElementByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetSubmodelElementByPath
 h|Explanation 4+a|Returns a specific submodel element from the Submodel at a specified path
@@ -299,7 +303,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetFileByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetFileByPath
 h|Explanation 4+a|Returns a specific file from the Submodel at a specified path
@@ -316,7 +320,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PutFileByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutFileByPath
 h|Explanation 4+a|Replaces the file of an existing submodel element at a specified path within the submodel element hierarchy
@@ -333,7 +337,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation DeleteFileByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteFileByPath
 h|Explanation 4+a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
@@ -349,7 +353,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PutSubmodel
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutSubmodel
 h|Explanation 4+a|Replaces the Submodel
@@ -366,7 +370,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PatchSubmodel
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PatchSubmodel
 h|Explanation 4+a|Updates the Submodel
@@ -393,11 +397,12 @@ Note: values remain unchanged with content=metadata.
 ==== Operation PostSubmodelElement
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodelElement
 h|Explanation 4+a|
-Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
+Creates a new submodel element as a child of the submodel.
+The idShort of the new submodel element must be set in the payload.
 
 
 ====
@@ -422,11 +427,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PostSubmodelElementByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodelElementByPath
 h|Explanation 4+a|
-Creates a new submodel element at a specified path within the submodel element hierarchy. The idShort of the new submodel element must be set in the payload.
+Creates a new submodel element at a specified path within the submodel element hierarchy.
+The idShort of the new submodel element must be set in the payload.
 
 
 ====
@@ -445,16 +451,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |Created submodel element |yes |SubmodelElement |1
 |===
 
-
 ====
 Note: if the PostSubmodelElementByPath is executed towards a SubmodelElementList, the new SubmodelElement is added to the end of the list.
 ====
 
-
 ==== Operation PutSubmodelElementByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutSubmodelElementByPath
 h|Explanation 4+a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
@@ -472,7 +476,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PatchSubmodelElementByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PatchSubmodelElementByPath
 h|Explanation 4+a|Updates an existing submodel element at a specified path within the submodel element hierarchy
@@ -503,7 +507,7 @@ Note: values remain unchanged with content=metadata.
 ==== Operation GetSubmodelElementValueByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetSubmodelElementValueByPath
 h|Explanation 4+a|Returns a specific submodel element value from the Submodel at a specified path according to the ValueOnly-serialization as defined in clause 11.4.1
@@ -520,7 +524,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PatchSubmodelElementValueByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PatchSubmodelElementValueByPath
 h|Explanation 4+a|Sets the value of the submodel element at a specified path according to the ValueOnly-serialization as defined in clause 11.4.1
@@ -537,7 +541,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation DeleteSubmodelElementByPath
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteSubmodelElementByPath
 h|Explanation 4+a|Deletes a submodel element at a specified path within the submodel elements hierarchy
@@ -553,7 +557,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation InvokeOperationSync
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|InvokeOperationSync
 h|Explanation 4+a|Synchronously invokes an Operation at a specified path
@@ -572,7 +576,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation InvokeOperationAsync
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|InvokeOperationAsync
 h|Explanation 4+a|Asynchronously invokes an Operation at a specified path
@@ -592,7 +596,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetOperationAsyncStatus
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetOperationAsyncStatus
 h|Explanation 4+a|Returns the current status of an asynchronously invoked operation
@@ -609,7 +613,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetOperationAsyncResult
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetOperationAsyncResult
 h|Explanation 4+a|Returns the OperationResult of an asynchronously invoked operation
@@ -627,8 +631,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 ==== Serialization Interface
 
-
-[%autowidth, width="100%", cols="27%,73%",options="header",]
+[%autowidth,width="100%",cols="27%,73%",options="header",]
 |===
 2+|Interface: Serialization
 h|Operation Name h|Description
@@ -638,7 +641,7 @@ h|Operation Name h|Description
 ==== Operation GenerateSerializationByIds
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GenerateSerializationByIds
 h|Explanation 4+a|Returns an appropriate serialization based on the specified format (see SerializationFormat).
@@ -659,7 +662,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [cols="30%h,70%"]
 |===
 h|Enumeration: e|SerializationFormat
-h|Explanation: a|Determines the format of serialization, i.e. JSON, XML, RDF, AML, etc.RFC 6838, IANA Media Types, and defined custom content types; additional elements may be added in future versions
+h|Explanation: a|Determines the format of serialization, i.e. JSON, XML, RDF, AML, etc. RFC 6838, IANA Media Types, and defined custom content types; additional elements may be added in future versions
 h|Set of: |--
 
 h|Literal h|Explanation
@@ -672,8 +675,7 @@ e|application/asset-administration-shell-package+xml a|AASX-Package (binary data
 
 ==== AASX File Server Interface
 
-
-[%autowidth, width="100%", cols="33%,67%",options="header",]
+[%autowidth,width="100%",cols="33%,67%",options="header",]
 |===
 2+|Interface: AASX File Server
 h|Operation Name h|Description
@@ -687,7 +689,7 @@ e|DeleteAASXByPackageId |Deletes a specific AASX package
 ==== Operation GetAllAASXPackageIds
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAASXPackageIds
 h|Explanation 4+a|Returns a list of available AASX packages at the server
@@ -706,7 +708,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAASXByPackageId
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAASXByPackageId
 h|Explanation 4+a|Returns a specific AASX package from the server
@@ -724,7 +726,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PostAASXPackage
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostAASXPackage
 h|Explanation 4+a|Creates an AASX package at the server
@@ -737,7 +739,8 @@ Included AAS Ids
 
 
 ====
-Note: it is not mandatory for servers to read and parse AASX packages. Servers may simply store the AASX files with their related given aasIds.
+Note: it is not mandatory for servers to read and parse AASX packages.
+Servers may simply store the AASX files with their related given aasIds.
 ====
 
 
@@ -752,7 +755,7 @@ Note: it is not mandatory for servers to read and parse AASX packages. Servers m
 ==== Operation PutAASXPackageById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutAASXPackageById
 h|Explanation 4+a|Replaces the AASX package at the server
@@ -766,7 +769,8 @@ Included AAS Ids
 
 
 ====
-Note: it is not mandatory for servers to read and parse AASX packages. Servers may simply store the AASX files with their related given aasIds.
+Note: it is not mandatory for servers to read and parse AASX packages.
+Servers may simply store the AASX files with their related given aasIds.
 ====
 
 
@@ -780,7 +784,7 @@ Note: it is not mandatory for servers to read and parse AASX packages. Servers m
 ==== Operation DeleteAASXPackageById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteAASXPackageById
 h|Explanation 4+a|Deletes a specific AASX package from the server
@@ -798,16 +802,18 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 === General
 
-These interfaces allow to register and unregister descriptors of administration shells or submodels. The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element. This required information includes the endpoint in the dedicated environment.
+These interfaces allow to register and unregister descriptors of administration shells or submodels.
+The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element.
+This required information includes the endpoint in the dedicated environment.
 
-Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID). These identifiers may be discovered through the interfaces described in <<publish-and-discovery-interfaces>>.
+Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID).
+These identifiers may be discovered through the interfaces described in <<publish-and-discovery-interfaces>>.
 
 === Asset Administration Shell Registry Interface and Operations
 
 ==== Asset Administration Shell Registry Interface
 
-
-[%autowidth, width="100%", cols="45%,55%",options="header",]
+[%autowidth,width="100%",cols="45%,55%",options="header",]
 |===
 2+|Interface: Asset Administration Shell Registry
 h|Operation Name h|Description
@@ -824,7 +830,7 @@ h|Operation Name h|Description
 ==== Operation GetAllAssetAdministrationShellDescriptors
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAssetAdministrationShellDescriptors
 h|Explanation 4+a|Returns all Asset Administration Shell Descriptors
@@ -844,7 +850,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAssetAdministrationShellDescriptorById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Returns a specific Asset Administration Shell Descriptor
@@ -861,7 +867,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PostAssetAdministrationShellDescriptor
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostAssetAdministrationShellDescriptor
 h|Explanation 4+a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
@@ -878,7 +884,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation CreateBulkAssetAdministrationShellDescriptors
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|CreateBulkAssetAdministrationShellDescriptors
 h|Explanation 4+a|Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
@@ -894,7 +900,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PutAssetAdministrationShellDescriptorById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
@@ -902,20 +908,19 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellDesc
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint informationcontaining the Asset Administration Shell’s identification and endpoint information |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint information containing the Asset Administration Shell’s identification and endpoint information |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
-
 ==== Operation PutBulkAssetAdministrationShellDescriptorsById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutBulkAssetAdministrationShellDescriptorsById
-h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors 
+h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkAssetAdministrationShellDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -928,7 +933,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation DeleteAssetAdministrationShellDescriptorById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
@@ -941,14 +946,10 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
-
-
-
-
 ==== Operation DeleteBulkAssetAdministrationShellDescriptorsById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteBulkAssetAdministrationShellDescriptorsById
 h|Explanation 4+a|Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
@@ -965,8 +966,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 ==== Submodel Registry Interface
 
-
-[%autowidth, width="100%", cols="31%,69%",options="header",]
+[%autowidth,width="100%",cols="31%,69%",options="header",]
 |===
 2+|Interface: Submodel Registry
 h|Operation Name h|Description
@@ -983,7 +983,7 @@ e|DeleteBulkSubmodelDescriptorsById a|Deletes one or more submodel descriptors, 
 ==== Operation GetAllSubmodelDescriptors
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllSubmodelDescriptors
 h|Explanation 4+a|Returns all submodel descriptors
@@ -1001,7 +1001,7 @@ e|payload a|List of requested submodel descriptors |no |SubmodelDescriptor |1..*
 ==== Operation GetSubmodelDescriptorById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetSubmodelDescriptorById
 h|Explanation 4+a|Returns a specific Submodel Descriptor
@@ -1018,7 +1018,7 @@ e|payload a|Requested submodel descriptor |yes |SubmodelDescriptor |1
 ==== Operation PostSubmodelDescriptor
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodelDescriptor
 h|Explanation 4+a|Creates a new submodel descriptor, i.e. registers a submodel
@@ -1034,10 +1034,11 @@ e|payload a|Created submodel descriptor |yes | xref:specification/interfaces-pay
 |===
 
 ==== Operation PostBulkSubmodelDescriptors
-[width=100%, cols="25%,35%,10%,20%,10%"]
+
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostBulkSubmodelDescriptors
-h|Explanation	4+a|Creates one or more new submodel descriptors, i.e., registers several submodels
+h|Explanation    4+a|Creates one or more new submodel descriptors, i.e., registers several submodels
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostBulkSubmodelDescriptors/3/1
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1045,18 +1046,17 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 
 |submodel +
-Descriptor	a|Object containing the Submodel’s identification and endpoint information |yes	| xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  	|1..*
+Descriptor    a|Object containing the Submodel’s identification and endpoint information |yes    | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]    |1..*
 
 5+h|Output Parameter
 
-|statusCode	a|Status code	|yes	|xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]	|1
+|statusCode    a|Status code    |yes    |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]    |1
 |===
-
 
 ==== Operation PutSubmodelDescriptorById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutSubmodelDescriptorById
 h|Explanation 4+a|Replaces an existing submodel descriptor, i.e., replaces registration information
@@ -1071,11 +1071,10 @@ e|xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] a|Status cod
 e|payload a|Replaced submodel descriptor |yes | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1
 |===
 
-
 ==== Operation PutBulkSubmodelDescriptorsById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutBulkSubmodelDescriptorsById
 h|Explanation 4+a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
@@ -1093,7 +1092,7 @@ Descriptor |Object containing the Submodel’s identification and endpoint infor
 ==== Operation DeleteSubmodelDescriptorById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteSubmodelDescriptorById
 h|Explanation 4+a|Deletes a Submodel Descriptor, i.e., de-registers a submodel
@@ -1106,11 +1105,10 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
-
 ==== Operation DeleteBulkSubmodelDescriptorsById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteBulkSubmodelDescriptorsById
 h|Explanation 4+a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
@@ -1127,7 +1125,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 === General
 
-These interfaces allow to manage Asset Administration Shells, Submodels, and Concept Descriptions. They further provide access to the data of these elements through interfaces described in <<aas-interfaces>>. A repository can host multiple entities. These entities can be stored in individual repositories of a decentral system. The endpoints of the entities managed by one repository shall be resolved by subsequent calls to discover (<<publish-and-discovery-interfaces>>) and lookup (<<registration-interfaces>>) interfaces to such decentralized systems.
+These interfaces allow to manage Asset Administration Shells, Submodels, and Concept Descriptions.
+They further provide access to the data of these elements through interfaces described in <<aas-interfaces>>.
+A repository can host multiple entities.
+These entities can be stored in individual repositories of a decentral system.
+The endpoints of the entities managed by one repository shall be resolved by subsequent calls to discover (<<publish-and-discovery-interfaces>>) and lookup (<<registration-interfaces>>) interfaces to such decentralized systems.
 
 Sometimes, these kinds of services are also classified as Asset Administration Shell management services.
 
@@ -1137,8 +1139,7 @@ The interfaces that provide access to the entities (Asset Administration Shells,
 
 ==== Asset Administration Shell Repository Interface
 
-
-[%autowidth, width="100%", cols="41%,59%",options="header",]
+[%autowidth,width="100%",cols="41%,59%",options="header",]
 |===
 2+|Interface: Asset Administration Shell Registry
 h|Operation Name h|Description
@@ -1146,7 +1147,9 @@ e|GetAllAssetAdministrationShells |Returns all Asset Administration Shells
 e|GetAssetAdministrationShellById |Returns a specific Asset Administration Shell
 e|GetAllAssetAdministrationShellsByAssetId |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 e|GetAllAssetAdministrationShellsByIdShort |Returns all Asset Administration Shells with a specific idShort
-e|PostAssetAdministrationShell a|Creates a new Asset Administration Shell. The id of the new Asset Administration Shell must be set in the payload.
+e|PostAssetAdministrationShell a|
+Creates a new Asset Administration Shell.
+The id of the new Asset Administration Shell must be set in the payload.
 
 
 ====
@@ -1161,7 +1164,7 @@ e|DeleteAssetAdministrationShellById a|Deletes an Asset Administration Shell
 ==== Operation GetAllAssetAdministrationShells
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAssetAdministrationShells
 h|Explanation 4+a|Returns all Asset Administration Shells
@@ -1180,7 +1183,7 @@ e|payload a|List of Asset Administration Shells |no |AssetAdministrationShell |1
 ==== Operation GetAssetAdministrationShellById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAssetAdministrationShellById
 h|Explanation 4+a|Returns a specific Asset Administration Shell
@@ -1200,7 +1203,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllAssetAdministrationShellsByAssetId
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAssetAdministrationShellsByAssetId
 h|Explanation 4+a|Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
@@ -1221,7 +1224,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllAssetAdministrationShellsByIdShort
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAssetAdministrationShellsByIdShort
 h|Explanation 4+a|Returns all Asset Administration Shells with a specific _idShort_
@@ -1241,11 +1244,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PostAssetAdministrationShell
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostAssetAdministrationShell
 h|Explanation 4+a|
-Creates a new Asset Administration Shell. The id of the new Asset Administration Shell must be set in the payload.
+Creates a new Asset Administration Shell.
+The id of the new Asset Administration Shell must be set in the payload.
 
 
 ====
@@ -1271,7 +1275,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PutAssetAdministrationShellById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutAssetAdministrationShellById
 h|Explanation 4+a|Replaces an existing Asset Administration Shell
@@ -1288,7 +1292,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation DeleteAssetAdministrationShellById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteAssetAdministrationShellById
 h|Explanation 4+a|Deletes an Asset Administration Shell
@@ -1305,18 +1309,18 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 ==== Submodel Repository Interface
 
-
-[%autowidth, width="100%", cols="44%,56%",options="header",]
+[%autowidth,width="100%",cols="44%,56%",options="header",]
 |===
 2+|Interface: Submodel Repository
 h|Operation Name h|Description
-e|GetAllSubmodels a|Returns all Submodels
-e|GetSubmodelById a|Returns a specific Submodel
-e|GetAllSubmodelsBySemanticId a|Returns all Submodels with a specific SemanticId
+e|GetAllSubmodels |Returns all Submodels
+e|GetSubmodelById |Returns a specific Submodel
+e|GetAllSubmodelsBySemanticId |Returns all Submodels with a specific SemanticId
 e|GetAllSubmodelsBySupplementalSemanticId |Returns all Submodels with a specific SupplementalSemanticId
-e|GetAllSubmodelsByIdShort a|Returns all Submodels with a specific _idShort_
+e|GetAllSubmodelsByIdShort |Returns all Submodels with a specific _idShort_
 e|PostSubmodel a|
-Creates a new Submodel. The id of the new submodel must be set in the payload.
+Creates a new Submodel.
+The id of the new submodel must be set in the payload.
 
 
 ====
@@ -1332,7 +1336,7 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ==== Operation GetAllSubmodels
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllSubmodels
 h|Explanation 4+a|Returns all Submodels
@@ -1351,7 +1355,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetSubmodelById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetSubmodelById
 h|Explanation 4+a|Returns a specific Submodel
@@ -1369,10 +1373,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllSubmodelsBySemanticId
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllSubmodelsBySemanticId
-h|Explanation 4+a|Returns all Submodels with a specific SemanticId or SupplementalSemanticId. If either the semanticId fits to the input parameter or at least one of the SupplementalSemanticIds, the submodel is returned.
+h|Explanation 4+a|
+Returns all Submodels with a specific SemanticId or SupplementalSemanticId.
+If either the semanticId fits to the input parameter or at least one of the SupplementalSemanticIds, the submodel is returned.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1389,7 +1395,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllSubmodelsByIdShort
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllSubmodelsByIdShort
 h|Explanation 4+a|Returns all Submodels with a specific _idShort_
@@ -1409,11 +1415,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PostSubmodel
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostSubmodel
 h|Explanation 4+a|
-Creates a new Submodel. The id of the new submodel must be set in the payload.
+Creates a new Submodel.
+The id of the new submodel must be set in the payload.
 
 
 ====
@@ -1434,7 +1441,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PutSubmodelById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutSubmodelById
 h|Explanation 4+a|Replaces an existing Submodel
@@ -1451,7 +1458,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PatchSubmodelById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PatchSubmodelById
 h|Explanation 4+a|Updates an existing Submodel
@@ -1478,7 +1485,7 @@ Note: values remain unchanged with content=metadata.
 ==== Operation DeleteSubmodelById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteSubmodelById
 h|Explanation 4+a|Deletes a Submodel
@@ -1495,8 +1502,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 
 ==== Concept Description Repository Interface
 
-
-[%autowidth, width="100%", cols="55%,45%",options="header",]
+[%autowidth,width="100%",cols="55%,45%",options="header",]
 |===
 2+|Interface: Concept Description Repository
 h|Operation Name h|Description
@@ -1506,7 +1512,8 @@ e|GetAllConceptDescriptionsByIdShort |Returns all Concept Descriptions with a sp
 e|GetAllConceptDescriptionsByIsCaseOf |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
 e|GetAllConceptDescriptionsByDataSpecificationReference |Returns all Concept Descriptions with a specific _dataSpecification_ reference
 e|PostConceptDescription a|
-Creates a new Concept Description. The id of the the new Concept Description must be set in the payload.
+Creates a new Concept Description.
+The id of the new Concept Description must be set in the payload.
 
 
 ====
@@ -1521,7 +1528,7 @@ e|DeleteConceptDescriptionById |Deletes a Concept Description
 ==== Operation GetAllConceptDescriptions
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllConceptDescriptions
 h|Explanation 4+a|Returns all Concept Descriptions
@@ -1539,7 +1546,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetConceptDescriptionById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetConceptDescriptionById
 h|Explanation 4+a|Returns a specific Concept Description
@@ -1556,7 +1563,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllConceptDescriptionsByIdShort
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllConceptDescriptionsByIdShort
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _idShort_
@@ -1575,7 +1582,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllConceptDescriptionsByIsCaseOf
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllConceptDescriptionsByIsCaseOf
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _IsCaseOf_ reference
@@ -1594,7 +1601,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation GetAllConceptDescriptionsByDataSpecificationReference
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllConceptDescriptionsByDataSpecificationReference
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _dataSpecification_ reference
@@ -1613,11 +1620,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PostConceptDescription
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostConceptDescription
 h|Explanation 4+a|
-Creates a new Concept Description. The id of the new Concept Description must be set in the payload.
+Creates a new Concept Description.
+The id of the new Concept Description must be set in the payload.
 
 
 ====
@@ -1642,7 +1650,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation PutConceptDescriptionById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PutConceptDescriptionById
 h|Explanation 4+a|Replaces an existing Concept Description
@@ -1659,7 +1667,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 ==== Operation DeleteConceptDescriptionById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteConceptDescriptionById
 h|Explanation 4+a|Deletes a Concept Description
@@ -1683,8 +1691,7 @@ These interfaces allow to publish information about Asset Administration Shells 
 
 ==== Asset Administration Shell Basic Discovery Interface
 
-
-[%autowidth, width="100%", cols="45%,55%",options="header",]
+[%autowidth,width="100%",cols="45%,55%",options="header",]
 |===
 2+|Interface: Asset Administration Shell Basic Discovery
 h|Operation Name h|Description
@@ -1697,7 +1704,7 @@ e|DeleteAllAssetLinksById |Deletes all asset identifier key-value-pair linked to
 ==== Operation GetAllAssetAdministrationShellIdsByAssetLink
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAssetAdministrationShellIdsByAssetLink
 h|Explanation 4+a|Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
@@ -1710,7 +1717,8 @@ The specific assetId of an asset identifier, which could be the globalAssetId or
 
 
 ====
-Note: The key of the asset identifier key-value-pair for the globalAssetId is defined in Clause 4.5. It is the predefined key “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
+Note: The key of the asset identifier key-value-pair for the globalAssetId is defined in Clause 4.5.
+It is the predefined key “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
 ====
 
 
@@ -1725,7 +1733,7 @@ Note: The key of the asset identifier key-value-pair for the globalAssetId is de
 ==== Operation GetAllAssetLinksById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetAllAssetLinksById
 h|Explanation 4+a|Returns a list of asset identifier key-value-pairs based on an Asset Administration Shell id to edit discoverable content
@@ -1742,7 +1750,8 @@ Requested asset identifier, which could be the globalAssetId or specificAssetIds
 
 
 ====
-Note: the name of the SpecificAssetId for the globalAssetId is defined in Clause 4.5. It is the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
+Note: the name of the SpecificAssetId for the globalAssetId is defined in Clause 4.5.
+It is the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
 ====
 
 
@@ -1752,10 +1761,12 @@ Note: the name of the SpecificAssetId for the globalAssetId is defined in Clause
 ==== Operation PostAllAssetLinksById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|PostAllAssetLinksById
-h|Explanation 4+a|Creates new asset identifier key-value-pairs linked to an Asset Administration Shell for discoverable content. The existing content might have to be deleted first.
+h|Explanation 4+a|
+Creates new asset identifier key-value-pairs linked to an Asset Administration Shell for discoverable content.
+The existing content might have to be deleted first.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAllAssetLinksById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1766,7 +1777,8 @@ Asset identifier, which could be the globalAssetId or specificAssetIds.
 
 
 ====
-Note: the name for the globalAssetId is defined in Clause 4.5. It is the predefined key “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
+Note: the name for the globalAssetId is defined in Clause 4.5.
+It is the predefined key “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
 ====
 
 
@@ -1779,7 +1791,7 @@ Note: the name for the globalAssetId is defined in Clause 4.5. It is the predefi
 ==== Operation DeleteAllAssetLinksById
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|DeleteAllAssetLinksById
 h|Explanation 4+a|Deletes all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
@@ -1796,8 +1808,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 === Self-Description Interface
 
-
-[%autowidth, width="100%", cols="19%,81%",options="header",]
+[%autowidth,width="100%",cols="19%,81%",options="header",]
 |===
 2+|Interface: Self-Description
 h|Operation Name h|Description
@@ -1807,7 +1818,7 @@ e|GetSelfDescription |Returns a description object containing the capabilities a
 === Operation GetSelfDescription
 
 [.table-with-appendix-table]
-[width=100%, cols="25%,35%,10%,20%,10%"]
+[width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|GetSelfDescription
 h|Explanation 4+a|Returns a description object containing the capabilities and supported features of the server.
@@ -1819,12 +1830,9 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |description |Key-value-pairs that describe the capabilities of the providing server |yes |ServiceDescription |1
 |===
 
-
 ====
 Note 1: a server implementing more than one service specification profile, e.g. hosting a repository and a registry at the same time, adds both ServiceSpecificationProfileEnum items in the profiles list.
 ====
-
-
 
 ====
 Note 2: a profile value must only be used if the related API is implemented at the path where the API Operation “GetDescription” is published, or child paths.

@@ -18,38 +18,35 @@ This clause describes the technology mapping to HTTP/REST APIs.
 
 The OpenAPI specification of the HTTP/REST APIs can be found at SwaggerHub.
 
-To clearly separate the different parts of the AAS model, the model has been split into several HTTP/REST APIs. Combinations then form service specifications and profiles, each materialized as an individual OpenAPI document.
+To clearly separate the different parts of the AAS model, the model has been split into several HTTP/REST APIs.
+Combinations then form service specifications and profiles, each materialized as an individual OpenAPI document.
 
 The schema for the metamodel of Part 1 is available at: +
 https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1#[https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1#] +
 This schema includes general objects, which are used in the further defined APIs.
 
-Additional objects are needed for Part 2, e.g., the Descriptors for the Registry. The related schema of Part 2 objects is available at: +
+Additional objects are needed for Part 2, e.g., the Descriptors for the Registry.
+The related schema of Part 2 objects is available at: +
 https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1#[https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1#] +
 This schema includes general objects, which are used in the further defined APIs.
 
 The AAS Service Specification including the AAS API, the Submodel API, the Serialization API, and the Self-Description API is available at: +
 https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-001#] +
 
-
 The Submodel Service Specification including the Submodel API, the Serialization API, and the Self-Description API is available at: +
 https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-001#] +
 
-
 The AAS Repository Service Specification including the AAS Repository API, the AAS API, the Submodel API, the Submodel Repository API, the Serialization API, and the Self-Description API is available at: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-001#] +
-
 
 The Submodel Repository Service Specification including the Submodel Repository API, Submodel API, the Serialization API, and the Self-Description API is available at: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-001#] +
 
 The AAS Registry Service Specification Registry including the AAS Registry API and the Self-Description API is available at: +
-https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001#] 
+https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001#]
 
-The Submodel Registry Service Specification including the Submodel Registry API and the Self-Description API is available at https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001#] 
+The Submodel Registry Service Specification including the Submodel Registry API and the Self-Description API is available at https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001#]
 
 The Service Specification including the AAS Discovery API and the Self-Description API is available at:
-https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001#]  
-
-
+https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001#]
 
 This clause gives an overview of the HTTP/REST API and describes general design decisions.
 
@@ -57,49 +54,78 @@ This clause gives an overview of the HTTP/REST API and describes general design 
 
 The following design decisions and constraints hold for the HTTP/REST API:
 
-* OpenAPI and Swaggerhub shall be used for specification. This leads to the constraint that one operation can only provide one type of a resulting payload.
+* OpenAPI and SwaggerHub shall be used for specification.
+This leads to the constraint that one operation can only provide one type of a resulting payload.
 * This document assumes version 1.1 of HTTP.
 * An endpoint of the HTTP/REST API shall always use HTTPS (Port 443) with an up-to-date level of encryption.
-* The SerializationModifier “content” changes the type the of payload for inputs or results. To ensure type-safe APIs, this parameter is mapped to the path suffixes “/$value”, “/$metadata”, “/$reference”, and “/$path”. “content=Normal” is mapped to the path without any “/$<content>” suffix.
+* The SerializationModifier “content” changes the type the of payload for inputs or results.
+To ensure type-safe APIs, this parameter is mapped to the path suffixes “/$value”, “/$metadata”, “/$reference”, and “/$path”. “content=Normal” is mapped to the path without any “/$<content>” suffix.
 * Generic SerializationModifiers changing the size of payload for input or result have been mapped to corresponding query parameters, e.g. ”?level=” or “?extent=”.
 * Query parameters are also used when the type of a resulting payload is a list of objects and the type remains the same, while the query parameter filters the content of the list, e.g. GetAllSubmodels with optional query parameters “?semanticId=” or “?idShort=”.
-* Complete objects are provided as requested payloads, e.g. a complete submodel. This corresponds to the generic SerializationModifier content=”Normal”. Reduced objects can be requested by the path suffix “/$<content>”. See Clause 12.5 for further details. Exceptions to this rule are API Operations requiring pagination and error cases.
-* By default, blobs are not part of the payload. Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
-* Submodels define a hierarchical structure. Certain operations use an idShort-path to access deeper parts in the hierarchy. To easily support this in the REST API, “.” or “[index]” is used as a delimiter in the idShort-paths. Please see <<api-versioning>>. Since an idShort-path could include square brackets like “[index]”, the idShort-path must be URL-encoded.
-* Identifiers of Identifiables are base64url-encoded to be passed to the HTTP/REST API (see https://www.base64url.com/). These may be identifiers for Asset Administration Shells, Submodels, or Concept Descriptions. +
-Identifiers may also be passed as base64url-encoded query parameters, e.g. for semanticId or assetId. Such query parameters are typically used when a list of objects may be retrieved in the resulting payload. A list of base64url-encoded ids is simply passed as comma-separated query parameters.
-* Please note that base64url-encoding differs slightly from base64-encoding and has been specifically defined for passing URLs. An appropriate base64url implementation needs to be used for encoding/decoding. See RFC 4648 for further details.
+* Complete objects are provided as requested payloads, e.g. a complete submodel.
+This corresponds to the generic SerializationModifier content=”Normal”.
+Reduced objects can be requested by the path suffix “/$<content>”.
+See Clause 12.5 for further details.
+Exceptions to this rule are API Operations requiring pagination and error cases.
+* By default, blobs are not part of the payload.
+Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
+* Submodels define a hierarchical structure.
+Certain operations use an idShort-path to access deeper parts in the hierarchy.
+To easily support this in the REST API, “.” or “[index]” is used as a delimiter in the idShort-paths.
+Please see <<api-versioning>>.
+Since an idShort-path could include square brackets like “[index]”, the idShort-path must be URL-encoded.
+* Identifiers of Identifiables are base64url-encoded to be passed to the HTTP/REST API (see https://www.base64url.com/).
+These may be identifiers for Asset Administration Shells, Submodels, or Concept Descriptions. +
+Identifiers may also be passed as base64url-encoded query parameters, e.g. for semanticId or assetId.
+Such query parameters are typically used when a list of objects may be retrieved in the resulting payload.
+A list of base64url-encoded ids is simply passed as comma-separated query parameters.
+* Please note that base64url-encoding differs slightly from base64-encoding and has been specifically defined for passing URLs.
+An appropriate base64url implementation needs to be used for encoding/decoding.
+See RFC 4648 for further details.
 * When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
-* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter “?assetids=” can be specified. Such assetId may be a globalAssetId or specificAssetId. The corresponding key-value-pair is first serialized to JSON and then base64url-encoded. The resulting encoded string is the value of “?assetids=”.
-* In some operations, references are part of the query parameters e.g. “?semanticId=”. The corresponding reference is first serialized to JSON and then base64url-encoded. The resulting encoded string is the value of “?semanticId=”.
+* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter “?assetids=” can be specified.
+Such assetId may be a globalAssetId or specificAssetId.
+The corresponding key-value-pair is first serialized to JSON and then base64url-encoded.
+The resulting encoded string is the value of “?assetids=”.
+* In some operations, references are part of the query parameters e.g. “?semanticId=”.
+The corresponding reference is first serialized to JSON and then base64url-encoded.
+The resulting encoded string is the value of “?semanticId=”.
 * Even though the metamodel of the AAS distinguishes between the attributes “semanticId” and “supplementalSemanticId”, the query parameter “?semanticId” targets both.
-* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells). For the example “[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]”, the resulting base64url-encoded value of the query parameter is +
+* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells).
+For the example “[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]”, the resulting base64url-encoded value of the query parameter is +
 “?assetIds=W3sibmFtZSI6ICJnbG9iYWxBc3NldElkIiwidmFsdWUiOiAiaHR0cDovL2V4YW1wbGUuY29tcGFueS9teUFzc2V0In0seyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifV0”. +
 If several key-value-pairs are included, all must be part of the key-value-pairs on the server.
 * Comparisons of idShort are made case-sensitive in the HTTP/REST API to avoid repeating toupper()/tolower() conversions.
-
 
 ====
 Note: this is conformant to the change made in Part 1 V3.0 xref:bibliography.adoc#bib1[[1\]].
 ====
 
-
 * GetAll…-API Operations will retrieve a list of objects as the resulting payload, e.g. GetAllSubmodelElements.
-* The splitting of big result sets into smaller pieces, commonly referred to as “pagination”, is executed using the cursor query parameter. Therefore, result objects for GetAll…-API Operations and others requiring pagination return their content inside a Result structure. See <<pagination>> for further explanations.
-* In general, only GET, POST, PUT, PATCH and DELETE are used. POST is used to create new objects and to invoke operations.
-* Some interfaces may be combined in a so-called “superpaths”, e.g. the Asset Administration Shell Repository Interface may be combined with the AAS Interface and the Submodel Interface. This results in a complete path like “/shells/\{aas-identifier}/submodels/\{submodel-identifier}/*”. This is especially useful when all data is hosted in the same repository. Superpaths are defined as part of the service specifications and profiles.
+* The splitting of big result sets into smaller pieces, commonly referred to as “pagination”, is executed using the cursor query parameter.
+Therefore, result objects for GetAll…-API Operations and others requiring pagination return their content inside a Result structure.
+See <<pagination>> for further explanations.
+* In general, only GET, POST, PUT, PATCH and DELETE are used.
+POST is used to create new objects and to invoke operations.
+* Some interfaces may be combined in a so-called “superpaths”, e.g. the Asset Administration Shell Repository Interface may be combined with the AAS Interface and the Submodel Interface.
+This results in a complete path like “/shells/\{aas-identifier}/submodels/\{submodel-identifier}/*”.
+This is especially useful when all data is hosted in the same repository.
+Superpaths are defined as part of the service specifications and profiles.
 * The attribute AssetAdministrationShell/submodels (array of References) maps to the path segment “/submodel-refs” to distinguish it from the superpath segment “/submodels” (array of Submodels).
-* Each interface includes a “/description” operation for self-discovery to provide detailed information about the interface. A server supporting the HTTP/REST API may also provide a server global “/description” to provide the information about all available profiles on that server.
+* Each interface includes a “/description” operation for self-discovery to provide detailed information about the interface.
+A server supporting the HTTP/REST API may also provide a server global “/description” to provide the information about all available profiles on that server.
 
 [#api-versioning]
 == API Versioning
 
-API versioning provides a way to deal with different versions of the same API at the same time. This way, older versions may still be accessible on the same server to provide services to legacy clients without breaking existing functionality.
+API versioning provides a way to deal with different versions of the same API at the same time.
+This way, older versions may still be accessible on the same server to provide services to legacy clients without breaking existing functionality.
 
 There are different solutions regarding API versioning involving URL-based versioning, query parameter-based versioning, as well as HTTP header-oriented solutions using custom or standard headers. +
-As different solutions also provide different advantages and disadvantages, *URL-based versioning* has been selected as the most suitable method for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
+As different solutions also provide different advantages and disadvantages, *URL-based versioning* has been selected as the most suitable method for the AAS API.
+Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
-.Example of an URL Scheme for AAS API Versioning
+.Example of a URL Scheme for AAS API Versioning
 [[aas-api-versioning-url-scheme]]
 image::aas-api-versioning-url-scheme.png[width=481,height=110]
 
@@ -112,36 +138,56 @@ Upcoming implementations of AAS related servers may implement the version prefix
 Note:* all URLs mentioned in this document regarding the REST mapping of the AAS APIs have to be understood with this prefix in mind.
 ====
 
+The versioning scheme for AAS API related services follows semantic versioning footnote:[http://semver.org].
+Very briefly, this defines version numbers as a format following: <MAJOR>.<MINOR>.<PATCH>.
 
-The versioning scheme for AAS API related services follows semantic versioning footnote:[http://semver.org]. Very briefly, this defines version numbers as a format following: <MAJOR>.<MINOR>.<PATCH>.
+The major version changes in case of breaking or incompatible changes that need to be addressed by clients.
+Minor versions add (new) functionality in a backwards compatible way and allow clients with lower minor versions to keep their existing functionality.
+Patch versions only include backwards compatible bug fixes.
 
-The major version changes in case of breaking or incompatible changes that need to be addressed by clients. Minor versions add (new) functionality in a backwards compatible way and allow clients with lower minor versions to keep their existing functionality. Patch versions only include backwards compatible bug fixes.
+AAS API versioning uses the major and minor version as described above.
+A specific AAS API version uses specific related versions of the metamodel as defined in Clause xref:index.adoc#metamodel-versions[Metamodel Versions].
+AAS API versions with the same major version must remain compatible, i.e. a client written for an older or a newer minor version must still work.
+This requires corresponding testing of clients and servers.
 
-AAS API versioning uses the major and minor version as described above. A specific AAS API version uses specific related versions of the metamodel as defined in Clause xref:index.adoc#metamodel-versions[Metamodel Versions]. AAS API versions with the same major version must remain compatible, i.e. a client written for an older or a newer minor version must still work. This requires corresponding testing of clients and servers.
+Additionally, “Release candidates” are variants of the implementation of the denoted major version.
+For example, “3.1.0 RC2” should be interpreted as the second (alternative) release candidate for version 3.1.0.
+This will still result in the version prefix “/api/v3.1/”.
 
-Additionally, “Release candidates” are variants of the implementation of the denoted major version. For example, “3.1.0 RC2” should be interpreted as the second (alternative) release candidate for version 3.1.0. This will still result in the version prefix “/api/v3.1/”.
-
-As multiple versions will be supported in the future, an AAS ecosystem consisting of Registry / Discovery services as well as AAS Repository, Submodel (standalone), or AAS (standalone) services should share a consistent version. Therefore, a consistent interface description in the form of OpenAPI documents shall be provided with each major version.
+As multiple versions will be supported in the future, an AAS ecosystem consisting of Registry / Discovery services as well as AAS Repository, Submodel (standalone), or AAS (standalone) services should share a consistent version.
+Therefore, a consistent interface description in the form of OpenAPI documents shall be provided with each major version.
 
 Upcoming compatibility constraints regarding newer versions will be elaborated in further iterations of this document and related technical descriptions (OpenAPI specification).
 
-Finally, it is recommended to include an additional "/description” endpoint into each service to further denote information about APIs / servers capabilities. This endpoint provides further information about the API and its supported profiles. The “/description” will be extended with additional information in later versions.
+Finally, it is recommended to include an additional "/description” endpoint into each service to further denote information about APIs / servers capabilities.
+This endpoint provides further information about the API and its supported profiles.
+The “/description” will be extended with additional information in later versions.
 
 == Addressing Resources
 
 The API allows to address each referable element, either by its global identifier or by its idShort-path depending on the object type.
 
-If the referable element is an identifiable, it can only be addressed by the global identifier of the object. All other referable elements are addressable by the idShort-path. +
-The idShort-path is a chain of idShorts or SubmodelElementList-indexes, which points to an element within a hierarchy of elements. The root of the idShort-path is always a submodel and the first element in an idShort-path is always an idShort of a first level SubmodelElement within a Submodel. Technically, the idShort path is a string and the idShorts are separated by a dot while the SubmodelElementList-indexes are written in brackets.
+If the referable element is an identifiable, it can only be addressed by the global identifier of the object.
+All other referable elements are addressable by the idShort-path.
+The idShort-path is a chain of idShorts or SubmodelElementList-indexes, which points to an element within a hierarchy of elements.
+The root of the idShort-path is always a submodel and the first element in an idShort-path is always an idShort of a first level SubmodelElement within a Submodel.
+Technically, the idShort path is a string and the idShorts are separated by a dot while the SubmodelElementList-indexes are written in brackets.
 
 .Example Hierarchy of Submodel Elements
 [[se-hierarchy]]
 image::se-hierarchy.jpeg[image24,width=642,height=367]
 
-The example hierarchy in <<se-hierarchy>> shows a Submodel with a hierarchical structure of SubmodelElements. The submodel can be addressed by its global identifier “https://admin-shell.io/sampleSM”. The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShort-path. The idShort-path in this example pointing to the Property p1 is “sme1.sme2[0].p1”. The hierarchy is built on parent-child relations between the elements. There are four elements which can aggregate SubmodelElements and create deeper hierarchal structures. The elements are Submodel, SubmodelElementCollection, SubmodelElementList, and Entity. The fields used to navigate to a deeper level of the hierarchy can be seen in the following table.
+The example hierarchy in <<se-hierarchy>> shows a Submodel with a hierarchical structure of SubmodelElements.
+The submodel can be addressed by its global identifier “https://admin-shell.io/sampleSM”.
+The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShort-path.
+The idShort-path in this example pointing to the Property p1 is “sme1.sme2[0].p1”.
+The hierarchy is built on parent-child relations between the elements.
+There are four elements which can aggregate SubmodelElements and create deeper hierarchical structures.
+The elements are Submodel, SubmodelElementCollection, SubmodelElementList, and Entity.
+The fields used to navigate to a deeper level of the hierarchy can be seen in the following table.
 
 .Children of certain objects
-[%autowidth, width="100%", options="header",]
+[%autowidth,width="100%",options="header",]
 |===
 |*Element Name* |*Child aggregation field name*
 |Submodel |SubmodelElement
@@ -159,61 +205,73 @@ Add a new Property to the Entity statements:
 
 POST /submodels/aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ/submodel/submodelElements/ sme1.sme2%5B0%5D
 
-
 ====
-Note 1: to avoid problems with IRI values in URLs, the identifiers shall be base64url-encoded before using them as parameters in the HTTP-APIs. IdshortPaths are base64url-encoded to also allow square brackets.
+Note 1: to avoid problems with IRI values in URLs, the identifiers shall be base64url-encoded before using them as parameters in the HTTP-APIs.
+IdshortPaths are base64url-encoded to also allow square brackets.
 ====
-
-
 
 ====
 Note 2: in the example above, “aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ” is the base64url-encoding of “https://admin-shell.io/sampleSM”, “sme1.sme2%5B0%5D.p1” is the URL-encoding of “sme1.sme2[0].p1”, and “sme1.sme2%5B0%5D” is the URL-encoding of “sme1.sme2[0]”.
 ====
 
-
 [#pagination]
 == Pagination
 
-Pagination is a commonly used pattern to break down potentially long result lists into smaller pieces for a better control of the network and computational load on both the server and the client side. For instance, the OData protocol xref:bibliography.adoc#bib8[[8\]] provides guidelines for parameters and behavior on the client and server side. In addition, the proposals of the RFC 8977 footnote:[see Chapter 2.4 of RFC 8977] present a best practice for web APIs. In the scope of the AAS HTTP/REST API, the query parameter “cursor” controls, which part of a longer result set is returned.
+Pagination is a commonly used pattern to break down potentially long result lists into smaller pieces for a better control of the network and computational load on both the server and the client side.
+For instance, the OData protocol xref:bibliography.adoc#bib8[[8\]] provides guidelines for parameters and behavior on the client and server side.
+In addition, the proposals of the RFC 8977 footnote:[see Chapter 2.4 of RFC 8977] present a best practice for web APIs.
+In the scope of the AAS HTTP/REST API, the query parameter “cursor” controls, which part of a longer result set is returned.
 
-The AAS client may decide on the appropriate size of the result list through the limit parameter. If it is not specified, the server must comply to the default value or explicitly indicate it in the response object.
+The AAS client may decide on the appropriate size of the result list through the limit parameter.
+If it is not specified, the server must comply to the default value or explicitly indicate it in the response object.
 
-Pagination is currently only defined for the HTTP/REST API. Other APIs might introduce different patterns to control the response content.
+Pagination is currently only defined for the HTTP/REST API.
+Other APIs might introduce different patterns to control the response content.
 
-Pagination is controlled by the client via the query parameters “cursor” and “limit”. They can be combined with all other query parameters as defined in this document and listed in the following table:
+Pagination is controlled by the client via the query parameters “cursor” and “limit”.
+They can be combined with all other query parameters as defined in this document and listed in the following table:
 
 .Parameters for Pagination
-[%autowidth, width="100%", cols="15%,19%,8%,58%",options="header",]
+[%autowidth,width="100%",cols="15%,19%,8%,58%",options="header",]
 |===
 |Parameter |Values |Default |Explanation
 
 e|Cursor |string |- a|
-The position from which to resume a result listing. The value may be base64url-encoded and contain additional information which helps the server to respond more efficiently. However, the client must not expect any meaning and treat the cursor value as an arbitrary character sequence.
+The position from which to resume a result listing.
+The value may be base64url-encoded and contain additional information which helps the server to respond more efficiently.
+However, the client must not expect any meaning and treat the cursor value as an arbitrary character sequence.
 
 The server must interpret a missing cursor as if the client wants to retrieve the first part of the result set.
 
 e|Limit |nonNegativeInteger |100 |The maximum size of the result list.
 |===
 
-[.underline]#Constraint AASa-001:# The value of the cursor query parameter must not be empty. If the client does not know the cursor value, it must omit the whole query parameter in the request.
-
+[.underline]#Constraint AASa-001:# The value of the cursor query parameter must not be empty.
+If the client does not know the cursor value, it must omit the whole query parameter in the request.
 
 ====
 Note 1: this constraint prohibits that an empty cursor value is sent by the client, e.g. _…?cursor=""_.
 ====
 
-
-
 ====
-Note 2: if the client sends a request without a cursor query parameter, the server must interpret it as if the client wants to retrieve the results from the very beginning. A client may send the query parameter “limit" without any cursor. In that case, the server must return at max the specified number of result items from the beginning.
+Note 2: if the client sends a request without a cursor query parameter, the server must interpret it as if the client wants to retrieve the results from the very beginning.
+A client may send the query parameter “limit" without any cursor.
+In that case, the server must return at max the specified number of result items from the beginning.
 ====
 
+Pagination requires a defined and consistent sorting.
+The server implementation must ensure a deterministic ordering of the result set.
+For instance, a server must not return an element A before another element C and in any later request return C before A.
+This applies in particular if any attribute of either A or C has been changed between the two requests.
+However, in case a new element B was created (or deleted), the client must expect that B and then C are returned after A.
 
-Pagination requires a defined and consistent sorting. The server implementation must ensure a deterministic ordering of the result set. For instance, a server must not return an element A before another element C and in any later request return C before A. This applies in particular if any attribute of either A or C has been changed between the two requests. However, in case a new element B was created (or deleted), the client must expect that B and then C are returned after A.
+Nevertheless, the inherent order of the result set must stay the same.
+Implementations may maintain an internal sorting attribute to ensure this behavior or implement it in any other appropriate manner.
+The server is not obligated to inform the client about its ordering schema.
 
-Nevertheless, the inherent order of the result set must stay the same. Implementations may maintain an internal sorting attribute to ensure this behavior or implement it in any other appropriate manner. The server is not obligated to inform the client about its ordering schema.
-
-The server informs the client about pagination attributes through the Result object in the request response. In particular, the Result contains the cursor value for the next page. Additional information, e.g. the overall number of result items, may also be part of it.
+The server informs the client about pagination attributes through the Result object in the request response.
+In particular, the Result contains the cursor value for the next page.
+Additional information, e.g. the overall number of result items, may also be part of it.
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -254,19 +312,26 @@ Additional classes needed for payload of the HTTP/REST API specification can be 
 [#modifier-constraints]
 == Modifier Constraints
 
-To use metadata objects as described in Clause 12.5., modifiers are implemented as HTTP query parameters or path suffixes. For example, a request for a specific submodel may look like: +
+To use metadata objects as described in Clause 12.5., modifiers are implemented as HTTP query parameters or path suffixes.
+For example, a request for a specific submodel may look like: +
 GET /submodel/$value?level=deep&extent=withBlobValue
 
 The following constraints apply for the combination of modifiers:
 
-* For Content=Value, the requested object shall always be serialized to an unnamed JSON Object or Array. This means that the response object must not have a property with the object’s idShort at the root level.
-* If Level=Core and Content=Value, only the requested object and the direct children without their value (empty value) will be returned in value serialization. If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": \{} will be returned. If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": [] will be returned.
+* For Content=Value, the requested object shall always be serialized to an unnamed JSON Object or Array.
+This means that the response object must not have a property with the object’s idShort at the root level.
+* If Level=Core and Content=Value, only the requested object and the direct children without their value (empty value) will be returned in value serialization.
+If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": \{} will be returned.
+If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": [] will be returned.
 * The combination of Content=Metadata and Extent=WithBLOBValue is not allowed.
-* If parameter Content is set to "Metadata" then Level shall not be used. A server shall respond with a ClientErrorBadRequest in this case. 
+* If parameter Content is set to "Metadata" then Level shall not be used.
+A server shall respond with a ClientErrorBadRequest in this case.
 * The combination of Level=Deep and Content=Reference is not allowed.
 * Modifiers cannot be used for POST operations.
 
-In addition, the modifiers can also be used for PUT operations. They define how the request content is delivered and have the same semantics as in the related GET operation. Only Content=Reference and Content=Path are not possible for PUT.
+In addition, the modifiers can also be used for PUT operations.
+They define how the request content is delivered and have the same semantics as in the related GET operation.
+Only Content=Reference and Content=Path are not possible for PUT.
 
 == Mapping of Operations
 
@@ -277,7 +342,7 @@ The black entries correspond to the corresponding generic operations.
 [.blue]#The blue entries are operations which only exist in the HTTP/REST API.#
 
 .Mapping of the generic Interface Operations to HTTP API Operations
-[%autowidth, width="100%", cols="31%,7%,23%,39%"]
+[%autowidth,width="100%",cols="31%,7%,23%,39%"]
 |===
 h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query parameters)
 
@@ -286,10 +351,10 @@ h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query paramete
 |PutAssetAdministrationShell |PUT | |
 |GetAllSubmodelReferences |GET |/aas/submodel-refs |Pagination
 |PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-ref/\{submodelIdentifier}’
-  
+
 
 _Note 1: submodelIdentifier is the base64url-encoded Submodel.id value_
-  
+
 _Note 2: There is no API defined for a client to directly send a GET towards this URL of the Location header, however, the information is intended as an input for the DeleteSubmodelReference API Operation._
 |DeleteSubmodelReference |DELETE |/aas/submodel-refs/\{submodelIdentifier} |use base64url-encoded identifier
 |GetAssetInformation |GET |/aas/asset-information |
@@ -536,42 +601,57 @@ assetType= base64url-encoded identifier
 [#async-invocation-of-se-operation]
 == Asynchronous Invocation of the SubmodelElement “Operation”
 
-The invocation of the SubmodelElement “Operation” is the only call that can appear either synchronously or asynchronously in the current version of the specification. The expected behavior is therefore explained in detail.
+The invocation of the SubmodelElement “Operation” is the only call that can appear either synchronously or asynchronously in the current version of the specification.
+The expected behavior is therefore explained in detail.
 
 .Sequence for asynchronous invocations of the SubmodelElement 'Operation'
 [[se-operation-invocation]]
 image::se-operation-invocation.png[image25,width=642,height=488]
 
-The client informs the server whether it is interested in a synchronous (asynchronous) call by targeting the /invoke (/invoke-async) endpoint. In case of a synchronous interaction, the communication channel is kept open until the server has processed the request and responds with an OperationResult object, or a timeout or other kind of error occurs.
+The client informs the server whether it is interested in a synchronous (asynchronous) call by targeting the /invoke (/invoke-async) endpoint.
+In case of a synchronous interaction, the communication channel is kept open until the server has processed the request and responds with an OperationResult object, or a timeout or other kind of error occurs.
 
-In the asynchronous pattern, the server immediately responds with an Accepted (status code: 202) message containing the link to an endpoint where the client can fetch status information about his request (see <<se-operation-invocation>>). This status endpoint is also located at the same SubmodelElement “Operation”, followed by the path segments "/operation-status/\{handleId}”.
+In the asynchronous pattern, the server immediately responds with an Accepted (status code: 202) message containing the link to an endpoint where the client can fetch status information about his request (see <<se-operation-invocation>>).
+This status endpoint is also located at the same SubmodelElement “Operation”, followed by the path segments "/operation-status/\{handleId}”.
 
-In case the request is incorrect and the server already recognizes it, the server responds directly with the according status code, e.g. 400. If the server can only recognize the error during later processing and not at the time it receives the request, it responds with an Accepted (202) message at first. Hence, a received Accepted message does not guarantee the client that its request is valid in every case.
+In case the request is incorrect and the server already recognizes it, the server responds directly with the according status code, e.g. 400.
+If the server can only recognize the error during later processing and not at the time it receives the request, it responds with an Accepted (202) message at first.
+Hence, a received Accepted message does not guarantee the client that its request is valid in every case.
 
-If the server has not finished processing the request, the status endpoint responds with an BaseOperationResult object with the attribute “executionState” set to “Running”. As soon as the processing is finished, the status endpoints deliver a Found (HTTP status code 302) response with the location of the result in the Location response header. The result is, similar to the status information, provided at the same SubmodelElement “Operation”, followed by the path segments "/operation-result/\{handleId}”.
+If the server has not finished processing the request, the status endpoint responds with an BaseOperationResult object with the attribute “executionState” set to “Running”.
+As soon as the processing is finished, the status endpoints deliver a Found (HTTP status code 302) response with the location of the result in the Location response header.
+The result is, similar to the status information, provided at the same SubmodelElement “Operation”, followed by the path segments "/operation-result/\{handleId}”.
 
 In case incorrect inputs have been provided by the client but the server was only able to recognize this during processing, or if the server perceived any other error during processing, the server must still provide the OperationResult object with status code 200 and set the attribute “executionState” to “Failed”.
 
-
 ====
-Note: the invocation of the SubmodelElement “Operation” may also be conducted in the “ValueOnly” content. In this case, the "/$value” path segment is added to the previously mentioned endpoints.
+Note: the invocation of the SubmodelElement “Operation” may also be conducted in the “ValueOnly” content.
+In this case, the “/$value” path segment is added to the previously mentioned endpoints.
 ====
-
-
 
 == Bulk Operations
-This chapter provides a description of the Bulk APIs. The Bulk APIs are designed to facilitate efficient and scalable operations on a large number of assets within the AAS. This chapter outlines the key concepts, functionalities, and guidelines for implementing and utilizing the Bulk APIs. 
-Bulk operations are intended for the simultaneous manipulation of many objects. Due to the size of bulk requests, it can be expected that the usual execution times takes significantly longer than for non-bulk requests. To avoid frequent timeout errors, the AAS API only defines asynchronous bulk operations for HTTP. The pattern for these operations follows the one introduced in <<async-invocation-of-se-operation>>.
 
+This chapter provides a description of the Bulk APIs.
+The Bulk APIs are designed to facilitate efficient and scalable operations on a large number of assets within the AAS.
+This chapter outlines the key concepts, functionalities, and guidelines for implementing and utilizing the Bulk APIs.
+Bulk operations are intended for the simultaneous manipulation of many objects.
+Due to the size of bulk requests, it can be expected that the usual execution times takes significantly longer than for non-bulk requests.
+To avoid frequent timeout errors, the AAS API only defines asynchronous bulk operations for HTTP.
+The pattern for these operations follows the one introduced in <<async-invocation-of-se-operation>>.
 
 .Sequence of a Bulk API Operation
 [[sequence-of-bulk]]
 image::sequence-of-bulk.png[]
 
-Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment. A server may serve bulk endpoints together with non-bulk endpoints. However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/\{handle-id}) and bulk result (/bulk/result/\{handle-id}) endpoints.
-A client executing a bulk request will retrieve the location of the status endpoint through the Location header of the response (see <<sequence-of-bulk>>). As long as the request is processed, the status endpoint responds with “OK” with an optional information for the client when it shall ask again ("Retry-After").
-As soon as the server was able to process the request, the status endpoint provides a redirect to the location of the result. The result endpoint may either signal the client a success of the operation without any additional content, or an error together with a detailed error message in the body.
-A server may remove information about the result of a bulk request after a certain amount of time. A client requesting a bulk result may retrieve a ClientErrorResourceNotFound even though the bulk request has been processed if a certain amount of time has passed between the sending of the bulk request and the retrieval of the result.
+Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment.
+A server may serve bulk endpoints together with non-bulk endpoints.
+However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/\{handle-id}) and bulk result (/bulk/result/\{handle-id}) endpoints.
+A client executing a bulk request will retrieve the location of the status endpoint through the Location header of the response (see <<sequence-of-bulk>>).
+As long as the request is processed, the status endpoint responds with “OK” with an optional information for the client when it shall ask again ("Retry-After").
+As soon as the server was able to process the request, the status endpoint provides a redirect to the location of the result.
+The result endpoint may either signal the client a success of the operation without any additional content, or an error together with a detailed error message in the body.
+A server may remove information about the result of a bulk request after a certain amount of time.
+A client requesting a bulk result may retrieve a ClientErrorResourceNotFound even though the bulk request has been processed if a certain amount of time has passed between the sending of the bulk request and the retrieval of the result.
 
 ====
 Note: A server may remove a result object after a client has retrieved it at least once.
@@ -579,22 +659,27 @@ Note: A server may remove a result object after a client has retrieved it at lea
 
 To ensure interoperability and consistency, the following guidelines should be adhered to when implementing and utilizing the Bulk APIs:
 
-. Request Validation  
+. Request Validation
 
-Bulk requests should be validated against the AAS data model to ensure compliance with the defined asset structure and constraints. Invalid or malformed requests should be rejected with appropriate error codes (see <<mapping-of-status-codes>>) and error messages. In case the validation of the request as a whole would take too long, a server may accept the request at first hand but provide the – potential – validation result as the result object. In particular, a client must not expect a correct request solely because the server has accepted the request at the first time.
+Bulk requests should be validated against the AAS data model to ensure compliance with the defined asset structure and constraints.
+Invalid or malformed requests should be rejected with appropriate error codes (see <<mapping-of-status-codes>>) and error messages.
+In case the validation of the request as a whole would take too long, a server may accept the request at first hand but provide the – potential – validation result as the result object.
+In particular, a client must not expect a correct request solely because the server has accepted the request at the first time.
 
 [start=2]
-. Atomicity  
+. Atomicity
 
-Bulk operations should be performed atomically, ensuring that either all operations within a bulk request are successfully executed, or none of them are. If any individual operation fails, the entire bulk operation should be rolled back, and an appropriate error response should be generated. A client must not expect that any part of the request has been persisted.
+Bulk operations should be performed atomically, ensuring that either all operations within a bulk request are successfully executed, or none of them are.
+If any individual operation fails, the entire bulk operation should be rolled back, and an appropriate error response should be generated.
+A client must not expect that any part of the request has been persisted.
 
 [start=3]
-. Error Handling  
+. Error Handling
 
-
-Bulk responses should provide detailed information about the outcome of each individual operation within the bulk request. In case of failures, error codes and error messages should be included to aid in troubleshooting and error resolution. For each failed operation, at least one item in the message array of the result object shall be provided, linking unambiguously to the problematic incoming request item. A client must not expect that the list of incorrect items is complete, as the server may terminate the execution already when the first error appears. 
-
-
+Bulk responses should provide detailed information about the outcome of each individual operation within the bulk request.
+In case of failures, error codes and error messages should be included to aid in troubleshooting and error resolution.
+For each failed operation, at least one item in the message array of the result object shall be provided, linking unambiguously to the problematic incoming request item.
+A client must not expect that the list of incorrect items is complete, as the server may terminate the execution already when the first error appears.
 
 [#mapping-of-status-codes]
 == Mapping of Status Codes
@@ -602,7 +687,7 @@ Bulk responses should provide detailed information about the outcome of each ind
 The following table shows the mapping of the generic status codes to HTTP status codes according to IETF RFC 7231 (see section 6.1: https://datatracker.ietf.org/doc/html/rfc7231#section-6)
 
 .Status Code Mapping for HTTP
-[%autowidth, width="100%", cols="29%,26%,18%,27%",options="header",]
+[%autowidth,width="100%",cols="29%,26%,18%,27%",options="header",]
 |===
 |*xref:specification/interfaces-payload.adoc#StatusCode[Generic status code]* |*Meaning* |*HTTP status code* h|Explanation
 |Success |Success |200 (OK) |Standard response for successful requests
@@ -624,13 +709,18 @@ The following table shows the mapping of the generic status codes to HTTP status
 
 In addition to the data types used in the technology-neutral specification, the HTTP/REST API uses the data types as defined in this clause.
 
+[#PackageDescription]
 === PackageDescription
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
 |===
 h|Class Name 3+e|PackageDescription
-h|Explanation 3+|The package description consists of a system-wide unique packageId and its corresponding Asset Administration Shell identifiers. The packageId is used to identify the AASX package at the AASX file server. The package description is used to list the Asset Administration Shells in a given AASX package. This class is not part of the metamodel.
+h|Explanation 3+|
+The package description consists of a system-wide unique packageId and its corresponding Asset Administration Shell identifiers.
+The packageId is used to identify the AASX package at the AASX file server.
+The package description is used to list the Asset Administration Shells in a given AASX package.
+This class is not part of the metamodel.
 h|Inherits from 3+|--
 
 h|Attribute h|Explanation h|Type h|Card.
