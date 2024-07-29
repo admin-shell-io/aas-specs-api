@@ -297,6 +297,36 @@ todo
 
 The comparison operators follow the proposals of RFC [add reference to the JSONPath RFC].
 
+OR:
+
+The following comparison operators are part of the query language. The result of a comparison shall always be of type xs:boolean, or a comparison error, e.g., due to non-matching inputs.
+
+Comparisons are overloaded, which means that the same comparison can deal with several input types. For instance, `eq` can be used both for values of type xs:string and xs:int.
+
+OR:
+
+Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
+
+
+
+[.table-with-appendix-table]
+[width=100%, cols="10%,40%,50%"]
+|===
+h| Operator h| Description h| Definition
+| eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| gt | Compares two values if they are identical. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| lt | Compares two values if they are identical. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| ge | Compares two values if they are identical. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
+| le | Compares two values if they are identical. | Operator 'A le B' in https://www.w3.org/TR/xpath-30/#mapping 
+| starts-with | Compares two values if they are identical. | Defined as fn:fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+|===
+
+
+
+==== Example
+
+The following example is used to illustrate the evaluation of the query language. Note that the attributes "description" and "displayName" are left blank intentionally.
+
 ```
 {
     "modelType": "AssetAdministrationShell",
