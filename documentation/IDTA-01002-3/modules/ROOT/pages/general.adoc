@@ -287,9 +287,328 @@ Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [
 
 == Query Language
 
+Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to move parts of the filter and selection logic to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
+
 The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS.
 
+
+=== Limitations
+
+The AAS Query Language is not intended as feature-comparable to existing query languages like SPARQL or GQL. In case the expressiveness of these technologies is needed, a software vendor might as well provide according APIs. However, in order to keep the additional overhead for the query language implementers as small as possible, the following limitations apply:
+
+1. Only Identifiables are queryable: Clients can only formulate filters for Asset Administration Shells, Submodels, and their according Descriptors, as well as ConceptDescription. In addition, also their identifiers (values of the "id" attributes) can be returned.
+
+1. Only string-oriented comparisons are possible: As the AAS represents all basic values as text (strings), query interpreters shall not assume that the values shall be converted to any other native xs data type. In particular, the content of the "valueType" attributes are not regarded in process of value comparison. (TODO: verify with group)
+
+1. Only Repository and Registry Services have query functionalities: Querys on Asset Administration Shell Services or Submodel Services are not defined.
+
+1. It is only possible to compare a field to an atomic value. It is not possible to compare two fields with each other.
+
+1. Only attributes defined by the AAS Metamodel (TODO: insert reference) can be used to describe fields: Custom attributes are not defined and may lead to errors at the receiving side.
+
+
 === Grammar
+
+The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF.
+
+TODO: Translate to BNF
+
+query // entrypoint for complete query 
+    : queryParameter ( '&' queryParameter )* EOF 
+    | EOF 
+    ; 
+
+  
+
+queryParameter 
+    : (selectDeclaration)?     // select is optional. Missing select = return full object 
+    | filterDeclaration            // Filters are mandatory 
+    | optionList?                   // Options are optional. Default values are up to the server 
+    ; 
+
+  
+
+selectDeclaration 
+    : 'select' '=' fieldList 'id' 
+    ; 
+
+  
+
+filterDeclaration 
+    : 'filter' '=' filterExpression 
+    ; 
+
+  
+
+fieldList  
+    : FieldIdentifier (',' FieldIdentifier)* 
+    | 
+    ; 
+
+  
+
+filterList  
+    : '(' filterExpression (',' filterExpression)* ')' 
+    ; 
+
+  
+
+optionList // entrypoint for options if already partitioned 
+    : 'option' '=' option (',' option)* // uniqueness is checked in parse-tree visitor code 
+    ; 
+
+// end toplevel expressions 
+
+  
+
+filterExpression 
+    : logicalOperator 
+    | multiComparison 
+    | singleComparison 
+    ; 
+  
+
+logicalOperator 
+    : 'not' '(' filterExpression ')' 
+    | 'and' filterList 
+    | 'or' filterList 
+    ; 
+
+  
+
+multiComparison 
+    : 'in' '(' FieldIdentifier ',' literalList ')'         
+    ; 
+
+  
+
+singleComparison 
+
+    : 'eq' '(' FieldIdentifier ',' literal ')' #equalityComparison //<1> 
+    | 'ne' '(' FieldIdentifier ',' literal ')' #equalityComparison //<1> 
+    | 'lt' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
+    | 'le' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
+    | 'gt' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
+    | 'ge' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
+    | 'like' '(' FieldIdentifier ',' StringLiteral ')' #stringMatch             //<3> 
+    | 'likeIgnoreCase' '(' FieldIdentifier ',' StringLiteral ')' #stringMatch   //<3> 
+    ; 
+
+  
+
+literalList 
+    : stringLiteralList   // only relevant for Identifiable/id, therefore, only strings 
+    | floatLiteralList 
+    | intLiteralList 
+    ; 
+
+  
+
+stringLiteralList 
+    : StringLiteral (',' StringLiteral)*  // No 'null' 
+    ; 
+
+  
+
+option
+    : (sortExpression | limitExpression)* 
+    ; 
+
+  
+
+sortExpression 
+    : 'sort' '( id '  ('+' | '-') ')'     // only option: sort for Identifiable/id asc or desc 
+    ; 
+
+  
+
+limitExpression 
+    : 'limit' '(' IntLiteral ',' IntLiteral ')'     // "limit(0, 100)" looks strange. Why not "limit 100 offset 0"? 
+    ; 
+
+  
+
+literal 
+    : linearilyOrderableLiteral 
+    | BooleanLiteral 
+    | NullLiteral 
+    ; 
+
+  
+
+linearilyOrderableLiteral 
+    : FloatLiteral 
+    | IntLiteral 
+    | StringLiteral 
+    | TimeLiteral 
+    ; 
+
+  
+
+NullLiteral 
+    : 'null' 
+    ; 
+
+  
+
+BooleanLiteral 
+    : 'true' 
+    | 'false' 
+    ; 
+
+  
+
+TimeLiteral 
+    : FullDate ('T'|'t') FullTime; 
+
+  
+
+fragment DateFullyear : Digit Digit Digit Digit; 
+
+fragment DateMonth : Digit Digit; 
+
+fragment DateMday  : Digit Digit; 
+
+fragment TimeHour  : Digit Digit; 
+
+fragment TimeMinute : Digit Digit; 
+
+fragment TimeSecond: Digit Digit; 
+
+fragment TimeSecfrac : ('.'|',') Digit+; 
+
+fragment TimeNumOffset : Sign TimeHour ':' TimeMinute; 
+
+fragment TimeOffset: ('Z'|'z') | TimeNumOffset; 
+
+fragment PartialTime : TimeHour ':' TimeMinute ':' TimeSecond TimeSecfrac?; 
+
+fragment FullDate : DateFullyear '-' DateMonth '-' DateMday; 
+
+fragment FullTime : PartialTime TimeOffset; 
+
+  
+
+  
+
+FloatLiteral 
+
+    :  Sign? '0.' Digit+ ExponentPart? 
+
+    |  Sign? DigitWithoutZero Digit* '.' Digit+ ExponentPart? 
+
+    |  Sign? DigitWithoutZero Digit* ExponentPart 
+
+    ; 
+
+  
+
+IntLiteral 
+    : Sign? DigitWithoutZero Digit* 
+    | '0' 
+    ; 
+
+  
+
+sortFieldIdentifier 
+    : Sign FieldIdentifier 
+    ; 
+
+  
+FieldIdentifier 
+
+    :   [a-zA-Z_][a-zA-Z0-9._]* 
+    'extensions' 
+    'extensions.semanticId.type' 
+    'extensions.semanticId.keys.type' 
+    'extensions.semanticId.keys.value' 
+    'extensions.supplementalSemanticIds.keys.type'  
+    'extensions.supplementalSemanticIds.keys.value'  
+    'extensions.name' 
+    'extensions.valueType' 
+    'extensions.value' 
+    'extensions.refersTo.keys.type' 
+    'extensions.refersTo.keys.value' 
+
+    'category' 
+
+    'idShort' 
+
+    DisplayName.                   // to be continued 
+
+    description [...] 
+
+    modelType* ModelType[...] 
+
+    administration AdministrativeInformation{...} 
+
+    id* [...] 
+
+    embeddedDataSpecifications [...] 
+
+    derivedFrom Reference{...} 
+
+    assetInformation* AssetInformation{...} 
+
+    submodels 
+    submodels.<submodelId>[<idShort>.<idShort> = ""] 
+
+    ; 
+
+  
+
+Sign 
+: [+-] 
+; 
+
+  
+
+fragment 
+ExponentPart 
+: [eE] Sign? Digit+ 
+; 
+
+  
+
+  
+
+fragment DigitWithoutZero 
+    : '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'; 
+
+  
+
+fragment Digit 
+    : '0' | DigitWithoutZero; 
+
+  
+
+StringLiteral 
+    : '"' StringCharacters? '"' 
+    ; 
+
+  
+
+fragment StringCharacters 
+    : StringElement+ 
+    ; 
+  
+
+fragment StringElement 
+    : ~["\\] 
+    | CharEscapeSeq 
+    ; 
+
+  
+
+fragment CharEscapeSeq : '\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | '\\'); 
+
+  
+
+WS 
+   : [ \t\n\r] + -> skip 
+   ; 
+
+TODO: move to appendix?
 
 todo
 
@@ -314,11 +633,12 @@ Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/
 |===
 h| Operator h| Description h| Definition
 | eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| ne | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
 | gt | Compares two values if they are identical. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
 | lt | Compares two values if they are identical. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
 | ge | Compares two values if they are identical. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
-| le | Compares two values if they are identical. | Operator 'A le B' in https://www.w3.org/TR/xpath-30/#mapping 
-| starts-with | Compares two values if they are identical. | Defined as fn:fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+| le | Compares two values if they are identical. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
+| starts-with | Compares two values if they are identical. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
 |===
 
 
@@ -432,7 +752,7 @@ h| Comparison h| Result h| Comment
   like( "assetInformation.specificAssetIds.value", 'aas-*' )
 | [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'aas-1' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
 |
-TODO: This doesn't align well with the existing RQL definitions and would be hard challenge to parse it. We need sonthing different which is more aligend with RQL
+TODO: This doesn't align well with the existing RQL definitions and would be hard challenge to parse it. We need something different which is more aligned with RQL
 
 "assetInformation.specificAssetIds"(
 
