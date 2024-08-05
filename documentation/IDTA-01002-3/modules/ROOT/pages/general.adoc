@@ -311,102 +311,45 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 
 The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF.
 
-TODO: Translate to BNF
+....
+<query> ::= ( <queryParameter> <whitespace> )* <queryParameter> <whitespace>*
+ 
+<queryParameter> ::= <filterDeclaration>
+ 
+<filterDeclaration> ::= "filter=" <filterExpression>
 
-query // entrypoint for complete query 
-    : queryParameter ( '&' queryParameter )* EOF 
-    | EOF 
-    ; 
+<filterExpression> ::= <singleComparison> | <logicalOperator>
 
-  
+<singleComparison> ::=
+    (
+    "str_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" | "starts" | "ends" | "contains" )
+    "(" ( <identifer> | <StringLiteral> ) "," ( <StringLiteral> | <identifer> ) ")"
+    )
+    |  
+    ( 
+    "num_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" )
+    "(" ( <identifer> | <NumericalLiteral> ) "," ( <NumericalLiteral> | <identifer> ) ")"
+    )
+    |
+    (
+    "dt_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" )
+    "(" ( <identifer> | <StringLiteral> ) "," ( <StringLiteral> | <identifer> ) ")"
+    )
 
-queryParameter 
-    : (selectDeclaration)?     // select is optional. Missing select = return full object 
-    | filterDeclaration            // Filters are mandatory 
-    | optionList?                   // Options are optional. Default values are up to the server 
-    ; 
+<logicalOperator> ::= ( "not(" <filterExpression> ")" ) | ( "and" <filterList> ) | ( "or" <filterList> )
 
-  
+<filterList> ::= "(" <filterExpression> ( "," <filterExpression> )* ")"
+ 
+<identifer> ::= ( [A-Z] | [a-z] | [1-9] | "." )+
 
-selectDeclaration 
-    : 'select' '=' fieldList 'id' 
-    ; 
+<whitespace> ::= ( " " | "\n" )+
 
-  
+<NumericalLiteral> ::= ([0-9] | "." | "E" | ":" )+
 
-filterDeclaration 
-    : 'filter' '=' filterExpression 
-    ; 
+<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [1-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
 
-  
-
-fieldList  
-    : FieldIdentifier (',' FieldIdentifier)* 
-    | 
-    ; 
-
-  
-
-filterList  
-    : '(' filterExpression (',' filterExpression)* ')' 
-    ; 
-
-  
-
-optionList // entrypoint for options if already partitioned 
-    : 'option' '=' option (',' option)* // uniqueness is checked in parse-tree visitor code 
-    ; 
-
-// end toplevel expressions 
-
-  
-
-filterExpression 
-    : logicalOperator 
-    | multiComparison 
-    | singleComparison 
-    ; 
-  
-
-logicalOperator 
-    : 'not' '(' filterExpression ')' 
-    | 'and' filterList 
-    | 'or' filterList 
-    ; 
-
-  
-
-multiComparison 
-    : 'in' '(' FieldIdentifier ',' literalList ')'         
-    ; 
-
-  
-
-singleComparison 
-
-    : 'eq' '(' FieldIdentifier ',' literal ')' #equalityComparison //<1> 
-    | 'ne' '(' FieldIdentifier ',' literal ')' #equalityComparison //<1> 
-    | 'lt' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
-    | 'le' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
-    | 'gt' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
-    | 'ge' '(' FieldIdentifier ',' linearilyOrderableLiteral ')' #orderRelation //<2> 
-    | 'like' '(' FieldIdentifier ',' StringLiteral ')' #stringMatch             //<3> 
-    | 'likeIgnoreCase' '(' FieldIdentifier ',' StringLiteral ')' #stringMatch   //<3> 
-    ; 
-
-  
-
-literalList 
-    : stringLiteralList   // only relevant for Identifiable/id, therefore, only strings 
-    | floatLiteralList 
-    | intLiteralList 
-    ; 
-
-  
-
-stringLiteralList 
-    : StringLiteral (',' StringLiteral)*  // No 'null' 
-    ; 
+filter=str_eq("a","aa")
+filter=not(or(num_eq(1,2),num_eq(10,20),str_ge("a","aa")))
 
   
 
@@ -607,6 +550,8 @@ fragment CharEscapeSeq : '\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | '\\');
 WS 
    : [ \t\n\r] + -> skip 
    ; 
+
+....
 
 TODO: move to appendix?
 
