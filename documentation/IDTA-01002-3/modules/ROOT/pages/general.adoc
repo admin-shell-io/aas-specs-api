@@ -312,7 +312,7 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF.
 
 ....
-<query> ::= ( <queryParameter> <whitespace> )* <queryParameter> <whitespace>*
+<query> ::= ("select id ")? ( <queryParameter> <whitespace> )* <queryParameter> <whitespace>* <options>?
  
 <queryParameter> ::= <filterDeclaration>
  
@@ -322,25 +322,31 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
 
 <singleComparison> ::=
     (
-    "str_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" | "starts" | "ends" | "contains" )
-    "(" ( <identifer> | <StringLiteral> ) "," ( <StringLiteral> | <identifer> ) ")"
+    ( "str_eq" | "str_ne" | "starts" | "ends" | "contains" )
+    "(" <FieldIdentifier> "," ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
     )
     |  
     ( 
-    "num_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" )
-    "(" ( <identifer> | <NumericalLiteral> ) "," ( <NumericalLiteral> | <identifer> ) ")"
+    "num_" ( "eq" | "ne" | "gt"  | "lt" | "ge" | "le" )
+    "(" <FieldIdentifier> "," ( <NumericalLiteral> | <identifier> | <FieldIdentifier> ) ")"
     )
     |
     (
-    "dt_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" )
-    "(" ( <identifer> | <StringLiteral> ) "," ( <StringLiteral> | <identifer> ) ")"
+    "dt_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" ) // TODO: why is 'dt_' needed?
+    "(" <FieldIdentifier> "," ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
     )
 
 <logicalOperator> ::= ( "not(" <filterExpression> ")" ) | ( "and" <filterList> ) | ( "or" <filterList> )
 
 <filterList> ::= "(" <filterExpression> ( "," <filterExpression> )* ")"
+
+<options> ::= <sortExpression>? <limitExpression>?
+
+<sortExpression> ::= "sort" "( id" ("+" | "-") ")"  // TODO: explain why only 'id' is available at the beginning
+
+<limitExpression> ::= "limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
  
-<identifer> ::= ( [A-Z] | [a-z] | [1-9] | "." )+
+<identifier> ::= ( [A-Z] | [a-z] | [1-9] | "." )+
 
 <whitespace> ::= ( " " | "\n" )+
 
@@ -348,136 +354,25 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
 
 <StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [1-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
 
-filter=str_eq("a","aa")
-filter=not(or(num_eq(1,2),num_eq(10,20),str_ge("a","aa")))
+<FieldIdentifier> ::=
+    (
+    "extensions" |
+    "extensions.semanticId.type" |
+    "extensions.semanticId.keys.type" | 
+    "extensions.semanticId.keys.value" | 
+    "extensions.supplementalSemanticIds.keys.type" |  
+    "extensions.supplementalSemanticIds.keys.value" |  
+    "extensions.name" | 
+    "extensions.valueType" | 
+    "extensions.value" | 
+    "extensions.refersTo.keys.type" | 
+    "extensions.refersTo.keys.value" | 
 
-  
+    "category" | 
 
-option
-    : (sortExpression | limitExpression)* 
-    ; 
+    "idShort" | 
 
-  
-
-sortExpression 
-    : 'sort' '( id '  ('+' | '-') ')'     // only option: sort for Identifiable/id asc or desc 
-    ; 
-
-  
-
-limitExpression 
-    : 'limit' '(' IntLiteral ',' IntLiteral ')'     // "limit(0, 100)" looks strange. Why not "limit 100 offset 0"? 
-    ; 
-
-  
-
-literal 
-    : linearilyOrderableLiteral 
-    | BooleanLiteral 
-    | NullLiteral 
-    ; 
-
-  
-
-linearilyOrderableLiteral 
-    : FloatLiteral 
-    | IntLiteral 
-    | StringLiteral 
-    | TimeLiteral 
-    ; 
-
-  
-
-NullLiteral 
-    : 'null' 
-    ; 
-
-  
-
-BooleanLiteral 
-    : 'true' 
-    | 'false' 
-    ; 
-
-  
-
-TimeLiteral 
-    : FullDate ('T'|'t') FullTime; 
-
-  
-
-fragment DateFullyear : Digit Digit Digit Digit; 
-
-fragment DateMonth : Digit Digit; 
-
-fragment DateMday  : Digit Digit; 
-
-fragment TimeHour  : Digit Digit; 
-
-fragment TimeMinute : Digit Digit; 
-
-fragment TimeSecond: Digit Digit; 
-
-fragment TimeSecfrac : ('.'|',') Digit+; 
-
-fragment TimeNumOffset : Sign TimeHour ':' TimeMinute; 
-
-fragment TimeOffset: ('Z'|'z') | TimeNumOffset; 
-
-fragment PartialTime : TimeHour ':' TimeMinute ':' TimeSecond TimeSecfrac?; 
-
-fragment FullDate : DateFullyear '-' DateMonth '-' DateMday; 
-
-fragment FullTime : PartialTime TimeOffset; 
-
-  
-
-  
-
-FloatLiteral 
-
-    :  Sign? '0.' Digit+ ExponentPart? 
-
-    |  Sign? DigitWithoutZero Digit* '.' Digit+ ExponentPart? 
-
-    |  Sign? DigitWithoutZero Digit* ExponentPart 
-
-    ; 
-
-  
-
-IntLiteral 
-    : Sign? DigitWithoutZero Digit* 
-    | '0' 
-    ; 
-
-  
-
-sortFieldIdentifier 
-    : Sign FieldIdentifier 
-    ; 
-
-  
-FieldIdentifier 
-
-    :   [a-zA-Z_][a-zA-Z0-9._]* 
-    'extensions' 
-    'extensions.semanticId.type' 
-    'extensions.semanticId.keys.type' 
-    'extensions.semanticId.keys.value' 
-    'extensions.supplementalSemanticIds.keys.type'  
-    'extensions.supplementalSemanticIds.keys.value'  
-    'extensions.name' 
-    'extensions.valueType' 
-    'extensions.value' 
-    'extensions.refersTo.keys.type' 
-    'extensions.refersTo.keys.value' 
-
-    'category' 
-
-    'idShort' 
-
-    DisplayName.                   // to be continued 
+    "DisplayName.   " |               // to be continued 
 
     description [...] 
 
@@ -495,63 +390,17 @@ FieldIdentifier
 
     submodels 
     submodels.<submodelId>[<idShort>.<idShort> = ""] 
-
-    ; 
-
-  
-
-Sign 
-: [+-] 
-; 
-
-  
-
-fragment 
-ExponentPart 
-: [eE] Sign? Digit+ 
-; 
-
-  
-
-  
-
-fragment DigitWithoutZero 
-    : '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'; 
-
-  
-
-fragment Digit 
-    : '0' | DigitWithoutZero; 
-
-  
-
-StringLiteral 
-    : '"' StringCharacters? '"' 
-    ; 
-
-  
-
-fragment StringCharacters 
-    : StringElement+ 
-    ; 
-  
-
-fragment StringElement 
-    : ~["\\] 
-    | CharEscapeSeq 
-    ; 
-
-  
-
-fragment CharEscapeSeq : '\\' ('b' | 't' | 'n' | 'f' | 'r' | '"' | '\\'); 
-
-  
-
-WS 
-   : [ \t\n\r] + -> skip 
-   ; 
-
+    )
 ....
+
+
+Examples (todo: delete before publication):
+....
+// filter=str_eq("a","aa")
+
+// filter=not(or(num_eq(1,2),num_eq(10,20),str_ge("a","aa")))
+....
+
 
 TODO: move to appendix?
 
