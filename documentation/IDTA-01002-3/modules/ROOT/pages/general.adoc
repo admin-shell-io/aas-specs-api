@@ -307,7 +307,7 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 1. Only attributes defined by the AAS Metamodel (TODO: insert reference) can be used to describe fields: Custom attributes are not defined and may lead to errors at the receiving side.
 
 
-=== Grammar
+=== Grammar Option 1 (RQL-inspired)
 
 The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF.
 
@@ -332,7 +332,7 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
     )
     |
     (
-    "dt_" ( "eq" | "ne(" | "gt"  | "lt" | "ge" | "le" ) // TODO: why is 'dt_' needed?
+    "dt_" ( "eq" | "ne" | "gt"  | "lt" | "ge" | "le" ) 
     "(" <FieldIdentifier> "," ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
     )
 
@@ -342,7 +342,7 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
 
 <options> ::= <sortExpression>? <limitExpression>?
 
-<sortExpression> ::= "sort" "( id" ("+" | "-") ")"  // TODO: explain why only 'id' is available at the beginning
+<sortExpression> ::= "sort" "( id" (" asc" | " desc") ")"  // TODO: explain why only 'id' is available at the beginning
 
 <limitExpression> ::= "limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
  
@@ -356,40 +356,12 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
 
 <FieldIdentifier> ::=
     (
-    "extensions" |
-    "extensions.semanticId.type" |
-    "extensions.semanticId.keys.type" | 
-    "extensions.semanticId.keys.value" | 
-    "extensions.supplementalSemanticIds.keys.type" |  
-    "extensions.supplementalSemanticIds.keys.value" |  
-    "extensions.name" | 
-    "extensions.valueType" | 
-    "extensions.value" | 
-    "extensions.refersTo.keys.type" | 
-    "extensions.refersTo.keys.value" | 
-
-    "category" | 
-
+    "semanticId" |
     "idShort" | 
-
-    "DisplayName.   " |               // to be continued 
-
-    description [...] 
-
-    modelType* ModelType[...] 
-
-    administration AdministrativeInformation{...} 
-
-    id* [...] 
-
-    embeddedDataSpecifications [...] 
-
-    derivedFrom Reference{...} 
-
-    assetInformation* AssetInformation{...} 
-
-    submodels 
-    submodels.<submodelId>[<idShort>.<idShort> = ""] 
+    "displayName" | 
+    "description" |
+    "id" |
+    "submodels"
     )
 ....
 
@@ -400,6 +372,109 @@ Examples (todo: delete before publication):
 
 // filter=not(or(num_eq(1,2),num_eq(10,20),str_ge("a","aa")))
 ....
+
+
+=== Grammar Option 2 (closer to XPath / XQuery)
+
+....
+<query> ::= ("select id ")? <whitespace>* <queryParameter> <whitespace>* <options>?
+
+<queryParameter> ::= <logicalOperatorExpression> (<whitespace>+ <queryParameter>)*
+
+<logicalOperatorExpression> ::= 
+    ( "not(" <logicalOperatorExpression> ")" ) | 
+    ( <logicalOperatorExpression> <whitespace>+ "and" <whitespace>+ <logicalOperatorExpression> ) | 
+    ( <logicalOperatorExpression> <whitespace>+ "and" <whitespace>+ <logicalOperatorExpression> ) |
+    <singleComparison>
+
+<singleComparison> ::=
+    <FieldIdentifier> <whitespace>+ ( "=" | "!=" | ">"  | "<" | ">=" | "<=" | "starts" ) <whitespace>+ ( <NumericalLiteral> | <StringLiteral> | <FieldIdentifier> )
+
+
+<options> ::= <sortExpression>? <limitExpression>?
+
+<sortExpression> ::= " sort" "( id" (" asc" | " desc") ")"  // TODO: explain why only 'id' is available at the beginning
+
+<limitExpression> ::= " limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
+
+<whitespace> ::= ( " " | "\n" )+
+
+<NumericalLiteral> ::= ([0-9] | "." | "E" | ":" )+
+
+<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [1-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
+
+<FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+
+<FieldIdentifierAAS> ::=
+    (
+    "idShort" | 
+    "displayName" | 
+    "description" |
+    "id" |
+    "assetKind" |
+    "assetType" |
+    "globalAssetId" |
+    "specificAssetId" |
+    "submodel"
+    )
+
+<FieldIdentifierSM> ::=
+    (
+    "semanticId" |
+    "idShort" | 
+    "displayName" | 
+    "description" |
+    "id"
+    )
+
+<FieldIdentifierSME> ::=
+    (
+    "semanticId" |
+    "idShort" | 
+    "displayName" | 
+    "description" |
+    "value" |
+    "valueType"
+    )
+
+<FieldIdentifierCD> ::=
+    (
+    "idShort" | 
+    "displayName" | 
+    "description" |
+    "id"
+    )
+
+<FieldIdentifierAasDescriptor> ::=
+    (
+    "idShort" | 
+    "displayName" | 
+    "description" |
+    "id" |
+    "assetKind" |
+    "assetType" |
+    "globalAssetId" |
+    "specificAssetId" |
+    "submodelDescriptor"
+    )
+
+<FieldIdentifierSmDescriptor> ::=
+    (
+    "semanticId" |
+    "idShort" | 
+    "displayName" | 
+    "description" |
+    "id"
+    )
+....
+
+Examples (todo: delete before publication):
+....
+// idShort <= "some string"
+
+// select id idShort starts "some str"  --> put a "where" between "id" and "idShort"?
+....
+
 
 
 TODO: move to appendix?
