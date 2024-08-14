@@ -2,7 +2,6 @@
 
 participant Client as "Client Application"
 
-
 box "Discovery Service"
   participant AASDiscovery as "AAS Discovery Interface"
 end box
@@ -23,36 +22,45 @@ box "Submodel or Submodel Repository Service"
   participant iSM as "Submodel or Submodel Repository Interface"
 end box
 
-
-
+activate Client
 Client -> Client : selection asset links
 
 Client -> AASDiscovery: SearchAllAssetAdministrationShellIdsByAssetLink
+activate AASDiscovery
 Client <-- AASDiscovery : IDs of AAS
+deactivate AASDiscovery
 Client -> Client : select AAS ID
 
 
 Client -> AASRegistry : GetAssetAdministrationShellDescriptorById
+activate AASRegistry
 Client <-- AASRegistry : AAS Descriptor with AAS Endpoint
+deactivate AASRegistry
 
 Client -> iAAS : GetAssetAdministrationShell or GetAssetAdministrationShellById
+activate iAAS
 note left
-get AAS 
+get AAS
 via Endpoint
 end note
 Client <-- iAAS : AAS with Submodel IDs
+deactivate iAAS
 Client -> Client : extract relevant Submodel IDs
 
 Client -> SMRegistry : GetSubmodelDescriptorById
+activate SMRegistry
 Client <-- SMRegistry: SubmodelDescritpor with endpoint of Submodel
+deactivate SMRegistry
 
 
 Client -> iSM : GetSubmodel or GetSubmodelById
+activate iSM
 note left
-get submodel 
+get submodel
 via Endpoint
 end note
 Client <-- iSM : Submodel
+deactivate iSM
 
 
 

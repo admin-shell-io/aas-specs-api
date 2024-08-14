@@ -127,10 +127,10 @@ Among other advantages, implementation complexity on clients as well as servers 
 
 .Example of a URL Scheme for AAS API Versioning
 [[aas-api-versioning-url-scheme]]
-image::aas-api-versioning-url-scheme.png[width=481,height=110]
+image::aas-api-versioning-url-scheme.svg[width=481,height=110]
 
 .Alternative URL example (TODO)
-image::aas-api-versioning-url-scheme.png[width=481,height=110]
+image::aas-api-versioning-url-scheme.svg[width=481,height=110]
 
 Upcoming implementations of AAS related servers may implement the version prefix “*api/v<X.Y>/*” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version and <Y> denotes the minor version, e.g. “api/v3.0/” (see <<aas-api-versioning-url-scheme>>).
 
@@ -606,7 +606,10 @@ The expected behavior is therefore explained in detail.
 
 .Sequence for asynchronous invocations of the SubmodelElement 'Operation'
 [[se-operation-invocation]]
-image::se-operation-invocation.png[image25,width=642,height=488]
+[plantuml, se-operation-invocation, svg]
+....
+include::partial$diagrams/se-operation-invocation.puml[]
+....
 
 The client informs the server whether it is interested in a synchronous (asynchronous) call by targeting the /invoke (/invoke-async) endpoint.
 In case of a synchronous interaction, the communication channel is kept open until the server has processed the request and responds with an OperationResult object, or a timeout or other kind of error occurs.
@@ -641,7 +644,10 @@ The pattern for these operations follows the one introduced in <<async-invocatio
 
 .Sequence of a Bulk API Operation
 [[sequence-of-bulk]]
-image::sequence-of-bulk.png[]
+[plantuml, sequence-of-bulk, svg]
+....
+include::partial$diagrams/sequence-of-bulk.puml[]
+....
 
 Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment.
 A server may serve bulk endpoints together with non-bulk endpoints.

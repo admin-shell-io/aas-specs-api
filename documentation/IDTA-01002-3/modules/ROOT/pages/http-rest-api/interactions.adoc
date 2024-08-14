@@ -51,7 +51,10 @@ From the point of view of a data provider the Submodel Registry interfaces are s
 
 .Interaction for Client Application using Submodel Endpoints
 [[fig:seq-sm-endpoints]]
-image::seq-sm-endpoints.svg[width=1242,height=750]
+[plantuml, seq-aas-endpoints, svg]
+....
+include::partial$diagrams/seq-sm-endpoints.puml[]
+....
 
 For accessing Submodels there are two different ways to do so:
 
@@ -78,7 +81,10 @@ This is typically done via the semanticId of the submodel.
 
 .Interaction for Client Application using AAS Endpoints and Repositories
 [[fig:seq-aas-endpoints]]
-image::seq-aas-endpoints.svg[SequenceDiagram_2,width=1242,height=750]
+[plantuml, seq-aas-endpoints, svg]
+....
+include::partial$diagrams/seq-aas-endpoints.puml[]
+....
 
 The difference between Interface and API Operations is outlined in <<fig:seq-sm-endpoints-http>>.
 This sequence translates the interaction on the interface level of <<fig:seq-sm-endpoints>>, which is protocol-independent and therefore can be implemented in several different manners, to the specific HTTP API Operations.
@@ -87,4 +93,7 @@ The returned objects are shortened for better readability.
 
 .Interaction for Client Application using Submodel Endpoints (for HTTP API Operations)
 [[fig:seq-sm-endpoints-http]]
-image::seq-sm-endpoints-http.svg[SequenceDiagram_1_http,width=1242,height=750]
+[plantuml, seq-aas-endpoints, svg]
+....
+include::partial$diagrams/seq-sm-endpoints-http.puml[]
+....

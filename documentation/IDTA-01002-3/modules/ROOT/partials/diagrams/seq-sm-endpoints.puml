@@ -19,28 +19,37 @@ box "AAS or Submodel Repository Service"
   participant SMRepo as "Submodel Repository Interface"
 end box
 
+activate Client
 Client -> Client : select asset links
 
 Client -> AASDiscovery: SearchAllAssetAdministrationShellIdsByAssetLink
+activate AASDiscovery
 Client <-- AASDiscovery : IDs of AAS
+deactivate AASDiscovery
 Client -> Client : select AAS ID
 
 
 Client -> AASRegistry : GetAssetAdministrationShellDescriptorById
+activate AASRegistry
 Client <-- AASRegistry : AAS Descriptor with Submodel Endpoints
+deactivate AASRegistry
 Client -> Client : extract relevant Submodel Endpoints
 
 
 Client -> iSM : GetSubmodel
+activate iSM
 note left
 get first Submodel via Endpoint
 end note
 Client <-- iSM : Submodel
+deactivate iSM
 
 Client -> SMRepo: GetSubmodelById
+activate SMRepo
 note left
 get second Submodel via Endpoint
 end note
 Client <-- SMRepo : Submodel
+deactivate SMRepo
 
 @enduml
