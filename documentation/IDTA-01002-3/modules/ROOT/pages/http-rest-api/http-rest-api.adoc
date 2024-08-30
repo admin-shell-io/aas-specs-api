@@ -373,7 +373,19 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 ?extent=WithoutBLOBValue/WithBLOBValue
 
 |PutSubmodel |PUT |/submodel |
-|PatchSubmodel |PATCH |/submodel |path-suffix=$metadata/$value or no path for normal
+|PatchSubmodel |PATCH |/submodel |path-suffix=/$metadata or /$value 
+
+For /$metadata: +
+The serialised submodel in the request body must not contain any SubmodelElements. +
+The server must overwrite all metadata-relevant Submodel fields with the received fields. This means in particular that previously used fields of the Submodel instance that are missing in the request body indicate a deletion of them. It is not possible to change single items in contained arrays. In particular, a client must therefore send the complete content of arrays (e.g. for `description` or `displayName`).
+
+For /$value: +
+The server must overwrite all ValueOnly-relevant Submodel fields with the received values. This means in particular that previously used fields of the Submodel instance that are missing in the request body indicate a deletion of them. It is not possible to change single items in contained arrays, for instance, for SubmodelElementLists.
+
+====
+Note: The endpoint paths without any additional path-suffixes have been deprecated with version 3.1.0
+====
+
 |GetAllSubmodelElements |GET |/submodel/submodel-elements a|
 ?level=deep/core
 
@@ -422,27 +434,28 @@ URL-encoded IdShortPath
 |PatchSubmodelElementByPath |PATCH |/submodel/submodel-elements/\{idShortPath} a|
 use separated idShort path of this element
 
-path-suffix=$metadata/$value or no suffix for normal
+path-suffix=/$metadata or /$value
 
 URL-encoded IdShortPath
 
+For /$metadata: +
+The serialised SubmodelElement in the request body must not contain any values. +
+The server must overwrite all metadata-relevant SubmodelElement fields with the received fields. This means in particular that previously used fields of the SubmodelElement instance that are missing in the request body indicate a deletion of them. It is not possible to change single items in contained arrays. In particular, a client must therefore send the complete content of arrays (e.g. for `description` or `displayName`).
+
+For /$value: +
+The server must overwrite all ValueOnly-relevant SubmodelElement fields with the received values. This means in particular that previously used fields of the SubmodelElement instance that are missing in the request body indicate a deletion of them. It is not possible to change single items in contained arrays, for instance, for SubmodelElementLists.
 
 ====
-Note: values remain unchanged with content=metadata
+Note 1: The endpoint paths without any additional path-suffixes have been deprecated with version 3.1.0
 ====
 
+====
+Note 2: See Clause 11.4.2 for values.
+====
 
-|PatchSubmodelElementValueByPath |PATCH |/submodel/submodel-elements/\{idShortPath}/$value a|
-use separated idShort path of this element; see Clause 11.4.2 for values
-
-path-suffix=$value
-
-URL-encoded IdShortPath
-
-|DeleteSubmodelElementByPath |DELETE |/submodel/submodel-elements/\{idShortPath} a|
-use separated idshort path of this element
-
-URL-encoded IdShortPath
+====
+Note 3: values remain unchanged with content=metadata
+====
 
 |InvokeOperationSync |POST |/submodel/submodel-elements/\{idShortPath}/invoke a|
 path-suffix=$value or no suffix for normal
@@ -521,7 +534,19 @@ base64url-encoded identifier
 
 |PostSubmodel |POST |/submodels |
 |PutSubmodelById |PUT |/submodels/\{submodelIdentifier} |base64url-encoded identifier
-|PatchSubmodelById |PATCH |/submodels/\{submodelIdentifier} |path-suffix=$metadata/$value or no suffix for normal
+|PatchSubmodelById |PATCH |/submodels/\{submodelIdentifier} |path-suffix=/$metadata or /$value 
+
+For /$metadata: +
+The serialised submodel in the request body must not contain any SubmodelElements. +
+The server must overwrite all metadata-relevant Submodel fields with the received fields. This means in particular that previously used fields of the Submodel instance that are missing in the request body indicate a deletion of them. It is not possible to change single items in contained arrays. In particular, a client must therefore send the complete content of arrays (e.g. for `description` or `displayName`).
+
+For /$value: +
+The server must overwrite all ValueOnly-relevant Submodel fields with the received values. This means in particular that previously used fields of the Submodel instance that are missing in the request body indicate a deletion of them. It is not possible to change single items in contained arrays, for instance, for SubmodelElementLists.
+
+====
+Note: The endpoint paths without any additional path-suffixes have been deprecated with version 3.1.0
+====
+
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 |SubmodelInterface |* |/submodels/\{submodelIdentifier}/* |superpath as defined in service specification or profile
 | |
