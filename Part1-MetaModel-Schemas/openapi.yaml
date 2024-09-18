@@ -12,7 +12,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.2
+  version: V3.0.3
 components: 
   schemas:
     AasSubmodelElements:
@@ -766,17 +766,23 @@ components:
               $ref: '#/components/schemas/ModelType'
           required:
             - modelType
+            
     Reference:
+      allOf:
+        - "$ref": "#/components/schemas/ReferenceParent"
+        - properties:
+            referredSemanticId: 
+              "$ref": "#/components/schemas/ReferenceParent"
+    ReferenceParent:
+    # This class is introduced due to the recursion issue of the SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325) 
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/ReferenceTypes'
-        referredSemanticId:
-          $ref: '#/components/schemas/Reference'
+          "$ref": "#/components/schemas/ReferenceTypes"
         keys:
           type: array
           items:
-            $ref: '#/components/schemas/Key'
+            "$ref": "#/components/schemas/Key"
           minItems: 1
       required:
         - type
