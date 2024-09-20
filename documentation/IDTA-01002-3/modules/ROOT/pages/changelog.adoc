@@ -9,7 +9,7 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
-== Changes w.r.t. V3.0.2 to V3.1
+== Changes w.r.t. V3.0.3 to V3.1
 
 Major Changes:
 
@@ -27,7 +27,7 @@ Major Changes:
 * Transfer from .docx to asciidoc (.adoc) and maintenance in github
 
 
-=== Interface Changes w.r.t. V3.0.2 to V3.1
+=== Interface Changes w.r.t. V3.0.3 to V3.1
 
 [%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
@@ -50,7 +50,7 @@ add PutBulkSubmodelDescriptorsById,
 add DeleteBulkSubmodelDescriptorsById
 |===
 
-=== Operation Changes w.r.t. V3.0.2 to V3.1
+=== Operation Changes w.r.t. V3.0.3 to V3.1
 
 [%autowidth,width="100%",cols="32%,34%,13%,21%",options="header",]
 |===
@@ -62,7 +62,7 @@ add DeleteBulkSubmodelDescriptorsById
 ||DeleteBulkSubmodelDescriptorsById|new |
 |===
 
-=== Profile Changes w.r.t. V3.0.2 to V3.1
+=== Profile Changes w.r.t. V3.0.3 to V3.1
 
 |===
 |*Profile Change Old* |*Profile Change New* |*Kind of Change* |*Comment*
@@ -72,7 +72,7 @@ add DeleteBulkSubmodelDescriptorsById
 | |Discovery Profile – Read Profile |new |
 |===
 
-=== Class Changes w.r.t. V3.0.2 to V3.1
+=== Class Changes w.r.t. V3.0.3 to V3.1
 
 .Changes in Data Types for Payload
 [cols="5%,42%,48%",options="header",]
@@ -101,6 +101,30 @@ add DeleteBulkSubmodelDescriptorsById
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/name] a|
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/value] a|
 |===
+
+
+== Changes w.r.t. V3.0.2 to V3.0.3
+
+Major:
+
+* Clause 12.2: Reintroducing the design decision for the ReferenceParent class due to resolvement problems reappearing in SwaggerHub, also adding the class again to the OpenAPI file.
+* Adding the missing GetSubmodelElementsMetadataResult class to the OpenAPI definitions for the AAS API classes.
+
+
+=== Interface Changes w.r.t. V3.0.2 to V3.0.3
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+|*BWC* |*Interface Change* |*Kind of Change* |*Comment*
+| | GetAllAssetAdministrationShellDescriptors    | Changed    | Changed the parameters assetKind and assetType from 'mandatory' to ‘optional'.  OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/298[#298])
+| | AAS Basic Discovery Interface    | Changed    |
+Changed the parameter assetIds from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/301[#301])
+|===
+
+=== Operation Changes w.r.t. V3.0.1 to V3.0.2
+
+None.
+
 
 == Changes w.r.t. V3.0.1 to V3.0.2
 

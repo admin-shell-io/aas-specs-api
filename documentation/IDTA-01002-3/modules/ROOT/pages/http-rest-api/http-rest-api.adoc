@@ -114,6 +114,7 @@ Superpaths are defined as part of the service specifications and profiles.
 * The attribute AssetAdministrationShell/submodels (array of References) maps to the path segment “/submodel-refs” to distinguish it from the superpath segment “/submodels” (array of Submodels).
 * Each interface includes a “/description” operation for self-discovery to provide detailed information about the interface.
 A server supporting the HTTP/REST API may also provide a server global “/description” to provide the information about all available profiles on that server.
+* The recursive nature of the reference class (Reference/referredSemanticId points to Reference again) cannot be represented in SwaggerHub due to a bug in the SwaggerUI code. Therefore, the additional class “ReferenceParent" has been added. “ReferenceParent" shall not be used in productive operations and is only a placeholder for “Reference”. When implementing generated code originating from the SwaggerHub schemas, please delete “ReferenceParent” and add its attributes to “Reference”.
 
 [#api-versioning]
 == API Versioning
