@@ -307,79 +307,14 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 1. Only attributes defined by the AAS Metamodel (TODO: insert reference) can be used to describe fields: Custom attributes are not defined and may lead to errors at the receiving side.
 
 
-=== Grammar Option 1 (RQL-inspired)
+=== Grammar
 
 The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF.
 
 ....
-<query> ::= ("select id ")? ( <queryParameter> <whitespace> )* <queryParameter> <whitespace>* <options>?
+<query> ::= ("select id where ")? ( <queryParameter> <whitespace> )* <queryParameter> <whitespace>* <options>?
  
-<queryParameter> ::= <filterDeclaration>
- 
-<filterDeclaration> ::= "filter=" <filterExpression>
-
-<filterExpression> ::= <singleComparison> | <logicalOperator>
-
-<singleComparison> ::=
-    (
-    ( "str_eq" | "str_ne" | "starts" | "ends" | "contains" )
-    "(" <FieldIdentifier> "," ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
-    )
-    |  
-    ( 
-    "num_" ( "eq" | "ne" | "gt"  | "lt" | "ge" | "le" )
-    "(" <FieldIdentifier> "," ( <NumericalLiteral> | <identifier> | <FieldIdentifier> ) ")"
-    )
-    |
-    (
-    "dt_" ( "eq" | "ne" | "gt"  | "lt" | "ge" | "le" ) 
-    "(" <FieldIdentifier> "," ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
-    )
-
-<logicalOperator> ::= ( "not(" <filterExpression> ")" ) | ( "and" <filterList> ) | ( "or" <filterList> )
-
-<filterList> ::= "(" <filterExpression> ( "," <filterExpression> )* ")"
-
-<options> ::= <sortExpression>? <limitExpression>?
-
-<sortExpression> ::= "sort" "( id" (" asc" | " desc") ")"  // TODO: explain why only 'id' is available at the beginning
-
-<limitExpression> ::= "limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
- 
-<identifier> ::= ( [A-Z] | [a-z] | [1-9] | "." )+
-
-<whitespace> ::= ( " " | "\n" )+
-
-<NumericalLiteral> ::= ([0-9] | "." | "E" | ":" )+
-
-<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [1-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
-
-<FieldIdentifier> ::=
-    (
-    "semanticId" |
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "id" |
-    "submodels"
-    )
-....
-
-
-Examples (todo: delete before publication):
-....
-// filter=str_eq("a","aa")
-
-// filter=not(or(num_eq(1,2),num_eq(10,20),str_ge("a","aa")))
-....
-
-
-=== Grammar Option 2 (closer to XPath / XQuery)
-
-....
-<query> ::= ("select id ")? <whitespace>* <queryParameter> <whitespace>* <options>?
-
-<queryParameter> ::= <logicalOperatorExpression> (<whitespace>+ <queryParameter>)*
+<queryParameter> ::= <singleComparison> | <logicalOperatorExpression>
 
 <logicalOperatorExpression> ::= 
     ( "not(" <logicalOperatorExpression> ")" ) | 
@@ -388,14 +323,26 @@ Examples (todo: delete before publication):
     <singleComparison>
 
 <singleComparison> ::=
-    <FieldIdentifier> <whitespace>+ ( "=" | "!=" | ">"  | "<" | ">=" | "<=" | "starts" ) <whitespace>+ ( <NumericalLiteral> | <StringLiteral> | <FieldIdentifier> )
-
+    (
+    "starts-with" | "ends-with" | "contains"
+    "(" <FieldIdentifier> <whitespace>* "," <whitespace>+ ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
+    )
+    |  
+    (
+    <FieldIdentifier> 
+    <whitespace>
+    ( "=" | "!=" | "<" | "<=" | ">" | ">=" **OR** "eq" | "ne" | "gt" | "lt" | "ge" | "le" )
+    <whitespace>
+    ( <NumericalLiteral> | <StringLiteral> | <identifier> | <FieldIdentifier> )
+    )
 
 <options> ::= <sortExpression>? <limitExpression>?
 
-<sortExpression> ::= " sort" "( id" (" asc" | " desc") ")"  // TODO: explain why only 'id' is available at the beginning
+<sortExpression> ::= "sort" "( id" (" asc" | " desc") ")"  // TODO: explain why only 'id' is available at the beginning
 
-<limitExpression> ::= " limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
+<limitExpression> ::= "limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
+ 
+<identifier> ::= ( [A-Z] | [a-z] | [1-9] | "." )+
 
 <whitespace> ::= ( " " | "\n" )+
 
@@ -468,12 +415,18 @@ Examples (todo: delete before publication):
     )
 ....
 
+
 Examples (todo: delete before publication):
 ....
-// idShort <= "some string"
 
-// select id idShort starts "some str"  --> put a "where" between "id" and "idShort"?
+```
+select id where idShort = "someIdShort"
+```
+
+TODO: Add examples with logical operators
+
 ....
+
 
 
 
@@ -489,11 +442,11 @@ OR:
 
 The following comparison operators are part of the query language. The result of a comparison shall always be of type xs:boolean, or a comparison error, e.g., due to non-matching inputs.
 
-Comparisons are overloaded, which means that the same comparison can deal with several input types. For instance, `eq` can be used both for values of type xs:string and xs:int.
+Comparisons are overloaded, which means that the same comparison can deal with several input types. For instance, `eq` / `=` can be used both for values of type xs:string and xs:int.
 
 OR:
 
-Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
+Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` / `=` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
 
 
 
@@ -501,15 +454,42 @@ Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Operator h| Description h| Definition
-| eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| ne | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| gt | Compares two values if they are identical. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| lt | Compares two values if they are identical. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| ge | Compares two values if they are identical. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
-| le | Compares two values if they are identical. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
-| starts-with | Compares two values if they are identical. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
-| exists | |
+| eq / = | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| ne / != | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| gt / > | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| lt / < | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| ge / >= | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
+| le / <= | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
+| starts-with | Compares two string expressions whether the first parameter appears character-equal at the beginning of the second. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+| ends-with | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
+| contains / match | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+| exists | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
 |===
+
+
+[.table-with-appendix-table]
+[width=100%, cols="10%,40%,50%"]
+|===
+h| Logical Operator h| Description h| Definition
+| and / && | Connects two expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
+| or / \|\| | Connects two expressions through a logical OR. |  Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
+| not | Negates an expression. | not( true ) --> false TODO: Find a proper definition.
+|===
+
+
+
+[.table-with-appendix-table]
+[width=100%, cols="10%,40%,50%"]
+|===
+h| Casting Operator h| Description h| Definition
+| str(<value>) | Casts the `value` to string. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| num(<value>) | Casts the `value` to string. |  Defined by https://www.w3.org/TR/xpath-functions-30/#func-number __TODO:__ This implies that only double comparisons are possible...
+| dateTime(<value>) | Casts the `value` to xs:dateTime. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
+| bool(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+|===
+
+TODO: There are no castings to time or binary in XPath. This might have valid reasons...
+
 
 
 
@@ -563,9 +543,9 @@ The following example is used to illustrate the evaluation of the query language
 [width=100%, cols="45%,10%,45%"]
 |===
 h| Comparison h| Result h| Comment
-| eq( "displayName", "description" ) | true | Empty nodelists
-| le( "displayName", "description" ) | true | `eq`` implies `le`
-| eq( "displayName", 'value' ) | false | Empty nodelist
+| "displayName" eq / = "description" | true | Empty nodelists
+| "displayName" le / <= "description" | true | `eq` / `=` implies `le`
+| "displayName" eq / = 'value' | false | Empty nodelist in the example object, which always evaluates to `false` for `eq` / `=`  __TODO__ continue table adjustments
 | ne( "displayName", "description" ) | false | Empty nodelists
 | ne( "displayName", 'value' ) | true | Empty nodelist
 | le( 1, 2 ) | true | Numeric comparison
@@ -583,13 +563,13 @@ h| Comparison h| Result h| Comment
 | ne( "assetInformation", 17 ) | true | Type mismatch
 | le( "assetInformation", "submodels" ) | false | Objects and arrays do not offer `lt` comparison
 | lt( "assetInformation", "submodels" ) | false | Objects and arrays do not offer `lt` comparison
-| lt( "assetInformation", "assetInformation" ) | true | `eq` implies `le` also for objects
-| le( "submodels", "submodels" ) | true | `eq` implies `le` also for lists
+| lt( "assetInformation", "assetInformation" ) | true | `eq` / `=` implies `le` also for objects
+| le( "submodels", "submodels" ) | true | `eq` / `=` implies `le` also for lists
 | le( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
 | ge( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
 | gt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
 | lt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
-| le( true, true ) | true | `eq` implies `le`
+| le( true, true ) | true | `eq` / `=` implies `le`
 | gt( true, true ) | false | Booleans do not offer `lt`/`gt` comparison
 | like( "id", "https://example.com/asset-administration-shell-*" ) | true | Like comparison matches entities based on the specified attribute's value,
 including case sensitivity — either upper or lower case. Typically, the value includes wildcards such as '?' or '*', allowing for more flexible matching.
