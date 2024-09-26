@@ -415,6 +415,86 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
     )
 ....
 
+Updated grammar 2024-09-26
+
+....
+<queryParameter> ::= <singleComparison> | <logicalOrExpression>
+
+<logicalOrExpression> ::= 
+    <logicalAndExpression> |
+    ( <logicalOrExpression> <whitespace>+ "or" <whitespace>+ <logicalAndExpression> ) |
+    "(" <logicalOrExpression> ")"
+
+<logicalAndExpression> ::= 
+    <logicalNotExpression> |
+    ( <logicalAndExpression> <whitespace>+ "and" <whitespace>+ <logicalNotExpression> ) |
+    "(" <logicalAndExpression> ")"
+
+<logicalNotExpression> ::= 
+    <BoolLiteral> |
+    <castToBool> |
+    <singleComparison> |
+    ( "not(" <logicalNotExpression> ")" ) |
+    "(" <logicalNotExpression> ")"
+
+<singleComparison> ::= 
+    <stringComparison> |
+    <numericalComparison> |
+    <hexComparison> |
+    <boolComparison>
+
+<stringComparison> ::= 
+    ( "starts-with" | "ends-with" | "contains" 
+    "(" <stringOperand> <whitespace> "," <whitespace> <stringOperand> ")" ) |
+    <stringOperand> <whitespace> ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" ) <whitespace> <stringOperand>
+
+<numericalComparison> ::= 
+    <numericalOperand> <whitespace> ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" ) <whitespace> <numericalOperand>
+
+<hexComparison> ::= 
+    <hexOperand> <whitespace> ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" ) <whitespace> <hexOperand>
+
+<boolComparison> ::= 
+    <boolOperand> <whitespace> ( "eq" | "ne" ) <whitespace> <boolOperand>
+
+<stringOperand> ::= 
+    <FieldIdentifierString> | <StringLiteral> | <castToString>
+
+<numericalOperand> ::= 
+    <NumericalLiteral> | <castToNumerical>
+
+<hexOperand> ::= 
+    <HexLiteral> | <castToHex>
+
+<boolOperand> ::= 
+    <BoolLiteral> | <castToBool>
+
+<castToString> ::= 
+    "str(" ( <FieldIdentifierString> | <NumericalLiteral> | <HexLiteral> | <BoolLiteral> ) ")"
+
+<castToNumerical> ::= 
+    "num(" ( <FieldIdentifierString> | <StringLiteral> | <HexLiteral> | <BoolLiteral> ) ")"
+
+<castToHex> ::= 
+    "hex(" ( <FieldIdentifierString> | <StringLiteral> | <NumericalLiteral> | <BoolLiteral> ) ")"
+
+<castToBool> ::= 
+    "bool(" ( <FieldIdentifierString> | <StringLiteral> | <NumericalLiteral> | <HexLiteral> ) ")"
+
+<whitespace> ::= ( " " | "\n" | "\t" | "\r" | "\f" )+
+<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
+<NumericalLiteral> ::= ("+" | "-")? ( [0-9]+ (("." [0-9]* )?) | ("." [0-9]+) ) ( ("e" | "E")? [0-9]+)?
+<HexLiteral> ::= "16#" ([0-9] | [A-F])+
+<BoolLiteral> ::= "true" | "false"
+<FieldIdentifier> ::= <FieldIdentifierString>
+<FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+<FieldIdentifierAAS> ::= "aas." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodel" )
+<FieldIdentifierSM> ::= "sm." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
+<FieldIdentifierSME> ::= "sme." ( "semanticId" | "idShort" | "displayName" | "description" | "value" | "valueType" )
+<FieldIdentifierCD> ::= "cd." ( "idShort" | "displayName" | "description" | "id" )
+<FieldIdentifierAasDescriptor> ::= "aasdesc." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodelDescriptor" )
+<FieldIdentifierSmDescriptor> ::= "smdesc." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
+....
 
 Examples (todo: delete before publication):
 ....
