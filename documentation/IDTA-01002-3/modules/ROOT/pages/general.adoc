@@ -415,27 +415,19 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
     )
 ....
 
-Updated grammar 2024-09-26
+Updated grammar 2024-09-29
 
 ....
-<queryParameter> ::= <singleComparison> | <logicalOrExpression>
+<queryParameter> ::= <logicalOrExpression>
 
-<logicalOrExpression> ::= 
-    <logicalAndExpression> |
-    ( <logicalOrExpression> <whitespace>+ "or" <whitespace>+ <logicalAndExpression> ) |
-    "(" <logicalOrExpression> ")"
+<logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
+                        <logicalNotExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
 
-<logicalAndExpression> ::= 
-    <logicalNotExpression> |
-    ( <logicalAndExpression> <whitespace>+ "and" <whitespace>+ <logicalNotExpression> ) |
-    "(" <logicalAndExpression> ")"
+<logicalNestedExpression> ::= "(" <logicalExpression> ")"
 
-<logicalNotExpression> ::= 
-    <BoolLiteral> |
-    <castToBool> |
-    <singleComparison> |
-    ( "not(" <logicalNotExpression> ")" ) |
-    "(" <logicalNotExpression> ")"
+<logicalOrExpression> ::= <logicalExpression> <whitespace> "or" <whitespace> <logicalExpression>
+<logicalAndExpression> ::=  <logicalExpression> <whitespace> "and" <whitespace> <logicalExpression>
+<logicalNotExpression> ::= "not(" <logicalExpression> ")"
 
 <singleComparison> ::= 
     <stringComparison> |
@@ -495,9 +487,9 @@ Updated grammar 2024-09-26
 <FieldIdentifierAasDescriptor> ::= "aasdesc." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodelDescriptor" )
 <FieldIdentifierSmDescriptor> ::= "smdesc." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
 ....
-Example:
+Examples for updated grammar:
 not(hex("12") gt 16#0ACD) or (hex(sm.idShort) ne 16#ABC and num(sme.value) gt 12) or 12 eq num("12")
-
+sm.idShort eq "example" and (contains(sm.description , "test"))
 
 Examples (todo: delete before publication):
 ....
