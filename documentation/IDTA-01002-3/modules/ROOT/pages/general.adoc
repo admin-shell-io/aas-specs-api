@@ -416,9 +416,13 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
 ....
 
 
-Updated grammar 2024-09-29
+Updated grammar 2024-10-02
+This is the complete grammar for query language and access rules of security.
 (check by https://bnfplayground.pauliankline.com/)
+(see a running parser at https://grammar.aas-voyager.com/ )
 ....
+<grammar> ::= <queryParameter> | <AllRules>
+
 <queryParameter> ::= <logicalExpression>
 
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
@@ -434,27 +438,43 @@ Updated grammar 2024-09-29
     <stringComparison> |
     <numericalComparison> |
     <hexComparison> |
-    <boolComparison>
+    <boolComparison> |
+    <dateTimeComparison> |
+    <timeComparison>
+
+<allComparisons> ::= ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" )
 
 <stringComparison> ::= 
-    ( "starts-with" | "ends-with" | "contains" 
-    "(" <stringOperand> <whitespace> "," <whitespace> <stringOperand> ")" ) |
-    <stringOperand> <whitespace> ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" ) <whitespace> <stringOperand>
-
+    ( ( "starts-with" | "ends-with" | "contains" | "regex" ) "(" <stringOperand> "," <whitespace> <stringOperand> ")" ) |
+    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <stringOperand> )
+    
 <numericalComparison> ::= 
-    <numericalOperand> <whitespace> ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" ) <whitespace> <numericalOperand>
+    ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <numericalOperand> ) |
+    ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <FieldIdentifierString> ) |
+    ( <FieldIdentifierString> <whitespace> <allComparisons> <whitespace> <numericalOperand> )
 
 <hexComparison> ::= 
-    <hexOperand> <whitespace> ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" ) <whitespace> <hexOperand>
+    <hexOperand> <whitespace> <allComparisons> <whitespace> <hexOperand>
 
 <boolComparison> ::= 
     <boolOperand> <whitespace> ( "eq" | "ne" ) <whitespace> <boolOperand>
+
+<dateTimeComparison> ::= 
+    <dateTimeOperand> <whitespace> <allComparisons> <whitespace> <dateTimeOperand>
+
+<dateTimeToNum> ::=
+	( "dayOfWeek(" | "dayOfMonth(" | "month(" | "year(" ) <dateTimeOperand> ")"
+
+<timeComparison> ::= 
+    <timeOperand> <whitespace> <allComparisons> <whitespace> <timeOperand>
+
+<operand> ::= <stringOperand> | <numericalOperand> | <hexOperand> | <boolOperand> | <dateTimeOperand> | <timeOperand>
 
 <stringOperand> ::= 
     <FieldIdentifierString> | <StringLiteral> | <castToString>
 
 <numericalOperand> ::= 
-    <NumericalLiteral> | <castToNumerical>
+    <NumericalLiteral> | <castToNumerical> | <dateTimeToNum>
 
 <hexOperand> ::= 
     <HexLiteral> | <castToHex>
@@ -462,19 +482,137 @@ Updated grammar 2024-09-29
 <boolOperand> ::= 
     <BoolLiteral> | <castToBool>
 
+<dateTimeOperand> ::= 
+    <DateTimeLiteral> | <castToDateTime> | <GlobalAttribute>
+
+<timeOperand> ::= 
+    <TimeLiteral> | <castToTime>
+
 <castToString> ::= 
-    "str(" ( <FieldIdentifierString> | <NumericalLiteral> | <HexLiteral> | <BoolLiteral> ) ")"
+    "str(" <operand> ")"
 
 <castToNumerical> ::= 
-    "num(" ( <FieldIdentifierString> | <StringLiteral> | <HexLiteral> | <BoolLiteral> ) ")"
+    "num(" <operand> ")"
 
 <castToHex> ::= 
-    "hex(" ( <FieldIdentifierString> | <StringLiteral> | <NumericalLiteral> | <BoolLiteral> ) ")"
+    "hex(" <operand> ")"
 
 <castToBool> ::= 
-    "bool(" ( <FieldIdentifierString> | <StringLiteral> | <NumericalLiteral> | <HexLiteral> ) ")"
+    "bool(" <operand> ")"
+
+<castToDateTime> ::= 
+    "dateTime(" ( <stringOperand> ) ")"
+
+<castToTime> ::= 
+    "time(" ( <stringOperand> | <dateTimeOperand> ) ")"
+
+
+<AllRules> ::=
+<whitespace>*
+( "DEFATTRIBUTES" <whitespace> <StringLiteral> <whitespace> <AttributeGroup> <whitespace> )*
+( "DEFACL" <whitespace> <StringLiteral> <whitespace> <ACL> <whitespace> )*
+( "DEFOBJECTS" <whitespace> <StringLiteral> <whitespace> <ObjectGroup> <whitespace> )*
+( "DEFFORMULA" <whitespace> <StringLiteral> <whitespace> <Formula> <whitespace> )*
+( <AccessRule> <whitespace> )*
+
+<AccessRule> ::=
+( <ACL> | <UseACL> ) <whitespace> 
+"OBJECTS:" <whitespace>
+( <SingleObject> <whitespace> )*
+( ( <ObjectGroup> | <UseObjectGroup> ) <whitespace> )*
+"FORMULA:" <whitespace>
+( <Formula> | <UseFormula> ) <whitespace>*
+
+<ACL> ::=
+"ATTRIBUTES:" <whitespace>
+( <SingleAttribute> <whitespace> )*
+( ( <AttributeGroup> | <UseAttributeGroup> ) <whitespace> )*
+"RIGHTS:" <whitespace>
+<Right> (<whitespace> <Right>)* <whitespace>
+"ACCESS:" <whitespace>
+<Access>
+
+<UseACL> ::=
+"USEACL" <whitespace> <StringLiteral>
+
+<Right> ::=
+"CREATE" | "READ" | "UPDATE" | "DELETE" | "EXECUTE" | "VIEW" | "ALL" | "TREE"
+
+<Access> ::=
+"ALLOW" | "DISABLED"
+
+<SingleAttribute> ::=
+<ClaimAttribute>
+| <GlobalAttribute>
+| <ReferenceAttribute>
+
+<ClaimAttribute> ::=
+"CLAIM(" <StringLiteral> ")" <whitespace>*
+
+<GlobalAttribute> ::=
+"GLOBAL(" ( "LOCALNOW" | "UTCNOW" | "CLIENTNOW" | "ANONYMOUS" ) ")" <whitespace>*
+
+<ReferenceAttribute> ::=
+"REFERENCE(" <StringLiteral> ")" <whitespace>*
+
+<AttributeGroup> ::=
+( <SingleAttribute> <whitespace> )*
+( ( <AttributeGroup> | <UseAttributeGroup> ) <whitespace> )*
+
+<UseAttributeGroup> ::=
+"USEATTRIBUTES" <whitespace> <StringLiteral>
+
+<SingleObject> ::=
+<RouteObject>
+| <IdentifiableObject>
+| <ReferableObject>
+| <FragmentObject>
+| <DescriptorObject>
+
+<RouteObject> ::=
+"ROUTE" <whitespace> <StringLiteral>
+
+<IdentifiableObject> ::=
+"IDENTIFIABLE" <whitespace> <StringLiteral>
+
+<ReferableObject> ::=
+"REFERABLE" <whitespace> <StringLiteral>
+
+<FragmentObject> ::=
+"FRAGMENT" <whitespace> <StringLiteral>
+
+<DescriptorObject> ::=
+"DESCRIPTOR" <whitespace> <StringLiteral>
+
+<ObjectGroup> ::=
+( <SingleObject> <whitespace> )*
+| ( <UseObjectGroup> <whitespace> )*
+
+<UseObjectGroup> ::=
+"USEOBJECTS" <whitespace> <StringLiteral>
+
+<UseFormula> ::=
+"USEFORMULA" <whitespace> <StringLiteral>
+
+<Formula> ::= <logicalExpression>
+
+
+<DateTimeLiteral> ::= <datetime>
+<TimeLiteral> ::= <time>
+<datetime> ::= <date> ( "T" | " " ) <time> ( <timezone> )?
+<date> ::= <year> "-" <month> "-" <day>
+<year> ::= <digit> <digit> <digit> <digit>
+<month> ::= <digit> <digit>
+<day> ::= <digit> <digit>
+<time> ::= <hour> ":" <minute> ( ":" <second> )? ( "." <fraction> )?
+<timezone> ::= ("Z" | ("+" | "-") <hour> ":" <minute>)
+<hour> ::= <digit> <digit>
+<minute> ::= <digit> <digit>
+<second> ::= <digit> <digit>
+<fraction> ::= <digit>+
 
 <whitespace> ::= ( " " | "\n" | "\t" | "\r" | "\f" )+
+<digit> ::= [0-9]
 <StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
 <NumericalLiteral> ::= ("+" | "-")? ( [0-9]+ (("." [0-9]* )?) | ("." [0-9]+) ) ( ("e" | "E")? [0-9]+)?
 <HexLiteral> ::= "16#" ([0-9] | [A-F])+
@@ -489,8 +627,11 @@ Updated grammar 2024-09-29
 <FieldIdentifierSmDescriptor> ::= "smdesc." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
 ....
 Examples for updated grammar:
-not(hex("12") gt 16#0ACD) or (hex(sm.idShort) ne 16#ABC and num(sme.value) gt 12) or 12 eq num("12")
-sm.idShort eq "example" and (contains(sm.description , "test"))
+sm.idShort eq "example"
+contains(sm.description, "test")
+sm.idShort eq "example" and contains(sm.description, "test")
+not(hex("12") gt 16#0ACD) or (hex(sm.idShort) ne 16#ABC and sme.value gt 12) or 12 eq num("12")
+time(GLOBAL(LOCALNOW)) ge 09:00 and time(GLOBAL(LOCALNOW)) le 17:00
 
 Examples (todo: delete before publication):
 ....
