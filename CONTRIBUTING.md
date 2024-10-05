@@ -82,7 +82,7 @@ In accordance with Section "Recommendation for Commit Messages" the continuous i
 For the present development, however, this is not enforced.
 
 ## Approval Process
-All changes must be **reviewed** and **approved** by members of the IDTA workstream "AAS in Detail".
+All changes must be **reviewed** and **approved** by members of the IDTA workstream "Specification of the Asset Administration Shell".
 
 Minor changes (simple failures, typos, *etc.*) and additional content (more examples, etc.) can be accepted straight away after a brief review by at least one responsible reviewers.
 
