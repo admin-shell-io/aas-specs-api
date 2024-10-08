@@ -138,7 +138,36 @@ The interface-version of this specification is “3.0”, e.g. the entry for the
 
 See the following example for a descriptor with several endpoints:
 
-image:descriptor.png[image5]
+[source,json,linenums]
+----
+{
+  "endpoints": [
+    {
+      "protocolInformation": {
+        "endpointAddress": "https://localhost:1234",
+        "endpointProtocolVersion": "1.1"
+      },
+      "interface": "AAS-3.0"
+    },
+    {
+      "protocolInformation": {
+        "endpointAddress": "opc.tcp://localhost:4840"
+      },
+      "interface": "AAS-3.0"
+    },
+    {
+      "protocolInformation": {
+        "endpointAddress": "https://localhost:5678",
+        "endpointProtocolVersion": "1.1",
+        "subprotocol": "OPC UA Basic SOAP",
+        "subprotocolBody": "ns=2;s=MyAAS",
+        "subprotocolBodyEncoding": "application/soap+xml"
+      },
+      "interface": "AAS-3.0"
+    }
+  ]
+}
+----
 
 === ProtocolInformation
 
@@ -296,7 +325,16 @@ e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-
 
 An example ServiceDescription object might look like the following, indicating that the server supports two profiles at the same time (see Clause 12.12.3 for further details on service specifications and profiles):
 
-image:service-description.png[image6]
+[source,json,linenums]
+----
+{
+  "profiles": [
+    "https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001",
+    "https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-002"
+  ]
+}
+
+----
 
 === Simple Data Types
 
