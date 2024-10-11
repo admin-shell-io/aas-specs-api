@@ -416,7 +416,7 @@ The AAS Query Language is defined in the context-free Backus-Naur form (BNF). Se
 ....
 
 
-Updated grammar 2024-10-02
+Updated grammar 2024-10-11
 This is the complete grammar for query language and access rules of security.
 (check by https://bnfplayground.pauliankline.com/)
 (see a running parser at https://grammar.aas-voyager.com/ )
@@ -428,7 +428,7 @@ This is the complete grammar for query language and access rules of security.
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
                         <logicalNotExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
 
-<logicalNestedExpression> ::= "(" <logicalExpression> ")"
+<logicalNestedExpression> ::= "("  <whitespace> <logicalExpression>  <whitespace> ")"
 
 <logicalOrExpression> ::= <logicalExpression> <whitespace> "or" <whitespace> <logicalExpression>
 <logicalAndExpression> ::=  <logicalExpression> <whitespace> "and" <whitespace> <logicalExpression>
@@ -446,7 +446,9 @@ This is the complete grammar for query language and access rules of security.
 
 <stringComparison> ::= 
     ( ( "starts-with" | "ends-with" | "contains" | "regex" ) "(" <stringOperand> "," <whitespace> <stringOperand> ")" ) |
-    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <stringOperand> )
+    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <stringOperand> ) |
+    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <FieldIdentifierString> ) |
+    ( <FieldIdentifierString> <whitespace> <allComparisons> <whitespace> <stringOperand> )
     
 <numericalComparison> ::= 
     ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <numericalOperand> ) |
@@ -471,7 +473,7 @@ This is the complete grammar for query language and access rules of security.
 <operand> ::= <stringOperand> | <numericalOperand> | <hexOperand> | <boolOperand> | <dateTimeOperand> | <timeOperand>
 
 <stringOperand> ::= 
-    <FieldIdentifierString> | <StringLiteral> | <castToString>
+    <FieldIdentifierString> | <StringLiteral> | <castToString> | <SingleAttribute>
 
 <numericalOperand> ::= 
     <NumericalLiteral> | <castToNumerical> | <dateTimeToNum>
@@ -613,7 +615,7 @@ This is the complete grammar for query language and access rules of security.
 
 <whitespace> ::= ( " " | "\n" | "\t" | "\r" | "\f" )+
 <digit> ::= [0-9]
-<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
+<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "@" | "#" | "\\" | "+" | "-" | "." | ":" | "$" | "^" | "*" )+ "\""
 <NumericalLiteral> ::= ("+" | "-")? ( [0-9]+ (("." [0-9]* )?) | ("." [0-9]+) ) ( ("e" | "E")? [0-9]+)?
 <HexLiteral> ::= "16#" ([0-9] | [A-F])+
 <BoolLiteral> ::= "true" | "false"
