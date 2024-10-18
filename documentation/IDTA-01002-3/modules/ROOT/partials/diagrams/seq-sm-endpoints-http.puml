@@ -1,0 +1,61 @@
+@startuml
+participant Client as "Client Application"
+
+
+box "Discovery Service"
+  participant AASDiscovery as "AAS Discovery Interface"
+end box
+
+box "Registry Service"
+   participant AASRegistry as "AAS Registy Interface"
+end box
+
+box "AAS or Submodel Service"
+  participant iSM as "Submodel Interface"
+end box
+
+box "AAS or Submodel Repository Service"
+  participant SMRepo as "Submodel Repository Interface"
+end box
+
+activate Client
+Client -> Client : select asset links
+
+Client -> AASDiscovery: POST /lookup/shellsByAssetLink
+activate AASDiscovery
+Client <-- AASDiscovery : IDs of AAS
+deactivate AASDiscovery
+Client -> Client : select AAS ID
+
+
+Client -> AASRegistry : GET /shell-descritpors/<aas-id>
+activate AASRegistry
+Client <-- AASRegistry : 200: {AAS Descriptor with Submodel Endpoints}
+deactivate AASRegistry
+Client -> Client : extract relevant Submodel Endpoints
+
+
+Client -> iSM : GET /submodel
+activate iSM
+note left
+get first Submodel via Endpoint
+end note
+Client <-- iSM : 200: {Submodel}
+deactivate iSM
+
+Client -> SMRepo: GET /shells/<aas-id>/submodels/<submodel-id> or /submodels/<submodel-id>
+activate SMRepo
+note left
+get second Submodel via Endpoint
+end note
+note right
+for the client it is not visible which
+API-operation is called since the client
+application just uses the endpoint
+provided by the registry
+end note
+
+Client <-- SMRepo : 200: {Submodel}
+deactivate SMRepo
+
+@enduml
