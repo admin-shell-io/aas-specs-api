@@ -115,6 +115,7 @@ Superpaths are defined as part of the service specifications and profiles.
 * Each interface includes a “/description” operation for self-discovery to provide detailed information about the interface.
 A server supporting the HTTP/REST API may also provide a server global “/description” to provide the information about all available profiles on that server.
 * The recursive nature of the reference class (Reference/referredSemanticId points to Reference again) cannot be represented in SwaggerHub due to a bug in the SwaggerUI code. Therefore, the additional class “ReferenceParent" has been added. “ReferenceParent" shall not be used in productive operations and is only a placeholder for “Reference”. When implementing generated code originating from the SwaggerHub schemas, please delete “ReferenceParent” and add its attributes to “Reference”.
+* This document does not make any statement about the expected behavior when query parameters with cardinality 1 (e.g. level, extent, etc.) are present more than once in a URL, e.g., "/...?level=deep&level=core". It is up to the implementation how to handle such cases. It is strongly discouraged to make such calls as the result might not be deterministic.
 
 [#api-versioning]
 == API Versioning
