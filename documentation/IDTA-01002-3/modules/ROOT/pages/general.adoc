@@ -363,29 +363,36 @@ Comparisons are overloaded, which means that the same comparison can deal with s
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Operator h| Description h| Definition
-| eq / = | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| ne / != | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| gt / > | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| lt / < | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| ge / >= | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
-| le / \<= | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
+| eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| ne | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| gt | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| lt | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| ge | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
+| le | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
 | starts-with | Compares two string expressions whether the first parameter appears character-equal at the beginning of the second. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
 | ends-with | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
-| contains / match | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
-| exists | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
+| regex | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+// TODO: do we need an 'exists'? | exists | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
 |===
 
+
+=== Logical Expressions
+
+Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also used to combine other logical expressions.
 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Logical Operator h| Description h| Definition
-| and / && | Connects two expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
-| or / \|\| | Connects two expressions through a logical OR. |  Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
-| not | Negates an expression. | not( true ) --> false TODO: Find a proper definition.
+| and | Connects two expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
+| or | Connects two expressions through a logical OR. |  Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
+| not | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. not( true ) --> false // TODO: Find a proper definition.
 |===
 
 
+
+
+=== Casting Operators
 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
@@ -397,9 +404,53 @@ h| Casting Operator h| Description h| Definition
 | bool(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
 |===
 
-TODO: There are no castings to time or binary in XPath. This might have valid reasons...
+// TODO: There are no castings to time or binary in XPath. This might have valid reasons...
 
 
+=== Referring to Elements in Lists and Arrays
+
+The AAS Metamodel defines several objects with lists as child elements, e.g., `SubmodelElementList/value`, `AssetInformation/specificAssetIds`, or `Reference/keys`. The AAS Query Language contains two different patterns to refer to elements inside these lists:
+
+==== Specific Index Notation
+
+In case the position inside the list is known, the query can directly leverage the index number inside square brackets.
+
+....
+fieldIdentifier[<index>]
+....
+
+For a the first element of a SubmodelElementList, this notation may lead to a following declaration:
+
+....
+sme.someIdShort.smlIdShort[0]
+....
+
+For the first key of a SemanticId reference, this notation may lead to a following declaration:
+
+....
+<somePath>.$semanticId.keys[0]
+....
+
+
+==== Any Element Notation
+
+In case the position in the list is not known, the index inside the square brackets can be skipped. This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
+
+....
+fieldIdentifier[]
+....
+
+To refer to any element inside a SubmodelElementList, this notation may lead to a following declaration:
+
+....
+sme.someIdShort.smlIdShort[]
+....
+
+For any key of a SemanticId reference, this notation may lead to a following declaration:
+
+....
+<somePath>.$semanticId.keys[]
+....
 
 
 ==== Example
@@ -447,14 +498,14 @@ The following example is used to illustrate the evaluation of the query language
 }
 ```
 
-
+// TODO: Table is not correct anymore, e.g., "displayName" -> "$displayName.$text"
 [.table-with-appendix-table]
 [width=100%, cols="45%,10%,45%"]
 |===
 h| Comparison h| Result h| Comment
-| "displayName" eq / = "description" | true | Empty nodelists
-| "displayName" le / <= "description" | true | `eq` / `=` implies `le`
-| "displayName" eq / = 'value' | false | Empty nodelist in the example object, which always evaluates to `false` for `eq` / `=`  __TODO__ continue table adjustments
+| "displayName" eq "description" | true | Empty nodelists
+| "displayName" le  "description" | true | `eq` implies `le`
+| "displayName" eq 'value' | false | Empty nodelist in the example object, which always evaluates to `false` for `eq`
 | ne( "displayName", "description" ) | false | Empty nodelists
 | ne( "displayName", 'value' ) | true | Empty nodelist
 | le( 1, 2 ) | true | Numeric comparison
@@ -486,6 +537,8 @@ including case sensitivity — either upper or lower case. Typically, the value 
 
 
 === Nested Comparisons (todo: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
+
+// TODO: Introduce "elemMatch" in grammar or only in the JSON Schema?
 
 [.table-with-appendix-table]
 [width=100%, cols="50%,10%,30%"]
@@ -524,17 +577,6 @@ eq( "name", 'supplierId' ) , eq( "value", 'aas-2' )
 |===
 
 
-=== Logical Operators
-
-[.table-with-appendix-table]
-[width=100%, cols="25%,75%"]
-|===
-h| Logical operator h| Description
-| and | The "and" operator returns true if all operands are true.
-| or | The "or" operator returns true if at least one of the operands are true.
-| not | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true.
-|===
-
 === Sorting and Pagination
 
 ==== Pagination
@@ -551,7 +593,7 @@ option=limit(start,count)
 h| Operator h| Description
 | limit | To control the pagination of the retrieved data, use the limit operator
 | start | specifies where to start fetching data, also known as offset
-| count | indicates how many results to fetch per page
+| count | indicates how many results to fetch per page // TODO not matching the grammar anymore
 |===
 
 Example
@@ -566,7 +608,7 @@ To organize the retrieved data in a specific order, incorporate the sort operato
 
 [source,javascript]
 ----
-option=sort([+-]attributeN)
+option=sort([ASC|DSC]attributeN)
 ----
 
 The sort operator organizes data based on the specified attributes. It begins with the first attribute and continues sequentially to subsequent attributes.
@@ -577,8 +619,8 @@ Attribute names should be separated by commas. For each attribute, you can desig
 |===
 h| Operator h| Description
 | sort | To sort the retrieved data, use the sort operator as part of the option operator.
-| - | For descending sort order.
-| + | For ascending sort order.
+| ASC | For descending sort order.
+| DSC | For ascending sort order.
 
 |===
 
@@ -587,6 +629,6 @@ Example
 ----
 option=sort(+assetInformation, -assetInformation.globalAssetId)
 ----
+// TODO not matching the grammar anymore
 
-
-todo: Explain LIMIT, OFFSET/SKIP, SORT
+// todo: Explain LIMIT, OFFSET/SKIP, SORT

@@ -9,7 +9,7 @@
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
                         <logicalNotExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
 
-<logicalNestedExpression> ::= "("  <whitespace> <logicalExpression>  <whitespace> ")"
+<logicalNestedExpression> ::= "("  <whitespace>? <logicalExpression>  <whitespace>? ")"
 
 <logicalOrExpression> ::= <logicalExpression> <whitespace> "or" <whitespace> <logicalExpression>
 <logicalAndExpression> ::=  <logicalExpression> <whitespace> "and" <whitespace> <logicalExpression>
@@ -208,12 +208,12 @@
 <FieldIdentifier> ::= <FieldIdentifierString>
 <FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
 <FieldIdentifierAAS> ::= "aas." ( "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" | "$assetInformation.$assetKind" | "$assetInformation.$assetType" | "$assetInformation.$globalAssetId" | "$assetInformation." <SpecificAssetIdsClause> | "$submodel." <ReferenceClause> )
-<FieldIdentifierSM> ::= "sm." ( "$semanticId." <ReferenceClause> | "$idShort" | "$displayName." <MultiLanguageClause> | "description." <MultiLanguageClause> | "$id" )
+<FieldIdentifierSM> ::= "sm." ( "$semanticId." <ReferenceClause> | "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" )
 <FieldIdentifierSME> ::= "sme." ( <idShortPath> ".")? ( "$semanticId." <ReferenceClause> | "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$value" | "$valueType" )
 <FieldIdentifierCD> ::= "cd." ( "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" )
 <FieldIdentifierAasDescriptor> ::= "aasdesc." ( "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" | "$assetKind" | "$assetType" | "$globalAssetId" | <SpecificAssetIdsClause> | "$submodelDescriptor." <SmDescriptorClause> )
 <FieldIdentifierSmDescriptor> ::= "smdesc." <SmDescriptorClause>
-<SmDescriptorClause> ::= ( "semanticId." <ReferenceClause> | "idShort" | "displayName." <MultiLanguageClause> | "description." <MultiLanguageClause> | "id" )
+<SmDescriptorClause> ::= ( "semanticId." <ReferenceClause> | "idShort" | "displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "id" )
 
 <ReferenceClause> ::= ( "$type" | "$keys" ( "[" [0-9]+ "]" )? ( ".$type" | ".$value" ) )
 <SpecificAssetIdsClause> ::= "$specificAssetIds" ( "[" [0-9]+ "]" )? ( ".$name" | ".$value" | ".$externalSubjectId." <ReferenceClause> )
