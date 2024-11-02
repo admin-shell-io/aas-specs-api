@@ -291,343 +291,36 @@ Many use cases of the Asset Administration Shell require the involvement of a hi
 
 The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS.
 
+// TODO: Add correct overview picture
+.Main elements of the AAS Query Language
+image::../images/plantuml/query-language-overview.png[image24,width=642,height=367]
+
 
 === Limitations
 
-The AAS Query Language is not intended as feature-comparable to existing query languages like SPARQL or GQL. In case the expressiveness of these technologies is needed, a software vendor might as well provide according APIs. However, in order to keep the additional overhead for the query language implementers as small as possible, the following limitations apply:
+The AAS Query Language is not intended as feature-comparable to existing query languages like SPARQL or GQL. In case the expressiveness of such technologies is needed, a software vendor might additionally provide such APIs. However, in order to keep the additional overhead for AAS Query Language implementers as small as possible, the following limitations apply:
 
-1. Only Identifiables are queryable: Clients can only formulate filters for Asset Administration Shells, Submodels, and their according Descriptors, as well as ConceptDescription. In addition, also their identifiers (values of the "id" attributes) can be returned.
-
-1. Only string-oriented comparisons are possible: As the AAS represents all basic values as text (strings), query interpreters shall not assume that the values shall be converted to any other native xs data type. In particular, the content of the "valueType" attributes are not regarded in process of value comparison. (TODO: verify with group)
+1. Only Identifiables are queryable: It is only possible to formulate filters for Asset Administration Shells, Submodels, and their according Descriptors, as well as ConceptDescription. In addition, also their identifiers (values of the "id" attributes) can be queried.
 
 1. Only Repository and Registry Services have query functionalities: Querys on Asset Administration Shell Services or Submodel Services are not defined.
 
-1. It is only possible to compare a field to an atomic value. It is not possible to compare two fields with each other.
+1. It is only possible to compare a field to an atomic value. It is not possible to compare two fields with each other. (TODO: verify with TF)
 
-1. Only attributes defined by the AAS Metamodel (TODO: insert reference) can be used to describe fields: Custom attributes are not defined and may lead to errors at the receiving side.
+1. Only attributes defined by the AAS Metamodel (TODO: insert reference) can be used to in filters: Usage of custom attributes that are not defined by the AAS specifications may be rejected by the receiving party.
 
 
 === Grammar
 
-The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF.
+The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF. Same as for AAS Interfaces and Operations, the detailed serialisation and interaction pattern is defined by the different technology mappings. In particular, the AAS HTTP API represents AAS Queries as JSON objects (see Clause (TODO: insert reference)). Other mappings may require different serialisations, however, all have to follow the general structure of queries defined in the following grammar.
 
-....
-<query> ::= ("select id where ")? ( <queryParameter> <whitespace> )* <queryParameter> <whitespace>* <options>?
- 
-<queryParameter> ::= <singleComparison> | <logicalOperatorExpression>
 
-<logicalOperatorExpression> ::= 
-    ( "not(" <logicalOperatorExpression> ")" ) | 
-    ( <logicalOperatorExpression> <whitespace>+ "or" <whitespace>+ <logicalOperatorExpression> ) | 
-    ( <logicalOperatorExpression> <whitespace>+ "and" <whitespace>+ <logicalOperatorExpression> ) |
-    <singleComparison>
+// Updated grammar 2024-10-11 (from aorzelski) + additional extensions 2024-11-02 (from sebbader-sap)
+This is the combined grammar for the AAS Query Language and the AAS Access Rules defined by the AAS Security specification (TOOD: add reference).
+// (check by https://bnfplayground.pauliankline.com/)
+// (see a running parser at https://grammar.aas-voyager.com/ )
 
-<singleComparison> ::=
-    (
-    "starts-with" | "ends-with" | "contains"
-    "(" <FieldIdentifier> <whitespace>* "," <whitespace>+ ( <StringLiteral> | <identifier> | <FieldIdentifier> ) ")"
-    )
-    |  
-    (
-    <FieldIdentifier> 
-    <whitespace>
-    ( "=" | "!=" | "<" | "<=" | ">" | ">=" **OR** "eq" | "ne" | "gt" | "lt" | "ge" | "le" )
-    <whitespace>
-    ( <NumericalLiteral> | <StringLiteral> | <identifier> | <FieldIdentifier> )
-    )
+include::./grammar.adoc
 
-<options> ::= <sortExpression>? <limitExpression>?
-
-<sortExpression> ::= "sort" "( id" (" asc" | " desc") ")"  // TODO: explain why only 'id' is available at the beginning
-
-<limitExpression> ::= "limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
- 
-<identifier> ::= ( [A-Z] | [a-z] | [1-9] | "." )+
-
-<whitespace> ::= ( " " | "\n" )+
-
-<NumericalLiteral> ::= ([0-9] | "." | "E" | ":" )+
-
-<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [1-9] | "/" | "*" | "[" | "]" | " " | "@" | "\\" | "+" | "." | ":" | "$" | "^" )+ "\""
-
-<FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
-
-<FieldIdentifierAAS> ::=
-    (
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "id" |
-    "assetKind" |
-    "assetType" |
-    "globalAssetId" |
-    "specificAssetId" |
-    "submodel"
-    )
-
-<FieldIdentifierSM> ::=
-    (
-    "semanticId" |
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "id"
-    )
-
-<FieldIdentifierSME> ::=
-    (
-    "semanticId" |
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "value" |
-    "valueType"
-    )
-
-<FieldIdentifierCD> ::=
-    (
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "id"
-    )
-
-<FieldIdentifierAasDescriptor> ::=
-    (
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "id" |
-    "assetKind" |
-    "assetType" |
-    "globalAssetId" |
-    "specificAssetId" |
-    "submodelDescriptor"
-    )
-
-<FieldIdentifierSmDescriptor> ::=
-    (
-    "semanticId" |
-    "idShort" | 
-    "displayName" | 
-    "description" |
-    "id"
-    )
-....
-
-
-Updated grammar 2024-10-11
-This is the complete grammar for query language and access rules of security.
-(check by https://bnfplayground.pauliankline.com/)
-(see a running parser at https://grammar.aas-voyager.com/ )
-....
-<grammar> ::= <queryParameter> | <AllRules>
-
-<queryParameter> ::= <logicalExpression>
-
-<logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
-                        <logicalNotExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
-
-<logicalNestedExpression> ::= "("  <whitespace> <logicalExpression>  <whitespace> ")"
-
-<logicalOrExpression> ::= <logicalExpression> <whitespace> "or" <whitespace> <logicalExpression>
-<logicalAndExpression> ::=  <logicalExpression> <whitespace> "and" <whitespace> <logicalExpression>
-<logicalNotExpression> ::= "not(" <logicalExpression> ")"
-
-<singleComparison> ::= 
-    <stringComparison> |
-    <numericalComparison> |
-    <hexComparison> |
-    <boolComparison> |
-    <dateTimeComparison> |
-    <timeComparison>
-
-<allComparisons> ::= ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" )
-
-<stringComparison> ::= 
-    ( ( "starts-with" | "ends-with" | "contains" | "regex" ) "(" <stringOperand> "," <whitespace> <stringOperand> ")" ) |
-    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <stringOperand> ) |
-    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <FieldIdentifierString> ) |
-    ( <FieldIdentifierString> <whitespace> <allComparisons> <whitespace> <stringOperand> )
-    
-<numericalComparison> ::= 
-    ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <numericalOperand> ) |
-    ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <FieldIdentifierString> ) |
-    ( <FieldIdentifierString> <whitespace> <allComparisons> <whitespace> <numericalOperand> )
-
-<hexComparison> ::= 
-    <hexOperand> <whitespace> <allComparisons> <whitespace> <hexOperand>
-
-<boolComparison> ::= 
-    <boolOperand> <whitespace> ( "eq" | "ne" ) <whitespace> <boolOperand>
-
-<dateTimeComparison> ::= 
-    <dateTimeOperand> <whitespace> <allComparisons> <whitespace> <dateTimeOperand>
-
-<dateTimeToNum> ::=
-	( "dayOfWeek(" | "dayOfMonth(" | "month(" | "year(" ) <dateTimeOperand> ")"
-
-<timeComparison> ::= 
-    <timeOperand> <whitespace> <allComparisons> <whitespace> <timeOperand>
-
-<operand> ::= <stringOperand> | <numericalOperand> | <hexOperand> | <boolOperand> | <dateTimeOperand> | <timeOperand>
-
-<stringOperand> ::= 
-    <FieldIdentifierString> | <StringLiteral> | <castToString> | <SingleAttribute>
-
-<numericalOperand> ::= 
-    <NumericalLiteral> | <castToNumerical> | <dateTimeToNum>
-
-<hexOperand> ::= 
-    <HexLiteral> | <castToHex>
-
-<boolOperand> ::= 
-    <BoolLiteral> | <castToBool>
-
-<dateTimeOperand> ::= 
-    <DateTimeLiteral> | <castToDateTime> | <GlobalAttribute>
-
-<timeOperand> ::= 
-    <TimeLiteral> | <castToTime>
-
-<castToString> ::= 
-    "str(" <operand> ")"
-
-<castToNumerical> ::= 
-    "num(" <operand> ")"
-
-<castToHex> ::= 
-    "hex(" <operand> ")"
-
-<castToBool> ::= 
-    "bool(" <operand> ")"
-
-<castToDateTime> ::= 
-    "dateTime(" ( <stringOperand> ) ")"
-
-<castToTime> ::= 
-    "time(" ( <stringOperand> | <dateTimeOperand> ) ")"
-
-
-<AllRules> ::=
-<whitespace>*
-( "DEFATTRIBUTES" <whitespace> <StringLiteral> <whitespace> <AttributeGroup> <whitespace> )*
-( "DEFACL" <whitespace> <StringLiteral> <whitespace> <ACL> <whitespace> )*
-( "DEFOBJECTS" <whitespace> <StringLiteral> <whitespace> <ObjectGroup> <whitespace> )*
-( "DEFFORMULA" <whitespace> <StringLiteral> <whitespace> <Formula> <whitespace> )*
-( <AccessRule> <whitespace> )*
-
-<AccessRule> ::=
-( <ACL> | <UseACL> ) <whitespace> 
-"OBJECTS:" <whitespace>
-( <SingleObject> <whitespace> )*
-( ( <ObjectGroup> | <UseObjectGroup> ) <whitespace> )*
-"FORMULA:" <whitespace>
-( <Formula> | <UseFormula> ) <whitespace>*
-
-<ACL> ::=
-"ATTRIBUTES:" <whitespace>
-( <SingleAttribute> <whitespace> )*
-( ( <AttributeGroup> | <UseAttributeGroup> ) <whitespace> )*
-"RIGHTS:" <whitespace>
-<Right> (<whitespace> <Right>)* <whitespace>
-"ACCESS:" <whitespace>
-<Access>
-
-<UseACL> ::=
-"USEACL" <whitespace> <StringLiteral>
-
-<Right> ::=
-"CREATE" | "READ" | "UPDATE" | "DELETE" | "EXECUTE" | "VIEW" | "ALL" | "TREE"
-
-<Access> ::=
-"ALLOW" | "DISABLED"
-
-<SingleAttribute> ::=
-<ClaimAttribute>
-| <GlobalAttribute>
-| <ReferenceAttribute>
-
-<ClaimAttribute> ::=
-"CLAIM(" <StringLiteral> ")" <whitespace>*
-
-<GlobalAttribute> ::=
-"GLOBAL(" ( "LOCALNOW" | "UTCNOW" | "CLIENTNOW" | "ANONYMOUS" ) ")" <whitespace>*
-
-<ReferenceAttribute> ::=
-"REFERENCE(" <StringLiteral> ")" <whitespace>*
-
-<AttributeGroup> ::=
-( <SingleAttribute> <whitespace> )*
-( ( <AttributeGroup> | <UseAttributeGroup> ) <whitespace> )*
-
-<UseAttributeGroup> ::=
-"USEATTRIBUTES" <whitespace> <StringLiteral>
-
-<SingleObject> ::=
-<RouteObject>
-| <IdentifiableObject>
-| <ReferableObject>
-| <FragmentObject>
-| <DescriptorObject>
-
-<RouteObject> ::=
-"ROUTE" <whitespace> <StringLiteral>
-
-<IdentifiableObject> ::=
-"IDENTIFIABLE" <whitespace> <StringLiteral>
-
-<ReferableObject> ::=
-"REFERABLE" <whitespace> <StringLiteral>
-
-<FragmentObject> ::=
-"FRAGMENT" <whitespace> <StringLiteral>
-
-<DescriptorObject> ::=
-"DESCRIPTOR" <whitespace> <StringLiteral>
-
-<ObjectGroup> ::=
-( <SingleObject> <whitespace> )*
-| ( <UseObjectGroup> <whitespace> )*
-
-<UseObjectGroup> ::=
-"USEOBJECTS" <whitespace> <StringLiteral>
-
-<UseFormula> ::=
-"USEFORMULA" <whitespace> <StringLiteral>
-
-<Formula> ::= <logicalExpression>
-
-
-<DateTimeLiteral> ::= <datetime>
-<TimeLiteral> ::= <time>
-<datetime> ::= <date> ( "T" | " " ) <time> ( <timezone> )?
-<date> ::= <year> "-" <month> "-" <day>
-<year> ::= <digit> <digit> <digit> <digit>
-<month> ::= <digit> <digit>
-<day> ::= <digit> <digit>
-<time> ::= <hour> ":" <minute> ( ":" <second> )? ( "." <fraction> )?
-<timezone> ::= ("Z" | ("+" | "-") <hour> ":" <minute>)
-<hour> ::= <digit> <digit>
-<minute> ::= <digit> <digit>
-<second> ::= <digit> <digit>
-<fraction> ::= <digit>+
-
-<whitespace> ::= ( " " | "\n" | "\t" | "\r" | "\f" )+
-<digit> ::= [0-9]
-<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "@" | "#" | "\\" | "+" | "-" | "." | ":" | "$" | "^" | "*" )+ "\""
-<NumericalLiteral> ::= ("+" | "-")? ( [0-9]+ (("." [0-9]* )?) | ("." [0-9]+) ) ( ("e" | "E")? [0-9]+)?
-<HexLiteral> ::= "16#" ([0-9] | [A-F])+
-<BoolLiteral> ::= "true" | "false"
-<FieldIdentifier> ::= <FieldIdentifierString>
-<FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
-<FieldIdentifierAAS> ::= "aas." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodel" )
-<FieldIdentifierSM> ::= "sm." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
-<FieldIdentifierSME> ::= "sme." ( "semanticId" | "idShort" | "displayName" | "description" | "value" | "valueType" )
-<FieldIdentifierCD> ::= "cd." ( "idShort" | "displayName" | "description" | "id" )
-<FieldIdentifierAasDescriptor> ::= "aasdesc." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodelDescriptor" )
-<FieldIdentifierSmDescriptor> ::= "smdesc." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
-....
 Examples for updated grammar:
 sm.idShort eq "example"
 contains(sm.description, "test")

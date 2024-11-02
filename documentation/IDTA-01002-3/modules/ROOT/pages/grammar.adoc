@@ -1,0 +1,209 @@
+
+....
+<grammar> ::= <queryParameter> | <AllRules>
+
+<queryParameter> ::= <logicalExpression>
+
+<logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
+                        <logicalNotExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
+
+<logicalNestedExpression> ::= "("  <whitespace> <logicalExpression>  <whitespace> ")"
+
+<logicalOrExpression> ::= <logicalExpression> <whitespace> "or" <whitespace> <logicalExpression>
+<logicalAndExpression> ::=  <logicalExpression> <whitespace> "and" <whitespace> <logicalExpression>
+<logicalNotExpression> ::= "not(" <logicalExpression> ")"
+
+<singleComparison> ::= 
+    <stringComparison> |
+    <numericalComparison> |
+    <hexComparison> |
+    <boolComparison> |
+    <dateTimeComparison> |
+    <timeComparison>
+
+<allComparisons> ::= ( "eq" | "ne" | "gt" | "lt" | "ge" | "le" )
+
+<stringComparison> ::= 
+    ( ( "starts-with" | "ends-with" | "contains" | "regex" ) "(" <stringOperand> "," <whitespace> <stringOperand> ")" ) |
+    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <stringOperand> ) |
+    ( <stringOperand> <whitespace> <allComparisons> <whitespace> <FieldIdentifierString> ) |
+    ( <FieldIdentifierString> <whitespace> <allComparisons> <whitespace> <stringOperand> )
+    
+<numericalComparison> ::= 
+    ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <numericalOperand> ) |
+    ( <numericalOperand> <whitespace> <allComparisons> <whitespace> <FieldIdentifierString> ) |
+    ( <FieldIdentifierString> <whitespace> <allComparisons> <whitespace> <numericalOperand> )
+
+<hexComparison> ::= 
+    <hexOperand> <whitespace> <allComparisons> <whitespace> <hexOperand>
+
+<boolComparison> ::= 
+    <boolOperand> <whitespace> ( "eq" | "ne" ) <whitespace> <boolOperand>
+
+<dateTimeComparison> ::= 
+    <dateTimeOperand> <whitespace> <allComparisons> <whitespace> <dateTimeOperand>
+
+<dateTimeToNum> ::=
+	( "dayOfWeek(" | "dayOfMonth(" | "month(" | "year(" ) <dateTimeOperand> ")"
+
+<timeComparison> ::= 
+    <timeOperand> <whitespace> <allComparisons> <whitespace> <timeOperand>
+
+<operand> ::= <stringOperand> | <numericalOperand> | <hexOperand> | <boolOperand> | <dateTimeOperand> | <timeOperand>
+
+<stringOperand> ::= 
+    <FieldIdentifierString> | <StringLiteral> | <castToString> | <SingleAttribute>
+
+<numericalOperand> ::= 
+    <NumericalLiteral> | <castToNumerical> | <dateTimeToNum>
+
+<hexOperand> ::= 
+    <HexLiteral> | <castToHex>
+
+<boolOperand> ::= 
+    <BoolLiteral> | <castToBool>
+
+<dateTimeOperand> ::= 
+    <DateTimeLiteral> | <castToDateTime> | <GlobalAttribute>
+
+<timeOperand> ::= 
+    <TimeLiteral> | <castToTime>
+
+<castToString> ::= 
+    "str(" <operand> ")"
+
+<castToNumerical> ::= 
+    "num(" <operand> ")"
+
+<castToHex> ::= 
+    "hex(" <operand> ")"
+
+<castToBool> ::= 
+    "bool(" <operand> ")"
+
+<castToDateTime> ::= 
+    "dateTime(" ( <stringOperand> ) ")"
+
+<castToTime> ::= 
+    "time(" ( <stringOperand> | <dateTimeOperand> ) ")"
+
+
+<AllRules> ::=
+<whitespace>*
+( "DEFATTRIBUTES" <whitespace> <StringLiteral> <whitespace> <AttributeGroup> <whitespace> )*
+( "DEFACL" <whitespace> <StringLiteral> <whitespace> <ACL> <whitespace> )*
+( "DEFOBJECTS" <whitespace> <StringLiteral> <whitespace> <ObjectGroup> <whitespace> )*
+( "DEFFORMULA" <whitespace> <StringLiteral> <whitespace> <Formula> <whitespace> )*
+( <AccessRule> <whitespace> )*
+
+<AccessRule> ::=
+( <ACL> | <UseACL> ) <whitespace> 
+"OBJECTS:" <whitespace>
+( <SingleObject> <whitespace> )*
+( ( <ObjectGroup> | <UseObjectGroup> ) <whitespace> )*
+"FORMULA:" <whitespace>
+( <Formula> | <UseFormula> ) <whitespace>*
+
+<ACL> ::=
+"ATTRIBUTES:" <whitespace>
+( <SingleAttribute> <whitespace> )*
+( ( <AttributeGroup> | <UseAttributeGroup> ) <whitespace> )*
+"RIGHTS:" <whitespace>
+<Right> (<whitespace> <Right>)* <whitespace>
+"ACCESS:" <whitespace>
+<Access>
+
+<UseACL> ::=
+"USEACL" <whitespace> <StringLiteral>
+
+<Right> ::=
+"CREATE" | "READ" | "UPDATE" | "DELETE" | "EXECUTE" | "VIEW" | "ALL" | "TREE"
+
+<Access> ::=
+"ALLOW" | "DISABLED"
+
+<SingleAttribute> ::=
+<ClaimAttribute>
+| <GlobalAttribute>
+| <ReferenceAttribute>
+
+<ClaimAttribute> ::=
+"CLAIM(" <StringLiteral> ")" <whitespace>*
+
+<GlobalAttribute> ::=
+"GLOBAL(" ( "LOCALNOW" | "UTCNOW" | "CLIENTNOW" | "ANONYMOUS" ) ")" <whitespace>*
+
+<ReferenceAttribute> ::=
+"REFERENCE(" <StringLiteral> ")" <whitespace>*
+
+<AttributeGroup> ::=
+( <SingleAttribute> <whitespace> )*
+( ( <AttributeGroup> | <UseAttributeGroup> ) <whitespace> )*
+
+<UseAttributeGroup> ::=
+"USEATTRIBUTES" <whitespace> <StringLiteral>
+
+<SingleObject> ::=
+<RouteObject>
+| <IdentifiableObject>
+| <ReferableObject>
+| <FragmentObject>
+| <DescriptorObject>
+
+<RouteObject> ::=
+"ROUTE" <whitespace> <StringLiteral>
+
+<IdentifiableObject> ::=
+"IDENTIFIABLE" <whitespace> <StringLiteral>
+
+<ReferableObject> ::=
+"REFERABLE" <whitespace> <StringLiteral>
+
+<FragmentObject> ::=
+"FRAGMENT" <whitespace> <StringLiteral>
+
+<DescriptorObject> ::=
+"DESCRIPTOR" <whitespace> <StringLiteral>
+
+<ObjectGroup> ::=
+( <SingleObject> <whitespace> )*
+| ( <UseObjectGroup> <whitespace> )*
+
+<UseObjectGroup> ::=
+"USEOBJECTS" <whitespace> <StringLiteral>
+
+<UseFormula> ::=
+"USEFORMULA" <whitespace> <StringLiteral>
+
+<Formula> ::= <logicalExpression>
+
+
+<DateTimeLiteral> ::= <datetime>
+<TimeLiteral> ::= <time>
+<datetime> ::= <date> ( "T" | " " ) <time> ( <timezone> )?
+<date> ::= <year> "-" <month> "-" <day>
+<year> ::= <digit> <digit> <digit> <digit>
+<month> ::= <digit> <digit>
+<day> ::= <digit> <digit>
+<time> ::= <hour> ":" <minute> ( ":" <second> )? ( "." <fraction> )?
+<timezone> ::= ("Z" | ("+" | "-") <hour> ":" <minute>)
+<hour> ::= <digit> <digit>
+<minute> ::= <digit> <digit>
+<second> ::= <digit> <digit>
+<fraction> ::= <digit>+
+
+<whitespace> ::= ( " " | "\n" | "\t" | "\r" | "\f" )+
+<digit> ::= [0-9]
+<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "@" | "#" | "\\" | "+" | "-" | "." | ":" | "$" | "^" | "*" )+ "\""
+<NumericalLiteral> ::= ("+" | "-")? ( [0-9]+ (("." [0-9]* )?) | ("." [0-9]+) ) ( ("e" | "E")? [0-9]+)?
+<HexLiteral> ::= "16#" ([0-9] | [A-F])+
+<BoolLiteral> ::= "true" | "false"
+<FieldIdentifier> ::= <FieldIdentifierString>
+<FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+<FieldIdentifierAAS> ::= "aas." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodel" )
+<FieldIdentifierSM> ::= "sm." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
+<FieldIdentifierSME> ::= "sme." ( "semanticId" | "idShort" | "displayName" | "description" | "value" | "valueType" )
+<FieldIdentifierCD> ::= "cd." ( "idShort" | "displayName" | "description" | "id" )
+<FieldIdentifierAasDescriptor> ::= "aasdesc." ( "idShort" | "displayName" | "description" | "id" | "assetKind" | "assetType" | "globalAssetId" | "specificAssetId" | "submodelDescriptor" )
+<FieldIdentifierSmDescriptor> ::= "smdesc." ( "semanticId" | "idShort" | "displayName" | "description" | "id" )
+....
