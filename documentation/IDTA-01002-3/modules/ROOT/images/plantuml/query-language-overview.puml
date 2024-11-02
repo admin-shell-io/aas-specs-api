@@ -1,0 +1,98 @@
+@startuml
+class AccessRule {
+    ACL acl
+    List<SingleObject> singleObjects
+    List<ObjectGroup> objectGroups
+    Formula formula
+}
+ 
+AccessRule --> ACL
+AccessRule --> SingleObject : List
+AccessRule --> ObjectGroup : List
+AccessRule --> Formula
+ 
+class ACL {
+    List<SingleAttribute> singleAttributes
+    List<AttributeGroup> attributeGroups
+    List<Right> rights
+    Access access
+}
+ 
+ACL --> SingleAttribute : List
+ACL --> AttributeGroup : List
+ACL --> Right : List
+ACL --> Access
+ 
+class SingleObject {
+}
+ 
+SingleObject <|-- RouteObject
+SingleObject <|-- IdentifiableObject
+SingleObject <|-- ReferableObject
+SingleObject <|-- FragmentObject
+SingleObject <|-- DescriptorObject
+ 
+class RouteObject {
+    StringLiteral stringLiteral
+}
+ 
+class IdentifiableObject {
+    StringLiteral stringLiteral
+}
+ 
+class ReferableObject {
+    StringLiteral stringLiteral
+}
+ 
+class FragmentObject {
+    StringLiteral stringLiteral
+}
+ 
+class DescriptorObject {
+    StringLiteral stringLiteral
+}
+ 
+class ObjectGroup {
+    List<SingleObject> singleObjects
+}
+ 
+ObjectGroup --> SingleObject : List
+ 
+class SingleAttribute {
+}
+ 
+SingleAttribute <|-- ClaimAttribute
+SingleAttribute <|-- GlobalAttribute
+SingleAttribute <|-- ReferenceAttribute
+ 
+class ClaimAttribute {
+    StringLiteral stringLiteral
+}
+ 
+class GlobalAttribute {
+    StringLiteral stringLiteral
+}
+ 
+class ReferenceAttribute {
+    StringLiteral stringLiteral
+}
+ 
+class AttributeGroup {
+    List<SingleAttribute> singleAttributes
+    List<AttributeGroup> attributeGroups
+}
+ 
+AttributeGroup --> SingleAttribute : List
+AttributeGroup --> AttributeGroup : List
+ 
+enum Right {
+    CREATE, READ, UPDATE, DELETE, EXECUTE, VIEW, ALL, TREE
+}
+ 
+enum Access {
+    ALLOW, DISABLED
+}
+ 
+class Formula {
+}
+@enduml
