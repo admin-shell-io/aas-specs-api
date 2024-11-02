@@ -11,7 +11,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.2_SSP-001
+  version: V3.1.0_SSP-001
   x-profile-identifier: https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001
 servers:
 - url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
@@ -564,8 +564,9 @@ paths:
         - Asset Administration Shell Repository API
       summary: Updates the Submodel
       operationId: PatchSubmodel_AasRepository
+      deprecated: true
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodel/3/1
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Level'
         - name: level
@@ -660,7 +661,7 @@ paths:
       summary: Updates the metadata attributes of the Submodel
       operationId: PatchSubmodelById-Metadata_AasRepository
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Level'
         - name: level
@@ -731,10 +732,10 @@ paths:
     patch:
       tags:
         - Asset Administration Shell Repository API
-      summary: Updates teh values of the Submodel
+      summary: Updates the values of the Submodel
       operationId: PatchSubmodelById-ValueOnly_AasRepository
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Level'
         - name: level
@@ -1166,8 +1167,9 @@ paths:
         - Asset Administration Shell Repository API
       summary: Updates an existing submodel element value at a specified path within submodel elements hierarchy
       operationId: PatchSubmodelElementValueByPath_AasRepository
+      deprecated: true
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/1
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.2#/components/parameters/Level'
       requestBody:
