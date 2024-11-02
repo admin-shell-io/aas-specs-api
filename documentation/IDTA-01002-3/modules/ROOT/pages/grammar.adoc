@@ -2,7 +2,7 @@
 ....
 <grammar> ::= <queryParameter> | <AllRules>
 
-<queryParameter> ::= <selectStatement>? <logicalExpression> <whitespace> <options>?
+<queryParameter> ::= <selectStatement>? <logicalExpression> (<whitespace> <options>)?
 
 <selectStatement> ::= "select id where" <whitespace>
 
@@ -209,7 +209,7 @@
 <FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
 <FieldIdentifierAAS> ::= "aas." ( "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" | "$assetInformation.$assetKind" | "$assetInformation.$assetType" | "$assetInformation.$globalAssetId" | "$assetInformation." <SpecificAssetIdsClause> | "$submodel." <ReferenceClause> )
 <FieldIdentifierSM> ::= "sm." ( "$semanticId." <ReferenceClause> | "$idShort" | "$displayName." <MultiLanguageClause> | "description." <MultiLanguageClause> | "$id" )
-<FieldIdentifierSME> ::= "sme." <idShortPath>? ( "$semanticId." <ReferenceClause> | "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$value" | "$valueType" )
+<FieldIdentifierSME> ::= "sme." ( <idShortPath> ".")? ( "$semanticId." <ReferenceClause> | "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$value" | "$valueType" )
 <FieldIdentifierCD> ::= "cd." ( "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" )
 <FieldIdentifierAasDescriptor> ::= "aasdesc." ( "$idShort" | "$displayName." <MultiLanguageClause> | "$description." <MultiLanguageClause> | "$id" | "$assetKind" | "$assetType" | "$globalAssetId" | <SpecificAssetIdsClause> | "$submodelDescriptor." <SmDescriptorClause> )
 <FieldIdentifierSmDescriptor> ::= "smdesc." <SmDescriptorClause>

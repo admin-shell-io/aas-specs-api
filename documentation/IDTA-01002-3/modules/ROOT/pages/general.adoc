@@ -323,44 +323,39 @@ This is the combined grammar for the AAS Query Language and the AAS Access Rules
 
 include::./grammar.adoc
 
-Examples for updated grammar:
-sm.idShort eq "example"
-contains(sm.description, "test")
-sm.idShort eq "example" and contains(sm.description, "test")
-not(hex("12") gt 16#0ACD) or (hex(sm.idShort) ne 16#ABC and sme.value gt 12) or 12 eq num("12")
-time(GLOBAL(LOCALNOW)) ge 09:00 and time(GLOBAL(LOCALNOW)) le 17:00
-
-Examples (todo: delete before publication):
-....
-
-```
-select id where idShort = "someIdShort"
-```
-
-TODO: Add examples with logical operators
-
-....
+// examples for grammar as of 2024-11-02:
+// sm.$semanticId.$type eq "abc"
+// sme.someIdShort.someOtherIdShort.$semanticId.$type eq "abc"
+// sme.someIdShort.someOtherIdShort[3].$semanticId.$type eq "abc"
+// sm.$idShort eq "example"
+// contains(sm.$displayName.$text, "test")
+// contains(sm.$description.$text, "test")
+// sm.$idShort eq "example" and contains(sm.$description.$text, "test")
+// not(hex("12") gt 16#0ACD)  or 12 eq num("12")
+// not(hex("12") gt 16#0ACD) or (hex(sm.$idShort) ne 16#ABC and sme.$value gt 12) or 12 eq num("12")
+// time(GLOBAL(LOCALNOW)) ge 09:00 and time(GLOBAL(LOCALNOW)) le 17:00
+// select id where sm.$idShort eq "someIdShort"
 
 
+// Examples for updated grammar:
+// sm.idShort eq "example"
+// contains(sm.description, "test")
+// sm.idShort eq "example" and contains(sm.description, "test")
+// not(hex("12") gt 16#0ACD) or (hex(sm.idShort) ne 16#ABC and sme.value gt 12) or 12 eq num("12")
+// time(GLOBAL(LOCALNOW)) ge 09:00 and time(GLOBAL(LOCALNOW)) le 17:00
 
+// Examples for initial grammar (todo: delete before publication):
+// select id where idShort = "someIdShort"
 
-TODO: move to appendix?
-
-todo
 
 === Comparison Operators
 
-The comparison operators follow the proposals of RFC [add reference to the JSONPath RFC].
+The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to non-matching inputs.
 
-OR:
+Comparisons are overloaded, which means that the same comparison can deal with several input types. For instance, `eq`  can be used both for values of type xs:string and xs:int.
 
-The following comparison operators are part of the query language. The result of a comparison shall always be of type xs:boolean, or a comparison error, e.g., due to non-matching inputs.
-
-Comparisons are overloaded, which means that the same comparison can deal with several input types. For instance, `eq` / `=` can be used both for values of type xs:string and xs:int.
-
-OR:
-
-Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` / `=` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
+// TODO decide on alternative:
+// Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` / `=` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
 
 
 
