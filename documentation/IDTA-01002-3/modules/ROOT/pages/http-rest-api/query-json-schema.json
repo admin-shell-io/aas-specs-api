@@ -4,14 +4,44 @@
   "type": "object",
   "properties": {
     "select": {
-      "$ref": "common-json-schema.json#definitions/SelectStatement"      
+      "type": "string",
+      "pattern": "^id$"
     },
     "filter": {
-      "$ref": "common-json-schema.json#definitions/LogicalExpression"      
+      "$ref": "common-json-schema.json#/definitions/logicalExpression"
     },
     "option": {
-      "$ref": "common-json-schema.json#definitions/OptionStatement"      
+      "$ref": "#/definitions/OptionStatement"
+    },
+    "$schema": {
+      "type": "string"
     }
   },
-  "additionalProperties": false
+  "required": ["filter"],
+  "additionalProperties": false,
+  "definitions": {
+    "OptionStatement": {
+      "properties": {
+        "sort": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        },
+        "limit": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
 }
