@@ -70,10 +70,10 @@ Exceptions to this rule are API Operations requiring pagination and error cases.
 * By default, blobs are not part of the payload.
 Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
 * Submodels define a hierarchical structure.
-Certain operations use an idShort-path to access deeper parts in the hierarchy.
-To easily support this in the REST API, “.” or “[index]” is used as a delimiter in the idShort-paths.
+Certain operations use an idShortPath to access deeper parts in the hierarchy.
+To easily support this in the REST API, “.” or “[index]” is used as a delimiter in the idShortPaths.
 Please see <<api-versioning>>.
-Since an idShort-path could include square brackets like “[index]”, the idShort-path must be URL-encoded.
+Since an idShortPath could include square brackets like “[index]”, the idShortPath must be URL-encoded.
 * Identifiers of Identifiables are base64url-encoded to be passed to the HTTP/REST API (see https://www.base64url.com/).
 These may be identifiers for Asset Administration Shells, Submodels, or Concept Descriptions. +
 Identifiers may also be passed as base64url-encoded query parameters, e.g. for semanticId or assetId.
@@ -167,13 +167,13 @@ The “/description” will be extended with additional information in later ver
 
 == Addressing Resources
 
-The API allows to address each referable element, either by its global identifier or by its idShort-path depending on the object type.
+The API allows to address each referable element, either by its global identifier or by its idShortPath depending on the object type.
 
 If the referable element is an identifiable, it can only be addressed by the global identifier of the object.
-All other referable elements are addressable by the idShort-path.
-The idShort-path is a chain of idShorts or SubmodelElementList-indexes, which points to an element within a hierarchy of elements.
-The root of the idShort-path is always a submodel and the first element in an idShort-path is always an idShort of a first level SubmodelElement within a Submodel.
-Technically, the idShort path is a string and the idShorts are separated by a dot while the SubmodelElementList-indexes are written in brackets.
+All other referable elements are addressable by the idShortPath.
+The idShortPath is a chain of idShorts or SubmodelElementList-indexes, which points to an element within a hierarchy of elements.
+The root of the idShortPath is always a submodel and the first element in an idShortPath is always an idShort of a first level SubmodelElement within a Submodel.
+Technically, the idShortPath is a string and the idShorts are separated by a dot while the SubmodelElementList-indexes are written in brackets.
 
 .Example Hierarchy of Submodel Elements
 [[se-hierarchy]]
@@ -181,8 +181,8 @@ image::se-hierarchy.jpeg[image24,width=642,height=367]
 
 The example hierarchy in <<se-hierarchy>> shows a Submodel with a hierarchical structure of SubmodelElements.
 The submodel can be addressed by its global identifier “https://admin-shell.io/sampleSM”.
-The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShort-path.
-The idShort-path in this example pointing to the Property p1 is “sme1.sme2[0].p1”.
+The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShortPath.
+The idShortPath in this example pointing to the Property p1 is “sme1.sme2[0].p1”.
 The hierarchy is built on parent-child relations between the elements.
 There are four elements which can aggregate SubmodelElements and create deeper hierarchical structures.
 The elements are Submodel, SubmodelElementCollection, SubmodelElementList, and Entity.
@@ -386,7 +386,7 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for nomal
 Pagination
 
 |GetSubmodelElementByPath |GET |/submodel/submodel-elements/\{idShortPath} a|
-use separated idshort path of this element
+use separated idShortPath of this element
 
 ?level=deep/core
 
@@ -396,33 +396,33 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for nomal +
 URL-encoded IdShortPath
 
 |GetFileByPath |GET |/submodel/submodel-elements/\{idShortPath}/attachment a|
-use separated idShort path of this element
+use separated idShortPath of this element
 
 URL-encoded IdShortPath
 
 |PutFileByPath |PUT |/submodel/submodel-elements/\{idShortPath}/attachment a|
-use separated idShort path of this element
+use separated idShortPath of this element
 
 URL-encoded IdShortPath
 
 |DeleteFileByPath |DELETE |/submodel/submodel-elements/\{idShortPath}/attachment a|
-use separated idShort path of this element
+use separated idShortPath of this element
 
 URL-encoded IdShortPath
 
 |PostSubmodelElement |POST |/submodel/submodel-elements |SerializationModifiers are not used with POST
 |PostSubmodelElementByPath |POST |/submodel/submodel-elements/\{idShortPath} a|
-use separated idShort path of the parent element
+use separated idShortPath of the parent element
 
 SerializationModifiers are not used with POST
 
 |PutSubmodelElementByPath |PUT |/submodel/submodel-elements/\{idShortPath} a|
-use separated idShort path of this element
+use separated idShortPath of this element
 
 URL-encoded IdShortPath
 
 |PatchSubmodelElementByPath |PATCH |/submodel/submodel-elements/\{idShortPath} a|
-use separated idShort path of this element
+use separated idShortPath of this element
 
 path-suffix=$metadata/$value or no suffix for normal
 
@@ -435,14 +435,14 @@ Note: values remain unchanged with content=metadata
 
 
 |PatchSubmodelElementValueByPath |PATCH |/submodel/submodel-elements/\{idShortPath}/$value a|
-use separated idShort path of this element; see Clause 11.4.2 for values
+use separated idShortPath of this element; see Clause 11.4.2 for values
 
 path-suffix=$value
 
 URL-encoded IdShortPath
 
 |DeleteSubmodelElementByPath |DELETE |/submodel/submodel-elements/\{idShortPath} a|
-use separated idshort path of this element
+use separated idShortPath of this element
 
 URL-encoded IdShortPath
 
