@@ -287,9 +287,14 @@ Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [
 
 == Query Language
 
-Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to move parts of the filter and selection logic to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
+Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to send parts of the filter and selection logic to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
 
-The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS.
+The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS. However, different communication protocols may treat aspects differently, e.g., by requiring different query or result set serialisations, variations in the order of constructs, or endpoint patterns. Nevertheless, all share the same expressiveness, and under same conditions a query shall lead to the same results independently of the chosen communication protocol.
+
+====
+Note: The AAS Query Language and the AAS Access Control Language (see TODO: add reference to the Security part) share the same BNF grammar. Therefore, the result is a superset, with `query` as the entrypoint for the Query Language. 
+====
+
 
 // TODO: Add correct overview picture
 .Main elements of the AAS Query Language
@@ -298,20 +303,21 @@ image::../images/plantuml/query-language-overview.png[image24,width=642,height=3
 
 === Limitations
 
-The AAS Query Language is not intended as feature-comparable to existing query languages like SPARQL or GQL. In case the expressiveness of such technologies is needed, a software vendor might additionally provide such APIs. However, in order to keep the additional overhead for AAS Query Language implementers as small as possible, the following limitations apply:
+The AAS Query Language is not intended as feature-comparable to existing query languages like SPARQL or GQL. In case the expressiveness of such technologies is needed, a software vendor might additionally extend his service accordingly. However, in order to keep the additional overhead for AAS Query Language implementers as small as possible, the following limitations apply:
 
-1. Only Identifiables are queryable: It is only possible to formulate filters for Asset Administration Shells, Submodels, and their according Descriptors, as well as ConceptDescription. In addition, also their identifiers (values of the "id" attributes) can be queried.
+1. Only Identifiables are queryable: It is possible to formulate filters for Asset Administration Shells, Submodels, and their according Descriptors, as well as ConceptDescription but no further elements. In addition, also their identifiers (values of the "id" attributes) can be queried. This means in particular that not every Referable can be queried.
 
-1. Only Repository and Registry Services have query functionalities: Querys on Asset Administration Shell Services or Submodel Services are not defined.
+1. Only Repository and Registry Services have specified query functionalities: Querys on Asset Administration Shell Services or Submodel Services are not defined.
 
-1. It is only possible to compare a field to an atomic value. It is not possible to compare two fields with each other. (TODO: verify with TF)
+1. Only selected attributes defined by the AAS data model (TODO: insert reference) can be used in query filters: Usage of custom or vendor-specific attributes outside of the AAS specifications is generally not recommended and may lead to a rejections of the query by the receiving systems.
 
-1. Only attributes defined by the AAS Metamodel (TODO: insert reference) can be used to in filters: Usage of custom attributes that are not defined by the AAS specifications may be rejected by the receiving party.
+1. It is not possible to traverse through Entity (e.g. Entity/statements), AnnotatedRelationshipElement (e.g. AnnotatedRelationshipElement/annotations), or Operation (e.g. Operation/outputVariables). Only the fields `semanticId` `idShort`, `value`, and `valueType` are available for SubmodelElements.
+
 
 
 === Grammar
 
-The AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF. Same as for AAS Interfaces and Operations, the detailed serialisation and interaction pattern is defined by the different technology mappings. In particular, the AAS HTTP API represents AAS Queries as JSON objects (see Clause (TODO: insert reference)). Other mappings may require different serialisations, however, all have to follow the general structure of queries defined in the following grammar.
+The content and structure of the AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF. The detailed serialisation and interaction patterns are defined by the different technology mappings, e.g., the AAS HTTP API represents AAS Queries as JSON objects (see Clause (TODO: insert reference)). Other mappings may define different serialisations, however, all have to follow the general structure of queries defined in the following grammar.
 
 
 // Updated grammar 2024-10-11 (from aorzelski) + additional extensions 2024-11-02 (from sebbader-sap)
@@ -322,6 +328,18 @@ This is the combined grammar for the AAS Query Language and the AAS Access Rules
 // TODO: explain why only 'id' is available for sorting
 
 include::./grammar.adoc
+
+// examples for grammar as of 2024-11-24:
+// $sm.#semanticId.type$eq"abc"
+// $sme.someIdShort.someOtherIdShort.#semanticId.type$eq"abc"
+// $sme.someIdShort.someOtherIdShort[3].#semanticId.type$eq"abc"
+// $sm.#idShort$eq"example"
+// $contains($sm.#idShort,"test")
+// $sm.#idShort$eq"example"$and$contains($sm.#idShort,"test")
+// $not(hex("12")$gt16#0ACD)$or12$eqnum("12")
+// $not(hex("12")$gt16#0ACD)$or(hex($sm.#idShort)$ne16#ABC$and$sme.#value$gt12)$or12$eqnum("12")
+// time(GLOBAL(LOCALNOW))$ge09:00$andtime(GLOBAL(LOCALNOW))$le17:00
+// $selectid$where$sm.#idShort$eq"someIdShort"
 
 // examples for grammar as of 2024-11-02:
 // sm.$semanticId.$type eq "abc"
@@ -348,32 +366,9 @@ include::./grammar.adoc
 // select id where idShort = "someIdShort"
 
 
-=== Comparison Operators
+=== Select Expression
 
-The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to non-matching inputs.
-
-Comparisons are overloaded, which means that the same comparison can deal with several input types. For instance, `eq`  can be used both for values of type xs:string and xs:int.
-
-// TODO decide on alternative:
-// Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` / `=` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
-
-
-
-[.table-with-appendix-table]
-[width=100%, cols="10%,40%,50%"]
-|===
-h| Operator h| Description h| Definition
-| eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| ne | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| gt | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| lt | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| ge | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
-| le | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
-| starts-with | Compares two string expressions whether the first parameter appears character-equal at the beginning of the second. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
-| ends-with | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
-| regex | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
-// TODO: do we need an 'exists'? | exists | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
-|===
+The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers (`$select id`).
 
 
 === Logical Expressions
@@ -384,78 +379,44 @@ Logical expressions allow the combination of two or more single comparisons thro
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Logical Operator h| Description h| Definition
-| and | Connects two expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
-| or | Connects two expressions through a logical OR. |  Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
-| not | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. not( true ) --> false // TODO: Find a proper definition.
+| $and | Connects two or more expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
+| $or | Connects two or more expressions through a logical OR. |  Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
+| $not | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. Defined by https://www.w3.org/TR/xpath-functions-30/#func-not
 |===
 
 
 
+=== Comparison Operators
 
-=== Casting Operators
+The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to non-matching data types.
+
+Comparisons are overloaded in the BNF grammar, which means that the same comparison can deal with several input types. For instance, `$eq`  can be used both for values of type xs:string and xs:int.
+
+// TODO decide on alternative:
+// Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` / `=` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
+
+
 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
 |===
-h| Casting Operator h| Description h| Definition
-| str(<value>) | Casts the `value` to string. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
-| num(<value>) | Casts the `value` to string. |  Defined by https://www.w3.org/TR/xpath-functions-30/#func-number __TODO:__ This implies that only double comparisons are possible...
-| dateTime(<value>) | Casts the `value` to xs:dateTime. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
-| bool(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+h| Operator h| Description h| Definition
+| $eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| $ne | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| $gt | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| $lt | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| $ge | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
+| $le | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
+| starts-with | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+| $contains | Compares two string expressions whether the second parameter appears as a substring inside of the first. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+// TODO: decide if needed | $ends-with | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
+// TODO: decide if needed | $regex | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+// TODO: do we need an 'exists'? | exists | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
 |===
-
-// TODO: There are no castings to time or binary in XPath. This might have valid reasons...
-
-
-=== Referring to Elements in Lists and Arrays
-
-The AAS Metamodel defines several objects with lists as child elements, e.g., `SubmodelElementList/value`, `AssetInformation/specificAssetIds`, or `Reference/keys`. The AAS Query Language contains two different patterns to refer to elements inside these lists:
-
-==== Specific Index Notation
-
-In case the position inside the list is known, the query can directly leverage the index number inside square brackets.
-
-....
-fieldIdentifier[<index>]
-....
-
-For a the first element of a SubmodelElementList, this notation may lead to a following declaration:
-
-....
-sme.someIdShort.smlIdShort[0]
-....
-
-For the first key of a SemanticId reference, this notation may lead to a following declaration:
-
-....
-<somePath>.$semanticId.keys[0]
-....
-
-
-==== Any Element Notation
-
-In case the position in the list is not known, the index inside the square brackets can be skipped. This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
-
-....
-fieldIdentifier[]
-....
-
-To refer to any element inside a SubmodelElementList, this notation may lead to a following declaration:
-
-....
-sme.someIdShort.smlIdShort[]
-....
-
-For any key of a SemanticId reference, this notation may lead to a following declaration:
-
-....
-<somePath>.$semanticId.keys[]
-....
-
 
 ==== Example
 
-The following example is used to illustrate the evaluation of the query language. Note that the attributes "description" and "displayName" are left blank intentionally.
+The following example is used to illustrate the comparisons. The following Asset Administration Shell is used for the evaluations of the different operators.
 
 ```
 {
@@ -498,84 +459,250 @@ The following example is used to illustrate the evaluation of the query language
 }
 ```
 
-// TODO: Table is not correct anymore, e.g., "displayName" -> "$displayName.$text"
 [.table-with-appendix-table]
 [width=100%, cols="45%,10%,45%"]
 |===
 h| Comparison h| Result h| Comment
-| "displayName" eq "description" | true | Empty nodelists
-| "displayName" le  "description" | true | `eq` implies `le`
-| "displayName" eq 'value' | false | Empty nodelist in the example object, which always evaluates to `false` for `eq`
-| ne( "displayName", "description" ) | false | Empty nodelists
-| ne( "displayName", 'value' ) | true | Empty nodelist
-| le( 1, 2 ) | true | Numeric comparison
-| gt( 1, 2 ) | false | Numeric comparison
-| eq( 13, '13' ) | false | Type mismatch
-| le( 'a', 'b' ) | true | String comparison
-| gt( '1', '2' ) | false | String comparison
-| eq( "assetInformation", "submodels" ) | false | Type mismatch (object vs. list)
-| ne( "assetInformation", "submodels" ) | true | Type mismatch
-| eq( "assetInformation", "assetInformation" ) | true | Object comparison
-| ne( "assetInformation", "assetInformation" ) | false | Object comparison
-| eq( "submodels", "submodels" ) | true | Array comparison
-| ne( "submodels", "submodels" ) | false | Array comparison
-| eq( "assetInformation", 17 ) | false | Type mismatch
-| ne( "assetInformation", 17 ) | true | Type mismatch
-| le( "assetInformation", "submodels" ) | false | Objects and arrays do not offer `lt` comparison
-| lt( "assetInformation", "submodels" ) | false | Objects and arrays do not offer `lt` comparison
-| lt( "assetInformation", "assetInformation" ) | true | `eq` / `=` implies `le` also for objects
-| le( "submodels", "submodels" ) | true | `eq` / `=` implies `le` also for lists
-| le( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
-| ge( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
-| gt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
-| lt( 1, "submodels" ) | false | Lists do not offer `lt`/`gt` comparison
-| le( true, true ) | true | `eq` / `=` implies `le`
-| gt( true, true ) | false | Booleans do not offer `lt`/`gt` comparison
-| like( "id", "https://example.com/asset-administration-shell-*" ) | true | Like comparison matches entities based on the specified attribute's value,
-including case sensitivity — either upper or lower case. Typically, the value includes wildcards such as '?' or '*', allowing for more flexible matching.
+| $aas.#idShort $eq $aas.#assetInformation.assetType | true | Both items are empty, therefore, they are equal.
+| $aas.#idShort $le $aas.#assetInformation.assetType | true | `$eq` implies `$le`
+| $aas.#idShort $ne $aas.#assetInformation.assetType | false | Both items are empty, therefore, they are equal.
+| 1 $le 2  | true | Numeric comparison
+| 1 $gt 2  | false | Numeric comparison
+| 13 $eq '13' | false | Type mismatch
+| "a" $lt "b" | true | String comparison
+| "1" $gt "2" | false | String comparison
+| $aas#assetInformation.assetKind $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
+| $aas#assetInformation.assetKind $ne $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
+| $aas#assetInformation.assetKind $eq $aas#assetInformation.assetKind | true | Comparison of identical values
+| $aas#assetInformation.assetKind $ne $aas#assetInformation.assetKind | false | Comparison of identical values
+| $aas.submodels $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
+| $aas#assetInformation.assetKind $eq 17 | false | Type mismatch
+| $aas#assetInformation.assetKind $ne 17 | true | Type mismatch
+| $aas#assetInformation.assetKind $le $aas#assetInformation.assetKind | true | `$eq` implies `$le`
+| bool("true") $ge bool("true") | true | `$eq` implies `$ge`
+| bool("true") $gt bool("true") | false | Booleans do not offer `$lt`/`$gt` comparison
+| $aas#id $contains "https://example.com/asset-administration-shell" | true | "https://example.com/asset-administration-shell" is a substring of the `id` value ("https://example.com/asset-administration-shell-1")
 |===
 
 
-=== Nested Comparisons (todo: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
 
-// TODO: Introduce "elemMatch" in grammar or only in the JSON Schema?
+=== Casting Operators
+
+[.table-with-appendix-table]
+[width=100%, cols="10%,40%,50%"]
+|===
+h| Casting Operator h| Description h| Definition
+| str(<value>) | Casts the `value` to string. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| num(<value>) | Casts the `value` to string. |  Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
+// __TODO:__ This implies that only double comparisons are possible...
+| dateTime(<value>) | Casts the `value` to xs:dateTime. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
+| bool(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| hex(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| dateTime(<value>) | Casts the `value` to xs:dateTime. | // TODO: define properly
+| time(<value>) | Casts the `value` to xs:time. | // TODO: define properly
+|===
+
+
+
+=== Referring to Elements in Lists and Arrays
+
+The AAS Metamodel defines several objects with lists as child elements, e.g., `SubmodelElementList/value`, `AssetInformation/specificAssetIds`, or `Reference/keys`. The AAS Query Language contains two different patterns to refer to elements inside these lists:
+
+==== Specific Index Notation
+
+In case the position inside the list is known, the query can directly leverage the index number inside square brackets.
+
+....
+fieldIdentifier[<index>]
+....
+
+For a the first element of a SubmodelElementList with the idShort "smlIdShort", this notation may lead to a following declaration:
+
+....
+$sme.<somePath>.smlIdShort[0]
+....
+
+For the first key of a SemanticId reference, this notation may lead to a following declaration:
+
+....
+$sme.<somePath>#semanticId.keys[0]
+....
+
+
+==== Any Element Notation
+
+In case the position in the list is not known, the index inside the square brackets can be skipped. This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
+
+....
+fieldIdentifier[]
+....
+
+To refer to any element inside a SubmodelElementList with the idShort "smlIdShort", this notation may lead to a following declaration:
+
+....
+$sme.<somePath>.smlIdShort[]
+....
+
+For any key of a SemanticId reference, this notation may lead to a following declaration:
+
+....
+$sme.<somePath>#semanticId.keys[]
+....
+
+
+
+=== Multiple Comparisons on single Elements of Lists 
+// TODO: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
+
+The `$elemMatch` operators signals that the following filter clauses (a) contain a list of elements, and that (b) all filters shall be evaluated on the same element of this list. 
+
+====
+Note 1: It is not possible to use `$elemMatch` in cases of more than one list, e.g., if a SubmodelElementList contains other SubmodelElementLists. +
+Note 2: If the filter inside an `$elemMatch` claus contains expressions that are not pointing to the list under consideration, an error shall be returned.
+====
+
+The table illustrates the behavior using the example Asset Administration Shell above.
 
 [.table-with-appendix-table]
 [width=100%, cols="50%,10%,30%"]
 |===
 h| Comparison h| Result h| Comment
-| and (
+| 
 
-    eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,
+$elemMatch(
+    $and ( +
+        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+        $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
+    )
 
-    eq( "assetInformation.specificAssetIds.value", 'aas-1' )
-
- )
-| [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'supplierId' and 'aas-2' exist in the same SpecificAssetId object.
-| and (
-
-    eq( "assetInformation.specificAssetIds.name", 'supplierId' ) ,
-
-    eq( "assetInformation.specificAssetIds.value", 'aas-2' )
-
- )
-| [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
+| 
+[ +
+    { +
+        "modelType": "AssetAdministrationShell", +
+        ... +
+    } +
+] +
+| The values for 'supplierId' and 'aas-1' exist in the same SpecificAssetId object.
 |
-  like( "assetInformation.specificAssetIds.value", 'aas-*' )
-| [ { "modelType": "AssetAdministrationShell", ... } ] | The values for 'aas-1' and 'aas-2' exist in the example AAS, even though in different SpecificAssetId objects.
-|
-TODO: This doesn't align well with the existing RQL definitions and would be hard challenge to parse it. We need something different which is more aligned with RQL
+$elemMatch
+    $and ( +
+        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+        $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
+    )
 
-"assetInformation.specificAssetIds"(
-
-and (
-
-eq( "name", 'supplierId' ) , eq( "value", 'aas-2' )
-
+| 
+[ ] 
+| The values for 'supplierId' and 'aas-2' do not exist in the same SpecificAssetId object.
+| 
+$and ( +
+        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+        $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
 )
-| empty list | The values for 'supplierId' and 'aas-2' in the same SpecificAssetId object.
+
+| 
+[ +
+    { +
+        "modelType": "AssetAdministrationShell", +
+        ... +
+    } +
+] +
+| The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in _different_ SpecificAssetId objects.
+|
+$elemMatch
+    $or ( +
+        $and ( +
+            $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+            $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
+        ),
+        $and ( +
+            $aas#assetInformation.specificAssetIds.name $eq "customerId", +
+            $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
+        )
+    )
+
+| 
+[ +
+    { +
+        "modelType": "AssetAdministrationShell", +
+        ... +
+    } +
+] +
+| Both AND conditions are fulfilled, even though for different SpecificAssetIds. Nevertheless, as therefore in both cases always one AND clause is fulfilled, the OR clause also evaluates to `true` for both items.
 |===
 
+=== Special Functions
+
+Two special functions are defined with the AAS Query Language for filtering on `semanticId` and `specificAssetId` values due to their elevated position in many use cases.
+
+`semanticId` is defined as the "value" of the first key of the semanticId Reference object. The following two expressions are equivilant: 
+....
+ <somePath>.semanticId 
+ <somePath>.semanticId.keys[0].value
+....
+
+A comparison using the `semanticId` as a shortcut could look like the following:
+....
+$sme#semanticId $eq "https://example.com/a/semantic/id"
+....
+
+
+`specificAssetId` provides the option to directly evaluate zero or one condition of a potential `SpecificAssetIdSpecificAssetId/name` and/or a `SpecificAssetIdSpecificAssetId/value` attribute. The following usages are possible:
+
+....
+specificAssetId( <nameCondition> )
+specificAssetId( <valueCondition> )
+specificAssetId( <nameCondition>, <valueCondition> )
+....
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,75%"]
+|===
+h| Parameter h| Description
+| <nameCondition> | A single string comparison using one of the operators "$starts-with", "$contains", or "$eq", comparing the content of the SpecificAssetId/name attribute to a given string literal.
+| <valueCondition> | A single string comparison using one of the operators "$starts-with", "$contains", or "$eq", comparing the content of the SpecificAssetId/value attribute to a given string literal.
+|===
+
+====
+Note: In case both <nameCondition> and <valueCondition> are set, they have to be evaluated on the same SpecificAssetId object.
+====
+
+The following three expressions are equivalent:
+[.table-with-appendix-table]
+[width=100%, cols="5%,40%,50%"]
+|===
+h| h| `specificAssetId` Notation h| Long Notation
+|
+|
+$aas.specificAssetId( +
+    name $eq "supplierId" +
+)
+
+|
+$aas#assetInformation.specificAssetIds.name $eq "supplierId"
+|
+|
+$aas.specificAssetId( +
+    value $starts-with "aas" +
+)
+
+|
+$aas#assetInformation.specificAssetIds.value $starts-with "aas"
+|
+|
+$aas.specificAssetId( +
+    name $eq "supplierId", +
+    value $starts-with "aas" +
+)
+
+|
+$elemMatch ( +
+    $and ( +
+        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+        $aas#assetInformation.specificAssetIds.value $starts-with "aas" +
+    ) +
+)
+|
+|===
 
 === Sorting and Pagination
 
@@ -584,22 +711,28 @@ To manage the pagination of the retrieved data, incorporate the limit operator w
 
 [source,javascript]
 ----
-option=limit(start,count)
+$limit( start, count )
 ----
 
 [.table-with-appendix-table]
 [width=100%, cols="25%,75%"]
 |===
 h| Operator h| Description
-| limit | To control the pagination of the retrieved data, use the limit operator
-| start | specifies where to start fetching data, also known as offset
-| count | indicates how many results to fetch per page // TODO not matching the grammar anymore
+| $limit | To control the pagination of the retrieved data, use the optional limit operator
+| start | A xs:int value that specifies where to start fetching data, also known as offset
+| count | A xs:int value that indicates how many results to fetch per page
 |===
 
-Example
+Example to return the first five elements of the result set.
 [source,javascript]
 ----
-option=limit(10,5)
+$limit( 0, 5 )
+----
+
+Example to return five elements, where the first returned element is the sixth of the result set.
+[source,javascript]
+----
+$limit( 5, 5 )
 ----
 
 ==== Sorting
@@ -608,27 +741,22 @@ To organize the retrieved data in a specific order, incorporate the sort operato
 
 [source,javascript]
 ----
-option=sort([ASC|DSC]attributeN)
+$sort id direction
 ----
 
-The sort operator organizes data based on the specified attributes. It begins with the first attribute and continues sequentially to subsequent attributes.
-Attribute names should be separated by commas. For each attribute, you can designate the sorting direction - ascending or descending.
+The optional sort operator organizes data based on the identifier "id". The sender of the query can designate the sorting direction - ascending or descending. If no sort statement is supplied, the receiver of the query may decide on the sorting. Nevertheless, the sorting configuration shall not change. A client may however expect that a previous result sequence may not identical anymore, e.g. due to new items being created (or deleted) at the receiver side in the meantime.
 
 [.table-with-appendix-table]
 [width=100%, cols="25%,75%"]
 |===
 h| Operator h| Description
-| sort | To sort the retrieved data, use the sort operator as part of the option operator.
-| ASC | For descending sort order.
-| DSC | For ascending sort order.
+| $sort | To sort the retrieved data, use the sort operator as part of the option operator.
+| direction | "asc" for ascending sort order and "dsc" for descending sort order.
 
 |===
 
 Example
 [source,javascript]
 ----
-option=sort(+assetInformation, -assetInformation.globalAssetId)
+$sort id asc
 ----
-// TODO not matching the grammar anymore
-
-// todo: Explain LIMIT, OFFSET/SKIP, SORT
