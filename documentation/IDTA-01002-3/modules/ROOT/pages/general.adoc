@@ -569,12 +569,12 @@ The table illustrates the behavior using the example Asset Administration Shell 
 h| Comparison h| Result h| Comment
 | 
 
-$elemMatch(
+$elemMatch( +
     $and ( +
         $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
         $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
     )
-
+)
 | 
 [ +
     { +
@@ -584,12 +584,12 @@ $elemMatch(
 ] +
 | The values for 'supplierId' and 'aas-1' exist in the same SpecificAssetId object.
 |
-$elemMatch
+$elemMatch( +
     $and ( +
         $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-        $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
+        $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
     )
-
+)
 | 
 [ ] 
 | The values for 'supplierId' and 'aas-2' do not exist in the same SpecificAssetId object.
@@ -608,7 +608,7 @@ $and ( +
 ] +
 | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in _different_ SpecificAssetId objects.
 |
-$elemMatch
+$elemMatch +
     $or ( +
         $and ( +
             $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
