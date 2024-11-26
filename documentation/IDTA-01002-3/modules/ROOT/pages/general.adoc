@@ -471,6 +471,7 @@ h| Comparison h| Result h| Comment
 | 13 $eq '13' | false | Type mismatch
 | "a" $lt "b" | true | String comparison
 | "1" $gt "2" | false | String comparison
+| "11" $gt "2" | false | String comparison
 | $aas#assetInformation.assetKind $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
 | $aas#assetInformation.assetKind $ne $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
 | $aas#assetInformation.assetKind $eq $aas#assetInformation.assetKind | true | Comparison of identical values
