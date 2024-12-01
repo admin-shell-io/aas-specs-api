@@ -1,98 +1,109 @@
 @startuml
-class AccessRule {
-    ACL acl
-    List<SingleObject> singleObjects
-    List<ObjectGroup> objectGroups
-    Formula formula
+class Query {
 }
  
-AccessRule --> ACL
-AccessRule --> SingleObject : List
-AccessRule --> ObjectGroup : List
-AccessRule --> Formula
+Query --> "0..1" SelectField : select
+Query --> "1..*" LogicalExpression : filter
+Query --> "0..1" OptionStatement : option
  
-class ACL {
-    List<SingleAttribute> singleAttributes
-    List<AttributeGroup> attributeGroups
-    List<Right> rights
-    Access access
+enum SelectField {
+     id
+}
+
+class OptionStatement {
+    sort : id asc/dsc
+    limit : Number
+    offset : Number
 }
  
-ACL --> SingleAttribute : List
-ACL --> AttributeGroup : List
-ACL --> Right : List
-ACL --> Access
- 
-class SingleObject {
+class LogicalExpression {}
+
+LogicalExpression -->  LogicalExpression : $and / $or / $not
+LogicalExpression -->  Comparison : $eq / $ne / $gt / $ge / $lt / $lt / $le / $starts-with / $contains
+
+class Comparison {
+
 }
- 
-SingleObject <|-- RouteObject
-SingleObject <|-- IdentifiableObject
-SingleObject <|-- ReferableObject
-SingleObject <|-- FragmentObject
-SingleObject <|-- DescriptorObject
- 
-class RouteObject {
-    StringLiteral stringLiteral
+
+Comparison --> LeftOperand
+Comparison --> RightOperand
+
+class LeftOperand {}
+
+class RightOperand {}
+
+LeftOperand --|> Operand 
+RightOperand --|> Operand
+
+class Operand {
+
 }
- 
-class IdentifiableObject {
-    StringLiteral stringLiteral
+
+Operand --> AssetAdministrationShellFields
+Operand --> SubmodelFields
+Operand --> AssetAdministrationShellDescriptorFields
+Operand --> SubmodelDescriptorFields
+Operand --> ConceptDescriptionFields
+Operand --> StringValue
+Operand --> NumericValue
+Operand --> DateTimeValue
+Operand --> BooleanValue
+Operand --> BinaryValue
+
+enum AssetAdministrationShellFields {
+  $aas#id
+  $aas#idShort
+  $aas#assetInformation.assetKind
+  $aas#assetInformation.assetType
+  $aas#assetInformation.globalAssetId
+  $aas#assetInformation.specificAssetId
+  $aas#assetInformation.specificAssetIds.name
+  $aas#assetInformation.specificAssetIds.value
+  $aas#assetInformation.specificAssetIds.externalSubjectId.type
+  $aas#assetInformation.specificAssetIds.externalSubjectId.keys.value
+  $aas#assetInformation.specificAssetIds.externalSubjectId.keys.type
 }
- 
-class ReferableObject {
-    StringLiteral stringLiteral
+enum SubmodelFields {
+    $sm#id
+    $sm#idShort
+    $sm#semanticId
+    $sm#semanticId.type
+    $sm#semanticId.keys.value
+    $sm#semanticId.keys.type
 }
- 
-class FragmentObject {
-    StringLiteral stringLiteral
+enum ConceptDescriptionFields {
+    $cd#id
+    $cd#idShort
 }
- 
-class DescriptorObject {
-    StringLiteral stringLiteral
+enum AssetAdministrationShellDescriptorFields {
+    $aasdesc#id
+    $aasdesc#idShort
+    $aasdesc#assetInformation.assetKind
+    $aasdesc#assetInformation.assetType
+    $aasdesc#assetInformation.globalAssetId
+    $aasdesc#assetInformation.specificAssetId
+    $aasdesc#assetInformation.specificAssetIds.name
+    $aasdesc#assetInformation.specificAssetIds.value
+    $aasdesc#assetInformation.specificAssetIds.externalSubjectId.type
+    $aasdesc#assetInformation.specificAssetIds.externalSubjectId.keys.value
+    $aasdesc#assetInformation.specificAssetIds.externalSubjectId.keys.type
+    $aasdesc#assetInformation.globalAssetId
+    $aasdesc#submodelDescriptors.id
+    $aasdesc#submodelDescriptors.idShort
+    $aasdesc#submodelDescriptors.semanticId
+    $aasdesc#submodelDescriptors.semanticId.type
+    $aasdesc#submodelDescriptors.semanticId.keys.value
+    $aasdesc#submodelDescriptors.semanticId.keys.type
 }
- 
-class ObjectGroup {
-    List<SingleObject> singleObjects
+
+enum SubmodelDescriptorFields {
+    $smdesc#id
+    $smdesc#idShort
+    $smdesc#semanticId
+    $smdesc#semanticId.type
+    $smdesc#semanticId.keys.value
+    $smdesc#semanticId.keys.type
 }
- 
-ObjectGroup --> SingleObject : List
- 
-class SingleAttribute {
-}
- 
-SingleAttribute <|-- ClaimAttribute
-SingleAttribute <|-- GlobalAttribute
-SingleAttribute <|-- ReferenceAttribute
- 
-class ClaimAttribute {
-    StringLiteral stringLiteral
-}
- 
-class GlobalAttribute {
-    StringLiteral stringLiteral
-}
- 
-class ReferenceAttribute {
-    StringLiteral stringLiteral
-}
- 
-class AttributeGroup {
-    List<SingleAttribute> singleAttributes
-    List<AttributeGroup> attributeGroups
-}
- 
-AttributeGroup --> SingleAttribute : List
-AttributeGroup --> AttributeGroup : List
- 
-enum Right {
-    CREATE, READ, UPDATE, DELETE, EXECUTE, VIEW, ALL, TREE
-}
- 
-enum Access {
-    ALLOW, DISABLED
-}
- 
-class Formula {
-}
+
+
 @enduml
