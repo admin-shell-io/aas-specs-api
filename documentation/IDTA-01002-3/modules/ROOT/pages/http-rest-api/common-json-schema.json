@@ -31,27 +31,27 @@
     },
     "FieldIdentifierAAS": {
       "type": "string",
-      "pattern": "^\\$aas\\.(idShort|displayName\\.((language|text))|description\\.((language|text))|id|assetInformation\\.(assetKind|assetType|globalAssetId|specificAssetIds(\\[[0-9]+\\])?\\.(name|value|externalSubjectId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))))|submodel\\.(type|keys(\\[[0-9]+\\])?\\.(type|value)))$"
+      "pattern": "^\\$aas\\.(idShort|id|assetInformation\\.(assetKind|assetType|globalAssetId|specificAssetIds(\\[[0-9]+\\])?\\.(name|value|externalSubjectId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))))|submodels\\.(type|keys(\\[[0-9]+\\])?\\.(type|value)))$"
     },
     "FieldIdentifierSM": {
       "type": "string",
-      "pattern": "^\\$sm\\.(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|displayName\\.(language|text)|description\\.(language|text)|id)$"
+      "pattern": "^\\$sm\\.(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|id)$"
     },
     "FieldIdentifierSME": {
       "type": "string",
-      "pattern": "^\\$sme\\.((([a-zA-Z][a-zA-Z0-9_]*)(\\[[0-9]+\\])?(\\.[a-zA-Z][a-zA-Z0-9_]*)*)\\.?)?(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|displayName\\.(language|text)|description\\.(language|text)|value|valueType)$"
+      "pattern": "^\\$sme\\.((([a-zA-Z][a-zA-Z0-9_]*)(\\[[0-9]+\\])?(\\.[a-zA-Z][a-zA-Z0-9_]*)*)\\.?)?(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|value|valueType)$"
     },
     "FieldIdentifierCD": {
       "type": "string",
-      "pattern": "^\\$cd\\.(idShort|displayName\\.(language|text)|description\\.(language|text)|id)$"
+      "pattern": "^\\$cd\\.(idShort|id)$"
     },
     "FieldIdentifierAasDescriptor": {
       "type": "string",
-      "pattern": "^\\$aasdesc\\.(idShort|displayName\\.(language|text)|description\\.(language|text)|id|assetKind|assetType|globalAssetId|specificAssetIds(\\[[0-9]+\\])?\\.(name|value|externalSubjectId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value)))|submodelDescriptor\\.(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|displayName\\.(language|text)|description\\.(language|text)|id))$"
+      "pattern": "^\\$aasdesc\\.(idShort|id|assetKind|assetType|globalAssetId|specificAssetIds(\\[[0-9]+\\])?\\.(name|value|externalSubjectId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value)))|submodelDescriptor\\.(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|id))$"
     },
     "FieldIdentifierSmDescriptor": {
       "type": "string",
-      "pattern": "^\\$smdesc\\.(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|displayName\\.(language|text)|description\\.(language|text)|id)$"
+      "pattern": "^\\$smdesc\\.(semanticId\\.(type|keys(\\[[0-9]+\\])?\\.(type|value))|idShort|id)$"
     },
     "Value": {
       "type": "object",
@@ -183,12 +183,6 @@
           "$ref": "#/definitions/stringItems"
         },
         "$starts-with": {
-          "$ref": "#/definitions/stringItems"
-        },
-        "$ends-with": {
-          "$ref": "#/definitions/stringItems"
-        },
-        "$regex": {
           "$ref": "#/definitions/stringItems"
         },
         "$boolean": {
