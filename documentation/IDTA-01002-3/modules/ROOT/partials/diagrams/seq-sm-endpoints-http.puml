@@ -26,12 +26,12 @@ Client <-- AASDiscovery : IDs of AAS
 Client -> Client : select AAS ID
 
 
-Client -> AASRegistry : GET /shell-descritpors/<aas-id>
+Client -> AASRegistry : GET /shell-descriptors/<aas-id>
 Client <-- AASRegistry : 200: {AAS Descriptor with Submodel Endpoints}
 Client -> Client : extract relevant Submodel Endpoints
 
 
-Client -> iSM : GET /submodel
+Client -> iSM : GET /aas/submodels/<submodel-id> or GET /submodel
 note left
 get first Submodel via Endpoint
 end note
@@ -42,10 +42,14 @@ note left
 get second Submodel via Endpoint
 end note
 note right
-for the client it is not visible which
-API-operation is called since the client 
-application just uses the endpoint
-provided by the registry
+for the client it is 
+not visible which
+API-operation is called
+since the client 
+application just uses 
+the endpoint
+provided by the 
+registry
 end note
 
 Client <-- SMRepo : 200: {Submodel}
