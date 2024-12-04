@@ -407,7 +407,7 @@ h| Operator h| Description h| Definition
 | $lt | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
 | $ge | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
 | $le | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
-| starts-with | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+| $starts-with | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
 | $contains | Compares two string expressions whether the second parameter appears as a substring inside of the first. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
 // TODO: decide if needed | $ends-with | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
 // TODO: decide if needed | $regex | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
@@ -472,11 +472,11 @@ h| Comparison h| Result h| Comment
 | "a" $lt "b" | true | String comparison
 | "1" $gt "2" | false | String comparison
 | "11" $gt "2" | false | String comparison
-| $aas#assetInformation.assetKind $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
-| $aas#assetInformation.assetKind $ne $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
+| $aas#assetInformation.assetKind $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expression on the reference attributes
+| $aas#assetInformation.assetKind $ne $aas.submodels | error | `$aas.submodels` is incomplete and requires further expression on the reference attributes
 | $aas#assetInformation.assetKind $eq $aas#assetInformation.assetKind | true | Comparison of identical values
 | $aas#assetInformation.assetKind $ne $aas#assetInformation.assetKind | false | Comparison of identical values
-| $aas.submodels $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expresion on the reference attributes
+| $aas.submodels $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expression on the reference attributes
 | $aas#assetInformation.assetKind $eq 17 | false | Type mismatch
 | $aas#assetInformation.assetKind $ne 17 | true | Type mismatch
 | $aas#assetInformation.assetKind $le $aas#assetInformation.assetKind | true | `$eq` implies `$le`
@@ -493,12 +493,12 @@ h| Comparison h| Result h| Comment
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Casting Operator h| Description h| Definition
-| str(<value>) | Casts the `value` to string. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
-| num(<value>) | Casts the `value` to string. |  Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
+| str(<value>) | Casts the `value` to xs:string. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| num(<value>) | Casts the `value` to xs:integer. |  Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
 // __TODO:__ This implies that only double comparisons are possible...
 | dateTime(<value>) | Casts the `value` to xs:dateTime. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
 | bool(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
-| hex(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| hex(<value>) | Casts the `value` to xs:hexBinary. | TODO: define properly
 | dateTime(<value>) | Casts the `value` to xs:dateTime. | // TODO: define properly
 | time(<value>) | Casts the `value` to xs:time. | // TODO: define properly
 |===
@@ -514,16 +514,16 @@ The AAS Metamodel defines several objects with lists as child elements, e.g., `S
 In case the position inside the list is known, the query can directly leverage the index number inside square brackets.
 
 ....
-fieldIdentifier[<index>]
+<fieldIdentifier>[<index>]
 ....
 
-For a the first element of a SubmodelElementList with the idShort "smlIdShort", this notation may lead to a following declaration:
+For the first element of a SubmodelElementList with the idShort "smlIdShort", this notation may lead to a following declaration:
 
 ....
 $sme.<somePath>.smlIdShort[0]
 ....
 
-For the first key of a SemanticId reference, this notation may lead to a following declaration:
+For the first key of a semanticId reference, this notation may lead to a following declaration:
 
 ....
 $sme.<somePath>#semanticId.keys[0]
@@ -535,7 +535,7 @@ $sme.<somePath>#semanticId.keys[0]
 In case the position in the list is not known, the index inside the square brackets can be skipped. This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
 
 ....
-fieldIdentifier[]
+<fieldIdentifier>[]
 ....
 
 To refer to any element inside a SubmodelElementList with the idShort "smlIdShort", this notation may lead to a following declaration:
@@ -544,7 +544,7 @@ To refer to any element inside a SubmodelElementList with the idShort "smlIdShor
 $sme.<somePath>.smlIdShort[]
 ....
 
-For any key of a SemanticId reference, this notation may lead to a following declaration:
+For any key of a semanticId reference, this notation may lead to a following declaration:
 
 ....
 $sme.<somePath>#semanticId.keys[]
@@ -555,11 +555,11 @@ $sme.<somePath>#semanticId.keys[]
 === Multiple Comparisons on single Elements of Lists 
 // TODO: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
 
-The `$elemMatch` operators signals that the following filter clauses (a) contain a list of elements, and that (b) all filters shall be evaluated on the same element of this list. 
+The `$elemMatch` operator signals that the following filter clauses (a) contain a list of elements, and that (b) all filters shall be evaluated on the same element of this list. 
 
 ====
 Note 1: It is not possible to use `$elemMatch` in cases of more than one list, e.g., if a SubmodelElementList contains other SubmodelElementLists. +
-Note 2: If the filter inside an `$elemMatch` claus contains expressions that are not pointing to the list under consideration, an error shall be returned.
+Note 2: If the filter inside an `$elemMatch` clause contains expressions that are not pointing to the list under consideration, an error shall be returned.
 ====
 
 The table illustrates the behavior using the example Asset Administration Shell above.
@@ -647,7 +647,7 @@ $sme#semanticId $eq "https://example.com/a/semantic/id"
 ....
 
 
-`specificAssetId` provides the option to directly evaluate zero or one condition of a potential `SpecificAssetIdSpecificAssetId/name` and/or a `SpecificAssetIdSpecificAssetId/value` attribute. The following usages are possible:
+`specificAssetId` provides the option to directly evaluate zero or one condition of a potential `SpecificAssetId/name` and/or a `SpecificAssetId/value` attribute. The following usages are possible:
 
 ....
 specificAssetId( <nameCondition> )
@@ -712,7 +712,7 @@ To manage the pagination of the retrieved data, incorporate the limit operator w
 
 [source,javascript]
 ----
-$limit( start, count )
+$limit( <start>, <count> )
 ----
 
 [.table-with-appendix-table]
@@ -742,7 +742,7 @@ To organize the retrieved data in a specific order, incorporate the sort operato
 
 [source,javascript]
 ----
-$sort id direction
+$sort id <direction>
 ----
 
 The optional sort operator organizes data based on the identifier "id". The sender of the query can designate the sorting direction - ascending or descending. If no sort statement is supplied, the receiver of the query may decide on the sorting. Nevertheless, the sorting configuration shall not change. A client may however expect that a previous result sequence may not identical anymore, e.g. due to new items being created (or deleted) at the receiver side in the meantime.
