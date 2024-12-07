@@ -1,21 +1,27 @@
-
 ....
-<grammar> ::= <query> | <AllRules>
+<grammar> ::= <query> | <allAccessPermissionRules>
 
-<query> ::= <selectStatement>? <logicalExpression> <options>?
+<query> ::= <selectStatement> <logicalExpression> <options>
 
-<selectStatement> ::= "$select" "id" "$where" 
+<selectStatement> ::= "$select" <ws> "id" <ws> | <ws> 
+
+<options> ::= ( <sortExpression> | <ws> ) <ws> ( <limitExpression> | <skipExpression> | <limitExpression> <ws> "," <ws> <skipExpression> | <ws> )
+
+<sortExpression> ::= "$sort" <ws> "( id" <ws> ("asc" | "dsc") ")" | <ws>
+
+<limitExpression> ::= "$limit" <ws> "(" <ws> <NumericalLiteral> "," <ws> <NumericalLiteral> ")" | <ws>
+
+<skipExpression> ::= "$skip" <ws> "(" <ws> <NumericalLiteral> "," <ws> <NumericalLiteral> ")" | <ws>
 
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
-                        <logicalNotExpression> | <elemMatchExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
+                        <logicalNotExpression> | <matchExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
 
-<logicalNestedExpression> ::= "(" <logicalExpression> ")"
+<logicalNestedExpression> ::= "(" <ws> <logicalExpression> ")" <ws>
+<logicalOrExpression> ::= "$or" <ws> "(" <ws> <logicalExpression> ( "," <ws> <logicalExpression> )+ ")" <ws>
+<logicalAndExpression> ::= "$and" <ws> "(" <ws> <logicalExpression> ( "," <ws> <logicalExpression> )+ ")" <ws>
+<logicalNotExpression> ::= "$not" <ws> "(" <ws> <logicalExpression> ")" <ws>
 
-<logicalOrExpression> ::= "$or(" <logicalExpression> ("," <logicalExpression>)+ ")"
-<logicalAndExpression> ::=   "$and(" <logicalExpression> ("," <logicalExpression>)+ ")"
-<logicalNotExpression> ::= "$not(" <logicalExpression> ")"
-
-<elemMatchExpression> ::= "$elemMatch(" (<logicalAndExpression> | <logicalOrExpression> | <logicalNotExpression>) ")"
+<matchExpression> ::= ( "$match" <ws> "(" <ws> ( <singleComparison> | <matchExpression> ) ( "," <ws> ( <singleComparison> | <matchExpression> ) )* ")" <ws> )
 
 <singleComparison> ::= 
     <stringComparison> |
@@ -23,36 +29,35 @@
     <hexComparison> |
     <boolComparison> |
     <dateTimeComparison> |
-    <timeComparison> |
-    <specificAssetIdComparison>
+    <timeComparison>
 
 <allComparisons> ::= ( "$eq" | "$ne" | "$gt" | "$lt" | "$ge" | "$le" )
 
-<stringComparison> ::= 
-    ( ( "$starts-with" | "$contains" ) "(" <stringOperand> ","  <stringOperand> ")" ) |
-    ( <stringOperand>  <allComparisons>  <stringOperand> ) |
-    ( <stringOperand>  <allComparisons>  <FieldIdentifierString> ) |
-    ( <FieldIdentifierString>  <allComparisons>  <stringOperand> )
+<stringComparison> ::=
+    ( ( "$starts-with" | "ends-with" | "$contains" | "$regex") <ws> "(" <ws> <stringOperand> <ws> "," <ws> <stringOperand> <ws> ")" <ws> ) |
+    ( <stringOperand> <ws> <allComparisons> <ws> <stringOperand> <ws> ) |
+    ( <stringOperand> <ws> <allComparisons> <ws> <FieldIdentifierString> <ws> ) |
+    ( <FieldIdentifierString> <ws> <allComparisons> <ws> <stringOperand> <ws> )
     
 <numericalComparison> ::= 
-    ( <numericalOperand>  <allComparisons>  <numericalOperand> ) |
-    ( <numericalOperand>  <allComparisons>  <FieldIdentifierString> ) |
-    ( <FieldIdentifierString>  <allComparisons>  <numericalOperand> )
+    ( <numericalOperand> <ws> <allComparisons> <ws> <numericalOperand> <ws> ) |
+    ( <numericalOperand> <ws> <allComparisons> <ws> <FieldIdentifierString> <ws> ) |
+    ( <FieldIdentifierString> <ws> <allComparisons> <ws> <numericalOperand> <ws> )
 
 <hexComparison> ::= 
-    <hexOperand>  <allComparisons>  <hexOperand>
+    <hexOperand> <ws> <allComparisons> <ws> <hexOperand> <ws>
 
 <boolComparison> ::= 
-    <boolOperand>  ( "$eq" | "$ne" )  <boolOperand>
+    <boolOperand> <ws> ( "$eq" | "$ne" ) <ws> <boolOperand> <ws>
 
 <dateTimeComparison> ::= 
-    <dateTimeOperand>  <allComparisons>  <dateTimeOperand>
+    <dateTimeOperand> <ws> <allComparisons> <ws> <dateTimeOperand> <ws>
 
-<dateTimeToNum> ::=
-	( "dayOfWeek(" | "dayOfMonth(" | "month(" | "year(" ) <dateTimeOperand> ")"
-
+<dateTimeToNum> ::= 
+    ( "$dayOfWeek" | "$dayOfMonth" | "$month" | "$year" ) <ws> "(" <ws> <dateTimeOperand> <ws> ")" <ws>
+ 
 <timeComparison> ::= 
-    <timeOperand>  <allComparisons>  <timeOperand>
+    <timeOperand> <ws> <allComparisons> <ws> <timeOperand> <ws>
 
 <specificAssetIdComparison> ::=
     ( "$aas" | "$aasdesc" ) "#specificAssetId(" ( <specificAssetIdNameClause> | <specificAssetIdValueClause>  | <specificAssetIdNameClause> "," <specificAssetIdValueClause> ) ")"
@@ -81,55 +86,49 @@
     <TimeLiteral> | <castToTime>
 
 <castToString> ::= 
-    "str(" <operand> ")"
-
+    "str" <ws> "(" <ws> <operand> <ws> ")" <ws>
+ 
 <castToNumerical> ::= 
-    "num(" <operand> ")"
-
+    "num" <ws> "(" <ws> <operand> <ws> ")" <ws>
+ 
 <castToHex> ::= 
-    "hex(" <operand> ")"
-
+    "hex" <ws> "(" <ws> <operand> <ws> ")" <ws>
+ 
 <castToBool> ::= 
-    "bool(" <operand> ")"
-
+    "bool" <ws> "(" <ws> <operand> <ws> ")" <ws>
+ 
 <castToDateTime> ::= 
-    "dateTime(" ( <stringOperand> ) ")"
-
+    "dateTime" <ws> "(" <ws> <stringOperand> <ws> ")" <ws>
+ 
 <castToTime> ::= 
-    "time(" ( <stringOperand> | <dateTimeOperand> ) ")"
+    "time" <ws> "(" <ws> ( <stringOperand> | <dateTimeOperand> ) <ws> ")" <ws>
 
-<options> ::= <sortExpression>? <limitExpression>?
+<allAccessPermissionRules> ::= 
+    ( "DEFATTRIBUTES" <ws> <StringLiteral> <ws> <AttributeGroup> <ws> )* 
+    ( "DEFACLS" <ws> <StringLiteral> <ws> <ACL> <ws> )* 
+    ( "DEFOBJECTS" <ws> <StringLiteral> <ws> <ObjectGroup> <ws> )* 
+    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <Formula> <ws> )* 
+    ( <AccessPermissionRule> <ws> )*
+ 
+<AccessPermissionRule> ::= 
+    "ACCESSRULE:" <ws>
+    ( <ACL> | <UseACL> ) <ws> 
+    "OBJECTS:" <ws> 
+    ( <SingleObject> <ws> )* 
+    ( <UseObjectGroup> <ws> )* 
+    "FORMULA:" <ws> 
+    ( <Formula> | <UseFormula> ) <ws>
+    ( "FILTER:" <ws> <FragmentObject> <ws> ( <Formula> | <UseFormula> ) <ws> | <ws> )
 
-<sortExpression> ::= "$sort" "( id" (" asc" | " dsc") ")"
-
-<limitExpression> ::= "$limit (" <NumericalLiteral> "," <NumericalLiteral> ")"
-
-<AllRules> ::=
-( "DEFATTRIBUTES"  <StringLiteral>  <AttributeGroup>  )*
-( "DEFACL"  <StringLiteral>  <ACL>  )*
-( "DEFOBJECTS"  <StringLiteral>  <ObjectGroup>  )*
-( "DEFFORMULA"  <StringLiteral>  <Formula>  )*
-( <AccessRule>  )*
-
-<AccessRule> ::=
-( <ACL> | <UseACL> )  
-"OBJECTS:" 
-( <SingleObject>  )*
-( ( <ObjectGroup> | <UseObjectGroup> )  )*
-"FORMULA:" 
-( <Formula> | <UseFormula> )
-
-<ACL> ::=
-"ATTRIBUTES:" 
-( <SingleAttribute>  )*
-( ( <AttributeGroup> | <UseAttributeGroup> )  )*
-"RIGHTS:" 
-<Right> ( <Right>)* 
-"ACCESS:" 
-<Access>
-
-<UseACL> ::=
-"USEACL"  <StringLiteral>
+<ACL> ::= 
+    "ATTRIBUTES:" <ws> 
+    ( <SingleAttribute> <ws> )* 
+    ( <UseAttributeGroup> <ws> )* 
+    "RIGHTS:" <ws> <Right> <ws> ( <Right> <ws> )* 
+    "ACCESS:" <ws> <Access> <ws>
+ 
+<UseACL> ::= 
+    "USEACLS" <ws> <StringLiteral> <ws>
 
 <Right> ::=
 "CREATE" | "READ" | "UPDATE" | "DELETE" | "EXECUTE" | "VIEW" | "ALL" | "TREE"
@@ -137,94 +136,95 @@
 <Access> ::=
 "ALLOW" | "DISABLED"
 
-<SingleAttribute> ::=
-<ClaimAttribute>
-| <GlobalAttribute>
-| <ReferenceAttribute>
+<SingleAttribute> ::= <ClaimAttribute> | <GlobalAttribute> | <ReferenceAttribute>
 
-<ClaimAttribute> ::=
-"CLAIM(" <StringLiteral> ")"
+<ClaimAttribute> ::= 
+    "CLAIM" <ws> "(" <ws> <ClaimLiteral> <ws> ")"
+ 
+<GlobalAttribute> ::= 
+    "GLOBAL" <ws> "(" <ws> ( "LOCALNOW" | "UTCNOW" | "CLIENTNOW" | "ANONYMOUS" ) <ws> ")"
+ 
+<ReferenceAttribute> ::= 
+    "REFERENCE" <ws> "(" <ws> <ReferenceLiteral> <ws> ")"
 
-<GlobalAttribute> ::=
-"GLOBAL(" ( "LOCALNOW" | "UTCNOW" | "CLIENTNOW" | "ANONYMOUS" ) ")"
+<AttributeGroup> ::= 
+    ( <SingleAttribute> <ws> )* 
+    ( ( <AttributeGroup> | <UseAttributeGroup> ) <ws> )*
 
-<ReferenceAttribute> ::=
-"REFERENCE(" <StringLiteral> ")"
+<UseAttributeGroup> ::= 
+    "USEATTRIBUTES" <ws> <StringLiteral> <ws>
+  
+<SingleObject> ::= 
+    <RouteObject> | <IdentifiableObject> | <ReferableObject> | <FragmentObject> | <DescriptorObject>
+ 
+<RouteObject> ::= 
+    "ROUTE" <ws> <RouteLiteral> <ws>
+ 
+<IdentifiableObject> ::= 
+    "IDENTIFIABLE" <ws> <IdentifiableLiteral> <ws>
+ 
+<ReferableObject> ::= 
+    "REFERABLE" <ws> <ReferableLiteral> <ws>
+ 
+<FragmentObject> ::= 
+    "FRAGMENT" <ws> <FragmentLiteral> <ws>
+ 
+<DescriptorObject> ::= 
+    "DESCRIPTOR" <ws> <DescriptorLiteral> <ws>
+ 
+<ObjectGroup> ::= 
+    ( <SingleObject> <ws> )* 
+    | ( <UseObjectGroup> <ws> )*
+ 
+<UseObjectGroup> ::= 
+    "USEOBJECTS" <ws> <StringLiteral> <ws>
+ 
+<UseFormula> ::= 
+    "USEFORMULAS" <ws> <StringLiteral> <ws>
+ 
+<Formula> ::= <logicalExpression> <ws>
 
-<AttributeGroup> ::=
-( <SingleAttribute>  )*
-( ( <AttributeGroup> | <UseAttributeGroup> )  )*
+<DateTimeLiteral> ::= <datetime> <ws>
+<TimeLiteral> ::= <time> <ws>
+<datetime> ::= <date> <ws> ( "T" | " " ) <ws> <time> <ws> ( <timezone> <ws> | <ws> )
+<date> ::= <year> <ws> "-" <ws> <month> <ws> "-" <ws> <day> <ws>
+<year> ::= <digit> <ws> <digit> <ws> <digit> <ws> <digit> <ws>
+<month> ::= <digit> <ws> <digit> <ws>
+<day> ::= <digit> <ws> <digit> <ws>
+<time> ::= <hour> <ws> ":" <ws> <minute> <ws> ( ":" <ws> <second> <ws> | <ws> ) ( "." <ws> <fraction> <ws> | <ws> )
+<timezone> ::= ( "Z" | ( "+" | "-" ) <ws> <hour> <ws> ":" <ws> <minute> <ws> )
+<hour> ::= <digit> <ws> <digit> <ws>
+<minute> ::= <digit> <ws> <digit> <ws>
+<second> ::= <digit> <ws> <digit> <ws>
+<fraction> ::= <digit>+ <ws>
 
-<UseAttributeGroup> ::=
-"USEATTRIBUTES"  <StringLiteral>
-
-<SingleObject> ::=
-<RouteObject>
-| <IdentifiableObject>
-| <ReferableObject>
-| <FragmentObject>
-| <DescriptorObject>
-
-<RouteObject> ::=
-"ROUTE"  <StringLiteral>
-
-<IdentifiableObject> ::=
-"IDENTIFIABLE"  <StringLiteral>
-
-<ReferableObject> ::=
-"REFERABLE"  <StringLiteral>
-
-<FragmentObject> ::=
-"FRAGMENT"  <StringLiteral>
-
-<DescriptorObject> ::=
-"DESCRIPTOR"  <StringLiteral>
-
-<ObjectGroup> ::=
-( <SingleObject>  )*
-| ( <UseObjectGroup>  )*
-
-<UseObjectGroup> ::=
-"USEOBJECTS"  <StringLiteral>
-
-<UseFormula> ::=
-"USEFORMULA"  <StringLiteral>
-
-<Formula> ::= <logicalExpression>
-
-
-<DateTimeLiteral> ::= <datetime>
-<TimeLiteral> ::= <time>
-<datetime> ::= <date> ( "T" | " " ) <time> ( <timezone> )?
-<date> ::= <year> "-" <month> "-" <day>
-<year> ::= <digit> <digit> <digit> <digit>
-<month> ::= <digit> <digit>
-<day> ::= <digit> <digit>
-<time> ::= <hour> ":" <minute> ( ":" <second> )? ( "." <fraction> )?
-<timezone> ::= ("Z" | ("+" | "-") <hour> ":" <minute>)
-<hour> ::= <digit> <digit>
-<minute> ::= <digit> <digit>
-<second> ::= <digit> <digit>
-<fraction> ::= <digit>+
-
-<digit> ::= [0-9]
-<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "@" | "#" | "\\" | "+" | "-" | "." | ":" | "$" | "^" | "*" )+ "\""
-<NumericalLiteral> ::= ("+" | "-")? ( [0-9]+ (("." [0-9]* )?) | ("." [0-9]+) ) ( ("e" | "E")? [0-9]+)?
-<HexLiteral> ::= "16#" ([0-9] | [A-F])+
+<digit> ::= [0-9] <ws>
+<StringLiteral> ::= "\"" <ws> ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "@" | "#" | "\\" | "+" | "-" | "." | "," | ":" | "$" | "^" | "*" )+ "\""
+<ClaimLiteral> ::= <StringLiteral>
+<ReferenceLiteral> ::= <StringLiteral>
+<RouteLiteral> ::= <StringLiteral>
+<IdentifiableLiteral> ::= <StringLiteral>
+<ReferableLiteral> ::= <StringLiteral>
+<FragmentLiteral> ::= <StringLiteral>
+<DescriptorLiteral> ::= <StringLiteral>
+<NumericalLiteral> ::= ( "+" | "-" | <ws> ) ( [0-9]+ ( "." [0-9]* | <ws> ) | "." [0-9]+ ) ( ( "e" | "E" | <ws> ) [0-9]+ )
+<HexLiteral> ::= "16#" ( [0-9] | [A-F] )+
 <BoolLiteral> ::= "true" | "false"
 <FieldIdentifier> ::= <FieldIdentifierString>
 <FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
-<FieldIdentifierAAS> ::= "$aas" "#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels." <ReferenceClause> )
-<FieldIdentifierSM> ::= "$sm" "#" ( <SemanticIdClause> | "idShort" | "id" )
-<FieldIdentifierSME> ::= "$sme" ("." <idShortPath> )? "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" )
-<FieldIdentifierCD> ::= "$cd" "#" ( "idShort" | "id" )
-<FieldIdentifierAasDescriptor> ::= "$aasdesc" "#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause> | "submodelDescriptors." <SmDescriptorClause> )
-<FieldIdentifierSmDescriptor> ::= "$smdesc" "#" <SmDescriptorClause>
+<FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels." <ReferenceClause> )
+<FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | "idShort" | "id" )
+<FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> | <ws> ) "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
+<FieldIdentifierCD> ::= "$cd#" ( "idShort" | "id" ) <ws>
+<FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" | <ws> ) "." <SmDescriptorClause> ) <ws>
+<FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
 <SmDescriptorClause> ::= <SemanticIdClause> | "idShort" | "id"
-
-<ReferenceClause> ::= "type" | "keys" ( "[" [0-9]+ "]" )? ( ".type" | ".value" )
+ 
+<ReferenceClause> ::= "type" | "keys[" [0-9]* "]" ( ".type" | ".value" )
 <SemanticIdClause> ::= "semanticId" | "semanticId." <ReferenceClause>
-<SpecificAssetIdsClause> ::=  "specificAssetIds" ( "[" [0-9]+ "]" )? ( ".name" | ".value" | ".externalSubjectId." <ReferenceClause> )
-<idShortPath> ::= <idShort> ( "[" [0-9]+ "]" )? ( "." <idShortPath> )*
-<idShort> ::= ( [a-z] | [A-Z] ) ( [a-z] | [A-Z] | [0-9] | "_" )*
+<SpecificAssetIdsClause> ::=  "specificAssetIds[" [0-9]* "]" ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> )
+<idShortPath> ::= <idShort> ("[" [0-9]* "]" | <ws>  ) ( "." ( <idShortPath> | "*" ) )*
+<idShort> ::= ( ( [a-z] | [A-Z] ) ( [a-z] | [A-Z] | [0-9] | "_" )* )
+ 
+<ws> ::= ( " " | "\t" | "\r" | "\n" )*
 ....
