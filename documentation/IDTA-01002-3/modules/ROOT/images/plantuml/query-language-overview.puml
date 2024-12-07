@@ -1,109 +1,110 @@
 @startuml
+!pragma useIntermediatePackages false
+skinparam classAttributeIconSize 0
+
+hide methods 
+
 class Query {
+    +select: SelectField[0..1]
+    +filter: Formula[1..*]
+    +option: Option[0..1]
 }
  
-Query --> "0..1" SelectField : select
-Query --> "1..*" LogicalExpression : filter
-Query --> "0..1" OptionStatement : option
+Query ..> SelectField
+Query ..> Formula
+Query ..> OptionStatement
+
+' to better arrange the SelectField
+SelectField -r[hidden]- Placeholder1
+Placeholder1 -r[hidden]- Formula
+hide Placeholder1
+
+' to better arrange the OptionStatement
+OptionStatement -l[hidden]- Placeholder2
+Placeholder2 -l[hidden]- Formula
+hide Placeholder2
  
 enum SelectField {
      id
 }
 
 class OptionStatement {
-    sort : id asc/dsc
-    limit : Number
-    offset : Number
-}
- 
-class LogicalExpression {}
-
-LogicalExpression -->  LogicalExpression : $and / $or / $not
-LogicalExpression -->  Comparison : $eq / $ne / $gt / $ge / $lt / $lt / $le / $starts-with / $contains
-
-class Comparison {
-
+    sort: id asc/dsc
+    limit: non-negative number
+    offset: non-negative number
 }
 
-Comparison --> LeftOperand
-Comparison --> RightOperand
 
-class LeftOperand {}
+  class Formula {
+  }
 
-class RightOperand {}
+  enum logicalOperation <<enumeration>> {
+    $and
+    $or
+    $not
+    nested
+  }
 
-LeftOperand --|> Operand 
-RightOperand --|> Operand
+  class logicalExpression {
+    +operation: logicalOperation[1]
+    +operands: Formula[1..*]
+  }
 
-class Operand {
+  class match {
+    +operands: Formula[1..*]
+  }
 
-}
+  enum comparisonOperation <<enumeration>> {
+    $eq
+    $ne
+    $gt
+    $ge
+    $lt
+    $le
+  }
+  enum dataType <<enumeration>> {
+    String
+    Numerical
+    DateTime
+    Time
+  }
+  class comparison {
+    +type: dataType[1]
+    +operation: comparisonOperation[1]
+    +operands: comparisonOperand[2]
+  }
 
-Operand --> AssetAdministrationShellFields
-Operand --> SubmodelFields
-Operand --> AssetAdministrationShellDescriptorFields
-Operand --> SubmodelDescriptorFields
-Operand --> ConceptDescriptionFields
-Operand --> StringValue
-Operand --> NumericValue
-Operand --> DateTimeValue
-Operand --> BooleanValue
-Operand --> BinaryValue
+  enum stringOperation <<enumeration>> {
+    $contains
+    $starts-with
+    $ends-with
+    $regex
+  }
+  class stringExpression {
+    +operation: stringOperation[1]
+    +operands: stringOperand[2]
+  }
 
-enum AssetAdministrationShellFields {
-  $aas#id
-  $aas#idShort
-  $aas#assetInformation.assetKind
-  $aas#assetInformation.assetType
-  $aas#assetInformation.globalAssetId
-  $aas#assetInformation.specificAssetId
-  $aas#assetInformation.specificAssetIds.name
-  $aas#assetInformation.specificAssetIds.value
-  $aas#assetInformation.specificAssetIds.externalSubjectId.type
-  $aas#assetInformation.specificAssetIds.externalSubjectId.keys.value
-  $aas#assetInformation.specificAssetIds.externalSubjectId.keys.type
-}
-enum SubmodelFields {
-    $sm#id
-    $sm#idShort
-    $sm#semanticId
-    $sm#semanticId.type
-    $sm#semanticId.keys.value
-    $sm#semanticId.keys.type
-}
-enum ConceptDescriptionFields {
-    $cd#id
-    $cd#idShort
-}
-enum AssetAdministrationShellDescriptorFields {
-    $aasdesc#id
-    $aasdesc#idShort
-    $aasdesc#assetInformation.assetKind
-    $aasdesc#assetInformation.assetType
-    $aasdesc#assetInformation.globalAssetId
-    $aasdesc#assetInformation.specificAssetId
-    $aasdesc#assetInformation.specificAssetIds.name
-    $aasdesc#assetInformation.specificAssetIds.value
-    $aasdesc#assetInformation.specificAssetIds.externalSubjectId.type
-    $aasdesc#assetInformation.specificAssetIds.externalSubjectId.keys.value
-    $aasdesc#assetInformation.specificAssetIds.externalSubjectId.keys.type
-    $aasdesc#assetInformation.globalAssetId
-    $aasdesc#submodelDescriptors.id
-    $aasdesc#submodelDescriptors.idShort
-    $aasdesc#submodelDescriptors.semanticId
-    $aasdesc#submodelDescriptors.semanticId.type
-    $aasdesc#submodelDescriptors.semanticId.keys.value
-    $aasdesc#submodelDescriptors.semanticId.keys.type
-}
+  enum BoolLiteral <<enumeration>> {
+    true
+    false
+  }
+  class castToBool {}
 
-enum SubmodelDescriptorFields {
-    $smdesc#id
-    $smdesc#idShort
-    $smdesc#semanticId
-    $smdesc#semanticId.type
-    $smdesc#semanticId.keys.value
-    $smdesc#semanticId.keys.type
-}
+  Formula <.d.> logicalExpression
+  logicalExpression ..> logicalOperation
+  stringExpression ..> stringOperation
+  Formula ..> comparison
+  Formula <..> match
+  comparison ..> dataType
+  comparison ..> comparisonOperation
+  Formula ..> stringExpression
+  Formula .d.> castToBool
+  Formula .d.> BoolLiteral
+
+'for better arrangements of the classes below Formula
+' match .l[hidden]. comparison
+
 
 
 @enduml
