@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Repository Service Specification
+  description: >-
+    The Query Profile of the Asset Administration Shell Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+
+    Publisher: Industrial Digital Twin Association (IDTA) April 2024
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.1.0_SSP-003
+  x-profile-identifier: https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-003
+servers:
+- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
+  variables:
+    protocol:
+      description: 'Allows access through http and https (recommended)'
+      enum:
+        - 'http'
+        - 'https'
+      default: 'https'
+    host_name:
+      default: admin-shell.io
+      description: 'Hostname of server hosting the api'
+    port:
+      enum:
+        - '80'
+        - '443'
+      default: '443'
+      description: '80 is default for http, 443 for https'
+    version_prefix:
+      enum:
+        - 'v3.1'
+      default: v3.1
+
+paths:
+  /query:
+    post:
+      tags: 
+       - Asset Administration Shell Repository API
+      summary: Returns all Asset Administration Shells that confirm to the input query
+      operationId: QueryAssetAdministrationShells
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1
+        - https://admin-shell.io/aas/API/QueryAssetAdministrationShellIds/3/1
+      responses:
+        '200':
+          description: Requested Asset Administration Shells
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/schemas/PagedResult'
+                - type: object
+                  properties:
+                    result:
+                      type: array
+                      items:
+                        oneOf:
+                        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.3#/components/schemas/AssetAdministrationShell"
+                        - type: string
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/default'
+          
+
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/schemas/ServiceDescription'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/forbidden'

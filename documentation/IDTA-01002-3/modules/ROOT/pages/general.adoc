@@ -114,11 +114,11 @@ The following rules shall apply for the operation names in Asset Administration 
 
 <Method Verb> ::= "Get" | "GetAll" | "Query" | "Put" | "PutBulk" | "Post" | "PostBulk" | "Patch" | "Delete" | "DeleteBulk" | "SetInvoke" | "InvokeAsync" | "SearchAll"
 
-<Model Element Name> ::= "AssetAdministrationShell"["s"] | "AssetAdministrationShellDescriptor"["s"] | "SubmodelReference"["s"] | "AssetInformation" | "Submodel"["s"] | "SubmodelDescriptor"["s"] | "SubmodelElement"["s"] | "ConceptDescription"["s"]
+<Model Element Name> ::= "AssetAdministrationShell"["Ids"|"s"] | "AssetAdministrationShellDescriptor"["Ids"|"s"] | "SubmodelReference"["s"] | "AssetInformation" | "Submodel"["Ids"|"s"] | "SubmodelDescriptor"["Ids"|"s"] | "SubmodelElement"["s"] | "ConceptDescription"["Ids"|"s"]
 
 <Modifier> ::= "Value" | "IdShortPath" | "Reference"
 
-<By-Qualifier ::= |"Id" | "SemanticId" | "ParentPathAndSemanticId" | "Path" | "AssetId" | "IdShort" | "IsCaseOf" | "DataSpecificationReference"
+<By-Qualifier> ::= | "Id" | "SemanticId" | "ParentPathAndSemanticId" | "Path" | "AssetId" | "IdShort" | "IsCaseOf" | "DataSpecificationReference"
 ....
 
 
@@ -298,7 +298,7 @@ Note: The AAS Query Language and the AAS Access Control Language (see TODO: add 
 
 // TODO: Add correct overview picture
 .Main elements of the AAS Query Language
-image::../images/plantuml/query-language-overview.png[image24,width=642]
+image::../images/plantuml/query-language-overview.png[]
 
 
 === Limitations
@@ -368,7 +368,7 @@ include::./grammar.adoc
 
 === Select Expression
 
-The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers (`$select id`).
+The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers instead of a list of objects (`$select id`).
 
 
 === Logical Expressions
@@ -379,9 +379,9 @@ Logical expressions allow the combination of two or more single comparisons thro
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Logical Operator h| Description h| Definition
-| $and | Connects two or more expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
-| $or | Connects two or more expressions through a logical OR. |  Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
-| $not | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. Defined by https://www.w3.org/TR/xpath-functions-30/#func-not
+| `$and` | Connects two or more expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
+| `$or` | Connects two or more expressions through a logical OR. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
+| `$not` | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. Defined by https://www.w3.org/TR/xpath-functions-30/#func-not
 |===
 
 
@@ -401,17 +401,17 @@ Comparisons are overloaded in the BNF grammar, which means that the same compari
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Operator h| Description h| Definition
-| $eq | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| $ne | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
-| $gt | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| $lt | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
-| $ge | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
-| $le | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
-| $starts-with | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
-| $contains | Compares two string expressions whether the second parameter appears as a substring inside of the first. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
-// TODO: decide if needed | $ends-with | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
-// TODO: decide if needed | $regex | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
-// TODO: do we need an 'exists'? | exists | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
+| `$eq` | Compares two values if they are identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| `$ne` | Compares two values if they are not identical. | Operator 'A eq B' in https://www.w3.org/TR/xpath-30/#mapping 
+| `$gt` | Checks whether one parameter is greater than another. | Operator 'A gt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| `$lt` | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
+| `$ge` | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
+| `$le` | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
+| `$starts-with` | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+| `$contains` | Compares two string expressions whether the second parameter appears as a substring inside of the first. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+// TODO: decide if needed | `$ends-with` | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
+// TODO: decide if needed | `$regex` | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+// TODO: decide if needed | `$exists` | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
 |===
 
 ==== Example
@@ -463,26 +463,44 @@ The following example is used to illustrate the comparisons. The following Asset
 [width=100%, cols="45%,10%,45%"]
 |===
 h| Comparison h| Result h| Comment
-| $aas.#idShort $eq $aas.#assetInformation.assetType | true | Both items are empty, therefore, they are equal.
-| $aas.#idShort $le $aas.#assetInformation.assetType | true | `$eq` implies `$le`
-| $aas.#idShort $ne $aas.#assetInformation.assetType | false | Both items are empty, therefore, they are equal.
-| 1 $le 2  | true | Numeric comparison
-| 1 $gt 2  | false | Numeric comparison
-| 13 $eq '13' | false | Type mismatch
-| "a" $lt "b" | true | String comparison
-| "1" $gt "2" | false | String comparison
-| "11" $gt "2" | false | String comparison
-| $aas#assetInformation.assetKind $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expression on the reference attributes
-| $aas#assetInformation.assetKind $ne $aas.submodels | error | `$aas.submodels` is incomplete and requires further expression on the reference attributes
-| $aas#assetInformation.assetKind $eq $aas#assetInformation.assetKind | true | Comparison of identical values
-| $aas#assetInformation.assetKind $ne $aas#assetInformation.assetKind | false | Comparison of identical values
-| $aas.submodels $eq $aas.submodels | error | `$aas.submodels` is incomplete and requires further expression on the reference attributes
-| $aas#assetInformation.assetKind $eq 17 | false | Type mismatch
-| $aas#assetInformation.assetKind $ne 17 | true | Type mismatch
-| $aas#assetInformation.assetKind $le $aas#assetInformation.assetKind | true | `$eq` implies `$le`
-| bool("true") $ge bool("true") | true | `$eq` implies `$ge`
-| bool("true") $gt bool("true") | false | Booleans do not offer `$lt`/`$gt` comparison
-| $aas#id $contains "https://example.com/asset-administration-shell" | true | "https://example.com/asset-administration-shell" is a substring of the `id` value ("https://example.com/asset-administration-shell-1")
+| `$aas#idShort` +
+ `$eq` +
+ `$aas#assetInformation.assetType` | true | Both items are empty, therefore, they are equal.
+| `$aas#idShort` +
+`$le` +
+`$aas#assetInformation.assetType` | true | `$eq` implies `$le`
+| `$aas#idShort` +
+`$ne` +
+`$aas#assetInformation.assetType` | false | Both items are empty, therefore, they are equal.
+| `1` `$le` `2` | true | Numeric comparison
+| `1` `$gt` `2` | false | Numeric comparison
+| `13` `$eq` `'13'` | false | Type mismatch
+| `"a"` `$lt` `"b"` | true | String comparison
+| `"1"` `$gt` `"2"` | false | String comparison
+| `"11"` `$gt` `"2"` | false | String comparison is executed character-wise: The first character of the left parameter ("1") comes before the first character of the right parameter ("2").
+| `$aas#assetInformation.assetKind` +
+`$eq`  +
+`$aas#submodels` | error | `$aas#submodels` is an incomplete declaration and requires further expression on the following attributes, e.g., `keys[].value`.
+| `$aas#assetInformation.assetKind`  +
+`$ne`  +
+`$aas#submodels` | error | `$aas#submodels` is an incomplete declaration and requires further expression on the following attributes, e.g., `keys[].value`.
+| `$aas#assetInformation.assetKind`  +
+`$eq`  +
+`$aas#assetInformation.assetKind` | true | Comparison of identical values
+| `$aas#assetInformation.assetKind`  +
+`$ne`  +
+`$aas#assetInformation.assetKind` | false | Comparison of identical values
+| `$aas#submodels` `$eq` `$aas#submodels` | error | `$aas#submodels` is an incomplete declaration and requires further expression on the following attributes, e.g., `keys[].value`.
+| `$aas#assetInformation.assetKind` `$eq` `17` | false | Type mismatch
+| `$aas#assetInformation.assetKind` `$ne` `17` | true | Type mismatch
+| `$aas#assetInformation.assetKind`  +
+`$le`  +
+`$aas#assetInformation.assetKind` | true | `$eq` implies `$le`
+| `bool("true")` `$ge` `bool("true")` | true | `$eq` implies `$ge`
+| `bool("true")` `$gt` `bool("true")` | false | Booleans do not offer `$lt`/`$gt` comparison
+| `$aas#id`  +
+`$contains`  +
+`"https://example.com/asset-administration"` | true | "https://example.com/asset-administration" is a substring of the `id` value ("https://example.com/asset-administration-shell-1")
 |===
 
 
@@ -493,14 +511,14 @@ h| Comparison h| Result h| Comment
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Casting Operator h| Description h| Definition
-| str(<value>) | Casts the `value` to xs:string. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
-| num(<value>) | Casts the `value` to xs:integer. |  Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
+| `str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| `num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
 // __TODO:__ This implies that only double comparisons are possible...
-| dateTime(<value>) | Casts the `value` to xs:dateTime. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
-| bool(<value>) | Casts the `value` to xs:boolean. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
-| hex(<value>) | Casts the `value` to xs:hexBinary. | TODO: define properly
-| dateTime(<value>) | Casts the `value` to xs:dateTime. | // TODO: define properly
-| time(<value>) | Casts the `value` to xs:time. | // TODO: define properly
+| `dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
+| `bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| `hex(<value>)` | Casts the `value` to `xs:hexBinary`. | // TODO: define properly
+| `dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | // TODO: define properly
+| `time(<value>)` | Casts the `value` to `xs:time`. | // TODO: define properly
 |===
 
 
@@ -520,13 +538,13 @@ In case the position inside the list is known, the query can directly leverage t
 For the first element of a SubmodelElementList with the idShort "smlIdShort", this notation may lead to a following declaration:
 
 ....
-$sme.<somePath>.smlIdShort[0]
+$sme.<someIdShortPath>.smlIdShort[0]
 ....
 
 For the first key of a semanticId reference, this notation may lead to a following declaration:
 
 ....
-$sme.<somePath>#semanticId.keys[0]
+$sme.<someIdShortPath>#semanticId.keys[0]
 ....
 
 
@@ -555,26 +573,23 @@ $sme.<somePath>#semanticId.keys[]
 === Multiple Comparisons on single Elements of Lists 
 // TODO: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
 
-The `$elemMatch` operator signals that the following filter clauses (a) contain a list of elements, and that (b) all filters shall be evaluated on the same element of this list. 
+The `$match` operator signals that the following filter clauses (a) contain a list of elements, and that (b) all filters shall be evaluated on the same element of this list. 
 
 ====
-Note 1: It is not possible to use `$elemMatch` in cases of more than one list, e.g., if a SubmodelElementList contains other SubmodelElementLists. +
-Note 2: If the filter inside an `$elemMatch` clause contains expressions that are not pointing to the list under consideration, an error shall be returned.
+Note 1: If the filter inside an `$match` clause contains expressions that are not pointing to the list under consideration, an error shall be returned.
 ====
 
 The table illustrates the behavior using the example Asset Administration Shell above.
 
 [.table-with-appendix-table]
-[width=100%, cols="50%,10%,30%"]
+[width=100%, cols="55%,10%,25%"]
 |===
 h| Comparison h| Result h| Comment
 | 
 
-$elemMatch( +
-    $and ( +
-        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-        $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
-    )
+$match( +
+    $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+    $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
 )
 | 
 [ +
@@ -585,19 +600,17 @@ $elemMatch( +
 ] +
 | The values for 'supplierId' and 'aas-1' exist in the same SpecificAssetId object.
 |
-$elemMatch( +
-    $and ( +
-        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-        $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
-    )
+$match( +
+    $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+    $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
 )
 | 
 [ ] 
 | The values for 'supplierId' and 'aas-2' do not exist in the same SpecificAssetId object.
 | 
 $and ( +
-        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-        $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
+    $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
+    $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
 )
 
 | 
@@ -609,7 +622,7 @@ $and ( +
 ] +
 | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in _different_ SpecificAssetId objects.
 |
-$elemMatch +
+$match( +
     $or ( +
         $and ( +
             $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
@@ -618,8 +631,9 @@ $elemMatch +
         $and ( +
             $aas#assetInformation.specificAssetIds.name $eq "customerId", +
             $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
-        )
-    )
+        ) +
+    ) +
+)
 
 | 
 [ +
@@ -696,7 +710,7 @@ $aas.specificAssetId( +
 )
 
 |
-$elemMatch ( +
+$match ( +
     $and ( +
         $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
         $aas#assetInformation.specificAssetIds.value $starts-with "aas" +
@@ -708,32 +722,31 @@ $elemMatch ( +
 === Sorting and Pagination
 
 ==== Pagination
-To manage the pagination of the retrieved data, incorporate the limit operator within the options configuration.
+To manage the pagination of the retrieved data, incorporate the limit and skip operators within the options configuration.
 
 [source,javascript]
 ----
-$limit( <start>, <count> )
+$limit( <value> ), $skip ( <value> )
 ----
 
 [.table-with-appendix-table]
 [width=100%, cols="25%,75%"]
 |===
 h| Operator h| Description
-| $limit | To control the pagination of the retrieved data, use the optional limit operator
-| start | A xs:int value that specifies where to start fetching data, also known as offset
-| count | A xs:int value that indicates how many results to fetch per page
+| $skip | A xs:int value that specifies where to start fetching data, also known as offset
+| $limit | A xs:int value that indicates how many results to fetch per page
 |===
 
 Example to return the first five elements of the result set.
 [source,javascript]
 ----
-$limit( 0, 5 )
+$limit(0), $skip(5)
 ----
 
 Example to return five elements, where the first returned element is the sixth of the result set.
 [source,javascript]
 ----
-$limit( 5, 5 )
+$limit(5), $skip(5)
 ----
 
 ==== Sorting
