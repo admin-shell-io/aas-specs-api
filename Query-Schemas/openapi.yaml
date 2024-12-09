@@ -16,6 +16,34 @@ info:
 
 components:
   schemas:
+    query:
+      type: object
+      properties:
+        select:
+          type: string
+          pattern: ^id$
+        filter:
+          $ref: '#/components/schemas/logicalExpression'
+        option:
+          $ref: '#/components/schemas/OptionStatement'
+        $schema:
+          type: string
+    OptionStatement:
+      type: object
+      properties:
+        sort:
+          type: object
+          properties:
+            id:
+              type: string
+              enum:
+                - asc
+                - dsc
+        limit:
+          type: number
+        skip:
+          type: number
+      additionalProperties: false
     standardString:
       type: string
       pattern: ^(?!\$).*
@@ -254,9 +282,11 @@ components:
         - ALL
         - TREE
       additionalProperties: false
+  type: object
+  properties:
     filter:
       $ref: '#/components/schemas/logicalExpression'
-     # additionalProperties: false
+      additionalProperties: false
     AllAccessPermissionRules:
       type: array
       items:
@@ -283,7 +313,7 @@ components:
             $ref: '#/components/schemas/logicalExpression'
           FILTER:
             $ref: '#/components/schemas/logicalExpression'
-        additionalProperties: false
+          additionalProperties: false
         required:
           - ATTRIBUTES
           - RIGHTS
