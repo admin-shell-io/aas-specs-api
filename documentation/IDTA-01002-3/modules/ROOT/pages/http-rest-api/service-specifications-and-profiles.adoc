@@ -13,11 +13,12 @@ include::../includes/special-parameters.adoc[]
 
 = Service Specifications and Profiles
 
-xref:general.adoc#i40-service-model[Figure in Clause General] defines that a service specification contains at least one API and that an API contains at least one API Operation.
+xref:general.adoc#i40-service-model[] illustrates that a service specification may contain severals APIs and that an API shall contain at least one API Operation. 
+An API may be part of several service specifications.
 
-The profiles defined in this clause present complete service specifications and their subsets.
+The service profiles defined in this clause present defined subsets of service specifications. An API is associated to an Interface. However, an API within a service profile may include a subset of API-Operations of this API, only. This is, an API implementation conformant to a service profile shall realize all API-Operations as defined for the service profile but may not realize the other API-Operations as defined for the API in the corresponding service specification.  
 
-For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “PostSubmodelElementByPath”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both. Furthermore, profiles also define which of the SerializationModifiers (content, extent, level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
+For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API-Operation “GetAllSubmodels” but not “PostSubmodelElementByPath”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both. Furthermore, profiles also define which of the SerializationModifiers (content, extent, level) or serialization formats (JSON) shall be supported or whether pagination or asynchronous operations shall be provided.
 
 .Overview of Service Specifications and the Contained APIs
 [%autowidth, width="100%", cols="52%,4%,4%,4%,4%,5%,4%,4%,4%,5%,5%,5%",options="header",]
