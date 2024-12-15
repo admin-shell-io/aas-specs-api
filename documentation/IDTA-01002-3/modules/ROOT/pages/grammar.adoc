@@ -1,11 +1,8 @@
 ....
 <grammar> ::= <query> | <AllAccessPermissionRules>
  
-<query> ::= <selectStatement>? <logicalExpression> <options>?
+<query> ::= <selectStatement>? <logicalExpression>
 <selectStatement> ::= "$select" <ws> "id" <ws> "$where" <ws>
-<options> ::= <sortExpression>? <limitExpression>?
-<sortExpression> ::= "$sort" <ws> "(" <ws> "id" <ws> ( "asc" | "dsc" ) <ws> ")" <ws>
-<limitExpression> ::= "$limit" <ws> "(" <ws> <NumericalLiteral> <ws> "," <ws> <NumericalLiteral> <ws> ")" <ws>
  
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
 <logicalNotExpression> | <matchExpression> | <BoolLiteral> | <castToBool> | <singleComparison>

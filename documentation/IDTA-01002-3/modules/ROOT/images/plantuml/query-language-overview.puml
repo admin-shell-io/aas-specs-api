@@ -12,26 +12,18 @@ class Query {
  
 Query ..> SelectField
 Query ..> Formula
-Query ..> OptionStatement
 
 ' to better arrange the SelectField
 SelectField -r[hidden]- Placeholder1
 Placeholder1 -r[hidden]- Formula
 hide Placeholder1
 
-' to better arrange the OptionStatement
-OptionStatement -l[hidden]- Placeholder2
+' to better arrange the elements
 Placeholder2 -l[hidden]- Formula
 hide Placeholder2
  
 enum SelectField {
      id
-}
-
-class OptionStatement {
-    sort: id asc/dsc
-    limit: non-negative number
-    offset: non-negative number
 }
 
 

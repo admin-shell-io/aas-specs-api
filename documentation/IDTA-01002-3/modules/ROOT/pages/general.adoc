@@ -296,7 +296,7 @@ Note: The AAS Query Language and the AAS Access Control Language (see TODO: add 
 ====
 
 
-// TODO: Add correct overview picture
+
 .Main elements of the AAS Query Language
 image::../images/plantuml/query-language-overview.png[]
 
@@ -325,7 +325,6 @@ This is the combined grammar for the AAS Query Language and the AAS Access Rules
 // (check by https://bnfplayground.pauliankline.com/)
 // (see a running parser at https://grammar.aas-voyager.com/ )
 
-// TODO: explain why only 'id' is available for sorting
 
 include::./grammar.adoc
 
@@ -511,14 +510,14 @@ h| Comparison h| Result h| Comment
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Casting Operator h| Description h| Definition
-| `str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
-| `num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
+| `$str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| `$num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
 // __TODO:__ This implies that only double comparisons are possible...
-| `dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
-| `bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
-| `hex(<value>)` | Casts the `value` to `xs:hexBinary`. | // TODO: define properly
-| `dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | // TODO: define properly
-| `time(<value>)` | Casts the `value` to `xs:time`. | // TODO: define properly
+| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
+| `$bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| `$hex(<value>)` | Casts the `value` to `xs:hexBinary`. | // TODO: define properly
+| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | // TODO: define properly
+| `$time(<value>)` | Casts the `value` to `xs:time`. | // TODO: define properly
 |===
 
 
@@ -721,56 +720,4 @@ $match ( +
 
 === Sorting and Pagination
 
-==== Pagination
-To manage the pagination of the retrieved data, incorporate the limit and skip operators within the options configuration.
-
-[source,javascript]
-----
-$limit( <value> ), $skip ( <value> )
-----
-
-[.table-with-appendix-table]
-[width=100%, cols="25%,75%"]
-|===
-h| Operator h| Description
-| $skip | A xs:int value that specifies where to start fetching data, also known as offset
-| $limit | A xs:int value that indicates how many results to fetch per page
-|===
-
-Example to return the first five elements of the result set.
-[source,javascript]
-----
-$limit(0), $skip(5)
-----
-
-Example to return five elements, where the first returned element is the sixth of the result set.
-[source,javascript]
-----
-$limit(5), $skip(5)
-----
-
-==== Sorting
-
-To organize the retrieved data in a specific order, incorporate the sort operator within the options configuration.
-
-[source,javascript]
-----
-$sort id <direction>
-----
-
-The optional sort operator organizes data based on the identifier "id". The sender of the query can designate the sorting direction - ascending or descending. If no sort statement is supplied, the receiver of the query may decide on the sorting. Nevertheless, the sorting configuration shall not change. A client may however expect that a previous result sequence may not identical anymore, e.g. due to new items being created (or deleted) at the receiver side in the meantime.
-
-[.table-with-appendix-table]
-[width=100%, cols="25%,75%"]
-|===
-h| Operator h| Description
-| $sort | To sort the retrieved data, use the sort operator as part of the option operator.
-| direction | "asc" for ascending sort order and "dsc" for descending sort order.
-
-|===
-
-Example
-[source,javascript]
-----
-$sort id asc
-----
+The AAS Query Language does not introduce additional functionalities to control the pagination or sorting of the result sets. The general capabilities available for Operations apply as well for queries.
