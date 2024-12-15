@@ -370,20 +370,90 @@ include::./grammar.adoc
 The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers instead of a list of objects (`$select id`).
 
 
-=== Logical Expressions
 
-Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also used to combine other logical expressions.
+=== Identification of Fields
 
+Elements relevant for comparisons are described using an adapted IdShortPath notation. The declaration starts with kind of element that shall serve as the root of the expression, followed with an optional '.' as the separator symbol and an IdShortPath, and a mandatory declaration of the AAS attribute that shall be examined, separated via '#'.
+
+....
+FieldIdentifier ::= <RootDeclaration> ( "." <IdShortPath> | "" ) "#" <AttributeDeclaration>
+....
+
+[.underline]#Constraint AASa-TODO:# Only the SubmodelElements root delaration can be followed with IdShortPaths.
+
+
+.Root Elements for Field Identifiers 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
 |===
-h| Logical Operator h| Description h| Definition
-| `$and` | Connects two or more expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
-| `$or` | Connects two or more expressions through a logical OR. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
-| `$not` | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. Defined by https://www.w3.org/TR/xpath-functions-30/#func-not
+h| Root Element h| Definition h| Example
+| `$aas` | Starting point for fields available in Asset Administration Shells | `$aas#assetInformation.assetKind`
+| `$sm` | Starting point for fields available in Submodels | `$sm#semanticId.keys[].value`
+| `$sme` | Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Clause AASa-TODO. Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`
+| `$cd` | Starting point for fields available in Concept Descriptions | `$cd#id`
+| `$aasdesc` | Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[].endpoints[].protocolinformation.href`
+| `$smdesc` | Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[].protocolinformation.href`
 |===
 
+Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause TODO.
 
+.Attribute Elements for Field Identifiers. `<index>` is an optional nonNegativeInteger value.
+[.table-with-appendix-table]
+[width=100%, cols="10%,40%,50%"]
+|===
+h| Root Element h| Definition h| Example
+| `id` | Identifier, e.g., of an AAS, Submodel, or Condept Description | `$aas#id`
+| `idShort` | Value of the idShort attribute | `$aas#id`
+| `assetInformation.assetKind` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetKind`
+| `assetInformation.assetType` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetType`
+| `assetInformation.globalAssetId` | Value of the globalAssetId attribute of an AAS | `$aas#assetInformation.globalAssetId`
+| `assetInformation.assetInformation.specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[].name`
+| `assetInformation.assetInformation.specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[1].value`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.type`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.keys[].value`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.keys[].type`
+| `submodels` | Shortcut for Submodels referenced by an AAS, see Clause TODO: Insert ref to "Special Functions" | `$aas#submodels`
+| `submodels.type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels.type`
+| `submodels.keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[].value`
+| `submodels.keys[<index>].type` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[0].type`
+| `semanticId` | Shortcut for semanticIds, see Clause TODO: Insert ref to "Special Functions" | `$sm#semanticId`
+| `semanticId.type` | ReferenceType of a semanticId Reference | `$sm#semanticId.type`
+| `semanticId.keys[<index>].type` | KeyType of a semanticId Reference | `$sm#semanticId.keys[].type`
+| `semanticId.keys[<index>].value` | Value of a key of a semanticId Reference | `$sme#semanticId.keys[].value`
+| `value` | Value of a Submodel Element | `$sme#value`
+| `valueType` | ValueType of a Submodel Element | `$sme.someIdShort#valueType`
+| `language` | Language of a Multilanguage Property | `$sme#language`
+| `assetKind` | Value of the assetKind attribute of an AAS Descriptor | `$aasdesc#assetKind`
+| `assetType` | Value of the assetKind attribute of an AAS Descriptor | `$aasdesc#assetType`
+| `globalAssetId` | Value of the globalAssetId attribute of an AAS Descriptor | `$aasdesc#globalAssetId`
+| `specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[].name`
+| `specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[1].value`
+| `specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].externalSubjectId.type`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].externalSubjectId.keys[].value`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].externalSubjectId.keys[].type`
+| `endpoints[<index>].interface` | Interface of an endpoint of an AAS or Submodel
+
+===
+*Note*: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
+===
+
+ | `$aasdesc#endpoints[0].interface`
+| `endpoints[<index>].protocolinformation.href` | Href of an endpoint of an AAS or Submodel 
+
+===
+*Note*: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
+===
+
+| `$smdesc#endpoints[0].protocolinformation.href`
+| `submodelDescriptors.semanticId` | Shortcut for semanticIds, see Clause TODO: Insert ref to "Special Functions" | `$aasdesc#submodelDescriptors.semanticId`
+| `submodelDescriptors.semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.type`
+| `submodelDescriptors.semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.keys[].type`
+| `submodelDescriptors.semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.keys[].value`
+| `submodelDescriptors.id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.id`
+| `submodelDescriptors.idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.idShort`
+| `submodelDescriptors.endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].interface`
+| `submodelDescriptors.endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].protocolinformation.href`
+|===
 
 === Comparison Operators
 
@@ -504,6 +574,21 @@ h| Comparison h| Result h| Comment
 
 
 
+=== Logical Expressions
+
+Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also used to combine other logical expressions.
+
+[.table-with-appendix-table]
+[width=100%, cols="10%,40%,50%"]
+|===
+h| Logical Operator h| Description h| Definition
+| `$and` | Connects two or more expressions through a logical AND. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-AndExpr 
+| `$or` | Connects two or more expressions through a logical OR. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
+| `$not` | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. Defined by https://www.w3.org/TR/xpath-functions-30/#func-not
+|===
+
+
+
 === Casting Operators
 
 [.table-with-appendix-table]
@@ -519,7 +604,6 @@ h| Casting Operator h| Description h| Definition
 | `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | // TODO: define properly
 | `$time(<value>)` | Casts the `value` to `xs:time`. | // TODO: define properly
 |===
-
 
 
 === Referring to Elements in Lists and Arrays
