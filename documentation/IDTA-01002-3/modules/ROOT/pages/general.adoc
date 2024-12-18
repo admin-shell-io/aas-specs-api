@@ -813,9 +813,99 @@ h| JSON Schema h| Grammar h| Comment
 | AccessPermissionRule | - | explained in Security Access Rules; not used for query language
 | AllAccessPermissionRules | - | explained in Security Access Rules; not used for query language
 | filter | - | Root object for the query filter expression
+ToHex> |
+|===
 
 
-| hexCast | <castToHex> |
-| hexCast | <castToHex> |
-| hexCast | <castToHex> |
+=== Examples for JSON Schema
+
+[.table-with-appendix-table]
+[width=100%, cols="30%,30%,30%"]
+|===
+h| Grammar h| JSON Schema h| Comment
+|
+$aas#idShort +
+$eq +
+$aas#assetInformation.assetType
+|
+{
+  "filter": {
+    "$eq": [
+      {
+        "strModel": "$aas#idShort"
+      },
+      {
+        "strModel": "$aas#assetInformation.assetType"
+      }
+    ]
+  }
+}
+|
+|
+$or ( +
+$match ( +
+$aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
+$aas#assetInformation.specificAssetIds[].value $eq "aas-1" +
+), +
+$match ( +
+$aas#assetInformation.specificAssetIds[].name $eq "customerId", +
+$aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
+) +
+) +
+|
+{
+  "filter": {
+    "$or": [
+      {
+        "$match": [
+          {
+            "$eq": [
+              {
+                "strModel": "$aas#assetInformation.specificAssetIds[].name"
+              },
+              {
+                "strVal": "supplierId"
+              }
+            ]
+          },
+          {
+            "$eq": [
+              {
+                "strModel": "$aas#assetInformation.specificAssetIds[].value"
+              },
+              {
+                "strVal": "aas-1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$match": [
+          {
+            "$eq": [
+              {
+                "strModel": "$aas#assetInformation.specificAssetIds[].name"
+              },
+              {
+                "strVal": "customerId"
+              }
+            ]
+          },
+          {
+            "$eq": [
+              {
+                "strModel": "$aas#assetInformation.specificAssetIds[].value"
+              },
+              {
+                "strVal": "aas-2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+|
 |===
