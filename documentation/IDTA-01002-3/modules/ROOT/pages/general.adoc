@@ -373,7 +373,8 @@ The default return type is a list containing the respective AAS objects. For an 
 
 === Identification of Fields
 
-Elements relevant for comparisons are described using an adapted IdShortPath notation. The declaration starts with kind of element that shall serve as the root of the expression, followed with an optional '.' as the separator symbol and an IdShortPath, and a mandatory declaration of the AAS attribute that shall be examined, separated via '#'.
+Elements relevant for comparisons are described using an adapted IdShortPath notation. The declaration starts with kind of element that shall serve as the root of the expression, followed with an optional '.' as the separator symbol and an optional IdShortPath, and a mandatory declaration of the AAS attribute that shall be examined, separated via '#'.
+A recursive search is made through the Submodel Elements, when the optional IdShortPath is left out.
 
 ....
 FieldIdentifier ::= <RootDeclaration> ( "." <IdShortPath> | "" ) "#" <AttributeDeclaration>
@@ -386,13 +387,13 @@ FieldIdentifier ::= <RootDeclaration> ( "." <IdShortPath> | "" ) "#" <AttributeD
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
 |===
-h| Root Element h| Definition h| Example
+h| Root Element h| Definition h| Example(s)
 | `$aas` | Starting point for fields available in Asset Administration Shells | `$aas#assetInformation.assetKind`
-| `$sm` | Starting point for fields available in Submodels | `$sm#semanticId.keys[].value`
-| `$sme` | Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Clause AASa-TODO. Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`
+| `$sm` | Starting point for fields available in Submodels | `$sm#semanticId.keys[0].value`
+| `$sme` | Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Clause AASa-TODO. Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`, `$sme#value` to search recursively
 | `$cd` | Starting point for fields available in Concept Descriptions | `$cd#id`
-| `$aasdesc` | Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[].endpoints[].protocolinformation.href`
-| `$smdesc` | Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[].protocolinformation.href`
+| `$aasdesc` | Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[0].endpoints[0].protocolinformation.href`
+| `$smdesc` | Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
 |===
 
 Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause TODO.
@@ -459,7 +460,7 @@ h| Root Element h| Definition h| Example
 
 The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to non-matching data types.
 
-Comparisons are overloaded in the BNF grammar, which means that the same comparison can deal with several input types. For instance, `$eq`  can be used both for values of type xs:string and xs:int.
+The comparisons `$eq` `$ne` `$gt` `$lt` `$ge` `$le` are overloaded in the BNF grammar, which means that the same comparison can deal with several input types. For instance, `$eq`  can be used both for values of type xs:string and xs:int. The comparisons `$contains` `$starts-with` `$ends-with` `$regex` only allow xs:string.
 
 // TODO decide on alternative:
 // Comparisons are generally not overloaded (TODO: Reference to https://www.w3.org/TR/xpath-functions-30/#func-overloading). This means that one single comparison operator shall only be used for the defined input type and result in an error otherwise. For instance, `eq` / `=` requires two input parameters of type xs:string. If the input parameters are of type xs:int, `numeric_equals` shall be used. Note that the functions for numeric comparisons, like `numeric_equals`, can be used for all numeric types (xs:int, xs:float, xs:double). Therefore, `numeric_equals` can compare a value of type xs:int with a value of type xs:double, according to the defined comparison rules.
@@ -476,8 +477,10 @@ h| Operator h| Description h| Definition
 | `$lt` | Checks whether one parameter is lower than another. | Operator 'A lt B' in https://www.w3.org/TR/xpath-30/#mapping 
 | `$ge` | Checks whether one parameter is greater or equal than another. | Operator 'A ge B' in https://www.w3.org/TR/xpath-30/#mapping 
 | `$le` | Checks whether one parameter is lower or equal than another. | Operator 'A ne B' in https://www.w3.org/TR/xpath-30/#mapping 
-| `$starts-with` | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
 | `$contains` | Compares two string expressions whether the second parameter appears as a substring inside of the first. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
+| `$starts-with` | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
+| `$ends-with` | Compares two string expressions whether the second parameter appears character-equal at the end of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
+| `$regex` | Compares two string expressions whether the first parameter matches the regex of the second. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-matches
 // TODO: decide if needed | `$ends-with` | Compares two string expressions whether the first parameter appears character-equal at the end of the second. | Defined as fn:ends-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
 // TODO: decide if needed | `$regex` | Evaluates a regex expression in the first parameter against the string content of the second. | Defined as fn:contains in https://www.w3.org/TR/xpath-functions-30/#func-contains
 // TODO: decide if needed | `$exists` | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
@@ -576,7 +579,7 @@ h| Comparison h| Result h| Comment
 
 === Logical Expressions
 
-Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also used to combine other logical expressions.
+Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also be used to combine other logical expressions.
 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
@@ -586,6 +589,12 @@ h| Logical Operator h| Description h| Definition
 | `$or` | Connects two or more expressions through a logical OR. | Defined by https://www.w3.org/TR/xpath-30/#doc-xpath30-OrExpr 
 | `$not` | Negates an expression. | The "not" operator inverts the truth value of its operand. If the operand is true, the result is false, and if the operand is false, the result is true. Defined by https://www.w3.org/TR/xpath-functions-30/#func-not
 |===
+
+
+
+=== Paranthesises
+
+Paranthesises `(` `)` allow to combine expressions to define precedence. Expressions with parantheises can be nested.
 
 
 
@@ -651,12 +660,30 @@ For any key of a semanticId reference, this notation may lead to a following dec
 $sme.<somePath>#semanticId.keys[]
 ....
 
+==== References
+
+References include a list of keys, i.e. `.keys[]`. Very often the value of the first key in the list is needed, e.g. for semanticId. +
+To ease writing, `.keys[0].value` can be left off for References. +
+
+semanticId is defined as the "value" of the first key of the semanticId Reference object. The following two expressions are equivilant:
+
+ <somePath>.semanticId
+ <somePath>.semanticId.keys[0].value
+A comparison using the semanticId as a shortcut could look like the following:
+
+$sme#semanticId $eq "https://example.com/a/semantic/id"
 
 
-=== Multiple Comparisons on single Elements of Lists 
+=== Match of Elements in Lists 
 // TODO: find better name for this effect. Proposals: 1. Hierarchical Comparisons, 2. Structured Comparisons, 3. Sequential Comparisons)
 
-The `$match` operator signals that the following filter clauses (a) contain a list of elements, and that (b) all filters shall be evaluated on the same element of this list. 
+The `$match` operator signals that the following filter clauses (a) contain at least 1 list of elements with [] syntax, and that (b) all filters shall be evaluated on the same element of this list. The common path prefix left to a [] determines the list to be searched.
+
+FieldIdentifiers in a `$match` may contain several [], which define nested lists. In such case the path prefix of the first [] must always be the same and the path prefixes of the following [] accordingly.
+
+`$match` is similar to `$and`, since all conditions inside must result to true. But as explained above, [] can be specified in addition. +
+`$match` can include `$match` and comparisions. logicalExpressions are not allowed inside `$match`. +
+`$match` inside `$match` further restricts the subset of possible elements inside nested [].
 
 ====
 Note 1: If the filter inside an `$match` clause contains expressions that are not pointing to the list under consideration, an error shall be returned.
@@ -671,8 +698,8 @@ h| Comparison h| Result h| Comment
 | 
 
 $match( +
-    $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-    $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
+    $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
+    $aas#assetInformation.specificAssetIds[].value $eq "aas-1" +
 )
 | 
 [ +
@@ -684,8 +711,8 @@ $match( +
 | The values for 'supplierId' and 'aas-1' exist in the same SpecificAssetId object.
 |
 $match( +
-    $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-    $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
+    $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
+    $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
 )
 | 
 [ ] 
@@ -705,18 +732,16 @@ $and ( +
 ] +
 | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in _different_ SpecificAssetId objects.
 |
-$match( +
-    $or ( +
-        $and ( +
-            $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-            $aas#assetInformation.specificAssetIds.value $eq "aas-1" +
-        ),
-        $and ( +
-            $aas#assetInformation.specificAssetIds.name $eq "customerId", +
-            $aas#assetInformation.specificAssetIds.value $eq "aas-2" +
-        ) +
+$or ( +
+    $match ( +
+        $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
+        $aas#assetInformation.specificAssetIds[].value $eq "aas-1" +
+    ),
+    $match ( +
+        $aas#assetInformation.specificAssetIds[].name $eq "customerId", +
+        $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
     ) +
-)
+) +
 
 | 
 [ +
@@ -725,82 +750,9 @@ $match( +
         ... +
     } +
 ] +
-| Both AND conditions are fulfilled, even though for different SpecificAssetIds. Nevertheless, as therefore in both cases always one AND clause is fulfilled, the OR clause also evaluates to `true` for both items.
+| Both $match conditions are fulfilled, even though for different SpecificAssetIds. Therefore the OR clause also evaluates to `true` for both items.
 |===
 
-=== Special Functions
-
-Two special functions are defined with the AAS Query Language for filtering on `semanticId` and `specificAssetId` values due to their elevated position in many use cases.
-
-`semanticId` is defined as the "value" of the first key of the semanticId Reference object. The following two expressions are equivilant: 
-....
- <somePath>.semanticId 
- <somePath>.semanticId.keys[0].value
-....
-
-A comparison using the `semanticId` as a shortcut could look like the following:
-....
-$sme#semanticId $eq "https://example.com/a/semantic/id"
-....
-
-
-`specificAssetId` provides the option to directly evaluate zero or one condition of a potential `SpecificAssetId/name` and/or a `SpecificAssetId/value` attribute. The following usages are possible:
-
-....
-specificAssetId( <nameCondition> )
-specificAssetId( <valueCondition> )
-specificAssetId( <nameCondition>, <valueCondition> )
-....
-
-[.table-with-appendix-table]
-[width=100%, cols="25%,75%"]
-|===
-h| Parameter h| Description
-| <nameCondition> | A single string comparison using one of the operators "$starts-with", "$contains", or "$eq", comparing the content of the SpecificAssetId/name attribute to a given string literal.
-| <valueCondition> | A single string comparison using one of the operators "$starts-with", "$contains", or "$eq", comparing the content of the SpecificAssetId/value attribute to a given string literal.
-|===
-
-====
-Note: In case both <nameCondition> and <valueCondition> are set, they have to be evaluated on the same SpecificAssetId object.
-====
-
-The following three expressions are equivalent:
-[.table-with-appendix-table]
-[width=100%, cols="5%,40%,50%"]
-|===
-h| h| `specificAssetId` Notation h| Long Notation
-|
-|
-$aas.specificAssetId( +
-    name $eq "supplierId" +
-)
-
-|
-$aas#assetInformation.specificAssetIds.name $eq "supplierId"
-|
-|
-$aas.specificAssetId( +
-    value $starts-with "aas" +
-)
-
-|
-$aas#assetInformation.specificAssetIds.value $starts-with "aas"
-|
-|
-$aas.specificAssetId( +
-    name $eq "supplierId", +
-    value $starts-with "aas" +
-)
-
-|
-$match ( +
-    $and ( +
-        $aas#assetInformation.specificAssetIds.name $eq "supplierId", +
-        $aas#assetInformation.specificAssetIds.value $starts-with "aas" +
-    ) +
-)
-|
-|===
 
 === Sorting and Pagination
 
