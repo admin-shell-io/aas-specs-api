@@ -763,3 +763,59 @@ $or ( +
 === Sorting and Pagination
 
 The AAS Query Language does not introduce additional functionalities to control the pagination or sorting of the result sets. The general capabilities available for Operations apply as well for queries.
+
+=== JSON Schema
+
+The AAS HTTP API represents AAS Queries as JSON objects. A JSON schema according to the grammar above has been defined.
+This JSON schema allows automatic code generation which has been validated with jsonschema2pojo. To allow such automatic code generation, polymorhism by the use of oneof in the JSON schema must be avoided. +
+JSON schema allows to use regular expressions. Such regular expressions are used to validate the syntax of FieldIdentifiers. To be able to use common JSON schema validators, the depth and details have been limited in the corresponding regular expressions.
+
+include::./schema.adoc
+
+The table below explains the mapping between the grammar and the JSON schema. The table follows the structure of the JSON schema top to bottom.
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,25%,50%"]
+|===
+h| JSON Schema h| Grammar h| Comment
+| modelStringPattern | <FieldIdentifier> | AAS model elements are strings which start with a $
+| standardString | | All other value strings
+| hexLiteralPattern | <HexLiteral> |
+| dateTimeLiteralPattern | <DateTimeLiteral> |
+| timeLiteralPattern | <TimeLiteral> |
+| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: strModel etc.
+| StringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: strModel etc.
+| strModel | - | string following the modelStringPattern
+| strVal | - | string following the standardString
+| attribute | - | explained in Security Access Rules; not used for query language
+| numVal | <NumericalLiteral> | Number constant
+| hexVal | <HexLiteral> | Hex number constant
+| dateTimeVal | <DateTimeLiteral> | DateTime constant
+| timeVal | <TimeLiteral> | Time constant
+| $boolean | <BoolLiteral> | Boolean constant
+| strCast | <castToString> | any Value can be used as input
+| numCast | <castToNumerical> | any Value can be used as input
+| hexCast | <castToHex> | any Value can be used as input
+| boolCast | <castToBool> | any Value can be used as input
+| dateTimeCast | <castToDateTime> | any Value can be used as input
+| timeCast | <castToTime> | any Value can be used as input
+| $dayOfWeek | <dateTimeToNum> | extract day of week from DateTime; needed for Security Access Rules
+| $dayOfMonth | <dateTimeToNum> | extract day of month from DateTime; needed for Security Access Rules
+| $month | <dateTimeToNum> | extract month from DateTime; needed for Security Access Rules
+| $year | <dateTimeToNum> | extract year from DateTime; needed for Security Access Rules
+| comparisonItems | - | Comparisons eq, ne, gt, ge, lt, le
+| stringItems | - | String operations contains, starts-with, ends-with, regex
+| matchExpression | <matchExpression> | nested match and comparisons and string operations
+| logicalExpression | <logicalExpression> | nested logicalExpression (including match) and comparisons and string operations
+| attributeItem | - | explained in Security Access Rules; not used for query language
+| ACL | - | explained in Security Access Rules; not used for query language
+| rightsEnum | - | explained in Security Access Rules; not used for query language
+| AccessPermissionRule | - | explained in Security Access Rules; not used for query language
+| AllAccessPermissionRules | - | explained in Security Access Rules; not used for query language
+| filter | - | Root object for the query filter expression
+
+
+| hexCast | <castToHex> |
+| hexCast | <castToHex> |
+| hexCast | <castToHex> |
+|===
