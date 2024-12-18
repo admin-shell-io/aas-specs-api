@@ -315,6 +315,12 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 
 
 
+=== Search in AAS Hierarchy
+
+AAS consists of a hierarchical structure. An AAS references its "contained" submodels. A submodel contains a list of SubmodelElements, which may include further SubmodelElements, and so on.
+The query language allows to both address a specific instance of the data or to search all data in a repository. A specific instance is addressed by specifying the id of an Identifiable and the idShortPath to a Referable in a Submodel. +
+If such explicit information is not specified, a hierarchical search is made. By the $aas FieldIdentifier conditions for all the relevant AAS are defined. By the $sm FieldIdentifier conditions for all the relevant submodels are defined. $sm can be used with and without $aas. If $aas and $sm are used together, only the submodels referenced by the matching $aas are searched by the $sm expression. The same search principle is used, when combining $sm and $sme. In such case only the SubmodelElements which are part of matching submodels by $sm expression are searched by the $sme expression. Several such hierarchical conditions may even be combined by $match expressions.
+
 === Grammar
 
 The content and structure of the AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix (TODO: insert reference) for more details on BNF. The detailed serialisation and interaction patterns are defined by the different technology mappings, e.g., the AAS HTTP API represents AAS Queries as JSON objects (see Clause (TODO: insert reference)). Other mappings may define different serialisations, however, all have to follow the general structure of queries defined in the following grammar.
@@ -819,10 +825,11 @@ ToHex> |
 
 === Examples for JSON Schema
 
+Single comparison
 [.table-with-appendix-table]
-[width=100%, cols="30%,30%,30%"]
+[width=100%, cols="50%,50%"]
 |===
-h| Grammar h| JSON Schema h| Comment
+h| Grammar h| JSON Schema
 |
 $aas#idShort +
 $eq +
@@ -840,7 +847,13 @@ $aas#assetInformation.assetType
     ]
   }
 }
-|
+|===
+
+Match
+[.table-with-appendix-table]
+[width=100%, cols="50%,50%"]
+|===
+h| Grammar h| JSON Schema
 |
 $or ( +
 $match ( +
@@ -907,5 +920,4 @@ $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
     ]
   }
 }
-|
 |===
