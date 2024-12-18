@@ -677,7 +677,7 @@ AAS Servers expose their capability to support the AAS Querying by providing the
 Even though the expressiveness of AAS queries have been limited to a basic amount, clients might still create a critical load at AAS servers, e.g., due to the amount of queries or certain time-expensive constructs. In such cases, servers can abort queries after a certain amount of time but have to inform the client accordingly (TODO: introduce HTTP Timeout errors).
 In addition, servers may restrict the amount of accepted requests at times of high loads. Servers do so by responding with a ComeBackLater message (TODO: introduce the "come back later" Status Code).
 
-
+[[query-json-serialisation]]
 === Serialisation
 
 The AAS Query Language for HTTP interactions is serialised in a JSON object. It has to be compliant to the following JSON Schema:
