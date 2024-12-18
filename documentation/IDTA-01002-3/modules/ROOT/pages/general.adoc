@@ -458,7 +458,8 @@ h| Root Element h| Definition h| Example
 
 === Comparison Operators
 
-The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to non-matching data types.
+The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to non-matching data types. +
+In case of an error the comparison result is invalid. Any further combinations with the invalid result will also have an invalid result. In that case the complete filter expression will be ignored for an element evaluated and no result will be returned for that element. Only the elements with valid results will be returned.
 
 The comparisons `$eq` `$ne` `$gt` `$lt` `$ge` `$le` are overloaded in the BNF grammar, which means that the same comparison can deal with several input types. For instance, `$eq`  can be used both for values of type xs:string and xs:int. The comparisons `$contains` `$starts-with` `$ends-with` `$regex` only allow xs:string.
 
@@ -579,7 +580,7 @@ h| Comparison h| Result h| Comment
 
 === Logical Expressions
 
-Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also be used to combine other logical expressions.
+Logical expressions allow the combination of two or more single comparisons through AND or OR relations, and to negate the result of an expression. Furthermore, logical expressions can also be used to combine other logical expressions. Combinations with invalid results will be ignored, as explained above.
 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
@@ -594,11 +595,13 @@ h| Logical Operator h| Description h| Definition
 
 === Paranthesises
 
-Paranthesises `(` `)` allow to combine expressions to define precedence. Expressions with parantheises can be nested.
+Paranthesises `(` `)` allow to combine logical expressions to define precedence. LogicalExpressions with paranthesises can be nested.
 
 
 
-=== Casting Operators
+=== Casting
+
+For explicite casting the following casting operators are used:
 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
@@ -614,6 +617,9 @@ h| Casting Operator h| Description h| Definition
 | `$time(<value>)` | Casts the `value` to `xs:time`. | // TODO: define properly
 |===
 
+Implicite casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
+If a FieldIdentifier is used in a logicalExpression, it will be implicitely casted to `xs:boolean`, which can only create a valid result for the values true and false. +
+If a FieldIdentifier is used in a comparison, the second parameter decides implicite casting. If the second parameter is a constant (string, number, hex, boolean, dateTime, time) or a corresponding explicite casting operator, the value of the FieldIdentifier will be implicitely casted to the corresponding data type.
 
 === Referring to Elements in Lists and Arrays
 
