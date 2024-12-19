@@ -2,7 +2,7 @@
 <grammar> ::= <query> | <AllAccessPermissionRules>
  
 <query> ::= <selectStatement>? <logicalExpression>
-<selectStatement> ::= "$select" <ws> "id" <ws> "$where" <ws>
+<selectStatement> ::= "$select" <ws> "id" <ws>
  
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
 <logicalNotExpression> | <matchExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
@@ -91,7 +91,7 @@
     ( "DEFATTRIBUTES" <ws> <StringLiteral> <ws> <AttributeGroup> <ws> )* 
     ( "DEFACLS" <ws> <StringLiteral> <ws> <ACL> <ws> )* 
     ( "DEFOBJECTS" <ws> <StringLiteral> <ws> <ObjectGroup> <ws> )* 
-    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <Formula> <ws> )* 
+    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <Condition> <ws> )* 
     ( <AccessPermissionRule> <ws> )*
  
 <AccessPermissionRule> ::= 
@@ -101,8 +101,8 @@
     ( <SingleObject> <ws> )* 
     ( <UseObjectGroup> <ws> )* 
     "FORMULA:" <ws> 
-    ( <Formula> | <UseFormula> ) <ws>
-    ( "FILTER:" <ws> <FragmentObject> <ws> ( <Formula> | <UseFormula> ) <ws> )?
+    ( <Condition> | <UseFormula> ) <ws>
+    ( "FILTER:" <ws> <FragmentObject> <ws> ( <Condition> | <UseFormula> ) <ws> )?
 
 <ACL> ::= 
     "ATTRIBUTES:" <ws> 
@@ -167,7 +167,7 @@
 <UseFormula> ::= 
     "USEFORMULAS" <ws> <StringLiteral> <ws>
  
-<Formula> ::= <logicalExpression> <ws>
+<Condition> ::= <logicalExpression> <ws>
  
 <DateTimeLiteral> ::= <datetime> <ws>
 <TimeLiteral> ::= <time> <ws>
