@@ -699,12 +699,22 @@
         }
       ],
       "additionalProperties": false
-    }
-  },
-  "type": "object",
-  "properties": {
-    "filter": {
-      "$ref": "#/definitions/logicalExpression",
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "$select": {
+          "type": "string",
+          "pattern": "^id$"
+        },
+        "$condition": {
+          "$ref": "#/definitions/logicalExpression",
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "$condition"
+      ],
       "additionalProperties": false
     },
     "AllAccessPermissionRules": {
@@ -821,19 +831,6 @@
       ],
       "additionalProperties": false
     }
-  },
-  "oneOf": [
-    {
-      "required": [
-        "filter"
-      ]
-    },
-    {
-      "required": [
-        "AllAccessPermissionRules"
-      ]
-    }
-  ],
-  "additionalProperties": false
+  }
 }
 ....
