@@ -6,19 +6,19 @@ hide methods
 
 class Query {
     +select: SelectField[0..1]
-    +filter: Formula[1..*]
+    +condition: Condition[1]
 }
  
 Query ..> SelectField
-Query ..> Formula
+Query ..> Condition
 
 ' to better arrange the SelectField
 SelectField -r[hidden]- Placeholder1
-Placeholder1 -r[hidden]- Formula
+Placeholder1 -r[hidden]- Condition
 hide Placeholder1
 
 ' to better arrange the elements
-Placeholder2 -l[hidden]- Formula
+Placeholder2 -l[hidden]- Condition
 hide Placeholder2
  
 enum SelectField {
@@ -26,7 +26,7 @@ enum SelectField {
 }
 
 
-  class Formula {
+  class Condition {
   }
 
   enum logicalOperation <<enumeration>> {
@@ -38,11 +38,11 @@ enum SelectField {
 
   class logicalExpression {
     +operation: logicalOperation[1]
-    +operands: Formula[1..*]
+    +operands: Condition[1..*]
   }
 
   class match {
-    +operands: Formula[1..*]
+    +operands: Condition[1..*]
   }
 
   enum comparisonOperation <<enumeration>> {
@@ -82,18 +82,18 @@ enum SelectField {
   }
   class castToBool {}
 
-  Formula <.d.> logicalExpression
+  Condition <.d.> logicalExpression
   logicalExpression ..> logicalOperation
   stringExpression ..> stringOperation
-  Formula ..> comparison
-  Formula <..> match
+  Condition ..> comparison
+  Condition <..> match
   comparison ..> dataType
   comparison ..> comparisonOperation
-  Formula ..> stringExpression
-  Formula .d.> castToBool
-  Formula .d.> BoolLiteral
+  Condition ..> stringExpression
+  Condition .d.> castToBool
+  Condition .d.> BoolLiteral
 
-'for better arrangements of the classes below Formula
+'for better arrangements of the classes below Condition
 ' match .l[hidden]. comparison
 
 

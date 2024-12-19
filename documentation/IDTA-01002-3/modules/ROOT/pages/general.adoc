@@ -80,7 +80,7 @@ The methods are:
 
 * GET: a GET returns a single resource based on the resource identifier which is the identifier xref:bibliography.adoc#bib1[[1\]] for identifiables and the idShortPath for referables.
 * GETALL: returns a list of resources based on optionally available parameters such as filters.
-* QUERY: returns a list of resources based on filters expressed through the AAS Query Language.
+* QUERY: returns a list of resources based on conditions expressed through the AAS Query Language.
 * POST: creates a new resource. The identifier of the resource is part of the resource description. This is necessary because the id of identifiables is globally unique and should be the identifier for the object in every system. This implies that the creation of an identifiable is idempotent. There shall never be more than one identifiable with the same ID in one system. For example, trying to post the same AAS object twice will not create two AAS resources.
 * PUT: replaces an existing resource.
 * PATCH: updates an existing resource. The content to be replaced will be defined by the given SerializationModifiers, e.g. content=value provides the ValueOnly-serialization to update all values in the existing resource. The structure of the existing resource on the server and of the content given by the PATCH must be the same.
@@ -287,7 +287,7 @@ Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [
 
 == Query Language
 
-Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to send parts of the filter and selection logic to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
+Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to send parts of the selection conditions to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
 
 The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS. However, different communication protocols may treat aspects differently, e.g., by requiring different query or result set serialisations, variations in the order of constructs, or endpoint patterns. Nevertheless, all share the same expressiveness, and under same conditions a query shall lead to the same results independently of the chosen communication protocol.
 
@@ -317,7 +317,7 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 
 1. Only Repository and Registry Services have specified query functionalities: Querys on Asset Administration Shell Services or Submodel Services are not defined.
 
-1. Only selected attributes defined by the AAS data model xref:bibliography.adoc#bib1[[1\]] can be used in query filters: Usage of custom or vendor-specific attributes outside of the AAS specifications is generally not recommended and may lead to a rejections of the query by the receiving systems.
+1. Only selected attributes defined by the AAS data model xref:bibliography.adoc#bib1[[1\]] can be used as conditions for returned objects: Usage of custom or vendor-specific attributes outside of the AAS specifications is generally not recommended and may lead to a rejections of the query by the receiving systems.
 
 1. It is not possible to traverse through the specific fields of the SubmodelElements Entity (e.g. Entity/statements), AnnotatedRelationshipElement (e.g. AnnotatedRelationshipElement/annotations), or Operation (e.g. Operation/outputVariables). Only the fields `semanticId` `idShort`, `value`, and `valueType` are available for SubmodelElements.
 
@@ -413,7 +413,7 @@ h| Root Element h| Definition h| Example(s)
 Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause xref:specification/interfaces-payload.adoc[Data Types for Payload].
 
 .Attribute Elements for Field Identifiers. `<index>` is an optional nonNegativeInteger value. No `<index>` shall be interpreted as 'anywhere in the list'.
-[.table-with-appendix-table]
+
 [width=100%, cols="40%,30%,30%"]
 |===
 h| Root Element h| Definition h| Example
@@ -446,18 +446,20 @@ h| Root Element h| Definition h| Example
 | `specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].` `externalSubjectId.type`
 | `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].value`
 | `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].type`
-| `endpoints[<index>].interface` | Interface of an endpoint of an AAS or Submodel
+| `endpoints[<index>].interface` a| 
 
-===
-*Note*: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
-===
+Interface of an endpoint of an AAS or Submodel
 
- | `$aasdesc#endpoints[0].interface`
-| `endpoints[<index>].protocolinformation.href` | Href of an endpoint of an AAS or Submodel 
+====
+Note: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
+====
 
-===
-*Note*: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
-===
+| `$aasdesc#endpoints[0].interface`
+| `endpoints[<index>].protocolinformation.href` a| Href of an endpoint of an AAS or Submodel 
+
+====
+Note: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
+====
 
 | `$smdesc#endpoints[0].` `protocolinformation.href`
 | `submodelDescriptors.semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.semanticId`
@@ -473,7 +475,7 @@ h| Root Element h| Definition h| Example
 === Comparison Operators
 
 The following comparison operators are part of the query language. The result of a comparison shall always be (a) of type xs:boolean or (b) a comparison error, e.g., due to invalid inputs. +
-In case of an error the comparison result is invalid. Any further combinations with the invalid result will also have an invalid result. In that case the complete filter expression will be ignored for an element evaluated and no result will be returned for that element. Only the elements with valid results will be returned.
+In case of an error the comparison result is invalid. Any further combinations with the invalid result will also have an invalid result. In that case all condition expressions will be ignored for the evaluated element and no result will be returned. Only the elements with valid results will be returned.
 
 The comparisons `$eq` `$ne` `$gt` `$lt` `$ge` `$le` are overloaded in the BNF grammar, which means that the same comparison can deal with several input types. For instance, `$eq`  can be used both for values of type xs:string and xs:int. The comparisons `$contains` `$starts-with` `$ends-with` `$regex` only allow xs:string.
 
@@ -693,7 +695,7 @@ $sme#semanticId $eq "https://example.com/a/semantic/id"
 
 === Match of Elements in Lists
 
-The `$match` operator signals that the following filter clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all filters shall be evaluated on the same element of this list. The common path prefix left to a `[]` determines the list to be searched.
+The `$match` operator signals that the following clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all conditions shall be evaluated on the same element of this list. The common path prefix left to a `[]` determines the list to be searched.
 
 FieldIdentifiers in a `$match` may contain several `[]`, which define nested lists. In such case the path prefix of the first `[]` must always be the same and the path prefixes of the following `[]` accordingly.
 
@@ -702,7 +704,7 @@ FieldIdentifiers in a `$match` may contain several `[]`, which define nested lis
 `$match` inside `$match` further restricts the subset of possible elements inside nested `[]`.
 
 ====
-Note 1: If the filter inside an `$match` clause contains expressions that are not pointing to the list under consideration, an error shall be returned.
+Note 1: If the comparisons inside an `$match` clause contains expressions that are not pointing to the list under consideration, an error shall be returned.
 ====
 
 The table illustrates the behavior using the example Asset Administration Shell above.
@@ -822,7 +824,7 @@ h| JSON Schema h| Grammar h| Comment
 | rightsEnum | - | explained in Security Access Rules; not used for query language
 | AccessPermissionRule | - | explained in Security Access Rules; not used for query language
 | AllAccessPermissionRules | - | explained in Security Access Rules; not used for query language
-| filter | - | Root object for the query filter expression
+| condition | - | Root object for the query condition expression
 ToHex> |
 |===
 
@@ -840,7 +842,7 @@ $eq +
 $aas#assetInformation.assetType
 |
 { +
-  "filter": { +
+  "condition": { +
     "$eq": [ +
       { "strModel": "$aas#idShort" }, +
       { "strModel": "$aas#assetInformation.assetType" } +
@@ -862,7 +864,7 @@ $match( +
 )
 |
 {
-  "filter": { +
+  "condition": { +
     "$match": [ +
       { "$eq": [ +
           { "strModel": "$sme.Documents[].DocumentClassification.Class#value" }, +
@@ -899,7 +901,7 @@ $and( +
 )
 |
 {
-  "filter": { +
+  "condition": { +
     "$and": [ +
       { "$match": [ +
           { "$eq": [ +
@@ -956,7 +958,7 @@ $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
 ) +
 |
 {
-  "filter": { +
+  "condition": { +
     "$or": [ +
       { "$match": [ +
           { "$eq": [ +
