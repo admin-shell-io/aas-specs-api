@@ -10,7 +10,7 @@
     },
     "modelStringPattern": {
       "type": "string",
-      "pattern": "^\\$(aas|sm|sme|cd|aasdesc|smdesc)(\\..[^#]*)?\\#(idShort|displayName|description|id|assetKind|assetType|globalAssetId|specificAssetId|submodel|semanticId|value|valueType|submodelDescriptors|language).*$"
+      "pattern": "^\\$(aas|sm|sme|cd|aasdesc|smdesc)(\\..[^#]*)?\\#(idShort|displayName|description|id|(assetInformation.)?assetKind|(assetInformation.)?assetType|(assetInformation.)?globalAssetId|(assetInformation.)?specificAssetId|submodel|semanticId|value|valueType|submodelDescriptors|language).*$"
     },
     "hexLiteralPattern": {
       "type": "string",
@@ -649,6 +649,9 @@
           "additionalProperties": false
         },
         "USEFORMULA": {
+          "type": "string"
+        },
+        "FRAGMENT": {
           "type": "string"
         },
         "FILTER": {
