@@ -110,7 +110,7 @@ image::aas-api-versioning-url-scheme.png[width=481,height=110]
 Upcoming implementations of AAS related servers may implement the version prefix “*api/v<X.Y>/*” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version and <Y> denotes the minor version, e.g. “api/v3.0/” (see <<aas-api-versioning-url-scheme>>).
 
 ====
-Note:* all URLs mentioned in this document regarding the REST mapping of the AAS APIs have to be understood with this prefix in mind.
+Note: all URLs mentioned in this document regarding the REST mapping of the AAS APIs have to be understood with this prefix in mind.
 ====
 
 
@@ -288,10 +288,12 @@ h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query paramete
 |GetAllSubmodelReferences |GET |/aas/submodel-refs |Pagination
 |PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-ref/\{submodelIdentifier}’
   
-
-_Note 1: submodelIdentifier is the base64url-encoded Submodel.id value_
+====
+Note 1: submodelIdentifier is the base64url-encoded Submodel.id value.
   
-_Note 2: There is no API defined for a client to directly send a GET towards this URL of the Location header, however, the information is intended as an input for the DeleteSubmodelReference API Operation._
+Note 2: There is no API defined for a client to directly send a GET towards this URL of the Location header, however, the information is intended as an input for the DeleteSubmodelReference API Operation.
+====
+
 |DeleteSubmodelReference |DELETE |/aas/submodel-refs/\{submodelIdentifier} |use base64url-encoded identifier
 |GetAssetInformation |GET |/aas/asset-information |
 |PutAssetInformation |PUT |/aas/asset-information |
@@ -429,20 +431,7 @@ path-suffix=$reference or no suffix normal
 |PutAssetAdministrationShellById |PUT |/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
 |AasInterface |* |/shells/\{aasIdentifier}/* |superpath as defined in Service Specification or Profile
-|QueryAssetAdministrationShells |POST |/query a| Input query in the request body
-
-
-====
-Note: The query for this operation shall not contain any 'select' statement. 
-====
-
-
-|QueryAssetAdministrationShellIds |POST |/query a| Input query in the request body
-
-====
-Note: The query for this operation must contain a 'select' statement. 
-====
-
+|QueryAssetAdministrationShells |POST |/query/shells a| Input query in the request body
 |*Submodel Repository Interface* | | |
 |GetAllSubmodels |GET |/submodels a|
 path-suffix= $metadata/$value/$reference/$path or no suffix for normal
@@ -473,20 +462,7 @@ base64url-encoded identifier
 |PatchSubmodelById |PATCH |/submodels/\{submodelIdentifier} |path-suffix=$metadata/$value or no suffix for normal
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 |SubmodelInterface |* |/submodels/\{submodelIdentifier}/* |superpath as defined in service specification or profile
-|QuerySubmodels |POST |/query a| Input query in the request body
-
-
-====
-Note: The query for this operation shall not contain any 'select' statement. 
-====
-
-
-|QuerySubmodelIds |POST |/query a| Input query in the request body
-
-====
-Note: The query for this operation must contain a 'select' statement. 
-====
-
+|QuerySubmodels |POST |/query/submodels a| Input query in the request body
 |*Concept Description Repository Interface* | | |
 |GetAllConceptDescriptions |GET |/concept-descriptions |Pagination
 |GetConceptDescriptionById |GET |/concept-descriptions/\{cdIdentifier} a|
@@ -508,21 +484,7 @@ Pagination
 |PostConceptDescription |POST |/concept-descriptions/ |
 |PutConceptDescriptionById |PUT |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |DeleteConceptDescriptionById |DELETE |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
-|QueryConceptDescriptions |POST |/query a| Input query in the request body
-
-
-====
-Note: The query for this operation shall not contain any 'select' statement. 
-====
-
-
-|QueryConceptDescriptionIds |POST |/query a| Input query in the request body
-
-====
-Note: The query for this operation must contain a 'select' statement. 
-====
-
-
+|QueryConceptDescriptions |POST |/query/concept-descriptions a| Input query in the request body
 |*AASX File Server Interface* | | |
 |GetAllAASXPackageIds |GET |/packages a|
 base64url-encoded identifier
@@ -562,42 +524,14 @@ assetType= base64url-encoded identifier
 |PutAssetAdministrationShellDescriptorById |PUT |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellDescriptorById |DELETE |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |Submodel Registry Interface |* |/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* |superpath as defined in Service Specification or Profile
-|QueryAssetAdministrationShellDescriptors |POST |/query a| Input query in the request body
-
-
-====
-Note: The query for this operation shall not contain any 'select' statement. 
-====
-
-
-|QueryAssetAdministrationShellDescriptorIds |POST |/query a| Input query in the request body
-
-====
-Note: The query for this operation must contain a 'select' statement. 
-====
-
-
+|QueryAssetAdministrationShellDescriptors |POST |/query/shell-descriptors a| Input query in the request body
 |*Submodel Registry Interface* | | |
 |GetAllSubmodelDescriptors |GET |/submodel-descriptors |Pagination
 |GetSubmodelDescriptorById |GET |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PostSubmodelDescriptor |POST |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PutSubmodelDescriptorById |PUT |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |DeleteSubmodelDescriptorById |DELETE |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
-|QuerySubmodelDescriptors |POST |/query a| Input query in the request body
-
-
-====
-Note: The query for this operation shall not contain any 'select' statement. 
-====
-
-
-|QuerySubmodelIdDescriptors |POST |/query a| Input query in the request body
-
-====
-Note: The query for this operation must contain a 'select' statement. 
-====
-
-
+|QuerySubmodelDescriptors |POST |/query/submodel-decriptors a| Input query in the request body
 |*Descriptor Interface* | | |
 |GetDescription |GET |/description |Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
 |===
