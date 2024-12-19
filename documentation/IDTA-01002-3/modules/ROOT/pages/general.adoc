@@ -292,8 +292,16 @@ Many use cases of the Asset Administration Shell require the involvement of a hi
 The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS. However, different communication protocols may treat aspects differently, e.g., by requiring different query or result set serialisations, variations in the order of constructs, or endpoint patterns. Nevertheless, all share the same expressiveness, and under same conditions a query shall lead to the same results independently of the chosen communication protocol.
 
 ====
-Note: The AAS Query Language and the AAS Access Control Language xref:bibliography.adoc#bib3[[3\]] share the same BNF grammar. Therefore, the result is a superset, with `query` as the entrypoint for the Query Language. 
+Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib3[[3\]] share the same BNF grammar. Therefore, the result is a superset, with `query` as the entrypoint for the Query Language. 
 ====
+
+
+== Use Case Examples
+
+Examples for Use Cases are search queries in the submodels DigitalNameplate, TechnicalData or HandoverDocumentation. +
+DigitalNameplate has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in DigitalNameplate can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
+TechnicalData has its major variable part on the bottom and a small fixed structure on the top. TechnicalData includes ProductClassifications with ProductClassId, so that e.g. by ECLASS ClassId a certain product type can be queried. TechnicalData includes all the technical properties, e.g. width of the product. An example is to search for motor starters (		ProductClassifications.ProductClassificationItem.ProductClassId = 27-37-09-05) with a width less than 100 mm (semanticId = 0173-1#02-BAF016#006, value < 100).
+HandoverDocumentation consists basically of a list of document information according VDI 2770 (DocumentedEntity{00}). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (semanticId = 0173-1#02-ABH996#001, ClassId = "03-01", i.e. Commissioning) in a certain language (semanticId = 0173-1#02-AAN468#006, e.g. Value = "nl").
 
 
 
@@ -683,7 +691,7 @@ A comparison using the semanticId as a shortcut could look like the following:
 $sme#semanticId $eq "https://example.com/a/semantic/id"
 
 
-=== Match of Elements in Lists 
+=== Match of Elements in Lists
 
 The `$match` operator signals that the following filter clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all filters shall be evaluated on the same element of this list. The common path prefix left to a `[]` determines the list to be searched.
 
@@ -819,9 +827,9 @@ ToHex> |
 |===
 
 
-=== Examples for JSON Schema
+=== Examples for Grammar and JSON Schema
 
-Single comparison
+Single comparison +
 [.table-with-appendix-table]
 [width=100%, cols="50%,50%"]
 |===
@@ -831,21 +839,106 @@ $aas#idShort +
 $eq +
 $aas#assetInformation.assetType
 |
+{ +
+  "filter": { +
+    "$eq": [ +
+      { "strModel": "$aas#idShort" }, +
+      { "strModel": "$aas#assetInformation.assetType" } +
+    ]
+  }
+}
+|===
+
+HandoverDocumentation with VDI 2770 Class 03-01 Commissioning and language NL (as expected with SubmodelElementList)+
+
+[.table-with-appendix-table]
+[width=100%, cols="50%,50%"]
+|===
+h| Grammar h| JSON Schema
+|
+$match( +
+  $sme.Documents[].DocumentClassification.Class#value $eq "03-01", +
+  $sme.Documents[].DocumentVersion.SMLLanguages[]#language $eq "nl" +
+)
+|
 {
-  "filter": {
-    "$eq": [
-      {
-        "strModel": "$aas#idShort"
-      },
-      {
-        "strModel": "$aas#assetInformation.assetType"
+  "filter": { +
+    "$match": [ +
+      { "$eq": [ +
+          { "strModel": "$sme.Documents[].DocumentClassification.Class#value" }, +
+          { "strVal": "03-01" } +
+        ]
+      }, +
+      { "$eq": [ +
+          { "strModel": "$sme.Documents[].DocumentVersion.SMLLanguages[]#language" }, +
+          { "strVal": "nl" } +
+        ]
       }
     ]
   }
 }
 |===
 
-Match
+TechnicalData with motor starter (ECLASS ClassId = 27-37-09-05) and width less than 100 mm
+
+[.table-with-appendix-table]
+[width=100%, cols="50%,50%"]
+|===
+h| Grammar h| JSON Schema
+|
+$and( +
+	$match( +
+		$sm#idShort $eq "TechnicalData", +
+		$sme.ProductClassifications.ProductClassificationItem.ProductClassId#value $eq "27-37-09-05" +
+	), +
+	$match( +
+		$sm#idShort $eq "TechnicalData", +
+		$sme#semanticId $eq "0173-1#02-BAF016#006", +
+		$sme#value $lt 100 +
+	)
+)
+|
+{
+  "filter": { +
+    "$and": [ +
+      { "$match": [ +
+          { "$eq": [ +
+              { "strModel": "$sm#idShort" }, +
+              { "strVal": "TechnicalData" } +
+            ]
+          }, +
+          { "$eq": [ +
+              { "strModel": "$sme.ProductClassifications.ProductClassificationItem.ProductClassId#value" }, +
+              { "strVal": "27-37-09-05" } +
+            ]
+          }
+        ]
+      }, +
+      { "$match": [ +
+          { "$eq": [ +
+              { "strModel": "$sm#idShort" }, +
+              { "strVal": "TechnicalData" } +
+            ]
+          }, +
+          { "$eq": [ +
+              { "strModel": "$sme#semanticId" }, +
+              { "strVal": "0173-1#02-BAF016#006" } +
+            ]
+          }, +
+          { "$lt": [ +
+              { "strModel": "$sme#value" }, +
+              { "numVal": 100 } +
+            ]
+          }
+        ]
+      },
+    ]
+  }
+}
+|===
+
+Match specificAssetIDs +
+
 [.table-with-appendix-table]
 [width=100%, cols="50%,50%"]
 |===
@@ -863,52 +956,30 @@ $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
 ) +
 |
 {
-  "filter": {
-    "$or": [
-      {
-        "$match": [
-          {
-            "$eq": [
-              {
-                "strModel": "$aas#assetInformation.specificAssetIds[].name"
-              },
-              {
-                "strVal": "supplierId"
-              }
+  "filter": { +
+    "$or": [ +
+      { "$match": [ +
+          { "$eq": [ +
+              { "strModel": "$aas#assetInformation.specificAssetIds[].name" }, +
+              { "strVal": "supplierId" } +
             ]
-          },
-          {
-            "$eq": [
-              {
-                "strModel": "$aas#assetInformation.specificAssetIds[].value"
-              },
-              {
-                "strVal": "aas-1"
-              }
+          }, +
+          { "$eq": [ +
+              { "strModel": "$aas#assetInformation.specificAssetIds[].value" }, +
+              { "strVal": "aas-1" } +
             ]
           }
         ]
-      },
-      {
-        "$match": [
-          {
-            "$eq": [
-              {
-                "strModel": "$aas#assetInformation.specificAssetIds[].name"
-              },
-              {
-                "strVal": "customerId"
-              }
+      }, +
+      { "$match": [ +
+          { "$eq": [ +
+              { "strModel": "$aas#assetInformation.specificAssetIds[].name" }, +
+              { "strVal": "customerId" } +
             ]
-          },
-          {
-            "$eq": [
-              {
-                "strModel": "$aas#assetInformation.specificAssetIds[].value"
-              },
-              {
-                "strVal": "aas-2"
-              }
+          }, +
+          { "$eq": [ +
+              { "strModel": "$aas#assetInformation.specificAssetIds[].value" }, +
+              { "strVal": "aas-2" } +
             ]
           }
         ]
