@@ -1,0 +1,34 @@
+@startuml
+participant "Client Application" as client
+
+box "Submodel"
+    participant "Invoke Endpoint\n/<IdShortPath>/invoke-async" as invoke
+    participant "Status Endpoint\n/<IdShortPath>/operation-status/<handleId>" as status
+    participant "Result Endpoint\n/<IdShortPath>/operation-result/<handleId>" as result
+end box
+
+activate client
+client -> invoke: POST: { "OperationRequest" }
+activate invoke
+invoke --> client: Status: 202 (Accepted)\nLocation: https://.../<IdShortPath>/operation-status/<handleId>
+deactivate invoke
+note right: Operation started
+
+client -> status: GET
+activate status
+note right: Operation still running
+status --> client: Status 200 (Ok)
+deactivate status
+
+client -> status: GET
+note right: Operation has finished
+activate status
+status --> client: Status 302 (Found)\nLocation: https://.../<IdShortPath>/operation-result/<handleId>
+deactivate status
+
+client -> result: GET
+activate result
+result --> client: Status 200 (Ok)\n{"OperationResult"}
+deactivate result
+
+@enduml
