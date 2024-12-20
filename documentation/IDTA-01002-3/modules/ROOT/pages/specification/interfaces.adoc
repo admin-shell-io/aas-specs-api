@@ -1178,7 +1178,7 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|List of Asset Administration Shells |no |AssetAdministrationShell |1
+e|payload a|List of Asset Administration Shells |no |AssetAdministrationShell |1..*
 |===
 
 ==== Operation GetAssetAdministrationShellById
@@ -1215,8 +1215,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |key |The key of the AssetId The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
 |keyIdentifier |The key identifier object |yes |string |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
-|limit |The maximum size of the result set |yes |nonNegativeInteger |1
-|cursor |The position from which to resume a result listing |yes |string |1
+|limit |The maximum size of the result set |no |nonNegativeInteger |1
+|cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1..*
@@ -1233,13 +1233,13 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Asset Administration Shell’s idShort |yes |NameType |
-|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |
+|idShort |The Asset Administration Shell’s idShort |yes |NameType | 1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  | 1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1
+|payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1..*
 |===
 
 ==== Operation PostAssetAdministrationShell
@@ -1537,7 +1537,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptions/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|limit |The maximum size of the result set |No |nonNegativeInteger |1
+|limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |String |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -1728,7 +1728,7 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |yes |Identifier |1..*
+|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |Identifier |1..*
 |===
 
 ==== Operation GetAllAssetLinksById
