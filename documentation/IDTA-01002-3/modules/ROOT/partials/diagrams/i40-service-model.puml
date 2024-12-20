@@ -1,0 +1,57 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "technology neutral" as tn {
+  object "  Service  " as Service
+  object " Interface " as Interface
+  object "Interface-\nOperation" as i_op
+
+  Service "0..*" o-- "0..*" Interface
+  Interface "0..*" o-- "1..*" i_op
+}
+
+package "technology specific" as ts {
+  object "Service-\nSpecification" as service_spec
+  object API
+  object "API-Operation" as api_op
+
+  service_spec "0..*" o-- "0..*" API
+  API *-- "1..*" api_op
+}
+
+package implementation {
+  object "Service-\nImplementation" as service_impl
+  object "API-\nImplementation" as api_impl
+  object "API-Operation-\nImplementation" as api_op_impl
+
+  service_impl "0..*" o-- "0..*" api_impl
+  api_impl *-- "1..*" api_op_impl
+}
+
+package runtime {
+  object "   Service-   \nInstance" as service_instance
+  object "API-Instance" as api_instance
+  object "  Operation -\nInstance" as op_instance
+
+  service_instance *-- "*" api_instance
+  api_instance *-- "1..*" op_instance
+}
+
+Service "0..1" - "*" service_spec
+Interface "1" - "*" API
+i_op "1" - "*" api_op
+
+service_spec <|.  service_impl: <<realizes>>
+API <|.   api_impl: <<realizes>>
+api_op <|.   api_op_impl: <<realizes>>
+
+service_impl <|. service_instance: <<instantiate>>
+api_impl <|. api_instance: <<instantiate>>
+api_op_impl <|. op_instance: <<instantiate>>
+
+note "Scope of standardization such that compliance statements may be formulated for the related specifications" as Note
+
+api_op .[hidden]. Note
+api_op_impl .[hidden]. Note
+
+@enduml

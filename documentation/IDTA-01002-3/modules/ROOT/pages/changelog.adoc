@@ -1,4 +1,3 @@
-
 = Change Notes
 
 == General
@@ -7,52 +6,60 @@
 * (*) means not backward compatible but just renaming
 
 ====
-Note: Changes in Metamodel (IDTA-01001) will not be listed here although they have an impact on the payload of many operations.
+Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
-== Changes w.r.t. V3.0.2 to V3.1
-
+== Changes w.r.t. V3.0.3 to V3.1
 
 Major Changes:
 
-* Bulk Operations and Profiles for Bulk Operations
-* deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
-* new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink)
+
+* Bulk Operations and Profiles for Bulk Operations (https://github.com/admin-shell-io/aas-specs-api/issues/3[#3])
 * new Query Interface and API Operations
-* new Profile for Discovery Service: Read Only SSP-002
-* updated: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions:
+* deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
+* new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink) (https://github.com/admin-shell-io/aas-specs-api/issues/19[#19])
+* new Profile for Discovery Service: Read Only SSP-002 (https://github.com/admin-shell-io/aas-specs-api/issues/201[#201])
+* updated: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions (https://github.com/admin-shell-io/aas-specs/issues/365[#365]):
 	** changed: interface
 	** changed: service
-* Individual versioning of datatype IDs, operations, interfaces etc. 
-* Transfer from .docx to asciidoc (.adoc) and maintenance in github
-* *tbd* The AAS metamodel includes a security metamodel, which is defined in the chapter “Overview Metamodel of Administration Shell w.r.t. Security”. This chapter was part of “Details of the Asset Administration Shell Part 1” until version 3.0 RC02. Since Part 1 has been split for the release of version 3.0, this chapter will become the basis of “Specification of the Asset Administration Shell. Part 4: Security”. In addition to the security metamodel, Part 4 will define e.g. authentication, further details about authorization, and signature of data.
+* Individual versioning of datatype IDs, operations, interfaces etc. (https://github.com/admin-shell-io/aas-specs-api/issues/247[#247])
 * Data type  Identifier: change length from 2000 to 2048 characters (https://github.com/admin-shell-io/aas-specs/issues/306[#306])
+* Transfer of chapters on formats Metadata, Paths and Value-Only from Part 2 API to Part 1 Metamodel (https://github.com/admin-shell-io/aas-specs-api/issues/214[#214])
+* Transfer from .docx to asciidoc (.adoc) and maintenance in GitHub
+* Transfer of all UML figures to PlantUML (.puml) and maintenance in GitHub
 
-=== Interface Changes w.r.t. V3.0.2 to V3.1
+Minor Changes:
 
-[%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
+
+* Clarification on how to handle duplicate query parameters
+
+=== Interface Changes w.r.t. V3.0.3 to V3.1
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
 | | Query Interface | New a| Newly introduced Interface
 | | AAS Basic Discovery | Changed a| deprecate GetAllAssetAdministrationShellIdsByAssetLink  
 
-add SearchAllAssetAdministrationShellIdsByAssetLink 
+add SearchAllAssetAdministrationShellIdsByAssetLink
 | |AAS  Registry  | Changed a| add CreateBulkAssetAdministrationShellDescriptors
 
 add PutBulkAssetAdministrationShellDescriptorsById
 
 add DeleteBulkAssetAdministrationShellDescriptorsById
 
-| | Submodel Registry | Changed a| add PostBulkSubmodelDescriptors, 
+| | GetAllAssetAdministrationShellDescriptors | Changed a| Changed the parameters assetKind and assetType from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/298[#298])
 
-add PutBulkSubmodelDescriptorsById,  
+| | Submodel Registry | Changed a| add PostBulkSubmodelDescriptors,
+
+add PutBulkSubmodelDescriptorsById,
 
 add DeleteBulkSubmodelDescriptorsById
 |===
 
-=== Operation Changes w.r.t. V3.0.2 to V3.1
+=== Operation Changes w.r.t. V3.0.3 to V3.1
 
-[%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
+[%autowidth,width="100%",cols="32%,34%,13%,21%",options="header",]
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 |GetAllAssetAdministrationShellIdsByQuery | |new | 
@@ -67,26 +74,25 @@ add DeleteBulkSubmodelDescriptorsById
 |GetAllConceptDescriptionsByQuery | |new | 
 |GetAllAssetAdministrationShellIdsByAssetLink | |deprecated | substituted by SearchAllAssetAdministrationShellIdsByAssetLink
 | | SearchAllAssetAdministrationShellIdsByAssetLink|new | substitute for GetAllAssetAdministrationShellIdsByAssetLink
-||PostBulkSubmodelDescriptors |new | 
-||PutBulkSubmodelDescriptorsById|new | 
-||DeleteBulkSubmodelDescriptorsById|new | 
+||PostBulkSubmodelDescriptors |new |
+||PutBulkSubmodelDescriptorsById|new |
+||DeleteBulkSubmodelDescriptorsById|new |
 |===
 
-=== Profile Changes w.r.t. V3.0.2 to V3.1
+=== Profile Changes w.r.t. V3.0.3 to V3.1
 
 |===
 |*Profile Change Old* |*Profile Change New* |*Kind of Change* |*Comment*
-| |Query Profile |new | 
-| |Asset Administration Shell Registry Profile – Bulk Profile |new | 
-| |Submodel Registry Profile – Bulk Profile |new | 
-|Discovery Profile – Full Profile| |update |GetAllAssetAdministrationShellIdsByAssetLink set to deprecated, added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
-| |Discovery Profile – Read Profile |new | 
+| |Query Profiles |new | 
+| |Asset Administration Shell Registry Profile - Bulk Profile |new | 
+| |Submodel Registry Profile - Bulk Profile |new | 
+|Discovery Profile - Full Profile| |update |GetAllAssetAdministrationShellIdsByAssetLink set to deprecated, added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
+| |Discovery Profile - Read Profile |new |
 |===
 
-=== Class Changes w.r.t. V3.0.2 to V3.1
+=== Class Changes w.r.t. V3.0.3 to V3.1
 
 .Changes in Data Types for Payload
-
 [cols="5%,42%,48%",options="header",]
 |===
 |*Nc* |*V3.1 Change w.r.t. V3.0* |*Comment*
@@ -100,7 +106,7 @@ add DeleteBulkSubmodelDescriptorsById
 
 | | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor/id] a| data type: change length from 2000 to 2048 characters
 
-| | xref:specification/interfaces-payload.adoc#PackageDescription[PackageDescription/aasIds] a| data type: change length from 2000 to 2048 characters
+| | xref:http-rest-api/http-rest-api.adoc#PackageDescription[PackageDescription/aasIds] a| data type: change length from 2000 to 2048 characters
 
 | | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/href] a| data type: change length from 2000 to 2048 characters
 |===
@@ -110,19 +116,45 @@ add DeleteBulkSubmodelDescriptorsById
 |===
 |  |*New Elements V3.1 vs V3.0* |*Comment*
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink] a| new class for discovery operation(s)
-| | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/name] a| 
-| | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/value] a| 
+| | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/name] a|
+| | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/value] a|
 |===
+
+
+== Changes w.r.t. V3.0.2 to V3.0.3
+
+Major:
+
+* Clause 12.2: Reintroducing the design decision for the ReferenceParent class due to resolvement problems reappearing in SwaggerHub, also adding the class again to the OpenAPI file.
+* Adding the missing GetSubmodelElementsMetadataResult class to the OpenAPI definitions for the AAS API classes.
+
+
+=== Interface Changes w.r.t. V3.0.2 to V3.0.3
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+|*BWC* |*Interface Change* |*Kind of Change* |*Comment*
+| | GetAllAssetAdministrationShellDescriptors    | Changed    | Changed the parameters assetKind and assetType from 'mandatory' to ‘optional'.  OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/298[#298])
+| | AAS Basic Discovery Interface    | Changed    |
+Changed the parameter assetIds from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/301[#301])
+|===
+
+=== Operation Changes w.r.t. V3.0.2 to V3.0.3
+
+None.
+
 
 == Changes w.r.t. V3.0.1 to V3.0.2
 
 Major:
 
-* Remove “format: byte” from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required. Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
+* Remove “format: byte” from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required.
+Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
 * Change the values for the ServiceDescription class from enum to a list of strings in the OpenAPI definition for the Part 2 classes.
-* Clause 11.4.2 and 11.4.3: Change the ValueOnly attribute “annotation” to “annotations” and its value from an array to ValueOnly for the AnnotatedRelationshipElementValue class in the examples and schema to match the “AnnotatedRelationshipElement/annotations” attribute. Furthermore, “AnnotatedRelationshipElementValue/annotations“ is optional now. 
+* Clause 11.4.2 and 11.4.3: Change the ValueOnly attribute “annotation” to “annotations” and its value from an array to ValueOnly for the AnnotatedRelationshipElementValue class in the examples and schema to match the “AnnotatedRelationshipElement/annotations” attribute.
+Furthermore, “AnnotatedRelationshipElementValue/annotations” is optional now.
 * Clause 11.4.2: Add serialisation rule for empty "FileValue/value" and "BlobValue/value".
-* Clause 11.4.3: "FileValue/value" and "BlobValue/value" are optional but non-empty attributes. 
+* Clause 11.4.3: "FileValue/value" and "BlobValue/value" are optional but non-empty attributes.
 * Clause 11.4.3: "EntityValue/statements" made optional.
 * Clause 11.4.3: Fix maxLength for "FileValue/value" from 200 to 2000 characters.
 * Clause 12.2: Remove the design decision for the ReferenceParent class, also removing it from the OpenAPI file.
@@ -130,11 +162,10 @@ Major:
 * (Editorial) Clause 12.8: Added constraint on the return object for ValueOnly requests and that the Level modifier is undefined for Metadata requests.
 * Adopt the V3.0.1 bugfix changes of the AAS Metamodel in the OpenAPI files and references.
 
-
 Minor:
 
 * (Editorial) Fix links to SwaggerHub in Clause 4.6 and Clause 12
-* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of "globalAssetId” for the “assetIds” parameter.
+* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of “globalAssetId” for the “assetIds” parameter.
 * (Editorial) ServiceSpecificationProfileEnum: Corrected explanations for Submodel Repository and Registry profile entries
 * (Editorial) Clause 11.4.2: Add “Submodel” to the list of possible ValueOnly objects and add more details how SubmodelElementLists have to be serialized.
 * (Editorial) Clause 11.4.4: Added sentence explaining where the idShortPath has to start.
@@ -147,38 +178,39 @@ Minor:
 
 === Interface Changes w.r.t. V3.0.2 to V3.1
 
-[%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
-| | GetOperationAsnycStatus	| Changed	| Replace payload type ‘OperationResult’ with ‘BaseOperationResult’ that OpenAPI descriptions already contained ‘BaseOperationResult’ from V3.0 on.
-| | ServiceSpecificationProfileEnum	| Remove	| Removed profiles https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002. Both profiles were not included in the V3.0.1 ServiceDescription class in the OpenAPI definition and only left-overs from previous drafts.
+| | GetOperationAsnycStatus    | Changed    | Replace payload type ‘OperationResult’ with ‘BaseOperationResult’ that OpenAPI descriptions already contained ‘BaseOperationResult’ from V3.0 on.
+| | ServiceSpecificationProfileEnum    | Remove    |
+Removed profiles https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002.
+Both profiles were not included in the V3.0.1 ServiceDescription class in the OpenAPI definition and only left-overs from previous drafts.
 
-| | PutAssetAdministrationShell	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no” 
-| | PutSubmodel	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PatchSubmodel	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodelElementByPath	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PatchSubmodelElementByPath	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutAssetAdministrationShellDescriptorById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodelDescriptorById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutAssetAdministrationShellById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodelById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PatchSubmodelById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutConceptDescriptionById	| Change	| Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutAssetAdministrationShell    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodel    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PatchSubmodel    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodelElementByPath    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PatchSubmodelElementByPath    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutAssetAdministrationShellDescriptorById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodelDescriptorById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutAssetAdministrationShellById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutSubmodelById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PatchSubmodelById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutConceptDescriptionById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
 |===
 
 === Operation Changes w.r.t. V3.0.1 to V3.0.2
 
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
-| GetSubmodelElementByPath-Metadata had ‘level’ and/or ‘cursor’ parameters in OpenAPI |‘level’ and/or ‘cursor’ parameters have been removed GetSubmodelElementByPath-Metadata | Remove | Neither ‘level’ nor ‘cursor’ could influence the behavior of the operation, therefore, removing them has no effect on any implementation. 
+| GetSubmodelElementByPath-Metadata had ‘level’ and/or ‘cursor’ parameters in OpenAPI |‘level’ and/or ‘cursor’ parameters have been removed GetSubmodelElementByPath-Metadata | Remove | Neither ‘level’ nor ‘cursor’ could influence the behavior of the operation, therefore, removing them has no effect on any implementation.
 |CreateSubmodelReference| New comment in Table 15 clarifies the content of the Location header of the response. | Change |
-|GetSelfDescription output type “ServiceDescription” contains enum for "profiles" | GetSelfDescription output type “ServiceDescription” contains list of strings for “profiles”	| Change | Custom profiles can be added with the new structure. 
-|String attributes of Part 2 classes are restricted to the regex pattern "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$" | String attributes of Part 2 classes are restricted to the regex pattern "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]\|\\ud800[\\udc00-\\udfff]\|[\\ud801-\\udbfe][\\udc00-\\udfff]\|\\udbff[\\udc00-\\udfff])*$" |	Change | The new pattern has been introduced for the JSON schema and the Part 1 OpenAPI domain already. This change synchronizes the pattern for both Part 1 and  Part 2 classes.
-| GetSubmodelElementByPath had single PathItem as the response object in some OpenAPI files | GetSubmodelElementByPath returns an array of PathItems |	Change |
-| PathItem regex did not allow SubmodelElementLists | PathItem regex does allow SubmodelElementLists |	Change |  |
+|GetSelfDescription output type “ServiceDescription” contains enum for "profiles" | GetSelfDescription output type “ServiceDescription” contains list of strings for “profiles”    | Change | Custom profiles can be added with the new structure.
+|String attributes of Part 2 classes are restricted to the regex pattern "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$" | String attributes of Part 2 classes are restricted to the regex pattern "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]\|\\ud800[\\udc00-\\udfff]\|[\\ud801-\\udbfe][\\udc00-\\udfff]\|\\udbff[\\udc00-\\udfff])*$" |    Change | The new pattern has been introduced for the JSON schema and the Part 1 OpenAPI domain already.
+This change synchronizes the pattern for both Part 1 and  Part 2 classes.
+| GetSubmodelElementByPath had single PathItem as the response object in some OpenAPI files | GetSubmodelElementByPath returns an array of PathItems |    Change |
+| PathItem regex did not allow SubmodelElementLists | PathItem regex does allow SubmodelElementLists |    Change |  |
 |===
-
-
 
 == Changes w.r.t. V3.0 to V3.0.1
 
@@ -187,10 +219,8 @@ Major:
 * Added Location header for POSTs that create a new resource, according to RFC 9110 Section 15.3.2
 * Correcting definitions of SerialisationModifiers and Pagination parameters in the OpenAPI files.
 * Cleaning of incorrectly located API Operations from the OpenAPI files.
-* Removing several outdated/inconsistently named OpenAPI files from the https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.1[Github Release].
+* Removing several outdated/inconsistently named OpenAPI files from the https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.1[GitHub Release].
 * Fixing the values of the ServiceDescription/profiles enum in the OpenAPI Domain.
-
-
 
 == Changes w.r.t. V1.0RC03 to V3.0
 
@@ -204,7 +234,7 @@ Major Changes:
 
 === Interface Changes w.r.t. V1.0RC03 to V3.0
 
-[%autowidth, width="100%", cols="10%,29%,10%,51%",options="header",]
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
 | |Submodel |New a|
@@ -278,12 +308,14 @@ GetAllAASXPackageIds
 | |* |Changed |API versioning with major + minor
 | |* |New |Profiles
 | |* |Changed |Clarify service specifications and APIs
-| |CD Registry |Changed |Renaming parameter ‘cdIdentifier’ in GetConceptDescriptionById to ‘id’. Parameter has not been changed in the HTTP API.
+| |CD Registry |Changed |
+Renaming parameter ‘cdIdentifier’ in GetConceptDescriptionById to ‘id’.
+Parameter has not been changed in the HTTP API.
 |===
 
 === Operation Changes w.r.t. V1.0RC03 to V3.0
 
-[%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
+[%autowidth,width="100%",cols="32%,34%,13%,21%",options="header",]
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 |GetDescriptor |GetDescription |Changed |Rename, get profiles
@@ -294,10 +326,10 @@ GetAllAASXPackageIds
 
 === Interface Changes w.r.t. V1.0RC02 to V1.0RC03
 
-[%autowidth, width="100%", cols="9%,29%,17%,45%",options="header",]
+[%autowidth,width="100%",cols="9%,29%,17%,45%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
-|* |Discovery |Changed |IndentifierKeyValuePair to SpecificAssetId
+|* |Discovery |Changed |IdentifierKeyValuePair to SpecificAssetId
 |* |Submodel |Changed |SubmodelElementStruct remains as SubmodelElementCollection
 |* |Submodel |Changed |ModelReference and GlobalReference are combined back to Reference
 |* |Submodel |Changed |Rename trimmed to metadata
@@ -311,20 +343,20 @@ GetAllAASXPackageIds
 
 === Operation Changes w.r.t. V1.0RC02 to V1.0RC03
 
-[%autowidth, width="100%", cols="32%,19%,13%,36%",options="header",]
+[%autowidth,width="100%",cols="32%,19%,13%,36%",options="header",]
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 | | |Changed |inputArgument and inoutputArgument are OperationVariable
-|GetAllAssetAdminstrationShellsByAssetLink | |Changed |IdentifierKeyValuePair to SpecificAssetId
-|GetAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpeicifcAssetId
-|PostAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpeicifcAssetId
+|GetAllAssetAdministrationShellsByAssetLink | |Changed |IdentifierKeyValuePair to SpecificAssetId
+|GetAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpecificAssetId
+|PostAllAssetLinksById | |Changed |IdentifierKeyValuePair to SpecificAssetId
 |===
 
 == Changes w.r.t. V1.0RC01 to V1.0RC02
 
 === Interface Changes w.r.t. V1.0RC01 to V1.0RC02
 
-[%autowidth, width="100%", cols="10%,21%,13%,56%",options="header",]
+[%autowidth,width="100%",cols="10%,21%,13%,56%",options="header",]
 |===
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
 |* |Asset Administration Shell |Changed a|
@@ -385,7 +417,7 @@ Renamed:
 
 GetAllAssetAdministrationShellsById to GetAssetAdministrationShellById,
 
-PutAssetAdministrationShell to PutAssetAdministratioShellById
+PutAssetAdministrationShell to PutAssetAdministrationShellById
 
 New:
 
@@ -409,7 +441,7 @@ New: GetAllAssetAdministrationShellIdsByAssetLink, GetAllAssetLinksById, PutAllA
 
 |(*) |Submodel Discovery Basic |Removed |
 |(*) |Concept Description Repository |Changed a|
-Renamed: GetAllConceptDescriptionsWtihDataSpecificationReference to GetAllConceptDescriptionsByDataSpecificationReference, PutConceptDescription to PutConceptDescriptionById
+Renamed: GetAllConceptDescriptionsWithDataSpecificationReference to GetAllConceptDescriptionsByDataSpecificationReference, PutConceptDescription to PutConceptDescriptionById
 
 New:
 
@@ -419,7 +451,7 @@ PostConceptDescription
 
 === Operation Changes w.r.t. V1.0RC01 to V1.0RC02
 
-[%autowidth, width="100%", cols="32%,34%,13%,21%",options="header",]
+[%autowidth,width="100%",cols="32%,34%,13%,21%",options="header",]
 |===
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 |PatchAssetAdministrationShell | |Removed |
@@ -445,7 +477,7 @@ PostConceptDescription
 |PutAssetAdministrationShellDescriptor |PutAssetAdministrationShellDescriptorById |Changed |Naming pattern byId
 | |PostAssetAdministrationDescriptor |New |
 |PutSubmodelDescriptor |PutSubmodelDescriptorById |Changed |Naming pattern byId
-| |PostSubmdeoDescriptor |New |
+| |PostSubmodelDescriptor |New |
 |GetAllAssetAdministrationShellsById |GetAssetAdministrationShellById |Changed |Naming pattern resource singular
 | |PostAssetAdministrationShell |New |
 |PutAssetAdministrationShell |PutAssetAdministrationShellById |Changed |Naming pattern byId

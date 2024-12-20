@@ -16,12 +16,15 @@ include::../includes/special-parameters.adoc[]
 
 == General
 
-For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc. that are specified in Part 1 xref:bibliography.adoc#bib1[[1\]], please refer to the specification in Bibliography. The AAS package format and the AAS Package type are defined in Part 5 xref:bibliography.adoc#bib4[[4\]]. This clause only defines additional classes that are needed for communication with the API.
+For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc. that are specified in Part 1 xref:bibliography.adoc#bib1[[1\]], please refer to the specification in the Bibliography. 
+The AAS package format and the AAS Package type are defined in Part 5 xref:bibliography.adoc#bib4[[4\]]. 
+This clause only defines additional classes that are needed for communication with the API.
 
 [#metamodel-specification-details]
 == Metamodel Specification Details
 
-The following type definitions are used to describe specific metamodel elements like Asset Administration Shells and submodels regarding their network and deployment configuration. They use certain attributes copied from the model element itself to describe it – hence the name _Descriptor_.
+The following type definitions are used to describe specific metamodel elements like Asset Administration Shells and submodels regarding their network and deployment configuration.
+They use certain attributes copied from the model element itself to describe it – hence the name _Descriptor_.
 
 [#descriptor]
 === Descriptor
@@ -30,7 +33,9 @@ The following type definitions are used to describe specific metamodel elements 
 [cols="25%,40%,25%,10%"]
 |===
 h|Class Name 3+e|[[Descriptor]]Descriptor
-h|Explanation 3+a|The self-describing information of a network resource. This class is not part of the metamodel.
+h|Explanation 3+a|
+The self-describing information of a network resource.
+This class is not part of the metamodel.
 h|Inherits from 3+|--
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Descriptor/3/0`
 h|Attribute h|Explanation h|Type h|Card.
@@ -39,11 +44,11 @@ Description or comments on the element
 
 The description can be provided in several languages
 
-|MultiLanguageTextType |0..1
+|link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#MultiLanguageTextType[MultiLanguageNameType] |0..1
 
-e|displayName a|Display name; can be provided in several languages |MultiLanguageNameType |0..1
+e|displayName a|Display name; can be provided in several languages | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#MultiLanguageTextType[MultiLanguageNameType] |0..1
 
-e|extension a|An extension of the element |Extension |0..*
+e|extension a|An extension of the element |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/common.html#Extension[Extension] |0..*
 |===
 
 === AssetAdministrationShellDescriptor
@@ -57,22 +62,22 @@ h|Inherits from 3+|xref:Descriptor[Descriptor]
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/AssetAdministrationShellDescriptor/3/1`
 
 h|Attribute h|Explanation h| Type h|Card.
-e|administration |Administrative information of the Asset Administration Shell |AdministrativeInformation |0..1
-e|assetKind |Denotes whether the asset of the described Asset Administration Shell is of kind “Type” or “Instance” |AssetKind |0..1
-e|assetType |The type of the asset described by the Asset Administration Shell of this Descriptor. See AssetInformation/assetType for further information. |Identifier |0..1
-e|endpoint |Endpoint of the network resource |Endpoint |0..*
-e|globalAssetId |Global reference to the asset the AAS is representing |Identifier |0..1
-e|idShort |Short name of the Asset Administration Shell |NameType |0..1
-e|id |Globally unique identification of the Asset Administration Shell |Identifier |1
-e|specificAssetId |Specific asset identifier |SpecificAssetId |0..*
-e|submodelDescriptor |Descriptor of a submodel of the Asset Administration Shell |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor] |0..*
+e|administration |Administrative information of the Asset Administration Shell | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/common.html#AdministrativeInformation[AdministrativeInformation] |0..1
+e|assetKind |Denotes whether the asset of the described Asset Administration Shell is of kind “Type” or “Instance” |  link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetKind[AssetKind] |0..1
+e|assetType |The type of the asset described by the Asset Administration Shell of this Descriptor. See AssetInformation/assetType for further information. | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..1
+e|endpoint |Endpoint of the network resource | xref:Endpoint[Endpoint] |0..*
+e|globalAssetId |Global reference to the asset the AAS is representing |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..1
+e|idShort |Short name of the Asset Administration Shell | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |0..1
+e|id |Globally unique identification of the Asset Administration Shell |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|specificAssetId |Specific asset identifier | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |0..*
+e|submodelDescriptor |Descriptor of a submodel of the Asset Administration Shell | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor] |0..*
 |===
 
-
 ====
-Note: the cardinality restriction for AssetAdministrationShellDescriptor/endpoint (optional: 0..*) allows a provider to skip the declaration of the location of an AssetAdministrationShell and directly point to the endpoints of the contained Submodels through the path AssetAdministrationShellDescriptor/submodelDescriptor-> SubmodelDescriptor/endpoint. A client, therefore, might decide to skip the lookup on the AssetAdministrationShell. Nevertheless, in case the information contained in the AssetAdministrationShellDescriptor deviates from the related AssetAdministrationShell, or attributes are missing, the AssetAdministrationShell is always the source of truth.
+Note: the cardinality restriction for AssetAdministrationShellDescriptor/endpoint (optional: 0..*) allows a provider to skip the declaration of the location of an AssetAdministrationShell and directly point to the endpoints of the contained Submodels through the path AssetAdministrationShellDescriptor/submodelDescriptor-> SubmodelDescriptor/endpoint.
+A client, therefore, might decide to skip the lookup on the AssetAdministrationShell.
+Nevertheless, in case the information contained in the AssetAdministrationShellDescriptor deviates from the related AssetAdministrationShell, or attributes are missing, the AssetAdministrationShell is always the source of truth.
 ====
-
 
 === SubmodelDescriptor
 
@@ -85,12 +90,12 @@ h|Inherits from 3+|xref:Descriptor[Descriptor]
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/SubmodelDescriptor/3/1`
 
 h|Attribute h|Explanation h| Type h|Card.
-e|administration a|Administrative information of the Submodel |AdministrativeInformation |0..1
+e|administration a|Administrative information of the Submodel |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/common.html#AdministrativeInformation[AdministrativeInformation] |0..1
 e|endpoint a|Endpoint of the network resource |xref:Endpoint[Endpoint] |1..*
-e|idShort a|Short name of the Submodel |NameType |0..1
-e|id a|Globally unique identification of the Submodel |Identifier |1
-e|semanticId a|Identifier of the semantic definition of the Submodel |Reference |0..1
-e|supplementalSemanticId a|Identifier of a supplemental semantic definition of the element called supplemental semantic ID of the element |Reference |0..*
+e|idShort a|Short name of the Submodel |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |0..1
+e|id a|Globally unique identification of the Submodel |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|semanticId a|Identifier of the semantic definition of the Submodel |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference] |0..1
+e|supplementalSemanticId a|Identifier of a supplemental semantic definition of the element called supplemental semantic ID of the element |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |0..*
 |===
 
 === Endpoint
@@ -99,18 +104,20 @@ e|supplementalSemanticId a|Identifier of a supplemental semantic definition of t
 [cols="25%,40%,25%,10%"]
 |===
 h|Class Name 3+e|[[Endpoint]]Endpoint
-h|Explanation 3+a|The endpoint description of a network resource. This class is not part of the metamodel.
+h|Explanation 3+a|
+The endpoint description of a network resource.
+This class is not part of the metamodel.
 h|Inherits from 3+|-
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Endpoint/3/0`
 
 h|Attribute h|Explanation h|Type h|Card.
 e|protocolInformation a|Protocol information of the network resource endpoint |xref:ProtocolInformation[ProtocolInformation] |1
-e|interface a|Name of the offered interface at the endpoint |NameType |1
+e|interface a|Name of the offered interface at the endpoint |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType]  |1
 |===
 
 The following names will be used for the interfaces:
 
-[%autowidth, width="100%", options="header",]
+[%autowidth,width="100%",options="header",]
 |===
 h|*Interface* h|*interface-shortName*
 |Asset Administration Shell Interface |AAS
@@ -131,7 +138,36 @@ The interface-version of this specification is “3.0”, e.g. the entry for the
 
 See the following example for a descriptor with several endpoints:
 
-image:descriptor.png[image5]
+[source,json,linenums]
+----
+{
+  "endpoints": [
+    {
+      "protocolInformation": {
+        "endpointAddress": "https://localhost:1234",
+        "endpointProtocolVersion": "1.1"
+      },
+      "interface": "AAS-3.0"
+    },
+    {
+      "protocolInformation": {
+        "endpointAddress": "opc.tcp://localhost:4840"
+      },
+      "interface": "AAS-3.0"
+    },
+    {
+      "protocolInformation": {
+        "endpointAddress": "https://localhost:5678",
+        "endpointProtocolVersion": "1.1",
+        "subprotocol": "OPC UA Basic SOAP",
+        "subprotocolBody": "ns=2;s=MyAAS",
+        "subprotocolBodyEncoding": "application/soap+xml"
+      },
+      "interface": "AAS-3.0"
+    }
+  ]
+}
+----
 
 === ProtocolInformation
 
@@ -140,31 +176,34 @@ image:descriptor.png[image5]
 |===
 h|Class Name 3+e|[[ProtocolInformation]]ProtocolInformation
 h|Explanation 3+a|
-The protocol information of a network resource endpoint will be defined in DIN SPEC 16593-2. After the release of DIN SPEC 16593-2, any required updates will be made. This class is not part of the metamodel.
+The protocol information of a network resource endpoint will be defined in DIN SPEC 16593-2.
+After the release of DIN SPEC 16593-2, any required updates will be made.
+This class is not part of the metamodel.
 
-The information in this table is a 1:1 copy from DIN SPEC 16593-2. Required changes need to be made by the related DIN working group.
+The information in this table is a 1:1 copy from DIN SPEC 16593-2.
+Required changes need to be made by the related DIN working group.
 
 
 h|Inherits from 3+|--
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/ProtocolInformation/3/0`
 
 h|Attribute h|Explanation h|Type h|Card.
-e|href |The endpoint address as an URL |xref:LocatorType[LocatorType] |1
+e|href |The endpoint address as a URL |xref:LocatorType[LocatorType] |1
 
-e|endpointProtocol |Either scheme of endpointAdress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
+e|endpointProtocol |Either scheme of endpointAddress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
 
-e|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |LabelType |0..*
+e|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#LabelType[LabelType] |0..*
 
 e|subprotocol |Allows for referencing sub-protocols that may be used in the context of that endpoint e.g. “OPC Basic SOAP” or UA Binary |xref:ShortIdType[ShortIdType] |0..1
 
 e|subprotocolBody |If the sub-protocol field is present, a subprotocolBody might be given to hold extra information, e.g. node and namespace in an OPC UA server |xref:TextType[TextType] |0..1
 
-e|subprotocolBodyEncoding |If subprotocolBody is present, the encoding might be explicitly defined, otherwise it shall default to subprotocols encoding scheme |LabelType |0..1
+e|subprotocolBodyEncoding |If subprotocolBody is present, the encoding might be explicitly defined, otherwise it shall default to subprotocols encoding scheme |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#LabelType[LabelType] |0..1
 
 e|securityAttributes a|
 Array of securityAttribute objects, each attribute has 3 properties:
 
-{  
+{
 
 *type* = Enum security type or standard:
 
@@ -174,7 +213,7 @@ Array of securityAttribute objects, each attribute has 3 properties:
 
 *key* = security attribute key according to standard definitions of the security type,
 
-*value* = security attribute value e.g. DANE TLSA Ressource Record  
+*value* = security attribute value e.g. DANE TLSA Ressource Record
 
 }
 
@@ -183,16 +222,17 @@ The securityAttribute objects are treated as possible alternatives (logical “o
 |xref:SecurityAttributeObject[SecurityAttributeObject] |1..*
 |===
 
-
-
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
 |===
 h|Class Name 3+e|[[SecurityAttributeObject]]SecurityAttributeObject
 h|Explanation 3+a|
-Security attributes as defined by DIN SPEC 16593-2. After the release of DIN SPEC 16593-2, any required updates will be made. This class is not part of the metamodel.
+Security attributes as defined by DIN SPEC 16593-2.
+After the release of DIN SPEC 16593-2, any required updates will be made.
+This class is not part of the metamodel.
 
-The information in this table is derived from DIN SPEC 16593-2. Required changes need to be made by the related DIN working group.
+The information in this table is derived from DIN SPEC 16593-2.
+Required changes need to be made by the related DIN working group.
 
 
 h|Inherits from 3+|--
@@ -209,15 +249,18 @@ e|value |Security attribute value e.g. DANE TLSA Ressource Record |string |1
 |===
 h|Enumeration e|[[SecurityTypeEnum]]SecurityTypeEnum
 h|Explanation a|
-The security types as defined by DIN SPEC 16593-2. After the release of DIN SPEC 16593-2, any required updates will be made. This class is not part of the metamodel.
+The security types as defined by DIN SPEC 16593-2.
+After the release of DIN SPEC 16593-2, any required updates will be made.
+This class is not part of the metamodel.
 
-The information in this table is derived from DIN SPEC 16593-2. Required changes need to be made by the related DIN working group.
+The information in this table is derived from DIN SPEC 16593-2.
+Required changes need to be made by the related DIN working group.
 
 h|semanticId |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/3/0`
 
 .2+h|Literal h| ID
-   h|Explanation
-   
+h|Explanation
+
 .2+e|NONE |`\https://admin-shell.io/aas/API/DataTypes/SecurityTypeEnum/NONE/3/0`
 a|No predefined security type available
 
@@ -235,7 +278,8 @@ a|Decentralized Identifiers according to the W3C Recommendation xref:bibliograph
 |===
 h|Class Name 3+e|[[ServiceDescription]]ServiceDescription
 h|Explanation 3+a|
-The self-describing information of an API Implementation. It enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
+The self-describing information of an API Implementation.
+It enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
 
 This class is not part of the metamodel.
 
@@ -247,12 +291,13 @@ h|Attribute h|Explanation h|Type h|Card.
 e|profiles |List of implemented server specification profiles. |xref:ServiceSpecificationProfileEnum[ServiceSpecificationProfileEnum] |1..*
 |===
 
-
 [.table-with-appendix-table]
 [cols="30%h,70%"]
 |===
 h|Enumeration e|[[ServiceSpecificationProfileEnum]]ServiceSpecificationProfileEnum
-h|Explanation a|The identifiers of the standardized service specification profiles. See also clause 12.12 for further details.
+h|Explanation a|
+The identifiers of the standardized service specification profiles.
+See also clause 12.12 for further details.
 h|semanticId |`\https://admin-shell.io/aas/API/DataTypes/ServiceSpecificationProfileEnum/3/0`
 
 hh|Literal h|Explanation
@@ -280,7 +325,16 @@ e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-
 
 An example ServiceDescription object might look like the following, indicating that the server supports two profiles at the same time (see Clause 12.12.3 for further details on service specifications and profiles):
 
-image:service-description.png[image6]
+[source,json,linenums]
+----
+{
+  "profiles": [
+    "https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001",
+    "https://admin-shell.io/aas/API/3/0/RegistryServiceSpecification/SSP-002"
+  ]
+}
+
+----
 
 
 === Query Results
@@ -400,10 +454,11 @@ Result elements of AAS queries depend on the declared output selector and the ta
 
 === Simple Data Types
 
-All simple data types from Part 1 xref:bibliography.adoc#bib1[[1\]] apply also to the specifications described in this document. Additional data types are defined in Table 2.
+All simple data types from Part 1 xref:bibliography.adoc#bib1[[1\]] apply also to the specifications described in this document.
+Additional data types are defined in Table 2.
 
 .Simple Data Types used for API-specific Classes
-[%autowidth, width="100%", cols="22%,30%,48%",options="header",]
+[%autowidth,width="100%",cols="22%,30%,48%",options="header",]
 |===
 |*Primitive* |*Definition* |*Value Examples*
 |NonNegativeInteger |The _nonNegativeInteger_ datatype as defined by XML Schema Part 2 in version 1.0 footnote:[https://www.w3.org/TR/xmlschema-2/] a|
@@ -415,10 +470,12 @@ All simple data types from Part 1 xref:bibliography.adoc#bib1[[1\]] apply also t
 
 === Primitive Data Types
 
-All primitive data types from Part 1 apply also to the specifications described in this document. All constraints and spelling patterns apply as well. In addition, the following data types are defined.
+All primitive data types from Part 1 apply also to the specifications described in this document.
+All constraints and spelling patterns apply as well.
+In addition, the following data types are defined.
 
 .Primitive Data Types used for the API-specific Classes
-[%autowidth, width="100%", cols="14%,44%,42%",options="header",]
+[%autowidth,width="100%",cols="14%,44%,42%",options="header",]
 |===
 |*Primitive* |*Definition* |*Value Examples*
 |[[CodeType]]CodeType |_string_ with max 32 and min 1 characters a|
@@ -466,17 +523,20 @@ a|
 
 This clause deals with the error and result handling of an operation’s execution in a technology-independent manner.
 
-The first clause covers generic status codes that are returned on each request, independent of the operation’s success or failure. The subsequent clause describes the result object that is returned in case of failure.
+The first clause covers generic status codes that are returned on each request, independent of the operation’s success or failure.
+The subsequent clause describes the result object that is returned in case of failure.
 
 [[StatusCode]]
 ==== Generic Status Codes
 
-Successful operations return one of the success status codes and their respective payload. Unsuccessful operations return one of the failure status codes and a result object as defined in Clause 0.
+Successful operations return one of the success status codes and their respective payload.
+Unsuccessful operations return one of the failure status codes and a result object as defined in Clause 0.
 
-Table 4 shows generic status codes returned to the requester. Additionally, the table indicates whether a specific status code comes with a result object in the returned payload.
+Table 4 shows generic status codes returned to the requester.
+Additionally, the table indicates whether a specific status code comes with a result object in the returned payload.
 
 .Status Codes
-[%autowidth, width="100%", cols="31%,61%,8%",options="header",]
+[%autowidth,width="100%",cols="31%,61%,8%",options="header",]
 |===
 |*Generic Status Code* |*Meaning* |*Has Result Object*
 |Success |Success |No
@@ -506,7 +566,7 @@ h|Inherits from 3+|--
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Result/3/0`
 
 h|Attribute h|Explanation h|Type h|Card.
-e|message a|Additional message containing information for the requester |Message |0..*
+e|message a|Additional message containing information for the requester |xref:Message[Message] |0..*
 |===
 
 [.table-with-appendix-table]
@@ -556,8 +616,8 @@ h|semanticId* 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationRequest/3/0
 
 h|Attribute h|Explanation h|Type h|Card.
 
-|inputArguments a|Input argument |OperationVariable |0..*
-|inoutputArguments a|InOutput argument |OperationVariable |0..*
+|inputArguments a|Input argument | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |0..*
+|inoutputArguments a|InOutput argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |0..*
 |clientTimeoutDuration a|Duration indicating when the client expects the server to have finished execution of the invoked operation |duration |0..1
 |===
 
@@ -587,8 +647,8 @@ h|Inherits from 3+|BaseOperationResult
 h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationResult/3/0`
 
 h|Attribute h|Explanation h|Type h|Card.
-e|outputArguments |Output argument |OperationVariable |0..*
-e|inoutputArguments |InOutput argument |OperationVariable |0..*
+e|outputArguments |Output argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |0..*
+e|inoutputArguments |InOutput argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |0..*
 |===
 
 ===== Enumeration ExecutionState 
@@ -625,5 +685,6 @@ e|handleId |Handle ID |xref:ShortIdType[ShortIdType] |1
 
 === File Content
 
-The “File Content” type of the operations mentioned above is seen as “arbitrary binary data” according to RFC 2046 and is as such defined as byte-array in UTF8-encoding. If a content type is required, “application/octet-stream” must be used as defined in RFC 2046.
+The “File Content” type of the operations mentioned above is seen as “arbitrary binary data” according to RFC 2046 and is as such defined as byte-array in UTF8-encoding.
+If a content type is required, “application/octet-stream” must be used as defined in RFC 2046.
 

@@ -11,19 +11,25 @@ POST operations create new resources using the input content.
 
 PUT operations replace existing resources using the input content.
 
-POST and PUT use the regular serialization. The client creates the input content as needed, so that no further SerializationModifiers need to be used.
+POST and PUT use the regular serialization.
+The client creates the input content as needed, so that no further SerializationModifiers need to be used.
 
-PATCH operations may use the regular serialization, the metadata serialization, or the ValueOnly- serialization. The SerializationModifier Core is not used. The resources in the input content must already exist on the server and are replaced one by one accordingly. If one of the resources in the input content does not exist, no changes will be made on the server. “Resource exists” means, that the type of a SubmodelElement is the same in the input content and on the server. For example, a property may only be replaced by a property; elements of a SubmodelElementCollection or SubmodelElementList can only be replaced if they already exist on the server. A SubmodelElementList with five elements cannot be patched with a SubmodelElementList with more than five elements. A SubmodelElementList with five elements can be patched with a SubmodelElementList with less than five elements since all required elements starting from index 0 already exist.
-
+PATCH operations may use the regular serialization, the metadata serialization, or the ValueOnly- serialization.
+The SerializationModifier Core is not used.
+The resources in the input content must already exist on the server and are replaced one by one accordingly.
+If one of the resources in the input content does not exist, no changes will be made on the server.
+“Resource exists” means, that the type of a SubmodelElement is the same in the input content and on the server.
+For example, a property may only be replaced by a property; elements of a SubmodelElementCollection or SubmodelElementList can only be replaced if they already exist on the server.
+A SubmodelElementList with five elements cannot be patched with a SubmodelElementList with more than five elements.
+A SubmodelElementList with five elements can be patched with a SubmodelElementList with less than five elements since all required elements starting from index 0 already exist.
 
 ====
 Note: values remain unchanged with content=metadata.
 ====
 
-
 === Examples for GET Operations
 
-[%autowidth, width="100%", cols="h,d,d",options="header",]
+[%autowidth,width="100%",cols="h,d,d",options="header",]
 |===
 | |*Deep (default)* |*Core*
 |*Normal +
@@ -347,7 +353,7 @@ If applied to the Property inside the SubmodelElementCollection:
 
 === Examples for PATCH Operations 
 
-[%autowidth, width="100%", cols="h,d"]
+[%autowidth,width="100%",cols="h,d"]
 |===
 | |*Deep (default)*
 |*Normal (default)* a|

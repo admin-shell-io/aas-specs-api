@@ -426,6 +426,15 @@ components:
               type: array
               items: 
                 $ref: "#/components/schemas/SubmodelDescriptor"
+    GetSubmodelElementsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementMetadata" 
     GetSubmodelElementsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
