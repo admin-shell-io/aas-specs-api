@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
   "title": "JSON Schema for AAS Queries",
   "description": "This schema validates AAS Queries.",
   "$ref": "#/definitions/Query",
@@ -10,7 +10,7 @@
     },
     "modelStringPattern": {
       "type": "string",
-      "pattern": "^\\$(aas|sm|sme|cd|aasdesc|smdesc)(\\..[^#]*)?\\#(idShort|displayName|description|id|(assetInformation.)?assetKind|(assetInformation.)?assetType|(assetInformation.)?globalAssetId|(assetInformation.)?specificAssetId|submodel|semanticId|value|valueType|submodelDescriptors|language).*$"
+      "pattern": "^(?:\\$aas#(?:idShort|id|assetInformation\\.assetKind|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.(?:specificAssetIds\\[[0-9]*\\](?:\\.(?:name|value|externalSubjectId(?:\\.type|\\.keys\\[\\d*\\](?:\\.(?:type|value))?)?)?)|submodels\\.(?:type|keys\\[\\d*\\](?:\\.(?:type|value))?))|submodels\\.(type|keys\\[\\d*\\](?:\\.(type|value))?))|(?:\\$sm#(?:semanticId(?:\\.type|\\.keys\\[\\d*\\](?:\\.(type|value))?)?|idShort|id))|(?:\\$sme(?:\\.[a-zA-Z][a-zA-Z0-9_]*\\[[0-9]*\\]?(?:\\.[a-zA-Z][a-zA-Z0-9_]*\\[[0-9]*\\]?)*)?#(?:semanticId(?:\\.type|\\.keys\\[\\d*\\](?:\\.(type|value))?)?|idShort|value|valueType|language))|(?:\\$cd#(?:idShort|id)))|(?:\\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\\[[0-9]*\\]?(?:\\.(name|value|externalSubjectId(?:\\.type|\\.keys\\[\\d*\\](?:\\.(type|value))?)?)?)|endpoints\\[[0-9]*\\]\\.(interface|protocolinformation\\.href)|submodelDescriptors\\[[0-9]*\\]\\.(semanticId(?:\\.type|\\.keys\\[\\d*\\](?:\\.(type|value))?)?|idShort|id|endpoints\\[[0-9]*\\]\\.(interface|protocolinformation\\.href))))|(?:\\$smdesc#(?:semanticId(?:\\.type|\\.keys\\[\\d*\\](?:\\.(type|value))?)?|idShort|id|endpoints\\[[0-9]*\\]\\.(interface|protocolinformation\\.href)))$"
     },
     "hexLiteralPattern": {
       "type": "string",
@@ -27,46 +27,46 @@
     "Value": {
       "type": "object",
       "properties": {
-        "strModel": {
+        "$field": {
           "$ref": "#/definitions/modelStringPattern"
         },
-        "strVal": {
+        "$strVal": {
           "$ref": "#/definitions/standardString"
         },
-        "attribute": {
+        "$attribute": {
           "$ref": "#/definitions/attributeItem"
         },
-        "numVal": {
+        "$numVal": {
           "type": "number"
         },
-        "hexVal": {
+        "$hexVal": {
           "$ref": "#/definitions/hexLiteralPattern"
         },
-        "dateTimeVal": {
+        "$dateTimeVal": {
           "$ref": "#/definitions/dateTimeLiteralPattern"
         },
-        "timeVal": {
+        "$timeVal": {
           "$ref": "#/definitions/timeLiteralPattern"
         },
         "$boolean": {
           "type": "boolean"
         },
-        "strCast": {
+        "$strCast": {
           "$ref": "#/definitions/Value"
         },
-        "numCast": {
+        "$numCast": {
           "$ref": "#/definitions/Value"
         },
-        "hexCast": {
+        "$hexCast": {
           "$ref": "#/definitions/Value"
         },
-        "boolCast": {
+        "$boolCast": {
           "$ref": "#/definitions/Value"
         },
-        "dateTimeCast": {
+        "$dateTimeCast": {
           "$ref": "#/definitions/Value"
         },
-        "timeCast": {
+        "$timeCast": {
           "$ref": "#/definitions/Value"
         },
         "$dayOfWeek": {
@@ -85,37 +85,37 @@
       "oneOf": [
         {
           "required": [
-            "strModel"
+            "$field"
           ]
         },
         {
           "required": [
-            "strVal"
+            "$strVal"
           ]
         },
         {
           "required": [
-            "attribute"
+            "$attribute"
           ]
         },
         {
           "required": [
-            "numVal"
+            "$numVal"
           ]
         },
         {
           "required": [
-            "hexVal"
+            "$hexVal"
           ]
         },
         {
           "required": [
-            "dateTimeVal"
+            "$dateTimeVal"
           ]
         },
         {
           "required": [
-            "timeVal"
+            "$timeVal"
           ]
         },
         {
@@ -125,32 +125,32 @@
         },
         {
           "required": [
-            "strCast"
+            "$strCast"
           ]
         },
         {
           "required": [
-            "numCast"
+            "$numCast"
           ]
         },
         {
           "required": [
-            "hexCast"
+            "$hexCast"
           ]
         },
         {
           "required": [
-            "boolCast"
+            "$boolCast"
           ]
         },
         {
           "required": [
-            "dateTimeCast"
+            "$dateTimeCast"
           ]
         },
         {
           "required": [
-            "timeCast"
+            "$timeCast"
           ]
         },
         {
@@ -176,10 +176,10 @@
       ],
       "additionalProperties": false
     },
-    "StringValue": {
+    "stringValue": {
       "type": "object",
       "properties": {
-        "strModel": {
+        "field": {
           "$ref": "#/definitions/modelStringPattern"
         },
         "strVal": {
@@ -195,17 +195,17 @@
       "oneOf": [
         {
           "required": [
-            "strModel"
+            "$field"
           ]
         },
         {
           "required": [
-            "strVal"
+            "$strVal"
           ]
         },
         {
           "required": [
-            "strCast"
+            "$strCast"
           ]
         },
         {
@@ -229,7 +229,7 @@
       "minItems": 2,
       "maxItems": 2,
       "items": {
-        "$ref": "#/definitions/StringValue"
+        "$ref": "#/definitions/stringValue"
       }
     },
     "matchExpression": {
@@ -708,8 +708,7 @@
           "pattern": "^id$"
         },
         "$condition": {
-          "$ref": "#/definitions/logicalExpression",
-          "additionalProperties": false
+          "$ref": "#/definitions/logicalExpression"
         }
       },
       "required": [

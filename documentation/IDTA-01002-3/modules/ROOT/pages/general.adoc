@@ -334,49 +334,14 @@ If such explicit information is not specified, a hierarchical search is made. By
 The content and structure of the AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix xref:annex/backus-naur-form.adoc[Backus-Naur-Form] for more details on BNF. The detailed serialisation and interaction patterns are defined by the different technology mappings, e.g., the AAS HTTP API represents AAS Queries as JSON objects (see Clause xref:http-rest-api/http-rest-api.adoc#query-json-serialisation[Serialisation]). Other mappings may define different serialisations, however, all have to follow the general structure of queries defined in the following grammar.
 
 
-// Updated grammar 2024-10-11 (from aorzelski) + additional extensions 2024-11-02 (from sebbader-sap)
-This is the combined grammar for the AAS Query Language and the AAS Access Rules defined by the AAS Security specification (TOOD: add reference).
+
+This is the combined grammar for the AAS Query Language and the AAS Access Rules defined by the AAS Security specification xref:bibliography.adoc#bib3[[3\]].
 // (check by https://bnfplayground.pauliankline.com/)
 // (see a running parser at https://grammar.aas-voyager.com/ )
 
 
-include::./grammar.adoc
+include::./grammar.adoc[]
 
-// examples for grammar as of 2024-11-24:
-// $sm.#semanticId.type$eq"abc"
-// $sme.someIdShort.someOtherIdShort.#semanticId.type$eq"abc"
-// $sme.someIdShort.someOtherIdShort[3].#semanticId.type$eq"abc"
-// $sm.#idShort$eq"example"
-// $contains($sm.#idShort,"test")
-// $sm.#idShort$eq"example"$and$contains($sm.#idShort,"test")
-// $not(hex("12")$gt16#0ACD)$or12$eqnum("12")
-// $not(hex("12")$gt16#0ACD)$or(hex($sm.#idShort)$ne16#ABC$and$sme.#value$gt12)$or12$eqnum("12")
-// time(GLOBAL(LOCALNOW))$ge09:00$andtime(GLOBAL(LOCALNOW))$le17:00
-// $selectid$where$sm.#idShort$eq"someIdShort"
-
-// examples for grammar as of 2024-11-02:
-// sm.$semanticId.$type eq "abc"
-// sme.someIdShort.someOtherIdShort.$semanticId.$type eq "abc"
-// sme.someIdShort.someOtherIdShort[3].$semanticId.$type eq "abc"
-// sm.$idShort eq "example"
-// contains(sm.$displayName.$text, "test")
-// contains(sm.$description.$text, "test")
-// sm.$idShort eq "example" and contains(sm.$description.$text, "test")
-// not(hex("12") gt 16#0ACD)  or 12 eq num("12")
-// not(hex("12") gt 16#0ACD) or (hex(sm.$idShort) ne 16#ABC and sme.$value gt 12) or 12 eq num("12")
-// time(GLOBAL(LOCALNOW)) ge 09:00 and time(GLOBAL(LOCALNOW)) le 17:00
-// select id where sm.$idShort eq "someIdShort"
-
-
-// Examples for updated grammar:
-// sm.idShort eq "example"
-// contains(sm.description, "test")
-// sm.idShort eq "example" and contains(sm.description, "test")
-// not(hex("12") gt 16#0ACD) or (hex(sm.idShort) ne 16#ABC and sme.value gt 12) or 12 eq num("12")
-// time(GLOBAL(LOCALNOW)) ge 09:00 and time(GLOBAL(LOCALNOW)) le 17:00
-
-// Examples for initial grammar (todo: delete before publication):
-// select id where idShort = "someIdShort"
 
 
 === Select Expression
@@ -495,7 +460,6 @@ h| Operator h| Description h| Definition
 | `$starts-with` | Compares two string expressions whether the second parameter appears character-equal at the beginning of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-starts-with
 | `$ends-with` | Compares two string expressions whether the second parameter appears character-equal at the end of the first. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-ends-with
 | `$regex` | Compares two string expressions whether the first parameter matches the regex of the second. | Defined as fn:starts-with in https://www.w3.org/TR/xpath-functions-30/#func-matches
-// TODO: decide if needed | `$exists` | Checks if the argument is a non-empty sequence. | Defined as fn:exists in https://www.w3.org/TR/xpath-functions-30/#func-exists
 |===
 
 ==== Example
@@ -620,12 +584,11 @@ For explicite casting the following casting operators are used:
 h| Casting Operator h| Description h| Definition
 | `$str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
 | `$num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
-// __TODO:__ This implies that only double comparisons are possible...
 | `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
 | `$bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
-| `$hex(<value>)` | Casts the `value` to `xs:hexBinary`. | // TODO: define properly
-| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | // TODO: define properly
-| `$time(<value>)` | Casts the `value` to `xs:time`. | // TODO: define properly
+| `$hex(<value>)` | Casts the `value` to `xs:hexBinary`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-binary
+| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
+| `$time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
 |===
 
 Implicite casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
@@ -709,65 +672,98 @@ Note 1: If the comparisons inside an `$match` clause contains expressions that a
 
 The table illustrates the behavior using the example Asset Administration Shell above.
 
-[.table-with-appendix-table]
-[width=100%, cols="55%,10%,25%"]
+
+[width=100%, cols="50%,25%,25%"]
 |===
 h| Comparison h| Result h| Comment
-| 
+a| 
 
-$match( +
-    $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
-    $aas#assetInformation.specificAssetIds[].value $eq "aas-1" +
+[source]
+----
+$match(
+  $aas#assetInformation.specificAssetIds[].name 
+    $eq "supplierId",
+  $aas#assetInformation.specificAssetIds[].value
+    $eq "aas-1"
 )
-| 
-[ +
-    { +
-        "modelType": "AssetAdministrationShell", +
-        ... +
-    } +
-] +
+----
+
+a| 
+[source,json]
+----
+[
+  {
+    "modelType": "AssetAdministrationShell",
+    "id": "https://example.com/asset-administration-shell-1",
+    ...
+  }
+]
+----
 | The values for 'supplierId' and 'aas-1' exist in the same SpecificAssetId object.
-|
-$match( +
-    $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
-    $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
+a|
+[source]
+----
+$match(
+  $aas#assetInformation.specificAssetIds[].name 
+    $eq "supplierId",
+  $aas#assetInformation.specificAssetIds[].value 
+    $eq "aas-2"
 )
-| 
-[ ] 
+----
+a| 
+`[ ]`
 | The values for 'supplierId' and 'aas-2' do not exist in the same SpecificAssetId object.
-| 
-$and ( +
-    $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
-    $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
+a| 
+[source]
+----
+$and (
+  $aas#assetInformation.specificAssetIds[].name 
+    $eq "supplierId",
+  $aas#assetInformation.specificAssetIds[].value 
+    $eq "aas-2"
 )
-
-| 
-[ +
-    { +
-        "modelType": "AssetAdministrationShell", +
-        ... +
-    } +
-] +
+----
+a|
+[source,json]
+---- 
+[
+  {
+    "modelType": "AssetAdministrationShell",
+    "id": "https://example.com/asset-administration-shell-1",
+    ...
+  }
+]
+----
 | The values for 'supplierId' and 'aas-2' exist in the example AAS, even though in _different_ SpecificAssetId objects. As no `$match` enforces the evaluation on the same SpecificAssetId, the AAS from the example fulfils the condition.
-|
-$or ( +
-    $match ( +
-        $aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
-        $aas#assetInformation.specificAssetIds[].value $eq "aas-1" +
-    ), +
-    $match ( +
-        $aas#assetInformation.specificAssetIds[].name $eq "customerId", +
-        $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
-    ) +
-) +
-
-| 
-[ +
-    { +
-        "modelType": "AssetAdministrationShell", +
-        ... +
-    } +
-] +
+a|
+[source]
+----
+$or (
+  $match (
+    $aas#assetInformation.specificAssetIds[]
+    .name    $eq   "supplierId",
+    $aas#assetInformation.specificAssetIds[]
+    .value   $eq   "aas-1"
+  ),
+  $match (
+    $aas#assetInformation.specificAssetIds[]
+    .name    $eq   "customerId",
+    $aas#assetInformation.specificAssetIds[]
+    .value   $eq   "aas-2"
+  )
+)
+----
+a|
+[source,json]
+---- 
+[
+  {
+    "modelType": "AssetAdministrationShell",
+    "id": "https://example.com/asset-administration-shell-1",
+    ...
+  }
+]
+----
 | Both $match conditions are fulfilled, even though for different SpecificAssetIds. Therefore the OR clause also evaluates to `true` for both items.
 |===
 
@@ -779,10 +775,11 @@ The AAS Query Language does not introduce additional functionalities to control 
 === JSON Schema
 
 The AAS HTTP API represents AAS Queries as JSON objects. A JSON schema according to the grammar above has been defined.
-This JSON schema allows automatic code generation which has been validated with jsonschema2pojo. To allow such automatic code generation, polymorhism by the use of oneof in the JSON schema must be avoided. +
+This JSON schema allows immediate validation of queries but also automatic code generation which has been validated with jsonschema2pojo. To allow such automatic code generation, polymorhism by the use of oneOf in the JSON schema must be avoided. +
+In addition, several constructs introduced in BNF form require a slightly differing representation. For instance, a basic comparison follows the pattern `<operand> <operator> <operand>` but appears as `"<operator>": [<operand>, <operand>]` in the JSON representation.
 JSON schema allows to use regular expressions. Such regular expressions are used to validate the syntax of FieldIdentifiers. To be able to use common JSON schema validators, the depth and details have been limited in the corresponding regular expressions.
 
-include::./schema.adoc
+include::./schema.adoc[]
 
 The table below explains the mapping between the grammar and the JSON schema. The table follows the structure of the JSON schema top to bottom.
 
@@ -796,21 +793,21 @@ h| JSON Schema h| Grammar h| Comment
 | dateTimeLiteralPattern | <DateTimeLiteral> |
 | timeLiteralPattern | <TimeLiteral> |
 | Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: strModel etc.
-| StringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: strModel etc.
-| strModel | - | string following the modelStringPattern
-| strVal | - | string following the standardString
-| attribute | - | explained in Security Access Rules; not used for query language
-| numVal | <NumericalLiteral> | Number constant
-| hexVal | <HexLiteral> | Hex number constant
-| dateTimeVal | <DateTimeLiteral> | DateTime constant
-| timeVal | <TimeLiteral> | Time constant
+| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: strModel etc.
+| $field | - | string following the modelStringPattern
+| $strVal | - | string following the standardString
+| $attribute | - | explained in Security Access Rules; not used for query language
+| $numVal | <NumericalLiteral> | Number constant
+| $hexVal | <HexLiteral> | Hex number constant
+| $dateTimeVal | <DateTimeLiteral> | DateTime constant
+| $timeVal | <TimeLiteral> | Time constant
 | $boolean | <BoolLiteral> | Boolean constant
-| strCast | <castToString> | any Value can be used as input
-| numCast | <castToNumerical> | any Value can be used as input
-| hexCast | <castToHex> | any Value can be used as input
-| boolCast | <castToBool> | any Value can be used as input
-| dateTimeCast | <castToDateTime> | any Value can be used as input
-| timeCast | <castToTime> | any Value can be used as input
+| $strCast | <castToString> | any Value can be used as input
+| $numCast | <castToNumerical> | any Value can be used as input
+| $hexCast | <castToHex> | any Value can be used as input
+| $boolCast | <castToBool> | any Value can be used as input
+| $dateTimeCast | <castToDateTime> | any Value can be used as input
+| $timeCast | <castToTime> | any Value can be used as input
 | $dayOfWeek | <dateTimeToNum> | extract day of week from DateTime; needed for Security Access Rules
 | $dayOfMonth | <dateTimeToNum> | extract day of month from DateTime; needed for Security Access Rules
 | $month | <dateTimeToNum> | extract month from DateTime; needed for Security Access Rules
@@ -824,8 +821,8 @@ h| JSON Schema h| Grammar h| Comment
 | rightsEnum | - | explained in Security Access Rules; not used for query language
 | AccessPermissionRule | - | explained in Security Access Rules; not used for query language
 | AllAccessPermissionRules | - | explained in Security Access Rules; not used for query language
-| condition | - | Root object for the query condition expression
-ToHex> |
+| $condition | <logicalExpression> | Root object for the query condition expression
+| $select | <selectStatement> | Optional expresion to control the returned fields. Only 'id' is possible.
 |===
 
 
@@ -836,19 +833,30 @@ Single comparison +
 [width=100%, cols="50%,50%"]
 |===
 h| Grammar h| JSON Schema
-|
-$aas#idShort +
-$eq +
+a|
+[source]
+----
+$aas#idShort
+
+$eq
+
 $aas#assetInformation.assetType
-|
-{ +
-  "condition": { +
-    "$eq": [ +
-      { "strModel": "$aas#idShort" }, +
-      { "strModel": "$aas#assetInformation.assetType" } +
+----
+a|
+[source,json]
+---- 
+{
+  "$condition": {
+    "$eq": [
+      { "$field": "$aas#idShort" },
+      { 
+        "$field": 
+            "$aas#assetInformation.assetType" 
+      }
     ]
   }
 }
+----
 |===
 
 HandoverDocumentation with VDI 2770 Class 03-01 Commissioning and language NL (as expected with SubmodelElementList)+
@@ -857,86 +865,116 @@ HandoverDocumentation with VDI 2770 Class 03-01 Commissioning and language NL (a
 [width=100%, cols="50%,50%"]
 |===
 h| Grammar h| JSON Schema
-|
-$match( +
-  $sme.Documents[].DocumentClassification.Class#value $eq "03-01", +
-  $sme.Documents[].DocumentVersion.SMLLanguages[]#language $eq "nl" +
+a|
+[source]
+----
+$match(
+  $sme.Documents[].DocumentClassification
+    .Class#value   $eq  "03-01",
+  $sme.Documents[].DocumentVersion.
+    SMLLanguages[]#language  $eq  "nl"
 )
-|
+----
+a|
+[source,json]
+---- 
 {
-  "condition": { +
-    "$match": [ +
-      { "$eq": [ +
-          { "strModel": "$sme.Documents[].DocumentClassification.Class#value" }, +
-          { "strVal": "03-01" } +
+  "$condition": {
+    "$match": [
+      { "$eq": [
+          { "$field": "$sme.Documents[].
+            DocumentClassification.Class
+            #value" },
+          { "$strVal": "03-01" }
         ]
-      }, +
-      { "$eq": [ +
-          { "strModel": "$sme.Documents[].DocumentVersion.SMLLanguages[]#language" }, +
-          { "strVal": "nl" } +
+      },
+      { "$eq": [
+          { "$field": "$sme.Documents[].
+            DocumentVersion.SMLLanguages[]
+            #language" },
+          { "$strVal": "nl" }
         ]
       }
     ]
   }
 }
+----
 |===
 
 TechnicalData with motor starter (ECLASS ClassId = 27-37-09-05) and width less than 100 mm
 
 [.table-with-appendix-table]
-[width=100%, cols="50%,50%"]
+[width=100%, cols="45%,55%"]
 |===
 h| Grammar h| JSON Schema
-|
-$and( +
-	$match( +
-		$sm#idShort $eq "TechnicalData", +
-		$sme.ProductClassifications.ProductClassificationItem.ProductClassId#value $eq "27-37-09-05" +
-	), +
-	$match( +
-		$sm#idShort $eq "TechnicalData", +
-		$sme#semanticId $eq "0173-1#02-BAF016#006", +
-		$sme#value $lt 100 +
+a|
+[source]
+----
+$and(
+	$match(
+		$sm#idShort $eq "TechnicalData",
+		$sme.ProductClassifications
+            .ProductClassificationItem
+            .ProductClassId#value 
+        $eq   "27-37-09-05"
+	),
+	$match(
+		$sm#idShort $eq "TechnicalData",
+		$sme#semanticId $eq 
+            "0173-1#02-BAF016#006",
+		$sme#value $lt 100
 	)
 )
-|
+----
+a|
+[source,json]
+----
 {
-  "condition": { +
-    "$and": [ +
-      { "$match": [ +
-          { "$eq": [ +
-              { "strModel": "$sm#idShort" }, +
-              { "strVal": "TechnicalData" } +
+  "$condition": {
+    "$and": [
+      { "$match": [
+          { "$eq": [
+              { "$field": "$sm#idShort" },
+              { "$strVal": "TechnicalData" }
             ]
-          }, +
-          { "$eq": [ +
-              { "strModel": "$sme.ProductClassifications.ProductClassificationItem.ProductClassId#value" }, +
-              { "strVal": "27-37-09-05" } +
-            ]
-          }
-        ]
-      }, +
-      { "$match": [ +
-          { "$eq": [ +
-              { "strModel": "$sm#idShort" }, +
-              { "strVal": "TechnicalData" } +
-            ]
-          }, +
-          { "$eq": [ +
-              { "strModel": "$sme#semanticId" }, +
-              { "strVal": "0173-1#02-BAF016#006" } +
-            ]
-          }, +
-          { "$lt": [ +
-              { "strModel": "$sme#value" }, +
-              { "numVal": 100 } +
+          },
+          { "$eq": [
+              { 
+                "$field": 
+                "$sme.ProductClassifications
+                  .ProductClassificationItem
+                  .ProductClassId#value"
+              },
+              { "$strVal": "27-37-09-05" }
             ]
           }
         ]
       },
+      { "$match": [
+          { 
+            "$eq": [
+              { "$field": "$sm#idShort" },
+              { "$strVal": "TechnicalData" }
+            ]
+          },
+          { 
+            "$eq": [
+              { "$field": "$sme#semanticId" },
+              { "$strVal": "0173-1#02-BAF016#006" }
+            ]
+          },
+          { 
+            "$lt": [
+              { "$field": "$sme#value" },
+              { "$numVal": 100 }
+            ]
+          }
+        ]
+      }
     ]
   }
 }
+----
 |===
 
 Match specificAssetIDs +
@@ -945,43 +983,61 @@ Match specificAssetIDs +
 [width=100%, cols="50%,50%"]
 |===
 h| Grammar h| JSON Schema
-|
-$or ( +
-$match ( +
-$aas#assetInformation.specificAssetIds[].name $eq "supplierId", +
-$aas#assetInformation.specificAssetIds[].value $eq "aas-1" +
-), +
-$match ( +
-$aas#assetInformation.specificAssetIds[].name $eq "customerId", +
-$aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
-) +
-) +
-|
+a|
+[source]
+----
+$or (
+  $match (
+    $aas#assetInformation.specificAssetIds[]
+      .name     $eq   "supplierId",
+    $aas#assetInformation.specificAssetIds[]
+      .value    $eq   "aas-1"
+  ),
+
+  $match (
+    $aas#assetInformation.specificAssetIds[]
+      .name     $eq   "customerId",
+    $aas#assetInformation.specificAssetIds[] 
+      .value    $eq   "aas-2"
+  )
+)
+----
+a|
+[source,json]
+----
 {
-  "condition": { +
-    "$or": [ +
-      { "$match": [ +
-          { "$eq": [ +
-              { "strModel": "$aas#assetInformation.specificAssetIds[].name" }, +
-              { "strVal": "supplierId" } +
+  "condition": {
+    "$or": [
+      { 
+        "$match": [
+          { "$eq": [
+              { "$field": "$aas#assetInformation.
+              specificAssetIds[].name" },
+              { "$strVal": "supplierId" }
             ]
-          }, +
-          { "$eq": [ +
-              { "strModel": "$aas#assetInformation.specificAssetIds[].value" }, +
-              { "strVal": "aas-1" } +
+          },
+          { "$eq": [
+              { "$field": "$aas#assetInformation
+              .specificAssetIds[].value" },
+              { "$strVal": "aas-1" }
             ]
           }
         ]
-      }, +
-      { "$match": [ +
-          { "$eq": [ +
-              { "strModel": "$aas#assetInformation.specificAssetIds[].name" }, +
-              { "strVal": "customerId" } +
+      },
+      { 
+        "$match": [
+          { 
+            "$eq": [
+              { "$field": "$aas#assetInformation
+              .specificAssetIds[].name" },
+              { "$strVal": "customerId" }
             ]
-          }, +
-          { "$eq": [ +
-              { "strModel": "$aas#assetInformation.specificAssetIds[].value" }, +
-              { "strVal": "aas-2" } +
+          },
+          { 
+            "$eq": [
+              { "$field": "$aas#assetInformation
+              .specificAssetIds[].value" },
+              { "$strVal": "aas-2" }
             ]
           }
         ]
@@ -989,4 +1045,5 @@ $aas#assetInformation.specificAssetIds[].value $eq "aas-2" +
     ]
   }
 }
+----
 |===

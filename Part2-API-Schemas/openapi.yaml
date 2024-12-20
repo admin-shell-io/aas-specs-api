@@ -267,6 +267,15 @@ components:
     CapabilityMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
+    comparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        $ref: '#/components/schemas/Value'
+    dateTimeLiteralPattern:
+      type: string
+      format: date-time
     Descriptor: 
       example: '{ "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
       properties: 
@@ -462,6 +471,139 @@ components:
               type: array
               items: 
                 $ref: "#/components/schemas/SubmodelValue"
+    hexLiteralPattern:
+      type: string
+      pattern: '^16#[0-9A-F]+$'
+    logicalExpression:
+      type: object
+      properties:
+        $and:
+          type: array
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/logicalExpression'
+        $match:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/matchExpression'
+        $or:
+          type: array
+          minItems: 2
+          items:
+            $ref: '#/components/schemas/logicalExpression'
+        $not:
+          $ref: '#/components/schemas/logicalExpression'
+        $eq:
+          $ref: '#/components/schemas/comparisonItems'
+        $ne:
+          $ref: '#/components/schemas/comparisonItems'
+        $gt:
+          $ref: '#/components/schemas/comparisonItems'
+        $ge:
+          $ref: '#/components/schemas/comparisonItems'
+        $lt:
+          $ref: '#/components/schemas/comparisonItems'
+        $le:
+          $ref: '#/components/schemas/comparisonItems'
+        $contains:
+          $ref: '#/components/schemas/stringItems'
+        $starts-with:
+          $ref: '#/components/schemas/stringItems'
+        $ends-with:
+          $ref: '#/components/schemas/stringItems'
+        $regex:
+          $ref: '#/components/schemas/stringItems'
+        $boolean:
+          type: boolean
+      oneOf:
+        - required:
+            - $and
+        - required:
+            - $or
+        - required:
+            - $not
+        - required:
+            - $eq
+        - required:
+            - $ne
+        - required:
+            - $gt
+        - required:
+            - $ge
+        - required:
+            - $lt
+        - required:
+            - $le
+        - required:
+            - $contains
+        - required:
+            - $starts-with
+        - required:
+            - $ends-with
+        - required:
+            - $regex
+        - required:
+            - $boolean
+        - required:
+            - $match
+      additionalProperties: false
+    matchExpression:
+      type: object
+      properties:
+        $match:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/matchExpression'
+        $eq:
+          $ref: '#/components/schemas/comparisonItems'
+        $ne:
+          $ref: '#/components/schemas/comparisonItems'
+        $gt:
+          $ref: '#/components/schemas/comparisonItems'
+        $ge:
+          $ref: '#/components/schemas/comparisonItems'
+        $lt:
+          $ref: '#/components/schemas/comparisonItems'
+        $le:
+          $ref: '#/components/schemas/comparisonItems'
+        $contains:
+          $ref: '#/components/schemas/stringItems'
+        $starts-with:
+          $ref: '#/components/schemas/stringItems'
+        $ends-with:
+          $ref: '#/components/schemas/stringItems'
+        $regex:
+          $ref: '#/components/schemas/stringItems'
+        $boolean:
+          type: boolean
+      oneOf:
+        - required:
+            - $eq
+        - required:
+            - $ne
+        - required:
+            - $gt
+        - required:
+            - $ge
+        - required:
+            - $lt
+        - required:
+            - $le
+        - required:
+            - $contains
+        - required:
+            - $starts-with
+        - required:
+            - $ends-with
+        - required:
+            - $regex
+        - required:
+            - $boolean
+        - required:
+            - $match
+      additionalProperties: false
     Message:
       properties: 
         code: 
@@ -486,6 +628,10 @@ components:
           type: string
           pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
       type: object
+    modelStringPattern:
+      type: string
+      pattern: >-
+        ^(?:\$aas#(?:idShort|id|assetInformation\.assetKind|assetInformation\.assetType|assetInformation\.globalAssetId|assetInformation\.(?:specificAssetIds\[[0-9]*\](?:\.(?:name|value|externalSubjectId(?:\.type|\.keys\[\d*\](?:\.(?:type|value))?)?)?)|submodels\.(?:type|keys\[\d*\](?:\.(?:type|value))?))|submodels\.(type|keys\[\d*\](?:\.(type|value))?))|(?:\$sm#(?:semanticId(?:\.type|\.keys\[\d*\](?:\.(type|value))?)?|idShort|id))|(?:\$sme(?:\.[a-zA-Z][a-zA-Z0-9_]*\[[0-9]*\]?(?:\.[a-zA-Z][a-zA-Z0-9_]*\[[0-9]*\]?)*)?#(?:semanticId(?:\.type|\.keys\[\d*\](?:\.(type|value))?)?|idShort|value|valueType|language))|(?:\$cd#(?:idShort|id)))|(?:\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\[[0-9]*\]?(?:\.(name|value|externalSubjectId(?:\.type|\.keys\[\d*\](?:\.(type|value))?)?)?)|endpoints\[[0-9]*\]\.(interface|protocolinformation\.href)|submodelDescriptors\[[0-9]*\]\.(semanticId(?:\.type|\.keys\[\d*\](?:\.(type|value))?)?|idShort|id|endpoints\[[0-9]*\]\.(interface|protocolinformation\.href))))|(?:\$smdesc#(?:semanticId(?:\.type|\.keys\[\d*\](?:\.(type|value))?)?|idShort|id|endpoints\[[0-9]*\]\.(interface|protocolinformation\.href)))$
     MultiLanguagePropertyMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -628,10 +774,20 @@ components:
             - key
             - value
           minItems: 1
-          # TODO: align with content of the part 2 document
       required: 
         - href
       type: object
+    Query:
+      type: object
+      properties:
+        $select:
+          type: string
+          pattern: ^id$
+        $condition:
+          $ref: '#/components/schemas/logicalExpression'
+      required:
+        - $condition
+      additionalProperties: false
     QueryResultAssetAdministrationShell:
       type: object
       properties:
@@ -824,6 +980,34 @@ components:
     SpecificAssetIdValue:
       type: object
       description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+    standardString:
+      type: string
+      pattern: ^(?!\$).*
+    stringItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        $ref: '#/components/schemas/stringValue'
+    stringValue:
+      type: object
+      properties:
+        field:
+          $ref: '#/components/schemas/modelStringPattern'
+        strVal:
+          $ref: '#/components/schemas/standardString'
+        strCast:
+          $ref: '#/components/schemas/Value'
+      oneOf:
+        - required:
+            - $field
+        - required:
+            - $strVal
+        - required:
+            - $strCast
+        - required:
+            - attribute
+      additionalProperties: false
     StringValue: 
       type: string
     SubmodelDescriptor: 
@@ -927,6 +1111,86 @@ components:
         - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/HasKind"
     SubmodelValue:
       $ref: "#/components/schemas/ValueOnly"
+    timeLiteralPattern:
+      type: string
+      pattern: '^[0-9][0-9]:[0-9][0-9](:[0-9][0-9])?$'
+    Value:
+      type: object
+      properties:
+        $field:
+          $ref: '#/components/schemas/modelStringPattern'
+        $strVal:
+          $ref: '#/components/schemas/standardString'
+        $attribute:
+          $ref: '#/components/schemas/attributeItem'
+        $numVal:
+          type: number
+        $hexVal:
+          $ref: '#/components/schemas/hexLiteralPattern'
+        $dateTimeVal:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+        $timeVal:
+          $ref: '#/components/schemas/timeLiteralPattern'
+        $boolean:
+          type: boolean
+        $strCast:
+          $ref: '#/components/schemas/Value'
+        $numCast:
+          $ref: '#/components/schemas/Value'
+        $hexCast:
+          $ref: '#/components/schemas/Value'
+        $boolCast:
+          $ref: '#/components/schemas/Value'
+        $dateTimeCast:
+          $ref: '#/components/schemas/Value'
+        $timeCast:
+          $ref: '#/components/schemas/Value'
+        $dayOfWeek:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+        $dayOfMonth:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+        $month:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+        $year:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+      oneOf:
+        - required:
+            - $field
+        - required:
+            - $strVal
+        - required:
+            - $attribute
+        - required:
+            - $numVal
+        - required:
+            - $hexVal
+        - required:
+            - $dateTimeVal
+        - required:
+            - $timeVal
+        - required:
+            - $boolean
+        - required:
+            - $strCast
+        - required:
+            - $numCast
+        - required:
+            - $hexCast
+        - required:
+            - $boolCast
+        - required:
+            - $dateTimeCast
+        - required:
+            - $timeCast
+        - required:
+            - $dayOfWeek
+        - required:
+            - $dayOfMonth
+        - required:
+            - $month
+        - required:
+            - $year
+      additionalProperties: false
     ValueOnly: 
       description: "The ValueOnly serialization (patternProperties and propertyNames will be supported probably with OpenApi 3.1). For the full description of the generic JSON validation schema see the ValueOnly-Serialization as defined in the 'Specification of the Asset Administration Shell - Part 2'."
       type: object

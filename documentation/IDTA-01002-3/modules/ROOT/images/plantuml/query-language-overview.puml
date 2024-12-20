@@ -5,12 +5,12 @@ skinparam classAttributeIconSize 0
 hide methods 
 
 class Query {
-    +select: SelectField[0..1]
-    +condition: Condition[1]
+    +$select: SelectField[0..1]
+    +$condition: Condition[1]
 }
  
-Query ..> SelectField
-Query ..> Condition
+Query --> SelectField
+Query --> Condition
 
 ' to better arrange the SelectField
 SelectField -r[hidden]- Placeholder1
@@ -26,26 +26,30 @@ enum SelectField {
 }
 
 
-  class Condition {
+  abstract class Condition <<abstract>>{
   }
 
-  enum logicalOperation <<enumeration>> {
+  enum LogicalOperation {
     $and
     $or
     $not
-    nested
+    ' nested
   }
 
-  class logicalExpression {
-    +operation: logicalOperation[1]
+  class LogicalExpression {
+    +operation: LogicalOperation[1]
     +operands: Condition[1..*]
   }
 
-  class match {
-    +operands: Condition[1..*]
+  class MatchExpression {
+    +$match: Condition[1..*]
   }
 
-  enum comparisonOperation <<enumeration>> {
+  abstract class Operation <<abstract>> {
+    
+  }
+
+  enum ComparisonOperation {
     $eq
     $ne
     $gt
@@ -53,48 +57,67 @@ enum SelectField {
     $lt
     $le
   }
-  enum dataType <<enumeration>> {
-    String
-    Numerical
-    DateTime
-    Time
-  }
-  class comparison {
-    +type: dataType[1]
-    +operation: comparisonOperation[1]
-    +operands: comparisonOperand[2]
-  }
+  Operation <|-- ComparisonOperation
 
-  enum stringOperation <<enumeration>> {
+  enum StringOperation {
     $contains
     $starts-with
     $ends-with
     $regex
   }
-  class stringExpression {
-    +operation: stringOperation[1]
-    +operands: stringOperand[2]
+  Operation <|-- StringOperation
+
+  class Comparison {
+    +operation: Operation[1]
+    +operands: Operand[2]
   }
 
-  enum BoolLiteral <<enumeration>> {
-    true
-    false
+  enum CastingOperation {
+    $strCast
+    $numCast
+    $hexCast
+    $boolCast
+    $dateTimeCast
+    $timeCast
   }
-  class castToBool {}
 
-  Condition <.d.> logicalExpression
-  logicalExpression ..> logicalOperation
-  stringExpression ..> stringOperation
-  Condition ..> comparison
-  Condition <..> match
-  comparison ..> dataType
-  comparison ..> comparisonOperation
-  Condition ..> stringExpression
-  Condition .d.> castToBool
-  Condition .d.> BoolLiteral
+  abstract class Operand <<abstract>> {
+
+  }
+
+  enum FieldIdentifier {
+    $strModel
+  }
+
+  enum Value {
+    $strVal
+    $numVal
+    $hexVal
+    $dateTimeVal
+    $timeVal
+    $dayOfWeek
+    $dayOfMonth
+    $month
+    $year
+  }
+
+  LogicalExpression -u-|> Condition
+  LogicalExpression --> Condition
+  LogicalExpression --> LogicalOperation
+  Comparison -u-|> Condition
+  Condition <|-- MatchExpression
+  Condition <-- MatchExpression
+  Comparison --> Operation
+  Comparison --> Operand
+  Operand <|-- CastingOperation
+  Operand <|--Value
+  Operand <|-- FieldIdentifier
 
 'for better arrangements of the classes below Condition
-' match .l[hidden]. comparison
+LogicalExpression .r[hidden]. Comparison
+'Comparison .r[hidden]. MatchExpression
+
+'Operation .r[hidden]. Operand
 
 
 
