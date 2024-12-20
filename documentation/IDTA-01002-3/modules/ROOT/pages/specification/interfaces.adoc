@@ -825,6 +825,7 @@ h|Operation Name h|Description
 | PutBulkAssetAdministrationShellDescriptorsById a| Updates multiple existing Asset Administration Shell Descriptors
 |DeleteAssetAdministrationShellDescriptorById a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
 | DeleteBulkAssetAdministrationShellDescriptorsById a| Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
+| QueryAssetAdministrationShellDescriptors a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
 |===
 
 ==== Operation GetAllAssetAdministrationShellDescriptors
@@ -963,6 +964,25 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+
+==== Operation QueryAssetAdministrationShellDescriptors
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QueryAssetAdministrationShellDescriptors
+h|Explanation 4+a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Asset Administration Shell Descriptors or AAS identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<AssetAdministrationShellDescriptor>]  |1..*
+|===
+
+
 === Submodel Registry Interface and Operations
 
 ==== Submodel Registry Interface
@@ -979,6 +999,7 @@ e|PutSubmodelDescriptorById a|Replaces an existing submodel descriptor, i.e., re
 e|PutBulkSubmodelDescriptorsById a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
 e|DeleteSubmodelDescriptorById a|Deletes a submodel descriptor, i.e., de-registers a submodel
 e|DeleteBulkSubmodelDescriptorsById a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
+| QuerySubmodelDescriptors a| Returns all Submodel Descriptors that conform to a certain input query.
 |===
 
 ==== Operation GetAllSubmodelDescriptors
@@ -1122,6 +1143,24 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+==== Operation QuerySubmodelDescriptors
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QuerySubmodelDescriptors
+h|Explanation 4+a| Returns all Submodel Descriptors that conform to a certain input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Submodel Descriptors or Submodel identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<SubmodelDescriptor>]  |1..*
+|===
+
+
 == Repository Interfaces
 
 === General
@@ -1152,14 +1191,13 @@ e|PostAssetAdministrationShell a|
 Creates a new Asset Administration Shell.
 The id of the new Asset Administration Shell must be set in the payload.
 
-
 ====
 Note: the creation of the idShort is out of scope and must be handled in a proprietary way.
 ====
 
-
 e|PutAssetAdministrationShellById a|Replaces an existing Asset Administration Shell
 e|DeleteAssetAdministrationShellById a|Deletes an Asset Administration Shell
+e|QueryAssetAdministrationShells a| Returns all Asset Administration Shells that conform to a certain input query.
 |===
 
 ==== Operation GetAllAssetAdministrationShells
@@ -1306,6 +1344,25 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+
+==== Operation QueryAssetAdministrationShells
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QueryAssetAdministrationShells
+h|Explanation 4+a| Returns all Asset Administration Shells that conform to a certain input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Asset Administration Shells or AAS identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<AssetAdministrationShell>]  |1..*
+|===
+
+
 === Submodel Repository Interface and Operations
 
 ==== Submodel Repository Interface
@@ -1332,6 +1389,7 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 |PutSubmodelById a|Replaces an existing Submodel
 |PatchSubmodelById a|Updates an existing submodel
 |DeleteSubmodelById a|Deletes a Submodel
+e|QuerySubmodels a| Returns all Submodels that conform to a certain input query.
 |===
 
 ==== Operation GetAllSubmodels
@@ -1499,6 +1557,26 @@ e|id a|The Submodel’s unique id |yes |Identifier |1
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+
+
+==== Operation QuerySubmodels
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QuerySubmodels
+h|Explanation 4+a| Returns all Submodels that conform to a certain input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Submodels or Submodel identifiers |no | xref:specification/interfaces-payload.adoc#Submodel[Submodel]  |1..*
+|===
+
+
 === Concept Description Repository Interface and Operations
 
 ==== Concept Description Repository Interface
@@ -1524,6 +1602,7 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 
 e|PutConceptDescriptionById |Replaces an existing Concept Description
 e|DeleteConceptDescriptionById |Deletes a Concept Description
+e|QueryConceptDescriptions | Returns all Concept Descriptions that conform to a certain input query.
 |===
 
 ==== Operation GetAllConceptDescriptions
@@ -1680,6 +1759,25 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
+
+==== Operation QueryConceptDescriptions
+
+[.table-with-appendix-table]
+[width=100%, cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|QueryConceptDescriptions
+h|Explanation 4+a|Returns a list of Concept Descriptions based on an input query.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|query | The specific query conformant to the AAS Query Language, containing filter conditions for the required Concept Descriptions. | yes | Query |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload | List of requested Concept Descriptions or identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<ConceptDescription>] |1..*
+|===
+
+
 
 [#publish-and-discovery-interfaces]
 == Publish and Discovery Interfaces

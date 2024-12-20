@@ -16,8 +16,8 @@ include::../includes/special-parameters.adoc[]
 
 == General
 
-For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc. that are specified in Part 1 xref:bibliography.adoc#bib1[[1\]], please refer to the specification in Bibliography.
-The AAS package format and the AAS Package type are defined in Part 5 xref:bibliography.adoc#bib3[[3\]].
+For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc. that are specified in Part 1 xref:bibliography.adoc#bib1[[1\]], please refer to the specification in the Bibliography. 
+The AAS package format and the AAS Package type are defined in Part 5 xref:bibliography.adoc#bib4[[4\]]. 
 This clause only defines additional classes that are needed for communication with the API.
 
 [#metamodel-specification-details]
@@ -335,6 +335,122 @@ An example ServiceDescription object might look like the following, indicating t
 }
 
 ----
+
+
+=== Query Results
+
+Result elements of AAS queries depend on the declared output selector and the target of the query. Possible targets are Asset Administration Shells, Submodels, Concept Descriptions, Asset Administration Shell Descriptors, and Submodel Descriptors. In accordance, also these objects are returned in the Query Result. In addition, their representation can be controlled via the select statements of the input query, e.g., by only selecting the identifiers of the respective objects rather than the whole content. 
+
+.Simple Data Types used for API-specific Classes
+[%autowidth, width="100%", cols="20%,20%,60%",options="header",]
+|===
+|*Query Result* |*Definition* |*Value Examples*
+|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or_ a list of Asset Administration Shell identifiers a|
+[ +
+   { +
+      "modelType": "AssetAdministrationShell", +
+      "id": "https://example.com/aas-1", +
+      ... +
+   }, +
+   { +
+      "modelType": "AssetAdministrationShell", +
+      "id": "https://example.com/aas-2", +
+      ... +
+   }, +
+   ... +
+] +
+
+
+[ +
+   "https://example.com/aas-1", +
+   "https://example.com/aas-2", +
+   ... +
+] +
+|QueryResult<Submodel> |List of Submodels _or_ a list of Submodel identifiers a|
+[ +
+   { +
+      "modelType": "Submodel", +
+      "id": "https://example.com/sm-1", +
+      ... +
+   }, +
+   { +
+      "modelType": "Submodel", +
+      "id": "https://example.com/sm-2", +
+      ... +
+   }, +
+   ... +
+] +
+
+
+[ +
+   "https://example.com/sm-1", +
+   "https://example.com/sm-2", +
+   ... +
+] +
+|QueryResult<ConceptDescription> |List of Concept Descriptions _or_ a list of Concept Description identifiers a|
+[ +
+   { +
+      "modelType": "ConceptDescription", +
+      "id": "https://example.com/cd-1", +
+      ... +
+   }, +
+   { +
+      "modelType": "ConceptDescription", +
+      "id": "https://example.com/cd-2", +
+      ... +
+   }, +
+   ... +
+] +
+
+
+[ +
+   "https://example.com/cd-1", +
+   "https://example.com/cd-2", +
+   ... +
+] +
+|QueryResult<AssetAdministrationShellDescriptor> |List of Asset Administration Shell Descriptors _or_ a list of Asset Administration Shell identifiers a|
+[ +
+   { +
+      "modelType": "AssetAdministrationShellDescriptor", +
+      "id": "https://example.com/aas-1", +
+      ... +
+   }, +
+   { +
+      "modelType": "AssetAdministrationShellDescriptor", +
+      "id": "https://example.com/aas-2", +
+      ... +
+   }, +
+   ... +
+] +
+
+
+[ +
+   "https://example.com/aas-1", +
+   "https://example.com/aas-2", +
+   ... +
+] +
+|QueryResult<SubmodelDescriptor> |List of Submodel Descriptors _or_ a list of Submodel identifiers a|
+[ +
+   { +
+      "modelType": "SubmodelDescriptor", +
+      "id": "https://example.com/sm-1", +
+      ... +
+   }, +
+   { +
+      "modelType": "SubmodelDescriptor", +
+      "id": "https://example.com/sm-2", +
+      ... +
+   }, +
+   ... +
+] +
+
+
+[ +
+   "https://example.com/sm-1", +
+   "https://example.com/sm-2", +
+   ... +
+] +
+|===
 
 === Simple Data Types
 
