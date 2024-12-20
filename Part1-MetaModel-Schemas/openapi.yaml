@@ -12,7 +12,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.2
+  version: V3.1.0
 components: 
   schemas:
     AasSubmodelElements:
@@ -515,8 +515,8 @@ components:
           id:
             type: string
             minLength: 1
-            maxLength: 2000
-            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            maxLength: 2048
+            pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
         required:
         - id
     Key:
@@ -779,7 +779,7 @@ components:
             referredSemanticId: 
               "$ref": "#/components/schemas/ReferenceParent"
     ReferenceParent:
-    # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+    # This class is introduced due to the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
       type: object
       properties:
         type:
