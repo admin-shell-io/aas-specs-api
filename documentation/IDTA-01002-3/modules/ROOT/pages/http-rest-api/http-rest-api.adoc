@@ -396,6 +396,8 @@ use separated idShortPath of this element
 path-suffix= $metadata/$value/$reference/$path or no suffix for nomal +
 ?extent=WithoutBLOBValue/WithBLOBValue
 
+*Note:* If a client uses a path-suffix for a SubmodelElement that has the associated Serialisation Modifier not defined (e.g. .../capabilityIdShort/$value), a server shall respond with a ClientErrorBadRequest (HTTP status code 400) and an appropriate error description in the response message.
+
 URL-encoded IdShortPath
 
 |GetFileByPath |GET |/submodel/submodel-elements/\{idShortPath}/attachment a|
