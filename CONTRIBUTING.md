@@ -1,6 +1,6 @@
 # Contributing
 
-The [Specification of the Asset Administration Shell - Part 2] is an official publication of the [IDTA] work stream "AAS in Detail".
+The [Specification of the Asset Administration Shell - Part 2] is an official publication of the [IDTA] work stream "Specification of the Asset Administration Shell" within the Work Group "Open Technology".
 The API definitions in this repository must be particularly compliant with this specification.
 To ensure a faster adoption and improvement of AAS API, we invite the community to contribute with reviews, reporting issues, and fixing them.  
 Do you want to contribute? Great! But before you do it, please follow the defined procedure for the contribution in this repository. 
@@ -82,7 +82,7 @@ In accordance with Section "Recommendation for Commit Messages" the continuous i
 For the present development, however, this is not enforced.
 
 ## Approval Process
-All changes must be **reviewed** and **approved** by members of the IDTA workstream "AAS in Detail".
+All changes must be **reviewed** and **approved** by members of the IDTA workstream "Specification of the Asset Administration Shell".
 
 Minor changes (simple failures, typos, *etc.*) and additional content (more examples, etc.) can be accepted straight away after a brief review by at least one responsible reviewers.
 

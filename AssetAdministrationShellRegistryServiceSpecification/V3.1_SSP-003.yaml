@@ -1,0 +1,1975 @@
+openapi: 3.1.0
+info:
+  title: >-
+    DotAAS Part 2 | HTTP/REST | Bulk Asset Administration Shell Registry Service
+    Specification (DRAFT, not official!)
+  description: >-
+    The Bulk Profile of the Asset Administration Shell Registry Service
+    Specification as part of the [Specification of the Asset Administration
+    Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+
+    The server processes all requests asynchronously, ensuring atomic
+    operations. This means that requested manipulations will either fully
+    succeed or be completely rolled back if any error occurs during the
+    process.  
+
+    Publisher: Industrial Digital Twin Association (IDTA) April 2023
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.1.0_SSP-003
+  x-profile-identifier: >-
+    https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-003
+servers:
+- url: 'https://admin-shell.io/api/v3.1'
+- url: 'https://example.com/'
+
+paths:
+  /bulk/shell-descriptors:
+    post:
+      tags:
+        - Async Bulk Asset Administration Shell Registry API
+      summary: >-
+        Creates multiple new Asset Administration Shell Descriptors, i.e.
+        registers multiple Asset Administration Shells
+      operationId: BulkPostAssetAdministrationShellDescriptor
+      x-semanticIds:
+        - >-
+          https://admin-shell.io/aas/API/BulkPostAssetAdministrationShellDescriptor/3/1
+      requestBody:
+        description: List of Asset Administration Shell Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: #/components/schemas/AssetAdministrationShellDescriptor
+        required: true
+      responses:
+        '202':
+          $ref: >-
+            #/components/responses/accepted
+        '400':
+          $ref: >-
+            #/components/responses/bad-request
+        '401':
+          $ref: >-
+            #/components/responses/unauthorized
+        '403':
+          $ref: >-
+            #/components/responses/forbidden
+        '500':
+          $ref: >-
+            #/components/responses/internal-server-error
+    put:
+      tags:
+        - Async Bulk Asset Administration Shell Registry API
+      summary: Updates multiple existing Asset Administration Shell Descriptors
+      operationId: BulkPutAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - >-
+          https://admin-shell.io/aas/API/BulkPutAssetAdministrationShellDescriptorById/3/1
+      requestBody:
+        description: List of Asset Administration Shell Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: #/components/schemas/AssetAdministrationShellDescriptor
+        required: true
+      responses:
+        '202':
+          $ref: >-
+            #/components/responses/accepted
+        '400':
+          $ref: >-
+            #/components/responses/bad-request
+        '401':
+          $ref: >-
+            #/components/responses/unauthorized
+        '403':
+          $ref: >-
+            #/components/responses/forbidden
+        '500':
+          $ref: >-
+            #/components/responses/internal-server-error
+    delete:
+      tags:
+        - Async Bulk Asset Administration Shell Registry API
+      summary: >-
+        Deletes multiple Asset Administration Shell Descriptors, i.e.
+        de-registers multiple Asset Administration Shells
+      operationId: BulkDeleteAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - >-
+          https://admin-shell.io/aas/API/BulkDeleteAssetAdministrationShellDescriptorById/3/1
+      requestBody:
+        description: List of Asset Administration Shell’s unique ids
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+      responses:
+        '202':
+          $ref: >-
+            #/components/responses/accepted
+        '400':
+          $ref: >-
+            #/components/responses/bad-request
+        '401':
+          $ref: >-
+            #/components/responses/unauthorized
+        '404':
+          $ref: >-
+            #/components/responses/not-found
+        '500':
+          $ref: >-
+            #/components/responses/internal-server-error
+  /bulk/status/{handleId}:
+    get:
+      tags:
+        - Async Bulk Status API
+      summary: Returns the status of an asynchronously invoked bulk operation
+      operationId: BulkGetAsyncStatus
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkGetAsyncStatus/3/1
+      parameters:
+        - in: path
+          name: handleId
+          schema:
+            $ref: >-
+              #/components/parameters/HandleId
+          required: true
+      responses:
+        '200':
+          description: >-
+            Bulk operation result object containing information that the
+            'executionState' is still 'Running'
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              required: false
+              description: The number of seconds to wait before retrying the request.
+          content:
+            application/json:
+              schema:
+                $ref: #/components/schemas/BaseOperationResult
+        '302':
+          $ref: >-
+            #/components/responses/found
+        '401':
+          $ref: >-
+            #/components/responses/unauthorized
+        '403':
+          $ref: >-
+            #/components/responses/forbidden
+        '404':
+          $ref: >-
+            #/components/responses/not-found
+        '500':
+          $ref: >-
+            #/components/responses/internal-server-error
+  /bulk/result/{handleId}:
+    get:
+      tags:
+        - Async Bulk Result API
+      summary: Returns the result object of an asynchronously invoked bulk operation
+      operationId: BulkGetAsyncResult
+      parameters:
+        - in: path
+          name: handleId
+          schema:
+            $ref: >-
+              #/components/parameters/HandleId
+          required: true
+      responses:
+        '204':
+          description: >-
+            The bulk request itself was correct and all elements have been
+            processed. The server may remove the result resource after  it was
+            requested once (by any client) or after a certain time period.
+        '400':
+          description: >-
+            There was an error in the processing of the request. Either the bulk
+            request itself was not correct, or at least of it's part requests. 
+            The whole transaction has been rolled back.
+          $ref: >-
+            #/components/responses/bad-request
+        '401':
+          $ref: >-
+            #/components/responses/unauthorized
+        '403':
+          $ref: >-
+            #/components/responses/forbidden
+        '404':
+          description: >-
+            The handleId is not known to the server. This means either it never
+            came into existence or it was successfully completed a considerable
+            time in the past.
+          $ref: '#/components/responses/not-found'
+        '500':
+          $ref: >-
+            #/components/responses/internal-server-error
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: >-
+        Returns the self-describing information of a network resource
+        (ServiceDescription)
+      operationId: GetDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/Descriptor/GetDescription/3/0
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: #/components/schemas/ServiceDescription
+        '403':
+          $ref: >-
+            #/components/responses/forbidden
+        default:
+          $ref: >-
+            #/components/responses/default
+components:
+  parameters: 
+    HandleId:
+      name: handleId
+      in: path
+      description:  The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+
+  responses:
+    'accepted':
+      description: The server has accepted the request.
+      headers:
+        Location: 
+          description: The URL where the client can find more information about the request.
+          schema:
+            type: string
+    'no-content':
+      description: No Content, request was successful but no content is returned
+    'found':
+      description: The target resource is available but at a different location.
+      headers:
+        Location: 
+          description: The URL where the client can find the target resource.
+          schema:
+            type: string
+    'bad-request':
+      description: Bad Request, e.g. the request parameters of the format of the request body is wrong.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'unauthorized':
+      description: Unauthorized, e.g. the server refused the authorization attempt.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'forbidden':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'not-found':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'method-not-allowed':
+      description: Method Not Allowed, the server does not offer this method for the client
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'conflict':
+      description: Conflict, a resource which shall be created exists already. Might be thrown if a Submodel or SubmodelElement with the same ShortId is contained in a POST request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'internal-server-error':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'not-implemented':
+      description: Method Not Implemented by the server
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'default':
+      description: Default error handling for unmentioned status codes
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+
+  schemas: 
+
+    AnnotatedRelationshipElementMetadata: 
+      $ref: "#/components/schemas/SubmodelElementAttributes"
+    AnnotatedRelationshipElementValue: 
+      properties: 
+        first: 
+          $ref: "#/components/schemas/ReferenceValue"
+        second: 
+          $ref: "#/components/schemas/ReferenceValue"
+        annotations:
+          type: array
+          items:
+            $ref: "#/components/schemas/ValueOnly"
+      required: 
+        - first
+        - second
+      type: object
+    AssetAdministrationShellDescriptor: 
+      allOf: 
+        - $ref: "#/components/schemas/Descriptor"
+        - properties: 
+            administration: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/AdministrativeInformation"
+            assetKind:
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/AssetKind"
+            assetType:
+              type: string
+              minLength: 1
+              maxLength: 2000
+              pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            endpoints: 
+              items: 
+                $ref: "#/components/schemas/Endpoint"
+              minItems: 1
+              type: array
+            globalAssetId: 
+              type: string
+              minLength: 1
+              maxLength: 2000
+              pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            idShort: 
+              type: string
+              maxLength: 128
+            id: 
+              type: string
+              maxLength: 2000
+              minLength: 1
+              pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            specificAssetIds: 
+              type: array
+              items:
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/SpecificAssetId"
+            submodelDescriptors: 
+              items: 
+                $ref: "#/components/schemas/SubmodelDescriptor"
+              type: array
+      required: 
+        - id
+      type: object
+      example: '{ "id": "https://example.org/aas/motor", "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
+    AssetAdministrationShellMetadata: 
+      allOf: 
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Identifiable"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasDataSpecification"
+        - properties: 
+            derivedFrom: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+    BaseOperationResult:
+      allOf:
+        - $ref: "#/components/schemas/Result"
+        - properties:
+            executionState: 
+              $ref: "#/components/schemas/ExecutionState"
+            success:
+              type: boolean
+    BasicEventElementMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+        - properties: 
+            direction: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Direction"
+            state: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/StateOfEvent"
+            messageTopic: 
+              type: string
+              maxLength: 255
+            messageBroker: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+            lastUpdate: 
+              type: string
+            minInterval: 
+              type: string
+            maxInterval: 
+              type: string
+    BasicEventElementValue:
+      properties: 
+        observed: 
+          $ref: "#/components/schemas/ReferenceValue"
+      required:
+        - observed
+      type: object
+    BlobMetadata: 
+      $ref: "#/components/schemas/SubmodelElementAttributes"
+    BlobValue: 
+      properties: 
+        contentType: 
+          type: string
+          minLength: 1
+          maxLength: 100
+        value: 
+          type: string
+      required: 
+        - contentType
+        - value
+      type: object
+    BooleanValue: 
+      type: boolean
+    CapabilityMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    Descriptor: 
+      example: '{ "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
+      properties: 
+        description: 
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/LangStringTextType"
+        displayName: 
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/LangStringNameType"
+        extensions:
+          type: array
+          items:
+            "$ref": "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Extension"
+          minItems: 1
+      type: object
+    Endpoint: 
+      properties: 
+        interface: 
+          type: string
+          maxLength: 128
+        protocolInformation: 
+          $ref: "#/components/schemas/ProtocolInformation"
+      required: 
+        - protocolInformation
+        - interface
+      type: object
+    EntityMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    EntityValue: 
+      properties: 
+        entityType: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/EntityType"
+        globalAssetId: 
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+        specificAssetIds:
+          type: array
+          items: 
+            $ref: "#/components/schemas/SpecificAssetIdValue"
+        statements: 
+          items: 
+            $ref: "#/components/schemas/ValueOnly"
+          type: array
+      required: 
+        - statements
+        - entityType
+      type: object
+    ExecutionState:
+      enum: 
+        - Initiated
+        - Running
+        - Completed
+        - Canceled
+        - Failed
+        - Timeout
+      type: string
+    FileValue: 
+      properties: 
+        contentType: 
+          type: string
+          minLength: 1
+          maxLength: 100
+        value: 
+          type: string
+          minLength: 1
+          maxLength: 2000
+      required: 
+        - contentType
+        - value
+      type: object
+    FileMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    GetAssetAdministrationShellDescriptorsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+    GetAssetAdministrationShellsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/AssetAdministrationShellMetadata"
+    GetAssetAdministrationShellsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/AssetAdministrationShell"
+    GetConceptDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ConceptDescription"
+    GetPackageDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/PackageDescription" 
+    GetPathItemsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/PathItem"
+    GetReferencesResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+    GetSubmodelDescriptorsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelDescriptor"
+    GetSubmodelElementsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementMetadata"
+    GetSubmodelElementsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/SubmodelElement"
+    GetSubmodelElementsValueResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelElementValue"  
+    GetSubmodelsMetadataResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelMetadata"
+    GetSubmodelsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Submodel"
+    GetSubmodelsValueResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items: 
+                $ref: "#/components/schemas/SubmodelValue"
+    Message:
+      properties: 
+        code: 
+          type: string
+          maxLength: 32
+          minLength: 1
+        correlationId:
+          type: string
+          maxLength: 128
+          minLength: 1
+        messageType: 
+          enum: 
+            - Undefined
+            - Info
+            - Warning
+            - Error
+            - Exception
+          type: string
+        text: 
+          type: string
+        timestamp: 
+          type: string
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
+      type: object
+    MultiLanguagePropertyMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    MultiLanguagePropertyValue: 
+      type: object
+      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+    NumberValue: 
+      type: number
+    OperationHandle: 
+      properties: 
+        handleId: 
+          type: string
+          maxLength: 128
+      type: object
+    OperationMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    OperationRequest: 
+      properties: 
+        inoutputArguments: 
+          items: 
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/OperationVariable"
+          type: array
+        inputArguments: 
+          items: 
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/OperationVariable"
+          type: array
+        clientTimeoutDuration: 
+          type: string
+          pattern: "^(-?)P(?=.)((\\d+)Y)?((\\d+)M)?((\\d+)D)?(T(?=.)((\\d+)H)?((\\d+)M)?(\\d*(\\.\\d+)?S)?)?$"
+      type: object
+    OperationRequestValueOnly: 
+      properties: 
+        inoutputArguments: 
+          $ref: "#/components/schemas/ValueOnly"
+        inputArguments: 
+          $ref: "#/components/schemas/ValueOnly"
+        clientTimeoutDuration: 
+          type: string
+          pattern: "^(-?)P(?=.)((\\d+)Y)?((\\d+)M)?((\\d+)D)?(T(?=.)((\\d+)H)?((\\d+)M)?(\\d*(\\.\\d+)?S)?)?$"
+      type: object
+      required: 
+      - clientTimeoutDuration
+    OperationResult: 
+      allOf:
+      - $ref: '#/components/schemas/BaseOperationResult'
+      - properties: 
+          inoutputArguments: 
+            items: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/OperationVariable"
+            type: array
+          outputArguments: 
+            items: 
+              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/OperationVariable"
+            type: array
+      type: object
+    OperationResultValueOnly: 
+      allOf:
+      - $ref: '#/components/schemas/BaseOperationResult'
+      - properties: 
+          inoutputArguments: 
+            $ref: "#/components/schemas/ValueOnly"
+          outputArguments: 
+            $ref: "#/components/schemas/ValueOnly"
+      type: object
+    PagedResult:
+      type: object
+      properties:
+        paging_metadata:
+          type: object
+          properties:
+            cursor:
+              type: string
+              example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
+    PackageDescription: 
+      properties: 
+        aasIds: 
+          items: 
+            type: string
+            pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+            maxLength: 2000
+          type: array
+        packageId: 
+          type: string
+          maxLength: 128
+      type: object
+    PathItem:
+      type: string
+      pattern: "[A-Za-z][A-Za-z0-9_]+(\\.[A-Za-z][A-Za-z0-9_]+){0,}"
+    PropertyMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+      properties: 
+        valueType: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/DataTypeDefXsd"
+    PropertyValue: 
+      oneOf: 
+        - $ref: "#/components/schemas/StringValue"
+        - $ref: "#/components/schemas/NumberValue"
+        - $ref: "#/components/schemas/BooleanValue"
+    ProtocolInformation: 
+      properties:
+        href: 
+          type: string
+          maxLength: 2048
+        endpointProtocol: 
+          type: string
+          maxLength: 128
+        endpointProtocolVersion: 
+          type: array
+          items:  
+            type: string
+            maxLength: 128
+        subprotocol: 
+          type: string
+          maxLength: 128
+        subprotocolBody: 
+          type: string
+          maxLength: 128
+        subprotocolBodyEncoding: 
+          type: string
+          maxLength: 128
+        securityAttributes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                - "NONE"
+                - "RFC_TLSA"
+                - "W3C_DID"
+              key:
+                type: string
+              value:
+                type: string
+            required:
+            - type
+            - key
+            - value
+          minItems: 1
+      required: 
+        - href
+      type: object
+    RangeMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+      properties: 
+        valueType: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/DataTypeDefXsd"
+    RangeValue: 
+      properties: 
+        max: 
+          type: number
+        min: 
+          type: number
+      required: 
+        - min
+        - max
+      type: object
+    ReferenceElementMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    ReferenceElementValue: 
+      $ref: "#/components/schemas/ReferenceValue"
+    ReferenceValue:
+      type: object
+      properties:
+        type: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ReferenceTypes"
+        keys:
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Key"
+    RelationshipElementMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    RelationshipElementValue: 
+      properties: 
+        first: 
+          $ref: "#/components/schemas/ReferenceValue"
+        second: 
+          $ref: "#/components/schemas/ReferenceValue"
+      required: 
+        - first
+        - second
+      type: object
+    Result: 
+      properties: 
+        messages: 
+          items: 
+            $ref: "#/components/schemas/Message"
+          type: array
+      type: object
+    ServiceDescription: 
+      description: The Description object enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
+      example: >-
+        {
+          "profiles": [
+            "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002",
+            "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002"
+          ]
+        }
+      properties: 
+        profiles:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001"
+      type: object
+    SpecificAssetIdValue:
+      type: object
+      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+    StringValue: 
+      type: string
+    SubmodelDescriptor: 
+      allOf: 
+        - $ref: "#/components/schemas/Descriptor"
+      properties: 
+        administration: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/AdministrativeInformation"
+        endpoints: 
+          items: 
+            $ref: "#/components/schemas/Endpoint"
+          minItems: 1
+          type: array
+        idShort: 
+          type: string
+          maxLength: 128
+        id: 
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$"
+        semanticId: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+        supplementalSemanticId:
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+          minItems: 1
+      required: 
+        - id
+        - endpoints
+      type: object
+      example: '{ "id": "https://admin-shell.io/zvei/nameplate/1/0/Nameplate", "endpoints": [ { "href": { "href": "https://localhost:1234/api/v3.0/submodel", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
+    SubmodelElementAttributes: 
+      allOf: 
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Referable"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasDataSpecification"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasSemantics"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Qualifiable"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasKind"
+    SubmodelElementListMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+      properties: 
+        orderRelevant:
+          type: boolean
+        semanticIdListElement: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Reference"
+        typeValueListElement: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/ModelType"
+        valueTypeListElement: 
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/DataTypeDefXsd"
+    SubmodelElementListValue:
+      type: array
+      items:
+        $ref: "#/components/schemas/SubmodelElementValue"
+    SubmodelElementCollectionMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+    SubmodelElementCollectionValue: 
+      type: object
+      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+    SubmodelElementMetadata: 
+      allOf: 
+        - $ref: "#/components/schemas/SubmodelElementAttributes"
+      oneOf: 
+        - $ref: "#/components/schemas/BlobMetadata"
+        - $ref: "#/components/schemas/FileMetadata"
+        - $ref: "#/components/schemas/CapabilityMetadata"
+        - $ref: "#/components/schemas/EntityMetadata"
+        - $ref: "#/components/schemas/BasicEventElementMetadata"
+        - $ref: "#/components/schemas/MultiLanguagePropertyMetadata"
+        - $ref: "#/components/schemas/OperationMetadata"
+        - $ref: "#/components/schemas/PropertyMetadata"
+        - $ref: "#/components/schemas/RangeMetadata"
+        - $ref: "#/components/schemas/ReferenceElementMetadata"
+        - $ref: "#/components/schemas/AnnotatedRelationshipElementMetadata"
+        - $ref: "#/components/schemas/RelationshipElementMetadata"
+        - $ref: "#/components/schemas/SubmodelElementListMetadata"
+        - $ref: "#/components/schemas/SubmodelElementCollectionMetadata"
+    SubmodelElementValue: 
+      oneOf: 
+        - $ref: "#/components/schemas/BasicEventElementValue"
+        - $ref: "#/components/schemas/PropertyValue"
+        - $ref: "#/components/schemas/MultiLanguagePropertyValue"
+        - $ref: "#/components/schemas/BlobValue"
+        - $ref: "#/components/schemas/FileValue"
+        - $ref: "#/components/schemas/RangeValue"
+        - $ref: "#/components/schemas/ReferenceElementValue"
+        - $ref: "#/components/schemas/RelationshipElementValue"
+        - $ref: "#/components/schemas/AnnotatedRelationshipElementValue"
+        - $ref: "#/components/schemas/EntityValue"
+        - $ref: "#/components/schemas/SubmodelElementCollectionValue"
+        - $ref: "#/components/schemas/SubmodelElementListValue"
+    SubmodelMetadata: 
+      allOf: 
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Identifiable"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasDataSpecification"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/Qualifiable"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasSemantics"
+        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/HasKind"
+    SubmodelValue:
+      properties:
+        submodelElements:
+          type: array
+          items:
+            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.1#/components/schemas/SubmodelElement'
+          minItems: 1
+    ValueOnly: 
+      description: "The ValueOnly serialization of submodel elements (patternProperties and propertyNames will be supported propably with OpenApi 3.1). The full description of the generic JSON validation schema for the ValueOnly-serialization can be found in chapter 11.4.3 in Details of the Asset Administration Shell Part 2.\n"
+      type: object
+    AasSubmodelElements:
+      type: string
+      enum:
+      - AnnotatedRelationshipElement
+      - BasicEventElement
+      - Blob
+      - Capability
+      - DataElement
+      - Entity
+      - EventElement
+      - File
+      - MultiLanguageProperty
+      - Operation
+      - Property
+      - Range
+      - ReferenceElement
+      - RelationshipElement
+      - SubmodelElement
+      - SubmodelElementCollection
+      - SubmodelElementList
+    AbstractLangString:
+      type: object
+      properties:
+        language:
+          type: string
+          pattern: "^(([a-zA-Z]{2,3}(-[a-zA-Z]{3}(-[a-zA-Z]{3}){2})?|[a-zA-Z]{4}|[a-zA-Z]{5,8})(-[a-zA-Z]{4})?(-([a-zA-Z]{2}|[0-9]{3}))?(-(([a-zA-Z0-9]){5,8}|[0-9]([a-zA-Z0-9]){3}))*(-[0-9A-WY-Za-wy-z](-([a-zA-Z0-9]){2,8})+)*(-[xX](-([a-zA-Z0-9]){1,8})+)?|[xX](-([a-zA-Z0-9]){1,8})+|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$"
+        text:
+          type: string
+          minLength: 1
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+      required:
+      - language
+      - text
+    AdministrativeInformation:
+      allOf:
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          version:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 4
+            - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            - pattern: "^(0|[1-9][0-9]*)$"
+          revision:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 4
+            - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            - pattern: "^(0|[1-9][0-9]*)$"
+          creator:
+            "$ref": "#/components/schemas/Reference"
+          templateId:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+    AnnotatedRelationshipElement:
+      allOf:
+      - "$ref": "#/components/schemas/RelationshipElement_abstract"
+      - properties:
+          annotations:
+            type: array
+            items:
+              "$ref": "#/components/schemas/DataElement_choice"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: AnnotatedRelationshipElement
+    AssetAdministrationShell:
+      allOf:
+      - "$ref": "#/components/schemas/Identifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          derivedFrom:
+            "$ref": "#/components/schemas/Reference"
+          assetInformation:
+            "$ref": "#/components/schemas/AssetInformation"
+          submodels:
+            type: array
+            items:
+              "$ref": "#/components/schemas/Reference"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: AssetAdministrationShell
+        required:
+        - assetInformation
+    AssetInformation:
+      type: object
+      properties:
+        assetKind:
+          "$ref": "#/components/schemas/AssetKind"
+        globalAssetId:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        specificAssetIds:
+          type: array
+          items:
+            "$ref": "#/components/schemas/SpecificAssetId"
+          minItems: 1
+        assetType:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        defaultThumbnail:
+          "$ref": "#/components/schemas/Resource"
+      required:
+      - assetKind
+    AssetKind:
+      type: string
+      enum:
+      - Instance
+      - NotApplicable
+      - Type
+    BasicEventElement:
+      allOf:
+      - "$ref": "#/components/schemas/EventElement"
+      - properties:
+          observed:
+            "$ref": "#/components/schemas/Reference"
+          direction:
+            "$ref": "#/components/schemas/Direction"
+          state:
+            "$ref": "#/components/schemas/StateOfEvent"
+          messageTopic:
+            type: string
+            minLength: 1
+            maxLength: 255
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          messageBroker:
+            "$ref": "#/components/schemas/Reference"
+          lastUpdate:
+            type: string
+            pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
+          minInterval:
+            type: string
+            pattern: "^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S))))$"
+          maxInterval:
+            type: string
+            pattern: "^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?|([0-9]+(\\.[0-9]+)?S))))$"
+          modelType:
+            type: string
+            pattern: BasicEventElement
+        required:
+        - observed
+        - direction
+        - state
+    Blob:
+      allOf:
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            type: string
+            format: byte
+          contentType:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 100
+            - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([
+                \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t
+                !#-\\[\\]-~]|[\x80-ÿ])|\\\\([\\t !-~]|[\x80-ÿ]))*\"))*$"
+          modelType:
+            type: string
+            pattern: Blob
+        required:
+        - contentType
+    Capability:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          modelType:
+            type: string
+            pattern: Capability
+    ConceptDescription:
+      allOf:
+      - "$ref": "#/components/schemas/Identifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          isCaseOf:
+            type: array
+            items:
+              "$ref": "#/components/schemas/Reference"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: ConceptDescription
+    DataElement:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+    DataElement_choice:
+      oneOf:
+      - "$ref": "#/components/schemas/Blob"
+      - "$ref": "#/components/schemas/File"
+      - "$ref": "#/components/schemas/MultiLanguageProperty"
+      - "$ref": "#/components/schemas/Property"
+      - "$ref": "#/components/schemas/Range"
+      - "$ref": "#/components/schemas/ReferenceElement"
+    DataSpecificationContent:
+      type: object
+      properties:
+        modelType:
+          "$ref": "#/components/schemas/ModelType"
+      required:
+      - modelType
+    DataSpecificationContent_choice:
+      oneOf:
+      - "$ref": "#/components/schemas/DataSpecificationIec61360"
+    DataSpecificationIec61360:
+      allOf:
+      - "$ref": "#/components/schemas/DataSpecificationContent"
+      - properties:
+          preferredName:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringPreferredNameTypeIec61360"
+            minItems: 1
+          shortName:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringShortNameTypeIec61360"
+            minItems: 1
+          unit:
+            type: string
+            minLength: 1
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          unitId:
+            "$ref": "#/components/schemas/Reference"
+          sourceOfDefinition:
+            type: string
+            minLength: 1
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          symbol:
+            type: string
+            minLength: 1
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          dataType:
+            "$ref": "#/components/schemas/DataTypeIec61360"
+          definition:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringDefinitionTypeIec61360"
+            minItems: 1
+          valueFormat:
+            type: string
+            minLength: 1
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          valueList:
+            "$ref": "#/components/schemas/ValueList"
+          value:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          levelType:
+            "$ref": "#/components/schemas/LevelType"
+          modelType:
+            type: string
+            pattern: DataSpecificationIec61360
+        required:
+        - preferredName
+    DataTypeDefXsd:
+      type: string
+      enum:
+      - xs:anyURI
+      - xs:base64Binary
+      - xs:boolean
+      - xs:byte
+      - xs:date
+      - xs:dateTime
+      - xs:decimal
+      - xs:double
+      - xs:duration
+      - xs:float
+      - xs:gDay
+      - xs:gMonth
+      - xs:gMonthDay
+      - xs:gYear
+      - xs:gYearMonth
+      - xs:hexBinary
+      - xs:int
+      - xs:integer
+      - xs:long
+      - xs:negativeInteger
+      - xs:nonNegativeInteger
+      - xs:nonPositiveInteger
+      - xs:positiveInteger
+      - xs:short
+      - xs:string
+      - xs:time
+      - xs:unsignedByte
+      - xs:unsignedInt
+      - xs:unsignedLong
+      - xs:unsignedShort
+    DataTypeIec61360:
+      type: string
+      enum:
+      - BLOB
+      - BOOLEAN
+      - DATE
+      - FILE
+      - HTML
+      - INTEGER_COUNT
+      - INTEGER_CURRENCY
+      - INTEGER_MEASURE
+      - IRDI
+      - IRI
+      - RATIONAL
+      - RATIONAL_MEASURE
+      - REAL_COUNT
+      - REAL_CURRENCY
+      - REAL_MEASURE
+      - STRING
+      - STRING_TRANSLATABLE
+      - TIME
+      - TIMESTAMP
+    Direction:
+      type: string
+      enum:
+      - input
+      - output
+    EmbeddedDataSpecification:
+      type: object
+      properties:
+        dataSpecification:
+          "$ref": "#/components/schemas/Reference"
+        dataSpecificationContent:
+          "$ref": "#/components/schemas/DataSpecificationContent_choice"
+      required:
+      - dataSpecification
+      - dataSpecificationContent
+    Entity:
+      allOf:
+      - $ref: "#/components/schemas/SubmodelElement"
+      - properties:
+          statements:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement_choice"
+            minItems: 1
+          entityType:
+            "$ref": "#/components/schemas/EntityType"
+          globalAssetId:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          specificAssetIds:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SpecificAssetId"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: Entity
+        required:
+        - entityType
+    EntityType:
+      type: string
+      enum:
+      - CoManagedEntity
+      - SelfManagedEntity
+    Environment:
+      type: object
+      properties:
+        assetAdministrationShells:
+          type: array
+          items:
+            "$ref": "#/components/schemas/AssetAdministrationShell"
+          minItems: 1
+        submodels:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Submodel"
+          minItems: 1
+        conceptDescriptions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ConceptDescription"
+          minItems: 1
+    EventElement:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+    EventPayload:
+      type: object
+      properties:
+        source:
+          "$ref": "#/components/schemas/Reference"
+        sourceSemanticId:
+          "$ref": "#/components/schemas/Reference"
+        observableReference:
+          "$ref": "#/components/schemas/Reference"
+        observableSemanticId:
+          "$ref": "#/components/schemas/Reference"
+        topic:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        subjectId:
+          "$ref": "#/components/schemas/Reference"
+        timeStamp:
+          type: string
+          pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
+        payload:
+          type: string
+          format: byte
+      required:
+      - source
+      - observableReference
+      - timeStamp
+    Extension:
+      allOf:
+      - "$ref": "#/components/schemas/HasSemantics"
+      - properties:
+          name:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: string
+          refersTo:
+            type: array
+            items:
+              "$ref": "#/components/schemas/Reference"
+            minItems: 1
+        required:
+        - name
+    File:
+      allOf:
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 2000
+            - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            - pattern: "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$"
+          contentType:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 100
+            - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([\\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t!#-\\[\\]-~]|[\x80-ÿ])|\\\\([\\t !-~]|[\x80-ÿ]))*\"))*$"
+          modelType:
+            type: string
+            pattern: File
+        required:
+        - contentType
+    HasDataSpecification:
+      type: object
+      properties:
+        embeddedDataSpecifications:
+          type: array
+          items:
+            "$ref": "#/components/schemas/EmbeddedDataSpecification"
+          minItems: 1
+    HasExtensions:
+      type: object
+      properties:
+        extensions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Extension"
+          minItems: 1
+    HasKind:
+      type: object
+      properties:
+        kind:
+          "$ref": "#/components/schemas/ModellingKind"
+    HasSemantics:
+      type: object
+      properties:
+        semanticId:
+          "$ref": "#/components/schemas/Reference"
+        supplementalSemanticIds:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Reference"
+          minItems: 1
+    Identifiable:
+      allOf:
+      - "$ref": "#/components/schemas/Referable"
+      - properties:
+          administration:
+            "$ref": "#/components/schemas/AdministrativeInformation"
+          id:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        required:
+        - id
+    Key:
+      type: object
+      properties:
+        type:
+          "$ref": "#/components/schemas/KeyTypes"
+        value:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+      required:
+      - type
+      - value
+    KeyTypes:
+      type: string
+      enum:
+      - AnnotatedRelationshipElement
+      - AssetAdministrationShell
+      - BasicEventElement
+      - Blob
+      - Capability
+      - ConceptDescription
+      - DataElement
+      - Entity
+      - EventElement
+      - File
+      - FragmentReference
+      - GlobalReference
+      - Identifiable
+      - MultiLanguageProperty
+      - Operation
+      - Property
+      - Range
+      - Referable
+      - ReferenceElement
+      - RelationshipElement
+      - Submodel
+      - SubmodelElement
+      - SubmodelElementCollection
+      - SubmodelElementList
+    LangStringDefinitionTypeIec61360:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 1023
+    LangStringNameType:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 128
+    LangStringPreferredNameTypeIec61360:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 255
+    LangStringShortNameTypeIec61360:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 18
+    LangStringTextType:
+      allOf:
+      - "$ref": "#/components/schemas/AbstractLangString"
+      - properties:
+          text:
+            maxLength: 1023
+    LevelType:
+      type: object
+      properties:
+        min:
+          type: boolean
+        nom:
+          type: boolean
+        typ:
+          type: boolean
+        max:
+          type: boolean
+      required:
+      - min
+      - nom
+      - typ
+      - max
+    ModelType:
+      type: string
+      enum:
+      - AnnotatedRelationshipElement
+      - AssetAdministrationShell
+      - BasicEventElement
+      - Blob
+      - Capability
+      - ConceptDescription
+      - DataSpecificationIec61360
+      - Entity
+      - File
+      - MultiLanguageProperty
+      - Operation
+      - Property
+      - Range
+      - ReferenceElement
+      - RelationshipElement
+      - Submodel
+      - SubmodelElementCollection
+      - SubmodelElementList
+    ModellingKind:
+      type: string
+      enum:
+      - Instance
+      - Template
+    MultiLanguageProperty:
+      allOf:
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringTextType"
+            minItems: 1
+          valueId:
+            "$ref": "#/components/schemas/Reference"
+          modelType:
+            type: string
+            pattern: MultiLanguageProperty
+    Operation:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          inputVariables:
+            type: array
+            items:
+              "$ref": "#/components/schemas/OperationVariable"
+            minItems: 1
+          outputVariables:
+            type: array
+            items:
+              "$ref": "#/components/schemas/OperationVariable"
+            minItems: 1
+          inoutputVariables:
+            type: array
+            items:
+              "$ref": "#/components/schemas/OperationVariable"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: Operation
+    OperationVariable:
+      type: object
+      properties:
+        value:
+          "$ref": "#/components/schemas/SubmodelElement_choice"
+      required:
+      - value
+    Property:
+      allOf:
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: string
+          valueId:
+            "$ref": "#/components/schemas/Reference"
+          modelType:
+            type: string
+            pattern: Property
+        required:
+        - valueType
+    Qualifiable:
+      type: object
+      properties:
+        qualifiers:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Qualifier"
+          minItems: 1
+        modelType:
+          "$ref": "#/components/schemas/ModelType"
+      required:
+      - modelType
+    Qualifier:
+      allOf:
+      - "$ref": "#/components/schemas/HasSemantics"
+      - properties:
+          kind:
+            "$ref": "#/components/schemas/QualifierKind"
+          type:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: string
+          valueId:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - type
+        - valueType
+    QualifierKind:
+      type: string
+      enum:
+      - ConceptQualifier
+      - TemplateQualifier
+      - ValueQualifier
+    Range:
+      allOf:
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          valueType:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          min:
+            type: string
+          max:
+            type: string
+          modelType:
+            type: string
+            pattern: Range
+        required:
+        - valueType
+    Referable:
+      allOf:
+      - "$ref": "#/components/schemas/HasExtensions"
+      - properties:
+          category:
+            type: string
+            minLength: 1
+            maxLength: 128
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          idShort:
+            type: string
+            allOf:
+            - minLength: 1
+              maxLength: 128
+            - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            - pattern: "^[a-zA-Z][a-zA-Z0-9_]*$"
+          displayName:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringNameType"
+            minItems: 1
+          description:
+            type: array
+            items:
+              "$ref": "#/components/schemas/LangStringTextType"
+            minItems: 1
+          modelType:
+            "$ref": "#/components/schemas/ModelType"
+        required:
+        - modelType
+    Reference:
+      allOf:
+        - "$ref": "#/components/schemas/ReferenceParent"
+        - properties:
+            referredSemanticId: 
+              "$ref": "#/components/schemas/ReferenceParent"
+    ReferenceParent:
+    # This class is introduced because of the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+      type: object
+      properties:
+        type:
+          "$ref": "#/components/schemas/ReferenceTypes"
+        keys:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Key"
+          minItems: 1
+      required:
+        - type
+        - keys
+    ReferenceElement:
+      allOf:
+      - "$ref": "#/components/schemas/DataElement"
+      - properties:
+          value:
+            "$ref": "#/components/schemas/Reference"
+          modelType:
+            type: string
+            pattern: ReferenceElement
+    ReferenceTypes:
+      type: string
+      enum:
+      - ExternalReference
+      - ModelReference
+    RelationshipElement:
+      allOf:
+      - "$ref": "#/components/schemas/RelationshipElement_abstract"
+      - properties:
+          modelType:
+            type: string
+            pattern: RelationshipElement
+    RelationshipElement_abstract:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          first:
+            "$ref": "#/components/schemas/Reference"
+          second:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - first
+        - second
+    RelationshipElement_choice:
+      oneOf:
+      - "$ref": "#/components/schemas/RelationshipElement"
+      - "$ref": "#/components/schemas/AnnotatedRelationshipElement"
+    Resource:
+      type: object
+      properties:
+        path:
+          type: string
+          allOf:
+          - minLength: 1
+            maxLength: 2000
+          - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          - pattern: "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$"
+        contentType:
+          type: string
+          allOf:
+          - minLength: 1
+            maxLength: 100
+          - pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          - pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([
+              \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t
+              !#-\\[\\]-~]|[\x80-ÿ])|\\\\([\\t !-~]|[\x80-ÿ]))*\"))*$"
+      required:
+      - path
+    SpecificAssetId:
+      allOf:
+      - "$ref": "#/components/schemas/HasSemantics"
+      - properties:
+          name:
+            type: string
+            minLength: 1
+            maxLength: 64
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          value:
+            type: string
+            minLength: 1
+            maxLength: 2000
+            pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          externalSubjectId:
+            "$ref": "#/components/schemas/Reference"
+        required:
+        - name
+        - value
+    StateOfEvent:
+      type: string
+      enum:
+      - 'off'
+      - 'on'
+    Submodel:
+      allOf:
+      - "$ref": "#/components/schemas/Identifiable"
+      - "$ref": "#/components/schemas/HasKind"
+      - "$ref": "#/components/schemas/HasSemantics"
+      - "$ref": "#/components/schemas/Qualifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+      - properties:
+          submodelElements:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement_choice"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: Submodel
+    SubmodelElement:
+      allOf:
+      - "$ref": "#/components/schemas/Referable"
+      - "$ref": "#/components/schemas/HasSemantics"
+      - "$ref": "#/components/schemas/Qualifiable"
+      - "$ref": "#/components/schemas/HasDataSpecification"
+    SubmodelElementCollection:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          value:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement_choice"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: SubmodelElementCollection
+    SubmodelElementList:
+      allOf:
+      - "$ref": "#/components/schemas/SubmodelElement"
+      - properties:
+          orderRelevant:
+            type: boolean
+          semanticIdListElement:
+            "$ref": "#/components/schemas/Reference"
+          typeValueListElement:
+            "$ref": "#/components/schemas/AasSubmodelElements"
+          valueTypeListElement:
+            "$ref": "#/components/schemas/DataTypeDefXsd"
+          value:
+            type: array
+            items:
+              "$ref": "#/components/schemas/SubmodelElement_choice"
+            minItems: 1
+          modelType:
+            type: string
+            pattern: SubmodelElementList
+        required:
+        - typeValueListElement
+    SubmodelElement_choice:
+      oneOf:
+      - "$ref": "#/components/schemas/RelationshipElement"
+      - "$ref": "#/components/schemas/AnnotatedRelationshipElement"
+      - "$ref": "#/components/schemas/BasicEventElement"
+      - "$ref": "#/components/schemas/Blob"
+      - "$ref": "#/components/schemas/Capability"
+      - "$ref": "#/components/schemas/Entity"
+      - "$ref": "#/components/schemas/File"
+      - "$ref": "#/components/schemas/MultiLanguageProperty"
+      - "$ref": "#/components/schemas/Operation"
+      - "$ref": "#/components/schemas/Property"
+      - "$ref": "#/components/schemas/Range"
+      - "$ref": "#/components/schemas/ReferenceElement"
+      - "$ref": "#/components/schemas/SubmodelElementCollection"
+      - "$ref": "#/components/schemas/SubmodelElementList"
+    ValueList:
+      type: object
+      properties:
+        valueReferencePairs:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ValueReferencePair"
+          minItems: 1
+      required:
+      - valueReferencePairs
+    ValueReferencePair:
+      type: object
+      properties:
+        value:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        valueId:
+          "$ref": "#/components/schemas/Reference"
+      required:
+      - value
+      - valueId
