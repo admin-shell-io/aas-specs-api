@@ -828,6 +828,7 @@ h|Operation Name h|Description
 |xref:PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] a| Updates multiple existing Asset Administration Shell Descriptors
 |xref:DeleteAssetAdministrationShellDescriptorById[DeleteAssetAdministrationShellDescriptorById] a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
 |xref:DeleteBulkAssetAdministrationShellDescriptorsById[DeleteBulkAssetAdministrationShellDescriptorsById] a| Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
+|xref:QueryAssetAdministrationShellDescriptors[QueryAssetAdministrationShellDescriptors] a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
 |===
 
 ==== Operation GetAllAssetAdministrationShellDescriptors
@@ -972,7 +973,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QueryAssetAdministrationShellDescriptors
+h|Operation Name 4+e|[[QueryAssetAdministrationShellDescriptors]]QueryAssetAdministrationShellDescriptors
 h|Explanation 4+a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1`
 
@@ -1150,7 +1151,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QuerySubmodelDescriptors
+h|Operation Name 4+e|[[QuerySubmodelDescriptors]]QuerySubmodelDescriptors
 h|Explanation 4+a| Returns all Submodel Descriptors that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1`
 
@@ -1183,7 +1184,7 @@ The interfaces that provide access to the entities (Asset Administration Shells,
 
 [%autowidth,width="100%",cols="41%,59%",options="header",]
 |===
-2+|Interface: Asset Administration Shell Repository
+2+|Interface: [[interface-AssetAdministrationShellRepository]]_Asset Administration Shell Repository_
 h|Operation Name h|Description
 e|xref:GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] |Returns all Asset Administration Shells
 e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
@@ -1354,7 +1355,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QueryAssetAdministrationShells
+h|Operation Name 4+e|[[QueryAssetAdministrationShells]]QueryAssetAdministrationShells
 h|Explanation 4+a| Returns all Asset Administration Shells that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1`
 
@@ -1373,14 +1374,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 [%autowidth,width="100%",cols="44%,56%",options="header",]
 |===
-2+|Interface: Submodel Repository
+2+|Interface: [[interface-SubmodelRepository]]Submodel Repository
 h|Operation Name h|Description
-e|GetAllSubmodels |Returns all Submodels
-e|GetSubmodelById |Returns a specific Submodel
-e|GetAllSubmodelsBySemanticId |Returns all Submodels with a specific SemanticId
-e|GetAllSubmodelsBySupplementalSemanticId |Returns all Submodels with a specific SupplementalSemanticId
-e|GetAllSubmodelsByIdShort |Returns all Submodels with a specific _idShort_
-e|PostSubmodel a|
+e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
+e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
+e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
+e|xref:GetAllSubmodelsBySupplementalSemanticId[GetAllSubmodelsBySupplementalSemanticId] |Returns all Submodels with a specific SupplementalSemanticId
+e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShor] |Returns all Submodels with a specific _idShort_
+e|xref:PostSubmodel[PostSubmodel] a|
 Creates a new Submodel.
 The id of the new submodel must be set in the payload.
 
@@ -1390,10 +1391,10 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-|PutSubmodelById a|Replaces an existing Submodel
-|PatchSubmodelById a|Updates an existing submodel
-|DeleteSubmodelById a|Deletes a Submodel
-e|QuerySubmodels a| Returns all Submodels that conform to a certain input query.
+|xref:PutSubmodelById[PutSubmodelById] a|Replaces an existing Submodel
+|xref:PatchSubmodelById[PatchSubmodelById] a|Updates an existing submodel
+|xref:DeleteSubmodelById[DeleteSubmodelById] a|Deletes a Submodel
+e|xref:QuerySubmodels[QuerySubmodels] a| Returns all Submodels that conform to a certain input query.
 |===
 
 ==== Operation GetAllSubmodels
@@ -1568,7 +1569,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QuerySubmodels
+h|Operation Name 4+e|[[QuerySubmodels]]QuerySubmodels
 h|Explanation 4+a| Returns all Submodels that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/1`
 
@@ -1769,7 +1770,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QueryConceptDescriptions
+h|Operation Name 4+e|[[QueryConceptDescriptions]]QueryConceptDescriptions
 h|Explanation 4+a|Returns a list of Concept Descriptions based on an input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1`
 
