@@ -2,9 +2,9 @@ openapi: 3.0.3
 info:
   title: DotAAS Part 2 | HTTP/REST | Discovery Service Specification (V3.1 Draft, not released)
   description: >-
-    The entire Full Profile of the Discovery Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
+    The entire Full Profile of the Discovery Service Specification as part of the [Specification of the Asset Administration Shell - Part 2: API](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
     
-    Publisher: Industrial Digital Twin Association (IDTA) April 2023
+    Publisher: Industrial Digital Twin Association (IDTA) January 2025
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -26,7 +26,7 @@ paths:
       summary: Returns a list of Asset Administration Shell IDs linked to specific asset identifiers or the global asset ID
       operationId: GetAllAssetAdministrationShellIdsByAssetLink
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/0
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/1
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/AssetIds'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
@@ -94,10 +94,10 @@ paths:
       summary: Returns a list of specific asset identifiers based on an Asset Administration Shell ID to edit discoverable content. The global asset ID is returned as specific asset ID with "name" equal to "globalAssetId" (see Constraint AASd-116).
       operationId: GetAllAssetLinksById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/0
+        - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/1
       responses:
         '200':
-          description: Requested specific Asset identifiers
+          description: Requested specific Asset identifiers (including the global asset ID represented by a specific asset ID)
           content:
             application/json:
               schema:
@@ -116,7 +116,7 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PostAllAssetLinksById/3/0
       requestBody:
-        description: A list of specific asset identifiers
+        description: A set of specific asset identifiers
         content:
           application/json:
             schema:
