@@ -16,7 +16,7 @@ include::../includes/special-parameters.adoc[]
 
 === General
 
-These interfaces make it possible to access the elements of Asset Administration Shells or Submodels.
+The Asset Administration Shell and Submodel interface make it possible to access the elements of Asset Administration Shells or Submodels.
 
 The AASX File Server Interface enables management of AASX packages on a server.
 A list of available packages can be retrieved.
@@ -30,20 +30,21 @@ The server documentation shall contain a description of when and how AASX packag
 
 ==== Asset Administration Shell Interface
 
+The Asset Administration Shell interface enables the access of the elements of a single Asset Administration Shell.
 [%autowidth,width="100%",options=header]
 |===
-2+h|Interface: _Asset Administration Shell_
+2+h|Interface: [[interface-AssetAdministrationShell]]_Asset Administration Shell_
 h|Operation Name h|Description
-e|GetAssetAdministrationShell a|Returns the Asset Administration Shell
-e|PutAssetAdministrationShell a|Replaces the current Asset Administration Shell
-e|GetAllSubmodelReferences a|Returns all Submodel References
-e|PostSubmodelReference a|Creates a Submodel Reference at the Asset Administration Shell
-e|DeleteSubmodelReference a|Deletes a specific Submodel Reference from the Asset Administration Shell
-e|GetAssetInformation a|Returns the Asset Information
-e|PutAssetInformation a|Replaces the Asset Information
-e|GetThumbnail a|Returns the thumbnail file
-e|PutThumbnail a|Replaces the thumbnail file
-e|DeleteThumbnail a|Deletes the thumbnail
+e|xref:GetAssetAdministrationShell[GetAssetAdministrationShell] a|Returns the Asset Administration Shell
+e|xref:PutAssetAdministrationShell[PutAssetAdministrationShell] a|Replaces the current Asset Administration Shell
+e|xref:GetAllSubmodelReferences[GetAllSubmodelReferences] a|Returns all Submodel References
+e|xref:PostSubmodelReference[PostSubmodelReference] a|Creates a Submodel Reference at the Asset Administration Shell
+e|xref:DeleteSubmodelReference[DeleteSubmodelReference] a|Deletes a specific Submodel Reference from the Asset Administration Shell
+e|xref:GetAssetInformation[GetAssetInformation] a|Returns the Asset Information
+e|xref:PutAssetInformation[PutAssetInformation] a|Replaces the Asset Information
+e|xref:GetThumbnail[GetThumbnail] a|Returns the thumbnail file
+e|xref:PutThumbnail[PutThumbnail] a|Replaces the thumbnail file
+e|xref:DeleteThumbnail[DeleteThumbnail] a|Deletes the thumbnail
 |===
 
 ==== Operation GetAssetAdministrationShell
@@ -129,7 +130,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelReference/3/0`
 
 h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelId | The unique id of the Submodel for the reference to be deleted |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|submodelId | The unique ID of the Submodel for the reference to be deleted |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -223,7 +224,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 
 [%autowidth,width="100%",cols="42%,58%",options="header",]
 |===
-2+|Interface: [[Submodel]]Submodel
+2+h|Interface: [[interface-Submodel]]_Submodel_
 h|Operation Name h|Description
 
 e|GetSubmodel a|Returns the Submodel
@@ -802,11 +803,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 === General
 
-These interfaces allow to register and unregister descriptors of administration shells or submodels.
-The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element.
+Registration interfaces allow to register and unregister descriptors of administration shells or submodels. 
+The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element. 
 This required information includes the endpoint in the dedicated environment.
 
-Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID).
+Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID). 
+
 These identifiers may be discovered through the interfaces described in <<publish-and-discovery-interfaces>>.
 
 === Asset Administration Shell Registry Interface and Operations
@@ -815,17 +817,18 @@ These identifiers may be discovered through the interfaces described in <<publis
 
 [%autowidth,width="100%",cols="45%,55%",options="header",]
 |===
-2+|Interface: Asset Administration Shell Registry
+2+h|Interface: [[interface-AssetAdministrationShellRegistry]]_Asset Administration Shell Registry_
 h|Operation Name h|Description
-|GetAllAssetAdministrationShellDescriptors a|Returns all Asset Administration Shell Descriptors
-|GetAssetAdministrationShellDescriptorById a|Returns a specific Asset Administration Shell Descriptor
-|PostAssetAdministrationShellDescriptor a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
-| CreateBulkAssetAdministrationShellDescriptors a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
-|PutAssetAdministrationShellDescriptorById a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
-| PutBulkAssetAdministrationShellDescriptorsById a| Updates multiple existing Asset Administration Shell Descriptors
-|DeleteAssetAdministrationShellDescriptorById a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
-| DeleteBulkAssetAdministrationShellDescriptorsById a| Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
-| QueryAssetAdministrationShellDescriptors a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
+
+|xref:GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] a|Returns all Asset Administration Shell Descriptors
+|xref:GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] a|Returns a specific Asset Administration Shell Descriptor
+|xref:PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
+|xref:CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
+|xref:PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
+|xref:PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] a| Updates multiple existing Asset Administration Shell Descriptors
+|xref:DeleteAssetAdministrationShellDescriptorById[DeleteAssetAdministrationShellDescriptorById] a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
+|xref:DeleteBulkAssetAdministrationShellDescriptorsById[DeleteBulkAssetAdministrationShellDescriptorsById] a| Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
+|xref:QueryAssetAdministrationShellDescriptors[QueryAssetAdministrationShellDescriptors] a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
 |===
 
 ==== Operation GetAllAssetAdministrationShellDescriptors
@@ -833,7 +836,7 @@ h|Operation Name h|Description
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAssetAdministrationShellDescriptors
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellDescriptors]]GetAllAssetAdministrationShellDescriptors
 h|Explanation 4+a|Returns all Asset Administration Shell Descriptors
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/0`
 
@@ -841,8 +844,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
-|assetKind |The kind of the assets to retrieve (Type, Instance) | no |AssetKind |1
-|assetType |The type of the assets to retrieve, encoded as unique id | no |Identifier |1
+|assetKind |The kind of the assets to retrieve (Type, Instance etc.) | no |AssetKind |1
+|assetType |The type of the assets to retrieve, encoded as unique ID | no |Identifier |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
@@ -853,13 +856,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAssetAdministrationShellDescriptorById
+h|Operation Name 4+e|[[GetAssetAdministrationShellDescriptorById]]GetAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Returns a specific Asset Administration Shell Descriptor
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique id |yes |Identifier |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |Identifier |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
 |payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
@@ -870,7 +873,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostAssetAdministrationShellDescriptor
+h|Operation Name 4+e|[[PostAssetAdministrationShellDescriptor]]PostAssetAdministrationShellDescriptor
 h|Explanation 4+a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShellDescriptor/3/0`
 
@@ -943,7 +946,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellD
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique id |yes |Identifier |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |Identifier |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -970,7 +973,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QueryAssetAdministrationShellDescriptors
+h|Operation Name 4+e|[[QueryAssetAdministrationShellDescriptors]]QueryAssetAdministrationShellDescriptors
 h|Explanation 4+a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1`
 
@@ -991,15 +994,15 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 2+|Interface: Submodel Registry
 h|Operation Name h|Description
-e|GetAllSubmodelDescriptors a|Returns all submodel descriptors
-e|GetSubmodelDescriptorById a|Returns a specific submodel descriptor
-e|PostSubmodelDescriptor a|Creates a new submodel descriptor, i.e., registers a submodel
-e|PostBulkSubmodelDescriptors a|Creates one or more new submodel descriptors, i.e., registers several submodels
-e|PutSubmodelDescriptorById a|Replaces an existing submodel descriptor, i.e., replaces registration information
-e|PutBulkSubmodelDescriptorsById a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
-e|DeleteSubmodelDescriptorById a|Deletes a submodel descriptor, i.e., de-registers a submodel
-e|DeleteBulkSubmodelDescriptorsById a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
-| QuerySubmodelDescriptors a| Returns all Submodel Descriptors that conform to a certain input query.
+e|xref:GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] a|Returns all submodel descriptors
+e|xref:GetSubmodelDescriptorById[GetSubmodelDescriptorById] a|Returns a specific submodel descriptor
+e|xref:PostSubmodelDescriptor[PostSubmodelDescriptor] a|Creates a new submodel descriptor, i.e., registers a submodel
+e|xref:PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] a|Creates one or more new submodel descriptors, i.e., registers several submodels
+e|xref:PutSubmodelDescriptorById[utSubmodelDescriptorById] a|Replaces an existing submodel descriptor, i.e., replaces registration information
+e|xref:PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
+e|xref:DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById] a|Deletes a submodel descriptor, i.e., de-registers a submodel
+e|xref:DeleteBulkSubmodelDescriptorsById[DeleteBulkSubmodelDescriptorsById] a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
+e|xref:QuerySubmodelDescriptors[QuerySubmodelDescriptors] a| Returns all Submodel Descriptors that conform to a certain input query.
 |===
 
 ==== Operation GetAllSubmodelDescriptors
@@ -1031,7 +1034,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0`
 =
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelIdentifier a|The Submodel’s unique id |yes |Identifier |1
+e|submodelIdentifier a|The Submodel’s unique ID |yes |Identifier |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested submodel descriptor |yes |SubmodelDescriptor |1
@@ -1098,7 +1101,7 @@ e|payload a|Replaced submodel descriptor |yes | xref:specification/interfaces-pa
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutBulkSubmodelDescriptorsById
+h|Operation Name 4+e|[[PutBulkSubmodelDescriptorsById]]PutBulkSubmodelDescriptorsById
 h|Explanation 4+a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkSubmodelDescriptorsById/3/1
 
@@ -1132,13 +1135,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteBulkSubmodelDescriptorsById
+h|Operation Name 4+e|[[DeleteBulkSubmodelDescriptorsById]]DeleteBulkSubmodelDescriptorsById
 h|Explanation 4+a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkSubmodelDescriptorsById/3/1
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodelIdentifier |The Submodel’s unique id |yes |Identifier |1..*
+|submodelIdentifier |The Submodel’s unique ID |yes |Identifier |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1148,7 +1151,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QuerySubmodelDescriptors
+h|Operation Name 4+e|[[QuerySubmodelDescriptors]]QuerySubmodelDescriptors
 h|Explanation 4+a| Returns all Submodel Descriptors that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1`
 
@@ -1181,23 +1184,25 @@ The interfaces that provide access to the entities (Asset Administration Shells,
 
 [%autowidth,width="100%",cols="41%,59%",options="header",]
 |===
-2+|Interface: Asset Administration Shell Repository
+2+|Interface: [[interface-AssetAdministrationShellRepository]]_Asset Administration Shell Repository_
 h|Operation Name h|Description
-e|GetAllAssetAdministrationShells |Returns all Asset Administration Shells
-e|GetAssetAdministrationShellById |Returns a specific Asset Administration Shell
-e|GetAllAssetAdministrationShellsByAssetId |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
-e|GetAllAssetAdministrationShellsByIdShort |Returns all Asset Administration Shells with a specific idShort
-e|PostAssetAdministrationShell a|
-Creates a new Asset Administration Shell.
-The id of the new Asset Administration Shell must be set in the payload.
+e|xref:GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] |Returns all Asset Administration Shells
+e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
+e|xref:GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
+e|xref:GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] |Returns all Asset Administration Shells with a specific idShort
+e|xref:PostAssetAdministrationShell[PostAssetAdministrationShell] a|
+Creates a new Asset Administration Shell. 
+The ID of the new Asset Administration Shell must be set in the payload.
+
+
 
 ====
 Note: the creation of the idShort is out of scope and must be handled in a proprietary way.
 ====
 
-e|PutAssetAdministrationShellById a|Replaces an existing Asset Administration Shell
-e|DeleteAssetAdministrationShellById a|Deletes an Asset Administration Shell
-e|QueryAssetAdministrationShells a| Returns all Asset Administration Shells that conform to a certain input query.
+e|xref:PutAssetAdministrationShellById[PutAssetAdministrationShellById] a|Replaces an existing Asset Administration Shell
+e|xref:DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById] a|Deletes an Asset Administration Shell
+e|xref:QueryAssetAdministrationShells[QueryAssetAdministrationShells] a| Returns all Asset Administration Shells that conform to a certain input query.
 |===
 
 ==== Operation GetAllAssetAdministrationShells
@@ -1205,7 +1210,7 @@ e|QueryAssetAdministrationShells a| Returns all Asset Administration Shells that
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAssetAdministrationShells
+h|Operation Name 4+e|[[GetAllAssetAdministrationShells]]GetAllAssetAdministrationShells
 h|Explanation 4+a|Returns all Asset Administration Shells
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/0`
 
@@ -1224,13 +1229,13 @@ e|payload a|List of Asset Administration Shells |no |AssetAdministrationShell |1
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAssetAdministrationShellById
+h|Operation Name 4+e|[[GetAssetAdministrationShellById]]GetAssetAdministrationShellById
 h|Explanation 4+a|Returns a specific Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique id |yes |Identifier |1
+|id |The Asset Administration Shell’s unique ID |yes |Identifier |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
@@ -1244,7 +1249,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAssetAdministrationShellsByAssetId
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellsByAssetId]]GetAllAssetAdministrationShellsByAssetId
 h|Explanation 4+a|Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/0`
 
@@ -1265,7 +1270,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAssetAdministrationShellsByIdShort
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellsByIdShort]]GetAllAssetAdministrationShellsByIdShort
 h|Explanation 4+a|Returns all Asset Administration Shells with a specific _idShort_
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByIdShort/3/0`
 
@@ -1285,10 +1290,10 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostAssetAdministrationShell
+h|Operation Name 4+e|[[PostAssetAdministrationShell]]PostAssetAdministrationShell
 h|Explanation 4+a|
 Creates a new Asset Administration Shell.
-The id of the new Asset Administration Shell must be set in the payload.
+The ID of the new Asset Administration Shell must be set in the payload.
 
 
 ====
@@ -1316,7 +1321,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutAssetAdministrationShellById
+h|Operation Name 4+e|[[PutAssetAdministrationShellById]]PutAssetAdministrationShellById
 h|Explanation 4+a|Replaces an existing Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById/3/0`
 
@@ -1333,13 +1338,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteAssetAdministrationShellById
+h|Operation Name 4+e|[[DeleteAssetAdministrationShellById]]DeleteAssetAdministrationShellById
 h|Explanation 4+a|Deletes an Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique id |yes |Identifier |1
+|id |The Asset Administration Shell’s unique ID |yes |Identifier |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1350,7 +1355,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QueryAssetAdministrationShells
+h|Operation Name 4+e|[[QueryAssetAdministrationShells]]QueryAssetAdministrationShells
 h|Explanation 4+a| Returns all Asset Administration Shells that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1`
 
@@ -1369,14 +1374,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 [%autowidth,width="100%",cols="44%,56%",options="header",]
 |===
-2+|Interface: Submodel Repository
+2+|Interface: [[interface-SubmodelRepository]]Submodel Repository
 h|Operation Name h|Description
-e|GetAllSubmodels |Returns all Submodels
-e|GetSubmodelById |Returns a specific Submodel
-e|GetAllSubmodelsBySemanticId |Returns all Submodels with a specific SemanticId
-e|GetAllSubmodelsBySupplementalSemanticId |Returns all Submodels with a specific SupplementalSemanticId
-e|GetAllSubmodelsByIdShort |Returns all Submodels with a specific _idShort_
-e|PostSubmodel a|
+e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
+e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
+e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
+e|xref:GetAllSubmodelsBySupplementalSemanticId[GetAllSubmodelsBySupplementalSemanticId] |Returns all Submodels with a specific SupplementalSemanticId
+e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShor] |Returns all Submodels with a specific _idShort_
+e|xref:PostSubmodel[PostSubmodel] a|
 Creates a new Submodel.
 The id of the new submodel must be set in the payload.
 
@@ -1386,10 +1391,10 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-|PutSubmodelById a|Replaces an existing Submodel
-|PatchSubmodelById a|Updates an existing submodel
-|DeleteSubmodelById a|Deletes a Submodel
-e|QuerySubmodels a| Returns all Submodels that conform to a certain input query.
+|xref:PutSubmodelById[PutSubmodelById] a|Replaces an existing Submodel
+|xref:PatchSubmodelById[PatchSubmodelById] a|Updates an existing submodel
+|xref:DeleteSubmodelById[DeleteSubmodelById] a|Deletes a Submodel
+e|xref:QuerySubmodels[QuerySubmodels] a| Returns all Submodels that conform to a certain input query.
 |===
 
 ==== Operation GetAllSubmodels
@@ -1397,7 +1402,7 @@ e|QuerySubmodels a| Returns all Submodels that conform to a certain input query.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllSubmodels
+h|Operation Name 4+e|[[GetAllSubmodels]]GetAllSubmodels
 h|Explanation 4+a|Returns all Submodels
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodels/3/0`
 
@@ -1416,13 +1421,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetSubmodelById
+h|Operation Name 4+e|[[GetSubmodelById]]GetSubmodelById
 h|Explanation 4+a|Returns a specific Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Submodel’s unique id |yes |Identifier |1
+|id |The Submodel’s unique ID |yes |Identifier |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -1434,7 +1439,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllSubmodelsBySemanticId
+h|Operation Name 4+e|[[GetAllSubmodelsBySemanticId]]GetAllSubmodelsBySemanticId
 h|Explanation 4+a|
 Returns all Submodels with a specific SemanticId or SupplementalSemanticId.
 If either the semanticId fits to the input parameter or at least one of the SupplementalSemanticIds, the submodel is returned.
@@ -1456,7 +1461,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllSubmodelsByIdShort
+h|Operation Name 4+e|((GetAllSubmodelsByIdShort))GetAllSubmodelsByIdShort
 h|Explanation 4+a|Returns all Submodels with a specific _idShort_
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0`
 
@@ -1476,7 +1481,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostSubmodel
+h|Operation Name 4+e|[[PostSubmodel]]PostSubmodel
 h|Explanation 4+a|
 Creates a new Submodel.
 The id of the new submodel must be set in the payload.
@@ -1502,7 +1507,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutSubmodelById
+h|Operation Name 4+e|[[PutSubmodelById]]PutSubmodelById
 h|Explanation 4+a|Replaces an existing Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelById/3/0`
 
@@ -1519,7 +1524,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PatchSubmodelById
+h|Operation Name 4+e|[[PatchSubmodelById]]PatchSubmodelById
 h|Explanation 4+a|Updates an existing Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelById/3/0`
 
@@ -1546,13 +1551,13 @@ Note: values remain unchanged with content=metadata.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteSubmodelById
+h|Operation Name 4+e|[[DeleteSubmodelById]]DeleteSubmodelById
 h|Explanation 4+a|Deletes a Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|id a|The Submodel’s unique id |yes |Identifier |1
+e|id a|The Submodel’s unique ID |yes |Identifier |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1564,7 +1569,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QuerySubmodels
+h|Operation Name 4+e|[[QuerySubmodels]]QuerySubmodels
 h|Explanation 4+a| Returns all Submodels that conform to a certain input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/1`
 
@@ -1592,7 +1597,7 @@ e|GetAllConceptDescriptionsByIsCaseOf |Returns all Concept Descriptions with a s
 e|GetAllConceptDescriptionsByDataSpecificationReference |Returns all Concept Descriptions with a specific _dataSpecification_ reference
 e|PostConceptDescription a|
 Creates a new Concept Description.
-The id of the new Concept Description must be set in the payload.
+The ID of the new Concept Description must be set in the payload.
 
 
 ====
@@ -1610,7 +1615,7 @@ e|QueryConceptDescriptions | Returns all Concept Descriptions that conform to a 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllConceptDescriptions
+h|Operation Name 4+e|[[GetAllConceptDescriptions]]GetAllConceptDescriptions
 h|Explanation 4+a|Returns all Concept Descriptions
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptions/3/0`
 
@@ -1628,13 +1633,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetConceptDescriptionById
+h|Operation Name 4+e|[[GetConceptDescriptionById]]GetConceptDescriptionById
 h|Explanation 4+a|Returns a specific Concept Description
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Concept Description’s unique id |yes |Identifier |1
+|id |The Concept Description’s unique ID |yes |Identifier |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Concept Description |yes |ConceptDescription |1
@@ -1645,7 +1650,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllConceptDescriptionsByIdShort
+h|Operation Name 4+e|[[GetAllConceptDescriptionsByIdShort]]GetAllConceptDescriptionsByIdShort
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _idShort_
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIdShort/3/0`
 
@@ -1664,7 +1669,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllConceptDescriptionsByIsCaseOf
+h|Operation Name 4+e|[[GetAllConceptDescriptionsByIsCaseOf]]GetAllConceptDescriptionsByIsCaseOf
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _IsCaseOf_ reference
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIsCaseOf/3/0`
 
@@ -1683,7 +1688,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllConceptDescriptionsByDataSpecificationReference
+h|Operation Name 4+e|[[GetAllConceptDescriptionsByDataSpecificationReference]]GetAllConceptDescriptionsByDataSpecificationReference
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _dataSpecification_ reference
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByDataSpecificationReference/3/0`
 
@@ -1702,10 +1707,10 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostConceptDescription
+h|Operation Name 4+e|[[PostConceptDescription]]PostConceptDescription
 h|Explanation 4+a|
 Creates a new Concept Description.
-The id of the new Concept Description must be set in the payload.
+The ID of the new Concept Description must be set in the payload.
 
 
 ====
@@ -1732,7 +1737,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PutConceptDescriptionById
+h|Operation Name 4+e|[[PutConceptDescriptionById]]PutConceptDescriptionById
 h|Explanation 4+a|Replaces an existing Concept Description
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutConceptDescriptionById/3/0`
 
@@ -1749,7 +1754,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteConceptDescriptionById
+h|Operation Name 4+e|[[DeleteConceptDescriptionById]]DeleteConceptDescriptionById
 h|Explanation 4+a|Deletes a Concept Description
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteConceptDescriptionById/3/0`
 
@@ -1765,7 +1770,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%, cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|QueryConceptDescriptions
+h|Operation Name 4+e|[[QueryConceptDescriptions]]QueryConceptDescriptions
 h|Explanation 4+a|Returns a list of Concept Descriptions based on an input query.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1`
 
@@ -1805,7 +1810,7 @@ e|DeleteAllAssetLinksById |Deletes all asset identifier key-value-pair linked to
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAssetAdministrationShellIdsByAssetLink
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellIdsByAssetLink]]GetAllAssetAdministrationShellIdsByAssetLink
 h|Explanation 4+a|Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/0`
 
@@ -1816,7 +1821,7 @@ The specific assetId of an asset identifier, which could be the globalAssetId or
 
 
 ====
-Note: The key of the asset identifier key-value-pair for the globalAssetId is defined in Clause 4.5.
+Note: the name for the globalAssetId is defined in Contraint AASd-116 in IDTA-0001.
 It is the predefined key “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
 ====
 
@@ -1834,14 +1839,14 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|GetAllAssetLinksById
+h|Operation Name 4+e|[[GetAllAssetLinksById]]GetAllAssetLinksById
 h|Explanation 4+a|Returns a list of asset identifier key-value-pairs based on an Asset Administration Shell id to edit discoverable content
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetLinksById/3/0`
 
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique id |yes |string |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload a|
@@ -1849,7 +1854,7 @@ Requested asset identifier, which could be the globalAssetId or specificAssetIds
 
 
 ====
-Note: the name of the SpecificAssetId for the globalAssetId is defined in Clause 4.5.
+Note: the name for the globalAssetId is defined in Contraint AASd-116 in IDTA-0001.
 It is the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
 ====
 
@@ -1870,7 +1875,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAllAssetLinksById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique id |yes |string |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |string |1
 |assetLinks a|
 Asset identifier, which could be the globalAssetId or specificAssetIds.
 
@@ -1892,13 +1897,13 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|DeleteAllAssetLinksById
+h|Operation Name 4+e|[[DeleteAllAssetLinksById]]DeleteAllAssetLinksById
 h|Explanation 4+a|Deletes all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
 h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique id |yes |string |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1934,7 +1939,7 @@ Note 1: a server implementing more than one service specification profile, e.g. 
 ====
 
 ====
-Note 2: a profile value must only be used if the related API is implemented at the path where the API Operation “GetDescription” is published, or child paths.
+Note 2: a profile value must only be used if the related API is implemented at the path where the API Operation “GetSelfDescription” is published, or child paths.
 ====
 
 

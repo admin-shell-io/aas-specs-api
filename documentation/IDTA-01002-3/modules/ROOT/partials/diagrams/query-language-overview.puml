@@ -1,0 +1,124 @@
+@startuml
+!pragma useIntermediatePackages false
+skinparam classAttributeIconSize 0
+
+hide methods 
+
+class Query {
+    +$select: SelectField[0..1]
+    +$condition: Condition[1]
+}
+ 
+Query --> SelectField
+Query --> Condition
+
+' to better arrange the SelectField
+SelectField -r[hidden]- Placeholder1
+Placeholder1 -r[hidden]- Condition
+hide Placeholder1
+
+' to better arrange the elements
+Placeholder2 -l[hidden]- Condition
+hide Placeholder2
+ 
+enum SelectField {
+     id
+}
+
+
+  abstract class Condition <<abstract>>{
+  }
+
+  enum LogicalOperation {
+    $and
+    $or
+    $not
+    ' nested
+  }
+
+  class LogicalExpression {
+    +operation: LogicalOperation[1]
+    +operands: Condition[1..*]
+  }
+
+  class MatchExpression {
+    +$match: Condition[1..*]
+  }
+
+  abstract class Operation <<abstract>> {
+    
+  }
+
+  enum ComparisonOperation {
+    $eq
+    $ne
+    $gt
+    $ge
+    $lt
+    $le
+  }
+  Operation <|-- ComparisonOperation
+
+  enum StringOperation {
+    $contains
+    $starts-with
+    $ends-with
+    $regex
+  }
+  Operation <|-- StringOperation
+
+  class Comparison {
+    +operation: Operation[1]
+    +operands: Operand[2]
+  }
+
+  enum CastingOperation {
+    $strCast
+    $numCast
+    $hexCast
+    $boolCast
+    $dateTimeCast
+    $timeCast
+  }
+
+  abstract class Operand <<abstract>> {
+
+  }
+
+  enum FieldIdentifier {
+    $strModel
+  }
+
+  enum Value {
+    $strVal
+    $numVal
+    $hexVal
+    $dateTimeVal
+    $timeVal
+    $dayOfWeek
+    $dayOfMonth
+    $month
+    $year
+  }
+
+  LogicalExpression -u-|> Condition
+  LogicalExpression --> Condition
+  LogicalExpression --> LogicalOperation
+  Comparison -u-|> Condition
+  Condition <|-- MatchExpression
+  Condition <-- MatchExpression
+  Comparison --> Operation
+  Comparison --> Operand
+  Operand <|-- CastingOperation
+  Operand <|--Value
+  Operand <|-- FieldIdentifier
+
+'for better arrangements of the classes below Condition
+LogicalExpression .r[hidden]. Comparison
+'Comparison .r[hidden]. MatchExpression
+
+'Operation .r[hidden]. Operand
+
+
+
+@enduml
