@@ -227,24 +227,24 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 2+h|Interface: [[interface-Submodel]]_Submodel_
 h|Operation Name h|Description
 
-e|GetSubmodel a|Returns the Submodel
-e|GetAllSubmodelElements a|Returns all submodel elements including their hierarchy
-e|GetSubmodelElementByPath a|Returns a specific submodel element from the Submodel at a specified path
-e|GetFileByPath a|Returns a specific file from the Submodel at a specified path
-e|PutFileByPath a|Replaces the file of an existing submodel element at a specified path within the submodel element hierarchy
-e|DeleteFileByPath a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
-e|PutSubmodel a|Replaces the Submodel
-e|PatchSubmodel a|Updates the Submodel
-e|PostSubmodelElement a|Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
-e|PostSubmodelElementByPath a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload.
-e|PutSubmodelElementByPath a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
-e|PatchSubmodelElementByPath a|Updates an existing submodel element at a specified path within the submodel element hierarchy
-e|GetSubmodelElementValueByPath a|Returns the value of the submodel element at a specified path according to the protocol-specific RAW-value payload
-e|DeleteSubmodelElementByPath a|Deletes a submodel element at a specified path within submodel element hierarchy
-e|InvokeOperationSync a|Synchronously invokes an Operation at a specified path with a client timeout in ms
-e|InvokeOperationAsync a|Asynchronously invokes an Operation at a specified path with a client timeout in ms
-e|GetOperationAsyncStatus a|Returns the current status of an asynchronously invoked operation
-e|GetOperationAsyncResult a|Returns the OperationResult of an asynchronously invoked operation
+e|xref:GetSubmodel[GetSubmodel] a|Returns the Submodel
+e|xref:GetAllSubmodelElements[GetAllSubmodelElements] a|Returns all submodel elements including their hierarchy
+e|xref:GetSubmodelElementByPath[GetSubmodelElementByPath] a|Returns a specific submodel element from the Submodel at a specified path
+e|xref:GetFileByPath[GetFileByPath] a|Returns a specific file from the Submodel at a specified path
+e|xref:PutFileByPath[PutFileByPath] a|Replaces the file of an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:DeleteFileByPath[DeleteFileByPath] a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:PutSubmodel[PutSubmodel] a|Replaces the Submodel
+e|xref:PatchSubmodel[PatchSubmodel] a|Updates the Submodel
+e|xref:PostSubmodelElement[PostSubmodelElement] a|Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
+e|xref:PostSubmodelElementByPath[PostSubmodelElementByPath] a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload.
+e|xref:PutSubmodelElementByPath[PutSubmodelElementByPath] a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:PatchSubmodelElementByPath[PatchSubmodelElementByPath] a|Updates an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:GetSubmodelElementValueByPath[GetSubmodelElementValueByPath] a|Returns the value of the submodel element at a specified path according to the protocol-specific RAW-value payload
+e|xref:DeleteSubmodelElementByPath[DeleteSubmodelElementByPath] a|Deletes a submodel element at a specified path within submodel element hierarchy
+e|xref:InvokeOperationSync[InvokeOperationSync] a|Synchronously invokes an Operation at a specified path with a client timeout in ms
+e|xref:InvokeOperationAsync[InvokeOperationAsync] a|Asynchronously invokes an Operation at a specified path with a client timeout in ms
+e|xref:GetOperationAsyncStatus[GetOperationAsyncStatus] a|Returns the current status of an asynchronously invoked operation
+e|xref:GetOperationAsyncResult[GetOperationAsyncResult] a|Returns the OperationResult of an asynchronously invoked operation
 |===
 
 ==== Operation GetSubmodel
@@ -636,7 +636,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 2+|Interface: [[Serialization]]Serialization
 h|Operation Name h|[[Description]]Description
-|GenerateSerializationByIds |Returns an appropriate serialization based on the specified format (see SerializationFormat).
+|xref:GenerateSerializationByIds[GenerateSerializationByIds] |Returns an appropriate serialization based on the specified format (see SerializationFormat).
 |===
 
 ==== Operation GenerateSerializationByIds
@@ -680,11 +680,11 @@ e|application/asset-administration-shell-package+xml a|AASX-Package (binary data
 |===
 2+|Interface: [[AASX-File-Server]]AASX File Server
 h|Operation Name h|Description
-e|GetAllAASXPackageIds |Returns a list of available AASX packages at the server
-e|GetAASXByPackageId |Returns a specific AASX package from the server
-e|PostAASXPackage |Creates an AASX package at the server
-e|PutAASXByPackageId |Replaces the AASX package at the server
-e|DeleteAASXByPackageId |Deletes a specific AASX package
+e|xref:GetAllAASXPackageIds[GetAllAASXPackageIds] |Returns a list of available AASX packages at the server
+e|xref:GetAASXByPackageId[GetAASXByPackageId] |Returns a specific AASX package from the server
+e|xref:PostAASXPackage[PostAASXPackage] |Creates an AASX package at the server
+e|xref:PutAASXByPackageId[PutAASXByPackageId] |Replaces the AASX package at the server
+e|xref:DeleteAASXByPackageId[DeleteAASXByPackageId] |Deletes a specific AASX package
 |===
 
 ==== Operation GetAllAASXPackageIds
@@ -998,7 +998,7 @@ e|xref:GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] a|Returns all submod
 e|xref:GetSubmodelDescriptorById[GetSubmodelDescriptorById] a|Returns a specific submodel descriptor
 e|xref:PostSubmodelDescriptor[PostSubmodelDescriptor] a|Creates a new submodel descriptor, i.e., registers a submodel
 e|xref:PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] a|Creates one or more new submodel descriptors, i.e., registers several submodels
-e|xref:PutSubmodelDescriptorById[utSubmodelDescriptorById] a|Replaces an existing submodel descriptor, i.e., replaces registration information
+e|xref:PutSubmodelDescriptorById[PutSubmodelDescriptorById] a|Replaces an existing submodel descriptor, i.e., replaces registration information
 e|xref:PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
 e|xref:DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById] a|Deletes a submodel descriptor, i.e., de-registers a submodel
 e|xref:DeleteBulkSubmodelDescriptorsById[DeleteBulkSubmodelDescriptorsById] a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
@@ -1590,12 +1590,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 2+|Interface: Concept Description Repository
 h|Operation Name h|Description
-e|GetAllConceptDescriptions |Returns all Concept Descriptions
-e|GetConceptDescriptionById |Returns a specific Concept Description
-e|GetAllConceptDescriptionsByIdShort |Returns all Concept Descriptions with a specific _idShort_
-e|GetAllConceptDescriptionsByIsCaseOf |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
-e|GetAllConceptDescriptionsByDataSpecificationReference |Returns all Concept Descriptions with a specific _dataSpecification_ reference
-e|PostConceptDescription a|
+e|xref:GetAllConceptDescriptions[GetAllConceptDescriptions] |Returns all Concept Descriptions
+e|xref:GetConceptDescriptionById[GetConceptDescriptionById] |Returns a specific Concept Description
+e|xref:GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] |Returns all Concept Descriptions with a specific _idShort_
+e|xref:GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
+e|xref:GetAllConceptDescriptionsByDataSpecificationReference[GetAllConceptDescriptionsByDataSpecificationReference] |Returns all Concept Descriptions with a specific _dataSpecification_ reference
+e|xref:PostConceptDescription[PostConceptDescription] a|
 Creates a new Concept Description.
 The ID of the new Concept Description must be set in the payload.
 
@@ -1605,9 +1605,9 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-e|PutConceptDescriptionById |Replaces an existing Concept Description
-e|DeleteConceptDescriptionById |Deletes a Concept Description
-e|QueryConceptDescriptions | Returns all Concept Descriptions that conform to a certain input query.
+e|xref:PutConceptDescriptionById[PutConceptDescriptionById] |Replaces an existing Concept Description
+e|xref:DeleteConceptDescriptionById[DeleteConceptDescriptionById] |Deletes a Concept Description
+e|xref:QueryConceptDescriptions[QueryConceptDescriptions] | Returns all Concept Descriptions that conform to a certain input query.
 |===
 
 ==== Operation GetAllConceptDescriptions
@@ -1799,10 +1799,10 @@ These interfaces allow to publish information about Asset Administration Shells 
 |===
 2+|Interface: Asset Administration Shell Basic Discovery
 h|Operation Name h|Description
-e|GetAllAssetAdministrationShellIdsByAssetLink |Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
-e|GetAllAssetLinksById |Returns a list of asset identifier key-value-pairs based on a given Asset Administration Shell id
-e|PostAllAssetLinksById |Creates or replaces all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
-e|DeleteAllAssetLinksById |Deletes all asset identifier key-value-pair linked to an Asset Administration Shell
+e| xref:GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] |Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
+e| xref:GetAllAssetLinksById[GetAllAssetLinksById]  |Returns a list of asset identifier key-value-pairs based on a given Asset Administration Shell id
+e| xref:PostAllAssetLinksById[PostAllAssetLinksById]  |Creates or replaces all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
+e| xref:DeleteAllAssetLinksById[DeleteAllAssetLinksById]  |Deletes all asset identifier key-value-pair linked to an Asset Administration Shell
 |===
 
 ==== Operation GetAllAssetAdministrationShellIdsByAssetLink
@@ -1867,7 +1867,7 @@ It is the predefined name “_globalAssetId_” that would refer to the _AssetIn
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|PostAllAssetLinksById
+h|Operation Name 4+e|[[PostAllAssetLinksById]]PostAllAssetLinksById
 h|Explanation 4+a|
 Creates new asset identifier key-value-pairs linked to an Asset Administration Shell for discoverable content.
 The existing content might have to be deleted first.
@@ -1916,7 +1916,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 2+|Interface: Self-Description
 h|Operation Name h|Description
-e|GetSelfDescription |Returns a description object containing the capabilities and supported features of the server.
+e|xref:GetSelfDescription[GetSelfDescription] |Returns a description object containing the capabilities and supported features of the server.
 |===
 
 === Operation GetSelfDescription
