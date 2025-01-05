@@ -143,7 +143,8 @@ image::aas-api-versioning-url-scheme.png[width=481,height=110]
 
 As different solutions also provide different advantages and disadvantages, URL-based versioning is recommended for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
-Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see Figure 4). As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
+Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see Figure <<aas-api-versioning-url-scheme>>). 
+As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
 
 Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure 5. A client shall not assume that the pattern from Figure 4 is supported by all servers.
 
