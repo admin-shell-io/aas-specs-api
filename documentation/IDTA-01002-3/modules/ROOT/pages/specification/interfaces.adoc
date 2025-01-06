@@ -184,7 +184,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested thumbnail file |yes |File Content |1
+e|payload a|Requested thumbnail file |yes | xref:specification/interfaces-payload.adoc#file-content[File Content] |1
 |===
 
 ==== Operation PutThumbnail
@@ -198,7 +198,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutThumbnail/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|file a|Thumbnail file |yes |File Content |1
+e|file a|Thumbnail file |yes |xref:specification/interfaces-payload.adoc#file-content[File Content] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -294,7 +294,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path | {path} |yes |Key |1..*
+|path | {path} |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -312,10 +312,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetFileByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |Key |1..*
+|path |{path} |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested file |yes |File Content |0..1
+|payload |Requested file |yes |xref:specification/interfaces-payload.adoc#file-content[File Content] |0..1
 |===
 
 ==== Operation PutFileByPath
@@ -329,8 +329,8 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutFileByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |Key |1..*
-|payload |Replacing file |yes |File Content |1
+|path |{path} |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
+|payload |Replacing file |yes |xref:specification/interfaces-payload.adoc#file-content[File Content] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -346,7 +346,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteFileByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |idShortPath via relative Reference/Keys to a submodel element |yes |Key |1..*
+|path |idShortPath via relative Reference/Keys to a submodel element |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key]  |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -362,10 +362,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodel/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodel |Submodel object |yes |Submodel |1
+|submodel |Submodel object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced submodel |yes |Submodel |1
+|payload |Replaced submodel |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PatchSubmodel
@@ -389,10 +389,10 @@ Note: values remain unchanged with content=metadata.
 
 
 |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
-|submodel |Submodel object |yes |Submodel |1
+|submodel |Submodel object |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Updated submodel |yes |Submodel |1
+|payload |Updated submodel |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PostSubmodelElement
@@ -417,7 +417,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
 
-|submodelElement |Submodel element object |yes |SubmodelElement |
+|submodelElement |Submodel element object |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |
 
 5+h|Output Parameter
 
@@ -445,7 +445,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElementByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} under which the new SubmodelElement shall be added |yes |Key |1..*
+|path |{path} under which the new SubmodelElement shall be added |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |submodelElement |Submodel element object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -467,7 +467,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} which shall be replaced |yes |Key |1..*
+|path |{path} which shall be replaced |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |submodelElement |Submodel element object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -496,7 +496,7 @@ Note: values remain unchanged with content=metadata.
 
 |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 
-|path |{path} |yes |Key |1..*
+|path |{path} |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |submodelElement |Submodel element object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 
 5+h|Output Parameter
@@ -533,7 +533,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementValueByPath
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |Key |1..*
+|path |{path} |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |payload |The new value of the submodel element |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -550,7 +550,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelElementByPath/3/0
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |Key |1..*
+|path |{path} |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -566,7 +566,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationSync/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path}, in this case an operation |yes |Key |1..*
+|path |{path}, in this case an operation |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |inputArgument |Input argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 |inoutputArgument |Inoutput argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 5+h|Output Parameter
@@ -585,13 +585,13 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationAsync/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path}, in this case an operation |yes |Key |1..*
+|path |{path}, in this case an operation |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |inputArgument |Input argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 |inoutputArgument |Inoutput argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 |clientTimeoutDuration |Timestamp indicating when the client expects the server to have finished execution of the invoked operation |yes |duration |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
+|payload |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes | xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
 |===
 
 ==== Operation GetOperationAsyncStatus
@@ -605,7 +605,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycStatus/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |xref:OperationHandle[OperationHandle] |1
+|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes | xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Execution state of the operation |yes | xref:BaseOperationResult[BaseOperationResult] |1
@@ -622,7 +622,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycResult/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |OperationHandle |1
+|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Operation Result |yes |xref:OperationResult[OperationResult] |1
@@ -636,7 +636,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 2+|Interface: [[Serialization]] _Serialization_
 h|Operation Name h|[[Description]]Description
-|xref:GenerateSerializationByIds[GenerateSerializationByIds] |Returns an appropriate serialization based on the specified format (see SerializationFormat).
+|xref:GenerateSerializationByIds[GenerateSerializationByIds] |Returns an appropriate serialization based on the specified format (see xref:specification/interfaces.adoc#SerializationFormat[SerializationFormat]).
 |===
 
 ==== Operation GenerateSerializationByIds
@@ -645,15 +645,15 @@ h|Operation Name h|[[Description]]Description
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[GenerateSerializationByIds]]GenerateSerializationByIds
-h|Explanation 4+a|Returns an appropriate serialization based on the specified format (see SerializationFormat).
+h|Explanation 4+a|Returns an appropriate serialization based on the specified format (see xref:specification/interfaces.adoc#SerializationFormat[SerializationFormat]).
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GenerateSerializationByIds/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIds |The unique ids of the Asset Administration Shells to be contained in the serialization |no |Identifier |1..*
-|submodelIds |The unique ids of the Submodels to be contained in the serialization |no |Identifier |1..*
+|aasIds |The unique ids of the Asset Administration Shells to be contained in the serialization |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+|submodelIds |The unique ids of the Submodels to be contained in the serialization |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |includeConceptDescriptions |Include concept descriptions |no |boolean |1
-|serializationFormat |Denotes in which serialization format the requested content shall be delivered |no |SerializationFormat |1
+|serializationFormat |Denotes in which serialization format the requested content shall be delivered |no |xref:specification/interfaces.adoc#SerializationFormat[SerializationFormat] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Serialization of the requested Asset Administration Shells and/or Submodels with or without ConceptDescriptions in specified SerializationFormat. |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/environment.html#Environment[Environment] |1
@@ -698,12 +698,12 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAASXPackageIds/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasId |Identifier of the AAS which must exist in each matching AASX package |no |Identifier |1
+|aasId |Identifier of the AAS which must exist in each matching AASX package |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Matching package list; the PackageDescription includes all Asset Administration Shell identifiers, also those which may have not been requested through the aasId input parameter |yes |PackageDescription |0..*
+|payload |Matching package list; the link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01002/v3.1/http-rest-api/http-rest-api.html#PackageDescription[PackageDescription] includes all Asset Administration Shell identifiers, also those which may have not been requested through the aasId input parameter |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01002/v3.1/http-rest-api/http-rest-api.html#PackageDescription[PackageDescription] |0..*
 |===
 
 ==== Operation GetAASXByPackageId
@@ -721,7 +721,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |filename |Filename of the AASX package |yes |string |1
-|payload |Requested AASX package |yes |AASX Package |1
+|payload |Requested AASX package |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01005/v3.1/index.html[AASX package] |1
 |===
 
 ==== Operation PostAASXPackage
@@ -745,8 +745,8 @@ Servers may simply store the AASX files with their related given aasIds.
 ====
 
 
-|no |Identifier |0..*
-|file |New AASX package |yes |AASX package |1
+|no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+|file |New AASX package |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01005/v3.1/index.html[AASX package] |1
 |filename |Filename of the AASX package |yes |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -775,8 +775,8 @@ Servers may simply store the AASX files with their related given aasIds.
 ====
 
 
-|no |Identifier |0..*
-|file |New AASX package |yes |AASX package |1
+|no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+|file |New AASX package |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01005/v3.1/index.html[AASX package] |1
 |filename |Filename of the AASX package |yes |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -844,8 +844,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
-|assetKind |The kind of the assets to retrieve (Type, Instance etc.) | no |AssetKind |1
-|assetType |The type of the assets to retrieve, encoded as unique ID | no |Identifier |1
+|assetKind |The kind of the assets to retrieve (Type, Instance etc.) | no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetKind[AssetKind] |1
+|assetType |The type of the assets to retrieve, encoded as unique ID | no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
@@ -862,7 +862,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDesc
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique ID |yes |Identifier |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
 |payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
@@ -946,7 +946,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellD
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique ID |yes |Identifier |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1034,7 +1034,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0`
 =
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelIdentifier a|The Submodel’s unique ID |yes |Identifier |1
+e|submodelIdentifier a|The Submodel’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested submodel descriptor |yes |SubmodelDescriptor |1
@@ -1125,7 +1125,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodelIdentifier |The Submodel’s unique id |yes |Identifier |1
+|submodelIdentifier |The Submodel’s unique id |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1141,7 +1141,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkSubmodelDescriptorsBy
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodelIdentifier |The Submodel’s unique ID |yes |Identifier |1..*
+|submodelIdentifier |The Submodel’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1157,7 +1157,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+|query | Query conforming to the AAS Query Language |yes | xref:general.adoc#query-grammar[AAS Query] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Submodel Descriptors or Submodel identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<SubmodelDescriptor>]  |1..*
@@ -1235,7 +1235,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |Identifier |1
+|id |The Asset Administration Shell’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
@@ -1344,7 +1344,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellB
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |Identifier |1
+|id |The Asset Administration Shell’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1361,7 +1361,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+|query | Query conforming to the AAS Query Language |yes | xref:general.adoc#query-grammar[AAS Query] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Asset Administration Shells or AAS identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<AssetAdministrationShell>]  |1..*
@@ -1413,7 +1413,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |List of Submodels |no |Submodel |1..*
+|payload |List of Submodels |no | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
 ==== Operation GetSubmodelById
@@ -1427,11 +1427,11 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Submodel’s unique ID |yes |Identifier |1
+|id |The Submodel’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodel |yes |Submodel |1
+|payload |Requested Submodel |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation GetAllSubmodelsBySemanticId
@@ -1453,7 +1453,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodels |no |Submodel |1..*
+|payload |Requested Submodels |no | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
 ==== Operation GetAllSubmodelsByIdShort
@@ -1473,7 +1473,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodels |no |Submodel |1..*
+|payload |Requested Submodels |no | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
 ==== Operation PostSubmodel
@@ -1496,10 +1496,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodel/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodel |Submodel object |yes |Submodel |1
+|submodel |Submodel object |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Created Submodel |yes |Submodel |1
+|payload |Created Submodel |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PutSubmodelById
@@ -1513,10 +1513,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodel |Submodel object |yes |Submodel |1
+|submodel |Submodel object |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Submodel |yes |Submodel |1
+|payload |Replaced Submodel |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PatchSubmodelById
@@ -1540,10 +1540,10 @@ Note: values remain unchanged with content=metadata.
 
 
 |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
-|submodel |Submodel object |yes |Submodel |1
+|submodel |Submodel object |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Updated submodel |yes |Submodel |1
+|payload |Updated submodel |yes | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation DeleteSubmodelById
@@ -1557,7 +1557,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|id a|The Submodel’s unique ID |yes |Identifier |1
+e|id a|The Submodel’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1575,7 +1575,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+|query | Query conforming to the AAS Query Language |yes | xref:general.adoc#query-grammar[AAS Query] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Submodels or Submodel identifiers |no | xref:specification/interfaces-payload.adoc#Submodel[Submodel]  |1..*
@@ -1639,7 +1639,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionById/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Concept Description’s unique ID |yes |Identifier |1
+|id |The Concept Description’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Concept Description |yes |ConceptDescription |1
@@ -1760,7 +1760,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteConceptDescriptionById/3/
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|cdIdentifier |The Concept Description’s unique id |yes |Identifier |1
+|cdIdentifier |The Concept Description’s unique id |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1776,7 +1776,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|query | The specific query conformant to the AAS Query Language, containing filter conditions for the required Concept Descriptions. | yes | Query |1
+|query | The specific query conformant to the AAS Query Language, containing filter conditions for the required Concept Descriptions. | yes | xref:general.adoc#query-grammar[AAS Query] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload | List of requested Concept Descriptions or identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<ConceptDescription>] |1..*
@@ -1831,7 +1831,7 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |Identifier |1..*
+|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |===
 
 ==== Operation GetAllAssetLinksById
