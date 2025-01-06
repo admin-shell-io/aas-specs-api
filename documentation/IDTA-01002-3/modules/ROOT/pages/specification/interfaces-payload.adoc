@@ -132,41 +132,55 @@ h|*Interface* h|*interface-shortName*
 |Asset Administration Shell Basic Discovery Interface |AAS-DISCOVERY
 |===
 
-The value for the interface attribute is “\{interface-shortName}-\{interface-version}”.
+The value for the interface attribute shall be “\{interface-shortName}-\{interface-version}”.
 
-The interface-version of this specification is “3.0”, e.g. the entry for the Asset Administration Shell Interface is “AAS-3.0”.
+The interface-version of this specification is “3.1”, e.g. the entry for the Asset Administration Shell Interface is “AAS-3.1”.
 
-See the following example for a descriptor with several endpoints:
+See the following example for descriptor endpoints:
 
 [source,json,linenums]
 ----
-{
   "endpoints": [
     {
       "protocolInformation": {
         "endpointAddress": "https://localhost:1234",
         "endpointProtocolVersion": "1.1"
       },
-      "interface": "AAS-3.0"
+      "interface": "SUBMODEL-3.1"
     },
-    {
+	{
       "protocolInformation": {
-        "endpointAddress": "opc.tcp://localhost:4840"
+        "endpointAddress": "https://localhost:1234",
+        "endpointProtocolVersion": "1.1"
       },
-      "interface": "AAS-3.0"
-    },
-    {
-      "protocolInformation": {
-        "endpointAddress": "https://localhost:5678",
-        "endpointProtocolVersion": "1.1",
-        "subprotocol": "OPC UA Basic SOAP",
-        "subprotocolBody": "ns=2;s=MyAAS",
-        "subprotocolBodyEncoding": "application/soap+xml"
-      },
-      "interface": "AAS-3.0"
+      "interface": "SUBMODEL-2.0"
     }
-  ]
-}
+ ]
+----
+
+In the following example from the link:https://eclipse-tractusx.github.io/docs-kits/kits/Digital%20Twin%20Kit/Software%20Development%20View/dt-kit-software-development-view[Tractus-X Digital Twin KIT] a submodel is accessed via the link:https://internationaldataspaces.org/offers/dataspace-protocol/[Dataspace Protocol (DSP)]:
+
+[source,json,linenums]
+----
+"endpoints": [
+        {
+          "interface": "SUBMODEL-3.0",
+          "protocolInformation": {
+            "href": "https://edc.data.plane/mypath/submodel",
+            "endpointProtocol": "HTTP",
+            "endpointProtocolVersion": [
+              "1.1"
+            ],
+            "subprotocol": "DSP",
+            "subprotocolBody": "id=123;dspEndpoint=http://edc.control.plane/api/v1/dsp",
+            "subprotocolBodyEncoding": "plain",
+            "securityAttributes": [
+              {
+                "type": "NONE",
+                "key": "NONE",
+                "value": "NONE"
+              }
+            ]
 ----
 
 === ProtocolInformation
