@@ -516,7 +516,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementValueByPath/3
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes  |Key |1..*
+|path |{path} |yes  |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested submodel element value |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
@@ -979,7 +979,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDe
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|query | Query conforming to the AAS Query Language |yes | AAS Query |1
+|query | Query conforming to the AAS Query Language |yes | xref:general.adoc#query-grammar[AAS Query] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Asset Administration Shell Descriptors or AAS identifiers |no | xref:specification/interfaces-payload.adoc#QueryResult[QueryResult<AssetAdministrationShellDescriptor>]  |1..*
@@ -1020,7 +1020,7 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a| StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|List of requested submodel descriptors |no |SubmodelDescriptor |1..*
+e|payload a|List of requested submodel descriptors |no |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
 |===
 
 ==== Operation GetSubmodelDescriptorById
@@ -1037,7 +1037,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 e|submodelIdentifier a|The Submodel’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested submodel descriptor |yes |SubmodelDescriptor |1
+e|payload a|Requested submodel descriptor |yes |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor] |1
 |===
 
 ==== Operation PostSubmodelDescriptor
@@ -1221,7 +1221,7 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|List of Asset Administration Shells |no |AssetAdministrationShell |1..*
+e|payload a|List of Asset Administration Shells |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
 |===
 
 ==== Operation GetAssetAdministrationShellById
@@ -1241,7 +1241,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shell |yes |AssetAdministrationShell |1
+|payload |Requested Asset Administration Shell |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation GetAllAssetAdministrationShellsByAssetId
@@ -1262,7 +1262,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1..*
+|payload |Requested Asset Administration Shells |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
 |===
 
 ==== Operation GetAllAssetAdministrationShellsByIdShort
@@ -1276,13 +1276,13 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Asset Administration Shell’s idShort |yes |NameType | 1
+|idShort |The Asset Administration Shell’s idShort |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] | 1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  | 1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shells |no |AssetAdministrationShell |1..*
+|payload |Requested Asset Administration Shells |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
 |===
 
 ==== Operation PostAssetAdministrationShell
@@ -1307,13 +1307,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 
 5+h|Input Parameter
-|aas |Asset Administration Shell object |yes |AssetAdministrationShell |1
+|aas |Asset Administration Shell object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 
 5+h|Output Parameter
 
 |statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 
-|payload a|Created Asset Administration Shell |yes |AssetAdministrationShell |1
+|payload a|Created Asset Administration Shell |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation PutAssetAdministrationShellById
@@ -1327,10 +1327,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aas |Asset Administration Shell object |yes |AssetAdministrationShell |1
+|aas |Asset Administration Shell object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Asset Administration Shell |yes |AssetAdministrationShell |1
+|payload |Replaced Asset Administration Shell |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation DeleteAssetAdministrationShellById
@@ -1447,7 +1447,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/1
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|semanticId |Identifier of the semantic definition |yes |Reference |1
+|semanticId |Identifier of the semantic definition |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
@@ -1467,7 +1467,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Submodel’s idShort |yes |NameType |1
+|idShort |The Submodel’s idShort |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
@@ -1622,10 +1622,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptions/3/1`
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
-|cursor |The position from which to resume a result listing |no |String |1
+|cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |List of Concept Descriptions |no |ConceptDescription |1..*
+|payload |List of Concept Descriptions |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation GetConceptDescriptionById
@@ -1642,7 +1642,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |id |The Concept Description’s unique ID |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Description |yes |ConceptDescription |1
+|payload |Requested Concept Description |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation GetAllConceptDescriptionsByIdShort
@@ -1656,12 +1656,12 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIdSh
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Concept Description’s idShort |yes |NameType |1
+|idShort |The Concept Description’s idShort |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Descriptions |no |ConceptDescription |1..*
+|payload |Requested Concept Descriptions |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation GetAllConceptDescriptionsByIsCaseOf
@@ -1675,12 +1675,12 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIsCa
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|isCaseOf |IsCaseOf reference |yes |Reference |1
+|isCaseOf |IsCaseOf reference |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
-|payload |Requested Concept Descriptions |no |ConceptDescription |1..*
+|payload |Requested Concept Descriptions |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation GetAllConceptDescriptionsByDataSpecificationReference
@@ -1694,12 +1694,12 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByData
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|dataSpecification-Reference |_DataSpecification_ reference |yes |Reference |_1_
+|dataSpecification-Reference |_DataSpecification_ reference |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |_1_
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Descriptions |no |ConceptDescription |1..*
+|payload |Requested Concept Descriptions |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation PostConceptDescription
@@ -1724,12 +1724,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
 
-|conceptDescription a|Concept Description object |yes |ConceptDescription |1
+|conceptDescription a|Concept Description object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 
 5+h|Output Parameter
 
 |statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
-|payload a|Created Concept Description |yes |ConceptDescription |1
+|payload a|Created Concept Description |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation PutConceptDescriptionById
@@ -1743,10 +1743,10 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutConceptDescriptionById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|conceptDescription |Concept Description object |yes |ConceptDescription |1
+|conceptDescription |Concept Description object |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Concept Description |yes |ConceptDescription |1
+|payload |Replaced Concept Description |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation DeleteConceptDescriptionById
@@ -1826,7 +1826,7 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 ====
 
 
-|no |SpecificAssetId |1..*
+|no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
@@ -1859,7 +1859,7 @@ It is the predefined name “_globalAssetId_” that would refer to the _AssetIn
 ====
 
 
-|no |SpecificAssetId |1..*
+|no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 |===
 
 ==== Operation PostAllAssetLinksById
@@ -1886,10 +1886,10 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 ====
 
 
-|yes |SpecificAssetId |1..*
+|yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Asset identifier created successfully |yes |SpecificAssetId |1
+|payload |Asset identifier created successfully |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1
 |===
 
 ==== Operation DeleteAllAssetLinksById
