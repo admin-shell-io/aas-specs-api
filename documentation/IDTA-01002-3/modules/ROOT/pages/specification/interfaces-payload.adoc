@@ -331,7 +331,7 @@ An example ServiceDescription object might look like the following, indicating t
 Result elements of AAS queries depend on the declared output selector and the target of the query. Possible targets are Asset Administration Shells, Submodels, Concept Descriptions, Asset Administration Shell Descriptors, and Submodel Descriptors. In accordance, also these objects are returned in the Query Result. In addition, their representation can be controlled via the select statements of the input query, e.g., by only selecting the identifiers of the respective objects rather than the whole content. 
 
 .Simple Data Types used for API-specific Classes
-[%autowidth, width="100%", cols="20%,20%,60%",options="header",]
+[cols="26%,24%,50%"]
 |===
 h|Query Result h|Definition h|Value Examples
 e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or_ a list of Asset Administration Shell identifiers a|
@@ -359,8 +359,9 @@ e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or
 [ 
    "https://example.com/aas-1", 
    "https://example.com/aas-2", 
-   ... +
-] +
+   ... 
+] 
+----
 |QueryResult<Submodel> |List of Submodels _or_ a list of Submodel identifiers a|
 
 [source,json,linenums]
@@ -369,9 +370,9 @@ e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or
    { 
       "modelType": "Submodel", 
       "id": "https://example.com/sm-1", 
-      ... +
-   }, +
-   { +
+      ... 
+   }, 
+   { 
       "modelType": "Submodel", 
       "id": "https://example.com/sm-2", 
       ... 
