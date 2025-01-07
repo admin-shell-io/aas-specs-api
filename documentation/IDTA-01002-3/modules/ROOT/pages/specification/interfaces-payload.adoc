@@ -150,37 +150,12 @@ See the following example for descriptor endpoints:
     },
 	{
       "protocolInformation": {
-        "endpointAddress": "https://localhost:1234",
+        "endpointAddress": "https://localhost:5678",
         "endpointProtocolVersion": "1.1"
       },
       "interface": "SUBMODEL-2.0"
     }
  ]
-----
-
-In the following example from the link:https://eclipse-tractusx.github.io/docs-kits/kits/Digital%20Twin%20Kit/Software%20Development%20View/dt-kit-software-development-view[Tractus-X Digital Twin KIT] a submodel is accessed via the link:https://internationaldataspaces.org/offers/dataspace-protocol/[Dataspace Protocol (DSP)]:
-
-[source,json,linenums]
-----
-"endpoints": [
-        {
-          "interface": "SUBMODEL-3.0",
-          "protocolInformation": {
-            "href": "https://edc.data.plane/mypath/submodel",
-            "endpointProtocol": "HTTP",
-            "endpointProtocolVersion": [
-              "1.1"
-            ],
-            "subprotocol": "DSP",
-            "subprotocolBody": "id=123;dspEndpoint=http://edc.control.plane/api/v1/dsp",
-            "subprotocolBodyEncoding": "plain",
-            "securityAttributes": [
-              {
-                "type": "NONE",
-                "key": "NONE",
-                "value": "NONE"
-              }
-            ]
 ----
 
 === ProtocolInformation
