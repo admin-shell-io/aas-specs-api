@@ -325,7 +325,7 @@ An example ServiceDescription object might look like the following, indicating t
 }
 ----
 
-[[#query-results]]
+[#query-results]
 === Query Results
 
 Result elements of AAS queries depend on the declared output selector and the target of the query. Possible targets are Asset Administration Shells, Submodels, Concept Descriptions, Asset Administration Shell Descriptors, and Submodel Descriptors. In accordance, also these objects are returned in the Query Result. In addition, their representation can be controlled via the select statements of the input query, e.g., by only selecting the identifiers of the respective objects rather than the whole content. 
@@ -333,112 +333,140 @@ Result elements of AAS queries depend on the declared output selector and the ta
 .Simple Data Types used for API-specific Classes
 [%autowidth, width="100%", cols="20%,20%,60%",options="header",]
 |===
-|*Query Result* |*Definition* |*Value Examples*
-|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or_ a list of Asset Administration Shell identifiers a|
-[ +
-   { +
-      "modelType": "AssetAdministrationShell", +
-      "id": "https://example.com/aas-1", +
-      ... +
-   }, +
-   { +
-      "modelType": "AssetAdministrationShell", +
-      "id": "https://example.com/aas-2", +
-      ... +
-   }, +
-   ... +
-] +
+h|Query Result h|Definition h|Value Examples
+e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or_ a list of Asset Administration Shell identifiers a|
 
+[source,json,linenums]
+----
+[ 
+   { 
+      "modelType": "AssetAdministrationShell", 
+      "id": "https://example.com/aas-1", 
+      ... 
+   }, 
+   { 
+      "modelType": "AssetAdministrationShell", 
+      "id": "https://example.com/aas-2", 
+      ... 
+   }, 
+   ... 
+] 
+----
 
-[ +
-   "https://example.com/aas-1", +
-   "https://example.com/aas-2", +
+[source,json,linenums]
+----
+
+[ 
+   "https://example.com/aas-1", 
+   "https://example.com/aas-2", 
    ... +
 ] +
 |QueryResult<Submodel> |List of Submodels _or_ a list of Submodel identifiers a|
-[ +
-   { +
-      "modelType": "Submodel", +
-      "id": "https://example.com/sm-1", +
+
+[source,json,linenums]
+----
+[ 
+   { 
+      "modelType": "Submodel", 
+      "id": "https://example.com/sm-1", 
       ... +
    }, +
    { +
-      "modelType": "Submodel", +
-      "id": "https://example.com/sm-2", +
-      ... +
-   }, +
-   ... +
-] +
+      "modelType": "Submodel", 
+      "id": "https://example.com/sm-2", 
+      ... 
+   }, 
+   ... 
+] 
+----
 
-
-[ +
-   "https://example.com/sm-1", +
-   "https://example.com/sm-2", +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   "https://example.com/sm-1", 
+   "https://example.com/sm-2", 
+   ... 
+] 
+----
 |QueryResult<ConceptDescription> |List of Concept Descriptions _or_ a list of Concept Description identifiers a|
-[ +
-   { +
-      "modelType": "ConceptDescription", +
-      "id": "https://example.com/cd-1", +
-      ... +
-   }, +
-   { +
-      "modelType": "ConceptDescription", +
-      "id": "https://example.com/cd-2", +
-      ... +
-   }, +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   { 
+      "modelType": "ConceptDescription", 
+      "id": "https://example.com/cd-1", 
+      ... 
+   }, 
+   { 
+      "modelType": "ConceptDescription", 
+      "id": "https://example.com/cd-2", 
+      ... 
+   }, 
+   ... 
+] 
+----
 
 
-[ +
-   "https://example.com/cd-1", +
-   "https://example.com/cd-2", +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   "https://example.com/cd-1", 
+   "https://example.com/cd-2", 
+   ... 
+] 
+----
 |QueryResult<AssetAdministrationShellDescriptor> |List of Asset Administration Shell Descriptors _or_ a list of Asset Administration Shell identifiers a|
-[ +
-   { +
-      "modelType": "AssetAdministrationShellDescriptor", +
-      "id": "https://example.com/aas-1", +
-      ... +
-   }, +
-   { +
-      "modelType": "AssetAdministrationShellDescriptor", +
-      "id": "https://example.com/aas-2", +
-      ... +
-   }, +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   { 
+      "modelType": "AssetAdministrationShellDescriptor", 
+      "id": "https://example.com/aas-1", 
+      ... 
+   }, 
+   { 
+      "modelType": "AssetAdministrationShellDescriptor", 
+      "id": "https://example.com/aas-2", 
+      ... 
+   }, 
+   ... 
+] 
+----
 
 
-[ +
-   "https://example.com/aas-1", +
-   "https://example.com/aas-2", +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   "https://example.com/aas-1", 
+   "https://example.com/aas-2", 
+   ... 
+] 
+----
 |QueryResult<SubmodelDescriptor> |List of Submodel Descriptors _or_ a list of Submodel identifiers a|
-[ +
-   { +
-      "modelType": "SubmodelDescriptor", +
-      "id": "https://example.com/sm-1", +
-      ... +
-   }, +
-   { +
-      "modelType": "SubmodelDescriptor", +
-      "id": "https://example.com/sm-2", +
-      ... +
-   }, +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   { 
+      "modelType": "SubmodelDescriptor", 
+      "id": "https://example.com/sm-1", 
+      ... 
+   }, 
+   { 
+      "modelType": "SubmodelDescriptor", 
+      "id": "https://example.com/sm-2", 
+   }, 
+   ... 
+] 
+----
 
-
-[ +
-   "https://example.com/sm-1", +
-   "https://example.com/sm-2", +
-   ... +
-] +
+[source,json,linenums]
+----
+[ 
+   "https://example.com/sm-1", 
+   "https://example.com/sm-2", 
+   ... 
+] 
+----
 |===
 
 === Simple Data Types
@@ -674,7 +702,7 @@ h|Attribute h|Explanation h|Type h|Card.
 e|handleId |Handle ID |xref:ShortIdType[ShortIdType] |1
 |===
 
-[[#file-content]]
+[#file-content]
 === File Content
 
 The “File Content” type of the operations mentioned above is seen as “arbitrary binary data” according to RFC 2046 and is as such defined as byte-array in UTF8-encoding.
