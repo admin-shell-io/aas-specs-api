@@ -1,17 +1,16 @@
 openapi: 3.1.0
 info:
   title: >-
-    DotAAS Part 2 | HTTP/REST | Bulk Asset Administration Shell Registry Service
-    Specification (DRAFT, not official!)
+    DotAAS Part 2 | HTTP/REST | Bulk Submodel Registry Service Specification
+    (DRAFT, not official!)
   description: >-
-    The Bulk Profile of the Asset Administration Shell Registry Service
-    Specification as part of the [Specification of the Asset Administration
-    Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+    The Bulk Profile of the Submodel Registry Service Specification as part of
+    the [Specification of the Asset Administration Shell: Part
+    2](http://industrialdigitaltwin.org/en/content-hub).  
 
     The server processes all requests asynchronously, ensuring atomic
     operations. This means that requested manipulations will either fully
-    succeed or be completely rolled back if any error occurs during the
-    process.  
+    succeed or be completely rolled back if any error occurs during the process.
 
     Publisher: Industrial Digital Twin Association (IDTA) April 2023
   contact:
@@ -22,32 +21,29 @@ info:
     url: https://creativecommons.org/licenses/by/4.0/
   version: V3.1.0_SSP-003
   x-profile-identifier: >-
-    https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-003
+    https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-003
 servers:
 - url: 'https://admin-shell.io/api/v3.1'
 - url: 'https://example.com/'
 
 paths:
-  /bulk/shell-descriptors:
+  /bulk/submodel-descriptors:
     post:
       tags:
-        - Async Bulk Asset Administration Shell Registry API
-      summary: >-
-        Creates multiple new Asset Administration Shell Descriptors, i.e.
-        registers multiple Asset Administration Shells
-      operationId: BulkPostAssetAdministrationShellDescriptor
+        - Async Bulk Submodel Registry API
+      summary: Creates multiple new Submodel Descriptors
+      operationId: BulkPostSubmodel
       x-semanticIds:
-        - >-
-          https://admin-shell.io/aas/API/BulkPostAssetAdministrationShellDescriptor/3/1
+        - https://admin-shell.io/aas/API/BulkPostSubmodelDescriptor/3/1
       requestBody:
-        description: List of Asset Administration Shell Descriptor objects
+        description: List of Submodel Descriptor objects
         content:
           application/json:
             schema:
               type: array
               minItems: 1
-              items:
-                $ref: #/components/schemas/AssetAdministrationShellDescriptor
+              $ref: >-
+                #/components/parameters/SubmodelDescriptor
         required: true
       responses:
         '202':
@@ -67,21 +63,21 @@ paths:
             #/components/responses/internal-server-error
     put:
       tags:
-        - Async Bulk Asset Administration Shell Registry API
-      summary: Updates multiple existing Asset Administration Shell Descriptors
-      operationId: BulkPutAssetAdministrationShellDescriptorById
+        - Async Bulk Submodel Registry API
+      summary: Updates multiple existing Submodel Descriptors
+      operationId: BulkPutSubmodelDescriptorsById
       x-semanticIds:
-        - >-
-          https://admin-shell.io/aas/API/BulkPutAssetAdministrationShellDescriptorById/3/1
+        - https://admin-shell.io/aas/API/BulkPutSubmodelDescriptorsById/3/1
       requestBody:
-        description: List of Asset Administration Shell Descriptor objects
+        description: List of Submodel Descriptor objects
         content:
           application/json:
             schema:
               type: array
               minItems: 1
               items:
-                $ref: #/components/schemas/AssetAdministrationShellDescriptor
+                $ref: >-
+                  #/components/parameters/SubmodelDescriptor
         required: true
       responses:
         '202':
@@ -101,23 +97,21 @@ paths:
             #/components/responses/internal-server-error
     delete:
       tags:
-        - Async Bulk Asset Administration Shell Registry API
-      summary: >-
-        Deletes multiple Asset Administration Shell Descriptors, i.e.
-        de-registers multiple Asset Administration Shells
-      operationId: BulkDeleteAssetAdministrationShellDescriptorById
+        - Async Bulk Submodel Registry API
+      summary: Deletes multiple Submodel Descriptors
+      operationId: BulkDeleteSubmodelDescriptorsById
       x-semanticIds:
-        - >-
-          https://admin-shell.io/aas/API/BulkDeleteAssetAdministrationShellDescriptorById/3/1
+        - https://admin-shell.io/aas/API/BulkDeleteSubmodelDescriptorsById/3/1
       requestBody:
-        description: List of Asset Administration Shell’s unique ids
+        description: List of Submodel Descriptor Identifiers
         content:
           application/json:
             schema:
               type: array
               minItems: 1
               items:
-                type: string
+                $ref: >-
+                  #/components/parameters/SubmodelIdentifier
       responses:
         '202':
           $ref: >-
@@ -128,9 +122,9 @@ paths:
         '401':
           $ref: >-
             #/components/responses/unauthorized
-        '404':
+        '403':
           $ref: >-
-            #/components/responses/not-found
+            #/components/responses/forbidden
         '500':
           $ref: >-
             #/components/responses/internal-server-error
@@ -163,7 +157,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: #/components/schemas/BaseOperationResult
+                $ref: >-
+                  #/components/schemas/BaseOperationResult
         '302':
           $ref: >-
             #/components/responses/found
@@ -216,7 +211,8 @@ paths:
             The handleId is not known to the server. This means either it never
             came into existence or it was successfully completed a considerable
             time in the past.
-          $ref: '#/components/responses/not-found'
+          $ref: >-
+            #/components/responses/not-found
         '500':
           $ref: >-
             #/components/responses/internal-server-error
@@ -236,13 +232,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: #/components/schemas/ServiceDescription
+                $ref: >-
+                  #/components/schemas/ServiceDescription
         '403':
           $ref: >-
             #/components/responses/forbidden
         default:
           $ref: >-
             #/components/responses/default
+
 components:
   parameters: 
     HandleId:
@@ -818,7 +816,6 @@ components:
             - key
             - value
           minItems: 1
-          # TODO: align with content of the part 2 document
       required: 
         - href
       type: object

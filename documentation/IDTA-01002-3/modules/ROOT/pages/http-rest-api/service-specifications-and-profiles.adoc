@@ -10,10 +10,10 @@ SPDX-License-Identifier: CC-BY-4.0
 
 include::../includes/special-parameters.adoc[]
 
-
+[#service-specifications-and-profiles]
 = Service Specifications and Profiles
 
-xref:general.adoc#i40-service-model[Figure in Clause General] defines that a service specification contains at least one API and that an API contains at least one API Operation.
+xref:general.adoc#i40-service-model[Figure] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
 
 The profiles defined in this clause present complete service specifications and their subsets.
 
@@ -45,6 +45,7 @@ x: Service Specification contains API at the root
 
 s: Service Specification contains API through superpaths as introduced in Clause 0
 
+[#profiles]
 == Profiles
 
 Service specifications are further refined in profiles, governing which API operations, modifiers, and path combinations are supported.
@@ -67,6 +68,7 @@ Additional profiles might be introduced in future versions of this document.
 Note: in the following, only the last part (<name of service specification>/SSP-<profile number>) is used in the text for better readability, e.g. “AssetAdministrationShellServiceSpecification/SSP-001” instead of “https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001”.
 ====
 
+[#asset-administration-shell-service-specification]
 == Asset Administration Shell Service Specification
 
 [%autowidth,width="100%",cols="45%,55%",options="header",]
@@ -76,6 +78,7 @@ h|Service Specification / Profiles h|Description
 |AssetAdministrationShellServiceSpecification/SSP-002 |Only read operations; is included in the profile AssetAdministrationShellServiceSpecification/SSP-001.
 |===
 
+[#asset-administration-shell-service-specification-SSP-001]
 === Asset Administration Shell Service Specification – Full Profile
 
 The Asset Administration Shell service specification with all its features and endpoints is represented through the profile identifier *AssetAdministrationShellServiceSpecification/SSP-001*:
@@ -136,6 +139,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001
 
+[#asset-administration-shell-service-specification-SSP-002]
 === Asset Administration Shell Service Specification – Read Profile
 
 The Asset Administration Shell Service specification with the minimal feature set is represented through *AssetAdministrationShellServiceSpecification/SSP-002*:
@@ -174,6 +178,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SPP-002[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-002]
 
+[#submodel-service-specification]
 == Submodel Service Specification
 
 [%autowidth,width="100%",options="header",]
@@ -184,6 +189,7 @@ h|Service Specification / Profiles |Description
 |SubmodelServiceSpecification/SSP-003 |Limitation on the basic capabilities plus the option to execute synchronous operations and to read the submodel in the ValueOnly-serialization format to reduce required bandwidth; is included in the profile SubmodelServiceSpecification/SSP-001.
 |===
 
+[#submodel-service-specification-SSP-001]
 === Submodel Service Specification – Full Profile 
 
 The submodel service specification with all its features and endpoints is represented through *SubmodelServiceSpecification/SSP-001*:
@@ -232,6 +238,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1_SSP-001
 
+[#submodel-service-specification-SSP-002]
 === Submodel Service Specification – Read Profile
 
 The submodel service specification with its minimal feature set is represented through *SubmodelServiceSpecification/SSP-002*:
@@ -267,6 +274,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.0_SPP-002[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1_SSP-002]
 
+[#submodel-service-specification-SSP-003]
 === Submodel Service Specification – Value Profile 
 
 The submodel service specification with a reduced feature set is represented through *SubmodelServiceSpecification/SSP-003*:
@@ -342,6 +350,7 @@ h|Service Specification / Profiles h|Description
 |AssetAdministrationShellRegistryServiceSpecification/SSP-001 |Full profile
 |AssetAdministrationShellRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
 |AssetAdministrationShellRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
+|AssetAdministrationShellRegistryServiceSpecification/SSP-004 |Query operations.
 |===
 
 === Asset Administration Shell Registry Service Specification – Full Profile
@@ -425,6 +434,29 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1_SSP-003
 
+=== Asset Administration Shell Registry Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Bulk Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+QueryAssetAdministrationShellDescriptors 
+QueryAssetAdministrationShellDescriptorIds 
+
+
+_Description API:_ +
+GetDescription
+
+|SerializationModifier |not applicable
+|SerializationFormat |JSON
+|Pagination | Not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1_SSP-004
+
 == Submodel Registry Service Specification
 
 [%autowidth,width="100%",options="header",]
@@ -433,6 +465,7 @@ h|Service Specification / Profiles h|Description
 |SubmodelRegistryServiceSpecification/SSP-001 |Full profile
 |SubmodelRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile SubmodelRegistryServiceSpecification/SSP-001.
 |SubmodelRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
+|SubmodelRegistryServiceSpecification/SSP-004 |Query operations.
 |===
 
 === Submodel Registry Service Specification – Full Profile
@@ -506,6 +539,29 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1_SSP-003
 
+=== Submodel Registry Profile – Query Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Registry Bulk Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|APIs and API Operations a|
+__Submodel Registry API: +
+QuerySubmodelDescriptors +
+QuerySubmodelDescriptorIds
+
+
+__Description API: +
+__GetDescription
+
+|SerializationModifier |not applicable
+|SerializationFormat |JSON
+|Pagination |Not Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1_SSP-004
+
 == Discovery Service Specification
 
 [%autowidth,width="100%",cols="43%,57%",options="header",]
@@ -572,6 +628,8 @@ h|Service Specification / Profiles h|Description
 ServiceSpecification/SSP-001 |Full feature set
 |AssetAdministrationShellRepository +
 ServiceSpecification/SSP-002 |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+|AssetAdministrationShellRepository +
+ServiceSpecification/SSP-003 |Query operations
 |===
 
 === Asset Administration Shell Repository Service Specification – Full Profile
@@ -701,6 +759,28 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-002
 
+=== Asset Administration Shell Repository Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Query Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/ API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+QueryAssetAdministrationShells +
+QueryAssetAdministrationShellIds
+
+_Description API:_ +
+GetDescription
+
+|SerializationModifier a| not applicable 
+|SerializationFormat |JSON
+|Pagination |not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-003
+
 == Submodel Repository Service Specification
 
 [%autowidth,width="100%",cols="41%,59%",options="header",]
@@ -710,6 +790,7 @@ h|Service Specification / Profiles h|Description
 |SubmodelRepositoryServiceSpecification/SSP-002 |Only read operations; is included in the profile SubmodelRepositoryServiceSpecification/SSP-001
 |SubmodelRepositoryServiceSpecification/SSP-003 |Profile for a Submodel Repository which only contains Submodels with kind=Template; is _not_ included in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryServiceSpecification/SSP-002
 |SubmodelRepositoryServiceSpecification/SSP-004 |Only read operations for a Submodel Repository which only contains Submodels with kind=Template; is included in the profile SubmodelRepositoryServiceSpecification/SSP-003 but _not_ in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryService Specification/SSP-002
+|SubmodelRepositoryServiceSpecification/SSP-005 |Query operations
 |===
 
 === Submodel Repository - Full Profile
@@ -921,12 +1002,36 @@ Extent: WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1_SSP-004
 
+
+=== Submodel Repository Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Submodel Repository Query Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/ API/3/0/SubmodelRepositoryServiceSpecification/SSP-005`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+QuerySubmodels +
+QuerySubmodelIds
+
+_Description API:_ +
+GetDescription
+
+|SerializationModifier a| not applicable 
+|SerializationFormat |JSON
+|Pagination |not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1_SSP-005
+
 == Concept Description Repository Service Specification
 
 [%autowidth,width="100%",cols="59%,41%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
 |ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Full feature set
+|ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Query operations
 |===
 
 === Concept Description Repository Service Specification – Full Profile
@@ -937,7 +1042,7 @@ h|Name: h|Concept Description Repository Full Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001`
 h|Feature h|Appearance
 |API and API Operations a|
-_ConceptDescription Repository API_ +
+_ConceptDescription Repository API:_ +
 GetAllConceptDescriptions +
 GetConceptDescriptionById +
 GetAllConceptDescriptionsByIdShort +
@@ -959,4 +1064,26 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1_SSP-001
+
+=== Concept Description Repository Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Concept Description Repository Query Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API and API Operations a|
+_ConceptDescription Repository API:_ +
+QueryConceptDescriptions +
+QueryConceptDescriptionIds
+
+_Description API:_ +
+GetDescription
+
+|SerializationModifier |not applicable
+|SerializationFormat |JSON
+|Pagination |not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1_SSP-002
 
