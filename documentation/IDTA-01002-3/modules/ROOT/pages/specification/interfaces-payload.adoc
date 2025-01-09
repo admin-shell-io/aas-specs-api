@@ -564,11 +564,13 @@ The subsequent clause describes the result object that is returned in case of fa
 ==== Generic Status Codes
 
 Successful operations return one of the success status codes and their respective payload.
-Unsuccessful operations return one of the failure status codes and a result object as defined in Clause 0.
 
-Table 4 shows generic status codes returned to the requester.
+Unsuccessful operations return one of the failure status codes and a result object as defined in <<general-result-object>>.
+
+<<table-status-codes>> shows generic status codes returned to the requester.
 Additionally, the table indicates whether a specific status code comes with a result object in the returned payload.
 
+[[table-status-codes]]
 .Status Codes
 [%autowidth,width="100%",cols="31%,61%,8%",options="header",]
 |===
@@ -587,6 +589,7 @@ Additionally, the table indicates whether a specific status code comes with a re
 |ServerErrorBadGateway |Bad gateway |Yes
 |===
 
+[[general-result-object]]
 ==== General Result Object
 
 In case of a failed operation execution, a result object [.underline]#shall be returned# containing more information about the reasons why the operation failed to execute.
