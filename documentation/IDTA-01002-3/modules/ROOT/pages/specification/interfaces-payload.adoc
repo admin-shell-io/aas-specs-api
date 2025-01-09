@@ -37,16 +37,16 @@ h|Explanation 3+a|
 The self-describing information of a network resource.
 This class is not part of the metamodel.
 h|Inherits from 3+|--
-h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Descriptor/3/0`
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Descriptor/3/1`
 h|Attribute h|Explanation h|Type h|Card.
 e|description a|
 Description or comments on the element
 
 The description can be provided in several languages
 
-|link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#MultiLanguageTextType[MultiLanguageNameType] |0..1
+|link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#MultiLanguageTextType[MultiLanguageTextType] |0..1
 
-e|displayName a|Display name; can be provided in several languages | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#MultiLanguageTextType[MultiLanguageNameType] |0..1
+e|displayName a|Display name; can be provided in several languages | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#MultiLanguageNameType[MultiLanguageNameType] |0..1
 
 e|extension a|An extension of the element |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/common.html#Extension[Extension] |0..*
 |===
@@ -108,7 +108,7 @@ h|Explanation 3+a|
 The endpoint description of a network resource.
 This class is not part of the metamodel.
 h|Inherits from 3+|-
-h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Endpoint/3/0`
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Endpoint/3/1`
 
 h|Attribute h|Explanation h|Type h|Card.
 e|protocolInformation a|Protocol information of the network resource endpoint |xref:ProtocolInformation[ProtocolInformation] |1
@@ -275,7 +275,7 @@ This class is not part of the metamodel.
 
 
 h|Inherits from 3+|--
-h|semanticId 3+| `\https://admin-shell.io/aas/API/DataTypes/ServiceDescription/3/0`
+h|semanticId 3+| `\https://admin-shell.io/aas/API/DataTypes/ServiceDescription/3/1`
 
 h|Attribute h|Explanation h|Type h|Card.
 e|profiles |List of implemented server specification profiles. |xref:ServiceSpecificationProfileEnum[ServiceSpecificationProfileEnum] |1..*
@@ -290,7 +290,7 @@ The identifiers of the standardized service specification profiles.
 See also Clause xref:http-rest-api/service-specifications-and-profiles.adoc#[service-specifications-and-profiles] for further details.
 h|semanticId |`\https://admin-shell.io/aas/API/DataTypes/ServiceSpecificationProfileEnum/3/1`
 
-hh|Literal h|Explanation
+h|Literal h|Explanation
 e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Asset Administration Shell Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Asset Administration Shell Service Specification Read Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Submodel Service Specification Full Profile in version 3.0.
@@ -331,7 +331,7 @@ An example ServiceDescription object might look like the following, indicating t
 Result elements of AAS queries depend on the declared output selector and the target of the query. Possible targets are Asset Administration Shells, Submodels, Concept Descriptions, Asset Administration Shell Descriptors, and Submodel Descriptors. In accordance, also these objects are returned in the Query Result. In addition, their representation can be controlled via the select statements of the input query, e.g., by only selecting the identifiers of the respective objects rather than the whole content. 
 
 .Simple Data Types used for API-specific Classes
-[%autowidth, width="100%", cols="20%,20%,60%",options="header",]
+[cols="26%,24%,50%"]
 |===
 h|Query Result h|Definition h|Value Examples
 e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or_ a list of Asset Administration Shell identifiers a|
@@ -359,8 +359,9 @@ e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or
 [ 
    "https://example.com/aas-1", 
    "https://example.com/aas-2", 
-   ... +
-] +
+   ... 
+] 
+----
 |QueryResult<Submodel> |List of Submodels _or_ a list of Submodel identifiers a|
 
 [source,json,linenums]
@@ -369,9 +370,9 @@ e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or
    { 
       "modelType": "Submodel", 
       "id": "https://example.com/sm-1", 
-      ... +
-   }, +
-   { +
+      ... 
+   }, 
+   { 
       "modelType": "Submodel", 
       "id": "https://example.com/sm-2", 
       ... 
@@ -476,7 +477,7 @@ Additional data types are defined in <<table-simple-data-types-used-for-api-spec
 
 .Simple Data Types used for API-specific Classes
 [[table-simple-data-types-used-for-api-specific-classes]]
-[%autowidth,width="100%",cols="22%,30%,48%",options="header",]
+[cols="22%,30%,48%"]
 |===
 |*Primitive* |*Definition* |*Value Examples*
 |NonNegativeInteger |The _nonNegativeInteger_ datatype as defined by XML Schema Part 2 in version 1.0 footnote:[https://www.w3.org/TR/xmlschema-2/] a|
@@ -493,7 +494,7 @@ All constraints and spelling patterns apply as well.
 In addition, the following data types are defined.
 
 .Primitive Data Types used for the API-specific Classes
-[%autowidth,width="100%",cols="14%,44%,42%",options="header",]
+[cols="14%,44%,42%"]
 |===
 |*Primitive* |*Definition* |*Value Examples*
 |[[CodeType]]CodeType |_string_ with max 32 and min 1 characters a|
@@ -647,7 +648,7 @@ h|Attribute h|Explanation h|Type h|Card.
 h|Class Name 3+e|[[BaseOperationResult]]BaseOperationResult
 h|Explanation 3+a|The object containing the intermediate state of an operation
 h|Inherits from 3+|Result
-h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/BaseOperationResult/3/0`
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/BaseOperationResult/3/1`
 
 h|Attribute h|Explanation h|Type h|Card.
 e|executionState |Execution state |xref:ExecutionState[ExecutionState] |1
