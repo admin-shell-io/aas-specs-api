@@ -129,26 +129,28 @@ AAS API versioning uses the major and minor version as described above. A specif
 
 Additionally, "Release candidates" are variants of the implementation of the denoted major version. For example, "3.1.0RC2" should be interpreted as the second (alternative) release candidate for version 3.1.0.
 
-For being able to provide multiple versions of the APIs to clients, an AAS ecosystem consisting of Registry / Discovery services as well as AAS Repository, Submodel (standalone), or AAS (standalone) services should share a consistent version. 
+To provide multiple versions of the APIs to clients, an AAS ecosystem consisting of Registry / Discovery services as well as AAS Repository, Submodel (standalone), or AAS (standalone) services should share a consistent version.
 Therefore, a consistent interface description in the form of OpenAPI documents shall be provided with each major version.
 
+Upcoming compatibility constraints regarding newer versions will be elaborated in further iterations of this document and related technical descriptions (OpenAPI specification).
 
 API versioning provides a way to deal with different versions of the same API at the same time. This way, older versions may still be accessible on the same server to provide services to legacy clients without breaking existing functionality. 
 
 There are different solutions regarding API versioning involving URL-based versioning, query parameter-based versioning, as well as HTTP header-oriented solutions using custom or standard headers.
 
 .Example of an AAS endpoint with URL-based versioning
-<<aas-api-versioning-url-scheme>>
-image::aas-api-versioning-url-scheme.png[width=481,height=110]
+[[aas-api-versioning-url-scheme]]
+image::aas-api-versioning-url-scheme.svg[width=481,height=110]
 
 As different solutions also provide different advantages and disadvantages, URL-based versioning is recommended for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
 Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see Figure <<aas-api-versioning-url-scheme>>). 
 As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
 
-Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure 5. A client shall not assume that the pattern from Figure 4 is supported by all servers.
+Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure <<aas-api-versioning-url-scheme2>>. A client shall not assume that the pattern from Figure <<aas-api-versioning-url-scheme>> is supported by all servers.
 
 .Example of an AAS endpoint with an arbitrary path
+[[aas-api-versioning-url-scheme2]]
 image::aas-api-versioning-url-scheme2.png[width=481,height=110]
 
 Finally, it is recommended to include an additional "/description” endpoint into each service to further denote information about APIs / servers capabilities.
@@ -204,7 +206,7 @@ POST /submodels/aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ/submodel/submodelElem
 
 ====
 Note 1: to avoid problems with IRI values in URLs, the identifiers shall be base64url-encoded before using them as parameters in the HTTP-APIs.
-IdshortPaths are base64url-encoded to also allow square brackets.
+IdshortPaths are URL-encoded to also allow square brackets.
 ====
 
 ====
@@ -219,8 +221,9 @@ For instance, the OData protocol xref:bibliography.adoc#bib8[[8\]] provides guid
 In addition, the proposals of the RFC 8977 footnote:[see Chapter 2.4 of RFC 8977] present a best practice for web APIs.
 In the scope of the AAS HTTP/REST API, the query parameter “cursor” controls, which part of a longer result set is returned.
 
-The AAS client may decide on the appropriate size of the result list through the limit parameter.
-If it is not specified, the server must comply to the default value or explicitly indicate it in the response object.
+The AAS client may define the maximum page size of the result list through the limit parameter.
+The server is allowed to return less elements than requested.
+If the limit parameter is not specified, the server may decide the number of elements to be returned.
 
 Pagination is currently only defined for the HTTP/REST API.
 Other APIs might introduce different patterns to control the response content.
@@ -256,19 +259,22 @@ A client may send the query parameter “limit" without any cursor.
 In that case, the server must return at max the specified number of result items from the beginning.
 ====
 
-Pagination requires a defined and consistent sorting.
-The server implementation must ensure a deterministic ordering of the result set.
-For instance, a server must not return an element A before another element C and in any later request return C before A.
-This applies in particular if any attribute of either A or C has been changed between the two requests.
-However, in case a new element B was created (or deleted), the client must expect that B and then C are returned after A.
+Pagination assumes a deterministic sorting, i.e. the server implementation shall provide a deterministic
+ordering of the result set. For instance, a server shall not return an element A before another element C and
+in any later request return C before A. This applies in particular if any attribute of either A or C has been
+changed between the two requests. However, in case a new element B was created (or deleted), the client
+must be aware that e.g. B and then C are returned after A.
 
-Nevertheless, the inherent order of the result set must stay the same.
-Implementations may maintain an internal sorting attribute to ensure this behavior or implement it in any other appropriate manner.
-The server is not obligated to inform the client about its ordering schema.
+Nevertheless, the inherent order of the result shall stay the same. Implementations may maintain an
+internal sorting attribute to ensure this behavior or implement it in any other appropriate manner. The server
+is not obligated to inform the client about its ordering schema.
+
+The client also needs to be aware, that changes may happen in pages which the client has already received,
+that page results may change over time and that different clients may receive different page results.
 
 The server informs the client about pagination attributes through the Result object in the request response.
-In particular, the Result contains the cursor value for the next page.
-Additional information, e.g. the overall number of result items, may also be part of it.
+In particular, the Result object contains the cursor value for the next page.
+Additional optional server specific information may also be part of the result object, e.g. the overall number of result items.
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -347,7 +353,7 @@ h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query paramete
 |GetAssetAdministrationShell |GET |/aas |content-suffix: $reference
 |PutAssetAdministrationShell |PUT | |
 |GetAllSubmodelReferences |GET |/aas/submodel-refs |Pagination
-|PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-ref/\{submodelIdentifier}’
+|PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-refs/\{submodelIdentifier}’
   
 ====
 Note 1: submodelIdentifier is the base64url-encoded Submodel.id value.

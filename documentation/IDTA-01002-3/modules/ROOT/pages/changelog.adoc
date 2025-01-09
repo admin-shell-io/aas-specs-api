@@ -15,7 +15,7 @@ Major Changes:
 
 
 * Bulk Operations and Profiles for Bulk Operations (https://github.com/admin-shell-io/aas-specs-api/issues/3[#3])
-* new Query Interface and API Operations
+* new Query Operations and Profiles for executing complex queries
 * deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
 * new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink) (https://github.com/admin-shell-io/aas-specs-api/issues/19[#19])
 * new Profile for Discovery Service: Read Only SSP-002 (https://github.com/admin-shell-io/aas-specs-api/issues/201[#201])
@@ -23,10 +23,12 @@ Major Changes:
 	** changed: interface
 	** changed: service
 * Individual versioning of datatype IDs, operations, interfaces etc. (https://github.com/admin-shell-io/aas-specs-api/issues/247[#247])
+	** including changes due to implicit changes of IDTA-01001, e.g. of primitive data types NameType and Identifier 
 * Data type  Identifier: change length from 2000 to 2048 characters (https://github.com/admin-shell-io/aas-specs/issues/306[#306])
 * Transfer of chapters on formats Metadata, Paths and Value-Only from Part 2 API to Part 1 Metamodel (https://github.com/admin-shell-io/aas-specs-api/issues/214[#214])
 * Transfer from .docx to asciidoc (.adoc) and maintenance in GitHub
 * Transfer of all UML figures to PlantUML (.puml) and maintenance in GitHub
+* Swagger: marked parameter 'level' as deprecated for all URLs ending with '/$reference'
 
 Minor Changes:
 
@@ -37,59 +39,86 @@ Minor Changes:
 
 [%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
-|*BWC* |*Interface Change* |*Kind of Change* |*Comment*
-| | Query Interface | New a| Newly introduced Interface
+h|BWC h|Interface  h|Kind of Change h|Comment
+| a| AAS Registry, 
+
+Submodel Registry, 
+
+AAS Repository, 
+
+Submodel Repository, 
+
+Concept Description Repository | Extended a| Newly introduced API operations for querying 
 | | AAS Basic Discovery | Changed a| deprecate GetAllAssetAdministrationShellIdsByAssetLink  
 
 add SearchAllAssetAdministrationShellIdsByAssetLink
-| |AAS  Registry  | Changed a| add CreateBulkAssetAdministrationShellDescriptors
+
+changed GetAllAssetAdministrationShellDescriptors: 
+Changed the parameters assetKind and assetType from `mandatory` to `optional`. 
+OpenAPI remains unchanged.
+(https://github.com/admin-shell-io/aas-specs-api/issues/298[#298])
+
+Changed the parameter assetIds from `mandatory` to `optional`. 
+OpenAPI remains unchanged. 
+(https://github.com/admin-shell-io/aas-specs-api/issues/301[#301])
+
+| |AAS  Registry  | Extended a| add CreateBulkAssetAdministrationShellDescriptors
 
 add PutBulkAssetAdministrationShellDescriptorsById
 
 add DeleteBulkAssetAdministrationShellDescriptorsById
 
-| | GetAllAssetAdministrationShellDescriptors | Changed a| Changed the parameters assetKind and assetType from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/298[#298])
 
-| | Submodel Registry | Changed a| add PostBulkSubmodelDescriptors,
 
-add PutBulkSubmodelDescriptorsById,
+| | Submodel Registry | Extended a| add PostBulkSubmodelDescriptors
+
+add PutBulkSubmodelDescriptorsById
 
 add DeleteBulkSubmodelDescriptorsById
 
-| | AAS Basic Discovery Interface | Changed a| Changed the parameter assetIds from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/301[#301])
+
 |===
 
 === Operation Changes w.r.t. V3.0.3 to V3.1
 
-[%autowidth,width="100%",cols="32%,34%,13%,21%",options="header",]
+[%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
-|*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
-|GetAllAssetAdministrationShellIdsByQuery | |new | 
-|GetAllAssetAdministrationShellsByQuery | |new | 
-|GetAllSubmodelIdsByQuery | |new | 
-|GetAllSubmodelsByQuery | |new | 
-|GetAllAssetAdministrationShellDescriptorIdsByQuery | |new | 
-|GetAllAssetAdministrationShellDescriptorsByQuery | |new | 
-|GetAllSubmodelDescriptorIdsByQuery | |new | 
-|GetAllSubmodelDescriptorsByQuery | |new | 
-|GetAllConceptDescriptionIdsByQuery | |new | 
-|GetAllConceptDescriptionsByQuery | |new | 
-|GetAllAssetAdministrationShellIdsByAssetLink | |deprecated | substituted by SearchAllAssetAdministrationShellIdsByAssetLink
-| | SearchAllAssetAdministrationShellIdsByAssetLink|new | substitute for GetAllAssetAdministrationShellIdsByAssetLink
-||PostBulkSubmodelDescriptors |new |
-||PutBulkSubmodelDescriptorsById|new |
-||DeleteBulkSubmodelDescriptorsById|new |
+h|Operation  h|Kind of Change h|Comment
+
+ | QueryAssetAdministrationShellIds|new a| new query API-Operation for AAS Discovery interface
+ | QueryAssetAdministrationShells|new a| new query API-Operation for AAS Repository interface
+ | QuerySubmodelIds |new a| new query API-Operation for AAS Discovery interface
+ | QuerySubmodels |new  a| new query API-Operation for Submodel Repository interface
+ | QueryAssetAdministrationShellDescriptorIds |new a| new query API-Operation for AAS Registry interface
+ | QueryAssetAdministrationShellDescriptors |new a| new query API-Operation for AAS Registry interface
+ | QuerySubmodelDescriptorIds |new a| new query API-Operation for Submodel Registry interface
+ | QuerySubmodelDescriptors |new a| new query API-Operation for Submodel Registry interface
+ | QueryConceptDescriptionIds|new a| new query API-Operation for Concept Description Repository interface
+ | QueryConceptDescriptions |new a|new query API-Operation for Concept Description Repository interface
+ | GetAllAssetAdministrationShellIdsByAssetLink | deprecated a| substituted by SearchAllAssetAdministrationShellIdsByAssetLink
+ | SearchAllAssetAdministrationShellIdsByAssetLink|new a| substitute for GetAllAssetAdministrationShellIdsByAssetLink
+ | CreateBulkAssetAdministrationShellDescriptors | new a| new API-Operation for AAS Registry Interface
+ | PutBulkAssetAdministrationShellDescriptorsById | new a| new API-Operation for AAS Registry Interface
+ | DeleteBulkAssetAdministrationShellDescriptorsById | new a| new API-Operation for AAS Registry Interface
+ |PostBulkSubmodelDescriptors |new a|new API-Operation for Submodel Registry Interface
+ |PutBulkSubmodelDescriptorsById|new a| new API-Operation for Submodel Registry Interface
+ |DeleteBulkSubmodelDescriptorsById|new a| new API-Operation for Submodel Registry Interface
 |===
 
 === Profile Changes w.r.t. V3.0.3 to V3.1
 
+[%autowidth,width="100%",cols="30%,15%,55%",options="header",]
 |===
-|*Profile Change Old* |*Profile Change New* |*Kind of Change* |*Comment*
-| |Query Profiles |new | 
-| |Asset Administration Shell Registry Profile - Bulk Profile |new | 
-| |Submodel Registry Profile - Bulk Profile |new | 
-|Discovery Profile - Full Profile| |update |GetAllAssetAdministrationShellIdsByAssetLink set to deprecated, added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
-| |Discovery Profile - Read Profile |new |
+h|Profile h|Kind of Change h|Comment
+
+ |Query Profiles |new a| 
+ |Asset Administration Shell Registry Profile - Bulk Profile |new a| 
+ |Submodel Registry Profile - Bulk Profile |new a| 
+ |Discovery Profile - Full Profile |update a|
+GetAllAssetAdministrationShellIdsByAssetLink set to deprecated  
+ 
+added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
+ |Discovery Profile - Read Profile |new a|
 |===
 
 === Class Changes w.r.t. V3.0.3 to V3.1
@@ -116,7 +145,7 @@ add DeleteBulkSubmodelDescriptorsById
 .New Data Types for Payload
 [cols="5%,41%,51%",options="header",]
 |===
-|  |*New Elements V3.1 vs V3.0* |*Comment*
+| |*New Elements V3.1 vs V3.0* |*Comment*
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink] a| new class for discovery operation(s)
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/name] a|
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/value] a|

@@ -46,7 +46,7 @@ It is up to the system architect and service engineer to tailor the technology-s
 * *API*: specification of the set of operations and events that forms an API in a selected technology.
 It is derived from the interface description on the technology-neutral level.
 Hence, if there are several selected technologies, one interface may be mapped to several APIs.
-* *API-Operation*: specification of the operations (procedures) that may be called through an API.
+* *API-Operation*: specification of a single operation (procedure) that may be called through an API.
 It is derived from the interface operation description on the technology-neutral level.
 When selecting technologies, one interface operation may be mapped to several API-operations; several interface operations may also be mapped to the same API-operation.
 
@@ -324,7 +324,7 @@ The example of a device or container containing one AAS with its related submode
 Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [.green]#\{submodel-identifier}#. [.blue]#The \{idShortPath} is URL-encoded in the API#.
 ====
 
-
+[#query-language]
 == Query Language
 
 Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to send parts of the selection conditions to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
@@ -336,7 +336,7 @@ Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib
 ====
 
 
-== Use Case Examples
+=== Use Case Examples
 
 Examples for Use Cases are search queries in the submodels DigitalNameplate, TechnicalData or HandoverDocumentation. +
 DigitalNameplate has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in DigitalNameplate can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
@@ -370,6 +370,7 @@ AAS consists of a hierarchical structure. An AAS references its "contained" subm
 The query language allows to both address a specific instance of the data or to search all data in a repository. A specific instance is addressed by specifying the id of an Identifiable and the idShortPath to a Referable in a Submodel. +
 If such explicit information is not specified, a hierarchical search is made. By the $aas FieldIdentifier conditions for all the relevant AAS are defined. By the $sm FieldIdentifier conditions for all the relevant submodels are defined. $sm can be used with and without $aas. If $aas and $sm are used together, only the submodels referenced by the matching $aas are searched by the $sm expression. The same search principle is used, when combining $sm and $sme. In such case only the SubmodelElements which are part of matching submodels by $sm expression are searched by the $sme expression. Several such hierarchical conditions may even be combined by $match expressions.
 
+[#query-grammar]
 === Grammar
 
 The content and structure of the AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix xref:annex/backus-naur-form.adoc[Backus-Naur-Form] for more details on BNF. The detailed serialisation and interaction patterns are defined by the different technology mappings, e.g., the AAS HTTP API represents AAS Queries as JSON objects (see Clause xref:http-rest-api/http-rest-api.adoc#query-json-serialisation[Serialisation]). Other mappings may define different serialisations, however, all have to follow the general structure of queries defined in the following grammar.
