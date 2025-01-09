@@ -1017,17 +1017,6 @@ paths:
       operationId: PatchSubmodelElementByPath-Metadata_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
-      parameters:
-        - name: level
-          in: query
-          description: Determines the structural depth of the respective resource content
-          required: false
-          schema:
-            type: string
-            default: core
-            enum:
-              #- deep 
-              - core # only 'core' is allowed for PATCH
       requestBody:
         description: Metadata attributes of the SubmodelElement
         content:
@@ -1306,18 +1295,10 @@ paths:
     post:
       tags:
         - Submodel Repository API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      summary: Synchronously invokes an Operation at a specified path
       operationId: InvokeOperation_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
