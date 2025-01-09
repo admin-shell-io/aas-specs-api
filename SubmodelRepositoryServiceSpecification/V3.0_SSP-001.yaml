@@ -11,30 +11,11 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.2_SSP-001
+  version: V3.0.3_SSP-001
   x-profile-identifier: https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001
 servers:
-- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
-  variables:
-    protocol:
-      description: 'Allows access through http and https (recommended)'
-      enum:
-        - 'http'
-        - 'https'
-      default: 'https'
-    host_name:
-      default: admin-shell.io
-      description: 'Hostname of server hosting the api'
-    port:
-      enum:
-        - '80'
-        - '443'
-      default: '443'
-      description: '80 is default for http, 443 for https'
-    version_prefix:
-      enum:
-        - 'v3.0'
-      default: v3.0
+- url: 'https://admin-shell.io/api/v3.1'
+- url: 'https://example.com/'
 paths:
   /submodels:
     get:
@@ -1339,18 +1320,10 @@ paths:
     post:
       tags:
         - Submodel Repository API
-      summary: Synchronously or asynchronously invokes an Operation at a specified path
+      summary: Synchronously invokes an Operation at a specified path
       operationId: InvokeOperation-ValueOnly
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-        - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:

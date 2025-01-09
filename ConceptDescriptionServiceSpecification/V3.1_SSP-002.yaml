@@ -4,7 +4,7 @@ info:
   description: >-
     The Query Profile of the Concept Description Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
 
-    Publisher: Industrial Digital Twin Association (IDTA) April 2024
+    Publisher: Industrial Digital Twin Association (IDTA) 2025
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -14,27 +14,8 @@ info:
   version: V3.1.0_SSP-002
   x-profile-identifier: https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002
 servers:
-- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
-  variables:
-    protocol:
-      description: 'Allows access through http and https (recommended)'
-      enum:
-        - 'http'
-        - 'https'
-      default: 'https'
-    host_name:
-      default: admin-shell.io
-      description: 'Hostname of server hosting the api'
-    port:
-      enum:
-        - '80'
-        - '443'
-      default: '443'
-      description: '80 is default for http, 443 for https'
-    version_prefix:
-      enum:
-        - 'v3.1'
-      default: v3.1
+- url: 'https://admin-shell.io/api/v3.1'
+- url: 'https://example.com/'
 
 paths:
   /query/concept-descriptions:
