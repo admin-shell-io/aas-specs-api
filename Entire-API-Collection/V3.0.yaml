@@ -4,7 +4,7 @@ info:
   description: >- 
     All APIs of the Specification of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub) in one collection. Please not that this API is not intended to generate productive code but only for overview purposes.  
     
-    Publisher: Industrial Digital Twin Association (IDTA) 2023"
+    Publisher: Industrial Digital Twin Association (IDTA) 2025
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -18,6 +18,7 @@ servers:
 - url: 'https://example.com/'
 
 paths:
+
   /aas:
     get:
       tags:
@@ -35,6 +36,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/AssetAdministrationShell'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '500':
@@ -60,6 +63,8 @@ paths:
           description: Asset Administration Shell updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '500':
@@ -83,6 +88,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Reference'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '500':
@@ -106,6 +113,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/AssetInformation'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '500':
@@ -131,6 +140,8 @@ paths:
           description: Asset Information updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '500':
@@ -155,6 +166,8 @@ paths:
                 format: binary
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -190,6 +203,8 @@ paths:
           description: Thumbnail updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -209,6 +224,8 @@ paths:
           description: Thumbnail deletion successful
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -237,6 +254,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetReferencesResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '500':
@@ -271,6 +290,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Reference'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '409':
@@ -294,6 +315,8 @@ paths:
           description: Submodel reference deleted successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -324,6 +347,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Submodel'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -363,6 +388,8 @@ paths:
           description: Submodel updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -389,7 +416,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'deep' is allowed for PATCH
       requestBody:
         description: Submodel object
         content:
@@ -402,6 +429,8 @@ paths:
           description: Submodel updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -422,6 +451,8 @@ paths:
           description: Submodel deleted successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -451,6 +482,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelMetadata'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -490,6 +523,8 @@ paths:
           description: Submodel updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -520,6 +555,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelValue'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -559,6 +596,8 @@ paths:
           description: Submodel updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -598,6 +637,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Reference'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -630,6 +671,8 @@ paths:
                   $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PathItem'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -662,6 +705,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetSubmodelElementsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -698,6 +743,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -731,6 +778,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetSubmodelElementsMetadataResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -763,6 +812,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetSubmodelElementsValueResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -804,6 +855,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetReferencesResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -835,6 +888,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetPathItemsResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -867,6 +922,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -903,6 +960,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -933,6 +992,8 @@ paths:
           description: Submodel element updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -962,6 +1023,8 @@ paths:
           description: Submodel element updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -982,6 +1045,8 @@ paths:
           description: Submodel element deleted successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1011,6 +1076,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelElementMetadata'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1040,6 +1107,8 @@ paths:
           description: Submodel element updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1071,6 +1140,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelElementValue'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1100,6 +1171,8 @@ paths:
           description: Submodel element updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1129,6 +1202,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Reference'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1161,6 +1236,8 @@ paths:
                   $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PathItem'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1196,6 +1273,8 @@ paths:
                 format: binary
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1232,6 +1311,8 @@ paths:
           description: Submodel element updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1252,6 +1333,8 @@ paths:
           description: Submodel element updated successfully
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1287,6 +1370,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/OperationResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1322,6 +1407,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/OperationResultValueOnly'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1330,14 +1417,14 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
-  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async:
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-asnyc:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SubmodelIdentifier'
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/IdShortPath'
     post:
       tags:
         - Asset Administration Shell API
-      summary: Synchronously invokes an Operation at a specified path
+      summary: Asynchronously invokes an Operation at a specified path
       operationId: InvokeOperationAsync_AAS
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
@@ -1353,6 +1440,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1361,7 +1450,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
-  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-asnyc/$value:
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async/$value:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SubmodelIdentifier'
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/IdShortPath'
@@ -1384,6 +1473,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1401,7 +1492,7 @@ paths:
     get:
       tags:
         - Asset Administration Shell API
-      summary: Returns the Operation status of an asynchronous invoked Operation
+      summary: Returns the status of an asynchronously invoked Operation
       operationId: GetOperationAsyncStatus_AAS
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetOperationAsyncStatus/3/0
@@ -1416,6 +1507,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/found'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1446,6 +1539,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/OperationResult'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
@@ -1476,6 +1571,8 @@ paths:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/OperationResultValueOnly'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
         '404':
