@@ -571,7 +571,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |inoutputArgument |Inoutput argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |The Operation Result |yes |xref:OperationResult[OperationResult] |1
+|payload |The Operation Result |yes |xref:specification/interfaces-payload.adoc#OperationResult[OperationResult] |1
 |===
 
 ==== Operation InvokeOperationAsync
@@ -608,7 +608,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes | xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Execution state of the operation |yes | xref:BaseOperationResult[BaseOperationResult] |1
+|payload |Execution state of the operation |yes | xref:specification/interfaces-payload.adoc#BaseOperationResult[BaseOperationResult] |1
 |===
 
 ==== Operation GetOperationAsyncResult
@@ -625,7 +625,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Operation Result |yes |xref:OperationResult[OperationResult] |1
+|payload |Operation Result |yes |xref:specification/interfaces-payload.adoc#OperationResult[OperationResult] |1
 |===
 
 === Serialization Interface and Operations
@@ -753,14 +753,14 @@ Servers may simply store the AASX files with their related given aasIds.
 |packageId |New Package ID |yes |string |1
 |===
 
-==== Operation PutAASXPackageById
+==== Operation PutAASXByPackageId
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[PutAASXPackageById]]PutAASXPackageById
+h|Operation Name 4+e|[[PutAASXByPackageId]]PutAASXByPackageId
 h|Explanation 4+a|Replaces the AASX package at the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAASXPackageById/3/0`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAASXByPackageId/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -782,14 +782,14 @@ Servers may simply store the AASX files with their related given aasIds.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
-==== Operation DeleteAASXPackageById
+==== Operation DeleteAASXByPackageId
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[DeleteAASXPackageById]]DeleteAASXPackageById
+h|Operation Name 4+e|[[DeleteAASXByPackageId]]DeleteAASXByPackageId
 h|Explanation 4+a|Deletes a specific AASX package from the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAASXPackageById/3/0`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAASXByPackageId/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -803,11 +803,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 === General
 
-Registration interfaces allow to register and unregister descriptors of administration shells or submodels. 
-The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element. 
+Registration interfaces allow to register and unregister descriptors of administration shells or submodels.
+The descriptors contain the information needed to access the interfaces (as described in <<aas-interfaces>>) of the corresponding element.
 This required information includes the endpoint in the dedicated environment.
 
-Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID). 
+Lookup interfaces provide access to the registered descriptors by identifiers (Asset Administration Shell and Submodel ID).
 
 These identifiers may be discovered through the interfaces described in <<publish-and-discovery-interfaces>>.
 
@@ -1191,7 +1191,7 @@ e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns
 e|xref:GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 e|xref:GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] |Returns all Asset Administration Shells with a specific idShort
 e|xref:PostAssetAdministrationShell[PostAssetAdministrationShell] a|
-Creates a new Asset Administration Shell. 
+Creates a new Asset Administration Shell.
 The ID of the new Asset Administration Shell must be set in the payload.
 
 
@@ -1881,8 +1881,8 @@ Asset identifier, which could be the globalAssetId or specificAssetIds.
 
 
 ====
-Note: the name for the globalAssetId is defined in Clause 4.5.
-It is the predefined key “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
+Note: the name for the globalAssetId is defined in Contraint AASd-116 in IDTA-0001.
+It is the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
 ====
 
 
