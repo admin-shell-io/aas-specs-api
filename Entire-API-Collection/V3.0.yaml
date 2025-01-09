@@ -3366,7 +3366,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object
         content:
@@ -3535,7 +3535,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object in the ValueOnly representation
         content:
@@ -4595,7 +4595,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelsBySupplementalSemanticId/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SemanticId'
@@ -4668,7 +4667,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelsBySupplementalSemanticId/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SemanticId'
@@ -4702,7 +4700,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelsBySupplementalSemanticId/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SemanticId'
@@ -4739,7 +4736,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelsBySupplementalSemanticId/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SemanticId'
@@ -4783,7 +4779,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodels/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/0
-        - https://admin-shell.io/aas/API/GetAllSubmodelsBySupplementalSemanticId/3/0
         - https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SemanticId'
@@ -4877,7 +4872,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
           in: query
           description: Determines the structural depth of the respective resource content
@@ -4971,7 +4965,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
           in: query
           description: Determines the structural depth of the respective resource content
@@ -5044,7 +5037,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
           in: query
           description: Determines the structural depth of the respective resource content
@@ -5181,7 +5173,7 @@ paths:
       tags:
         - Submodel Repository API
       summary: Creates a new submodel element
-      operationId: PostSubmodelElement_SubmodelRepository
+      operationId: PostSubmodelElement_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/PostSubmodelElement/3/0
       requestBody:
@@ -5224,7 +5216,7 @@ paths:
       tags:
         - Submodel Repository API
       summary: Returns the metadata attributes of all submodel elements including their hierarchy
-      operationId: GetAllSubmodelElements-Metadata_SubmodelRepository
+      operationId: GetAllSubmodelElements-Metadata_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
       parameters:
@@ -5443,7 +5435,6 @@ paths:
         - https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0
         - https://admin-shell.io/aas/API/SetSubmodelElementValueByPath/3/0
       parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
           in: query
           description: Determines the structural depth of the respective resource content
@@ -5484,7 +5475,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
           in: query
           description: Determines the structural depth of the respective resource content
@@ -5640,6 +5630,17 @@ paths:
       operationId: PatchSubmodelElementByPath-ValueOnly_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
+      parameters:
+        - name: level
+          in: query
+          description: Determines the structural depth of the respective resource content
+          required: false
+          schema:
+            type: string
+            default: core
+            enum:
+              #- deep 
+              - core # only 'core' is allowed for PATCH
       requestBody:
         description: The SubmodelElement in its ValueOnly representation
         content:
@@ -5709,7 +5710,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
-          description: Requested submodel element
+          description: Submodel elements in path notation
           content:
             application/json:
               schema:
@@ -5836,7 +5837,7 @@ paths:
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'    
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
   /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SubmodelIdentifier'
@@ -5848,13 +5849,6 @@ paths:
       operationId: InvokeOperation_SubmodelRepo
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -5896,16 +5890,9 @@ paths:
       tags:
         - Submodel Repository API
       summary: Synchronously invokes an Operation at a specified path
-      operationId: InvokeOperation-ValueOnly_SubmodelRepo
+      operationId: InvokeOperation-ValueOnly_SubmodelRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationSync/3/0
-      parameters:
-        - name: async
-          in: query
-          description: Determines whether an operation invocation is performed asynchronously or synchronously
-          schema:
-            type: boolean
-            default: false
       requestBody:
         description: Operation request object
         content:
@@ -5932,7 +5919,6 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
-     
   /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SubmodelIdentifier'
@@ -5941,7 +5927,7 @@ paths:
       tags:
         - Submodel Repository API
       summary: Asynchronously invokes an Operation at a specified path
-      operationId: InvokeOperationAsync_SubmodelRepo
+      operationId: InvokeOperationAsync_SubmodelRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
       requestBody:
@@ -5981,7 +5967,7 @@ paths:
       tags:
         - Submodel Repository API
       summary: Asynchronously invokes an Operation at a specified path
-      operationId: InvokeOperationAsync-ValueOnly_SubmodelRepo
+      operationId: InvokeOperationAsync-ValueOnly_SubmodelRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/InvokeOperationAsync/3/0
       requestBody:
@@ -6014,17 +6000,17 @@ paths:
     get:
       tags:
         - Submodel Repository API
-      summary: Returns the Operation status of an asynchronous invoked Operation
-      operationId: GetOperationAsyncStatus_SubmodelRepo
+      summary: Returns the status of an asynchronously invoked Operation
+      operationId: GetOperationAsyncStatus_SubmodelRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetOperationAsyncStatus/3/0
       responses:
         '200':
-          description: Operation status object
+          description: Operation result object containing information that the 'executionState' is still 'Running'
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/OperationResult'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/BaseOperationResult'
         '302':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/found'
         '400':
@@ -6047,8 +6033,8 @@ paths:
     get:
       tags:
         - Submodel Repository API
-      summary: Returns the Operation result of an asynchronous invoked Operation
-      operationId: GetOperationAsyncResult_SubmodelRepo
+      summary: Returns the Operation result of an asynchronously invoked Operation
+      operationId: GetOperationAsyncResult_SubmodelRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetOperationAsyncResult/3/0
       responses:
@@ -6078,8 +6064,8 @@ paths:
     get:
       tags:
         - Submodel Repository API
-      summary: Returns the Operation result of an asynchronous invoked Operation
-      operationId: GetOperationAsyncResult-ValueOnly_SubmodelRepo
+      summary: Returns the Operation result of an asynchronously invoked Operation
+      operationId: GetOperationAsyncResult-ValueOnly_SubmodelRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetOperationAsyncResult/3/0
       responses:
