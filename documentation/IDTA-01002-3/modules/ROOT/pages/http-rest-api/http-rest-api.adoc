@@ -147,7 +147,7 @@ As different solutions also provide different advantages and disadvantages, URL-
 Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see Figure <<aas-api-versioning-url-scheme>>). 
 As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
 
-Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure <<aas-api-versioning-url-scheme2>>. A client shall not assume that the pattern from Figure <<aas-api-versioning-url-scheme>> is supported by all servers.
+Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure <<aas-api-versioning-url-scheme2>>. The fragment before the functional endpoint is not necessarily the version information itself, it may also be a tenant ID or any other information the server decides to use. A client shall not assume that the pattern from Figure <<aas-api-versioning-url-scheme>> is supported by all servers.
 
 .Example of an AAS endpoint with an arbitrary path
 [[aas-api-versioning-url-scheme2]]
