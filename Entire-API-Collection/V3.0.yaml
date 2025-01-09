@@ -6664,6 +6664,41 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
 
+  /query/shell-descriptors:
+    post:
+      tags: 
+       - Asset Administration Shell Registry API
+      summary: Returns all Asset Administration Shell Descriptors that confirm to the input query
+      operationId: QueryAssetAdministrationShellDescriptors
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1
+        - https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptorIds/3/1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/Condition'
+      responses:
+        '200':
+          description: Requested Asset Administration Shell Descriptors
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/QueryResultAssetAdministrationShellDescriptor'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
+
   /bulk/shell-descriptors:
     post:
       tags:
@@ -6823,7 +6858,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found"
         '500':
           $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
-          
+
 
   /submodel-descriptors:
     get:
