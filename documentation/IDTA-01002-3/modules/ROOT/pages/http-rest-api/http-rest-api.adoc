@@ -121,50 +121,46 @@ A server supporting the HTTP/REST API may also provide a server global “/descr
 [#api-versioning]
 == API Versioning
 
-API versioning provides a way to deal with different versions of the same API at the same time.
-This way, older versions may still be accessible on the same server to provide services to legacy clients without breaking existing functionality.
+The versioning scheme for AAS API related services follows semantic versioningfootnote:[http://semver.org]. Very briefly, this defines version numbers as a format following: <MAJOR>.<MINOR>.<PATCH>.
 
-There are different solutions regarding API versioning involving URL-based versioning, query parameter-based versioning, as well as HTTP header-oriented solutions using custom or standard headers. +
-As different solutions also provide different advantages and disadvantages, *URL-based versioning* has been selected as the most suitable method for the AAS API.
-Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
+The major version changes in case of breaking or incompatible changes that need to be addressed by clients. Minor versions add (new) functionality in a backwards compatible way and allow clients with lower minor versions to keep their existing functionality. Patch versions only include backwards compatible bug fixes.
+
+AAS API versioning uses the major and minor version as described above. A specific AAS API version uses specific related versions of the metamodel as defined in xref:index.adoc#metamodel-versions[]. AAS API versions with the same major version must remain compatible, i.e. a client written for an older or a newer minor version must still work. This requires corresponding testing of clients and servers.
+
+Additionally, "Release candidates" are variants of the implementation of the denoted major version. For example, "3.1.0RC2" should be interpreted as the second (alternative) release candidate for version 3.1.0.
+
+To provide multiple versions of the APIs to clients, an AAS ecosystem consisting of Registry / Discovery services as well as AAS Repository, Submodel (standalone), or AAS (standalone) services should share a consistent version.
+Therefore, a consistent interface description in the form of OpenAPI documents shall be provided with each major version.
+
+Upcoming compatibility constraints regarding newer versions will be elaborated in further iterations of this document and related technical descriptions (OpenAPI specification).
+
+API versioning provides a way to deal with different versions of the same API at the same time. This way, older versions may still be accessible on the same server to provide services to legacy clients without breaking existing functionality. 
+
+There are different solutions regarding API versioning involving URL-based versioning, query parameter-based versioning, as well as HTTP header-oriented solutions using custom or standard headers.
 
 .Example of an AAS endpoint with URL-based versioning
 [[aas-api-versioning-url-scheme]]
 image::aas-api-versioning-url-scheme.svg[width=481,height=110]
 
+As different solutions also provide different advantages and disadvantages, URL-based versioning is recommended for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
+
+Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see Figure <<aas-api-versioning-url-scheme>>). 
+As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
+
+Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure <<aas-api-versioning-url-scheme2>>. The fragment before the functional endpoint is not necessarily the version information itself, it may also be a tenant ID or any other information the server decides to use. A client shall not assume that the pattern from Figure <<aas-api-versioning-url-scheme>> is supported by all servers.
+
 .Example of an AAS endpoint with an arbitrary path
+[[aas-api-versioning-url-scheme2]]
 image::aas-api-versioning-url-scheme2.png[width=481,height=110]
-
-Upcoming implementations of AAS related servers may implement the version prefix “*api/v<X.Y>/*” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version and <Y> denotes the minor version, e.g. “api/v3.1/” (see <<aas-api-versioning-url-scheme>>).
-
-====
-Note: all URLs mentioned in this document regarding the REST mapping of the AAS APIs have to be understood with this prefix in mind.
-====
-
-The versioning scheme for AAS API related services follows semantic versioning footnote:[http://semver.org].
-Very briefly, this defines version numbers as a format following: <MAJOR>.<MINOR>.<PATCH>.
-
-The major version changes in case of breaking or incompatible changes that need to be addressed by clients.
-Minor versions add (new) functionality in a backwards compatible way and allow clients with lower minor versions to keep their existing functionality.
-Patch versions only include backwards compatible bug fixes.
-
-AAS API versioning uses the major and minor version as described above.
-A specific AAS API version uses specific related versions of the metamodel as defined in Clause xref:index.adoc#metamodel-versions[Metamodel Versions].
-AAS API versions with the same major version must remain compatible, i.e. a client written for an older or a newer minor version must still work.
-This requires corresponding testing of clients and servers.
-
-Additionally, “Release candidates” are variants of the implementation of the denoted major version.
-For example, “3.1.0 RC2” should be interpreted as the second (alternative) release candidate for version 3.1.0.
-This will still result in the version prefix “/api/v3.1/”.
-
-As multiple versions will be supported in the future, an AAS ecosystem consisting of Registry / Discovery services as well as AAS Repository, Submodel (standalone), or AAS (standalone) services should share a consistent version.
-Therefore, a consistent interface description in the form of OpenAPI documents shall be provided with each major version.
-
-Upcoming compatibility constraints regarding newer versions will be elaborated in further iterations of this document and related technical descriptions (OpenAPI specification).
 
 Finally, it is recommended to include an additional "/description” endpoint into each service to further denote information about APIs / servers capabilities.
 This endpoint provides further information about the API and its supported profiles.
 The “/description” will be extended with additional information in later versions.
+
+====
+Note: The profile identifiers provided at the "/description" endpoint (see Clause xref:specification/interfaces-payload.adoc#service-description[]) contain both the major and minor version declaration.
+====
+
 
 == Addressing Resources
 
@@ -357,7 +353,7 @@ h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query paramete
 |GetAssetAdministrationShell |GET |/aas |content-suffix: $reference
 |PutAssetAdministrationShell |PUT | |
 |GetAllSubmodelReferences |GET |/aas/submodel-refs |Pagination
-|PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-ref/\{submodelIdentifier}’
+|PostSubmodelReference |POST |/aas/submodel-refs a| Location header of the response contains the value ‘<baseUrl>/aas/submodel-refs/\{submodelIdentifier}’
   
 ====
 Note 1: submodelIdentifier is the base64url-encoded Submodel.id value.
