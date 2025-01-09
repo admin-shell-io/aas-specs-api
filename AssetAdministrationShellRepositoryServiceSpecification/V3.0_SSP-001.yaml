@@ -577,7 +577,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object
         content:
@@ -736,7 +736,6 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
       parameters:
-        #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
           in: query
           description: Determines the structural depth of the respective resource content
@@ -746,7 +745,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object in the ValueOnly representation
         content:
