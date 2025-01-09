@@ -3411,7 +3411,6 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
-    
   /shells/{aasIdentifier}/submodels/{submodelIdentifier}/$metadata:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/AssetAdministrationShellIdentifier'
@@ -4147,6 +4146,18 @@ paths:
       operationId: GetSubmodelElementByPath-Reference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
+      parameters:
+        - name: level
+          in: query
+          description: Determines the structural depth of the respective resource content
+          required: false
+          deprecated: true
+          schema:
+            type: string
+            default: core
+            enum:
+              # - deep
+              - core # only 'core' is allowed for Content=Reference
       responses:
         '200':
           description: Requested submodel element in its ValueOnly representation
@@ -4542,6 +4553,7 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
 
+          
   /submodels:
     get:
       tags:
