@@ -6995,6 +6995,90 @@ paths:
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
 
+  /bulk/submodel-descriptors:
+    post:
+      tags:
+      - Async Bulk Submodel Registry API
+      summary: Creates multiple new Submodel Descriptors
+      operationId: BulkPostSubmodel
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPostSubmodelDescriptor/3/1
+      requestBody:
+        description: List of Submodel Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor"
+        required: true
+      responses:
+        '202':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted"
+        '400':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
+    put:
+      tags:
+      - Async Bulk Submodel Registry API
+      summary: Updates multiple existing Submodel Descriptors
+      operationId: BulkPutSubmodelDescriptorsById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPutSubmodelDescriptorsById/3/1
+      requestBody:
+        description: List of Submodel Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor"
+        required: true
+      responses:
+        '202':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted"
+        '400':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
+    delete:
+      tags:
+      - Async Bulk Submodel Registry API
+      summary: Deletes multiple Submodel Descriptors
+      operationId: BulkDeleteSubmodelDescriptorsById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkDeleteSubmodelDescriptorsById/3/1
+      requestBody:
+        description: List of Submodel Identifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+      responses:
+        '202':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted"
+        '400':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
 
   /lookup/shells:
     get:
