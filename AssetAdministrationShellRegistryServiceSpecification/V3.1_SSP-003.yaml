@@ -35,10 +35,10 @@ paths:
       summary: >-
         Creates multiple new Asset Administration Shell Descriptors, i.e.
         registers multiple Asset Administration Shells
-      operationId: BulkPostAssetAdministrationShellDescriptor
+      operationId: CreateBulkAssetAdministrationShellDescriptors
       x-semanticIds:
         - >-
-          https://admin-shell.io/aas/API/BulkPostAssetAdministrationShellDescriptor/3/1
+          https://admin-shell.io/aas/API/CreateBulkAssetAdministrationShellDescriptors/3/1
       requestBody:
         description: List of Asset Administration Shell Descriptor objects
         content:
@@ -69,10 +69,10 @@ paths:
       tags:
         - Async Bulk Asset Administration Shell Registry API
       summary: Updates multiple existing Asset Administration Shell Descriptors
-      operationId: BulkPutAssetAdministrationShellDescriptorById
+      operationId: PutBulkAssetAdministrationShellDescriptorsById
       x-semanticIds:
         - >-
-          https://admin-shell.io/aas/API/BulkPutAssetAdministrationShellDescriptorById/3/1
+          https://admin-shell.io/aas/API/PutBulkAssetAdministrationShellDescriptorsById/3/1
       requestBody:
         description: List of Asset Administration Shell Descriptor objects
         content:
@@ -105,12 +105,12 @@ paths:
       summary: >-
         Deletes multiple Asset Administration Shell Descriptors, i.e.
         de-registers multiple Asset Administration Shells
-      operationId: BulkDeleteAssetAdministrationShellDescriptorById
+      operationId: DeleteBulkAssetAdministrationShellDescriptorsById
       x-semanticIds:
         - >-
-          https://admin-shell.io/aas/API/BulkDeleteAssetAdministrationShellDescriptorById/3/1
+          https://admin-shell.io/aas/API/DeleteBulkAssetAdministrationShellDescriptorsById/3/1
       requestBody:
-        description: List of Asset Administration Shell’s unique ids
+        description: List of Asset Administration Shell's unique ids
         content:
           application/json:
             schema:
@@ -139,9 +139,9 @@ paths:
       tags:
         - Async Bulk Status API
       summary: Returns the status of an asynchronously invoked bulk operation
-      operationId: BulkGetAsyncStatus
+      operationId: GetAsyncBulkStatus
       x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkGetAsyncStatus/3/1
+        - https://admin-shell.io/aas/API/GetAsyncBulkStatus/3/1
       parameters:
         - in: path
           name: handleId
@@ -184,7 +184,9 @@ paths:
       tags:
         - Async Bulk Result API
       summary: Returns the result object of an asynchronously invoked bulk operation
-      operationId: BulkGetAsyncResult
+      operationId: GetBulkAsyncResult
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetBulkAsyncResult/3/1
       parameters:
         - in: path
           name: handleId
