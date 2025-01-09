@@ -27,7 +27,7 @@ However, to avoid terminological and conceptual misunderstandings, the whole Ind
 
 The technology-neutral level comprises the following concepts:
 
-* *Service*: a service describes a demarcated scope of functionality (including its informational and non-functional aspects), which is offered by an entity or organization via https://www.plattform-i40.de/PI40/Redaktion/EN/Glossary/I/interface_glossary.html[interfaces].
+* *Service*: a service describes a demarcated scope of functionality (including its informational and non-functional aspects), which is offered by an entity or organization via interfaces. 
 * *Interface*: this is the most important concept as it is understood to be the unit of reusability across services and the unit of standardization when mapped to application programming interfaces (API) in the technology-specific level.
 One interface may be mapped to several APIs depending on the technology and architectural style used, e.g. HTTP/REST or OPC UA, whereby these API mappings also need to be standardized for the sake of interoperability.
 * *Interface-Operation*: interface operations define interaction patterns via the specified interface.
@@ -46,7 +46,7 @@ It is up to the system architect and service engineer to tailor the technology-s
 * *API*: specification of the set of operations and events that forms an API in a selected technology.
 It is derived from the interface description on the technology-neutral level.
 Hence, if there are several selected technologies, one interface may be mapped to several APIs.
-* *API-Operation*: specification of the operations (procedures) that may be called through an API.
+* *API-Operation*: specification of a single operation (procedure) that may be called through an API.
 It is derived from the interface operation description on the technology-neutral level.
 When selecting technologies, one interface operation may be mapped to several API-operations; several interface operations may also be mapped to the same API-operation.
 
@@ -155,8 +155,8 @@ The identifiers defined in this document are reused in related resources, for in
 
 Internationalized Resource Identifiers (IRIs), Uniform Resource Identifiers (URIs) xref:bibliography.adoc#bib5[[5\]] in particular, and the requirements of DIN SPEC 91406 xref:bibliography.adoc#bib6[[6\]], serve as the basic format.
 Further design decisions include ‘https’ as the URI scheme, and the controlled domain name ‘admin-shell.io’ as the chosen authority.
-Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Plattform Industrie 4.0.
-All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of Markdown documents; they are continuously maintained and updated [https://github.com/admin-shell-io/id].
+Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Industrial Digital Twin Association (IDTA).
+All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of Markdown documents; they are continuously maintained and updated link:https://github.com/admin-shell-io/id[https://github.com/admin-shell-io/id].
 The catalogue itself is structured in several sub-namespaces specified by the first path parameter.
 All URIs of this document reflect entities of the core metamodel, which are contained in the sub-namespace identified with the ‘/aas/API’ path.
 
@@ -279,7 +279,8 @@ The separate interfaces of the HTTP/REST API allow many ways to support differen
 
 For an AAS repository, the combination [.gray]#“Asset Administration Shell Repository Interface”#, [.red]#“Asset Administration Shell Interface”#, [.blue]#“Submodel Interface”#, “Serialization Interface”, and “Self-Description Interface” is proposed.
 
-This will result in the following HTTP/REST paths as described in a combined OpenAPI file (https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001)[For easier reading only the standard paths are shown in the following: $metadata, $value, $reference and $path parameter paths are additionally contained in the OpenAPI file.]:
+This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote[ 
+For easier reading only the standard paths are shown in the following: $metadata, $value, $reference and $path parameter paths are additionally contained in the OpenAPI file.]:
 
 [.gray]#/shells# +
 [.gray]#/shells/\{aas-identifier}# +
@@ -300,7 +301,8 @@ This will result in the following HTTP/REST paths as described in a combined Ope
 
 If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile [Related OpenAPI file: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
 
-The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file (https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)^2^:
+The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file (https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)footnote[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]
+]:
 
 [.red]#/aas# +
 [.red]#/aas/asset-information# +
@@ -322,7 +324,7 @@ The example of a device or container containing one AAS with its related submode
 Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [.green]#\{submodel-identifier}#. [.blue]#The \{idShortPath} is URL-encoded in the API#.
 ====
 
-
+[#query-language]
 == Query Language
 
 Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to send parts of the selection conditions to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
@@ -334,7 +336,7 @@ Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib
 ====
 
 
-== Use Case Examples
+=== Use Case Examples
 
 Examples for Use Cases are search queries in the submodels DigitalNameplate, TechnicalData or HandoverDocumentation. +
 DigitalNameplate has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in DigitalNameplate can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
@@ -342,10 +344,11 @@ TechnicalData has its major variable part on the bottom and a small fixed struct
 HandoverDocumentation consists basically of a list of document information according VDI 2770 (DocumentedEntity{00}). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (semanticId = 0173-1#02-ABH996#001, ClassId = "03-01", i.e. Commissioning) in a certain language (semanticId = 0173-1#02-AAN468#006, e.g. Value = "nl").
 
 
-
 .Main elements of the AAS Query Language
-image::../images/plantuml/query-language-overview.png[]
-
+[plantuml, 29-relationship-element, svg]
+....
+include::partial$diagrams/query-language-overview.puml[]
+....
 
 === Limitations
 
@@ -367,6 +370,7 @@ AAS consists of a hierarchical structure. An AAS references its "contained" subm
 The query language allows to both address a specific instance of the data or to search all data in a repository. A specific instance is addressed by specifying the id of an Identifiable and the idShortPath to a Referable in a Submodel. +
 If such explicit information is not specified, a hierarchical search is made. By the $aas FieldIdentifier conditions for all the relevant AAS are defined. By the $sm FieldIdentifier conditions for all the relevant submodels are defined. $sm can be used with and without $aas. If $aas and $sm are used together, only the submodels referenced by the matching $aas are searched by the $sm expression. The same search principle is used, when combining $sm and $sme. In such case only the SubmodelElements which are part of matching submodels by $sm expression are searched by the $sme expression. Several such hierarchical conditions may even be combined by $match expressions.
 
+[#query-grammar]
 === Grammar
 
 The content and structure of the AAS Query Language is defined in the context-free Backus-Naur form (BNF). See Appendix xref:annex/backus-naur-form.adoc[Backus-Naur-Form] for more details on BNF. The detailed serialisation and interaction patterns are defined by the different technology mappings, e.g., the AAS HTTP API represents AAS Queries as JSON objects (see Clause xref:http-rest-api/http-rest-api.adoc#query-json-serialisation[Serialisation]). Other mappings may define different serialisations, however, all have to follow the general structure of queries defined in the following grammar.

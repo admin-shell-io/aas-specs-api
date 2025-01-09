@@ -10,10 +10,10 @@ SPDX-License-Identifier: CC-BY-4.0
 
 include::../includes/special-parameters.adoc[]
 
-
+[#service-specifications-and-profiles]
 = Service Specifications and Profiles
 
-xref:general.adoc#i40-service-model[Figure in Clause General] defines that a service specification contains at least one API and that an API contains at least one API Operation.
+xref:general.adoc#i40-service-model[Figure] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
 
 The profiles defined in this clause present complete service specifications and their subsets.
 
@@ -45,6 +45,7 @@ x: Service Specification contains API at the root
 
 s: Service Specification contains API through superpaths as introduced in Clause 0
 
+[#profiles]
 == Profiles
 
 Service specifications are further refined in profiles, governing which API operations, modifiers, and path combinations are supported.
@@ -67,6 +68,7 @@ Additional profiles might be introduced in future versions of this document.
 Note: in the following, only the last part (<name of service specification>/SSP-<profile number>) is used in the text for better readability, e.g. “AssetAdministrationShellServiceSpecification/SSP-001” instead of “https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001”.
 ====
 
+[#asset-administration-shell-service-specification]
 == Asset Administration Shell Service Specification
 
 [%autowidth,width="100%",cols="45%,55%",options="header",]
@@ -76,6 +78,7 @@ h|Service Specification / Profiles h|Description
 |AssetAdministrationShellServiceSpecification/SSP-002 |Only read operations; is included in the profile AssetAdministrationShellServiceSpecification/SSP-001.
 |===
 
+[#asset-administration-shell-service-specification-SSP-001]
 === Asset Administration Shell Service Specification – Full Profile
 
 The Asset Administration Shell service specification with all its features and endpoints is represented through the profile identifier *AssetAdministrationShellServiceSpecification/SSP-001*:
@@ -123,7 +126,7 @@ _Serialization API:_[.underline]# +
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -136,6 +139,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001
 
+[#asset-administration-shell-service-specification-SSP-002]
 === Asset Administration Shell Service Specification – Read Profile
 
 The Asset Administration Shell Service specification with the minimal feature set is represented through *AssetAdministrationShellServiceSpecification/SSP-002*:
@@ -161,7 +165,7 @@ GetFileByPath
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -174,6 +178,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SPP-002[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-002]
 
+[#submodel-service-specification]
 == Submodel Service Specification
 
 [%autowidth,width="100%",options="header",]
@@ -184,6 +189,7 @@ h|Service Specification / Profiles |Description
 |SubmodelServiceSpecification/SSP-003 |Limitation on the basic capabilities plus the option to execute synchronous operations and to read the submodel in the ValueOnly-serialization format to reduce required bandwidth; is included in the profile SubmodelServiceSpecification/SSP-001.
 |===
 
+[#submodel-service-specification-SSP-001]
 === Submodel Service Specification – Full Profile 
 
 The submodel service specification with all its features and endpoints is represented through *SubmodelServiceSpecification/SSP-001*:
@@ -219,7 +225,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -232,6 +238,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1_SSP-001
 
+[#submodel-service-specification-SSP-002]
 === Submodel Service Specification – Read Profile
 
 The submodel service specification with its minimal feature set is represented through *SubmodelServiceSpecification/SSP-002*:
@@ -254,7 +261,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -267,6 +274,7 @@ Extent: WithBLOBValue, WithoutBLOBValue
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.0_SPP-002[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1_SSP-002]
 
+[#submodel-service-specification-SSP-003]
 === Submodel Service Specification – Value Profile 
 
 The submodel service specification with a reduced feature set is represented through *SubmodelServiceSpecification/SSP-003*:
@@ -284,7 +292,7 @@ xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync]
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Deep
 
 Content: Normal, Value
@@ -323,7 +331,7 @@ xref:specification/interfaces.adoc#DeleteAASXByPackageId[DeleteAASXByPackageId]
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat a|
 JSON for descriptions and error messages
 
@@ -370,7 +378,7 @@ xref:specification/interfaces.adoc#DeleteSubmodelDescriptorById[DeleteSubmodelDe
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Supported
 |===
@@ -396,7 +404,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |supported
 |===
@@ -419,7 +427,7 @@ xref:specification/interfaces.adoc#DeleteBulkAssetAdministrationShellDescriptors
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination | Not supported
 |===
@@ -435,12 +443,12 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |APIs and API Operations a|
 _AAS Registry API:_ +
-QueryAssetAdministrationShellDescriptors 
-QueryAssetAdministrationShellDescriptorIds 
+xref:specification/interfaces.adoc#QueryAssetAdministrationShellDescriptors[QueryAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#QueryAssetAdministrationShellDescriptorIds[QueryAssetAdministrationShellDescriptorIds]
 
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |SerializationModifier |not applicable
 |SerializationFormat |JSON
@@ -478,7 +486,7 @@ DeleteSubmodelDescriptorById
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |supported
 |===
@@ -500,7 +508,7 @@ xref:specification/interfaces.adoc#GetSubmodelDescriptorById[GetSubmodelDescript
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Supported
 |===
@@ -516,15 +524,14 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServ
 h|Feature h|Appearance
 |APIs and API Operations a|
 __Submodel Registry API:__ +
-PostBulkSubmodelDescriptors +
-PutBulkSubmodelDescriptorsById +
-DeleteBulkSubmodelDescriptorsById
-
+xref:specification/interfaces.adoc#PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors ] +
+xref:specification/interfaces.adoc#PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] +
+xref:specification/interfaces.adoc#DeleteBulkSubmodelDescriptorsById[DeleteBulkSubmodelDescriptorsById]
 
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Not Supported
 |===
@@ -539,13 +546,13 @@ h|Name: h|Submodel Registry Bulk Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004`
 h|Feature h|Appearance
 |APIs and API Operations a|
-__Submodel Registry API: +
-QuerySubmodelDescriptors +
-QuerySubmodelDescriptorIds
+__Submodel Registry API:__ +
+xref:specification/interfaces.adoc#QuerySubmodelDescriptors[QuerySubmodelDescriptors] +
+xref:specification/interfaces.adoc#QuerySubmodelDescriptorIds[QuerySubmodelDescriptorIds]
 
 
-__Description API: +
-__GetDescription
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |SerializationModifier |not applicable
 |SerializationFormat |JSON
@@ -581,7 +588,7 @@ DeleteAllAssetLinksById
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Not supported
 |===
@@ -604,7 +611,7 @@ GetAllAssetLinksById +
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Not supported
 |===
@@ -687,7 +694,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -738,7 +745,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -764,7 +771,7 @@ QueryAssetAdministrationShells +
 QueryAssetAdministrationShellIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |SerializationModifier a| not applicable 
 |SerializationFormat |JSON
@@ -775,7 +782,7 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepos
 
 == Submodel Repository Service Specification
 
-[%autowidth,width="100%",cols="41%,59%",options="header",]
+[cols="41%,59%"]
 |===
 h|Service Specification / Profiles h|Description
 |SubmodelRepositoryServiceSpecification/SSP-001 |Full feature set
@@ -828,7 +835,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -867,7 +874,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata, Value, Reference, Path
@@ -933,7 +940,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata
@@ -981,7 +988,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] a|
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
 Level: Core, Deep
 
 Content: Normal, Metadata
@@ -1008,7 +1015,7 @@ QuerySubmodels +
 QuerySubmodelIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |SerializationModifier a| not applicable 
 |SerializationFormat |JSON
@@ -1019,7 +1026,7 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpec
 
 == Concept Description Repository Service Specification
 
-[%autowidth,width="100%",cols="59%,41%",options="header",]
+[cols="59%,41%"]
 |===
 h|Service Specification / Profiles h|Description
 |ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Full feature set
@@ -1050,7 +1057,7 @@ GenerateSerializationByIds
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|xref:specification/interfaces-operation-parameters.html#SerializationModifier[SerializationModifier] |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
 |Pagination |Supported
 |===
@@ -1070,7 +1077,7 @@ QueryConceptDescriptions +
 QueryConceptDescriptionIds
 
 _Description API:_ +
-GetDescription
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |SerializationModifier |not applicable
 |SerializationFormat |JSON

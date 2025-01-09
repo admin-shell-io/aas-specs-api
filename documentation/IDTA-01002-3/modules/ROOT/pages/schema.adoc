@@ -1,6 +1,6 @@
 ....
 {
-  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Common JSON Schema for AAS Queries and Access Rules",
   "description": "This schema contains all classes that are shared between the AAS Query Language and the AAS Access Rule Language.",
   "definitions": {
@@ -179,16 +179,16 @@
     "stringValue": {
       "type": "object",
       "properties": {
-        "field": {
+        "$field": {
           "$ref": "#/definitions/modelStringPattern"
         },
-        "strVal": {
+        "$strVal": {
           "$ref": "#/definitions/standardString"
         },
-        "strCast": {
+        "$strCast": {
           "$ref": "#/definitions/Value"
         },
-        "attribute": {
+        "$attribute": {
           "$ref": "#/definitions/attributeItem"
         }
       },
@@ -210,7 +210,7 @@
         },
         {
           "required": [
-            "attribute"
+            "$attribute"
           ]
         }
       ],
@@ -699,7 +699,10 @@
         }
       ],
       "additionalProperties": false
-    },
+    }
+  },
+  "type": "object",
+  "properties": {
     "Query": {
       "type": "object",
       "properties": {
@@ -830,6 +833,19 @@
       ],
       "additionalProperties": false
     }
-  }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "Query"
+      ]
+    },
+    {
+      "required": [
+        "AllAccessPermissionRules"
+      ]
+    }
+  ],
+  "additionalProperties": false
 }
 ....
