@@ -6317,6 +6317,47 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
 
+
+  /query/concept-descriptions:
+    post:
+      tags: 
+       - Concept Description Repository API
+      summary: Returns all Concept Descriptions that confirm to the input query
+      operationId: QueryConceptDescriptions
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1
+        - https://admin-shell.io/aas/API/QueryConceptDescriptionIds/3/1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/Query'
+      responses:
+        '200':
+          description: Requested Concept Descriptions
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PagedResult'
+                - type: object
+                  properties:
+                    result:
+                      type: array
+                      items:
+                        oneOf:
+                        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription"
+                        - type: string
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
           
   /shell-descriptors:
     get:
