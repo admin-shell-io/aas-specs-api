@@ -6664,7 +6664,167 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
 
+  /bulk/shell-descriptors:
+    post:
+      tags:
+        - Async Bulk Asset Administration Shell Registry API
+      summary: >-
+        Creates multiple new Asset Administration Shell Descriptors, i.e.
+        registers multiple Asset Administration Shells
+      operationId: BulkPostAssetAdministrationShellDescriptor
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPostAssetAdministrationShellDescriptor/3/1
+      requestBody:
+        description: List of Asset Administration Shell Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/AssetAdministrationShellDescriptor"
+        required: true
+      responses:
+        '202':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted"
+        '400':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
+    put:
+      tags:
+        - Async Bulk Asset Administration Shell Registry API
+      summary: Updates multiple existing Asset Administration Shell Descriptors
+      operationId: BulkPutAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkPutAssetAdministrationShellDescriptorById/3/1
+      requestBody:
+        description: List of Asset Administration Shell Descriptor objects
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/AssetAdministrationShellDescriptor"
+        required: true
+      responses:
+        '202':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted"
+        '400':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
+    delete:
+      tags:
+        - Async Bulk Asset Administration Shell Registry API
+      summary: >-
+        Deletes multiple Asset Administration Shell Descriptors, i.e.
+        de-registers multiple Asset Administration Shells
+      operationId: BulkDeleteAssetAdministrationShellDescriptorById
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkDeleteAssetAdministrationShellDescriptorById/3/1
+      requestBody:
+        description: List of Asset Administration Shell Identifiers
+        content:
+          application/json:
+            schema:
+              type: array
+              minItems: 1
+              items:
+                type: string
+      responses:
+        '202':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/accepted"
+        '400':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '404':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
+  /bulk/status/{handleId}:
+    get:
+      tags:
+        - Async Bulk Status API
+      summary: Returns the status of an asynchronously invoked bulk operation
+      operationId: BulkGetAsyncStatus
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/BulkGetAsyncStatus/3/1
+      parameters:
+        - in: path
+          name: handleId
+          schema:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/HandleId"
+          required: true
+      responses:
+        '200':
+          description:   Bulk operation result object containing information that the
+            'executionState' is still 'Running'
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              required: false
+              description: The number of seconds to wait before retrying the request.
+          content:
+            application/json:
+              schema:
+                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/BaseOperationResult"
+        '302':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/found"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '404':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
+  /bulk/result/{handleId}:
+    get:
+      tags:
+        - Async Bulk Result API
+      summary: Returns the result object of an asynchronously invoked bulk operation
+      operationId: BulkGetAsyncResult
+      parameters:
+        - in: path
+          name: handleId
+          schema:
+            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/HandleId"
+          required: true
+      responses:
+        '204':
+          description:   The bulk request itself was correct and all elements have been
+            processed. The server may remove the result resource after  it was
+            requested once (by any client) or after a certain time period.
+        '400':
+          description:   There was an error in the processing of the request. Either the bulk
+            request itself was not correct, or at least of it's part requests. 
+            The whole transaction has been rolled back.
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request"
+        '401':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized"
+        '403':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden"
+        '404':
+          description:   The handleId is not known to the server. This means either it never
+            came into existence or it was successfully completed a considerable
+            time in the past.
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found"
+        '500':
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error"
           
+
   /submodel-descriptors:
     get:
       tags:
