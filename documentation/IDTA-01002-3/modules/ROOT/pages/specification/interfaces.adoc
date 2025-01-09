@@ -588,7 +588,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |path |{path}, in this case an operation |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
 |inputArgument |Input argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 |inoutputArgument |Inoutput argument |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
-|clientTimeoutDuration |Timestamp indicating when the client expects the server to have finished execution of the invoked operation |yes |duration |1
+|clientTimeoutDuration |Duration indicating when the client suggests the server to have finished execution of the invoked operation. The server may take this value into account to decide on its effective timeout, however, the server may or may not use by its own discretion. |yes |duration |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes | xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
