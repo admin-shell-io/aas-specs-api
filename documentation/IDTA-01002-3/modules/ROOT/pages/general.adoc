@@ -12,9 +12,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 == Services, Interfaces and Interface Operations
 
-This document uses the Industrie 4.0 Service Model illustrated in
-
-<<i40-service-model>> for a uniform understanding and naming.
+This document uses the Industrie 4.0 Service Model illustrated in <<i40-service-model>> for a uniform understanding and naming.
 It basically distinguishes between associated concepts on several levels (from left to right):
 
 * technology-neutral level: concepts that are independent of selected technologies;
@@ -283,8 +281,7 @@ The separate interfaces of the HTTP/REST API allow many ways to support differen
 
 For an AAS repository, the combination [.gray]#“Asset Administration Shell Repository Interface”#, [.red]#“Asset Administration Shell Interface”#, [.blue]#“Submodel Interface”#, “Serialization Interface”, and “Self-Description Interface” is proposed.
 
-This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote[ 
-For easier reading only the standard paths are shown in the following: $metadata, $value, $reference and $path parameter paths are additionally contained in the OpenAPI file.]:
+This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote:[For easier reading only the standard paths are shown in the following: $metadata, $value, $reference and $path parameter paths are additionally contained in the OpenAPI file.]:
 
 [.gray]#/shells# +
 [.gray]#/shells/\{aas-identifier}# +
@@ -305,8 +302,7 @@ For easier reading only the standard paths are shown in the following: $metadata
 
 If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile [Related OpenAPI file: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
 
-The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file (https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)footnote[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]
-]:
+The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]footnote:[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]:
 
 [.red]#/aas# +
 [.red]#/aas/asset-information# +
@@ -342,10 +338,10 @@ Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib
 
 === Use Case Examples
 
-Examples for Use Cases are search queries in the submodels DigitalNameplate, TechnicalData or HandoverDocumentation. +
-DigitalNameplate has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in DigitalNameplate can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
-TechnicalData has its major variable part on the bottom and a small fixed structure on the top. TechnicalData includes ProductClassifications with ProductClassId, so that e.g. by ECLASS ClassId a certain product type can be queried. TechnicalData includes all the technical properties, e.g. width of the product. An example is to search for motor starters (		ProductClassifications.ProductClassificationItem.ProductClassId = 27-37-09-05) with a width less than 100 mm (semanticId = 0173-1#02-BAF016#006, value < 100).
-HandoverDocumentation consists basically of a list of document information according VDI 2770 (DocumentedEntity{00}). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (semanticId = 0173-1#02-ABH996#001, ClassId = "03-01", i.e. Commissioning) in a certain language (semanticId = 0173-1#02-AAN468#006, e.g. Value = "nl").
+Examples for Use Cases are search queries in the submodels _DigitalNameplate_, _TechnicalData_ or _HandoverDocumentation_. +
+_DigitalNameplate_ has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in _DigitalNameplate_ can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
+TechnicalData has its major variable part on the bottom and a small fixed structure on the top. TechnicalData includes ProductClassifications with ProductClassId, so that e.g. by ECLASS ClassId a certain product type can be queried. _TechnicalData_ includes all the technical properties, e.g. width of the product. An example is to search for motor starters (_ProductClassifications.ProductClassificationItem.ProductClassId_ = `27-37-09-05`) with a width less than 100 mm (_semanticId_ = `0173-1#02-BAF016#006`, _value_ < `100`).
+HandoverDocumentation consists basically of a list of document information according VDI 2770 (_DocumentedEntity{00}_). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (_semanticId_ = `0173-1#02-ABH996#001`, _ClassId_ = `"03-01"`, i.e. Commissioning) in a certain language (_semanticId_ = `0173-1#02-AAN468#006`, e.g. _value_ = `"nl"`).
 
 
 .Main elements of the AAS Query Language
