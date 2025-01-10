@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "JSON Schema for AAS Queries",
   "description": "This schema validates AAS Queries.",
   "$ref": "#/definitions/Query",
@@ -32,9 +32,6 @@
         },
         "$strVal": {
           "$ref": "#/definitions/standardString"
-        },
-        "$attribute": {
-          "$ref": "#/definitions/attributeItem"
         },
         "$numVal": {
           "type": "number"
@@ -91,11 +88,6 @@
         {
           "required": [
             "$strVal"
-          ]
-        },
-        {
-          "required": [
-            "$attribute"
           ]
         },
         {
@@ -179,17 +171,14 @@
     "stringValue": {
       "type": "object",
       "properties": {
-        "field": {
+        "$field": {
           "$ref": "#/definitions/modelStringPattern"
         },
-        "strVal": {
+        "$strVal": {
           "$ref": "#/definitions/standardString"
         },
-        "strCast": {
+        "$strCast": {
           "$ref": "#/definitions/Value"
-        },
-        "attribute": {
-          "$ref": "#/definitions/attributeItem"
         }
       },
       "oneOf": [
@@ -206,11 +195,6 @@
         {
           "required": [
             "$strCast"
-          ]
-        },
-        {
-          "required": [
-            "attribute"
           ]
         }
       ],
