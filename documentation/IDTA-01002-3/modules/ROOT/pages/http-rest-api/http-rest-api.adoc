@@ -8,7 +8,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ////
 
-include::../includes/special-parameters.adoc[]
+include::includes/special-parameters.adoc[]
 
 = HTTP/REST API
 
@@ -750,7 +750,7 @@ The AAS Query Language for HTTP interactions is serialised in a JSON object. It 
 
 [source,json]
 ----
-include::query-json-schema.json[]
+include::partial$query-json-schema.json[]
 ----
 
 In case a syntax error is discovered by a receiver of an AAS query object, the query as a whole must be rejected with a `ClientErrorBadRequest`. A receiver may accept queries that extend the AAS Query Language, however, a Client must not expect any behavior or feature that are not included in the specific Query Language version that a server supports.
@@ -770,7 +770,7 @@ The following table shows the mapping of the generic status codes to HTTP status
 .Status Code Mapping for HTTP
 [%autowidth,width="100%",cols="29%,26%,18%,27%",options="header",]
 |===
-|*xref:specification/interfaces-payload.adoc#StatusCode[Generic status code]* |*Meaning* |*HTTP status code* h|Explanation
+|[white]*xref:specification/interfaces-payload.adoc#StatusCode[Generic status code]* |*Meaning* |*HTTP status code* h|Explanation
 |Success |Success |200 (OK) |Standard response for successful requests
 |SuccessCreated |Successful creation of a new resource |201 (Created) |Successful request resulting in the creation of a new resource, e.g. SubmodelElement
 |SuccessAccepted |The reception of the request was successful |202 (Accepted) |The server has accepted the request, but the result will be supplied later
