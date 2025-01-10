@@ -12,9 +12,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 == Services, Interfaces and Interface Operations
 
-This document uses the Industrie 4.0 Service Model illustrated in
-
-<<i40-service-model>> for a uniform understanding and naming.
+This document uses the Industrie 4.0 Service Model illustrated in <<i40-service-model>> for a uniform understanding and naming.
 It basically distinguishes between associated concepts on several levels (from left to right):
 
 * technology-neutral level: concepts that are independent of selected technologies;
@@ -99,27 +97,31 @@ The methods are:
 * GET: a GET returns a single resource based on the resource identifier which is the identifier xref:bibliography.adoc#bib1[[1\]] for identifiables and the idShortPath for referables.
 * GETALL: returns a list of resources based on optionally available parameters such as filters.
 * QUERY: returns a list of resources based on conditions expressed through the AAS Query Language.
+* PUT: replaces an existing resource.
+* PUTBULK: bulk replacement.
 * POST: creates a new resource.
 The identifier of the resource is part of the resource description.
 This is necessary because the id of identifiables is globally unique and should be the identifier for the object in every system.
 This implies that the creation of an identifiable is idempotent.
 There shall never be more than one identifiable with the same ID in one system.
 For example, trying to post the same AAS object twice will not create two AAS resources.
-* PUT: replaces an existing resource.
+* POSTBULK: bulk creation.
 * PATCH: updates an existing resource.
 The content to be replaced will be defined by the given SerializationModifiers, e.g. content=value provides the ValueOnly-serialization to update all values in the existing resource.
 The structure of the existing resource on the server and of the content given by the PATCH must be the same.
 
 ====
-Note: values remain unchanged with content=metadata.
+Note 1: values remain unchanged with content=metadata.
 ====
 
 * DELETE: deletes a resource based on a given identifier.
-* SET: sets the value of an object, e.g. the value of a Property.
+* DELETEBULK: bulk deletion.
 * INVOKE: invokes an operation at a specified path.
+* INVOKEASYNC: asyncronous invocation of an operation.
+* SEARCHALL: returns a list fo resources based on asset links.
 
 ====
-Note: these methods are intended for the naming of interfaces as described in <<i40-service-model>>.
+Note 2: these methods are intended for the naming of interfaces as described in <<i40-service-model>>.
 They shall not be interpreted as new protocol methods, e.g. on HTTP level.
 ====
 
@@ -131,7 +133,7 @@ The following rules shall apply for the operation names in Asset Administration 
 ....
 <Interface Operation> ::= <Method Verb><Model Element Name>[<Modifier>]["By"<By-Qualifier>]
 
-<Method Verb> ::= "Get" | "GetAll" | "Query" | "Put" | "PutBulk" | "Post" | "PostBulk" | "Patch" | "Delete" | "DeleteBulk" | "SetInvoke" | "InvokeAsync" | "SearchAll"
+<Method Verb> ::= "Get" | "GetAll" | "Query" |"Put" | "PutBulk" | "Post" | "PostBulk" | "Patch" | "Delete" | "DeleteBulk" | "Invoke" | "InvokeAsync" | "SearchAll"
 
 <Model Element Name> ::= "AssetAdministrationShell"["Ids"|"s"] | "AssetAdministrationShellDescriptor"["Ids"|"s"] | "SubmodelReference"["s"] | "AssetInformation" | "Submodel"["Ids"|"s"] | "SubmodelDescriptor"["Ids"|"s"] | "SubmodelElement"["s"] | "ConceptDescription"["Ids"|"s"]
 
@@ -279,8 +281,7 @@ The separate interfaces of the HTTP/REST API allow many ways to support differen
 
 For an AAS repository, the combination [.gray]#“Asset Administration Shell Repository Interface”#, [.red]#“Asset Administration Shell Interface”#, [.blue]#“Submodel Interface”#, “Serialization Interface”, and “Self-Description Interface” is proposed.
 
-This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote[ 
-For easier reading only the standard paths are shown in the following: $metadata, $value, $reference and $path parameter paths are additionally contained in the OpenAPI file.]:
+This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote:[For easier reading only the standard paths are shown in the following: `$metadata`, `$value`, `$reference` and `$path` parameter paths are additionally contained in the OpenAPI file.]:
 
 [.gray]#/shells# +
 [.gray]#/shells/\{aas-identifier}# +
@@ -301,8 +302,7 @@ For easier reading only the standard paths are shown in the following: $metadata
 
 If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile [Related OpenAPI file: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
 
-The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file (https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)footnote[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]
-]:
+The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]footnote:[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]:
 
 [.red]#/aas# +
 [.red]#/aas/asset-information# +
@@ -329,7 +329,7 @@ Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [
 
 Many use cases of the Asset Administration Shell require the involvement of a high number of Asset Administration Shells at the same time. Executing the business logic on all potentially involved Asset Administration Shells solely by the client application requires a huge amount of transferred data objects and bandwidth. It is therefore necessary to send parts of the selection conditions to the AAS hosting systems. The AAS Query Language enables AAS clients to describe and handover their interests and AAS servers to only respond with the needed data objects.
 
-The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL [_add reference_]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL [add reference], GQL [add reference], or JsonPath [add reference]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS. However, different communication protocols may treat aspects differently, e.g., by requiring different query or result set serialisations, variations in the order of constructs, or endpoint patterns. Nevertheless, all share the same expressiveness, and under same conditions a query shall lead to the same results independently of the chosen communication protocol.
+The Asset Administration Shell propagates a Query Language inspired by the so-called Resource Query Language (RQL xref:bibliography.adoc#bib11[[11\]]). This language follows a simplified grammar and expressiveness compared with RQL and other languages with a similar scope, e.g. SPARQL xref:bibliography.adoc#bib12[[12\]], GQL xref:bibliography.adoc#bib13[[13\]], or JsonPath xref:bibliography.adoc#bib14[[14\]]. The same language shall be used independent of the communication protocol, therefore, it is not limited to the HTTP API of the AAS. However, different communication protocols may treat aspects differently, e.g., by requiring different query or result set serialisations, variations in the order of constructs, or endpoint patterns. Nevertheless, all share the same expressiveness, and under same conditions a query shall lead to the same results independently of the chosen communication protocol.
 
 ====
 Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib3[[3\]] share the same BNF grammar. Therefore, the result is a superset, with `query` as the entrypoint for the Query Language. 
@@ -338,10 +338,10 @@ Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib
 
 === Use Case Examples
 
-Examples for Use Cases are search queries in the submodels DigitalNameplate, TechnicalData or HandoverDocumentation. +
-DigitalNameplate has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in DigitalNameplate can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
-TechnicalData has its major variable part on the bottom and a small fixed structure on the top. TechnicalData includes ProductClassifications with ProductClassId, so that e.g. by ECLASS ClassId a certain product type can be queried. TechnicalData includes all the technical properties, e.g. width of the product. An example is to search for motor starters (		ProductClassifications.ProductClassificationItem.ProductClassId = 27-37-09-05) with a width less than 100 mm (semanticId = 0173-1#02-BAF016#006, value < 100).
-HandoverDocumentation consists basically of a list of document information according VDI 2770 (DocumentedEntity{00}). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (semanticId = 0173-1#02-ABH996#001, ClassId = "03-01", i.e. Commissioning) in a certain language (semanticId = 0173-1#02-AAN468#006, e.g. Value = "nl").
+Examples for Use Cases are search queries in the submodels _DigitalNameplate_, _TechnicalData_ or _HandoverDocumentation_. +
+_DigitalNameplate_ has a fixed structure, only the bottom part with Markings and AssetSpecificProperties is variable. Queries in _DigitalNameplate_ can be well done by providing idShortPaths to the elements in the query, e.g. searching for all DigitalNameplates with a certain ManufacturerName and CountryOfOrigin. +
+TechnicalData has its major variable part on the bottom and a small fixed structure on the top. TechnicalData includes ProductClassifications with ProductClassId, so that e.g. by ECLASS ClassId a certain product type can be queried. _TechnicalData_ includes all the technical properties, e.g. width of the product. An example is to search for motor starters (_ProductClassifications.ProductClassificationItem.ProductClassId_ = `27-37-09-05`) with a width less than 100 mm (_semanticId_ = `0173-1#02-BAF016#006`, _value_ < `100`).
+HandoverDocumentation consists basically of a list of document information according VDI 2770 (_DocumentedEntity{00}_). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (_semanticId_ = `0173-1#02-ABH996#001`, _ClassId_ = `"03-01"`, i.e. Commissioning) in a certain language (_semanticId_ = `0173-1#02-AAN468#006`, e.g. _value_ = `"nl"`).
 
 
 .Main elements of the AAS Query Language
@@ -367,8 +367,8 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 === Search in AAS Hierarchy
 
 AAS consists of a hierarchical structure. An AAS references its "contained" submodels. A submodel contains a list of SubmodelElements, which may include further SubmodelElements, and so on.
-The query language allows to both address a specific instance of the data or to search all data in a repository. A specific instance is addressed by specifying the id of an Identifiable and the idShortPath to a Referable in a Submodel. +
-If such explicit information is not specified, a hierarchical search is made. By the $aas FieldIdentifier conditions for all the relevant AAS are defined. By the $sm FieldIdentifier conditions for all the relevant submodels are defined. $sm can be used with and without $aas. If $aas and $sm are used together, only the submodels referenced by the matching $aas are searched by the $sm expression. The same search principle is used, when combining $sm and $sme. In such case only the SubmodelElements which are part of matching submodels by $sm expression are searched by the $sme expression. Several such hierarchical conditions may even be combined by $match expressions.
+The query language allows to both address a specific instance of the data or to search all data in a repository. A specific instance is addressed by specifying the id of an Identifiable and the idShortPath to a Referable in a Submodel. 
+If such explicit information is not specified, a hierarchical search is made. By the `$aas` FieldIdentifier conditions for all the relevant AAS are defined. By the `$sm` FieldIdentifier conditions for all the relevant submodels are defined. `$sm` can be used with and without `$aas`. If `$aas` and `$sm` are used together, only the submodels referenced by the matching `$aas` are searched by the `$sm` expression. The same search principle is used, when combining `$sm` and `$sme`. In such case only the SubmodelElements which are part of matching submodels by `$sm` expression are searched by the `$sme` expression. Several such hierarchical conditions may even be combined by `$match` expressions.
 
 [#query-grammar]
 === Grammar
