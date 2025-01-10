@@ -28,7 +28,8 @@ Major Changes:
 * Transfer of chapters on formats Metadata, Paths and Value-Only from Part 2 API to Part 1 Metamodel (https://github.com/admin-shell-io/aas-specs-api/issues/214[#214])
 * Transfer from .docx to asciidoc (.adoc) and maintenance in GitHub
 * Transfer of all UML figures to PlantUML (.puml) and maintenance in GitHub
-* Swagger: marked parameter 'level' as deprecated for all URLs ending with '/$reference'
+* OpenAPI: marked parameter 'level' as deprecated for all URLs ending with '/$reference'
+* ProtocolInformation/securityAttributes changed from mandatory to optional. 
 
 Minor Changes:
 
@@ -140,6 +141,8 @@ added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
 | | xref:http-rest-api/http-rest-api.adoc#PackageDescription[PackageDescription/aasIds] a| data type: change length from 2000 to 2048 characters
 
 | | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/href] a| data type: change length from 2000 to 2048 characters
+
+| | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/securityAttributes] a| Changed securityAttributes from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/384[#384])
 |===
 
 .New Data Types for Payload
