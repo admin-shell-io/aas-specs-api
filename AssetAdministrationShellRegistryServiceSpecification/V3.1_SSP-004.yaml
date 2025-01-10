@@ -4,7 +4,7 @@ info:
   description: >-
     The Query Profile of the Asset Administration Shell Registry Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
 
-    Publisher: Industrial Digital Twin Association (IDTA) April 2024
+    Publisher: Industrial Digital Twin Association (IDTA) 2025
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -14,27 +14,8 @@ info:
   version: V3.1.0_SSP-004
   x-profile-identifier: https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-004
 servers:
-- url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
-  variables:
-    protocol:
-      description: 'Allows access through http and https (recommended)'
-      enum:
-        - 'http'
-        - 'https'
-      default: 'https'
-    host_name:
-      default: admin-shell.io
-      description: 'Hostname of server hosting the api'
-    port:
-      enum:
-        - '80'
-        - '443'
-      default: '443'
-      description: '80 is default for http, 443 for https'
-    version_prefix:
-      enum:
-        - 'v3.1'
-      default: v3.1
+- url: 'https://admin-shell.io/api/v3.1'
+- url: 'https://example.com/'
 
 paths:
   /query/shell-descriptors:
@@ -45,15 +26,11 @@ paths:
       operationId: QueryAssetAdministrationShellDescriptors
       x-semanticIds:
         - https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1
-        - https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptorIds/3/1
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                filter:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/Condition'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/Query'
       responses:
         '200':
           description: Requested Asset Administration Shell Descriptors

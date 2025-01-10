@@ -5,7 +5,7 @@ info:
   description: >- 
     The schemas implementing the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
     
-    Publisher: Industrial Digital Twin Association (IDTA) 2023
+    Publisher: Industrial Digital Twin Association (IDTA) 2025
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -1002,11 +1002,11 @@ components:
     stringValue:
       type: object
       properties:
-        field:
+        $field:
           $ref: '#/components/schemas/modelStringPattern'
-        strVal:
+        $strVal:
           $ref: '#/components/schemas/standardString'
-        strCast:
+        $strCast:
           $ref: '#/components/schemas/Value'
       oneOf:
         - required:
@@ -1015,8 +1015,6 @@ components:
             - $strVal
         - required:
             - $strCast
-        - required:
-            - attribute
       additionalProperties: false
     StringValue: 
       type: string
@@ -1131,8 +1129,6 @@ components:
           $ref: '#/components/schemas/modelStringPattern'
         $strVal:
           $ref: '#/components/schemas/standardString'
-        $attribute:
-          $ref: '#/components/schemas/attributeItem'
         $numVal:
           type: number
         $hexVal:
