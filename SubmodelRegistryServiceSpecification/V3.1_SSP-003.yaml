@@ -32,9 +32,9 @@ paths:
       tags:
         - Async Bulk Submodel Registry API
       summary: Creates multiple new Submodel Descriptors
-      operationId: BulkPostSubmodel
+      operationId: CreateBulkSubmodelDescriptors
       x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkPostSubmodelDescriptor/3/1
+        - https://admin-shell.io/aas/API/CreateBulkSubmodelDescriptors/3/1
       requestBody:
         description: List of Submodel Descriptor objects
         content:
@@ -65,9 +65,9 @@ paths:
       tags:
         - Async Bulk Submodel Registry API
       summary: Updates multiple existing Submodel Descriptors
-      operationId: BulkPutSubmodelDescriptorsById
+      operationId: PutBulkSubmodelDescriptorsById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkPutSubmodelDescriptorsById/3/1
+        - https://admin-shell.io/aas/API/PutBulkSubmodelDescriptorsById/3/1
       requestBody:
         description: List of Submodel Descriptor objects
         content:
@@ -99,19 +99,18 @@ paths:
       tags:
         - Async Bulk Submodel Registry API
       summary: Deletes multiple Submodel Descriptors
-      operationId: BulkDeleteSubmodelDescriptorsById
+      operationId: DeleteBulkSubmodelDescriptorsById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkDeleteSubmodelDescriptorsById/3/1
+        - https://admin-shell.io/aas/API/DeleteBulkSubmodelDescriptorsById/3/1
       requestBody:
-        description: List of Submodel Descriptor Identifiers
+        description: List of Submodel Identifiers
         content:
           application/json:
             schema:
               type: array
               minItems: 1
               items:
-                $ref: >-
-                  #/components/parameters/SubmodelIdentifier
+                type: string
       responses:
         '202':
           $ref: >-
@@ -133,9 +132,9 @@ paths:
       tags:
         - Async Bulk Status API
       summary: Returns the status of an asynchronously invoked bulk operation
-      operationId: BulkGetAsyncStatus
+      operationId: GetBulkAsyncStatus
       x-semanticIds:
-        - https://admin-shell.io/aas/API/BulkGetAsyncStatus/3/1
+        - https://admin-shell.io/aas/API/GetBulkAsyncStatus/3/1
       parameters:
         - in: path
           name: handleId
@@ -179,7 +178,9 @@ paths:
       tags:
         - Async Bulk Result API
       summary: Returns the result object of an asynchronously invoked bulk operation
-      operationId: BulkGetAsyncResult
+      operationId: GetBulkAsyncResult
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetBulkAsyncResult/3/1
       parameters:
         - in: path
           name: handleId

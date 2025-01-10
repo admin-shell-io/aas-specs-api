@@ -600,6 +600,21 @@ assetType= base64url-encoded identifier
 |DeleteAssetAdministrationShellDescriptorById |DELETE |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |Submodel Registry Interface |* |/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* |superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShellDescriptors |POST |/query/shell-descriptors a| Input query in the request body
+|CreateBulkAssetAdministrationShellDescriptors |POST |/bulk/shell-descriptors a| List of new Asset Administration Shell Descriptors in the request body
+|PutBulkAssetAdministrationShellDescriptorsById |PUT |/bulk/shell-descriptors a| List of new versions of Asset Administration Shell Descriptors in the request body. Mapping to existing Asset Administration Shell Descriptors happens via the `id` attribute.
+|DeleteBulkAssetAdministrationShellDescriptorsById |DELETE |/bulk/shell-descriptors a| List of Asset Administration Shell identifiers in the request body
+|GetBulkAsyncStatus |GET |/bulk/status/{handleId} a| Server-side defined handle to retrieve the status of a previous bulk request.
+
+====
+Note: Same endpoint as for the Submodel Registry Interface bulk status. 
+====
+
+|GetBulkAsyncResult |GET |/bulk/status/{handleId} a| Server-side defined handle to retrieve the result of a previous bulk request.
+
+====
+Note: Same endpoint as for the Submodel Registry Interface bulk result. 
+====
+
 |*Submodel Registry Interface* | | |
 |GetAllSubmodelDescriptors |GET |/submodel-descriptors |Pagination
 |GetSubmodelDescriptorById |GET |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
@@ -607,6 +622,21 @@ assetType= base64url-encoded identifier
 |PutSubmodelDescriptorById |PUT |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |DeleteSubmodelDescriptorById |DELETE |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |QuerySubmodelDescriptors |POST |/query/submodel-decriptors a| Input query in the request body
+|CreateBulkSubmodelDescriptors |POST |/bulk/submodel-descriptors a| List of new Submodel Descriptors in the request body
+|PutBulkSubmodelDescriptorsById |PUT |/bulk/submodel-descriptors a| List of new versions of Submodel Descriptors in the request body. Mapping to existing Submodel Descriptors happens via the `id` attribute.
+|DeleteBulkSubmodelDescriptorsById |DELETE |/bulk/submodel-descriptors a| List of Submodel identifiers in the request body
+|GetBulkAsyncStatus |GET |/bulk/status/{handleId} a| Server-side defined handle to retrieve the status of a previous bulk request.
+
+====
+Note: Same endpoint as for the Asset Administration Shell Registry Interface bulk status. 
+====
+
+|GetBulkAsyncResult |GET |/bulk/status/{handleId} a| Server-side defined handle to retrieve the result of a previous bulk request.
+
+====
+Note: Same endpoint as for the Asset Administration Shell Registry Interface bulk result. 
+====
+
 |*Descriptor Interface* | | |
 |GetDescription |GET |/description |Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
 |===
