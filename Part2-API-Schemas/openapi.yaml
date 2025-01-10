@@ -1002,11 +1002,11 @@ components:
     stringValue:
       type: object
       properties:
-        field:
+        $field:
           $ref: '#/components/schemas/modelStringPattern'
-        strVal:
+        $strVal:
           $ref: '#/components/schemas/standardString'
-        strCast:
+        $strCast:
           $ref: '#/components/schemas/Value'
       oneOf:
         - required:
@@ -1015,8 +1015,6 @@ components:
             - $strVal
         - required:
             - $strCast
-        - required:
-            - attribute
       additionalProperties: false
     StringValue: 
       type: string
