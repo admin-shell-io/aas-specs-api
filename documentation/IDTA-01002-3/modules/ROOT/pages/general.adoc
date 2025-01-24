@@ -8,6 +8,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ////
 
+include::includes/constraints.adoc[]
+
 = General
 
 == Services, Interfaces and Interface Operations
@@ -401,20 +403,20 @@ A recursive search is made through the Submodel Elements, when the optional IdSh
 FieldIdentifier ::= <RootDeclaration> ( "." <IdShortPath> | "" ) "#" <AttributeDeclaration>
 ....
 
-[.underline]#Constraint AASa-005:# Only the SubmodelElements root delaration can be followed with IdShortPaths.
-
+{aasa005}
 
 .Root Elements for Field Identifiers 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Root Element h| Definition h| Example(s)
-| `$aas` | Starting point for fields available in Asset Administration Shells | `$aas#assetInformation.assetKind`
-| `$sm` | Starting point for fields available in Submodels | `$sm#semanticId.keys[0].value`
-| `$sme` | Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Clause AASa-005. Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`, `$sme#value` to search recursively
-| `$cd` | Starting point for fields available in Concept Descriptions | `$cd#id`
-| `$aasdesc` | Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[0].endpoints[0].protocolinformation.href`
-| `$smdesc` | Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
+| `$aas` a| Starting point for fields available in Asset Administration Shells | `$aas#assetInformation.assetKind`
+| `$sm` a| Starting point for fields available in Submodels | `$sm#semanticId.keys[0].value`
+| `$sme` a| Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Constraint AASa-005. 
+Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`, `$sme#value` to search recursively
+| `$cd` a| Starting point for fields available in Concept Descriptions | `$cd#id`
+| `$aasdesc` a| Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[0].endpoints[0].protocolinformation.href`
+| `$smdesc` a| Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
 |===
 
 Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause xref:specification/interfaces-payload.adoc[Data Types for Payload].

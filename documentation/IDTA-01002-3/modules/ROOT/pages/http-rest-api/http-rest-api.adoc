@@ -10,6 +10,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 include::../includes/special-parameters.adoc[]
 
+include::includes/constraints.adoc[]
+
 = HTTP/REST API
 
 == General
@@ -248,8 +250,7 @@ The server must interpret a missing cursor as if the client wants to retrieve th
 e|Limit |nonNegativeInteger |100 |The maximum size of the result list.
 |===
 
-[.underline]#Constraint AASa-001:# The value of the cursor query parameter must not be empty.
-If the client does not know the cursor value, it must omit the whole query parameter in the request.
+{aasa001}
 
 ====
 Note 1: this constraint prohibits that an empty cursor value is sent by the client, e.g. _…?cursor=""_.
@@ -517,7 +518,7 @@ Pagination
 
 path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
-[.underline]#Constraint AASa-002#: The base64url-encoded identifier of the semanticId shall have a length of maximum 3072 characters.
+{aasa002}
 
 Pagination
 
