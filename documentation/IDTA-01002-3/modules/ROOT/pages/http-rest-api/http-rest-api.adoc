@@ -10,6 +10,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 include::../includes/special-parameters.adoc[]
 
+include::includes/constraints.adoc[]
+
 = HTTP/REST API
 
 == General
@@ -146,10 +148,10 @@ image::aas-api-versioning-url-scheme.svg[width=481,height=110]
 
 As different solutions also provide different advantages and disadvantages, URL-based versioning is recommended for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
-Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see Figure <<aas-api-versioning-url-scheme>>). 
+Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see <<aas-api-versioning-url-scheme>>). 
 As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
 
-Nevertheless, AAS servers may decide to use different paths depending on their context, see Figure <<aas-api-versioning-url-scheme2>>. The fragment before the functional endpoint is not necessarily the version information itself, it may also be a tenant ID or any other information the server decides to use. A client shall not assume that the pattern from Figure <<aas-api-versioning-url-scheme>> is supported by all servers.
+Nevertheless, AAS servers may decide to use different paths depending on their context, see  <<aas-api-versioning-url-scheme2>>. The fragment before the functional endpoint is not necessarily the version information itself, it may also be a tenant ID or any other information the server decides to use. A client shall not assume that the pattern from  <<aas-api-versioning-url-scheme>> is supported by all servers.
 
 .Example of an AAS endpoint with an arbitrary path
 [[aas-api-versioning-url-scheme2]]
@@ -248,8 +250,7 @@ The server must interpret a missing cursor as if the client wants to retrieve th
 e|Limit |nonNegativeInteger |100 |The maximum size of the result list.
 |===
 
-[.underline]#Constraint AASa-001:# The value of the cursor query parameter must not be empty.
-If the client does not know the cursor value, it must omit the whole query parameter in the request.
+{aasa001}
 
 ====
 Note 1: this constraint prohibits that an empty cursor value is sent by the client, e.g. _…?cursor=""_.
@@ -517,7 +518,7 @@ Pagination
 
 path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
-[.underline]#Constraint AASa-002#: The base64url-encoded identifier of the semanticId shall have a length of maximum 3072 characters.
+{aasa002}
 
 Pagination
 

@@ -8,6 +8,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 ////
 
+include::includes/constraints.adoc[]
+
 = General
 
 == Services, Interfaces and Interface Operations
@@ -37,7 +39,7 @@ Among others, it comprises and refers to the list of APIs that forms this servic
 These may be I4.0-defined standard APIs but also other, proprietary APIs.
 
 ====
-Note: such a technology-specific service specification may be but does not have to be derived from the “service” described in the technology-neutral form.
+Note: such a technology-specific service specification may be but does not have to be derived from the "service" described in the technology-neutral form.
 It is up to the system architect and service engineer to tailor the technology-specific service according to the needs of the use cases.
 ====
 
@@ -88,7 +90,7 @@ Each operation is independent.
 The server is always consistent after each operation.
 * Resources (nouns): each resource is a clearly defined noun.
 This means that it has a specific name and its relation to other nouns is defined.
-The nouns and the relationships between them are taken from the list of referable objects of “Specification of the Asset Administration Shell Part 1” and their relationships. xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
+The nouns and the relationships between them are taken from the list of referable objects of "Specification of the Asset Administration Shell Part 1" and their relationships. xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
 * Methods (verbs): a small set of standard REST methods (GET, POST, PUT, DELETE) is used to describe the semantic of the most common operations.
 There are only a few exceptions for situations where the standard methods do not fit (e.g. GETALL, SET, INVOKE).
 
@@ -144,9 +146,9 @@ The following rules shall apply for the operation names in Asset Administration 
 
 [.underline]#Examples:#
 
-_GetSubmodel_ has method verb “Get” and model element name “Submodel”.
+_GetSubmodel_ has method verb "Get" and model element name "Submodel".
 
-_GetAllSubmodelElementsByPath_ has method verb “GetAll” and model element name “SubmodelElements” plus a by-qualifier “Path”.
+_GetAllSubmodelElementsByPath_ has method verb "GetAll" and model element name "SubmodelElements" plus a by-qualifier "Path".
 
 == Semantic References for Operations
 
@@ -214,12 +216,12 @@ The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
 
 == References and Keys
 
-The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” xref:bibliography.adoc#bib1[[1\]].
+The concept of references is introduced in Part 1 of the series "Specification of the Asset Administration Shell" xref:bibliography.adoc#bib1[[1\]].
 
 When defining interfaces, a distinction is made between relative references and absolute references.
 
 Absolute references require a global unique id as starting point of the reference to be resolvable.
-In this case the type “Reference” is used.
+In this case the type "Reference" is used.
 
 Relative references do not start with a global unique id.
 Instead, it is assumed that the context is given and unique.
@@ -233,7 +235,7 @@ There are three major components of the overall system:
 
 [arabic]
 . Repositories store the data of Asset Administration Shells, Submodels, and Concept Descriptions,
-. Registries are “directories” which store AAS-IDs and Submodel-IDs together with the related endpoints (typically a URL-path into a repository or to a single AAS/Submodel),
+. Registries are "directories" which store AAS-IDs and Submodel-IDs together with the related endpoints (typically a URL-path into a repository or to a single AAS/Submodel),
 . discovery (servers) supports a fast search and only store copies of essential information, i.e. key value pairs to find IDs by other IDs.
 
 <<asset-related-info-retrieval>> shows a typical sequence.
@@ -253,20 +255,20 @@ The Asset Administration Shell model is an asset-oriented model.
 An Asset-ID may be retrieved e.g. by a QRCODE on the asset, by an RFID for the asset, from the firmware of the asset or from an asset database.
 IEC 61406 (formerly DIN SPEC 91406) defines the format of such Asset-IDs.
 
-The “Administration Shell Basic Discovery Interface” may be used with an Asset-ID to get the related AAS-IDs (“GetAllAssetAdministrationShellIdsByAssetLink”).
+The "Administration Shell Basic Discovery Interface" may be used with an Asset-ID to get the related AAS-IDs ("GetAllAssetAdministrationShellIdsByAssetLink").
 
-The “Asset Administration Shell Registry Interface” may be used with an AAS-ID to retrieve the related descriptor for an AAS (“GetAssetAdministrationShellDescriptorById”).
-The retrieved AAS Descriptor includes the endpoint for the “Asset Administration Shell Interface”.
+The "Asset Administration Shell Registry Interface" may be used with an AAS-ID to retrieve the related descriptor for an AAS ("GetAssetAdministrationShellDescriptorById").
+The retrieved AAS Descriptor includes the endpoint for the "Asset Administration Shell Interface".
 
-The “Asset Administration Shell Interface” makes the information about the AAS itself and the references to the related submodels available.
+The "Asset Administration Shell Interface" makes the information about the AAS itself and the references to the related submodels available.
 
-The related submodels of an AAS are retrieved by “GetAllSubmodelReferences”.
+The related submodels of an AAS are retrieved by "GetAllSubmodelReferences".
 Such a reference includes the SM-ID of a related submodel.
 
-Similarly to the AAS above, the “Submodel Registry Interface” may be used to retrieve the related descriptor for a submodel (“GetSubmodelDescriptorById”) with a specific SM-ID.
-The retrieved Submodel Descriptor includes the endpoint for the “Submodel Interface”.
+Similarly to the AAS above, the "Submodel Registry Interface" may be used to retrieve the related descriptor for a submodel ("GetSubmodelDescriptorById") with a specific SM-ID.
+The retrieved Submodel Descriptor includes the endpoint for the "Submodel Interface".
 
-The “Submodel Interface” makes the information about the submodel itself and all its included submodel elements available.
+The "Submodel Interface" makes the information about the submodel itself and all its included submodel elements available.
 
 Asset Administration Shells and submodels may be deployed on different endpoints in different ways.
 
@@ -275,11 +277,11 @@ In this case, the AAS might be fixed and might not be changed or deleted.
 In a cloud scenario, a single AAS may also be deployed as a single container (e.g. docker container).
 
 Another example is the deployment of many Asset Administration Shells in an AAS Repository.
-In this case, the “Asset Administration Shell Repository Interface” may allow to create and manage multiple AAS in the repository.
+In this case, the "Asset Administration Shell Repository Interface" may allow to create and manage multiple AAS in the repository.
 
 The separate interfaces of the HTTP/REST API allow many ways to support different deployments.
 
-For an AAS repository, the combination [.gray]#“Asset Administration Shell Repository Interface”#, [.red]#“Asset Administration Shell Interface”#, [.blue]#“Submodel Interface”#, “Serialization Interface”, and “Self-Description Interface” is proposed.
+For an AAS repository, the combination [.gray]#"Asset Administration Shell Repository Interface"#, [.red]#"Asset Administration Shell Interface"#, [.blue]#"Submodel Interface"#, "Serialization Interface", and "Self-Description Interface" is proposed.
 
 This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote:[For easier reading only the standard paths are shown in the following: `$metadata`, `$value`, `$reference` and `$path` parameter paths are additionally contained in the OpenAPI file.]:
 
@@ -300,9 +302,9 @@ This will result in the following HTTP/REST paths as described in a combined Ope
 /serialization +
 /description
 
-If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile [Related OpenAPI file: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
+If the repository also supports AASX Packages, it shall be extended by additionally supporting a "AASX File Server" Profile as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
 
-The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]footnote:[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]:
+The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]:
 
 [.red]#/aas# +
 [.red]#/aas/asset-information# +
@@ -401,20 +403,20 @@ A recursive search is made through the Submodel Elements, when the optional IdSh
 FieldIdentifier ::= <RootDeclaration> ( "." <IdShortPath> | "" ) "#" <AttributeDeclaration>
 ....
 
-[.underline]#Constraint AASa-005:# Only the SubmodelElements root delaration can be followed with IdShortPaths.
-
+{aasa005}
 
 .Root Elements for Field Identifiers 
 [.table-with-appendix-table]
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Root Element h| Definition h| Example(s)
-| `$aas` | Starting point for fields available in Asset Administration Shells | `$aas#assetInformation.assetKind`
-| `$sm` | Starting point for fields available in Submodels | `$sm#semanticId.keys[0].value`
-| `$sme` | Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Clause AASa-005. Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`, `$sme#value` to search recursively
-| `$cd` | Starting point for fields available in Concept Descriptions | `$cd#id`
-| `$aasdesc` | Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[0].endpoints[0].protocolinformation.href`
-| `$smdesc` | Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
+| `$aas` a| Starting point for fields available in Asset Administration Shells | `$aas#assetInformation.assetKind`
+| `$sm` a| Starting point for fields available in Submodels | `$sm#semanticId.keys[0].value`
+| `$sme` a| Starting point for fields available in Submodel Elements. Can be followed with an IdShortPath, see Constraint AASa-005. 
+Can start at any possible Submodel Element, is *not* restricted to Submodel Elements directly in the `Submodel/submodelElements` list. | `$sme.smeCollectionIdShort.propertyIdShort#value`, `$sme#value` to search recursively
+| `$cd` a| Starting point for fields available in Concept Descriptions | `$cd#id`
+| `$aasdesc` a| Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[0].endpoints[0].protocolinformation.href`
+| `$smdesc` a| Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
 |===
 
 Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause xref:specification/interfaces-payload.adoc[Data Types for Payload].
@@ -429,11 +431,11 @@ h| Root Element h| Definition h| Example
 | `assetInformation.assetKind` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetKind`
 | `assetInformation.assetType` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetType`
 | `assetInformation.globalAssetId` | Value of the globalAssetId attribute of an AAS | `$aas#assetInformation.globalAssetId`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[].name`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[1].value`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].` `externalSubjectId.type`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].externalSubjectId.` `keys[].value`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].externalSubjectId.` `keys[].type`
+| `assetInformation.assetInformation.specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[].name`
+| `assetInformation.assetInformation.specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[1].value`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].` `externalSubjectId.type`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.` `keys[].value`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.` `keys[].type`
 | `submodels` | Shortcut for Submodels referenced by an AAS, see Clause xref:references[References] | `$aas#submodels`
 | `submodels.type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels.type`
 | `submodels.keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[].value`
@@ -450,9 +452,9 @@ h| Root Element h| Definition h| Example
 | `globalAssetId` | Value of the globalAssetId attribute of an AAS Descriptor | `$aasdesc#globalAssetId`
 | `specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[].name`
 | `specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[1].value`
-| `specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].` `externalSubjectId.type`
-| `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].value`
-| `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].type`
+| `specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].` `externalSubjectId.type`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].value`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].type`
 | `endpoints[<index>].interface` a| 
 
 Interface of an endpoint of an AAS or Submodel
@@ -471,12 +473,12 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 | `$smdesc#endpoints[0].` `protocolinformation.href`
 | `submodelDescriptors.semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.semanticId`
 | `submodelDescriptors.semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.` `semanticId.type`
-| `submodelDescriptors.semanticId.` `keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].type`
-| `submodelDescriptors.semanticId.` `keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].value`
+| `submodelDescriptors.semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].type`
+| `submodelDescriptors.semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].value`
 | `submodelDescriptors.id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.id`
 | `submodelDescriptors.idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.idShort`
-| `submodelDescriptors.endpoints[<index>].` `interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].` `interface`
-| `submodelDescriptors.endpoints[<index>].` `protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].` `protocolinformation.href`
+| `submodelDescriptors.endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].` `interface`
+| `submodelDescriptors.endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].` `protocolinformation.href`
 |===
 
 === Comparison Operators
@@ -665,7 +667,8 @@ $sme.<someIdShortPath>#semanticId.keys[0]
 
 ==== Any Element Notation
 
-In case the position in the list is not known, the index inside the square brackets can be skipped. This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
+In case the position in the list is not known, the index inside the square brackets can be skipped. 
+This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
 
 ....
 <fieldIdentifier>[]
@@ -689,18 +692,24 @@ $sme.<somePath>#semanticId.keys[]
 References include a list of keys, i.e. `.keys[]`. Very often the value of the first key in the list is needed, e.g. for semanticId. +
 To ease writing, `.keys[0].value` can be left off for References. +
 
-semanticId is defined as the "value" of the first key of the semanticId Reference object. The following two expressions are equivilant:
+semanticId is defined as the "value" of the first key of the semanticId Reference object. 
+The following two expressions are equivilant:
 
+....
  <somePath>.semanticId
  <somePath>.semanticId.keys[0].value
+....
+
 A comparison using the semanticId as a shortcut could look like the following:
 
-$sme#semanticId $eq "https://example.com/a/semantic/id"
-
+....
+  $sme#semanticId $eq "https://example.com/a/semantic/id"
+....
 
 === Match of Elements in Lists
 
-The `$match` operator signals that the following clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all conditions shall be evaluated on the same element of this list. The common path prefix left to a `[]` determines the list to be searched.
+The `$match` operator signals that the following clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all conditions shall be evaluated on the same element of this list. 
+The common path prefix left to a `[]` determines the list to be searched.
 
 FieldIdentifiers in a `$match` may contain several `[]`, which define nested lists. In such case the path prefix of the first `[]` must always be the same and the path prefixes of the following `[]` accordingly.
 
@@ -817,13 +826,16 @@ The AAS Query Language does not introduce additional functionalities to control 
 === JSON Schema
 
 The AAS HTTP API represents AAS Queries as JSON objects. A JSON schema according to the grammar above has been defined.
-This JSON schema allows immediate validation of queries but also automatic code generation which has been validated with jsonschema2pojo. To allow such automatic code generation, polymorhism by the use of oneOf in the JSON schema must be avoided. +
+This JSON schema allows immediate validation of queries but also automatic code generation which has been validated with jsonschema2pojo. 
+To allow such automatic code generation, polymorhism by the use of oneOf in the JSON schema must be avoided. +
 In addition, several constructs introduced in BNF form require a slightly differing representation. For instance, a basic comparison follows the pattern `<operand> <operator> <operand>` but appears as `"<operator>": [<operand>, <operand>]` in the JSON representation.
-JSON schema allows to use regular expressions. Such regular expressions are used to validate the syntax of FieldIdentifiers. To be able to use common JSON schema validators, the depth and details have been limited in the corresponding regular expressions.
+JSON schema allows to use regular expressions. Such regular expressions are used to validate the syntax of FieldIdentifiers. 
+To be able to use common JSON schema validators, the depth and details have been limited in the corresponding regular expressions.
 
 include::./schema.adoc[]
 
-The table below explains the mapping between the grammar and the JSON schema. The table follows the structure of the JSON schema top to bottom.
+The table below explains the mapping between the grammar and the JSON schema. 
+The table follows the structure of the JSON schema top to bottom.
 
 [.table-with-appendix-table]
 [width=100%, cols="25%,25%,50%"]

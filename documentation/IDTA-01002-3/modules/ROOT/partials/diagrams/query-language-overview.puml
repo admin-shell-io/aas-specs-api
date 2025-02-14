@@ -6,11 +6,11 @@ hide methods
 
 class Query {
     +$select: SelectField[0..1]
-    +$condition: Condition[1]
+    +$condition: Condition[1] 		\t\t\t\t\t\t\t\t\t\t\t\t
 }
  
-Query --> SelectField
-Query --> Condition
+Query ..> SelectField
+Query ..> Condition
 
 ' to better arrange the SelectField
 SelectField -r[hidden]- Placeholder1
@@ -27,6 +27,7 @@ enum SelectField {
 
 
   abstract class Condition <<abstract>>{
+  		\t\t\t\t\t\t\t\t\t\t\t\t
   }
 
   enum LogicalOperation {
@@ -45,9 +46,9 @@ enum SelectField {
     +$match: Condition[1..*]
   }
 
-  abstract class Operation <<abstract>> {
-    
-  }
+  enum Operation <<abstract>> {
+  		\t\t\t\t\t\t\t\t\t\t\t\t
+      }
 
   enum ComparisonOperation {
     $eq
@@ -69,7 +70,7 @@ enum SelectField {
 
   class Comparison {
     +operation: Operation[1]
-    +operands: Operand[2]
+    +operands: Operand[2] 		\t\t\t\t\t\t\t\t\t\t
   }
 
   enum CastingOperation {
@@ -81,8 +82,8 @@ enum SelectField {
     $timeCast
   }
 
-  abstract class Operand <<abstract>> {
-
+  enum Operand <<abstract>> {
+		\t\t\t\t\t\t\t\t\t\t\t\t
   }
 
   enum FieldIdentifier {
@@ -102,13 +103,13 @@ enum SelectField {
   }
 
   LogicalExpression -u-|> Condition
-  LogicalExpression --> Condition
-  LogicalExpression --> LogicalOperation
+  LogicalExpression ..>Condition
+  LogicalExpression ..> LogicalOperation
   Comparison -u-|> Condition
   Condition <|-- MatchExpression
-  Condition <-- MatchExpression
-  Comparison --> Operation
-  Comparison --> Operand
+  MatchExpression ..> Condition 
+  Comparison ..> Operation
+  Comparison ..> Operand
   Operand <|-- CastingOperation
   Operand <|--Value
   Operand <|-- FieldIdentifier

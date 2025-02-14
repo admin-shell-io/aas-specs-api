@@ -14,23 +14,24 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 Major Changes:
 
 
-* Bulk Operations and Profiles for Bulk Operations (https://github.com/admin-shell-io/aas-specs-api/issues/3[#3])
-* new Query Operations and Profiles for executing complex queries
+* new: Bulk Operations and Profiles for Bulk Operations (https://github.com/admin-shell-io/aas-specs-api/issues/3[#3])
+* new: Query Operations and Profiles for executing complex queries
 * deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
 * new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink) (https://github.com/admin-shell-io/aas-specs-api/issues/19[#19])
-* new Profile for Discovery Service: Read Only SSP-002 (https://github.com/admin-shell-io/aas-specs-api/issues/201[#201])
-* updated: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions (https://github.com/admin-shell-io/aas-specs/issues/365[#365]):
+* new: Profile for Discovery Service: Read Only SSP-002 (https://github.com/admin-shell-io/aas-specs-api/issues/201[#201])
+* update: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions (https://github.com/admin-shell-io/aas-specs/issues/365[#365]):
 	** changed: interface
 	** changed: service
-* Individual versioning of datatype IDs, operations, interfaces etc. (https://github.com/admin-shell-io/aas-specs-api/issues/247[#247])
+* update: Individual versioning of datatype IDs, operations, interfaces etc. (https://github.com/admin-shell-io/aas-specs-api/issues/247[#247])
 	** including changes due to implicit changes of IDTA-01001, e.g. of primitive data types NameType and Identifier 
-* Data type  Identifier: change length from 2000 to 2048 characters (https://github.com/admin-shell-io/aas-specs/issues/306[#306])
-* Publication of a new V3.1 version for all existing profiles due to changes to fundamental data types, e.g., Identifier
+* change: Data type  Identifier: change length from 2000 to 2048 characters (https://github.com/admin-shell-io/aas-specs/issues/306[#306])
+* update: Publication of a new V3.1 version for all existing profiles due to changes to fundamental data types, e.g., Identifier
+* update: interaction diagram in Clause "Interactions"
 * Transfer of chapters on formats Metadata, Paths and Value-Only from Part 2 API to Part 1 Metamodel (https://github.com/admin-shell-io/aas-specs-api/issues/214[#214])
 * Transfer from .docx to asciidoc (.adoc) and maintenance in GitHub
 * Transfer of all UML figures to PlantUML (.puml) and maintenance in GitHub
 * OpenAPI: marked parameter 'level' as deprecated for all URLs ending with '/$reference'
-* ProtocolInformation/securityAttributes changed from mandatory to optional. 
+* change: ProtocolInformation/securityAttributes changed from mandatory to optional. 
 
 Minor Changes:
 
@@ -185,11 +186,11 @@ None.
 
 Major:
 
-* Remove “format: byte” from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required.
-Remove the QueryParameter “level” from all requests ending with /$metadata in the OpenAPI files.
+* Remove "format: byte" from OpenAPI files, as this annotation enforces base64 encodings while base64url is actually required.
+Remove the QueryParameter "level" from all requests ending with /$metadata in the OpenAPI files.
 * Change the values for the ServiceDescription class from enum to a list of strings in the OpenAPI definition for the Part 2 classes.
-* Clause 11.4.2 and 11.4.3: Change the ValueOnly attribute “annotation” to “annotations” and its value from an array to ValueOnly for the AnnotatedRelationshipElementValue class in the examples and schema to match the “AnnotatedRelationshipElement/annotations” attribute.
-Furthermore, “AnnotatedRelationshipElementValue/annotations” is optional now.
+* Clause 11.4.2 and 11.4.3: Change the ValueOnly attribute "annotation" to "annotations" and its value from an array to ValueOnly for the AnnotatedRelationshipElementValue class in the examples and schema to match the "AnnotatedRelationshipElement/annotations" attribute.
+Furthermore, "AnnotatedRelationshipElementValue/annotations" is optional now.
 * Clause 11.4.2: Add serialisation rule for empty "FileValue/value" and "BlobValue/value".
 * Clause 11.4.3: "FileValue/value" and "BlobValue/value" are optional but non-empty attributes.
 * Clause 11.4.3: "EntityValue/statements" made optional.
@@ -202,12 +203,12 @@ Furthermore, “AnnotatedRelationshipElementValue/annotations” is optional now
 Minor:
 
 * (Editorial) Fix links to SwaggerHub in Clause 4.6 and Clause 12
-* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of “globalAssetId” for the “assetIds” parameter.
+* (Editorial) Clause 8.2.2: Correct the Note that explains the usage of "globalAssetId" for the "assetIds" parameter.
 * (Editorial) ServiceSpecificationProfileEnum: Corrected explanations for Submodel Repository and Registry profile entries
-* (Editorial) Clause 11.4.2: Add “Submodel” to the list of possible ValueOnly objects and add more details how SubmodelElementLists have to be serialized.
+* (Editorial) Clause 11.4.2: Add "Submodel" to the list of possible ValueOnly objects and add more details how SubmodelElementLists have to be serialized.
 * (Editorial) Clause 11.4.4: Added sentence explaining where the idShortPath has to start.
 * (Editorial) Clause 12.2: Correct example for GetAllAssetAdministrationShellIdsByAssetLink
-* (Editorial) Correct Note 1 in Clause 12.4: “[…] IdshortPaths are base64url-encoded …” to “[…] IdshortPaths are url-encoded …”
+* (Editorial) Correct Note 1 in Clause 12.4: "[…] IdshortPaths are base64url-encoded …" to "[…] IdshortPaths are url-encoded …"
 * (Editorial) Clause 12.13: Corrected the list of constraints.
 * (Editorial) Annex C.2: Adjusted and extended the examples for GETs on Metadata, Path, and Value
 * (Editorial) Annex C.3: Adjusted the examples for PATCH on Value
@@ -223,17 +224,17 @@ Minor:
 Removed profiles https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002.
 Both profiles were not included in the V3.0.1 ServiceDescription class in the OpenAPI definition and only left-overs from previous drafts.
 
-| | PutAssetAdministrationShell    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodel    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PatchSubmodel    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodelElementByPath    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PatchSubmodelElementByPath    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutAssetAdministrationShellDescriptorById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodelDescriptorById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutAssetAdministrationShellById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutSubmodelById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PatchSubmodelById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
-| | PutConceptDescriptionById    | Change    | Output parameter “payload” changed from “mandatory=yes” to “mandatory=no”
+| | PutAssetAdministrationShell    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutSubmodel    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PatchSubmodel    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutSubmodelElementByPath    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PatchSubmodelElementByPath    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutAssetAdministrationShellDescriptorById    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutSubmodelDescriptorById    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutAssetAdministrationShellById    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutSubmodelById    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PatchSubmodelById    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
+| | PutConceptDescriptionById    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
 |===
 
 === Operation Changes w.r.t. V3.0.1 to V3.0.2
@@ -242,7 +243,7 @@ Both profiles were not included in the V3.0.1 ServiceDescription class in the Op
 |*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
 | GetSubmodelElementByPath-Metadata had ‘level’ and/or ‘cursor’ parameters in OpenAPI |‘level’ and/or ‘cursor’ parameters have been removed GetSubmodelElementByPath-Metadata | Remove | Neither ‘level’ nor ‘cursor’ could influence the behavior of the operation, therefore, removing them has no effect on any implementation.
 |CreateSubmodelReference| New comment in Table 15 clarifies the content of the Location header of the response. | Change |
-|GetSelfDescription output type “ServiceDescription” contains enum for "profiles" | GetSelfDescription output type “ServiceDescription” contains list of strings for “profiles”    | Change | Custom profiles can be added with the new structure.
+|GetSelfDescription output type "ServiceDescription" contains enum for "profiles" | GetSelfDescription output type "ServiceDescription" contains list of strings for "profiles"    | Change | Custom profiles can be added with the new structure.
 |String attributes of Part 2 classes are restricted to the regex pattern "^[\\x09\\x0A\\x0D\\x20-\\uD7FF\\uE000-\\uFFFD\\U00010000-\\U0010FFFF]*$" | String attributes of Part 2 classes are restricted to the regex pattern "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]\|\\ud800[\\udc00-\\udfff]\|[\\ud801-\\udbfe][\\udc00-\\udfff]\|\\udbff[\\udc00-\\udfff])*$" |    Change | The new pattern has been introduced for the JSON schema and the Part 1 OpenAPI domain already.
 This change synchronizes the pattern for both Part 1 and  Part 2 classes.
 | GetSubmodelElementByPath had single PathItem as the response object in some OpenAPI files | GetSubmodelElementByPath returns an array of PathItems |    Change |
