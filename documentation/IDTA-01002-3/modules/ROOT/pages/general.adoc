@@ -39,7 +39,7 @@ Among others, it comprises and refers to the list of APIs that forms this servic
 These may be I4.0-defined standard APIs but also other, proprietary APIs.
 
 ====
-Note: such a technology-specific service specification may be but does not have to be derived from the “service” described in the technology-neutral form.
+Note: such a technology-specific service specification may be but does not have to be derived from the "service" described in the technology-neutral form.
 It is up to the system architect and service engineer to tailor the technology-specific service according to the needs of the use cases.
 ====
 
@@ -90,7 +90,7 @@ Each operation is independent.
 The server is always consistent after each operation.
 * Resources (nouns): each resource is a clearly defined noun.
 This means that it has a specific name and its relation to other nouns is defined.
-The nouns and the relationships between them are taken from the list of referable objects of “Specification of the Asset Administration Shell Part 1” and their relationships. xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
+The nouns and the relationships between them are taken from the list of referable objects of "Specification of the Asset Administration Shell Part 1" and their relationships. xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
 * Methods (verbs): a small set of standard REST methods (GET, POST, PUT, DELETE) is used to describe the semantic of the most common operations.
 There are only a few exceptions for situations where the standard methods do not fit (e.g. GETALL, SET, INVOKE).
 
@@ -146,9 +146,9 @@ The following rules shall apply for the operation names in Asset Administration 
 
 [.underline]#Examples:#
 
-_GetSubmodel_ has method verb “Get” and model element name “Submodel”.
+_GetSubmodel_ has method verb "Get" and model element name "Submodel".
 
-_GetAllSubmodelElementsByPath_ has method verb “GetAll” and model element name “SubmodelElements” plus a by-qualifier “Path”.
+_GetAllSubmodelElementsByPath_ has method verb "GetAll" and model element name "SubmodelElements" plus a by-qualifier "Path".
 
 == Semantic References for Operations
 
@@ -216,12 +216,12 @@ The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
 
 == References and Keys
 
-The concept of references is introduced in Part 1 of the series “Specification of the Asset Administration Shell” xref:bibliography.adoc#bib1[[1\]].
+The concept of references is introduced in Part 1 of the series "Specification of the Asset Administration Shell" xref:bibliography.adoc#bib1[[1\]].
 
 When defining interfaces, a distinction is made between relative references and absolute references.
 
 Absolute references require a global unique id as starting point of the reference to be resolvable.
-In this case the type “Reference” is used.
+In this case the type "Reference" is used.
 
 Relative references do not start with a global unique id.
 Instead, it is assumed that the context is given and unique.
@@ -235,7 +235,7 @@ There are three major components of the overall system:
 
 [arabic]
 . Repositories store the data of Asset Administration Shells, Submodels, and Concept Descriptions,
-. Registries are “directories” which store AAS-IDs and Submodel-IDs together with the related endpoints (typically a URL-path into a repository or to a single AAS/Submodel),
+. Registries are "directories" which store AAS-IDs and Submodel-IDs together with the related endpoints (typically a URL-path into a repository or to a single AAS/Submodel),
 . discovery (servers) supports a fast search and only store copies of essential information, i.e. key value pairs to find IDs by other IDs.
 
 <<asset-related-info-retrieval>> shows a typical sequence.
@@ -255,20 +255,20 @@ The Asset Administration Shell model is an asset-oriented model.
 An Asset-ID may be retrieved e.g. by a QRCODE on the asset, by an RFID for the asset, from the firmware of the asset or from an asset database.
 IEC 61406 (formerly DIN SPEC 91406) defines the format of such Asset-IDs.
 
-The “Administration Shell Basic Discovery Interface” may be used with an Asset-ID to get the related AAS-IDs (“GetAllAssetAdministrationShellIdsByAssetLink”).
+The "Administration Shell Basic Discovery Interface" may be used with an Asset-ID to get the related AAS-IDs ("GetAllAssetAdministrationShellIdsByAssetLink").
 
-The “Asset Administration Shell Registry Interface” may be used with an AAS-ID to retrieve the related descriptor for an AAS (“GetAssetAdministrationShellDescriptorById”).
-The retrieved AAS Descriptor includes the endpoint for the “Asset Administration Shell Interface”.
+The "Asset Administration Shell Registry Interface" may be used with an AAS-ID to retrieve the related descriptor for an AAS ("GetAssetAdministrationShellDescriptorById").
+The retrieved AAS Descriptor includes the endpoint for the "Asset Administration Shell Interface".
 
-The “Asset Administration Shell Interface” makes the information about the AAS itself and the references to the related submodels available.
+The "Asset Administration Shell Interface" makes the information about the AAS itself and the references to the related submodels available.
 
-The related submodels of an AAS are retrieved by “GetAllSubmodelReferences”.
+The related submodels of an AAS are retrieved by "GetAllSubmodelReferences".
 Such a reference includes the SM-ID of a related submodel.
 
-Similarly to the AAS above, the “Submodel Registry Interface” may be used to retrieve the related descriptor for a submodel (“GetSubmodelDescriptorById”) with a specific SM-ID.
-The retrieved Submodel Descriptor includes the endpoint for the “Submodel Interface”.
+Similarly to the AAS above, the "Submodel Registry Interface" may be used to retrieve the related descriptor for a submodel ("GetSubmodelDescriptorById") with a specific SM-ID.
+The retrieved Submodel Descriptor includes the endpoint for the "Submodel Interface".
 
-The “Submodel Interface” makes the information about the submodel itself and all its included submodel elements available.
+The "Submodel Interface" makes the information about the submodel itself and all its included submodel elements available.
 
 Asset Administration Shells and submodels may be deployed on different endpoints in different ways.
 
@@ -277,11 +277,11 @@ In this case, the AAS might be fixed and might not be changed or deleted.
 In a cloud scenario, a single AAS may also be deployed as a single container (e.g. docker container).
 
 Another example is the deployment of many Asset Administration Shells in an AAS Repository.
-In this case, the “Asset Administration Shell Repository Interface” may allow to create and manage multiple AAS in the repository.
+In this case, the "Asset Administration Shell Repository Interface" may allow to create and manage multiple AAS in the repository.
 
 The separate interfaces of the HTTP/REST API allow many ways to support different deployments.
 
-For an AAS repository, the combination [.gray]#“Asset Administration Shell Repository Interface”#, [.red]#“Asset Administration Shell Interface”#, [.blue]#“Submodel Interface”#, “Serialization Interface”, and “Self-Description Interface” is proposed.
+For an AAS repository, the combination [.gray]#"Asset Administration Shell Repository Interface"#, [.red]#"Asset Administration Shell Interface"#, [.blue]#"Submodel Interface"#, "Serialization Interface", and "Self-Description Interface" is proposed.
 
 This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote:[For easier reading only the standard paths are shown in the following: `$metadata`, `$value`, `$reference` and `$path` parameter paths are additionally contained in the OpenAPI file.]:
 
@@ -302,7 +302,7 @@ This will result in the following HTTP/REST paths as described in a combined Ope
 /serialization +
 /description
 
-If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
+If the repository also supports AASX Packages, it shall be extended by additionally supporting a "AASX File Server" Profile as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
 
 The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]:
 
