@@ -431,11 +431,11 @@ h| Root Element h| Definition h| Example
 | `assetInformation.assetKind` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetKind`
 | `assetInformation.assetType` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetType`
 | `assetInformation.globalAssetId` | Value of the globalAssetId attribute of an AAS | `$aas#assetInformation.globalAssetId`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[].name`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[1].value`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].` `externalSubjectId.type`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].externalSubjectId.` `keys[].value`
-| `assetInformation.assetInformation.` `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].externalSubjectId.` `keys[].type`
+| `assetInformation.assetInformation.specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[].name`
+| `assetInformation.assetInformation.specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[1].value`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].` `externalSubjectId.type`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.` `keys[].value`
+| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.` `keys[].type`
 | `submodels` | Shortcut for Submodels referenced by an AAS, see Clause xref:references[References] | `$aas#submodels`
 | `submodels.type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels.type`
 | `submodels.keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[].value`
@@ -452,9 +452,9 @@ h| Root Element h| Definition h| Example
 | `globalAssetId` | Value of the globalAssetId attribute of an AAS Descriptor | `$aasdesc#globalAssetId`
 | `specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[].name`
 | `specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[1].value`
-| `specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].` `externalSubjectId.type`
-| `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].value`
-| `specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].type`
+| `specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].` `externalSubjectId.type`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].value`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].type`
 | `endpoints[<index>].interface` a| 
 
 Interface of an endpoint of an AAS or Submodel
@@ -473,12 +473,12 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 | `$smdesc#endpoints[0].` `protocolinformation.href`
 | `submodelDescriptors.semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.semanticId`
 | `submodelDescriptors.semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.` `semanticId.type`
-| `submodelDescriptors.semanticId.` `keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].type`
-| `submodelDescriptors.semanticId.` `keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].value`
+| `submodelDescriptors.semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].type`
+| `submodelDescriptors.semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].value`
 | `submodelDescriptors.id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.id`
 | `submodelDescriptors.idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.idShort`
-| `submodelDescriptors.endpoints[<index>].` `interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].` `interface`
-| `submodelDescriptors.endpoints[<index>].` `protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].` `protocolinformation.href`
+| `submodelDescriptors.endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].` `interface`
+| `submodelDescriptors.endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].` `protocolinformation.href`
 |===
 
 === Comparison Operators
