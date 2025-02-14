@@ -302,9 +302,9 @@ This will result in the following HTTP/REST paths as described in a combined Ope
 /serialization +
 /description
 
-If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile [Related OpenAPI file: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
+If the repository also supports AASX Packages, it shall be extended by additionally supporting a “AASX File Server” Profile as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
 
-The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]footnote:[Related OpenAPI file: link:https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.0_SSP-001[AasxFileServerServiceSpecification/V3.0_SSP-001]:
+The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]:
 
 [.red]#/aas# +
 [.red]#/aas/asset-information# +
@@ -826,13 +826,16 @@ The AAS Query Language does not introduce additional functionalities to control 
 === JSON Schema
 
 The AAS HTTP API represents AAS Queries as JSON objects. A JSON schema according to the grammar above has been defined.
-This JSON schema allows immediate validation of queries but also automatic code generation which has been validated with jsonschema2pojo. To allow such automatic code generation, polymorhism by the use of oneOf in the JSON schema must be avoided. +
+This JSON schema allows immediate validation of queries but also automatic code generation which has been validated with jsonschema2pojo. 
+To allow such automatic code generation, polymorhism by the use of oneOf in the JSON schema must be avoided. +
 In addition, several constructs introduced in BNF form require a slightly differing representation. For instance, a basic comparison follows the pattern `<operand> <operator> <operand>` but appears as `"<operator>": [<operand>, <operand>]` in the JSON representation.
-JSON schema allows to use regular expressions. Such regular expressions are used to validate the syntax of FieldIdentifiers. To be able to use common JSON schema validators, the depth and details have been limited in the corresponding regular expressions.
+JSON schema allows to use regular expressions. Such regular expressions are used to validate the syntax of FieldIdentifiers. 
+To be able to use common JSON schema validators, the depth and details have been limited in the corresponding regular expressions.
 
 include::./schema.adoc[]
 
-The table below explains the mapping between the grammar and the JSON schema. The table follows the structure of the JSON schema top to bottom.
+The table below explains the mapping between the grammar and the JSON schema. 
+The table follows the structure of the JSON schema top to bottom.
 
 [.table-with-appendix-table]
 [width=100%, cols="25%,25%,50%"]
