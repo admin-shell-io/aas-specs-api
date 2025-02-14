@@ -667,7 +667,8 @@ $sme.<someIdShortPath>#semanticId.keys[0]
 
 ==== Any Element Notation
 
-In case the position in the list is not known, the index inside the square brackets can be skipped. This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
+In case the position in the list is not known, the index inside the square brackets can be skipped. 
+This means that at least one element has to fulfill the comparison to make the expression evaluate to `true`. 
 
 ....
 <fieldIdentifier>[]
@@ -691,18 +692,24 @@ $sme.<somePath>#semanticId.keys[]
 References include a list of keys, i.e. `.keys[]`. Very often the value of the first key in the list is needed, e.g. for semanticId. +
 To ease writing, `.keys[0].value` can be left off for References. +
 
-semanticId is defined as the "value" of the first key of the semanticId Reference object. The following two expressions are equivilant:
+semanticId is defined as the "value" of the first key of the semanticId Reference object. 
+The following two expressions are equivilant:
 
+....
  <somePath>.semanticId
  <somePath>.semanticId.keys[0].value
+....
+
 A comparison using the semanticId as a shortcut could look like the following:
 
-$sme#semanticId $eq "https://example.com/a/semantic/id"
-
+....
+  $sme#semanticId $eq "https://example.com/a/semantic/id"
+....
 
 === Match of Elements in Lists
 
-The `$match` operator signals that the following clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all conditions shall be evaluated on the same element of this list. The common path prefix left to a `[]` determines the list to be searched.
+The `$match` operator signals that the following clauses (a) contain at least 1 list of elements with `[]` syntax, and that (b) all conditions shall be evaluated on the same element of this list. 
+The common path prefix left to a `[]` determines the list to be searched.
 
 FieldIdentifiers in a `$match` may contain several `[]`, which define nested lists. In such case the path prefix of the first `[]` must always be the same and the path prefixes of the following `[]` accordingly.
 
