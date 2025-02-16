@@ -10,7 +10,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 include::../includes/special-parameters.adoc[]
 
-include::includes/constraints.adoc[]
+include::../includes/constraints.adoc[]
 
 = HTTP/REST API
 
@@ -735,7 +735,7 @@ A client must not expect that the list of incorrect items is complete, as the se
 
 Similar to bulk requests, queries are sent to the defined path segments "/query". Clients must use the POST to send queries to the server, with the serialized query in the request body. The result of a query, either the in the form of the result set or an error message, is returned in the http response. Asynchronous behavior by the AAS HTTP endpoints is not defined. 
 
-The serialised query has to match the grammar as specified in Clause xref:index.adoc#query-json-serialisation[Serialisation]. If a server retrieves a mal-formed query, it must respond with a ClientErrorBadRequest message. 
+The serialised query has to match the grammar as specified in Clause <<query-json-serialisation>>. If a server retrieves a mal-formed query, it must respond with a ClientErrorBadRequest message.
 
 Servers may provide additional information about the perceived error, however, they are not obliged to do so.
 
