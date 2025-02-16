@@ -350,7 +350,7 @@ The black entries correspond to the corresponding generic operations.
 
 [[table-mapping-operations]]
 .Mapping of the generic Interface Operations to HTTP API Operations
-[%autowidth,width="100%",cols="31%,7%,23%,39%"]
+[%autowidth,width="100%",cols="31%,10%,23%,36%"]
 |===
 h|Operation Name h|HTTP Verb h|REST-Path h|Comment (e.g. optional query parameters)
 
@@ -479,7 +479,7 @@ path-suffix=$value or no suffix for normal
 
 URL-encoded IdShortPath
 
-4+h|*Shell Repository Interface*
+4+h|Shell Repository Interface
 |GetAllAssetAdministrationShells |GET |/shells a|
 path-suffix=$reference or no suffix normal
 
@@ -507,7 +507,8 @@ path-suffix=$reference or no suffix normal
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
 |AasInterface |* |/shells/\{aasIdentifier}/* |superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShells |POST |/query/shells a| Input query in the request body
-|*Submodel Repository Interface* | | |
+
+4+h|Submodel Repository Interface
 |GetAllSubmodels |GET |/submodels a|
 path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
@@ -538,7 +539,8 @@ base64url-encoded identifier
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 |SubmodelInterface |* |/submodels/\{submodelIdentifier}/* |superpath as defined in service specification or profile
 |QuerySubmodels |POST |/query/submodels a| Input query in the request body
-|*Concept Description Repository Interface* | | |
+
+4+h|Concept Description Repository Interface
 |GetAllConceptDescriptions |GET |/concept-descriptions |Pagination
 |GetConceptDescriptionById |GET |/concept-descriptions/\{cdIdentifier} a|
 base64url-encoded identifier
@@ -561,7 +563,8 @@ Pagination
 |PutConceptDescriptionById |PUT |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |DeleteConceptDescriptionById |DELETE |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |QueryConceptDescriptions |POST |/query/concept-descriptions a| Input query in the request body
-|*AASX File Server Interface* | | |
+
+4+h|AASX File Server Interface
 |GetAllAASXPackageIds |GET |/packages a|
 base64url-encoded identifier
 
@@ -572,10 +575,10 @@ Pagination
 |PutAASXByPackageId |PUT |/packages/\{packageId} |base64url-encoded identifier
 |DeleteAASXByPackageId |DELETE |/packages/\{packageId} |base64url-encoded identifier
 
-|*Serialization Interface* | | |
+4+h|Serialization Interface
 |GenerateSerializationByIds |GET |/serialization |base64url-encoded identifier; AcceptHeader: application/aasx+xml or application/json oder application/xml
 
-|*AAS Basic Discovery Interface* | | |
+4+h|AAS Basic Discovery Interface
 |GetAllAssetAdministrationShellIdsByAssetLink |GET |/lookup/shells a|
 base64url-encoded JSON-serialized key-value-pairs
 
@@ -587,7 +590,7 @@ Pagination
 |PostAllAssetLinksById |POST |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAllAssetLinksById |DELETE |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 
-|*AAS Registry Interface* | | |
+4+h|AAS Registry Interface
 |GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a|
 Pagination
 
@@ -616,7 +619,7 @@ Note: Same endpoint as for the Submodel Registry Interface bulk status.
 Note: Same endpoint as for the Submodel Registry Interface bulk result. 
 ====
 
-|*Submodel Registry Interface* | | |
+4+h|Submodel Registry Interface
 |GetAllSubmodelDescriptors |GET |/submodel-descriptors |Pagination
 |GetSubmodelDescriptorById |GET |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PostSubmodelDescriptor |POST |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
@@ -638,7 +641,7 @@ Note: Same endpoint as for the Asset Administration Shell Registry Interface bul
 Note: Same endpoint as for the Asset Administration Shell Registry Interface bulk result. 
 ====
 
-|*Descriptor Interface* | | |
+4+h|Descriptor Interface
 |GetDescription |GET |/description |Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
 |===
 
