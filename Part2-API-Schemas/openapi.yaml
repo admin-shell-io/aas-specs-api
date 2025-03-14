@@ -145,12 +145,7 @@ components:
         second: 
           $ref: "#/components/schemas/ReferenceValue"
         annotations:
-          type: array
-          items:
-            $ref: "#/components/schemas/ValueOnly"
-      required: 
-        - first
-        - second
+          $ref: "#/components/schemas/ValueOnly"
       type: object
     AssetAdministrationShellDescriptor: 
       allOf: 
@@ -261,9 +256,6 @@ components:
         value: 
           type: string
           minLength: 1
-      required: 
-        - contentType
-        - value
       type: object
     BooleanValue: 
       type: boolean
@@ -324,12 +316,7 @@ components:
           items: 
             $ref: "#/components/schemas/SpecificAssetIdValue"
         statements: 
-          items: 
-            $ref: "#/components/schemas/ValueOnly"
-          type: array
-      required: 
-        - statements
-        - entityType
+          $ref: "#/components/schemas/ValueOnly"
       type: object
     ExecutionState:
       enum: 
@@ -350,9 +337,6 @@ components:
           type: string
           minLength: 1
           maxLength: 2048
-      required: 
-        - contentType
-        - value
       type: object
     FileMetadata: 
       allOf: 
@@ -937,9 +921,6 @@ components:
           $ref: "#/components/schemas/ReferenceValue"
         second: 
           $ref: "#/components/schemas/ReferenceValue"
-      required: 
-        - first
-        - second
       type: object
     Result: 
       properties: 
@@ -1099,8 +1080,7 @@ components:
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
     SubmodelElementCollectionValue: 
-      type: object
-      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+      $ref: "#/components/schemas/ValueOnly"
     SubmodelElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
