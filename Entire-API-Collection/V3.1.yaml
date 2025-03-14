@@ -416,7 +416,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PATCH
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object
         content:
@@ -471,8 +471,6 @@ paths:
       operationId: GetSubmodel-Metadata_AAS
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: Requested Submodel
@@ -510,7 +508,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object
         content:
@@ -583,7 +581,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object in the ValueOnly representation
         content:
@@ -768,7 +766,6 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: List of found submodel elements
@@ -1696,8 +1693,6 @@ paths:
       operationId: GetSubmodel-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: Requested Submodel in the metadata representation
@@ -1964,7 +1959,6 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: List of found submodel elements
@@ -3422,8 +3416,6 @@ paths:
       operationId: GetSubmodelById-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: Requested Submodel
@@ -3461,7 +3453,7 @@ paths:
             default: core
             enum:
               #- deep
-              - core  # only 'deep' is allowed for PUT
+              - core  # only 'core' is allowed for PATCH
       requestBody:
         description: Submodel object
         content:
@@ -3712,7 +3704,6 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: List of found submodel elements
@@ -4016,8 +4007,6 @@ paths:
       operationId: GetSubmodelElementByPath-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: Requested submodel element
@@ -4044,8 +4033,6 @@ paths:
       operationId: PatchSubmodelElementValueByPath-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       requestBody:
         description: The updated metadata attributes of the submodel element
         content:
@@ -4675,7 +4662,6 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/IdShort'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: Requested Submodels
@@ -4938,8 +4924,6 @@ paths:
       operationId: GetSubmodelById-Metadata
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelById/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: Requested Submodel in the metadata representation
@@ -5224,7 +5208,6 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
         '200':
           description: List of found submodel elements
