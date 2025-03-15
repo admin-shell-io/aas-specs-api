@@ -703,6 +703,8 @@ components:
             cursor:
               type: string
               example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
+      required:
+        - paging_metadata
     PackageDescription: 
       properties: 
         aasIds: 
@@ -822,6 +824,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+      required:
+        - paging_metadata
     QueryResultConceptDescription:
       type: object
       properties:
@@ -842,6 +846,8 @@ components:
             oneOf:
             - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription"
             - type: string
+      required:
+        - paging_metadata
     QueryResultSubmodel:
       type: object
       properties:
@@ -862,6 +868,8 @@ components:
             oneOf:
             - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Submodel"
             - type: string
+      required:
+        - paging_metadata
     QueryResultSubmodelDescriptor:
       type: object
       properties:
@@ -882,6 +890,8 @@ components:
             oneOf:
             - $ref: "#/components/schemas/SubmodelDescriptor"
             - type: string
+      required:
+        - paging_metadata
     RangeMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
