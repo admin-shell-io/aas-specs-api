@@ -85,11 +85,21 @@ A list of base64url-encoded ids is simply passed as comma-separated query parame
 * Please note that base64url-encoding differs slightly from base64-encoding and has been specifically defined for passing URLs.
 An appropriate base64url implementation needs to be used for encoding/decoding.
 See RFC 4648 for further details.
+
+====
+Note: Clients may clean the serialised content by removing white spaces before applying the base64url encoding. However, servers must not expect it, therefore, must not expect that different encoded parameters map to different (unencoded) data objects. In fact, the same AAS data object could be encoded through different encoded values.
+====
+
 * When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
 * When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter “?assetids=” can be specified.
 Such assetId may be a globalAssetId or specificAssetId.
 The corresponding key-value-pair is first serialized to JSON and then base64url-encoded.
 The resulting encoded string is the value of “?assetids=”.
+
+====
+Note: In case more than one globalAssetId or specificAssetId is provided, their order shall not affect the result.
+====
+
 * In some operations, references are part of the query parameters e.g. “?semanticId=”.
 The corresponding reference is first serialized to JSON and then base64url-encoded.
 The resulting encoded string is the value of “?semanticId=”.
@@ -178,7 +188,7 @@ Technically, the idShortPath is a string and the idShorts are separated by a dot
 
 .Example Hierarchy of Submodel Elements
 [[se-hierarchy]]
-image::se-hierarchy.jpeg[image24,width=642,height=367]
+image::se-hierarchy.png[image24,width=642,height=367]
 
 The example hierarchy in <<se-hierarchy>> shows a Submodel with a hierarchical structure of SubmodelElements.
 The submodel can be addressed by its global identifier “https://admin-shell.io/sampleSM”.
