@@ -11,7 +11,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.0.3_SSP-001
+  version: V3.0.4_SSP-001
   x-profile-identifier: https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001
 servers:
 - url: '{protocol}://{host_name}:{port}/api/{version_prefix}'
@@ -45,9 +45,9 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/0
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/parameters/AssetIds'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/parameters/Cursor'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/parameters/AssetIds'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Asset Administration Shell ids
@@ -55,7 +55,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/schemas/PagedResult'
+                - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/schemas/PagedResult'
                 - type: object
                   properties:
                     result:
@@ -63,10 +63,10 @@ paths:
                       items:
                         type: string
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/default'
   /lookup/shells/{aasIdentifier}:
     parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/parameters/AssetAdministrationShellIdentifier'
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/parameters/AssetAdministrationShellIdentifier'
     get:
       tags:
         - Asset Administration Shell Basic Discovery API
@@ -82,11 +82,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.3#/components/schemas/SpecificAssetId'
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.4#/components/schemas/SpecificAssetId'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/not-found'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/default'
     post:
       tags:
         - Asset Administration Shell Basic Discovery API
@@ -101,7 +101,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.3#/components/schemas/SpecificAssetId'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.4#/components/schemas/SpecificAssetId'
         required: true
       responses:
         '201':
@@ -111,15 +111,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.3#/components/schemas/SpecificAssetId'
+                  $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.0.4#/components/schemas/SpecificAssetId'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/bad-request'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/bad-request'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/not-found'
         '409':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/conflict'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/conflict'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/default'
     delete:
       tags:
         - Asset Administration Shell Basic Discovery API
@@ -131,9 +131,9 @@ paths:
         '204':
           description: Specific Asset identifiers deleted successfully
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/not-found'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/not-found'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/default'
   /description:
     get:
       tags:
@@ -148,6 +148,6 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/schemas/ServiceDescription'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/schemas/ServiceDescription'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.3#/components/responses/default'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.0.4#/components/responses/default'
