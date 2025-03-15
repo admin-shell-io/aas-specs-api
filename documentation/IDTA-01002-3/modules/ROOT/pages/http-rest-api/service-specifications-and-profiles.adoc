@@ -353,6 +353,7 @@ h|Service Specification / Profiles h|Description
 |AssetAdministrationShellRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
 |AssetAdministrationShellRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
 |AssetAdministrationShellRegistryServiceSpecification/SSP-004 |Query operations.
+|AssetAdministrationShellRegistryServiceSpecification/SSP-002 |Only reads operations on AAS Descriptors; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001 and AssetAdministrationShellRegistryServiceSpecification/SSP-002.
 |===
 
 === Asset Administration Shell Registry Service Specification – Full Profile
@@ -457,6 +458,29 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-004
+
+=== Asset Administration Shell Registry Service Specification – Minimal Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Minimal Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-005`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById]
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|Pagination |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-005
 
 == Submodel Registry Service Specification
 
