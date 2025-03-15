@@ -1804,8 +1804,9 @@ These interfaces allow to publish information about Asset Administration Shells 
 h|Operation Name h|Description
 e| xref:GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] |Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
 e| xref:GetAllAssetLinksById[GetAllAssetLinksById]  |Returns a list of asset identifier key-value-pairs based on a given Asset Administration Shell id
-e| xref:PostAllAssetLinksById[PostAllAssetLinksById]  |Creates or replaces all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
+e| xref:PostAllAssetLinksById[PostAllAssetLinksById]  | (deprecated) Creates or replaces all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
 e| xref:DeleteAllAssetLinksById[DeleteAllAssetLinksById]  |Deletes all asset identifier key-value-pair linked to an Asset Administration Shell
+e| xref:PostAllAssetInformationById[PostAllAssetInformationById]  |Creates or replaces the AssetInformation linked to an Asset Administration Shell to edit discoverable content
 |===
 
 ==== Operation GetAllAssetAdministrationShellIdsByAssetLink
@@ -1893,7 +1894,12 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 |payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |===
 
-==== Operation PostAllAssetLinksById
+==== Operation PostAllAssetLinksById 
+
+
+====
+Note: This operation has been deprecated with version 3.1.0
+====
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
@@ -1920,7 +1926,29 @@ It is the predefined name “_globalAssetId_” that would refer to the _AssetIn
 |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Asset identifier created successfully |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1
+|payload |Asset identifier created successfully |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
+|===
+
+==== Operation PostAllAssetInformationById
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[PostAllAssetInformationById]]PostAllAssetInformationById
+h|Explanation 4+a|
+Creates or replaces the AssetInformation linked to an Asset Administration Shell to edit discoverable content.
+The existing content might have to be deleted first.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAllAssetInformationById/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |string |1
+|assetInformation a|
+Object containing asset identifiers, which could be the globalAssetId and/or specificAssetIds.
+|yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |AssetInformation created successfully |yes |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
 |===
 
 ==== Operation DeleteAllAssetLinksById
