@@ -1267,7 +1267,7 @@ components:
           schema:
             $ref: '#/components/schemas/Result'
     'conflict':
-      description: Conflict, a resource which shall be created exists already. Might be thrown if an object with the same id or idShort is contained in a POST request.
+      description: Conflict, a resource which shall be created exists already. Might be thrown if an object with the same id (for Identifiables) or idShort (for Referables within the same Container Element or Submodel) is contained in a POST request.
       content:
         application/json:
           schema:
