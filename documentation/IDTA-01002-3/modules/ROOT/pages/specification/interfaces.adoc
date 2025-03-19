@@ -236,7 +236,7 @@ e|xref:DeleteFileByPath[DeleteFileByPath] a|Deletes the file of an existing subm
 e|xref:PutSubmodel[PutSubmodel] a|Replaces the Submodel
 e|xref:PatchSubmodel[PatchSubmodel] a|Updates the Submodel
 e|xref:PostSubmodelElement[PostSubmodelElement] a|Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
-e|xref:PostSubmodelElementByPath[PostSubmodelElementByPath] a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload.
+e|xref:PostSubmodelElementByPath[PostSubmodelElementByPath] a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload for non-identifiable Referables not being a direct child of a SubmodelElementList. For Elements being a direct child of a SubmodelElementList the input parameter index must be specified.
 e|xref:PutSubmodelElementByPath[PutSubmodelElementByPath] a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
 e|xref:PatchSubmodelElementByPath[PatchSubmodelElementByPath] a|Updates an existing submodel element at a specified path within the submodel element hierarchy
 e|xref:GetSubmodelElementValueByPath[GetSubmodelElementValueByPath] a|Returns the value of the submodel element at a specified path according to the protocol-specific RAW-value payload
@@ -433,7 +433,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 h|Operation Name 4+e|[[PostSubmodelElementByPath]]PostSubmodelElementByPath
 h|Explanation 4+a|
 Creates a new submodel element at a specified path within the submodel element hierarchy.
-The idShort of the new submodel element must be set in the payload.
+The idShort of the new submodel element must be set in the payload for non-identifiable Referables not being a direct child of a SubmodelElementList. For Elements being a direct child of a SubmodelElementList the input parameter index must be specified.
 
 
 ====
@@ -1972,5 +1972,3 @@ Note 1: a server implementing more than one service specification profile, e.g. 
 ====
 Note 2: a profile value must only be used if the related API is implemented at the path where the API Operation “GetSelfDescription” is published, or child paths.
 ====
-
-
