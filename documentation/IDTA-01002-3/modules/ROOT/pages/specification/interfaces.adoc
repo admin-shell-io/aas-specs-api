@@ -1804,6 +1804,7 @@ These interfaces allow to publish information about Asset Administration Shells 
 h|Operation Name h|Description
 e| xref:GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] |Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
 e| xref:GetAllAssetLinksById[GetAllAssetLinksById]  |Returns a list of asset identifier key-value-pairs based on a given Asset Administration Shell id
+e| xref:SearchAllAssetAdministrationShellIdsByAssetLink[SearchAllAssetAdministrationShellIdsByAssetLink] |Returns a list of Asset Administration Shell IDs linked to specific asset identifiers or the global asset ID
 e| xref:PostAllAssetLinksById[PostAllAssetLinksById]  |Creates or replaces all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
 e| xref:DeleteAllAssetLinksById[DeleteAllAssetLinksById]  |Deletes all asset identifier key-value-pair linked to an Asset Administration Shell
 |===
@@ -1912,8 +1913,10 @@ Asset identifier, which could be the globalAssetId or specificAssetIds.
 
 
 ====
-Note: the name for the globalAssetId is defined in Contraint AASd-116 in IDTA-0001.
-It is the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_.
+Note: The SpecificAssetId/name “_globalAssetId_” is defined in Contraint AASd-116 in IDTA-0001.
+Its value shall be used as the value for the _AssetInformation/globalAssetId_ attribute of the associated AAS.
+It shall not be treated as an additional item of _AssetInformation/specificAssetIds_.
+Furthermore, a potentially included SpecificAssetId/externalSubjectId attribute shall be ignored, if and only if the SpecificAssetId/name is equal to “_globalAssetId_”.
 ====
 
 
