@@ -87,7 +87,7 @@ An appropriate base64url implementation needs to be used for encoding/decoding.
 See RFC 4648 for further details.
 
 ====
-Note: Clients may clean the serialised content by removing white spaces before applying the base64url encoding. However, servers must not expect it, therefore, must not expect that different encoded parameters map to different (unencoded) data objects. In fact, the same AAS data object could be encoded through different encoded values.
+Note: Encoding JSON objects may lead to different encoded strings, depending e.g. whether control characters (white spaces, line-breaks etc.) are included or not. However, servers must be able to deal with included control characters and operate on the original content.
 ====
 
 * When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
