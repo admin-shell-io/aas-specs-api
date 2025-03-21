@@ -83,6 +83,7 @@ Identifiers may also be passed as base64url-encoded query parameters, e.g. for s
 Such query parameters are typically used when a list of objects may be retrieved in the resulting payload.
 A list of base64url-encoded ids is simply passed as comma-separated query parameters.
 * Please note that base64url-encoding differs slightly from base64-encoding and has been specifically defined for passing URLs.
+In particular, base64url-encoded values shall contain or end with the `=` character (so-called 'padding') to keep them URL-safe.
 An appropriate base64url implementation needs to be used for encoding/decoding.
 See RFC 4648 for further details.
 
