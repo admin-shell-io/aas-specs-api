@@ -1,0 +1,32 @@
+version: 1.0
+profile:
+  path: .qodana/asciidoc-inspection.xml
+linter: jetbrains/qodana-jvm-community:2024.3
+plugins:
+  - id: org.asciidoctor.intellij.asciidoc
+
+include:
+  - name: HttpUrlsUsage
+  - name: GrazieInspection
+
+exclude:
+  - name: All
+    paths:
+      - .github
+      - .qodana
+      - CONTRIBUTING.md
+      - LICENSE.txt
+      - README.md
+      - AasxFileServerServiceSpecification
+      - AssetAdministrationShellRegistryServiceSpecification
+      - AssetAdministrationShellRepositoryServiceSpecification
+      - AssetAdministrationShellServiceSpecification
+      - ConceptDescriptionServiceSpecification
+      - DINSPEC16593-Schemas
+      - DiscoveryServiceSpecification
+      - Entire-API-Collection
+      - Part1-MetaModel-Schemas
+      - Part2-API-Schemas
+      - SubmodelRegistryServiceSpecification
+      - SubmodelRepositoryServiceSpecification
+      - SubmodelServiceSpecification
