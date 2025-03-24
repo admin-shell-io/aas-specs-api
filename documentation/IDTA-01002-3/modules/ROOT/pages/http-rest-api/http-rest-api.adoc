@@ -328,7 +328,7 @@ Additional classes needed for payload of the HTTP/REST API specification can be 
 [#modifier-constraints]
 == Modifier Constraints
 
-// Previously pointing to Clause 12.5
+
 To use link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]]., modifiers are implemented as HTTP query parameters or path suffixes.
 For example, a request for a specific submodel may look like: +
 GET /submodel/$value?level=deep&extent=withBlobValue
@@ -349,6 +349,10 @@ A server shall respond with a ClientErrorBadRequest in this case.
 In addition, the modifiers can also be used for PUT operations.
 They define how the request content is delivered and have the same semantics as in the related GET operation.
 Only Content=Reference and Content=Path are not possible for PUT.
+
+====
+Note: Although metadata and value-only representations of Asset Administration Shells are possible, they are not supported up to now.
+====
 
 == Mapping of Operations
 
