@@ -61,15 +61,16 @@ The following design decisions and constraints hold for the HTTP/REST API:
 This leads to the constraint that one operation can only provide one type of a resulting payload.
 * This document assumes version 1.1 of HTTP.
 * An endpoint of the HTTP/REST API shall always use HTTPS (Port 443) with an up-to-date level of encryption.
-* The SerializationModifier "content" changes the type the of payload for inputs or results.
-To ensure type-safe APIs, this parameter is mapped to the path suffixes "/$value", "/$metadata", "/$reference", and "/$path". "content=Normal" is mapped to the path without any "/$<content>" suffix.
+* The SerializationModifier xref:specification/interfaces-operation-parameters.adoc#enumeration-content["Content"] changes the type the of payload for inputs or results.
+To ensure type-safe APIs, this parameter is mapped to the path suffixes "/$value", "/$metadata", "/$reference", and "/$path". Content="Normal" is mapped to the path without any "/$<content>" suffix.
 * Generic SerializationModifiers changing the size of payload for input or result have been mapped to corresponding query parameters, e.g. "?level=" or "?extent=".
 * Query parameters are also used when the type of a resulting payload is a list of objects and the type remains the same, while the query parameter filters the content of the list, e.g. GetAllSubmodels with optional query parameters "?semanticId=" or "?idShort=".
 * Complete objects are provided as requested payloads, e.g. a complete submodel.
-This corresponds to the generic SerializationModifier content="Normal".
+This corresponds to the generic SerializationModifier Content="Normal".
 Reduced objects can be requested by the path suffix "/$<content>".
-// Previously pointing to Clause 12.5
+
 See xref:bibliography.adoc#bib1[[1]] for further details.
+
 Exceptions to this rule are API Operations requiring pagination and error cases.
 * By default, blobs are not part of the payload.
 Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
@@ -337,26 +338,26 @@ Additional classes needed for payload of the HTTP/REST API specification can be 
 == Modifier Constraints
 
 
-To use link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specifiction/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
+To use link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specification/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
 For example, a request for a specific submodel may look like: +
-GET /submodel/$value?level=deep&extent=withBlobValue
+GET /submodel/$value?level=deep&extent="withBlobValue"
 
 The following constraints apply for the combination of modifiers:
 
-* For Content=Value, the requested object shall always be serialized to an unnamed JSON Object or Array.
+* For Content="Value", the requested object shall always be serialized to an unnamed JSON Object or Array.
 This means that the response object must not have a property with the object’s idShort at the root level.
-* If Level=Core and Content=Value, only the requested object and the direct children without their value (empty value) will be returned in value serialization.
+* If Level="Core" and Content="Value", only the requested object and the direct children without their value (empty value) will be returned in value serialization.
 If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": `{}` will be returned.
 If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": `[]` will be returned.
-* The combination of Content=Metadata and Extent=WithBLOBValue is not allowed.
+* The combination of Content="Metadata" and Extent="WithBLOBValue" is not allowed.
 * If parameter Content is set to "Metadata" then Level shall not be used.
 A server shall respond with a ClientErrorBadRequest in this case.
-* The combination of Level=Deep and Content=Reference is not allowed.
+* The combination of Level="Deep" and Content="Reference" is not allowed.
 * Modifiers cannot be used for POST operations.
 
 In addition, the modifiers can also be used for PUT operations.
 They define how the request content is delivered and have the same semantics as in the related GET operation.
-Only Content=Reference and Content=Path are not possible for PUT.
+Only Content="Reference" and Content="Path" are not possible for PUT.
 
 ====
 Note: Although metadata and value-only representations of Asset Administration Shells are possible, they are not supported up to now.
