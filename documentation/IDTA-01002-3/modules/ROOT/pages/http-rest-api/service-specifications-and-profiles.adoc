@@ -15,12 +15,12 @@ include::../includes/constraints.adoc[]
 [#service-specifications-and-profiles]
 = Service Specifications and Profiles
 
-xref:general.adoc#i40-service-model[Figure] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
+xref:general.adoc#image-i40-service-model[] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
 
 The profiles defined in this clause present complete service specifications and their subsets.
 
 For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “PostSubmodelElementByPath”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both.
-Furthermore, profiles also define which of the SerializationModifiers (content, extent, level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
+Furthermore, profiles also define which of the SerializationModifiers (Content, Extent, Level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
 
 
 .Overview of Service Specifications and the Contained APIs
@@ -136,7 +136,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-001
@@ -175,7 +175,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-002[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-002]
@@ -235,7 +235,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-001
@@ -271,7 +271,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-002[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-002]
@@ -302,7 +302,7 @@ Content: Normal, Value
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-003[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-003]
@@ -339,7 +339,7 @@ JSON for descriptions and error messages
 
 AASX for packages
 
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1.0_SSP-001
@@ -382,7 +382,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001
@@ -408,7 +408,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-002
@@ -431,7 +431,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination | Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-003
@@ -451,9 +451,9 @@ xref:specification/interfaces.adoc#QueryAssetAdministrationShellDescriptors[Quer
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination | Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-004
@@ -477,7 +477,7 @@ h|Name: h|Submodel Registry Full Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001`
 h|Feature h|Appearance
 |APIs and API Operations a|
-__Submodel Registry API: +
+__Submodel Registry API:__ +
 xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription] +
 PostSubmodelDescriptor +
@@ -489,7 +489,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001
@@ -511,7 +511,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-002
@@ -534,7 +534,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-003
@@ -554,9 +554,9 @@ xref:specification/interfaces.adoc#QuerySubmodelDescriptors[QuerySubmodelDescrip
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-004
@@ -590,7 +590,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001
@@ -613,7 +613,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-002
@@ -702,7 +702,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-001
@@ -753,7 +753,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-002
@@ -772,9 +772,9 @@ QueryAssetAdministrationShells
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a| not applicable 
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-003
@@ -842,7 +842,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-001
@@ -881,7 +881,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-002
@@ -947,7 +947,7 @@ Content: Normal, Metadata
 Extent: WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-003
@@ -995,7 +995,7 @@ Content: Normal, Metadata
 Extent: WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-004
@@ -1015,9 +1015,9 @@ QuerySubmodels
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a| not applicable 
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-005
@@ -1057,7 +1057,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-001
@@ -1076,9 +1076,9 @@ QueryConceptDescriptions
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-002

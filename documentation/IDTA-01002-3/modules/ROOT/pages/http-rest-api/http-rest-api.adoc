@@ -61,13 +61,13 @@ The following design decisions and constraints hold for the HTTP/REST API:
 This leads to the constraint that one operation can only provide one type of a resulting payload.
 * This document assumes version 1.1 of HTTP.
 * An endpoint of the HTTP/REST API shall always use HTTPS (Port 443) with an up-to-date level of encryption.
-* The SerializationModifier “content” changes the type the of payload for inputs or results.
-To ensure type-safe APIs, this parameter is mapped to the path suffixes “/$value”, “/$metadata”, “/$reference”, and “/$path”. “content=Normal” is mapped to the path without any “/$<content>” suffix.
-* Generic SerializationModifiers changing the size of payload for input or result have been mapped to corresponding query parameters, e.g. ”?level=” or “?extent=”.
-* Query parameters are also used when the type of a resulting payload is a list of objects and the type remains the same, while the query parameter filters the content of the list, e.g. GetAllSubmodels with optional query parameters “?semanticId=” or “?idShort=”.
+* The SerializationModifier "content" changes the type the of payload for inputs or results.
+To ensure type-safe APIs, this parameter is mapped to the path suffixes "/$value", "/$metadata", "/$reference", and "/$path". "content=Normal" is mapped to the path without any "/$<content>" suffix.
+* Generic SerializationModifiers changing the size of payload for input or result have been mapped to corresponding query parameters, e.g. "?level=" or "?extent=".
+* Query parameters are also used when the type of a resulting payload is a list of objects and the type remains the same, while the query parameter filters the content of the list, e.g. GetAllSubmodels with optional query parameters "?semanticId=" or "?idShort=".
 * Complete objects are provided as requested payloads, e.g. a complete submodel.
-This corresponds to the generic SerializationModifier content=”Normal”.
-Reduced objects can be requested by the path suffix “/$<content>”.
+This corresponds to the generic SerializationModifier content="Normal".
+Reduced objects can be requested by the path suffix "/$<content>".
 // Previously pointing to Clause 12.5
 See xref:bibliography.adoc#bib1[[1]] for further details.
 Exceptions to this rule are API Operations requiring pagination and error cases.
@@ -75,9 +75,9 @@ Exceptions to this rule are API Operations requiring pagination and error cases.
 Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
 * Submodels define a hierarchical structure.
 Certain operations use an idShortPath to access deeper parts in the hierarchy.
-To easily support this in the REST API, “.” or “[index]” is used as a delimiter in the idShortPaths.
+To easily support this in the REST API, "." or "[index]" is used as a delimiter in the idShortPaths.
 Please see <<api-versioning>>.
-Since an idShortPath could include square brackets like “[index]”, the idShortPath must be URL-encoded.
+Since an idShortPath could include square brackets like "[index]", the idShortPath must be URL-encoded.
 * Identifiers of Identifiables are base64url-encoded to be passed to the HTTP/REST API (see https://www.base64url.com/).
 These may be identifiers for Asset Administration Shells, Submodels, or Concept Descriptions. +
 Identifiers may also be passed as base64url-encoded query parameters, e.g. for semanticId or assetId.
@@ -93,22 +93,22 @@ Note: Encoding JSON objects may lead to different encoded strings, depending e.g
 ====
 
 * When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
-* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter “?assetids=” can be specified.
+* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter "?assetids=" can be specified.
 Such assetId may be a globalAssetId or specificAssetId.
 The corresponding key-value-pair is first serialized to JSON and then base64url-encoded.
-The resulting encoded string is the value of “?assetids=”.
+The resulting encoded string is the value of "?assetids=".
 
 ====
 Note: In case more than one globalAssetId or specificAssetId is provided, their order shall not affect the result.
 ====
 
-* In some operations, references are part of the query parameters e.g. “?semanticId=”.
+* In some operations, references are part of the query parameters e.g. "?semanticId=".
 The corresponding reference is first serialized to JSON and then base64url-encoded.
-The resulting encoded string is the value of “?semanticId=”.
-* Even though the metamodel of the AAS distinguishes between the attributes “semanticId” and “supplementalSemanticId”, the query parameter “?semanticId” targets both.
+The resulting encoded string is the value of "?semanticId=".
+* Even though the metamodel of the AAS distinguishes between the attributes "semanticId" and "supplementalSemanticId", the query parameter "?semanticId" targets both.
 * This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells).
-For the example “[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]”, the resulting base64url-encoded value of the query parameter is +
-“?assetIds=W3sibmFtZSI6ICJnbG9iYWxBc3NldElkIiwidmFsdWUiOiAiaHR0cDovL2V4YW1wbGUuY29tcGFueS9teUFzc2V0In0seyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifV0”. +
+For the example "[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]", the resulting base64url-encoded value of the query parameter is +
+"?assetIds=W3sibmFtZSI6ICJnbG9iYWxBc3NldElkIiwidmFsdWUiOiAiaHR0cDovL2V4YW1wbGUuY29tcGFueS9teUFzc2V0In0seyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifV0". +
 If several key-value-pairs are included, all must be part of the key-value-pairs on the server.
 * Comparisons of idShort are made case-sensitive in the HTTP/REST API to avoid repeating toupper()/tolower() conversions.
 
@@ -117,21 +117,28 @@ Note: this is conformant to the change made in Part 1 V3.0 xref:bibliography.ado
 ====
 
 * GetAll…-API Operations will retrieve a list of objects as the resulting payload, e.g. GetAllSubmodelElements.
-* The splitting of big result sets into smaller pieces, commonly referred to as “pagination”, is executed using the cursor query parameter.
+* The splitting of big result sets into smaller pieces, commonly referred to as "pagination", is executed using the cursor query parameter.
 Therefore, result objects for GetAll…-API Operations and others requiring pagination return their content inside a Result structure.
 See <<pagination>> for further explanations.
+
 * In general, only GET, POST, PUT, PATCH and DELETE are used.
 POST is used to create new objects and to invoke operations.
+
 [[superpaths]]
-* Some interfaces may be combined in a so-called “superpaths”, e.g. the Asset Administration Shell Repository Interface may be combined with the AAS Interface and the Submodel Interface.
-This results in a complete path like “/shells/\{aas-identifier}/submodels/\{submodel-identifier}/*”.
+* Some interfaces may be combined in a so-called "superpaths", e.g. the Asset Administration Shell Repository Interface may be combined with the AAS Interface and the Submodel Interface.
+This results in a complete path like "/shells/\{aas-identifier}/submodels/\{submodel-identifier}/*".
 This is especially useful when all data is hosted in the same repository.
 Superpaths are defined as part of the service specifications and profiles.
-* The attribute AssetAdministrationShell/submodels (array of References) maps to the path segment “/submodel-refs” to distinguish it from the superpath segment “/submodels” (array of Submodels).
-* Each interface includes a “/description” operation for self-discovery to provide detailed information about the interface.
-A server supporting the HTTP/REST API may also provide a server global “/description” to provide the information about all available profiles on that server.
+
+* The attribute AssetAdministrationShell/submodels (array of References) maps to the path segment "/submodel-refs" to distinguish it from the superpath segment "/submodels" (array of Submodels).
+
+* Each interface includes a "/description" operation for self-discovery to provide detailed information about the interface.
+A server supporting the HTTP/REST API may also provide a server global "/description" to provide the information about all available profiles on that server.
+
 * The AAS Query Language is serialised as a JSON Object.
-* The recursive nature of the reference class (Reference/referredSemanticId points to Reference again) cannot be represented in SwaggerHub due to a bug in the SwaggerUI code. Therefore, the additional class “ReferenceParent" has been added. “ReferenceParent" shall not be used in productive operations and is only a placeholder for “Reference”. When implementing generated code originating from the SwaggerHub schemas, please delete “ReferenceParent” and add its attributes to “Reference”.
+
+* The recursive nature of the reference class (Reference/referredSemanticId points to Reference again) cannot be represented in SwaggerHub due to a bug in the SwaggerUI code. Therefore, the additional class "ReferenceParent" has been added. "ReferenceParent" shall not be used in productive operations and is only a placeholder for "Reference". When implementing generated code originating from the SwaggerHub schemas, please delete "ReferenceParent" and add its attributes to "Reference".
+
 * This document does not make any statement about the expected behavior when query parameters with cardinality 1 (e.g. level, extent, etc.) are present more than once in a URL, e.g., "/...?level=deep&level=core". It is up to the implementation how to handle such cases. It is strongly discouraged to make such calls as the result might not be deterministic.
 
 [#api-versioning]
@@ -160,7 +167,7 @@ image::aas-api-versioning-url-scheme.svg[width=481,height=110]
 
 As different solutions also provide different advantages and disadvantages, URL-based versioning is recommended for the AAS API. Among other advantages, implementation complexity on clients as well as servers is rather low and different versions can be easily accessed through browsers without the need for specific development tools or extensions.
 
-Upcoming implementations of AAS related servers may implement the version prefix “api/v<X>/” to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. “api/v3/” (see <<aas-api-versioning-url-scheme>>). 
+Upcoming implementations of AAS related servers may implement the version prefix "api/v<X>/" to provide information of the specific major version regarding AAS Part 2 version, where <X> denotes the implemented major version, e.g. "api/v3/" (see <<aas-api-versioning-url-scheme>>). 
 As minor releases of one major version must not contain any breaking changes, the declaration of the minor version can be omitted.
 
 Nevertheless, AAS servers may decide to use different paths depending on their context, see  <<aas-api-versioning-url-scheme2>>. The fragment before the functional endpoint is not necessarily the version information itself, it may also be a tenant ID or any other information the server decides to use. A client shall not assume that the pattern from  <<aas-api-versioning-url-scheme>> is supported by all servers.
@@ -169,9 +176,9 @@ Nevertheless, AAS servers may decide to use different paths depending on their c
 [[aas-api-versioning-url-scheme2]]
 image::aas-api-versioning-url-scheme2.png[width=481,height=110]
 
-Finally, it is recommended to include an additional "/description” endpoint into each service to further denote information about APIs / servers capabilities.
+Finally, it is recommended to include an additional "/description" endpoint into each service to further denote information about APIs / servers capabilities.
 This endpoint provides further information about the API and its supported profiles.
-The “/description” will be extended with additional information in later versions.
+The "/description" will be extended with additional information in later versions.
 
 ====
 Note: The profile identifiers provided at the "/description" endpoint (see Clause xref:specification/interfaces-payload.adoc#service-description[]) contain both the major and minor version declaration.
@@ -193,9 +200,9 @@ Technically, the idShortPath is a string and the idShorts are separated by a dot
 image::se-hierarchy.png[image24,width=642,height=367]
 
 The example hierarchy in <<se-hierarchy>> shows a Submodel with a hierarchical structure of SubmodelElements.
-The submodel can be addressed by its global identifier “https://admin-shell.io/sampleSM”.
+The submodel can be addressed by its global identifier "https://admin-shell.io/sampleSM".
 The other elements in the figure do not have a global identifier; they are, however, uniquely identifiable and addressable by the submodel identifier and the idShortPath.
-The idShortPath in this example pointing to the Property p1 is “sme1.sme2[0].p1”.
+The idShortPath in this example pointing to the Property p1 is "sme1.sme2[0].p1".
 The hierarchy is built on parent-child relations between the elements.
 There are four elements which can aggregate SubmodelElements and create deeper hierarchical structures.
 The elements are Submodel, SubmodelElementCollection, SubmodelElementList, and Entity.
@@ -226,7 +233,7 @@ IdshortPaths are URL-encoded to also allow square brackets.
 ====
 
 ====
-Note 2: in the example above, “aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ” is the base64url-encoding of “https://admin-shell.io/sampleSM”, “sme1.sme2%5B0%5D.p1” is the URL-encoding of “sme1.sme2[0].p1”, and “sme1.sme2%5B0%5D” is the URL-encoding of “sme1.sme2[0]”.
+Note 2: in the example above, "aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ" is the base64url-encoding of "https://admin-shell.io/sampleSM", "sme1.sme2%5B0%5D.p1" is the URL-encoding of "sme1.sme2[0].p1", and "sme1.sme2%5B0%5D" is the URL-encoding of "sme1.sme2[0]".
 ====
 
 [#pagination]
@@ -235,7 +242,7 @@ Note 2: in the example above, “aHR0cHM6Ly9hZG1pbi1zaGVsbC5pby9zYW1wbGVTTQ” i
 Pagination is a commonly used pattern to break down potentially long result lists into smaller pieces for a better control of the network and computational load on both the server and the client side.
 For instance, the OData protocol xref:bibliography.adoc#bib8[[8\]] provides guidelines for parameters and behavior on the client and server side.
 In addition, the proposals of the RFC 8977 footnote:[see Chapter 2.4 of RFC 8977] present a best practice for web APIs.
-In the scope of the AAS HTTP/REST API, the query parameter “cursor” controls, which part of a longer result set is returned.
+In the scope of the AAS HTTP/REST API, the query parameter "cursor" controls, which part of a longer result set is returned.
 
 The AAS client may define the maximum page size of the result list through the limit parameter.
 The server is allowed to return less elements than requested.
@@ -244,7 +251,7 @@ If the limit parameter is not specified, the server may decide the number of ele
 Pagination is currently only defined for the HTTP/REST API.
 Other APIs might introduce different patterns to control the response content.
 
-Pagination is controlled by the client via the query parameters “cursor” and “limit”.
+Pagination is controlled by the client via the query parameters "cursor" and "limit".
 They can be combined with all other query parameters as defined in this document and listed in the following table:
 
 .Parameters for Pagination
@@ -270,7 +277,7 @@ Note 1: this constraint prohibits that an empty cursor value is sent by the clie
 
 ====
 Note 2: if the client sends a request without a cursor query parameter, the server must interpret it as if the client wants to retrieve the results from the very beginning.
-A client may send the query parameter “limit" without any cursor.
+A client may send the query parameter "limit" without any cursor.
 In that case, the server must return at max the specified number of result items from the beginning.
 ====
 
@@ -331,7 +338,7 @@ Additional classes needed for payload of the HTTP/REST API specification can be 
 == Modifier Constraints
 
 
-To use link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]]., modifiers are implemented as HTTP query parameters or path suffixes.
+To use link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specifiction/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
 For example, a request for a specific submodel may look like: +
 GET /submodel/$value?level=deep&extent=withBlobValue
 
@@ -340,8 +347,8 @@ The following constraints apply for the combination of modifiers:
 * For Content=Value, the requested object shall always be serialized to an unnamed JSON Object or Array.
 This means that the response object must not have a property with the object’s idShort at the root level.
 * If Level=Core and Content=Value, only the requested object and the direct children without their value (empty value) will be returned in value serialization.
-If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": \{} will be returned.
-If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": [] will be returned.
+If a direct child is a SubmodelElementCollection, "<SubmodelElementCollection/idShort>": `{}` will be returned.
+If a direct child is a SubmodelElementList, "<SubmodelElementList/idShort>": `[]` will be returned.
 * The combination of Content=Metadata and Extent=WithBLOBValue is not allowed.
 * If parameter Content is set to "Metadata" then Level shall not be used.
 A server shall respond with a ClientErrorBadRequest in this case.
@@ -360,9 +367,7 @@ Note: Although metadata and value-only representations of Asset Administration S
 
 The following <<table-mapping-operations>> shows the mapping of the generic operations to the HTTP/REST API.
 
-The black entries correspond to the corresponding generic operations.
-
-[.blue]#The blue entries are operations which only exist in the HTTP/REST API.#
+All entries correspond to the generic operations, except the *bold* entries, which exist only in the HTTP/REST API.
 
 [[table-mapping-operations]]
 .Mapping of the generic Interface Operations to HTTP API Operations
@@ -388,7 +393,7 @@ Note 2: There is no API defined for a client to directly send a GET towards this
 |GetThumbnail |GET |/aas/asset-information/thumbnail |
 |PutThumbnail |PUT |/aas/asset-information/thumbnail |
 |DeleteThumbnail |DELETE |/aas/asset-information/thumbnail |
-| |* |/aas/submodels/\{submodel-identifier}/* |superpath as defined in service specification or profile
+s| s|* s|/aas/submodels/\{submodel-identifier}/* s|superpath as defined in service specification or profile
 
 4+h|Submodel Interface
 |GetSubmodel |GET |/submodel a|
@@ -403,7 +408,7 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 |GetAllSubmodelElements |GET |/submodel/submodel-elements a|
 ?level=deep/core
 
-path-suffix= $metadata/$value/$reference/$path or no suffix for nomal
+path-suffix= $metadata/$value/$reference/$path or no suffix for serialization modifier "Normal"
 
 ?extent=WithoutBLOBValue/WithBLOBValue
 
@@ -414,10 +419,12 @@ use separated idShortPath of this element
 
 ?level=deep/core
 
-path-suffix= $metadata/$value/$reference/$path or no suffix for nomal +
+path-suffix= $metadata/$value/$reference/$path or no suffix or serialization modifier "Normal" +
 ?extent=WithoutBLOBValue/WithBLOBValue
 
-*Note:* If a client uses a path-suffix for a SubmodelElement that has the associated Serialisation Modifier not defined (e.g. .../capabilityIdShort/$value), a server shall respond with a ClientErrorBadRequest (HTTP status code 400) and an appropriate error description in the response message.
+====
+Note: If a client uses a path-suffix for a SubmodelElement that has the associated Serialisation Modifier not defined (e.g. .../capabilityIdShort/$value), a server shall respond with a ClientErrorBadRequest (HTTP status code 400) and an appropriate error description in the response message.
+====
 
 URL-encoded IdShortPath
 
@@ -521,7 +528,7 @@ path-suffix=$reference or no suffix normal
 |PostAssetAdministrationShell |POST |/shells |
 |PutAssetAdministrationShellById |PUT |/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
-|AasInterface |* |/shells/\{aasIdentifier}/* |superpath as defined in Service Specification or Profile
+s|AasInterface s|* s|/shells/\{aasIdentifier}/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShells |POST |/query/shells a| Input query in the request body
 
 4+h|Submodel Repository Interface
@@ -553,7 +560,7 @@ base64url-encoded identifier
 |PutSubmodelById |PUT |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 |PatchSubmodelById |PATCH |/submodels/\{submodelIdentifier} |path-suffix=$metadata/$value or no suffix for normal
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
-|SubmodelInterface |* |/submodels/\{submodelIdentifier}/* |superpath as defined in service specification or profile
+s|SubmodelInterface s|* s|/submodels/\{submodelIdentifier}/* s|superpath as defined in service specification or profile
 |QuerySubmodels |POST |/query/submodels a| Input query in the request body
 
 4+h|Concept Description Repository Interface
@@ -618,7 +625,7 @@ assetType= base64url-encoded identifier
 |PostAssetAdministrationShellDescriptorById |POST |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |PutAssetAdministrationShellDescriptorById |PUT |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellDescriptorById |DELETE |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
-|Submodel Registry Interface |* |/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* |superpath as defined in Service Specification or Profile
+s|Submodel Registry Interface s|* s|/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShellDescriptors |POST |/query/shell-descriptors a| Input query in the request body
 |CreateBulkAssetAdministrationShellDescriptors |POST |/bulk/shell-descriptors a| List of new Asset Administration Shell Descriptors in the request body
 |PutBulkAssetAdministrationShellDescriptorsById |PUT |/bulk/shell-descriptors a| List of new versions of Asset Administration Shell Descriptors in the request body. Mapping to existing Asset Administration Shell Descriptors happens via the `id` attribute.
@@ -658,13 +665,13 @@ Note: Same endpoint as for the Asset Administration Shell Registry Interface bul
 ====
 
 4+h|Descriptor Interface
-|GetDescription |GET |/description |Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
+s|GetDescription s|GET s|/description s|Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
 |===
 
 [#async-invocation-of-se-operation]
-== Asynchronous Invocation of the SubmodelElement “Operation”
+== Asynchronous Invocation of the SubmodelElement "Operation"
 
-The invocation of the SubmodelElement “Operation” is the only call that can appear either synchronously or asynchronously in the current version of the specification.
+The invocation of the SubmodelElement "Operation" is the only call that can appear either synchronously or asynchronously in the current version of the specification.
 The expected behavior is therefore explained in detail.
 
 .Sequence for asynchronous invocations of the SubmodelElement 'Operation'
@@ -678,21 +685,21 @@ The client informs the server whether it is interested in a synchronous (asynchr
 In case of a synchronous interaction, the communication channel is kept open until the server has processed the request and responds with an OperationResult object, or a timeout or other kind of error occurs.
 
 In the asynchronous pattern, the server immediately responds with an Accepted (status code: 202) message containing the link to an endpoint where the client can fetch status information about his request (see <<se-operation-invocation>>).
-This status endpoint is also located at the same SubmodelElement “Operation”, followed by the path segments "/operation-status/\{handleId}”.
+This status endpoint is also located at the same SubmodelElement "Operation", followed by the path segments "/operation-status/\{handleId}".
 
 In case the request is incorrect and the server already recognizes it, the server responds directly with the according status code, e.g. 400.
 If the server can only recognize the error during later processing and not at the time it receives the request, it responds with an Accepted (202) message at first.
 Hence, a received Accepted message does not guarantee the client that its request is valid in every case.
 
-If the server has not finished processing the request, the status endpoint responds with an BaseOperationResult object with the attribute “executionState” set to “Running”.
+If the server has not finished processing the request, the status endpoint responds with an BaseOperationResult object with the attribute "executionState" set to "Running".
 As soon as the processing is finished, the status endpoints deliver a Found (HTTP status code 302) response with the location of the result in the Location response header.
-The result is, similar to the status information, provided at the same SubmodelElement “Operation”, followed by the path segments "/operation-result/\{handleId}”.
+The result is, similar to the status information, provided at the same SubmodelElement "Operation", followed by the path segments "/operation-result/\{handleId}".
 
-In case incorrect inputs have been provided by the client but the server was only able to recognize this during processing, or if the server perceived any other error during processing, the server must still provide the OperationResult object with status code 200 and set the attribute “executionState” to “Failed”.
+In case incorrect inputs have been provided by the client but the server was only able to recognize this during processing, or if the server perceived any other error during processing, the server must still provide the OperationResult object with status code 200 and set the attribute "executionState" to "Failed".
 
 ====
-Note: the invocation of the SubmodelElement “Operation” may also be conducted in the “ValueOnly” content.
-In this case, the “/$value” path segment is added to the previously mentioned endpoints.
+Note: the invocation of the SubmodelElement "Operation" may also be conducted in the "ValueOnly" content.
+In this case, the "/$value" path segment is added to the previously mentioned endpoints.
 ====
 
 == Bulk Operations
@@ -712,11 +719,11 @@ The pattern for these operations follows the one introduced in <<async-invocatio
 include::partial$diagrams/sequence-of-bulk.puml[]
 ....
 
-Bulk requests are solely sent to bulk endpoints, which must contain the “/bulk/” path segment.
+Bulk requests are solely sent to bulk endpoints, which must contain the "/bulk/" path segment.
 A server may serve bulk endpoints together with non-bulk endpoints.
 However, in case of available bulk operations, the server must also provide the so-called bulk status (/bulk/status/\{handle-id}) and bulk result (/bulk/result/\{handle-id}) endpoints.
 A client executing a bulk request will retrieve the location of the status endpoint through the Location header of the response (see <<sequence-of-bulk>>).
-As long as the request is processed, the status endpoint responds with “OK” with an optional information for the client when it shall ask again ("Retry-After").
+As long as the request is processed, the status endpoint responds with "OK" with an optional information for the client when it shall ask again ("Retry-After").
 As soon as the server was able to process the request, the status endpoint provides a redirect to the location of the result.
 The result endpoint may either signal the client a success of the operation without any additional content, or an error together with a detailed error message in the body.
 A server may remove information about the result of a bulk request after a certain amount of time.
@@ -825,7 +832,7 @@ This class is not part of the metamodel.
 h|Inherits from 3+|--
 
 h|Attribute h|Explanation h|Type h|Card.
-e|packageId a|File server specific package id |ShortIdType |1
-e|aasId a|Asset Administration Shell unique identifier |Identifier |0..*
+e|packageId a|File server specific package id |xref:specification/interfaces-payload.adoc#ShortIdType[ShortIdType] |1
+e|aasId a|Asset Administration Shell unique identifier |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
 |===
 
