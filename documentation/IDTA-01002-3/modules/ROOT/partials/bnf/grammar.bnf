@@ -200,14 +200,14 @@
 <FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | "idShort" | "id" )
 <FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
 <FieldIdentifierCD> ::= "$cd#" ( "idShort" | "id" ) <ws>
-<FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" ( [0-9]* ) "]" )? "." <EndpointClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" )? "." <SmDescriptorClause> )
+<FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" ) "." <SmDescriptorClause> )
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
-<SmDescriptorClause> ::= ( <SemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" ( [0-9]* ) "]" )? "." <EndpointClause> )
+<SmDescriptorClause> ::= ( <SemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> )
 <EndpointClause> ::= "interface" | "protocolinformation.href" 
  
-<ReferenceClause> ::= ( "type" | "keys" ( "[" ( [0-9]* ) "]" )? ( ".type" | ".value" ) )
+<ReferenceClause> ::= ( "type" | "keys" ( "[" ( [0-9]* ) "]" ) ( ".type" | ".value" ) )
 <SemanticIdClause> ::= ( "semanticId" | "semanticId." <ReferenceClause> )
-<SpecificAssetIdsClause> ::=  ( "specificAssetIds" ( "[" ( [0-9]* ) "]" )? ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> ) )
+<SpecificAssetIdsClause> ::=  ( "specificAssetIds" ( "[" ( [0-9]* ) "]" ) ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> ) )
 <idShortPath> ::= ( <idShort> ("[" ( [0-9]* ) "]" )? ( "." <idShortPath> )* )
 <idShort> ::= ( ( [a-z] | [A-Z] ) ( [a-z] | [A-Z] | [0-9] | "_" )* )
  
