@@ -34,6 +34,7 @@ paths:
         content:
           application/json:
             schema:
+              # Note: It is a known problem that SwaggerHub cannot render the oneOf statement in the Query definition.
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/Query'
       responses:
         '200':
@@ -41,16 +42,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PagedResult'
-                - type: object
-                  properties:
-                    result:
-                      type: array
-                      items:
-                        oneOf:
-                        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription"
-                        - type: string
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/QueryResultConceptDescription'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
         '401':
