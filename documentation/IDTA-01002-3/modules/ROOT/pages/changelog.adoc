@@ -9,7 +9,7 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
-== Changes w.r.t. V3.0.3 to V3.1
+== Changes w.r.t. V3.0.4 to V3.1
 
 Major Changes:
 
@@ -19,7 +19,8 @@ Major Changes:
 * deprecated: operation GetAllAssetAdministrationShellIdsByAssetLink 
 * new: operation  SearchAllAssetAdministrationShellIdsByAssetLink  (as substitute for GetAllAssetAdministrationShellIdsByAssetLink) (https://github.com/admin-shell-io/aas-specs-api/issues/19[#19])
 * new: Profile for Discovery Service: Read Only SSP-002 (https://github.com/admin-shell-io/aas-specs-api/issues/201[#201])
-* update: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions (https://github.com/admin-shell-io/aas-specs/issues/365[#365]):
+* new: Profile for the Asset Administration Shell Registry: Minimal Read SSP-005 (https://github.com/admin-shell-io/aas-specs-api/issues/201[#201])
+* update: Terms and Definitions adopted to IEC 63278-1:2023 (before IEC 63278-1 Draft July 2022 was the basis), also abbreviations partly adopted; changed definitions (https://github.com/admin-shell-io/aas-specs/issues/210[#210]):
 	** changed: interface
 	** changed: service
 * update: Individual versioning of datatype IDs, operations, interfaces etc. (https://github.com/admin-shell-io/aas-specs-api/issues/247[#247])
@@ -32,16 +33,23 @@ Major Changes:
 * Transfer of all UML figures to PlantUML (.puml) and maintenance in GitHub
 * OpenAPI: marked parameter 'level' as deprecated for all URLs ending with '/$reference'
 * change: ProtocolInformation/securityAttributes changed from mandatory to optional. 
+* change: Endpoint/interface extended with "VALUE" and "METADATA" aspects. 
 * new: Added 'Role' and 'NotApplicable' wherever AssetAdministrationShellDescriptor/AssetKind is used.
 * change: Added minLength=1 requirement and regex pattern "^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$" to all classes with idShort parameters to keep definitions in sync with the declaration of link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes[Referable/idShort]
+* change: Fix missing 'Repository' in ConceptDescriptionServiceSpecification to ConceptDescriptionRepositoryServiceSpecification (https://github.com/admin-shell-io/aas-specs-api/issues/171[#171])
 
 Minor Changes:
 
+* clarification on how to handle duplicate query parameters
+* removal of Clause "Security" because Part 4 Security now covers security aspects
+* replace "servers" clause in OpenAPI files
+* add notes for base64url-encoded values and order of "assetIds" query parameters
+* update xref:bibliography.adoc[Bibliography]
+* add xref:annex/overview-constraints.adoc[overview of constraints] to Annex
+* xref:http-rest-api/http-rest-api.adoc#design-decisions[Design Decisions for the HTTP API]: Clarify that padding is not allowed for base64url-encoded values (https://github.com/admin-shell-io/aas-specs-api/issues/423[#423])
+* xref:http-rest-api/http-rest-api.adoc#modifier-constraints[HTTP Modifier Constraints]: adding note for metadata and value-only representations of Asset Administration Shells (https://github.com/admin-shell-io/aas-specs-api/issues/268[#268])
 
-* Clarification on how to handle duplicate query parameters
-* Replace "servers" clause in OpenAPI files
-
-=== Interface Changes w.r.t. V3.0.3 to V3.1
+=== Interface Changes w.r.t. V3.0.4 to V3.1
 
 [%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
@@ -82,10 +90,11 @@ add PutBulkSubmodelDescriptorsById
 
 add DeleteBulkSubmodelDescriptorsById
 
+| | GenerateSerializationByIds | Extended a| Extended description for the "includeConceptDescriptions" parameter
 
 |===
 
-=== Operation Changes w.r.t. V3.0.3 to V3.1
+=== Operation Changes w.r.t. V3.0.4 to V3.1
 
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
@@ -106,7 +115,7 @@ h|Operation  h|Kind of Change h|Comment
  |DeleteBulkSubmodelDescriptorsById|new a| new API-Operation for Submodel Registry Interface
 |===
 
-=== Profile Changes w.r.t. V3.0.3 to V3.1
+=== Profile Changes w.r.t. V3.0.4 to V3.1
 
 [%autowidth,width="100%",cols="30%,15%,55%",options="header",]
 |===
@@ -123,7 +132,7 @@ added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
  |all |new a| Added version 3.1 for all existing profiles
 |===
 
-=== Class Changes w.r.t. V3.0.3 to V3.1
+=== Class Changes w.r.t. V3.0.4 to V3.1
 
 .Changes in Data Types for Payload
 [cols="5%,42%,48%",options="header",]
@@ -154,6 +163,29 @@ added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/name] a|
 | | xref:specification/interfaces-payload.adoc#AssetLink[AssetLink/value] a|
 |===
+
+
+== Changes w.r.t. V3.0.3 to V3.0.4
+
+Major:
+* Change: paging_metadata is required in OpenAPI to match the definition in this document.
+* Change: ValueOnly classes changed from array to object for AnnotatedRelationshipElementValue/value, EntityValue/statements
+* Change: Return type of the OpenAPI classes GetSubmodelsValueResult and GetSubmodelElementsValueResult from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251])
+
+
+=== Interface Changes w.r.t. V3.0.3 to V3.0.4
+
+None.
+
+=== Operation Changes w.r.t. V3.0.3 to V3.0.4
+
+
+|===
+|*Operation Change Old* |*Operation Change New* |*Kind of Change* |*Comment*
+| PostAllAssetLinksById had cardinality of the payload of “1” | payload cardinality is “1..*” | Change | 
+|===
+
+		
 
 
 == Changes w.r.t. V3.0.2 to V3.0.3

@@ -40,63 +40,68 @@ components:
       properties:
         language:
           type: string
-          pattern: ^(([a-zA-Z]{2,3}(-[a-zA-Z]{3}(-[a-zA-Z]{3}){0,2})?|[a-zA-Z]{4}|[a-zA-Z]{5,8})(-[a-zA-Z]{4})?(-([a-zA-Z]{2}|[0-9]{3}))?(-(([a-zA-Z0-9]){5,8}|[0-9]([a-zA-Z0-9]){3}))*(-[0-9A-WY-Za-wy-z](-([a-zA-Z0-9]){2,8})+)*(-[xX](-([a-zA-Z0-9]){1,8})+)?|[xX](-([a-zA-Z0-9]){1,8})+|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$
+          pattern: >-
+            ^(([a-zA-Z]{2,3}(-[a-zA-Z]{3}(-[a-zA-Z]{3}){0,2})?|[a-zA-Z]{4}|[a-zA-Z]{5,8})(-[a-zA-Z]{4})?(-([a-zA-Z]{2}|[0-9]{3}))?(-(([a-zA-Z0-9]){5,8}|[0-9]([a-zA-Z0-9]){3}))*(-[0-9A-WY-Za-wy-z](-([a-zA-Z0-9]){2,8})+)*(-[xX](-([a-zA-Z0-9]){1,8})+)?|[xX](-([a-zA-Z0-9]){1,8})+|((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)))$
         text:
           type: string
           minLength: 1
-          pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+          pattern: >-
+            ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
       required:
         - language
         - text
     AdministrativeInformation:
       allOf:
-        - $ref: "#/components/schemas/HasDataSpecification"
+        - $ref: '#/components/schemas/HasDataSpecification'
         - properties:
             version:
               type: string
               allOf:
                 - minLength: 1
                   maxLength: 4
-                - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-                - pattern: "^(0|[1-9][0-9]*)$"
+                - pattern: >-
+                    ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+                - pattern: '^(0|[1-9][0-9]*)$'
             revision:
               type: string
               allOf:
                 - minLength: 1
                   maxLength: 4
-                - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-                - pattern: "^(0|[1-9][0-9]*)$"
+                - pattern: >-
+                    ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+                - pattern: '^(0|[1-9][0-9]*)$'
             creator:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             templateId:
               type: string
               minLength: 1
               maxLength: 2048
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
     AnnotatedRelationshipElement:
       allOf:
-        - $ref: "#/components/schemas/RelationshipElement_abstract"
+        - $ref: '#/components/schemas/RelationshipElement_abstract'
         - properties:
             annotations:
               type: array
               items:
-                $ref: "#/components/schemas/DataElement_choice"
+                $ref: '#/components/schemas/DataElement_choice'
               minItems: 1
             modelType:
               pattern: "^AnnotatedRelationshipElement$"
     AssetAdministrationShell:
       allOf:
-        - $ref: "#/components/schemas/Identifiable"
-        - $ref: "#/components/schemas/HasDataSpecification"
+        - $ref: '#/components/schemas/Identifiable'
+        - $ref: '#/components/schemas/HasDataSpecification'
         - properties:
             derivedFrom:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             assetInformation:
-              $ref: "#/components/schemas/AssetInformation"
+              $ref: '#/components/schemas/AssetInformation'
             submodels:
               type: array
               items:
-                $ref: "#/components/schemas/Reference"
+                $ref: '#/components/schemas/Reference'
               minItems: 1
             modelType:
               pattern: "^AssetAdministrationShell$"
@@ -106,24 +111,26 @@ components:
       type: object
       properties:
         assetKind:
-          $ref: "#/components/schemas/AssetKind"
+          $ref: '#/components/schemas/AssetKind'
         globalAssetId:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+          pattern: >-
+            ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
         specificAssetIds:
           type: array
           items:
-            $ref: "#/components/schemas/SpecificAssetId"
+            $ref: '#/components/schemas/SpecificAssetId'
           minItems: 1
         assetType:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+          pattern: >-
+            ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
         defaultThumbnail:
-          $ref: "#/components/schemas/Resource"
+          $ref: '#/components/schemas/Resource'
       required:
         - assetKind
     AssetKind:
@@ -135,30 +142,34 @@ components:
         - Type
     BasicEventElement:
       allOf:
-        - $ref: "#/components/schemas/EventElement"
+        - $ref: '#/components/schemas/EventElement'
         - properties:
             observed:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             direction:
-              $ref: "#/components/schemas/Direction"
+              $ref: '#/components/schemas/Direction'
             state:
-              $ref: "#/components/schemas/StateOfEvent"
+              $ref: '#/components/schemas/StateOfEvent'
             messageTopic:
               type: string
               minLength: 1
               maxLength: 255
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             messageBroker:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             lastUpdate:
               type: string
-              pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)(Z|\+00:00|-00:00)$
+              pattern: >-
+                ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)(Z|\+00:00|-00:00)$
             minInterval:
               type: string
-              pattern: ^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S))))$
+              pattern: >-
+                ^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S))))$
             maxInterval:
               type: string
-              pattern: ^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S))))$
+              pattern: >-
+                ^-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?|([0-9]+M)([0-9]+D)?|([0-9]+D))(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S)))?)|(T(([0-9]+H)([0-9]+M)?([0-9]+(\.[0-9]+)?S)?|([0-9]+M)([0-9]+(\.[0-9]+)?S)?|([0-9]+(\.[0-9]+)?S))))$
             modelType:
               pattern: "^BasicEventElement$"
           required:
@@ -167,7 +178,7 @@ components:
             - state
     Blob:
       allOf:
-        - $ref: "#/components/schemas/DataElement"
+        - $ref: '#/components/schemas/DataElement'
         - properties:
             value:
               type: string
@@ -176,9 +187,11 @@ components:
               type: string
               allOf:
                 - minLength: 1
-                  maxLength: 100
-                - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-                - pattern: ^([!#$%&'*+\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\-.^_`|~0-9a-zA-Z])+([
+                  maxLength: 128
+                - pattern: >-
+                    ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+                - pattern: >-
+                    ^([!#$%&'*+\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\-.^_`|~0-9a-zA-Z])+([
                     \t]*;[
                     \t]*([!#$%&'*+\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\-.^_`|~0-9a-zA-Z])+|"(([\t
                     !#-\[\]-~]|[\x80-\xff])|\\([\t !-~]|[\x80-\xff]))*"))*$
@@ -186,90 +199,95 @@ components:
               pattern: "^Blob$"
     Capability:
       allOf:
-        - $ref: "#/components/schemas/SubmodelElement"
+        - $ref: '#/components/schemas/SubmodelElement'
         - properties:
             modelType:
               pattern: "^Capability$"
     ConceptDescription:
       allOf:
-        - $ref: "#/components/schemas/Identifiable"
-        - $ref: "#/components/schemas/HasDataSpecification"
+        - $ref: '#/components/schemas/Identifiable'
+        - $ref: '#/components/schemas/HasDataSpecification'
         - properties:
             isCaseOf:
               type: array
               items:
-                $ref: "#/components/schemas/Reference"
+                $ref: '#/components/schemas/Reference'
               minItems: 1
             modelType:
               pattern: "^ConceptDescription$"
     DataElement:
-      $ref: "#/components/schemas/SubmodelElement"
+      $ref: '#/components/schemas/SubmodelElement'
     DataElement_choice:
       oneOf:
-        - $ref: "#/components/schemas/Blob"
-        - $ref: "#/components/schemas/File"
-        - $ref: "#/components/schemas/MultiLanguageProperty"
-        - $ref: "#/components/schemas/Property"
-        - $ref: "#/components/schemas/Range"
-        - $ref: "#/components/schemas/ReferenceElement"
+        - $ref: '#/components/schemas/Blob'
+        - $ref: '#/components/schemas/File'
+        - $ref: '#/components/schemas/MultiLanguageProperty'
+        - $ref: '#/components/schemas/Property'
+        - $ref: '#/components/schemas/Range'
+        - $ref: '#/components/schemas/ReferenceElement'
     DataSpecificationContent:
       type: object
       properties:
         modelType:
-          $ref: "#/components/schemas/ModelType"
+          $ref: '#/components/schemas/ModelType'
       required:
         - modelType
     DataSpecificationContent_choice:
       oneOf:
-        - $ref: "#/components/schemas/DataSpecificationIec61360"
+        - $ref: '#/components/schemas/DataSpecificationIec61360'
     DataSpecificationIec61360:
       allOf:
-        - $ref: "#/components/schemas/DataSpecificationContent"
+        - $ref: '#/components/schemas/DataSpecificationContent'
         - properties:
             preferredName:
               type: array
               items:
-                $ref: "#/components/schemas/LangStringPreferredNameTypeIec61360"
+                $ref: '#/components/schemas/LangStringPreferredNameTypeIec61360'
               minItems: 1
             shortName:
               type: array
               items:
-                $ref: "#/components/schemas/LangStringShortNameTypeIec61360"
+                $ref: '#/components/schemas/LangStringShortNameTypeIec61360'
               minItems: 1
             unit:
               type: string
               minLength: 1
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             unitId:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             sourceOfDefinition:
               type: string
               minLength: 1
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             symbol:
               type: string
               minLength: 1
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             dataType:
-              $ref: "#/components/schemas/DataTypeIec61360"
+              $ref: '#/components/schemas/DataTypeIec61360'
             definition:
               type: array
               items:
-                $ref: "#/components/schemas/LangStringDefinitionTypeIec61360"
+                $ref: '#/components/schemas/LangStringDefinitionTypeIec61360'
               minItems: 1
             valueFormat:
               type: string
               minLength: 1
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             valueList:
-              $ref: "#/components/schemas/ValueList"
+              $ref: '#/components/schemas/ValueList'
             value:
               type: string
               minLength: 1
               maxLength: 2048
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             levelType:
-              $ref: "#/components/schemas/LevelType"
+              $ref: '#/components/schemas/LevelType'
             modelType:
               pattern: "^DataSpecificationIec61360$"
           required:
@@ -277,36 +295,36 @@ components:
     DataTypeDefXsd:
       type: string
       enum:
-        - "xs:anyURI"
-        - "xs:base64Binary"
-        - "xs:boolean"
-        - "xs:byte"
-        - "xs:date"
-        - "xs:dateTime"
-        - "xs:decimal"
-        - "xs:double"
-        - "xs:duration"
-        - "xs:float"
-        - "xs:gDay"
-        - "xs:gMonth"
-        - "xs:gMonthDay"
-        - "xs:gYear"
-        - "xs:gYearMonth"
-        - "xs:hexBinary"
-        - "xs:int"
-        - "xs:integer"
-        - "xs:long"
-        - "xs:negativeInteger"
-        - "xs:nonNegativeInteger"
-        - "xs:nonPositiveInteger"
-        - "xs:positiveInteger"
-        - "xs:short"
-        - "xs:string"
-        - "xs:time"
-        - "xs:unsignedByte"
-        - "xs:unsignedInt"
-        - "xs:unsignedLong"
-        - "xs:unsignedShort"
+        - 'xs:anyURI'
+        - 'xs:base64Binary'
+        - 'xs:boolean'
+        - 'xs:byte'
+        - 'xs:date'
+        - 'xs:dateTime'
+        - 'xs:decimal'
+        - 'xs:double'
+        - 'xs:duration'
+        - 'xs:float'
+        - 'xs:gDay'
+        - 'xs:gMonth'
+        - 'xs:gMonthDay'
+        - 'xs:gYear'
+        - 'xs:gYearMonth'
+        - 'xs:hexBinary'
+        - 'xs:int'
+        - 'xs:integer'
+        - 'xs:long'
+        - 'xs:negativeInteger'
+        - 'xs:nonNegativeInteger'
+        - 'xs:nonPositiveInteger'
+        - 'xs:positiveInteger'
+        - 'xs:short'
+        - 'xs:string'
+        - 'xs:time'
+        - 'xs:unsignedByte'
+        - 'xs:unsignedInt'
+        - 'xs:unsignedLong'
+        - 'xs:unsignedShort'
     DataTypeIec61360:
       type: string
       enum:
@@ -338,32 +356,33 @@ components:
       type: object
       properties:
         dataSpecificationContent:
-          $ref: "#/components/schemas/DataSpecificationContent_choice"
+          $ref: '#/components/schemas/DataSpecificationContent_choice'
         dataSpecification:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
       required:
         - dataSpecificationContent
         - dataSpecification
     Entity:
       allOf:
-        - $ref: "#/components/schemas/SubmodelElement"
+        - $ref: '#/components/schemas/SubmodelElement'
         - properties:
             statements:
               type: array
               items:
-                $ref: "#/components/schemas/SubmodelElement_choice"
+                $ref: '#/components/schemas/SubmodelElement_choice'
               minItems: 1
             entityType:
-              $ref: "#/components/schemas/EntityType"
+              $ref: '#/components/schemas/EntityType'
             globalAssetId:
               type: string
               minLength: 1
               maxLength: 2048
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             specificAssetIds:
               type: array
               items:
-                $ref: "#/components/schemas/SpecificAssetId"
+                $ref: '#/components/schemas/SpecificAssetId'
               minItems: 1
             modelType:
               pattern: "^Entity$"
@@ -378,41 +397,43 @@ components:
         assetAdministrationShells:
           type: array
           items:
-            $ref: "#/components/schemas/AssetAdministrationShell"
+            $ref: '#/components/schemas/AssetAdministrationShell'
           minItems: 1
         submodels:
           type: array
           items:
-            $ref: "#/components/schemas/Submodel"
+            $ref: '#/components/schemas/Submodel'
           minItems: 1
         conceptDescriptions:
           type: array
           items:
-            $ref: "#/components/schemas/ConceptDescription"
+            $ref: '#/components/schemas/ConceptDescription'
           minItems: 1
     EventElement:
-      $ref: "#/components/schemas/SubmodelElement"
+      $ref: '#/components/schemas/SubmodelElement'
     EventPayload:
       type: object
       properties:
         source:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
         sourceSemanticId:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
         observableReference:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
         observableSemanticId:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
         topic:
           type: string
           minLength: 1
           maxLength: 255
-          pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+          pattern: >-
+            ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
         subjectId:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
         timeStamp:
           type: string
-          pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)(Z|\+00:00|-00:00)$
+          pattern: >-
+            ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)(Z|\+00:00|-00:00)$
         payload:
           type: string
           format: byte
@@ -422,42 +443,47 @@ components:
         - timeStamp
     Extension:
       allOf:
-        - $ref: "#/components/schemas/HasSemantics"
+        - $ref: '#/components/schemas/HasSemantics'
         - properties:
             name:
               type: string
               minLength: 1
               maxLength: 128
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             valueType:
-              $ref: "#/components/schemas/DataTypeDefXsd"
+              $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: string
             refersTo:
               type: array
               items:
-                $ref: "#/components/schemas/Reference"
+                $ref: '#/components/schemas/Reference'
               minItems: 1
           required:
             - name
     File:
       allOf:
-        - $ref: "#/components/schemas/DataElement"
+        - $ref: '#/components/schemas/DataElement'
         - properties:
             value:
               type: string
               allOf:
                 - minLength: 1
                   maxLength: 2048
-                - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-                - pattern: ^([a-zA-Z][a-zA-Z0-9+\-.]*:((//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;?:@&=+$,])(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)|(//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;@&=+$,])+(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?)?(#(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?$
+                - pattern: >-
+                    ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+                - pattern: >-
+                    ^([a-zA-Z][a-zA-Z0-9+\-.]*:((//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;?:@&=+$,])(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)|(//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;@&=+$,])+(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?)?(#(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?$
             contentType:
               type: string
               allOf:
                 - minLength: 1
-                  maxLength: 100
-                - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-                - pattern: ^([!#$%&'*+\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\-.^_`|~0-9a-zA-Z])+([
+                  maxLength: 128
+                - pattern: >-
+                    ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+                - pattern: >-
+                    ^([!#$%&'*+\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\-.^_`|~0-9a-zA-Z])+([
                     \t]*;[
                     \t]*([!#$%&'*+\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\-.^_`|~0-9a-zA-Z])+|"(([\t
                     !#-\[\]-~]|[\x80-\xff])|\\([\t !-~]|[\x80-\xff]))*"))*$
@@ -469,7 +495,7 @@ components:
         embeddedDataSpecifications:
           type: array
           items:
-            $ref: "#/components/schemas/EmbeddedDataSpecification"
+            $ref: '#/components/schemas/EmbeddedDataSpecification'
           minItems: 1
     HasExtensions:
       type: object
@@ -477,46 +503,48 @@ components:
         extensions:
           type: array
           items:
-            $ref: "#/components/schemas/Extension"
+            $ref: '#/components/schemas/Extension'
           minItems: 1
     HasKind:
       type: object
       properties:
         kind:
-          $ref: "#/components/schemas/ModellingKind"
+          $ref: '#/components/schemas/ModellingKind'
     HasSemantics:
       type: object
       properties:
         semanticId:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
         supplementalSemanticIds:
           type: array
           items:
-            $ref: "#/components/schemas/Reference"
+            $ref: '#/components/schemas/Reference'
           minItems: 1
     Identifiable:
       allOf:
-        - $ref: "#/components/schemas/Referable"
+        - $ref: '#/components/schemas/Referable'
         - properties:
             administration:
-              $ref: "#/components/schemas/AdministrativeInformation"
+              $ref: '#/components/schemas/AdministrativeInformation'
             id:
               type: string
               minLength: 1
               maxLength: 2048
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
           required:
             - id
     Key:
       type: object
       properties:
         type:
-          $ref: "#/components/schemas/KeyTypes"
+          $ref: '#/components/schemas/KeyTypes'
         value:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+          pattern: >-
+            ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
       required:
         - type
         - value
@@ -549,31 +577,31 @@ components:
         - SubmodelElementList
     LangStringDefinitionTypeIec61360:
       allOf:
-        - $ref: "#/components/schemas/AbstractLangString"
+        - $ref: '#/components/schemas/AbstractLangString'
         - properties:
             text:
               maxLength: 1023
     LangStringNameType:
       allOf:
-        - $ref: "#/components/schemas/AbstractLangString"
+        - $ref: '#/components/schemas/AbstractLangString'
         - properties:
             text:
               maxLength: 128
     LangStringPreferredNameTypeIec61360:
       allOf:
-        - $ref: "#/components/schemas/AbstractLangString"
+        - $ref: '#/components/schemas/AbstractLangString'
         - properties:
             text:
               maxLength: 255
     LangStringShortNameTypeIec61360:
       allOf:
-        - $ref: "#/components/schemas/AbstractLangString"
+        - $ref: '#/components/schemas/AbstractLangString'
         - properties:
             text:
               maxLength: 18
     LangStringTextType:
       allOf:
-        - $ref: "#/components/schemas/AbstractLangString"
+        - $ref: '#/components/schemas/AbstractLangString'
         - properties:
             text:
               maxLength: 1023
@@ -621,35 +649,35 @@ components:
         - Template
     MultiLanguageProperty:
       allOf:
-        - $ref: "#/components/schemas/DataElement"
+        - $ref: '#/components/schemas/DataElement'
         - properties:
             value:
               type: array
               items:
-                $ref: "#/components/schemas/LangStringTextType"
+                $ref: '#/components/schemas/LangStringTextType'
               minItems: 1
             valueId:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             modelType:
               pattern: "^MultiLanguageProperty$"
     Operation:
       allOf:
-        - $ref: "#/components/schemas/SubmodelElement"
+        - $ref: '#/components/schemas/SubmodelElement'
         - properties:
             inputVariables:
               type: array
               items:
-                $ref: "#/components/schemas/OperationVariable"
+                $ref: '#/components/schemas/OperationVariable'
               minItems: 1
             outputVariables:
               type: array
               items:
-                $ref: "#/components/schemas/OperationVariable"
+                $ref: '#/components/schemas/OperationVariable'
               minItems: 1
             inoutputVariables:
               type: array
               items:
-                $ref: "#/components/schemas/OperationVariable"
+                $ref: '#/components/schemas/OperationVariable'
               minItems: 1
             modelType:
               pattern: "^Operation$"
@@ -657,19 +685,19 @@ components:
       type: object
       properties:
         value:
-          $ref: "#/components/schemas/SubmodelElement_choice"
+          $ref: '#/components/schemas/SubmodelElement_choice'
       required:
         - value
     Property:
       allOf:
-        - $ref: "#/components/schemas/DataElement"
+        - $ref: '#/components/schemas/DataElement'
         - properties:
             valueType:
-              $ref: "#/components/schemas/DataTypeDefXsd"
+              $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: string
             valueId:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             modelType:
               pattern: "^Property$"
           required:
@@ -680,29 +708,30 @@ components:
         qualifiers:
           type: array
           items:
-            $ref: "#/components/schemas/Qualifier"
+            $ref: '#/components/schemas/Qualifier'
           minItems: 1
         modelType:
-          $ref: "#/components/schemas/ModelType"
+          $ref: '#/components/schemas/ModelType'
       required:
         - modelType
     Qualifier:
       allOf:
-        - $ref: "#/components/schemas/HasSemantics"
+        - $ref: '#/components/schemas/HasSemantics'
         - properties:
             kind:
-              $ref: "#/components/schemas/QualifierKind"
+              $ref: '#/components/schemas/QualifierKind'
             type:
               type: string
               minLength: 1
               maxLength: 128
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             valueType:
-              $ref: "#/components/schemas/DataTypeDefXsd"
+              $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: string
             valueId:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
           required:
             - type
             - valueType
@@ -714,10 +743,10 @@ components:
         - ValueQualifier
     Range:
       allOf:
-        - $ref: "#/components/schemas/DataElement"
+        - $ref: '#/components/schemas/DataElement'
         - properties:
             valueType:
-              $ref: "#/components/schemas/DataTypeDefXsd"
+              $ref: '#/components/schemas/DataTypeDefXsd'
             min:
               type: string
             max:
@@ -728,32 +757,34 @@ components:
             - valueType
     Referable:
       allOf:
-        - $ref: "#/components/schemas/HasExtensions"
+        - $ref: '#/components/schemas/HasExtensions'
         - properties:
             category:
               type: string
               minLength: 1
               maxLength: 128
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             idShort:
               type: string
               allOf:
                 - minLength: 1
                   maxLength: 128
-                - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-                - pattern: "^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$"
+                - pattern: >-
+                    ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+                - pattern: '^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$'
             displayName:
               type: array
               items:
-                $ref: "#/components/schemas/LangStringNameType"
+                $ref: '#/components/schemas/LangStringNameType'
               minItems: 1
             description:
               type: array
               items:
-                $ref: "#/components/schemas/LangStringTextType"
+                $ref: '#/components/schemas/LangStringTextType'
               minItems: 1
             modelType:
-              $ref: "#/components/schemas/ModelType"
+              $ref: '#/components/schemas/ModelType'
           required:
             - modelType
     Reference:
@@ -763,7 +794,7 @@ components:
             referredSemanticId: 
               "$ref": "#/components/schemas/ReferenceParent"
     ReferenceParent:
-    # This class is introduced due to the recursion issue of SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325)
+    # This class is introduced due to the recursion issue of the SwaggerUi (see https://github.com/swagger-api/swagger-ui/issues/3325) 
       type: object
       properties:
         type:
@@ -778,10 +809,10 @@ components:
         - keys
     ReferenceElement:
       allOf:
-        - $ref: "#/components/schemas/DataElement"
+        - $ref: '#/components/schemas/DataElement'
         - properties:
             value:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             modelType:
               pattern: "^ReferenceElement$"
     ReferenceTypes:
@@ -791,22 +822,22 @@ components:
         - ModelReference
     RelationshipElement:
       allOf:
-        - $ref: "#/components/schemas/RelationshipElement_abstract"
+        - $ref: '#/components/schemas/RelationshipElement_abstract'
         - properties:
             modelType:
               pattern: "^RelationshipElement$"
     RelationshipElement_abstract:
       allOf:
-        - $ref: "#/components/schemas/SubmodelElement"
+        - $ref: '#/components/schemas/SubmodelElement'
         - properties:
             first:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             second:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
     RelationshipElement_choice:
       oneOf:
-        - $ref: "#/components/schemas/RelationshipElement"
-        - $ref: "#/components/schemas/AnnotatedRelationshipElement"
+        - $ref: '#/components/schemas/RelationshipElement'
+        - $ref: '#/components/schemas/AnnotatedRelationshipElement'
     Resource:
       type: object
       properties:
@@ -815,15 +846,19 @@ components:
           allOf:
             - minLength: 1
               maxLength: 2048
-            - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-            - pattern: ^([a-zA-Z][a-zA-Z0-9+\-.]*:((//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;?:@&=+$,])(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)|(//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;@&=+$,])+(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?)?(#(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?$
+            - pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+            - pattern: >-
+                ^([a-zA-Z][a-zA-Z0-9+\-.]*:((//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;?:@&=+$,])(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)|(//((((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;:&=+$,])*@)?((([a-zA-Z0-9]|[a-zA-Z0-9]([a-zA-Z0-9]|-)*[a-zA-Z0-9])\.)*([a-zA-Z]|[a-zA-Z]([a-zA-Z0-9]|-)*[a-zA-Z0-9])(\.)?|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)(:[0-9]*)?)?|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[$,;:@&=+])+)(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?|/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*|(([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[;@&=+$,])+(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*(/((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*(;((([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])|[:@&=+$,]))*)*)*)?)(\?(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?)?(#(([;/?:@&=+$,]|([a-zA-Z0-9]|[-_.!~*'()])|%([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])([0-9]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF]|[aA]|[bB]|[cC]|[dD]|[eE]|[fF])))*)?$
         contentType:
           type: string
           allOf:
             - minLength: 1
-              maxLength: 100
-            - pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
-            - pattern: ^([!#$%&'*+\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\-.^_`|~0-9a-zA-Z])+([
+              maxLength: 128
+            - pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+            - pattern: >-
+                ^([!#$%&'*+\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\-.^_`|~0-9a-zA-Z])+([
                 \t]*;[
                 \t]*([!#$%&'*+\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\-.^_`|~0-9a-zA-Z])+|"(([\t
                 !#-\[\]-~]|[\x80-\xff])|\\([\t !-~]|[\x80-\xff]))*"))*$
@@ -831,76 +866,78 @@ components:
         - path
     SpecificAssetId:
       allOf:
-        - $ref: "#/components/schemas/HasSemantics"
+        - $ref: '#/components/schemas/HasSemantics'
         - properties:
             name:
               type: string
               minLength: 1
               maxLength: 64
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             value:
               type: string
               minLength: 1
               maxLength: 2048
-              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+              pattern: >-
+                ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             externalSubjectId:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
           required:
             - name
             - value
     StateOfEvent:
       type: string
       enum:
-        - "off"
-        - "on"
+        - 'off'
+        - 'on'
     Submodel:
       allOf:
-        - $ref: "#/components/schemas/Identifiable"
-        - $ref: "#/components/schemas/HasKind"
-        - $ref: "#/components/schemas/HasSemantics"
-        - $ref: "#/components/schemas/Qualifiable"
-        - $ref: "#/components/schemas/HasDataSpecification"
+        - $ref: '#/components/schemas/Identifiable'
+        - $ref: '#/components/schemas/HasKind'
+        - $ref: '#/components/schemas/HasSemantics'
+        - $ref: '#/components/schemas/Qualifiable'
+        - $ref: '#/components/schemas/HasDataSpecification'
         - properties:
             submodelElements:
               type: array
               items:
-                $ref: "#/components/schemas/SubmodelElement_choice"
+                $ref: '#/components/schemas/SubmodelElement_choice'
               minItems: 1
             modelType:
               pattern: "^Submodel$"
     SubmodelElement:
       allOf:
-        - $ref: "#/components/schemas/Referable"
-        - $ref: "#/components/schemas/HasSemantics"
-        - $ref: "#/components/schemas/Qualifiable"
-        - $ref: "#/components/schemas/HasDataSpecification"
+        - $ref: '#/components/schemas/Referable'
+        - $ref: '#/components/schemas/HasSemantics'
+        - $ref: '#/components/schemas/Qualifiable'
+        - $ref: '#/components/schemas/HasDataSpecification'
     SubmodelElementCollection:
       allOf:
-        - $ref: "#/components/schemas/SubmodelElement"
+        - $ref: '#/components/schemas/SubmodelElement'
         - properties:
             value:
               type: array
               items:
-                $ref: "#/components/schemas/SubmodelElement_choice"
+                $ref: '#/components/schemas/SubmodelElement_choice'
               minItems: 1
             modelType:
               pattern: "^SubmodelElementCollection$"
     SubmodelElementList:
       allOf:
-        - $ref: "#/components/schemas/SubmodelElement"
+        - $ref: '#/components/schemas/SubmodelElement'
         - properties:
             orderRelevant:
               type: boolean
             semanticIdListElement:
-              $ref: "#/components/schemas/Reference"
+              $ref: '#/components/schemas/Reference'
             typeValueListElement:
-              $ref: "#/components/schemas/AasSubmodelElements"
+              $ref: '#/components/schemas/AasSubmodelElements'
             valueTypeListElement:
-              $ref: "#/components/schemas/DataTypeDefXsd"
+              $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: array
               items:
-                $ref: "#/components/schemas/SubmodelElement_choice"
+                $ref: '#/components/schemas/SubmodelElement_choice'
               minItems: 1
             modelType:
               pattern: "^SubmodelElementList$"
@@ -908,27 +945,27 @@ components:
             - typeValueListElement
     SubmodelElement_choice:
       oneOf:
-        - $ref: "#/components/schemas/RelationshipElement"
-        - $ref: "#/components/schemas/AnnotatedRelationshipElement"
-        - $ref: "#/components/schemas/BasicEventElement"
-        - $ref: "#/components/schemas/Blob"
-        - $ref: "#/components/schemas/Capability"
-        - $ref: "#/components/schemas/Entity"
-        - $ref: "#/components/schemas/File"
-        - $ref: "#/components/schemas/MultiLanguageProperty"
-        - $ref: "#/components/schemas/Operation"
-        - $ref: "#/components/schemas/Property"
-        - $ref: "#/components/schemas/Range"
-        - $ref: "#/components/schemas/ReferenceElement"
-        - $ref: "#/components/schemas/SubmodelElementCollection"
-        - $ref: "#/components/schemas/SubmodelElementList"
+        - $ref: '#/components/schemas/RelationshipElement'
+        - $ref: '#/components/schemas/AnnotatedRelationshipElement'
+        - $ref: '#/components/schemas/BasicEventElement'
+        - $ref: '#/components/schemas/Blob'
+        - $ref: '#/components/schemas/Capability'
+        - $ref: '#/components/schemas/Entity'
+        - $ref: '#/components/schemas/File'
+        - $ref: '#/components/schemas/MultiLanguageProperty'
+        - $ref: '#/components/schemas/Operation'
+        - $ref: '#/components/schemas/Property'
+        - $ref: '#/components/schemas/Range'
+        - $ref: '#/components/schemas/ReferenceElement'
+        - $ref: '#/components/schemas/SubmodelElementCollection'
+        - $ref: '#/components/schemas/SubmodelElementList'
     ValueList:
       type: object
       properties:
         valueReferencePairs:
           type: array
           items:
-            $ref: "#/components/schemas/ValueReferencePair"
+            $ref: '#/components/schemas/ValueReferencePair'
           minItems: 1
       required:
         - valueReferencePairs
@@ -939,8 +976,9 @@ components:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
+          pattern: >-
+            ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
         valueId:
-          $ref: "#/components/schemas/Reference"
+          $ref: '#/components/schemas/Reference'
       required:
         - value

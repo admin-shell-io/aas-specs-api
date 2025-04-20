@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: DotAAS Part 2 | HTTP/REST | Registry Service Specification
+  title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Registry Service Specification
   description: >-
-    The Read Profile of the Asset Administration Shell Registry Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+    The Minimal Read Profile of the Asset Administration Shell Registry Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
     
     Publisher: Industrial Digital Twin Association (IDTA) 2025
   contact:
@@ -11,8 +11,8 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.1.0_SSP-002
-  x-profile-identifier: https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-002
+  version: V3.1.0_SSP-005
+  x-profile-identifier: https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-005
 servers:
 - url: 'https://admin-shell.io/api/v3/'
 - url: 'https://example.com/'
@@ -24,7 +24,7 @@ paths:
       summary: Returns all Asset Administration Shell Descriptors
       operationId: GetAllAssetAdministrationShellDescriptors
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/0
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/1
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsByAssetType/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
@@ -53,7 +53,7 @@ paths:
       summary: Returns a specific Asset Administration Shell Descriptor
       operationId: GetAssetAdministrationShellDescriptorById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/0
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/1
       parameters:
         - name: aasIdentifier
           in: path
@@ -70,64 +70,6 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/AssetAdministrationShellDescriptor'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
-        '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'    
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
-  /shell-descriptors/{aasIdentifier}/submodel-descriptors:
-    parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/AssetAdministrationShellIdentifier'
-    get:
-      tags:
-        - Asset Administration Shell Registry API
-      summary: Returns all Submodel Descriptors
-      operationId: GetAllSubmodelDescriptorsThroughSuperpath
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/0
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Cursor'
-      responses:
-        '200':
-          description: Requested Submodel Descriptors
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/GetSubmodelDescriptorsResult'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
-        '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'    
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/default'
-  /shell-descriptors/{aasIdentifier}/submodel-descriptors/{submodelIdentifier}:
-    parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/AssetAdministrationShellIdentifier'
-      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/SubmodelIdentifier'
-    get:
-      tags:
-        - Asset Administration Shell Registry API
-      summary: Returns a specific Submodel Descriptor
-      operationId: GetSubmodelDescriptorByIdThroughSuperpath
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/0
-      responses:
-        '200':
-          description: Requested Submodel Descriptor
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
         '403':

@@ -20,15 +20,15 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 
 |API SPEC|GitHub|SwaggerHub|
 |-----------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
-|Entire-API-Collection |[Link](./Entire-API-Collection/V3.0.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
-|Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/RegistryServiceSpecification/V3.0_SSP-001
-|Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.0_SSP-001
-|Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.0_SSP-001
-|Submodel Registry Service Specification |[Link](./SubmodelRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.0_SSP-001
-|Submodel Repository Service Specification|[Link](./SubmodelRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.0_SSP-001
-|Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.0_SSP-001
-|Discovery Service Specification |[Link](./DiscoveryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.0_SSP-001
-|Concept Description Repository Service Specification|[Link](./ConceptDescriptionServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.0_SSP-001
+|Entire-API-Collection |[Link](./Entire-API-Collection/V3.1.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
+|Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/RegistryServiceSpecification/V3.1.0_SSP-001
+|Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-001
+|Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-001
+|Submodel Registry Service Specification |[Link](./SubmodelRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001
+|Submodel Repository Service Specification|[Link](./SubmodelRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-001
+|Submodel Service Specification|[Link](./SubmodelServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-001
+|Discovery Service Specification |[Link](./DiscoveryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001
+|Concept Description Repository Service Specification|[Link](./ConceptDescriptionRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-001
 |Aasx-File-Server Service Specification |[Link](./AasxFileServerServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification)
 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
@@ -56,15 +56,17 @@ The following release contains the latest version of the AAS schemas (see also t
 
 * [3.1.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.1.0) is the latest release for the `V3.1.0` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.1.0**". *Use this release if you want to work with the latest specified AAS version.*
 
-Previous releases (deprecated by [3.1.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/V3.1.0)):
+Previous releases:
 
-* [3.0.3](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.3) is the bugfix release for the `V3.0.3` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.3".
+* [3.0.4](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.4) is the latest bugfix release for the `V3.0.4` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.4".
 
-* [3.0.2](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.2) is the bugfix release for the `V3.0.2` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.2".
+* [3.0.3](https://github.com/admin-shell-io/aas-specs-api/releases/tag/V3.0.3) is the bugfix release for the `V3.0.3` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.3".
 
-* [3.0.1](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.1) is the bugfix release for the `V3.0.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.1".
+* [3.0.2](https://github.com/admin-shell-io/aas-specs-api/releases/tag/V3.0.2) is the bugfix release for the `V3.0.2` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.2".
 
-* [3.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0) is the first major release for the AAS APIs, containing the normative API descriptions for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0".
+* [3.0.1](https://github.com/admin-shell-io/aas-specs-api/releases/tag/V3.0.1) is the bugfix release for the `V3.0.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.1".
+
+* [3.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/V3.0) is the first major release for the AAS APIs, containing the normative API descriptions for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0".
 
 
 ## Contributing

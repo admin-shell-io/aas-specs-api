@@ -15,12 +15,12 @@ include::../includes/constraints.adoc[]
 [#service-specifications-and-profiles]
 = Service Specifications and Profiles
 
-xref:general.adoc#i40-service-model[Figure] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
+xref:general.adoc#image-i40-service-model[Figure 1] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
 
 The profiles defined in this clause present complete service specifications and their subsets.
 
 For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “PostSubmodelElementByPath”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both.
-Furthermore, profiles also define which of the SerializationModifiers (content, extent, level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
+Furthermore, profiles also define which of the SerializationModifiers (Content, Extent, Level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
 
 
 .Overview of Service Specifications and the Contained APIs
@@ -76,8 +76,8 @@ Note: in the following, only the last part (<name of service specification>/SSP-
 [%autowidth,width="100%",cols="45%,55%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|AssetAdministrationShellServiceSpecification/SSP-001 |Full feature set
-|AssetAdministrationShellServiceSpecification/SSP-002 |Only read operations; is included in the profile AssetAdministrationShellServiceSpecification/SSP-001.
+|<<asset-administration-shell-service-specification-SSP-001,AssetAdministrationShellServiceSpecification/SSP-001>> |Full feature set
+|<<asset-administration-shell-service-specification-SSP-002,AssetAdministrationShellServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellServiceSpecification/SSP-001.
 |===
 
 [#asset-administration-shell-service-specification-SSP-001]
@@ -92,7 +92,7 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |APIs and API Operations a|
 _Asset Administration Shell API:_ +
-GetAssetAdministrationShell +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell]  +
 PutAssetAdministrationShell +
 GetAllSubmodelReferences +
 PostSubmodelReference +
@@ -122,8 +122,8 @@ InvokeOperationAsync +
 GetOperationAsyncStatus +
 GetOperationAsyncResult
 
-_Serialization API:_[.underline]# +
-#GenerateSerializationByIds
+_Serialization API:_ +
+GenerateSerializationByIds
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -136,7 +136,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-001
@@ -153,7 +153,7 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/1/AssetAdministrationS
 h|Feature h|Appearance
 |API Operations a|
 _Asset Administration Shell API:_ +
-GetAssetAdministrationShell +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
 GetAllSubmodelReferences +
 GetAssetInformation +
 GetThumbnail
@@ -175,7 +175,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-002[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-002]
@@ -186,9 +186,9 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServi
 [%autowidth,width="100%",options="header",]
 |===
 h|Service Specification / Profiles |Description
-|SubmodelServiceSpecification/SSP-001 |Full feature set
-|SubmodelServiceSpecification/SSP-002 |Only reads operations; is included in the profile SubmodelServiceSpecification/SSP-001.
-|SubmodelServiceSpecification/SSP-003 |Limitation on the basic capabilities plus the option to execute synchronous operations and to read the submodel in the ValueOnly-serialization format to reduce required bandwidth; is included in the profile SubmodelServiceSpecification/SSP-001.
+|<<submodel-service-specification-SSP-001,SubmodelServiceSpecification/SSP-001>> |Full feature set
+|<<submodel-service-specification-SSP-002,SubmodelServiceSpecification/SSP-002>> |Only reads operations; is included in the profile SubmodelServiceSpecification/SSP-001.
+|<<submodel-service-specification-SSP-003,SubmodelServiceSpecification/SSP-003>> |Limitation on the basic capabilities plus the option to execute synchronous operations and to read the submodel in the ValueOnly-serialization format to reduce required bandwidth; is included in the profile SubmodelServiceSpecification/SSP-001.
 |===
 
 [#submodel-service-specification-SSP-001]
@@ -235,7 +235,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-001
@@ -271,7 +271,7 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-002[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-002]
@@ -302,19 +302,21 @@ Content: Normal, Value
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-003[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-003]
 
+[#aasx-file-server-service-specification]
 == AASX File Server Service Specification
 
 [%autowidth,width="100%",cols="45%,55%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|AasxFileServerServiceSpecification/SSP-001 |The full feature set of the AASX File Server Service Specification
+|<<aasx-file-server-service-specification-SSP-001, AasxFileServerServiceSpecification/SSP-001>>The full feature set of the AASX File Server Service Specification
 |===
 
+[#aasx-file-server-service-specification-SSP-001]
 === AASX File Server Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -339,22 +341,25 @@ JSON for descriptions and error messages
 
 AASX for packages
 
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1.0_SSP-001
 
+[#asset-administration-shell-registry-service-specification]
 == Asset Administration Shell Registry Service Specification
 
 [%autowidth,width="100%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|AssetAdministrationShellRegistryServiceSpecification/SSP-001 |Full profile
-|AssetAdministrationShellRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
-|AssetAdministrationShellRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
-|AssetAdministrationShellRegistryServiceSpecification/SSP-004 |Query operations.
+|<<asset-administration-shell-registry-service-specification-ssp-001,AssetAdministrationShellRegistryServiceSpecification/SSP-001>> |Full profile
+|<<asset-administration-shell-registry-service-specification-ssp-002,AssetAdministrationShellRegistryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
+|<<asset-administration-shell-registry-service-specification-ssp-003,AssetAdministrationShellRegistryServiceSpecification/SSP-003>> |Bulk write and delete operations.
+|<<asset-administration-shell-registry-service-specification-ssp-004,AssetAdministrationShellRegistryServiceSpecification/SSP-004>> |Query operations.
+|<<asset-administration-shell-registry-service-specification-ssp-005,AssetAdministrationShellRegistryServiceSpecification/SSP-005>> |Only reads operations on AAS Descriptors; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001 and AssetAdministrationShellRegistryServiceSpecification/SSP-002.
 |===
 
+[#asset-administration-shell-registry-service-specification-ssp-001]
 === Asset Administration Shell Registry Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -382,11 +387,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001
 
+[#asset-administration-shell-registry-service-specification-ssp-002]
 === Asset Administration Shell Registry Service Specification – Read Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -408,11 +414,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-002
 
+[#asset-administration-shell-registry-service-specification-ssp-003]
 === Asset Administration Shell Registry Service Specification – Bulk Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -431,11 +438,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination | Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-003
 
+[#asset-administration-shell-registry-service-specification-ssp-004]
 === Asset Administration Shell Registry Service Specification – Query Profile
 
 [%autowidth, width="100%", cols="36%,64%",options="header",]
@@ -451,24 +459,51 @@ xref:specification/interfaces.adoc#QueryAssetAdministrationShellDescriptors[Quer
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination | Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-004
 
+[#asset-administration-shell-registry-service-specification-ssp-005]
+=== Asset Administration Shell Registry Service Specification – Minimal Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Minimal Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-005`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById]
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|Pagination |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-005
+
+
+[#submodel-registry-service-specification]
 == Submodel Registry Service Specification
 
 [%autowidth,width="100%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|SubmodelRegistryServiceSpecification/SSP-001 |Full profile
-|SubmodelRegistryServiceSpecification/SSP-002 |Only reads operations; is included in the profile SubmodelRegistryServiceSpecification/SSP-001.
-|SubmodelRegistryServiceSpecification/SSP-003 |Bulk write and delete operations.
-|SubmodelRegistryServiceSpecification/SSP-004 |Query operations.
+|<<submodel-registry-service-specification-ssp-001,SubmodelRegistryServiceSpecification/SSP-001>> |Full profile
+|<<submodel-registry-service-specification-ssp-002,SubmodelRegistryServiceSpecification/SSP-002>> |Only reads operations; is included in the profile SubmodelRegistryServiceSpecification/SSP-001.
+|<<submodel-registry-service-specification-ssp-003,SubmodelRegistryServiceSpecification/SSP-003>> |Bulk write and delete operations.
+|<<submodel-registry-service-specification-ssp-004,SubmodelRegistryServiceSpecification/SSP-004>> |Query operations.
 |===
 
+[#submodel-registry-service-specification-ssp-001]
 === Submodel Registry Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -477,7 +512,7 @@ h|Name: h|Submodel Registry Full Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001`
 h|Feature h|Appearance
 |APIs and API Operations a|
-__Submodel Registry API: +
+__Submodel Registry API:__ +
 xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription] +
 PostSubmodelDescriptor +
@@ -489,11 +524,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001
 
+[#submodel-registry-service-specification-ssp-002]
 === Submodel Registry Profile – Read Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -511,11 +547,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-002
 
+[#submodel-registry-service-specification-ssp-003]
 === Submodel Registry Profile – Bulk Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -534,11 +571,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-003
 
+[#submodel-registry-service-specification-ssp-004]
 === Submodel Registry Profile – Query Profile
 
 [%autowidth, width="100%", cols="36%,64%",options="header",]
@@ -554,22 +592,24 @@ xref:specification/interfaces.adoc#QuerySubmodelDescriptors[QuerySubmodelDescrip
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-004
 
+[#discovery-service-specification-ssp]
 == Discovery Service Specification
 
 [%autowidth,width="100%",cols="43%,57%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|DiscoveryServiceSpecification/SSP-001 |Full feature set
-|DiscoveryServiceSpecification/SSP-002 |only read operations; does not contain the deprecated read operation from DiscoveryServiceSpecification/SSP-001
+|<<discovery-service-specification-ssp-001,DiscoveryServiceSpecification/SSP-001>> |Full feature set
+|<<discovery-service-specification-ssp-002,DiscoveryServiceSpecification/SSP-002>> |only read operations; does not contain the deprecated read operation from DiscoveryServiceSpecification/SSP-001
 |===
 
+[#discovery-service-specification-ssp-001]
 === Discovery Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -590,11 +630,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001
 
+[#discovery-service-specification-ssp-002]
 === Discovery Service Specification – Read Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -613,24 +654,23 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-002
 
+[#asset-administration-shell-repository-service-specification-service-specification]
 == Asset Administration Shell Repository Service Specification
 
 [%autowidth,width="100%",cols="42%,58%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|AssetAdministrationShellRepository +
-ServiceSpecification/SSP-001 |Full feature set
-|AssetAdministrationShellRepository +
-ServiceSpecification/SSP-002 |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
-|AssetAdministrationShellRepository +
-ServiceSpecification/SSP-003 |Query operations
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-001,AssetAdministrationShellRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-002,AssetAdministrationShellRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-003,AssetAdministrationShellRepositoryServiceSpecification/SSP-003>> |Query operations
 |===
 
+[#asset-administration-shell-repository-service-specification-service-specification-ssp-001]
 === Asset Administration Shell Repository Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="30%,70%",options="header",]
@@ -649,7 +689,7 @@ PutAssetAdministrationShellById +
 DeleteAssetAdministrationShellById
 
 _AAS API by superpath:_ +
-GetAssetAdministrationShell +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
 PutAssetAdministrationShell +
 GetAllSubmodelReferences +
 PostSubmodelReference +
@@ -660,8 +700,8 @@ GetThumbnail +
 PutThumbnail +
 DeleteThumbnail
 
-__Submodel Repository API by superpath: +
-__GetAllSubmodels +
+__Submodel Repository API by superpath:__ +
+GetAllSubmodels +
 GetSubmodelById +
 GetAllSubmodelsBySemanticId +
 GetAllSubmodelsByIdShort +
@@ -702,11 +742,13 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-001
 
+
+[[asset-administration-shell-repository-service-specification-ssp-002]]
 === Asset Administration Shell Repository Service Specification – Read Profile
 
 [%autowidth,width="100%",cols="30%,70%",options="header",]
@@ -722,13 +764,13 @@ GetAllAssetAdministrationShellsByAssetId +
 GetAllAssetAdministrationShellsByIdShort
 
 _AAS API by superpath:_ +
-GetAssetAdministrationShell +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
 GetAllSubmodelReferences +
 GetAssetInformation +
 GetThumbnail
 
-__Submodel Repository API by superpath: +
-__GetAllSubmodels +
+__Submodel Repository API by superpath:__ +
+GetAllSubmodels +
 GetSubmodelById +
 GetAllSubmodelsBySemanticId +
 GetAllSubmodelsByIdShort
@@ -753,11 +795,13 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-002
 
+
+[[asset-administration-shell-repository-service-specification-ssp-003]]
 === Asset Administration Shell Repository Service Specification – Query Profile
 
 [%autowidth, width="100%", cols="30%,70%",options="header",]
@@ -772,31 +816,34 @@ QueryAssetAdministrationShells
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a| not applicable 
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-003
 
+
+[[submodel-repository-service-specification]]
 == Submodel Repository Service Specification
 
 [cols="41%,59%"]
 |===
 h|Service Specification / Profiles h|Description
-|SubmodelRepositoryServiceSpecification/SSP-001 |Full feature set
-|SubmodelRepositoryServiceSpecification/SSP-002 |Only read operations; is included in the profile SubmodelRepositoryServiceSpecification/SSP-001
-|SubmodelRepositoryServiceSpecification/SSP-003 |Profile for a Submodel Repository which only contains Submodels with kind=Template; is _not_ included in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryServiceSpecification/SSP-002
-|SubmodelRepositoryServiceSpecification/SSP-004 |Only read operations for a Submodel Repository which only contains Submodels with kind=Template; is included in the profile SubmodelRepositoryServiceSpecification/SSP-003 but _not_ in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryService Specification/SSP-002
-|SubmodelRepositoryServiceSpecification/SSP-005 |Query operations
+|<<submodel-repository-service-specification-ssp-001,SubmodelRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<submodel-repository-service-specification-ssp-002,SubmodelRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile SubmodelRepositoryServiceSpecification/SSP-001
+|<<submodel-repository-service-specification-ssp-003,SubmodelRepositoryServiceSpecification/SSP-003>> |Profile for a Submodel Repository which only contains Submodels with kind=Template; is _not_ included in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryServiceSpecification/SSP-002
+|<<submodel-repository-service-specification-ssp-004,SubmodelRepositoryServiceSpecification/SSP-004>> |Only read operations for a Submodel Repository which only contains Submodels with kind=Template; is included in the profile SubmodelRepositoryServiceSpecification/SSP-003 but _not_ in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryService Specification/SSP-002
+|<<submodel-repository-service-specification-ssp-005,SubmodelRepositoryServiceSpecification/SSP-005>>|Query operations
 |===
 
+[[submodel-repository-service-specification-ssp-001]]
 === Submodel Repository - Full Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
 |===
 h|Name: h|Submodel Repository Full Profile
-h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001`
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001`
 h|Feature h|Appearance
 |API and API Operations a|
 __Submodel Repository API: +
@@ -842,11 +889,12 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-001
 
+[[submodel-repository-service-specification-ssp-002]]
 === Submodel Repository – Read Profile
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
@@ -881,11 +929,12 @@ Content: Normal, Metadata, Value, Reference, Path
 Extent: WithBLOBValue, WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-002
 
+[[submodel-repository-service-specification-ssp-003]]
 === Submodel Repository - Template Profile
 
 The Submodel Repository service specification that only provides and manages Submodel Templates is represented through the profile identifier *SubmodelRepositoryServiceSpecification/SSP-003*.
@@ -905,7 +954,7 @@ Note 2: future versions may introduce a Submodel Repository Instance Profile.
 [%autowidth,width="100%",cols="36%,64%",options="header",]
 |===
 h|Name: h|Submodel Repository Template Profile
-h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003`
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003`
 h|Feature h|Appearance
 |API and API Operations a|
 __Submodel Repository API: +
@@ -947,11 +996,13 @@ Content: Normal, Metadata
 Extent: WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-003
 
+
+[[submodel-repository-service-specification-ssp-004]]
 === Submodel Repository - Template Read Profile
 
 The Submodel Repository service specification that only provides Submodel Templates is represented through the profile identifier *SubmodelRepositoryServiceSpecification/SSP-004*.
@@ -966,11 +1017,11 @@ SubmodelServiceSpecification/SSP-002 as SubmodelServiceSpecification/SSP-001 or 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
 |===
 h|Name: h|Submodel Repository Template Read Profile
-h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-004`
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004`
 h|Feature h|Appearance
 |API and API Operations a|
-__Submodel Repository API: +
-__GetAllSubmodels +
+__Submodel Repository API:__ +
+GetAllSubmodels +
 GetSubmodelById +
 GetAllSubmodelsBySemanticId +
 GetAllSubmodelsByIdShort
@@ -981,7 +1032,7 @@ GetAllSubmodelElements +
 GetSubmodelElementByPath +
 GetFileByPath
 
-_Serialization API:_ +
+__Serialization API:__ +
 GenerateSerializationByIds
 
 _Description API:_ +
@@ -995,12 +1046,12 @@ Content: Normal, Metadata
 Extent: WithoutBLOBValue
 
 |SerializationFormat |JSON
-|Pagination |supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-004
 
-
+[[submodel-repository-service-specification-ssp-005]]
 === Submodel Repository Service Specification – Query Profile
 
 [%autowidth, width="100%", cols="30%,70%",options="header",]
@@ -1015,22 +1066,24 @@ QuerySubmodels
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier a| not applicable 
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-005
 
+[#concept-description-repository-service-specification-service-specification]
 == Concept Description Repository Service Specification
 
 [cols="59%,41%"]
 |===
 h|Service Specification / Profiles h|Description
-|ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Full feature set
-|ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Query operations
+|<<concept-description-repository-service-specification-service-specification-ssp-001,ConceptDescriptionRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<concept-description-repository-service-specification-service-specification-ssp-002,ConceptDescriptionRepositoryServiceSpecification/SSP-002>> |Query operations
 |===
 
+[#concept-description-repository-service-specification-service-specification-ssp-001]
 === Concept Description Repository Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="30%,70%",options="header",]
@@ -1057,11 +1110,12 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-001
 
+[#concept-description-repository-service-specification-service-specification-ssp-002]
 === Concept Description Repository Service Specification – Query Profile
 
 [%autowidth, width="100%", cols="30%,70%",options="header",]
@@ -1076,9 +1130,9 @@ QueryConceptDescriptions
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
-|SerializationModifier |not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|Pagination |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-002
