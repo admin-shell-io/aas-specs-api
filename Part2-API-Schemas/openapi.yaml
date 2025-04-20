@@ -450,9 +450,8 @@ components:
         - type: object
           properties:
             result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelElementValue"  
+              type: object
+              description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value. 
     GetSubmodelsMetadataResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -477,9 +476,7 @@ components:
         - type: object
           properties:
             result:
-              type: array
-              items: 
-                $ref: "#/components/schemas/SubmodelValue"
+              $ref: "#/components/schemas/SubmodelValue"
     hexLiteralPattern:
       type: string
       pattern: '^16#[0-9A-F]+$'
@@ -1001,8 +998,8 @@ components:
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005"
               - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001"
-              - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionServiceSpecification/SSP-001"
-              - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002"
       type: object
     SpecificAssetIdValue:
       type: object

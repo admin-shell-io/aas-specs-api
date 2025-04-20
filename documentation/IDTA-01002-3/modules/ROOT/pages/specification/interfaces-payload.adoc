@@ -132,29 +132,49 @@ h|*Interface* h|*interface-shortName*
 |Asset Administration Shell Basic Discovery Interface |AAS-DISCOVERY
 |===
 
-The value for the interface attribute shall be “\{interface-shortName}-\{interface-version}”.
+Which can be combined with the following serialisation modifiers:
+[%autowidth,width="100%",options="header",]
+|===
+h|*Serialisation Modifier* h|*serialisation-modifier-value*
+|Metadata | METADATA
+|ValueOnly | VALUE
+|Path | PATH
+|Reference | REFERENCE
+|===
+
+The value for the interface attribute shall be the concatenation of the interface-shortName, an optional serialisation modifier value, and the provided version. 
+An non-existent serialisation modifier value represents the link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#_format_normal_in_json[Normal serialisation].
+
+* “\{interface-shortName}[-\{serialisation-modifier-value}]-\{interface-version}”*
 
 The interface-version of this specification is “3.1”, e.g. the entry for the Asset Administration Shell Interface is “AAS-3.1”.
 
-See the following example for descriptor endpoints:
+See the following example for descriptor endpoints, that expose two submodel endpoints providing _Normal_ serialisations but different versions of the API, and one endpoint providing the submodel in the ValueOnly serisalisation:
 
 [source,json,linenums]
 ----
   "endpoints": [
-    {
+   {
       "protocolInformation": {
         "endpointAddress": "https://localhost:1234/api/3/submodel",
         "endpointProtocolVersion": "1.1"
       },
       "interface": "SUBMODEL-3.1"
-    },
+   },
 	{
       "protocolInformation": {
         "endpointAddress": "https://localhost:5678/api/2/submodel",
         "endpointProtocolVersion": "1.1"
       },
       "interface": "SUBMODEL-2.0"
-    }
+   },
+   {
+      "protocolInformation": {
+        "endpointAddress": "https://localhost:1234/api/3/submodel/$value",
+        "endpointProtocolVersion": "1.1"
+      },
+      "interface": "SUBMODEL-VALUE-3.1"
+   }
  ]
 ----
 
@@ -325,7 +345,7 @@ e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-
 e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Service Specification Read Template Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Read Template Profile in version 3.1.
 |===
 
 An example ServiceDescription object might look like the following, indicating that the server supports two profiles at the same time (see Clause xref:http-rest-api/service-specifications-and-profiles.adoc#service-specifications-and-profiles[Service Specifications and Profiles] for further details on service specifications and profiles):
