@@ -353,9 +353,10 @@ See: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecific
 |===
 h|Service Specification / Profiles h|Description
 |<<asset-administration-shell-registry-service-specification-ssp-001,AssetAdministrationShellRegistryServiceSpecification/SSP-001>> |Full profile
-|<<asset-administration-shell-registry-service-specification-ssp-002,AssetAdministrationShellRegistryServiceSpecification/SSP-002>> |Only reads operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
+|<<asset-administration-shell-registry-service-specification-ssp-002,AssetAdministrationShellRegistryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
 |<<asset-administration-shell-registry-service-specification-ssp-003,AssetAdministrationShellRegistryServiceSpecification/SSP-003>> |Bulk write and delete operations.
 |<<asset-administration-shell-registry-service-specification-ssp-004,AssetAdministrationShellRegistryServiceSpecification/SSP-004>> |Query operations.
+|<<asset-administration-shell-registry-service-specification-ssp-005,AssetAdministrationShellRegistryServiceSpecification/SSP-005>> |Only reads operations on AAS Descriptors; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001 and AssetAdministrationShellRegistryServiceSpecification/SSP-002.
 |===
 
 [#asset-administration-shell-registry-service-specification-ssp-001]
@@ -464,6 +465,31 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-004
+
+[#asset-administration-shell-registry-service-specification-ssp-005]
+=== Asset Administration Shell Registry Service Specification – Minimal Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Minimal Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-005`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById]
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|Pagination |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-005
+
 
 [#submodel-registry-service-specification]
 == Submodel Registry Service Specification
