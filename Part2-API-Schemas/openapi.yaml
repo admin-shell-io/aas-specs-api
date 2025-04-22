@@ -52,7 +52,7 @@ components:
         type: string
         minLength: 1
         maxLength: 2048
-        pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+        pattern: ^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
     Cursor:    
       name: cursor
       in: query
@@ -145,12 +145,7 @@ components:
         second: 
           $ref: "#/components/schemas/ReferenceValue"
         annotations:
-          type: array
-          items:
-            $ref: "#/components/schemas/ValueOnly"
-      required: 
-        - first
-        - second
+          $ref: "#/components/schemas/ValueOnly"
       type: object
     AssetAdministrationShellDescriptor: 
       allOf: 
@@ -177,7 +172,9 @@ components:
               pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
             idShort: 
               type: string
+              minLength: 1
               maxLength: 128
+              pattern: "^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$"
             id: 
               type: string
               maxLength: 2048
@@ -208,12 +205,12 @@ components:
           type: string
           minLength: 1
           maxLength: 64
-          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
         value:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: "^([\\t\\n\\r -\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
     BaseOperationResult:
       allOf:
         - $ref: "#/components/schemas/Result"
@@ -258,9 +255,7 @@ components:
           maxLength: 100
         value: 
           type: string
-      required: 
-        - contentType
-        - value
+          minLength: 1
       type: object
     BooleanValue: 
       type: boolean
@@ -315,18 +310,13 @@ components:
           type: string
           minLength: 1
           maxLength: 2048
-          pattern: ^([\\t\\n\\r-\ud7ff\ue000-\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+          pattern: ^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
         specificAssetIds:
           type: array
           items: 
             $ref: "#/components/schemas/SpecificAssetIdValue"
         statements: 
-          items: 
-            $ref: "#/components/schemas/ValueOnly"
-          type: array
-      required: 
-        - statements
-        - entityType
+          $ref: "#/components/schemas/ValueOnly"
       type: object
     ExecutionState:
       enum: 
@@ -347,9 +337,6 @@ components:
           type: string
           minLength: 1
           maxLength: 2048
-      required: 
-        - contentType
-        - value
       type: object
     FileMetadata: 
       allOf: 
@@ -522,6 +509,7 @@ components:
           $ref: '#/components/schemas/stringItems'
         $boolean:
           type: boolean
+      # Note: It is a known problem that SwaggerHub cannot render the following oneOf declaration.
       oneOf:
         - required:
             - $and
@@ -712,6 +700,8 @@ components:
             cursor:
               type: string
               example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
+      required:
+        - paging_metadata
     PackageDescription: 
       properties: 
         aasIds: 
@@ -831,6 +821,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+      required:
+        - paging_metadata
     QueryResultConceptDescription:
       type: object
       properties:
@@ -851,6 +843,8 @@ components:
             oneOf:
             - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription"
             - type: string
+      required:
+        - paging_metadata
     QueryResultSubmodel:
       type: object
       properties:
@@ -871,6 +865,8 @@ components:
             oneOf:
             - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Submodel"
             - type: string
+      required:
+        - paging_metadata
     QueryResultSubmodelDescriptor:
       type: object
       properties:
@@ -891,6 +887,8 @@ components:
             oneOf:
             - $ref: "#/components/schemas/SubmodelDescriptor"
             - type: string
+      required:
+        - paging_metadata
     RangeMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -930,9 +928,6 @@ components:
           $ref: "#/components/schemas/ReferenceValue"
         second: 
           $ref: "#/components/schemas/ReferenceValue"
-      required: 
-        - first
-        - second
       type: object
     Result: 
       properties: 
@@ -1045,7 +1040,9 @@ components:
           type: array
         idShort: 
           type: string
+          minLength: 1
           maxLength: 128
+          pattern: "^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$"
         id: 
           type: string
           minLength: 1
@@ -1090,8 +1087,7 @@ components:
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
     SubmodelElementCollectionValue: 
-      type: object
-      description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+      $ref: "#/components/schemas/ValueOnly"
     SubmodelElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -1268,7 +1264,7 @@ components:
           schema:
             $ref: '#/components/schemas/Result'
     'conflict':
-      description: Conflict, a resource which shall be created exists already. Might be thrown if a Submodel or SubmodelElement with the same ShortId is contained in a POST request.
+      description: Conflict, a resource which shall be created exists already. Might be thrown if an object with the same id (for Identifiables) or idShort (for Referables within the same Container Element or Submodel) is contained in a POST request.
       content:
         application/json:
           schema:

@@ -57,12 +57,18 @@ The different OpenAPI profiles of one ServiceSpecification share the same _title
 The version attribute contains both the major and minor version as well as the profile identifier.
 A profile identifier is defined as:
 
-`\https://admin-shell.io/aas/API/3/0/<service specification name>/SSP-<profile number>`
+`\https://admin-shell.io/aas/API/<major version>/<minor version>/<service specification name>/SSP-<profile number>`
 
 The name of the service specification ends with "ServiceSpecification".
 
 The supported service specification or profile can be discovered at the /description endpoint.
 This endpoint will return the related profile string.
+It is sufficient to only expose the latest service specification identifier in case a server supports different minor versions of a service specification at the same time.
+For instance, if both "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002" and "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002" are supported, the server may only include "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002" in its profiles list.
+
+Clients shall understand that lower minor versions of service specifications are supported even if only one service specification identifier is provided.
+
+Different to minor versions, it is not sufficient to only expose the latest major version of a service specification. A client must not expect support for lower major versions.
 
 Additional profiles might be introduced in future versions of this document.
 
