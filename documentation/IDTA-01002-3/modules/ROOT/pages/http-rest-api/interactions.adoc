@@ -22,7 +22,9 @@ Constraints and assumptions for calling an AAS and a submodel operation by a cli
 
 * The calling application has to be aware that endpoints may change at any time.
 If the application has cached an endpoint that is no longer vivid, the application needs to start the interaction to resolve the appropriate endpoint again from the beginning.
-* Endpoints for infrastructure interfaces like AAS registries are known at design time of the client application or configured manually before start-up.
+* Several ways are possible to get to know the endpoints for the infrastructure interfaces of AAS Discovery and/or Registries before calling the APIs. Some examples:
+ - A discovery service for dataspace connectors as well as endpoints for AAS services can be found as part of the registered applications on a connector, as e.g. specified in the Catena-X dataspace.
+ - The endpoints can be configured in the application during start or dynamically at runtime by a user.
 * The asset IDs (either the global asset ID or some specific asset IDs) are known to the calling application.
 * Access to any API is allowed only if the caller is authenticated.
 * Response to any API call takes access rules as defined for the services into account, e.g. access rules for the AASs, the Submodels, or SubmodelElements within a Submodel.
