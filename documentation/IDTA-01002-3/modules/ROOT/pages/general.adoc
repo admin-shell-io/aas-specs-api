@@ -1,0 +1,328 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+
+////
+
+include::includes/constraints.adoc[]
+
+= General
+
+== Services, Interfaces and Interface Operations
+
+This document uses the Industrie 4.0 Service Model illustrated in <<i40-service-model>> for a uniform understanding and naming.
+It basically distinguishes between associated concepts on several levels (from left to right):
+
+* technology-neutral level: concepts that are independent of selected technologies;
+* technology-specific level: concepts that are instantiated for a given technology and/or architectural style (e.g. HTTP/REST, OPC UA, MQTT);
+* implementation level: concepts that are related to an implementation architecture that comprises one or more technologies (e.g. C#, C++, Java, Python);
+* runtime level: concepts that are related to identifiable components in an operational Industry 4.0 system.
+
+This document deals with the concepts of the technology-neutral and technology-specific level.
+However, to avoid terminological and conceptual misunderstandings, the whole Industrie 4.0 Service Model is provided here.
+
+The technology-neutral level comprises the following concepts:
+
+* *Service*: a service describes a demarcated scope of functionality (including its informational and non-functional aspects), which is offered by an entity or organization via interfaces. 
+* *Interface*: this is the most important concept as it is understood to be the unit of reusability across services and the unit of standardization when mapped to application programming interfaces (API) in the technology-specific level.
+One interface may be mapped to several APIs depending on the technology and architectural style used, e.g. HTTP/REST or OPC UA, whereby these API mappings also need to be standardized for the sake of interoperability.
+* *Interface-Operation*: interface operations define interaction patterns via the specified interface.
+
+The technology-specific level comprises the following concepts:
+
+* *Service Specification*: specification of a service according to the notation, architectural style, and constraints of a selected technology.
+Among others, it comprises and refers to the list of APIs that forms this service specification.
+These may be I4.0-defined standard APIs but also other, proprietary APIs.
+
+====
+Note: such a technology-specific service specification may be but does not have to be derived from the "service" described in the technology-neutral form.
+It is up to the system architect and service engineer to tailor the technology-specific service according to the needs of the use cases.
+====
+
+* *API*: specification of the set of operations and events that forms an API in a selected technology.
+It is derived from the interface description on the technology-neutral level.
+Hence, if there are several selected technologies, one interface may be mapped to several APIs.
+* *API-Operation*: specification of a single operation (procedure) that may be called through an API.
+It is derived from the interface operation description on the technology-neutral level.
+When selecting technologies, one interface operation may be mapped to several API-operations; several interface operations may also be mapped to the same API-operation.
+
+The implementation level comprises the following concepts:
+
+* *Service-Implementation*: service realized in a selected implementation language following the specification in the Service Specification description on the technology-specific level.
+* *API-Implementation*: set of operations realized in a selected implementation language following the specification in the API description on the technology-specific level.
+* *API-Operation-Implementation*: concrete realization of an operation in a selected implementation language following the specification in the API-Operation description on the technology-specific level.
+
+The runtime level comprises the following concepts:
+
+* *Service-Instance*: instance of a Service-Implementation including its API-Instances for communication.
+Additionally, it has an identifier to be identifiable within a given context.
+
+* *API-Instance*: instance of an API-Implementation which has an endpoint to get the information about this instance and the related operations.
+
+* *API-Operation-Instance*: instance of an API-Operation-Implementation which has an endpoint to get invoked.
+
+.Services, Interfaces & APIs and Operations
+[[image-i40-service-model]]
+[plantuml, i40-service-model, svg]
+....
+include::partial$diagrams/i40-service-model.puml[]
+....
+
+One important message from the Industrie 4.0 Service Model is that it is the level of the interface (mapped to technology-specific APIs) that
+
+* provides the unit of reusability,
+* is the foundation for interoperable services, and
+* provides the reference unit for compliance statements.
+
+Therefore, this document defines the interfaces and operations which are needed for interaction regarding the elements of the Asset Administration Shell metamodel starting with Clause xref:specification/interfaces.adoc[Asset Administration Shell Interfaces].
+
+== Design Principles
+
+The operations of the interfaces follow a resource-oriented approach which is close to general REST principles but not as strict in every situation.
+The approach consists of the three main agreements:
+
+* Stateless: the API is stateless.
+Each operation is independent.
+The server is always consistent after each operation.
+* Resources (nouns): each resource is a clearly defined noun.
+This means that it has a specific name and its relation to other nouns is defined.
+The nouns and the relationships between them are taken from the list of referable objects of "Specification of the Asset Administration Shell Part 1" and their relationships. xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details] gives an additional list of resources.
+* Methods (verbs): a small set of standard REST methods (GET, POST, PUT, DELETE) is used to describe the semantic of the most common operations.
+There are only a few exceptions for situations where the standard methods do not fit (e.g. GETALL, SET, INVOKE).
+
+The methods are:
+
+* GET: a GET returns a single resource based on the resource identifier which is the identifier xref:bibliography.adoc#bib1[[1\]] for identifiables and the idShortPath for referables.
+* GETALL: returns a list of resources based on optionally available parameters such as filters.
+* QUERY: returns a list of resources based on conditions expressed through the AAS Query Language.
+* PUT: replaces an existing resource.
+* PUTBULK: bulk replacement.
+* POST: creates a new resource.
+The identifier of the resource is part of the resource description.
+This is necessary because the id of identifiables is globally unique and should be the identifier for the object in every system.
+This implies that the creation of an identifiable is idempotent.
+There shall never be more than one identifiable with the same ID in one system.
+For example, trying to post the same AAS object twice will not create two AAS resources.
+* POSTBULK: bulk creation.
+* PATCH: updates an existing resource.
+The content to be replaced will be defined by the given SerializationModifiers, e.g. content=value provides the ValueOnly-serialization to update all values in the existing resource.
+The structure of the existing resource on the server and of the content given by the PATCH must be the same.
+
+====
+Note 1: values remain unchanged with content=metadata.
+====
+
+* DELETE: deletes a resource based on a given identifier.
+* DELETEBULK: bulk deletion.
+* INVOKE: invokes an operation at a specified path.
+* INVOKEASYNC: asyncronous invocation of an operation.
+* SEARCHALL: returns a list fo resources based on asset links.
+
+====
+Note 2: these methods are intended for the naming of interfaces as described in <<image-i40-service-model>>.
+They shall not be interpreted as new protocol methods, e.g. on HTTP level.
+====
+
+Naming rules for operations:
+
+The following rules shall apply for the operation names in Asset Administration Shell Interface, Submodel Interface, Shell Repository Interface, Submodel Repository Interface, Concept Description Repository Interface:
+
+[listing]
+....
+<Interface Operation> ::= <Method Verb><Model Element Name>[<Modifier>]["By"<By-Qualifier>]
+
+<Method Verb> ::= "Get" | "GetAll" | "Query" |"Put" | "PutBulk" | "Post" | "PostBulk" | "Patch" | "Delete" | "DeleteBulk" | "Invoke" | "InvokeAsync" | "SearchAll"
+
+<Model Element Name> ::= "AssetAdministrationShell"["Ids"|"s"] | "AssetAdministrationShellDescriptor"["Ids"|"s"] | "SubmodelReference"["s"] | "AssetInformation" | "Submodel"["Ids"|"s"] | "SubmodelDescriptor"["Ids"|"s"] | "SubmodelElement"["s"] | "ConceptDescription"["Ids"|"s"]
+
+<Modifier> ::= "Value" | "IdShortPath" | "Reference"
+
+<By-Qualifier> ::= | "Id" | "SemanticId" | "ParentPathAndSemanticId" | "Path" | "AssetId" | "IdShort" | "IsCaseOf" | "DataSpecificationReference"
+....
+
+[.underline]#Examples:#
+
+_GetSubmodel_ has method verb "Get" and model element name "Submodel".
+
+_GetAllSubmodelElementsByPath_ has method verb "GetAll" and model element name "SubmodelElements" plus a by-qualifier "Path".
+
+== Semantic References for Operations
+
+The operations of this document need unique identifiers to reach a common understanding and allow all involved parties to reference the same things.
+These identifiers need to be globally unique and understandable by the community and implementing systems.
+Furthermore, the identifiers need to support a versioning scheme for future updates and extensions of the metamodel.
+The identifiers defined in this document are reused in related resources, for instance REST API operations or in self-descriptions of implementing services.
+
+Internationalized Resource Identifiers (IRIs), Uniform Resource Identifiers (URIs) xref:bibliography.adoc#bib5[[5\]] in particular, and the requirements of DIN EN IEC 61406 xref:bibliography.adoc#bib6[[6\]], serve as the basic format.
+Further design decisions include ‘https’ as the URI scheme, and the controlled domain name ‘admin-shell.io’ as the chosen authority.
+Both decisions guarantee the interoperability of the identifiers and their durability, since URIs are generally well-known and proven, while the domain is controlled and served through the Industrial Digital Twin Association (IDTA).
+All identifiers included in the ‘admin-shell.io’ domain are described in a lightweight catalogue in the form of Markdown documents; they are continuously maintained and updated link:https://github.com/admin-shell-io/id[https://github.com/admin-shell-io/id].
+The catalogue itself is structured in several sub-namespaces specified by the first path parameter.
+All URIs of this document reflect entities of the core metamodel, which are contained in the sub-namespace identified with the ‘/aas/API’ path.
+
+The described identifiers appear mainly in the semanticId field of every class and operation.
+They are required since the class name is not necessarily constant over time.
+The respective semanticIds, however, guarantee the unique and certain relation between a reference and the referenced class or operation.
+The URIs are constructed as follows (compare to Clause Semantic Identifiers for Metamodel and Data Specifications in Part 1 xref:bibliography.adoc#bib1[[1\]]).
+
+====
+Note 1: version information is explicitly included in each identifier.
+
+Note 2: even though the usage of the ‘https’ scheme might indicate URLs, all identifiers are regarded as URI look-ups; dereferencing them cannot be expected.
+====
+
+The following grammar is used to create valid identifiers:
+
+[listing]
+....
+
+<Identifier> ::= <Namespace>"/aas/API/"<OperationName>"/"<Version>
+
+<Namespace> ::= "https://admin-shell.io
+
+<OperationName> ::= {<Character>}+
+
+<Version> ::= {<Digit>}+"/"{<Digit>}+["/"{<Character>}+]
+
+<Digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<Character> ::= an unreserved character permitted by DIN SPEC 91406
+
+? ::= zero or one
+
++ ::= one or more
+....
+
+Examples for valid identifiers:
+
+[example]
+* \https://admin-shell.io/aas/API/GetSubmodel/1/23
+* \https://admin-shell.io/aas/API/GetAllSubmodelElements/1/0/RC03
+* \https://admin-shell.io/aas/API/GetAllSubmodelElements/3/0
+
+Examples for invalid identifiers:
+
+[example]
+* \http://admin-shell.io/API/GetSubmodel/1/0 +
+The scheme is different to ‘https’, and the ‘aas’ path segment is missing
+* \https://admin-shell.io/aas/API/GetSubmodel +
+Version information is missing
+* \https://admin-shell.io/aas/API/GetSubmodel/1/0#0173-%20ABC#001 +
+The URI includes DIN SPEC 91406-reserved (#) and impermissible (%) characters
+
+== References and Keys
+
+The concept of references is introduced in Part 1 of the series "Specification of the Asset Administration Shell" xref:bibliography.adoc#bib1[[1\]].
+
+When defining interfaces, a distinction is made between relative references and absolute references.
+
+Absolute references require a global unique id as starting point of the reference to be resolvable.
+In this case the type "Reference" is used.
+
+Relative references do not start with a global unique id.
+Instead, it is assumed that the context is given and unique.
+In this case, the key list only contains keys with _Key/type_ that references a non-identifiable referable (e.g. a Property, a Range, a RelationshipElement, etc.).
+
+== Relation of Interfaces
+
+The following chapters define several interfaces, which work together as a system and support different deployment scenarios.
+
+There are three major components of the overall system:
+
+[arabic]
+. Repositories store the data of Asset Administration Shells, Submodels, and Concept Descriptions,
+. Registries are "directories" which store AAS-IDs and Submodel-IDs together with the related endpoints (typically a URL-path into a repository or to a single AAS/Submodel),
+. discovery (servers) supports a fast search and only store copies of essential information, i.e. key value pairs to find IDs by other IDs.
+
+<<asset-related-info-retrieval>> shows a typical sequence.
+Discovery finds the AAS-ID for a given Asset-ID.
+A Registry provides the endpoint for a given AAS-ID.
+Such an endpoint for an AAS and the related Submodel-IDs make the submodels with their submodelElements accessible.
+
+.Retrieval of Asset-related Information by AAS and Submodels
+[[asset-related-info-retrieval]]
+[plantuml, asset-related-info-retrieval, svg]
+....
+include::partial$diagrams/asset-related-info-retrieval.puml[]
+....
+
+The Asset Administration Shell model is an asset-oriented model.
+
+An Asset-ID may be retrieved e.g. by a QRCODE on the asset, by an RFID for the asset, from the firmware of the asset or from an asset database.
+IEC 61406 (formerly DIN SPEC 91406) defines the format of such Asset-IDs.
+
+The "Administration Shell Basic Discovery Interface" may be used with an Asset-ID to get the related AAS-IDs ("GetAllAssetAdministrationShellIdsByAssetLink").
+
+The "Asset Administration Shell Registry Interface" may be used with an AAS-ID to retrieve the related descriptor for an AAS ("GetAssetAdministrationShellDescriptorById").
+The retrieved AAS Descriptor includes the endpoint for the "Asset Administration Shell Interface".
+
+The "Asset Administration Shell Interface" makes the information about the AAS itself and the references to the related submodels available.
+
+The related submodels of an AAS are retrieved by "GetAllSubmodelReferences".
+Such a reference includes the SM-ID of a related submodel.
+
+Similarly to the AAS above, the "Submodel Registry Interface" may be used to retrieve the related descriptor for a submodel ("GetSubmodelDescriptorById") with a specific SM-ID.
+The retrieved Submodel Descriptor includes the endpoint for the "Submodel Interface".
+
+The "Submodel Interface" makes the information about the submodel itself and all its included submodel elements available.
+
+Asset Administration Shells and submodels may be deployed on different endpoints in different ways.
+
+One example is the deployment of an AAS on a device.
+In this case, the AAS might be fixed and might not be changed or deleted.
+In a cloud scenario, a single AAS may also be deployed as a single container (e.g. docker container).
+
+Another example is the deployment of many Asset Administration Shells in an AAS Repository.
+In this case, the "Asset Administration Shell Repository Interface" may allow to create and manage multiple AAS in the repository.
+
+The separate interfaces of the HTTP/REST API allow many ways to support different deployments.
+
+For an AAS repository, the combination [.gray]#"Asset Administration Shell Repository Interface"#, [.red]#"Asset Administration Shell Interface"#, [.blue]#"Submodel Interface"#, "Serialization Interface", and "Self-Description Interface" is proposed.
+
+This will result in the following HTTP/REST paths as described in a combined OpenAPI file link:https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001[AssetAdministrationShellRepositoryServiceSpecification/V3.1_SSP-001].footnote:[For easier reading only the standard paths are shown in the following: `$metadata`, `$value`, `$reference` and `$path` parameter paths are additionally contained in the OpenAPI file.]:
+
+[.gray]#/shells# +
+[.gray]#/shells/\{aas-identifier}# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/asset-information## +
+[.gray]#/shells/\{aas-identifier}#[.red]##/asset-information/thumbnail## +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodel-refs## +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodel-refs/\{submodel-identifier}## +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}## +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements/\{idShortPath}# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements/\{idShortPath}/attachment# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements/\{idShortPath}/invoke# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements/\{idShortPath}/invoke-async# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements/\{idShortPath}/operation-status/\{handleId}# +
+[.gray]#/shells/\{aas-identifier}#[.red]##/submodels/\{submodel-identifier}##[.blue]#/submodel-elements/\{idShortPath}/operation-results/\{handleId}# +
+/serialization +
+/description
+
+If the repository also supports AASX Packages, it shall be extended by additionally supporting a "AASX File Server" Profile as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1_SSP-001].
+
+The example of a device or container containing one AAS with its related submodels will result in the following HTTP/REST paths as described in the related OpenAPI file https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1_SSP-001)[AssetAdministrationShellServiceSpecification/V3.1_SSP-001]:
+
+[.red]#/aas# +
+[.red]#/aas/asset-information# +
+[.red]#/aas/asset-information/thumbnail# +
+[.red]#/aas/submodel-refs# +
+[.red]#/aas/submodel-refs/\{submodel-identifier}# +
+[.red]#/aas/submodels/\{submodel-identifier}# +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements## +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements/\{idShortPath}## +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements/\{idShortPath}/attachment## +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements/\{idShortPath}/invoke## +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements/\{idShortPath}/invoke-async## +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements/\{idShortPath}/operation-status/\{handleId}## +
+[.red]#/aas/submodels/\{submodel-identifier}#[.blue]##/submodel-elements/\{idShortPath}/operation-results/\{handleId}## +
+/serialization +
+/description
+
+====
+Note: identifiers are base64url-encoded in the API, i.e. \{aas-identifier} and [.green]#\{submodel-identifier}#. [.blue]#The \{idShortPath} is URL-encoded in the API#.
+====
+
