@@ -678,6 +678,24 @@ h|Attribute h|Explanation h|Type h|Card.
 |clientTimeoutDuration a|Duration indicating when the client suggests the server to have finished execution of the invoked operation. The server may take this value into account to decide on its effective timeout, however, the server may or may not use by its own discretion. |duration |0..1
 |===
 
+[#operation-request-value-only]
+===== OperationRequestValueOnly
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[OperationRequestValueOnly]]OperationRequestValueOnly
+h|Explanation 3+a|The operation request object
+h|Inherits from 3+|--
+h|semanticId* 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationRequestValueOnly/3/1`
+
+h|Attribute h|Explanation h|Type h|Card.
+
+|inputArguments a|Input argument | link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#json-schema-value-only[SubmodelElementValue] |0..*
+|inoutputArguments a|InOutput argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#json-schema-value-only[SubmodelElementValue] |0..*
+|clientTimeoutDuration a|Duration indicating when the client suggests the server to have finished execution of the invoked operation. The server may take this value into account to decide on its effective timeout, however, the server may or may not use by its own discretion. |duration |0..1
+|===
+
 ===== BaseOperationResult
 
 [.table-with-appendix-table]
@@ -706,6 +724,23 @@ h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationResult/3/0`
 h|Attribute h|Explanation h|Type h|Card.
 e|outputArguments |Output argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |0..*
 e|inoutputArguments |InOutput argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |0..*
+|===
+
+
+[#operation-result-value-only]
+===== OperationResultValueOnly
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[OperationResultValueOnly]]OperationResultValueOnly
+h|Explanation 3+a|The operation’s invocation result object in the ValueOnly notation.
+h|Inherits from 3+|BaseOperationResult
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/OperationResultValueOnly/3/1`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|outputArguments |Output argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#json-schema-value-only[SubmodelElementValue] |0..*
+e|inoutputArguments |InOutput argument |link:https://admin-shell-io.github.io/aas-specs-antora/IDTA-01001/v3.1/mappings/mappings.html#json-schema-value-only[SubmodelElementValue] |0..*
 |===
 
 ===== Enumeration ExecutionState 
