@@ -30,7 +30,7 @@ _DigitalNameplate_ has a fixed structure, only the bottom part with Markings and
 TechnicalData has its major variable part on the bottom and a small fixed structure on the top.
 _TechnicalData_ includes ProductClassifications with ProductClassId, so that e.g. by ECLASS ClassId a certain product type can be queried.
 _TechnicalData_ includes all the technical properties, e.g. width of the product.
-An example is to search for motor starters (_ProductClassifications.ProductClassificationItem.ProductClassId_ = `27-37-09-05`) with a width less than 100 mm (_semanticId_ = `0173-1#02-BAF016#006`, _value_ < `100`).
+An example is to search for motor starters (_ProductClassifications[].ProductClassId_ = `27-37-09-05`) with a width less than 100 mm (_semanticId_ = `0173-1#02-BAF016#006`, _value_ < `100`).
 HandoverDocumentation consists basically of a list of document information according VDI 2770 (_DocumentedEntity{00}_). It is expected, that this will be changed to SubmodelElementList like other V3 Submodels. An example is to search for Documents of a certain ClassId (_semanticId_ = `0173-1#02-ABH996#001`, _ClassId_ = `"03-01"`, i.e. Commissioning) in a certain language (_semanticId_ = `0173-1#02-AAN468#006`, e.g. _value_ = `"nl"`).
 
 
@@ -656,8 +656,7 @@ a|
 $and(
 	$match(
 		$sm#idShort $eq "TechnicalData",
-		$sme.ProductClassifications
-            .ProductClassificationItem
+		$sme.ProductClassifications[]
             .ProductClassId#value 
         $eq   "27-37-09-05"
 	),
@@ -684,8 +683,7 @@ a|
           { "$eq": [
               { 
                 "$field": 
-                "$sme.ProductClassifications
-                  .ProductClassificationItem
+                "$sme.ProductClassifications[]
                   .ProductClassId#value"
               },
               { "$strVal": "27-37-09-05" }
