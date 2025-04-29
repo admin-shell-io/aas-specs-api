@@ -52,9 +52,11 @@ Major versions indicate breaking changes while minor updates are backward compat
 The patch position is increased whenever bugfixes need to be applied.
 The following release contains the latest version of the AAS schemas (see also the [releases](https://github.com/admin-shell-io/aas-specs-api/releases) section of this repository):
 
-* [3.0.3](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.3) is the bugfix release for the `V3.0.3` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.0.3**". *Use this release if you want to work with the latest specified AAS version.*
+* [3.0.4](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.4) is the bugfix release for the `V3.0.4` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - **Version 3.0.4**". *Use this release if you want to work with the latest specified AAS version.*
 
-Previous releases (deprecated by [3.0.3](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.3)):
+Previous releases (deprecated by [3.0.4](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.4)):
+
+* [3.0.3](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.3) is the bugfix release for the `V3.0.3` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.3".
 
 * [3.0.2](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.0.2) is the bugfix release for the `V3.0.2` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0.2".
 
