@@ -1,0 +1,26 @@
+{
+    "$schema": "../../query-json-schema.json",
+    "select": "id",
+    "filter": {
+        "$and":[
+            {
+                "$eq": [
+                    {
+                        "strModel": "$sm.semanticId.keys.value"
+                    },
+                    {
+                        "strVal": "https://example.org/value"
+                    }
+                ]
+            },
+            {}
+        ]
+    },
+    "option": {
+        "sort": {
+            "id": "asc"
+        },
+        "limit": 10,
+        "offset": 0
+    }
+}

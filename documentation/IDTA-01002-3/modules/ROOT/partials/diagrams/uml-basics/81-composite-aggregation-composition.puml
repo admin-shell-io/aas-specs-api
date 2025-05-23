@@ -1,0 +1,27 @@
+@startuml
+skinparam packageStyle rectangle
+
+
+package "A)" {
+    class Class1 {
+    }
+    class Class2 {
+    }
+    Class1*--Class2
+}
+
+package "B)" {
+    class Class1 {
+      +class2: Class2
+    }
+}
+
+package "C)" {
+    class Class1 {
+    }
+    class Class2 {
+    }
+    Class1 *-- "+class2" Class2
+}
+
+@enduml

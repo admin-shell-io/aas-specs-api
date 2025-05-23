@@ -1,0 +1,38 @@
+@startuml
+participant "Client Application" as client
+
+box "Asset Administration Shell Registry"
+    participant "Invoke Endpoint\n/bulk/shell-descriptors" as invoke
+    participant "Status Endpoint\n/bulk/status/<handleId>" as status
+    participant "Result Endpoint\n/bulk/result/<handleId>" as result
+end box
+
+activate client
+client -> invoke: POST: [{}, {}, ...]
+activate invoke
+note right of invoke: Operation started
+invoke --> client: Status: 202 (Accepted)\nLocation: https://.../bulk/status/<handleId>
+deactivate invoke
+
+client -> status: GET
+activate status
+note right of status: Operation still running
+status --> client: Status: 200 (Ok)
+deactivate status
+
+client -> status: GET
+activate status
+note right of status: Operation has finished
+status --> client: Status: 302 (Found)\nLocation: https://.../bulk/result/<handleId>
+deactivate status
+
+client -> result: GET
+activate result
+alt execution successful
+    result --> client: Status: 204 (No Content)
+else at least one error
+    result --> client: Status: 400 (Bad Request)\n{\n  "messages": [\n    {...},\n    {...},\n    ...\n  ]\n}
+deactivate result
+end alt
+
+@enduml

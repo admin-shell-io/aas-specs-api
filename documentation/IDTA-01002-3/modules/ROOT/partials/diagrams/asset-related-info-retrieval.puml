@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+
+rectangle "\n  Discovery Interface  \n" as DI
+rectangle "             AAS              \n          Registry\n          Interface" as AASRI
+rectangle "\n       AAS Interface       \n" as AASI
+rectangle "          Submodel          \n           Registry\n           Interface" as SMRI
+rectangle "\n        SM Interface        \n" as SMI
+
+label "Asset-ID" as asset_id_1
+label "AAS-ID" as aas_id_1
+label "AAS-Endpoint" as aas_endpoint_1
+label "SM-ID" as sm_id_1
+label "SM-Endpoint" as sm_endpoint_1
+
+label "AAS-ID" as aas_id_2
+label "AAS-Endpoint" as aas_endpoint_2
+label "AAS (incl. SM-IDs)" as aas_2
+label "SM-Endpoint" as sm_endpoint_2
+label "Submodel with\nSubmodelElements" as sm_1
+
+asset_id_1 --> DI
+DI --> aas_id_2
+aas_id_1 --> AASRI
+AASRI --> aas_endpoint_2
+aas_endpoint_1 --> AASI
+AASI --> aas_2
+sm_id_1 --> SMRI
+SMRI --> sm_endpoint_2
+sm_endpoint_1 --> SMI
+SMI --> sm_1
+
+DI -[hidden] AASRI
+AASRI -[hidden] AASI
+AASI -[hidden] SMRI
+SMRI -[hidden] SMI
+
+@enduml

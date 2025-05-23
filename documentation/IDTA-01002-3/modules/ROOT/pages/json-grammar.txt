@@ -1,0 +1,245 @@
+
+<json> ::= <ws> (<query> | <all_access_permission_rules>) <ws>
+
+<query> ::=  "{" <ws> "\"Query\":" <ws> "{" <ws> "\"$condition\":" <ws> <logical_expression> <ws> ("," <ws> "\"$select\":" <ws> "id" <ws> )? <ws> "}" <ws> "}"
+
+<logical_expression> ::= "{" <ws>
+                          (
+                              "\"$and\":" <ws> <logical_expression_array>
+                              | "\"$or\":" <ws> <logical_expression_array>
+                              | "\"$not\":" <ws> <logical_expression>
+                              | "\"$match\":" <ws> <match_expression_array>
+                              | "\"$eq\":" <ws> <comparison_items>
+                              | "\"$ne\":" <ws> <comparison_items>
+                              | "\"$gt\":" <ws> <comparison_items>
+                              | "\"$ge\":" <ws> <comparison_items>
+                              | "\"$lt\":" <ws> <comparison_items>
+                              | "\"$le\":" <ws> <comparison_items>
+                              | "\"$contains\":" <ws> <string_items>
+                              | "\"$starts_with\":" <ws> <string_items>
+                              | "\"$ends_with\":" <ws> <string_items>
+                              | "\"$regex\":" <ws> <string_items>
+                              | "\"$boolean\":" <ws> <boolean> <ws>
+                          )
+                          <ws> "}"
+
+<match_expression> ::= "{" <ws>
+                          (
+                              "\"$match\":" <ws> <match_expression_array>
+                              | "\"$eq\":" <ws> <comparison_items>
+                              | "\"$ne\":" <ws> <comparison_items>
+                              | "\"$gt\":" <ws> <comparison_items>
+                              | "\"$ge\":" <ws> <comparison_items>
+                              | "\"$lt\":" <ws> <comparison_items>
+                              | "\"$le\":" <ws> <comparison_items>
+                              | "\"$contains\":" <ws> <string_items>
+                              | "\"$starts_with\":" <ws> <string_items>
+                              | "\"$ends_with\":" <ws> <string_items>
+                              | "\"$regex\":" <ws> <string_items>
+                              | "\"$boolean\":" <ws> <boolean>
+                          )
+                          <ws> "}"
+
+<comparison_items> ::= "[" <ws> <value> <ws> "," <ws> <value> <ws> "]"
+
+<string_items> ::= "[" <ws> <string_value> <ws> "," <ws> <string_value> <ws> "]"
+
+<logical_expression_array> ::= "[" <ws> <logical_expression> <ws> ( "," <ws> <logical_expression> <ws>)* "]"
+<match_expression_array> ::= "[" <ws> <match_expression> <ws> ( "," <ws> <match_expression> <ws>)* "]"
+
+<value> ::= "{" <ws>
+                   (
+                       "\"$field\":" <ws> <FieldIdentifier>
+                       | "\"$strVal\":" <ws> <StringLiteral>
+                       | "\"$attribute\":" <ws> <attribute>
+                       | "\"$numVal\":" <ws> <NumericalLiteral>
+                       | "\"$hexVal\":" <ws> <HexLiteral>
+                       | "\"$dateTimeVal\":" <ws> <DateTimeLiteral>
+                       | "\"$timeVal\":" <ws> <TimeLiteral>
+                       | "\"$boolean\":" <ws> <boolean>
+                       | "\"$numCast\":" <ws> <value>
+                       | "\"$hexCast\":" <ws> <value>
+                       | "\"$boolCast\":" <ws> <value>
+                       | "\"$dateTimeCast\":" <ws> <value>
+                       | "\"$timeCast\":" <ws> <value>
+                       | "\"$dayOfWeek\":" <ws> <value>
+                       | "\"$dayOfMonth\":" <ws> <value>
+                       | "\"$month\":" <ws> <value>
+                       | "\"$year\":" <ws> <value>
+                   )
+                   <ws> "}"
+
+
+<cast> ::= (
+            "\"$strCast\":" <ws> <value>
+            | "\"$numCast\":" <ws> <value>
+            | "\"$hexCast\":" <ws> <value>
+            | "\"$boolCast\":" <ws> <value>
+            | "\"$dateTimeCast\":" <ws> <value>
+            | "\"$timeCast\":" <ws> <value>
+          )
+
+<string_value> ::= "{" <ws>
+                   (
+                       "\"$field\":" <ws> <FieldIdentifier>
+                       | "\"$strVal\":" <ws> <StringLiteral>
+                       | "\"$strCast\":" <ws> <value>
+                       | "\"$attribute\":" <ws> <attribute>
+                   )
+                   <ws> "}"
+
+<all_access_permission_rules> ::= "{" <ws> "\"AllAccessPermissionRules\":" <ws> "{" <ws>
+                                   ("\"DEFATTRIBUTES\":" <ws> <defattributes_array> <ws> "," <ws> )?
+                                   ("\"DEFACLS\":" <ws> <defacls_array> <ws> "," <ws> )?
+                                   ("\"DEFOBJECTS\":" <ws> <defobjects_array> <ws> "," <ws> )?
+                                   ("\"DEFFORMULAS\":" <ws> <defformulas_array> <ws> "," <ws> )?
+                                   "\"rules\":" <ws> <access_permission_rule_array> <ws>
+                                   "}" <ws> "}" 
+
+<defattributes_array> ::= "[" <ws> <defattributes> <ws> ("," <ws> <defattributes> <ws>)* "]"
+
+<defattributes> ::= "{" <ws>
+                    "\"name\":" <ws> <StringLiteral> <ws>
+                    "," <ws> "\"attributes\":" <ws> <attribute_array> <ws>
+                    "}"
+
+<defacls_array> ::= "[" <ws> <defacls> <ws> ("," <ws> <defacls> <ws>)* "]"
+
+<defacls> ::= "{" <ws>
+              "\"name\":" <ws> <StringLiteral> <ws>
+              "," <ws> "\"acl\":" <ws> <acl> <ws>
+              "}"
+
+<defobjects_array> ::= "[" <ws> <defobjects> <ws> ("," <ws> <defobjects> <ws>)* "]"
+
+<defobjects> ::= "{" <ws>
+                 "\"name\":" <ws> <StringLiteral> <ws>
+                 "," <ws> (
+                     "\"objects\":" <ws> <object_array>
+                     | "\"USEOBJECTS\":" <ws> <useobjects_array>
+                 ) <ws>
+                 "}"
+
+<defformulas_array> ::= "[" <ws> <defformulas> <ws> ("," <ws> <defformulas> <ws>)* "]"
+
+<defformulas> ::= "{" <ws>
+                  "\"name\":" <ws> <StringLiteral> <ws>
+                  "," <ws> "\"formula\":" <ws> <logical_expression> <ws>
+                  "}"
+
+<access_permission_rule_array> ::= "[" <ws> <access_permission_rule> <ws> ( "," <ws> <access_permission_rule> <ws> )* "]"
+
+<access_permission_rule> ::= "{" <ws>
+                              ( ( "\"ACL\":" <ws> <acl> <ws> )
+                              | ( "\"USEACL\":" <ws> <StringLiteral> <ws> ) )
+                              ( ( "," <ws> "\"OBJECTS\":" <ws> <object_array> <ws> )
+                              | ( "," <ws> "\"USEOBJECTS\":" <ws> <string_array> <ws> ) )
+                              ( ( "," <ws> "\"FORMULA\":" <ws> <logical_expression> <ws> )
+                              | ("," <ws> "\"USEFORMULA\":" <ws> <StringLiteral> <ws> ) )
+                              ("," <ws> "\"FRAGMENT\":" <ws> <StringLiteral> <ws> )?
+                              ( ( "," <ws> "\"FILTER\":" <ws> <logical_expression> <ws> )
+                              | ("," <ws> "\"USEFILTER\":" <ws> <StringLiteral> <ws> ) )?
+                              "}"
+
+<acl> ::= "{" <ws>
+          ( ( "\"ATTRIBUTES\":" <ws> <attribute_array> <ws> )
+          | ( "\"USEATTRIBUTES\":" <ws> <string_array> <ws> ) )
+          "," <ws> "\"RIGHTS\":" <ws> <rights_array> <ws>
+          "," <ws> "\"ACCESS\":" <ws> <access_enum> <ws>
+          "}"
+
+<attribute_array> ::= "[" <ws> <attribute> <ws> ("," <ws> <attribute> <ws>)* "]"
+
+<attribute> ::= "{" <ws>
+                (
+                    "\"CLAIM\":" <ws> <StringLiteral>
+                    | "\"GLOBAL\":" <ws> <global_enum>
+                    | "\"REFERENCE\":" <ws> <StringLiteral>
+                )
+                <ws> "}"
+
+<string_array> ::= "[" <ws> <StringLiteral> <ws> ( "," <ws> <StringLiteral> <ws> )* "]"
+
+<rights_array> ::= "[" <ws> <rights_enum> <ws> ("," <ws> <rights_enum> <ws>)* "]"
+
+<object_array> ::= "[" <ws> <object> <ws> ("," <ws> <object> <ws>)* "]"
+
+<object> ::= "{" <ws>
+             (
+                 "\"ROUTE\":" <ws> <StringLiteral>
+                 | "\"IDENTIFIABLE\":" <ws> <StringLiteral>
+                 | "\"REFERABLE\":" <ws> <StringLiteral>
+                 | "\"FRAGMENT\":" <ws> <StringLiteral>
+                 | "\"DESCRIPTOR\":" <ws> <StringLiteral>
+             )
+             <ws> "}"
+
+<useobjects_array> ::= "[" <ws> <StringLiteral> <ws> ("," <ws> <StringLiteral> <ws>)* "]"
+
+<rights_enum> ::= (
+                  "\"CREATE\""
+                  | "\"READ\""
+                  | "\"UPDATE\""
+                  | "\"DELETE\""
+                  | "\"EXECUTE\""
+                  | "\"VIEW\""
+                  | "\"ALL\""
+                  | "\"TREE\""
+                 )
+
+<access_enum> ::= ("\"ALLOW\"" | "\"DISABLED\"")
+
+<global_enum> ::= (
+                  "\"LOCALNOW\""
+                  | "\"UTCNOW\""
+                  | "\"CLIENTNOW\""
+                  | "\"ANONYMOUS\""
+                 )
+
+
+
+<boolean> ::= ("true" | "false")
+<DateTimeLiteral> ::= "\"" <datetime> "\"" <ws>
+<TimeLiteral> ::= "\"" <time> "\"" <ws>
+<datetime> ::= <date> <ws> ( "T" | " " ) <ws> <time> <ws> ( <timezone> <ws> )?
+<date> ::= <year> <ws> "-" <ws> <month> <ws> "-" <ws> <day> <ws>
+<year> ::= <digit> <ws> <digit> <ws> <digit> <ws> <digit> <ws>
+<month> ::= <digit> <ws> <digit> <ws>
+<day> ::= <digit> <ws> <digit> <ws>
+<time> ::= <hour> <ws> ":" <ws> <minute> <ws> ( ":" <ws> <second> <ws> )? ( "." <ws> <fraction> <ws> )?
+<timezone> ::= ( "Z" | ( "+" | "-" ) <ws> <hour> <ws> ":" <ws> <minute> <ws> )
+<hour> ::= <digit> <ws> <digit> <ws>
+<minute> ::= <digit> <ws> <digit> <ws>
+<second> ::= <digit> <ws> <digit> <ws>
+<fraction> ::= <digit>+ <ws>
+
+<digit> ::= [0-9] <ws>
+<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "_" | "@" | "#" | "\\" | "+" | "-" | "." | "," | ":" | "$" | "^" | "*" )+ "\""
+<ClaimLiteral> ::= <StringLiteral>
+<ReferenceLiteral> ::= <StringLiteral>
+<RouteLiteral> ::= <StringLiteral>
+<IdentifiableLiteral> ::= <StringLiteral>
+<ReferableLiteral> ::= <StringLiteral>
+<FragmentLiteral> ::= <StringLiteral>
+<DescriptorLiteral> ::= <StringLiteral>
+<NumericalLiteral> ::= ( "+" | "-" )? ( [0-9]+ ( "." [0-9]* )? | "." [0-9]+ ) ( ( "e" | "E" )? [0-9]+ )
+<HexLiteral> ::= "\"" "16#" ( [0-9] | [A-F] )+ "\""
+<BoolLiteral> ::= "true" | "false"
+
+<FieldIdentifier> ::= "\"" <FieldIdentifierString> "\""
+<FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+<FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels." <ReferenceClause> )
+<FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | "idShort" | "id" )
+<FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
+<FieldIdentifierCD> ::= "$cd#" ( "idShort" | "id" ) <ws>
+<FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" ( [0-9]* ) "]" )? "." <EndpointClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" )? "." <SmDescriptorClause> )
+<FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
+<SmDescriptorClause> ::= ( <SemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" ( [0-9]* ) "]" )? "." <EndpointClause> )
+<EndpointClause> ::= "interface" | "protocolinformation.href"
+<ReferenceClause> ::= ( "type" | "keys" ( "[" ( [0-9]* ) "]" )? ( ".type" | ".value" ) )
+<SemanticIdClause> ::= ( "semanticId" | "semanticId." <ReferenceClause> )
+<SpecificAssetIdsClause> ::=  ( "specificAssetIds" ( "[" ( [0-9]* ) "]" )? ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> ) )
+<idShortPath> ::= ( <idShort> ("[" ( [0-9]* ) "]" )? ( "." <idShortPath> )* )
+<idShort> ::= ( ( [a-z] | [A-Z] ) ( [a-z] | [A-Z] | [0-9] | "_" )* )
+
+<ws> ::= ( " " | "\t" | "\r" | "\n" )*

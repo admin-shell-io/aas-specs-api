@@ -1,0 +1,1135 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/). 
+
+SPDX-License-Identifier: CC-BY-4.0
+
+////
+
+include::../includes/special-parameters.adoc[] 
+
+include::../includes/constraints.adoc[]
+
+[#service-specifications-and-profiles]
+= Service Specifications and Profiles
+
+xref:general.adoc#image-i40-service-model[Figure 1] in Clause xref:general.adoc[] defines that a service specification contains at least one API and that an API contains at least one API Operation.
+
+The profiles defined in this clause present complete service specifications and their subsets.
+
+For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] +”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both.
+Furthermore, profiles also define which of the SerializationModifiers (Content, Extent, Level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
+
+
+.Overview of Service Specifications and the Contained APIs
+[%autowidth,width="100%",cols="52%,4%,4%,4%,4%,5%,4%,4%,4%,5%,5%,5%",options="header",]
+|===
+a|
+*Contained APIs:*
+
+*Service Specifications:*
+
+|Asset Administration Shell API |Submodel API |AASX File Server API |Asset Administration Shell Registry API |Submodel Registry API |Asset Administration Shell Repository API |Submodel Repository API |Concept Description Repository API |Asset Administration Shell Basic Discovery API |Serialization API |Description API
+|Asset Administration Shell Service Specification |x |s | | | | | | | |x |x
+|Submodel Service Specification | |x | | | | | | | |x |x
+|AASX File Server Service Specification | | |x | | | | | | | |x
+|Asset Administration Shell Registry Serv. Spec. | | | |x |s | | | | | |x
+|Submodel Registry Service Specification | | | | |x | | | | | |x
+|Discovery Service Specification | | | | | | | | |x | |x
+|Asset Administration Shell Repository Serv. Spec. |s |s | | | |x |s | | |x |x
+|Submodel Repository Service Specification | |s | | | | |x | | |x |x
+|ConceptDescription Repository Service Spec. | | | | | | | |x | |x |x
+|===
+
+x: Service Specification contains API at the root
+
+s: Service Specification contains API through xref:http-rest-api/http-rest-api.adoc#superpaths[superpaths]
+
+[#profiles]
+== Profiles
+
+Service specifications are further refined in profiles, governing which API operations, modifiers, and path combinations are supported.
+The following clauses describe each service specification and present their predefined profiles.
+Each profile is unambiguously identified and represented through a normative OpenAPI document.
+The different OpenAPI profiles of one ServiceSpecification share the same _title_ attribute but with different _versions_.
+The version attribute contains both the major and minor version as well as the profile identifier.
+A profile identifier is defined as:
+
+`\https://admin-shell.io/aas/API/<major version>/<minor version>/<service specification name>/SSP-<profile number>`
+
+The name of the service specification ends with "ServiceSpecification".
+
+The supported service specification or profile can be discovered at the /description endpoint.
+This endpoint will return the related profile string.
+It is sufficient to only expose the latest service specification identifier in case a server supports different minor versions of a service specification at the same time.
+For instance, if both "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002" and "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002" are supported, the server may only include "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002" in its profiles list.
+
+Clients shall understand that lower minor versions of service specifications are supported even if only one service specification identifier is provided.
+
+Different to minor versions, it is not sufficient to only expose the latest major version of a service specification. A client must not expect support for lower major versions.
+
+Additional profiles might be introduced in future versions of this document.
+
+====
+Note: in the following, only the last part (<name of service specification>/SSP-<profile number>) is used in the text for better readability, e.g. “AssetAdministrationShellServiceSpecification/SSP-001” instead of “https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001”.
+====
+
+[#asset-administration-shell-service-specification]
+== Asset Administration Shell Service Specification
+
+[%autowidth,width="100%",cols="45%,55%",options="header",]
+|===
+h|Service Specification / Profiles h|Description
+|<<asset-administration-shell-service-specification-SSP-001,AssetAdministrationShellServiceSpecification/SSP-001>> |Full feature set
+|<<asset-administration-shell-service-specification-SSP-002,AssetAdministrationShellServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellServiceSpecification/SSP-001.
+|===
+
+[#asset-administration-shell-service-specification-SSP-001]
+=== Asset Administration Shell Service Specification – Full Profile
+
+The Asset Administration Shell service specification with all its features and endpoints is represented through the profile identifier *AssetAdministrationShellServiceSpecification/SSP-001*:
+
+[%autowidth,width="100%",cols="27%,73%",options="header",]
+|===
+h|Name: h|AAS Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_Asset Administration Shell API:_ +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell]  +
+xref:specification/interfaces.adoc#PutAssetAdministrationShell[PutAssetAdministrationShell] +
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#PostSubmodelReference[PostSubmodelReference] +
+xref:specification/interfaces.adoc#DeleteSubmodelReference[DeleteSubmodelReference] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAssetInformation] +
+xref:specification/interfaces.adoc#PutAssetInformation[PutAssetInformation] +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail] +
+xref:specification/interfaces.adoc#PutThumbnail[PutThumbnail] +
+xref:specification/interfaces.adoc#DeleteThumbnail[DeleteThumbnail]
+
+_Submodel API as superpath:_ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] +[xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] +] +
+xref:specification/interfaces.adoc#xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] +[xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] +] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#DeleteSubmodelElementByPath[DeleteSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
+
+_Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-001
+
+[#asset-administration-shell-service-specification-SSP-002]
+=== Asset Administration Shell Service Specification – Read Profile
+
+The Asset Administration Shell Service specification with the minimal feature set is represented through *AssetAdministrationShellServiceSpecification/SSP-002*:
+
+[%autowidth,width="100%",cols="21%,79%",options="header",]
+|===
+h|Name: h|AAS Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API Operations a|
+_Asset Administration Shell API:_ +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAssetInformation] +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail]
+
+_Submodel API as superpath:_ +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-002[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.0_SSP-002]
+
+[#submodel-service-specification]
+== Submodel Service Specification
+
+[%autowidth,width="100%",options="header",]
+|===
+h|Service Specification / Profiles |Description
+|<<submodel-service-specification-SSP-001,SubmodelServiceSpecification/SSP-001>> |Full feature set
+|<<submodel-service-specification-SSP-002,SubmodelServiceSpecification/SSP-002>> |Only reads operations; is included in the profile SubmodelServiceSpecification/SSP-001.
+|<<submodel-service-specification-SSP-003,SubmodelServiceSpecification/SSP-003>> |Limitation on the basic capabilities plus the option to execute synchronous operations and to read the submodel in the ValueOnly-serialization format to reduce required bandwidth; is included in the profile SubmodelServiceSpecification/SSP-001.
+|===
+
+[#submodel-service-specification-SSP-001]
+=== Submodel Service Specification – Full Profile 
+
+The submodel service specification with all its features and endpoints is represented through *SubmodelServiceSpecification/SSP-001*:
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_Submodel API:_ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PutSubmodel[PutSubmodel] +
+xref:specification/interfaces.adoc#PatchSubmodel[PatchSubmodel] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
+
+_Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-001
+
+[#submodel-service-specification-SSP-002]
+=== Submodel Service Specification – Read Profile
+
+The submodel service specification with its minimal feature set is represented through *SubmodelServiceSpecification/SSP-002*:
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API and API Operations a|
+_Submodel API:_ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+GetFileByPath
+
+_Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-002[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-002]
+
+[#submodel-service-specification-SSP-003]
+=== Submodel Service Specification – Value Profile 
+
+The submodel service specification with a reduced feature set is represented through *SubmodelServiceSpecification/SSP-003*:
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Value Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|APIs and API Operations a|
+__Submodel API:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Deep
+
+Content: Normal, Value
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-003[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.0_SSP-003]
+
+[#aasx-file-server-service-specification]
+== AASX File Server Service Specification
+
+[%autowidth,width="100%",cols="45%,55%",options="header",]
+|===
+h|Service Specification / Profiles h|Description
+|<<aasx-file-server-service-specification-SSP-001, AasxFileServerServiceSpecification/SSP-001>>The full feature set of the AASX File Server Service Specification
+|===
+
+[#aasx-file-server-service-specification-SSP-001]
+=== AASX File Server Service Specification – Full Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name:  |AASX File Server Full Profile
+h|Profile Identifier |`\https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001`
+h|Feature  h|Appearance
+|APIs and API Operations a|
+_File Server API:_ +
+xref:specification/interfaces.adoc#GetAllAASXPackageIds[GetAllAASXPackageIds] +
+xref:specification/interfaces.adoc#GetAASXByPackageId[GetAASXByPackageId] +
+xref:specification/interfaces.adoc#PostAASXPackage[PostAASXPackage] +
+xref:specification/interfaces.adoc#PutAASXByPackageId[PutAASXByPackageId] +
+xref:specification/interfaces.adoc#DeleteAASXByPackageId[DeleteAASXByPackageId]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat a|
+JSON for descriptions and error messages
+
+AASX for packages
+
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification/V3.1.0_SSP-001
+
+[#asset-administration-shell-registry-service-specification]
+== Asset Administration Shell Registry Service Specification
+
+[%autowidth,width="100%",options="header",]
+|===
+h|Service Specification / Profiles h|Description
+|<<asset-administration-shell-registry-service-specification-ssp-001,AssetAdministrationShellRegistryServiceSpecification/SSP-001>> |Full profile
+|<<asset-administration-shell-registry-service-specification-ssp-002,AssetAdministrationShellRegistryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001.
+|<<asset-administration-shell-registry-service-specification-ssp-003,AssetAdministrationShellRegistryServiceSpecification/SSP-003>> |Bulk write and delete operations.
+|<<asset-administration-shell-registry-service-specification-ssp-004,AssetAdministrationShellRegistryServiceSpecification/SSP-004>> |Query operations.
+|<<asset-administration-shell-registry-service-specification-ssp-005,AssetAdministrationShellRegistryServiceSpecification/SSP-005>> |Only reads operations on AAS Descriptors; is included in the profile AssetAdministrationShellRegistryServiceSpecification/SSP-001 and AssetAdministrationShellRegistryServiceSpecification/SSP-002.
+|===
+
+[#asset-administration-shell-registry-service-specification-ssp-001]
+=== Asset Administration Shell Registry Service Specification – Full Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: |Asset Administration Shell Registry Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors]  +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] +
+xref:specification/interfaces.adoc#PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] +
+xref:specification/interfaces.adoc#PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] +
+xref:specification/interfaces.adoc#DeleteAssetAdministrationShellDescriptorById[DeleteAssetAdministrationShellDescriptorById]
+
+_Submodel Registry API as superpath:_ +
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSubmodelDescriptorById[GetSubmodelDescriptorById] +
+xref:specification/interfaces.adoc#PostSubmodelDescriptor[PostSubmodelDescriptor] +
+xref:specification/interfaces.adoc#PutSubmodelDescriptorById[PutSubmodelDescriptorById] +
+xref:specification/interfaces.adoc#DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById]
+
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-001
+
+[#asset-administration-shell-registry-service-specification-ssp-002]
+=== Asset Administration Shell Registry Service Specification – Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById]
+
+_Submodel Registry API as superpath:_ +
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-002
+
+[#asset-administration-shell-registry-service-specification-ssp-003]
+=== Asset Administration Shell Registry Service Specification – Bulk Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Bulk Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] +
+xref:specification/interfaces.adoc#DeleteBulkAssetAdministrationShellDescriptorsById[DeleteBulkAssetAdministrationShellDescriptorsById]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-003
+
+[#asset-administration-shell-registry-service-specification-ssp-004]
+=== Asset Administration Shell Registry Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Bulk Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#QueryAssetAdministrationShellDescriptors[QueryAssetAdministrationShellDescriptors]
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-004
+
+[#asset-administration-shell-registry-service-specification-ssp-005]
+=== Asset Administration Shell Registry Service Specification – Minimal Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|AAS Registry Minimal Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-005`
+h|Feature h|Appearance
+|APIs and API Operations a|
+_AAS Registry API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById]
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|Pagination |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-005
+
+
+[#submodel-registry-service-specification]
+== Submodel Registry Service Specification
+
+[%autowidth,width="100%",options="header",]
+|===
+h|Service Specification / Profiles h|Description
+|<<submodel-registry-service-specification-ssp-001,SubmodelRegistryServiceSpecification/SSP-001>> |Full profile
+|<<submodel-registry-service-specification-ssp-002,SubmodelRegistryServiceSpecification/SSP-002>> |Only reads operations; is included in the profile SubmodelRegistryServiceSpecification/SSP-001.
+|<<submodel-registry-service-specification-ssp-003,SubmodelRegistryServiceSpecification/SSP-003>> |Bulk write and delete operations.
+|<<submodel-registry-service-specification-ssp-004,SubmodelRegistryServiceSpecification/SSP-004>> |Query operations.
+|===
+
+[#submodel-registry-service-specification-ssp-001]
+=== Submodel Registry Service Specification – Full Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Registry Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|APIs and API Operations a|
+__Submodel Registry API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription] +
+xref:specification/interfaces.adoc#PostSubmodelDescriptor[PostSubmodelDescriptor] +
+xref:specification/interfaces.adoc#PutSubmodelDescriptorById[PutSubmodelDescriptorById] +
+xref:specification/interfaces.adoc#DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById]
+
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-001
+
+[#submodel-registry-service-specification-ssp-002]
+=== Submodel Registry Profile – Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|[[Submodel-Registry-Read-Profile]]Submodel Registry Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|APIs and API Operations a|
+__Submodel Registry API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
+xref:specification/interfaces.adoc#GetSubmodelDescriptorById[GetSubmodelDescriptorById]
+
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-002
+
+[#submodel-registry-service-specification-ssp-003]
+=== Submodel Registry Profile – Bulk Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Registry Bulk Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|APIs and API Operations a|
+__Submodel Registry API:__ +
+xref:specification/interfaces.adoc#PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] +
+xref:specification/interfaces.adoc#PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] +
+xref:specification/interfaces.adoc#DeleteBulkSubmodelDescriptorsById[DeleteBulkSubmodelDescriptorsById]
+
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-003
+
+[#submodel-registry-service-specification-ssp-004]
+=== Submodel Registry Profile – Query Profile
+
+[%autowidth, width="100%", cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Registry Bulk Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|APIs and API Operations a|
+__Submodel Registry API:__ +
+xref:specification/interfaces.adoc#QuerySubmodelDescriptors[QuerySubmodelDescriptors]
+
+
+__Description API:__ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-004
+
+[#discovery-service-specification-ssp]
+== Discovery Service Specification
+
+[%autowidth,width="100%",cols="43%,57%",options="header",]
+|===
+h|Service Specification / Profiles h|Description
+|<<discovery-service-specification-ssp-001,DiscoveryServiceSpecification/SSP-001>> |Full feature set
+|<<discovery-service-specification-ssp-002,DiscoveryServiceSpecification/SSP-002>> |only read operations; does not contain the deprecated read operation from DiscoveryServiceSpecification/SSP-001
+|===
+
+[#discovery-service-specification-ssp-001]
+=== Discovery Service Specification – Full Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Discovery Service Full Profile
+h|Profile Identifier: |`https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|API and API Operations a|
+__AAS Basic Discovery API:__ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] (\<<deprecated>>) +
+xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[SearchAllAssetAdministrationShellIdsByAssetLink] + 
+xref:specification/interfaces.adoc#GetAllAssetLinksById[GetAllAssetLinksById] +
+xref:specification/interfaces.adoc#PostAllAssetLinksById[PostAllAssetLinksById] +
+xref:specification/interfaces.adoc#DeleteAllAssetLinksById[DeleteAllAssetLinksById]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-001
+
+[#discovery-service-specification-ssp-002]
+=== Discovery Service Specification – Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Discovery Service Full Profile
+h|Profile Identifier: |`https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API and API Operations a|
+__AAS Basic Discovery API:__ +
+xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[SearchAllAssetAdministrationShellIdsByAssetLink] +
+xref:specification/interfaces.adoc#GetAllAssetLinksById[GetAllAssetLinksById] +
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.0_SSP-002
+
+[#asset-administration-shell-repository-service-specification-service-specification]
+== Asset Administration Shell Repository Service Specification
+
+[%autowidth,width="100%",cols="42%,58%",options="header",]
+|===
+h|Service Specification / Profiles h|Description
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-001,AssetAdministrationShellRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-002,AssetAdministrationShellRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-003,AssetAdministrationShellRepositoryServiceSpecification/SSP-003>> |Query operations
+|===
+
+[#asset-administration-shell-repository-service-specification-service-specification-ssp-001]
+=== Asset Administration Shell Repository Service Specification – Full Profile
+
+[%autowidth,width="100%",cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellById[GetAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] +
+xref:specification/interfaces.adoc#PostAssetAdministrationShell[PostAssetAdministrationShell] +
+xref:specification/interfaces.adoc#PutAssetAdministrationShellById[PutAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById]
+
+_AAS API by superpath:_ +
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#PostSubmodelReference[PostSubmodelReference] +
+xref:specification/interfaces.adoc#DeleteSubmodelReference[DeleteSubmodelReference] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAssetInformation] +
+xref:specification/interfaces.adoc#PutAssetInformation[PutAssetInformation] +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail] +
+xref:specification/interfaces.adoc#PutThumbnail[PutThumbnail] +
+xref:specification/interfaces.adoc#DeleteThumbnail[DeleteThumbnail]
+
+__Submodel Repository API by superpath:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
+
+_AAS Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-001
+
+
+[[asset-administration-shell-repository-service-specification-ssp-002]]
+=== Asset Administration Shell Repository Service Specification – Read Profile
+
+[%autowidth,width="100%",cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellById[GetAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByIdShort[]
+
+_AAS API by superpath:_ +
+xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetThumbnail[GetAllSubmodelReferences]
+
+__Submodel Repository API by superpath:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelReferences]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[]
+
+_Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-002
+
+
+[[asset-administration-shell-repository-service-specification-ssp-003]]
+=== Asset Administration Shell Repository Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Query Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#QueryAssetAdministrationShells[QueryAssetAdministrationShells]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-003
+
+
+[[submodel-repository-service-specification]]
+== Submodel Repository Service Specification
+
+[cols="41%,59%"]
+|===
+h|Service Specification / Profiles h|Description
+|<<submodel-repository-service-specification-ssp-001,SubmodelRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<submodel-repository-service-specification-ssp-002,SubmodelRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile SubmodelRepositoryServiceSpecification/SSP-001
+|<<submodel-repository-service-specification-ssp-003,SubmodelRepositoryServiceSpecification/SSP-003>> |Profile for a Submodel Repository which only contains Submodels with kind=Template; is _not_ included in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryServiceSpecification/SSP-002
+|<<submodel-repository-service-specification-ssp-004,SubmodelRepositoryServiceSpecification/SSP-004>> |Only read operations for a Submodel Repository which only contains Submodels with kind=Template; is included in the profile SubmodelRepositoryServiceSpecification/SSP-003 but _not_ in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryService Specification/SSP-002
+|<<submodel-repository-service-specification-ssp-005,SubmodelRepositoryServiceSpecification/SSP-005>>|Query operations
+|===
+
+[[submodel-repository-service-specification-ssp-001]]
+=== Submodel Repository - Full Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Repository Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|API and API Operations a|
+__Submodel Repository API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
+
+_AAS Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-001
+
+[[submodel-repository-service-specification-ssp-002]]
+=== Submodel Repository – Read Profile
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: |Submodel Repository Read Profile
+h|Profile Identifier |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API and API Operations a|
+_Submodel Repository API:_ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+GetFileByPath
+
+_Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata, Value, Reference, Path
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-002
+
+[[submodel-repository-service-specification-ssp-003]]
+=== Submodel Repository - Template Profile
+
+The Submodel Repository service specification that only provides and manages Submodel Templates is represented through the profile identifier *SubmodelRepositoryServiceSpecification/SSP-003*.
+
+{aasa003}
+
+====
+Note 1: due to Constraint AASa-003, SubmodelServiceSpecification/SSP-003 can not be combined with SubmodelServiceSpecification/SSP-001 or SubmodelServiceSpecification/SSP-002 as SubmodelService +
+====
+
+Specification/SSP-001 or SubmodelServiceSpecification/SSP-002-compliant services may contain Submodel instances but SubmodelServiceSpecification/SSP-003 not.
+
+====
+Note 2: future versions may introduce a Submodel Repository Instance Profile.
+====
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Repository Template Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|API and API Operations a|
+__Submodel Repository API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath]
+
+_AAS Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata
+
+Extent: WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-003
+
+
+[[submodel-repository-service-specification-ssp-004]]
+=== Submodel Repository - Template Read Profile
+
+The Submodel Repository service specification that only provides Submodel Templates is represented through the profile identifier *SubmodelRepositoryServiceSpecification/SSP-004*.
+
+{aasa004}
+
+====
+Note: due to Constraint AASa-004, SubmodelServiceSpecification/SSP-004 can not be combined with SubmodelServiceSpecification/SSP-001 or 
+SubmodelServiceSpecification/SSP-002 as SubmodelServiceSpecification/SSP-001 or SubmodelServiceSpecification/SSP-002-compliant services may contain Submodel instances but SubmodelServiceSpecification/SSP-004 not.
+====
+
+[%autowidth,width="100%",cols="36%,64%",options="header",]
+|===
+h|Name: h|Submodel Repository Template Read Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|API and API Operations a|
+__Submodel Repository API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath]
+
+__Serialization API:__ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal, Metadata
+
+Extent: WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-004
+
+[[submodel-repository-service-specification-ssp-005]]
+=== Submodel Repository Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Submodel Repository Query Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-005`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#QuerySubmodels[QuerySubmodels]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-005
+
+[#concept-description-repository-service-specification-service-specification]
+== Concept Description Repository Service Specification
+
+[cols="59%,41%"]
+|===
+h|Service Specification / Profiles h|Description
+|<<concept-description-repository-service-specification-service-specification-ssp-001,ConceptDescriptionRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<concept-description-repository-service-specification-service-specification-ssp-002,ConceptDescriptionRepositoryServiceSpecification/SSP-002>> |Query operations
+|===
+
+[#concept-description-repository-service-specification-service-specification-ssp-001]
+=== Concept Description Repository Service Specification – Full Profile
+
+[%autowidth,width="100%",cols="30%,70%",options="header",]
+|===
+h|Name: h|Concept Description Repository Full Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001`
+h|Feature h|Appearance
+|API and API Operations a|
+_ConceptDescription Repository API:_ +
+xref:specification/interfaces.adoc#GetAllConceptDescriptions[GetAllConceptDescriptions] +
+xref:specification/interfaces.adoc#GetConceptDescriptionById[GetConceptDescriptionById] +
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] +
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] +
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsByDataSpecificationReference[GetAllConceptDescriptionsByDataSpecificationReference] +
+xref:specification/interfaces.adoc#PostConceptDescription[PostConceptDescription] +
+xref:specification/interfaces.adoc#PutConceptDescriptionById[PutConceptDescriptionById] +
+xref:specification/interfaces.adoc#DeleteConceptDescriptionById[DeleteConceptDescriptionById]
+
+_Serialization API:_ +
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-001
+
+[#concept-description-repository-service-specification-service-specification-ssp-002]
+=== Concept Description Repository Service Specification – Query Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Concept Description Repository Query Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-002`
+h|Feature h|Appearance
+|API and API Operations a|
+_ConceptDescription Repository API:_ +
+xref:specification/interfaces.adoc#QueryConceptDescriptions[QueryConceptDescriptions]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-002
+
