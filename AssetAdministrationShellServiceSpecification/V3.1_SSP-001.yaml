@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: DotAAS Part 2 | HTTP/REST | Asset Adminstration Shell Service Specification
+  title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Service Specification
   description: >-
-    The Full Profile of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub) for the use case of a standalone Asset Administration Shell, e.g., an Asset Administration Shell running in a Docker container.  
+    The Full Profile of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications) for the use case of a standalone Asset Administration Shell, e.g., an Asset Administration Shell running in a Docker container.  
     Copyright: Industrial Digital Twin Association (IDTA) 2025
   contact:
     name: Industrial Digital Twin Association (IDTA)
@@ -304,7 +304,7 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Deletes the submodel reference from the Asset Administration Shell. Does not delete the submodel itself!
-      operationId: DeleteSubmodelReferenceById
+      operationId: DeleteSubmodelReference
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelReference/3/0
       responses:
@@ -329,9 +329,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Returns the Submodel
-      operationId: GetSubmodel
+      operationId: GetSubmodelById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Extent'
@@ -358,9 +358,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Updates the Submodel
-      operationId: PutSubmodel
+      operationId: PutSubmodelById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PutSubmodelById/3/0
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
@@ -397,9 +397,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Updates the Submodel
-      operationId: PatchSubmodel
+      operationId: PatchSubmodelById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
@@ -463,9 +463,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodel-Metadata
+      operationId: GetSubmodelById-Metadata
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       responses:
         '200':
           description: Requested Submodel
@@ -489,9 +489,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Updates the metadata attributes of the Submodel
-      operationId: PatchSubmodelMetadata
+      operationId: PatchSubmodelByIdMetadata
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       requestBody:
         description: Submodel object
         content:
@@ -521,9 +521,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Returns the Submodel's ValueOnly representation
-      operationId: GetSubmodel-ValueOnly
+      operationId: GetSubmodelById-ValueOnly
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Extent'
@@ -549,10 +549,10 @@ paths:
     patch:
       tags:
         - Asset Administration Shell API
-      summary: Updates teh values of the Submodel
-      operationId: PatchSubmodel-ValueOnly
+      summary: Updates the values of the Submodel
+      operationId: PatchSubmodelById-ValueOnly
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodelById/3/0
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
@@ -594,9 +594,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Returns the Submodel as a Reference
-      operationId: GetSubmodelMetadata-Reference
+      operationId: GetSubmodelById-Reference
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
         - name: level
           in: query
@@ -636,9 +636,9 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Returns the Submodel's metadata elements
-      operationId: GetSubmodel-Path
+      operationId: GetSubmodelById-Path
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSubmodel/3/0
+        - https://admin-shell.io/aas/API/GetSubmodelById/3/0
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
       responses:
@@ -959,7 +959,6 @@ paths:
       operationId: PutSubmodelElementByPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0
-        - https://admin-shell.io/aas/API/SetSubmodelElementValueByPath/3/0
       requestBody:
         description: Requested submodel element
         content:

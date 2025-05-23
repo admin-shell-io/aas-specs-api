@@ -39,6 +39,7 @@ Major Changes:
 * change: Fix missing 'Repository' in ConceptDescriptionServiceSpecification to ConceptDescriptionRepositoryServiceSpecification (https://github.com/admin-shell-io/aas-specs-api/issues/171[#171])
 * new: Add classes xref:specification/interfaces-payload.adoc#operation-request-value-only[OperationRequestValueOnly] and xref:specification/interfaces-payload.adoc#operation-result-value-only[OperationResultValueOnly] explicitly (https://github.com/admin-shell-io/aas-specs-api/issues/269[#269])
 * change: Additional clarifications on the implicit support of xref:http-rest-api/service-specifications-and-profiles.adoc#service-specifications-and-profiles[major and minor versions of service specifications] (https://github.com/admin-shell-io/aas-specs-api/issues/264[264])
+* change: PUT can also create the considered resource, not only replace it, if a creation via POST was possible already.
 
 Minor Changes:
 
@@ -52,6 +53,7 @@ Minor Changes:
 * xref:http-rest-api/http-rest-api.adoc#modifier-constraints[HTTP Modifier Constraints]: adding note for metadata and value-only representations of Asset Administration Shells (https://github.com/admin-shell-io/aas-specs-api/issues/268[#268])
 * xref:http-rest-api/interactions.adoc[Interactions]: extending the explanation how to discover endpoints of AAS services
 * xref:http-rest-api/http-rest-api.html#_mapping_of_operations[Mapping of Operations]: adding missing path for the row defining the mapping of PutAssetAdministrationShell to HTTP
+* Fixing several "operationId" and "x-semanticIds" values in OpenAPI files. 
 
 === Interface Changes w.r.t. V3.0.4 to V3.1
 
@@ -95,6 +97,24 @@ add PutBulkSubmodelDescriptorsById
 add DeleteBulkSubmodelDescriptorsById
 
 | | GenerateSerializationByIds | Extended a| Extended description for the "includeConceptDescriptions" parameter
+
+| | AAS Repository,
+
+AAS Registry,
+
+AAS Service,
+
+Submodel Repository,
+
+Submodel Registry,
+
+Submodel Service,
+
+AASX File Server Service,
+
+Concept Description Repository
+
+ | Extended a| Allowed PUT operations to also create objects if a creation via POST was available.
 
 |===
 

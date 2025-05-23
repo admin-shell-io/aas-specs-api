@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Repository Service Specification
   description: >-
-    The Full Profile of the Asset Administration Shell Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](http://industrialdigitaltwin.org/en/content-hub).  
+    The Full Profile of the Asset Administration Shell Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
 
     Copyright: Industrial Digital Twin Association (IDTA) 2025
   contact:
@@ -469,7 +469,7 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Deletes the submodel reference from the Asset Administration Shell. Does not delete the submodel itself!
-      operationId: DeleteSubmodelReferenceById_AasRepository
+      operationId: DeleteSubmodelReference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelReference/3/0
       responses:
@@ -526,7 +526,7 @@ paths:
       summary: Creates or updates the Submodel
       operationId: PutSubmodelById_AasRepository
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PutSubmodelById/3/0
       requestBody:
         description: Submodel object
         content:
@@ -566,7 +566,7 @@ paths:
       summary: Updates the Submodel
       operationId: PatchSubmodel_AasRepository
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       parameters:
         #- $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/parameters/Level'
         - name: level
@@ -659,7 +659,7 @@ paths:
       summary: Updates the metadata attributes of the Submodel
       operationId: PatchSubmodelById-Metadata_AasRepository
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       requestBody:
         description: Submodel object
         content:
@@ -718,10 +718,10 @@ paths:
     patch:
       tags:
         - Asset Administration Shell Repository API
-      summary: Updates teh values of the Submodel
+      summary: Updates the values of the Submodel
       operationId: PatchSubmodelById-ValueOnly_AasRepository
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PutSubmodel/3/0
+        - https://admin-shell.io/aas/API/PatchSubmodel/3/0
       parameters:
         - name: level
           in: query
@@ -1123,7 +1123,6 @@ paths:
       operationId: PutSubmodelElementByPath_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0
-        - https://admin-shell.io/aas/API/SetSubmodelElementValueByPath/3/0
       requestBody:
         description: Requested submodel element
         content:

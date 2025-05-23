@@ -71,7 +71,7 @@ e|payload a|Requested Asset Administration Shell |yes | link:https://industriald
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|*Operation Name* 4+e|[[PutAssetAdministrationShell]]PutAssetAdministrationShell
-h|Explanation 4+a|Creates or replaces the Asset Administration Shell
+h|Explanation 4+a|Replaces the Asset Administration Shell
 h|*semanticId* 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShell/3/0`
 
 h|Name h|*Description* h|*Mand.* h|*Type* h|*Card.*
@@ -357,7 +357,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutSubmodel]]PutSubmodel
-h|Explanation 4+a|Creates or replaces the Submodel
+h|Explanation 4+a|Replaces the Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodel/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -365,7 +365,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |submodel |Submodel object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Replaced submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PatchSubmodel
@@ -471,7 +471,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced submodel element | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|payload |New state of the submodel element | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PatchSubmodelElementByPath
@@ -917,7 +917,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |shellDescriptor |Object containing the Asset Administration Shell’s identification and endpoint information containing the Asset Administration Shell’s identification and endpoint information |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
+|payload |New state of the Asset Administration Shell Descriptor |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
 ==== Operation PutBulkAssetAdministrationShellDescriptorsById
@@ -1326,7 +1326,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutAssetAdministrationShellById]]PutAssetAdministrationShellById
-h|Explanation 4+a|Replaces an existing Asset Administration Shell
+h|Explanation 4+a|Creates or replaces an existing Asset Administration Shell
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1511,7 +1511,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutSubmodelById]]PutSubmodelById
-h|Explanation 4+a|Replaces an existing Submodel
+h|Explanation 4+a|Creates a new or replaces an existing Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1519,7 +1519,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Submodel | no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |New state of the Submodel | no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PatchSubmodelById
@@ -1741,7 +1741,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutConceptDescriptionById]]PutConceptDescriptionById
-h|Explanation 4+a|Replaces an existing Concept Description
+h|Explanation 4+a|Creates or replaces an existing Concept Description
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutConceptDescriptionById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1749,7 +1749,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |conceptDescription |Concept Description object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Concept Description |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
+|payload |New state of the Concept Description |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation DeleteConceptDescriptionById

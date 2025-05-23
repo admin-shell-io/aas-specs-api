@@ -19,7 +19,7 @@ xref:general.adoc#image-i40-service-model[Figure 1] in Clause xref:general.adoc[
 
 The profiles defined in this clause present complete service specifications and their subsets.
 
-For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “PostSubmodelElementByPath”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both.
+For instance, the profile “RepositoryServiceSpecification/V3.1_SSP-002” contains the API Operation “GetAllSubmodels” but not “xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] +”, while the more comprehensive “RepositoryServiceSpecification/V3.1_SSP-001” contains both.
 Furthermore, profiles also define which of the SerializationModifiers (Content, Extent, Level) or serialization formats (JSON) can be used or whether pagination or asynchronous operations are available.
 
 
@@ -99,37 +99,37 @@ h|Feature h|Appearance
 |APIs and API Operations a|
 _Asset Administration Shell API:_ +
 xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell]  +
-PutAssetAdministrationShell +
-GetAllSubmodelReferences +
-PostSubmodelReference +
-DeleteSubmodelReference +
-GetAssetInformation +
-PutAssetInformation +
-GetThumbnail +
-PutThumbnail +
-DeleteThumbnail
+xref:specification/interfaces.adoc#PutAssetAdministrationShell[PutAssetAdministrationShell] +
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#PostSubmodelReference[PostSubmodelReference] +
+xref:specification/interfaces.adoc#DeleteSubmodelReference[DeleteSubmodelReference] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAssetInformation] +
+xref:specification/interfaces.adoc#PutAssetInformation[PutAssetInformation] +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail] +
+xref:specification/interfaces.adoc#PutThumbnail[PutThumbnail] +
+xref:specification/interfaces.adoc#DeleteThumbnail[DeleteThumbnail]
 
 _Submodel API as superpath:_ +
-xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath +
-PutFileByPath +
-DeleteFileByPath +
-PutSubmodel +
-PatchSubmodel +
-PostSubmodelElement +
-PostSubmodelElementByPath +
-PutSubmodelElementByPath +
-PatchSubmodelElementByPath +
-DeleteSubmodelElementByPath +
-InvokeOperationSync +
-InvokeOperationAsync +
-GetOperationAsyncStatus +
-GetOperationAsyncResult
+xref:specification/interfaces.adoc#GetSubmodel[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] +[xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] +] +
+xref:specification/interfaces.adoc#xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] +[xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] +] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#DeleteSubmodelElementByPath[DeleteSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
 
 _Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -160,15 +160,15 @@ h|Feature h|Appearance
 |API Operations a|
 _Asset Administration Shell API:_ +
 xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
-GetAllSubmodelReferences +
-GetAssetInformation +
-GetThumbnail
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAssetInformation] +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail]
 
 _Submodel API as superpath:_ +
-xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -210,25 +210,25 @@ h|Feature h|Appearance
 |APIs and API Operations a|
 _Submodel API:_ +
 xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath +
-PutFileByPath +
-DeleteFileByPath +
-PutSubmodel +
-PatchSubmodel +
-PostSubmodelElement +
-PostSubmodelElementByPath +
-PutSubmodelElementByPath +
-PatchSubmodelElementByPath +
-DeleteSubmodelElementByPath +
-InvokeOperationSync +
-InvokeOperationAsync +
-GetOperationAsyncStatus +
-GetOperationAsyncResult
+xref:specification/interfaces.adoc#xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PutSubmodel[PutSubmodel] +
+xref:specification/interfaces.adoc#PatchSubmodel[PatchSubmodel] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
 
 _Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -259,12 +259,12 @@ h|Feature h|Appearance
 |API and API Operations a|
 _Submodel API:_ +
 xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
 GetFileByPath
 
 _Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -467,7 +467,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.0_SSP-004
@@ -521,9 +521,9 @@ h|Feature h|Appearance
 __Submodel Registry API:__ +
 xref:specification/interfaces.adoc#GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription] +
-PostSubmodelDescriptor +
-PutSubmodelDescriptorById +
-DeleteSubmodelDescriptorById
+xref:specification/interfaces.adoc#PostSubmodelDescriptor[PostSubmodelDescriptor] +
+xref:specification/interfaces.adoc#PutSubmodelDescriptorById[PutSubmodelDescriptorById] +
+xref:specification/interfaces.adoc#DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById]
 
 __Description API:__ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -600,7 +600,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |Not Supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | Supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.0_SSP-004
@@ -624,12 +624,12 @@ h|Name: h|Discovery Service Full Profile
 h|Profile Identifier: |`https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001`
 h|Feature h|Appearance
 |API and API Operations a|
-__AAS Basic Discovery API: +
-__GetAllAssetAdministrationShellIdsByAssetLink (\<<deprecated>>) +
-SearchAllAssetAdministrationShellIdsByAssetLink + 
-GetAllAssetLinksById +
-PostAllAssetLinksById +
-DeleteAllAssetLinksById
+__AAS Basic Discovery API:__ +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] (\<<deprecated>>) +
+xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[SearchAllAssetAdministrationShellIdsByAssetLink] + 
+xref:specification/interfaces.adoc#GetAllAssetLinksById[GetAllAssetLinksById] +
+xref:specification/interfaces.adoc#PostAllAssetLinksById[PostAllAssetLinksById] +
+xref:specification/interfaces.adoc#DeleteAllAssetLinksById[DeleteAllAssetLinksById]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -650,9 +650,9 @@ h|Name: h|Discovery Service Full Profile
 h|Profile Identifier: |`https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-002`
 h|Feature h|Appearance
 |API and API Operations a|
-__AAS Basic Discovery API: +
-__SearchAllAssetAdministrationShellIdsByAssetLink +
-GetAllAssetLinksById +
+__AAS Basic Discovery API:__ +
+xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[SearchAllAssetAdministrationShellIdsByAssetLink] +
+xref:specification/interfaces.adoc#GetAllAssetLinksById[GetAllAssetLinksById] +
 
 
 _Description API:_ +
@@ -686,56 +686,52 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |API and API Operations a|
 _AAS Repository API:_ +
-GetAllAssetAdministrationShells +
-GetAssetAdministrationShellById +
-GetAllAssetAdministrationShellsByAssetId +
-GetAllAssetAdministrationShellsByIdShort +
-PostAssetAdministrationShell +
-PutAssetAdministrationShellById +
-DeleteAssetAdministrationShellById
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellById[GetAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] +
+xref:specification/interfaces.adoc#PostAssetAdministrationShell[PostAssetAdministrationShell] +
+xref:specification/interfaces.adoc#PutAssetAdministrationShellById[PutAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById]
 
 _AAS API by superpath:_ +
-xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
-PutAssetAdministrationShell +
-GetAllSubmodelReferences +
-PostSubmodelReference +
-DeleteSubmodelReference +
-GetAssetInformation +
-PutAssetInformation +
-GetThumbnail +
-PutThumbnail +
-DeleteThumbnail
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#PostSubmodelReference[PostSubmodelReference] +
+xref:specification/interfaces.adoc#DeleteSubmodelReference[DeleteSubmodelReference] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAssetInformation] +
+xref:specification/interfaces.adoc#PutAssetInformation[PutAssetInformation] +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail] +
+xref:specification/interfaces.adoc#PutThumbnail[PutThumbnail] +
+xref:specification/interfaces.adoc#DeleteThumbnail[DeleteThumbnail]
 
 __Submodel Repository API by superpath:__ +
-GetAllSubmodels +
-GetSubmodelById +
-GetAllSubmodelsBySemanticId +
-GetAllSubmodelsByIdShort +
-PostSubmodel +
-PutSubmodelById +
-DeleteSubmodelById
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
 
 __Submodel API by superpath:__ +
-xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath +
-PutFileByPath +
-DeleteFileByPath +
-PutSubmodel +
-PatchSubmodel +
-PostSubmodelElement +
-PostSubmodelElementByPath +
-PutSubmodelElementByPath +
-PatchSubmodelElementByPath +
-DeleteSubmodelElementByPath +
-InvokeOperationSync +
-InvokeOperationAsync +
-GetOperationAsyncStatus +
-GetOperationAsyncResult
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
 
 _AAS Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -764,31 +760,30 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |API and API Operations a|
 _AAS Repository API:_ +
-GetAllAssetAdministrationShells +
-GetAssetAdministrationShellById +
-GetAllAssetAdministrationShellsByAssetId +
-GetAllAssetAdministrationShellsByIdShort
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellById[GetAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] +
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByIdShort[]
 
 _AAS API by superpath:_ +
 xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
-GetAllSubmodelReferences +
-GetAssetInformation +
-GetThumbnail
+xref:specification/interfaces.adoc#GetAllSubmodelReferences[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAssetInformation[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetThumbnail[GetAllSubmodelReferences]
 
 __Submodel Repository API by superpath:__ +
-GetAllSubmodels +
-GetSubmodelById +
-GetAllSubmodelsBySemanticId +
-GetAllSubmodelsByIdShort
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelReferences] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelReferences]
 
 __Submodel API by superpath:__ +
-xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[]
 
 _Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -817,14 +812,14 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/AssetAdministrationS
 h|Feature h|Appearance
 |API and API Operations a|
 _AAS Repository API:_ +
-QueryAssetAdministrationShells
+xref:specification/interfaces.adoc#QueryAssetAdministrationShells[QueryAssetAdministrationShells]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
 |SerializationFormat |JSON
-|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.0_SSP-003
@@ -852,37 +847,34 @@ h|Name: h|Submodel Repository Full Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001`
 h|Feature h|Appearance
 |API and API Operations a|
-__Submodel Repository API: +
-__GetAllSubmodels +
-GetSubmodelById +
-GetAllSubmodelsBySemanticId +
-GetAllSubmodelsByIdShort +
-PostSubmodel +
-PutSubmodelById +
-PatchSubmodelById +
-DeleteSubmodelById
+__Submodel Repository API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
 
 __Submodel API by superpath:__ +
-xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath +
-PutFileByPath +
-DeleteFileByPath +
-PutSubmodel +
-PatchSubmodel +
-PostSubmodelElement +
-PostSubmodelElementByPath +
-PutSubmodelElementByPath +
-PatchSubmodelElementByPath +
-DeleteSubmodelElementByPath +
-InvokeOperationSync +
-InvokeOperationAsync +
-GetOperationAsyncStatus +
-GetOperationAsyncResult
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#InvokeOperationSync[InvokeOperationSync] +
+xref:specification/interfaces.adoc#InvokeOperationAsync[InvokeOperationAsync] +
+xref:specification/interfaces.adoc#GetOperationAsyncStatus[GetOperationAsyncStatus] +
+xref:specification/interfaces.adoc#GetOperationAsyncResult[GetOperationAsyncResult]
 
 _AAS Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -910,19 +902,19 @@ h|Profile Identifier |`\https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecif
 h|Feature h|Appearance
 |API and API Operations a|
 _Submodel Repository API:_ +
-GetAllSubmodels +
-GetSubmodelById +
-GetAllSubmodelsBySemanticId +
-GetAllSubmodelsByIdShort
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort]
 
 __Submodel API by superpath:__ +
 xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
 GetFileByPath
 
 _Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -963,33 +955,31 @@ h|Name: h|Submodel Repository Template Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003`
 h|Feature h|Appearance
 |API and API Operations a|
-__Submodel Repository API: +
-__GetAllSubmodels +
-GetSubmodelById +
-GetAllSubmodelsBySemanticId +
-GetAllSubmodelsByIdShort +
-PostSubmodel +
-PutSubmodelById +
-PatchSubmodelById +
-DeleteSubmodelById
+__Submodel Repository API:__ +
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
 
 __Submodel API by superpath:__ +
 xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath +
-PutFileByPath +
-DeleteFileByPath +
-PutSubmodel +
-PatchSubmodel +
-PostSubmodelElement +
-PostSubmodelElementByPath +
-PutSubmodelElementByPath +
-PatchSubmodelElementByPath +
-DeleteSubmodelElementByPath
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath] +
+xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement] +
+xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath] + +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath] +
+xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath]
 
 _AAS Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -1027,19 +1017,19 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositorySe
 h|Feature h|Appearance
 |API and API Operations a|
 __Submodel Repository API:__ +
-GetAllSubmodels +
-GetSubmodelById +
-GetAllSubmodelsBySemanticId +
-GetAllSubmodelsByIdShort
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort]
 
 __Submodel API by superpath:__ +
 xref:specification/interfaces.adoc#GetSubmodel[GetSubmodel] +
-GetAllSubmodelElements +
-GetSubmodelElementByPath +
-GetFileByPath
+xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
+xref:specification/interfaces.adoc#GetSubmodelElementByPath[GetSubmodelElementByPath] +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath]
 
 __Serialization API:__ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -1067,14 +1057,14 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/SubmodelRepositorySe
 h|Feature h|Appearance
 |API and API Operations a|
 _AAS Repository API:_ +
-QuerySubmodels
+xref:specification/interfaces.adoc#QuerySubmodels[QuerySubmodels]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
 |SerializationFormat |JSON
-|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.0_SSP-005
@@ -1099,17 +1089,17 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/ConceptDescriptionRe
 h|Feature h|Appearance
 |API and API Operations a|
 _ConceptDescription Repository API:_ +
-GetAllConceptDescriptions +
-GetConceptDescriptionById +
-GetAllConceptDescriptionsByIdShort +
-GetAllConceptDescriptionsByIsCaseOf +
-GetAllConceptDescriptionsByDataSpecificationReference +
-PostConceptDescription +
-PutConceptDescriptionById +
-DeleteConceptDescriptionById
+xref:specification/interfaces.adoc#GetAllConceptDescriptions[GetAllConceptDescriptions] +
+xref:specification/interfaces.adoc#GetConceptDescriptionById[GetConceptDescriptionById] +
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] +
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] +
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsByDataSpecificationReference[GetAllConceptDescriptionsByDataSpecificationReference] +
+xref:specification/interfaces.adoc#PostConceptDescription[PostConceptDescription] +
+xref:specification/interfaces.adoc#PutConceptDescriptionById[PutConceptDescriptionById] +
+xref:specification/interfaces.adoc#DeleteConceptDescriptionById[DeleteConceptDescriptionById]
 
 _Serialization API:_ +
-GenerateSerializationByIds
+xref:specification/interfaces.adoc#GenerateSerializationByIds[GenerateSerializationByIds]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
@@ -1131,14 +1121,14 @@ h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/0/ConceptDescriptionRe
 h|Feature h|Appearance
 |API and API Operations a|
 _ConceptDescription Repository API:_ +
-QueryConceptDescriptions
+xref:specification/interfaces.adoc#QueryConceptDescriptions[QueryConceptDescriptions]
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
 |SerializationFormat |JSON
-|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |not supported
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.1.0_SSP-002
