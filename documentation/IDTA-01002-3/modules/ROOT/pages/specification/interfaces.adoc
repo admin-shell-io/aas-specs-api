@@ -71,7 +71,7 @@ e|payload a|Requested Asset Administration Shell |yes | link:https://industriald
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|*Operation Name* 4+e|[[PutAssetAdministrationShell]]PutAssetAdministrationShell
-h|Explanation 4+a|Replaces the Asset Administration Shell
+h|Explanation 4+a|Creates or replaces the Asset Administration Shell
 h|*semanticId* 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShell/3/0`
 
 h|Name h|*Description* h|*Mand.* h|*Type* h|*Card.*
@@ -237,8 +237,8 @@ e|xref:PutSubmodel[PutSubmodel] a|Replaces the Submodel
 e|xref:PatchSubmodel[PatchSubmodel] a|Updates the Submodel
 e|xref:PostSubmodelElement[PostSubmodelElement] a|Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
 e|xref:PostSubmodelElementByPath[PostSubmodelElementByPath] a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload for non-identifiable Referables not being a direct child of a SubmodelElementList. For Elements being a direct child of a SubmodelElementList the input parameter index must be specified.
-e|xref:PutSubmodelElementByPath[PutSubmodelElementByPath] a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
-e|xref:PatchSubmodelElementByPath[PatchSubmodelElementByPath] a|Updates an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:PutSubmodelElementByPath[PutSubmodelElementByPath] a|Creates a new or replaces an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:PatchSubmodelElementByPath[PatchSubmodelElementByPath] a|Updates an existing submodel element or creates a new submodel element at a specified path within the submodel element hierarchy
 e|xref:GetSubmodelElementValueByPath[GetSubmodelElementValueByPath] a|Returns the value of the submodel element at a specified path according to the protocol-specific RAW-value payload
 e|xref:DeleteSubmodelElementByPath[DeleteSubmodelElementByPath] a|Deletes a submodel element at a specified path within submodel element hierarchy
 e|xref:InvokeOperationSync[InvokeOperationSync] a|Synchronously invokes an Operation at a specified path with a client timeout in ms
@@ -357,7 +357,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutSubmodel]]PutSubmodel
-h|Explanation 4+a|Replaces the Submodel
+h|Explanation 4+a|Creates or replaces the Submodel
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodel/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -462,7 +462,7 @@ Note: if the PostSubmodelElementByPath is executed towards a SubmodelElementList
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutSubmodelElementByPath]]PutSubmodelElementByPath
-h|Explanation 4+a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
+h|Explanation 4+a|Replaces an existing submodel element or creates a new submodel element at a specified path within the submodel element hierarchy
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -685,7 +685,7 @@ h|Operation Name h|Description
 e|xref:GetAllAASXPackageIds[GetAllAASXPackageIds] |Returns a list of available AASX packages at the server
 e|xref:GetAASXByPackageId[GetAASXByPackageId] |Returns a specific AASX package from the server
 e|xref:PostAASXPackage[PostAASXPackage] |Creates an AASX package at the server
-e|xref:PutAASXByPackageId[PutAASXByPackageId] |Replaces the AASX package at the server
+e|xref:PutAASXByPackageId[PutAASXByPackageId] |Replaces or creates the AASX package at the server
 e|xref:DeleteAASXByPackageId[DeleteAASXByPackageId] |Deletes a specific AASX package
 |===
 
@@ -761,7 +761,7 @@ Servers may simply store the AASX files with their related given aasIds.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutAASXByPackageId]]PutAASXByPackageId
-h|Explanation 4+a|Replaces the AASX package at the server
+h|Explanation 4+a|Replaces or creates the AASX package at the server
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAASXByPackageId/3/0`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -826,8 +826,8 @@ h|Operation Name h|Description
 |xref:GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] a|Returns a specific Asset Administration Shell Descriptor
 |xref:PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
 |xref:CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
-|xref:PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
-|xref:PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] a| Updates multiple existing Asset Administration Shell Descriptors
+|xref:PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] a|Creates or replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
+|xref:PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] a| Creates or updates multiple existing Asset Administration Shell Descriptors
 |xref:DeleteAssetAdministrationShellDescriptorById[DeleteAssetAdministrationShellDescriptorById] a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
 |xref:DeleteBulkAssetAdministrationShellDescriptorsById[DeleteBulkAssetAdministrationShellDescriptorsById] a| Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
 |xref:QueryAssetAdministrationShellDescriptors[QueryAssetAdministrationShellDescriptors] a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
@@ -909,7 +909,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[PutAssetAdministrationShellDescriptorById]]PutAssetAdministrationShellDescriptorById
-h|Explanation 4+a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
+h|Explanation 4+a|Creates or replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -927,7 +927,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 
 h|Operation Name 4+e|[[PutBulkAssetAdministrationShellDescriptorsById]]PutBulkAssetAdministrationShellDescriptorsById
-h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors 
+h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors or creates them if they do not exist
 h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkAssetAdministrationShellDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1000,8 +1000,8 @@ e|xref:GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] a|Returns all submod
 e|xref:GetSubmodelDescriptorById[GetSubmodelDescriptorById] a|Returns a specific submodel descriptor
 e|xref:PostSubmodelDescriptor[PostSubmodelDescriptor] a|Creates a new submodel descriptor, i.e., registers a submodel
 e|xref:PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] a|Creates one or more new submodel descriptors, i.e., registers several submodels
-e|xref:PutSubmodelDescriptorById[PutSubmodelDescriptorById] a|Replaces an existing submodel descriptor, i.e., replaces registration information
-e|xref:PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
+e|xref:PutSubmodelDescriptorById[PutSubmodelDescriptorById] a|Creates or replaces an existing submodel descriptor, i.e., replaces registration information
+e|xref:PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] a|Creates or replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
 e|xref:DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById] a|Deletes a submodel descriptor, i.e., de-registers a submodel
 e|xref:DeleteBulkSubmodelDescriptorsById[DeleteBulkSubmodelDescriptorsById] a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
 e|xref:QuerySubmodelDescriptors[QuerySubmodelDescriptors] a| Returns all Submodel Descriptors that conform to a certain input query.
@@ -1202,9 +1202,9 @@ The ID of the new Asset Administration Shell must be set in the payload.
 Note: the creation of the idShort is out of scope and must be handled in a proprietary way.
 ====
 
-e|xref:PutAssetAdministrationShellById[PutAssetAdministrationShellById] a|Replaces an existing Asset Administration Shell
+e|xref:PutAssetAdministrationShellById[PutAssetAdministrationShellById] a|Creates or replaces an existing Asset Administration Shell
 e|xref:DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById] a|Deletes an Asset Administration Shell
-e|xref:QueryAssetAdministrationShells[QueryAssetAdministrationShells] a| Returns all Asset Administration Shells that conform to a certain input query.
+e|xref:QueryAssetAdministrationShells[QueryAssetAdministrationShells] a| Returns all Asset Administration Shells that conform to a certain input query
 |===
 
 ==== Operation GetAllAssetAdministrationShells
@@ -1394,10 +1394,10 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-|xref:PutSubmodelById[PutSubmodelById] a|Replaces an existing Submodel
+|xref:PutSubmodelById[PutSubmodelById] a|Creates or replaces an existing Submodel
 |xref:PatchSubmodelById[PatchSubmodelById] a|Updates an existing submodel
 |xref:DeleteSubmodelById[DeleteSubmodelById] a|Deletes a Submodel
-e|xref:QuerySubmodels[QuerySubmodels] a| Returns all Submodels that conform to a certain input query.
+e|xref:QuerySubmodels[QuerySubmodels] a| Returns all Submodels that conform to a certain input query
 |===
 
 ==== Operation GetAllSubmodels
@@ -1608,9 +1608,9 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-e|xref:PutConceptDescriptionById[PutConceptDescriptionById] |Replaces an existing Concept Description
+e|xref:PutConceptDescriptionById[PutConceptDescriptionById] |Creates or replaces an existing Concept Description
 e|xref:DeleteConceptDescriptionById[DeleteConceptDescriptionById] |Deletes a Concept Description
-e|xref:QueryConceptDescriptions[QueryConceptDescriptions] | Returns all Concept Descriptions that conform to a certain input query.
+e|xref:QueryConceptDescriptions[QueryConceptDescriptions] | Returns all Concept Descriptions that conform to a certain input query
 |===
 
 ==== Operation GetAllConceptDescriptions

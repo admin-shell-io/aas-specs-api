@@ -150,7 +150,7 @@ paths:
     put:
       tags:
         - AASX File Server API
-      summary: Updates the AASX package at the server
+      summary: Creates or updates the AASX package at the server
       operationId: PutAASXByPackageId
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutAASXByPackageId/3/0
@@ -175,6 +175,17 @@ paths:
                 contentType: application/asset-administration-shell-package
         required: true
       responses:
+        '201':
+          description: AASX package stored successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PackageDescription'
         '204':
           description: AASX package updated successfully
         '400':
@@ -183,8 +194,6 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/unauthorized'
         '403':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/forbidden'
-        '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/not-found'
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/internal-server-error'
         default:
