@@ -34,6 +34,7 @@ Major Changes:
 * OpenAPI: marked parameter 'level' as deprecated for all URLs ending with '/$reference'
 * change: ProtocolInformation/securityAttributes changed from mandatory to optional. 
 * change: Endpoint/interface extended with "VALUE" and "METADATA" aspects. 
+* change: data type for ProtocolInformation/endpointProtocolVersion and subprotocolBodyEncoding changed from LabelType to NameType
 * new: Added 'Role' and 'NotApplicable' wherever AssetAdministrationShellDescriptor/AssetKind is used.
 * change: Added minLength=1 requirement and regex pattern "^[a-zA-Z][a-zA-Z0-9_-]*[a-zA-Z0-9_]+$" to all classes with idShort parameters to keep definitions in sync with the declaration of link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#referable-attributes[Referable/idShort]
 * change: Fix missing 'Repository' in ConceptDescriptionServiceSpecification to ConceptDescriptionRepositoryServiceSpecification (https://github.com/admin-shell-io/aas-specs-api/issues/171[#171])
@@ -167,7 +168,6 @@ added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
 
 | | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor/globalAssetId] a| data type: change length from 2000 to 2048 characters
 
-
 | | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor/id] a| data type: change length from 2000 to 2048 characters
 
 | | xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor/id] a| data type: change length from 2000 to 2048 characters
@@ -175,6 +175,10 @@ added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
 | | xref:http-rest-api/http-rest-api.adoc#PackageDescription[PackageDescription/aasIds] a| data type: change length from 2000 to 2048 characters
 
 | | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/href] a| data type: change length from 2000 to 2048 characters
+
+| | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/endpointProtocolVersion] a| data type: change from LabelType to NameType (i.e.g change of length from 64 to 128 characters)
+
+| | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/subprotocolBodyEncoding] a| data type: change from LabelType to NameType (i.e.g change of length from 64 to 128 characters)
 
 | | xref:specification/interfaces-payload.adoc#ProtocolInformation[ProtocolInformation/securityAttributes] a| Changed securityAttributes from `mandatory` to `optional`. OpenAPI remains unchanged. (https://github.com/admin-shell-io/aas-specs-api/issues/384[#384])
 |===
