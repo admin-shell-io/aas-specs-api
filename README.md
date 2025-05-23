@@ -44,7 +44,7 @@ The sources of the specification, both website and PDF document, are maintained 
 ## API Versions in GitHub Branches
 
 The `main` branch contains the latest released version of all APIs and Domains. Current and previously released states are tagged with the corresponding release version in this repository, and marked with the `Published` tag in SwaggerHub.
-Working versions may be marked as `private` in SwaggerHub and therfore may not be visible to the public audience yet. In this repository, working versions appear as branches named after the target release version.  
+Working versions may be marked as `private` in SwaggerHub and therefore may not be visible to the public audience yet. In this repository, working versions appear as branches named after the target release version.  
 **Note:** In order to synchronize with the same GitHub branch, all versions should follow the exact same pattern.
 
 ### Releases
