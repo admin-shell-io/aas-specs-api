@@ -455,6 +455,7 @@ components:
               $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: string
+              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             refersTo:
               type: array
               items:
@@ -696,6 +697,7 @@ components:
               $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: string
+              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             valueId:
               $ref: '#/components/schemas/Reference'
             modelType:
@@ -730,6 +732,7 @@ components:
               $ref: '#/components/schemas/DataTypeDefXsd'
             value:
               type: string
+              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             valueId:
               $ref: '#/components/schemas/Reference'
           required:
@@ -749,8 +752,10 @@ components:
               $ref: '#/components/schemas/DataTypeDefXsd'
             min:
               type: string
+              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             max:
               type: string
+              pattern: ^([\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd]|\ud800[\udc00-\udfff]|[\ud801-\udbfe][\udc00-\udfff]|\udbff[\udc00-\udfff])*$
             modelType:
               pattern: "^Range$"
           required:
