@@ -36,7 +36,7 @@ The Asset Administration Shell interface enables the access of the elements of a
 2+h|Interface: [[interface-AssetAdministrationShell]]_Asset Administration Shell_
 h|Operation Name h|Description
 e|xref:GetAssetAdministrationShell[GetAssetAdministrationShell] a|Returns the Asset Administration Shell
-e|xref:PutAssetAdministrationShell[PutAssetAdministrationShell] a|Replaces the current Asset Administration Shell or create it if it does not exist
+e|xref:PutAssetAdministrationShell[PutAssetAdministrationShell] a|Replaces the current Asset Administration Shell
 e|xref:GetAllSubmodelReferences[GetAllSubmodelReferences] a|Returns all Submodel References
 e|xref:PostSubmodelReference[PostSubmodelReference] a|Creates a Submodel Reference at the Asset Administration Shell
 e|xref:DeleteSubmodelReference[DeleteSubmodelReference] a|Deletes a specific Submodel Reference from the Asset Administration Shell
@@ -233,11 +233,11 @@ e|xref:GetSubmodelElementByPath[GetSubmodelElementByPath] a|Returns a specific s
 e|xref:GetFileByPath[GetFileByPath] a|Returns a specific file from the Submodel at a specified path
 e|xref:PutFileByPath[PutFileByPath] a|Replaces the file of an existing submodel element at a specified path within the submodel element hierarchy
 e|xref:DeleteFileByPath[DeleteFileByPath] a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
-e|xref:PutSubmodel[PutSubmodel] a|Replaces the Submodel or creates it if it does not exist
+e|xref:PutSubmodel[PutSubmodel] a|Replaces the Submodel
 e|xref:PatchSubmodel[PatchSubmodel] a|Updates the Submodel
 e|xref:PostSubmodelElement[PostSubmodelElement] a|Creates a new submodel element as a child of the submodel. The idShort of the new submodel element must be set in the payload.
 e|xref:PostSubmodelElementByPath[PostSubmodelElementByPath] a|Creates a new submodel element at a specified path within the submodel elements hierarchy. The idShort of the new submodel element must be set in the payload for non-identifiable Referables not being a direct child of a SubmodelElementList. For Elements being a direct child of a SubmodelElementList the input parameter index must be specified.
-e|xref:PutSubmodelElementByPath[PutSubmodelElementByPath] a|Replaces an existing submodel element at a specified path within the submodel element hierarchy
+e|xref:PutSubmodelElementByPath[PutSubmodelElementByPath] a|Creates a new or replaces an existing submodel element at a specified path within the submodel element hierarchy
 e|xref:PatchSubmodelElementByPath[PatchSubmodelElementByPath] a|Updates an existing submodel element or creates a new submodel element at a specified path within the submodel element hierarchy
 e|xref:GetSubmodelElementValueByPath[GetSubmodelElementValueByPath] a|Returns the value of the submodel element at a specified path according to the protocol-specific RAW-value payload
 e|xref:DeleteSubmodelElementByPath[DeleteSubmodelElementByPath] a|Deletes a submodel element at a specified path within submodel element hierarchy
@@ -827,7 +827,7 @@ h|Operation Name h|Description
 |xref:PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
 |xref:CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
 |xref:PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] a|Replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information or creates it if it does not exist
-|xref:PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] a| Updates multiple existing Asset Administration Shell Descriptors or creates them if they do not exist
+|xref:PutBulkAssetAdministrationShellDescriptorsById[PutBulkAssetAdministrationShellDescriptorsById] a| Creates or updates multiple existing Asset Administration Shell Descriptors
 |xref:DeleteAssetAdministrationShellDescriptorById[DeleteAssetAdministrationShellDescriptorById] a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
 |xref:DeleteBulkAssetAdministrationShellDescriptorsById[DeleteBulkAssetAdministrationShellDescriptorsById] a| Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
 |xref:QueryAssetAdministrationShellDescriptors[QueryAssetAdministrationShellDescriptors] a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
@@ -1000,8 +1000,8 @@ e|xref:GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] a|Returns all submod
 e|xref:GetSubmodelDescriptorById[GetSubmodelDescriptorById] a|Returns a specific submodel descriptor
 e|xref:PostSubmodelDescriptor[PostSubmodelDescriptor] a|Creates a new submodel descriptor, i.e., registers a submodel
 e|xref:PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] a|Creates one or more new submodel descriptors, i.e., registers several submodels
-e|xref:PutSubmodelDescriptorById[PutSubmodelDescriptorById] a|Replaces an existing submodel descriptor, i.e., replaces registration information or creates it if it does not exist
-e|xref:PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels or creates them if they do not exist
+e|xref:PutSubmodelDescriptorById[PutSubmodelDescriptorById] a|Creates or replaces an existing submodel descriptor, i.e., replaces registration information
+e|xref:PutBulkSubmodelDescriptorsById[PutBulkSubmodelDescriptorsById] a|Creates or replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
 e|xref:DeleteSubmodelDescriptorById[DeleteSubmodelDescriptorById] a|Deletes a submodel descriptor, i.e., de-registers a submodel
 e|xref:DeleteBulkSubmodelDescriptorsById[DeleteBulkSubmodelDescriptorsById] a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
 e|xref:QuerySubmodelDescriptors[QuerySubmodelDescriptors] a| Returns all Submodel Descriptors that conform to a certain input query.
@@ -1202,9 +1202,9 @@ The ID of the new Asset Administration Shell must be set in the payload.
 Note: the creation of the idShort is out of scope and must be handled in a proprietary way.
 ====
 
-e|xref:PutAssetAdministrationShellById[PutAssetAdministrationShellById] a|Replaces an existing Asset Administration Shell or creates it if it does not exist.
+e|xref:PutAssetAdministrationShellById[PutAssetAdministrationShellById] a|Creates or replaces an existing Asset Administration Shell
 e|xref:DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById] a|Deletes an Asset Administration Shell
-e|xref:QueryAssetAdministrationShells[QueryAssetAdministrationShells] a| Returns all Asset Administration Shells that conform to a certain input query.
+e|xref:QueryAssetAdministrationShells[QueryAssetAdministrationShells] a| Returns all Asset Administration Shells that conform to a certain input query
 |===
 
 ==== Operation GetAllAssetAdministrationShells
@@ -1394,10 +1394,10 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-|xref:PutSubmodelById[PutSubmodelById] a|Replaces an existing Submodel or creates it if it does not exist.
+|xref:PutSubmodelById[PutSubmodelById] a|Creates or replaces an existing Submodel
 |xref:PatchSubmodelById[PatchSubmodelById] a|Updates an existing submodel
 |xref:DeleteSubmodelById[DeleteSubmodelById] a|Deletes a Submodel
-e|xref:QuerySubmodels[QuerySubmodels] a| Returns all Submodels that conform to a certain input query.
+e|xref:QuerySubmodels[QuerySubmodels] a| Returns all Submodels that conform to a certain input query
 |===
 
 ==== Operation GetAllSubmodels
@@ -1608,7 +1608,7 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-e|xref:PutConceptDescriptionById[PutConceptDescriptionById] |Replaces an existing Concept Description or creates it if it does not exist
+e|xref:PutConceptDescriptionById[PutConceptDescriptionById] |Creates or replaces an existing Concept Description
 e|xref:DeleteConceptDescriptionById[DeleteConceptDescriptionById] |Deletes a Concept Description
 e|xref:QueryConceptDescriptions[QueryConceptDescriptions] | Returns all Concept Descriptions that conform to a certain input query
 |===

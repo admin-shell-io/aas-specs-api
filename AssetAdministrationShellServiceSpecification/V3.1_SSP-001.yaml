@@ -44,7 +44,7 @@ paths:
     put:
       tags:
         - Asset Administration Shell API
-      summary: Creates or updates an existing Asset Administration Shell
+      summary: Updates an existing Asset Administration Shell
       operationId: PutAssetAdministrationShell
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutAssetAdministrationShell/3/0
@@ -357,7 +357,7 @@ paths:
     put:
       tags:
         - Asset Administration Shell API
-      summary: Creates or updates the Submodel
+      summary: Updates the Submodel
       operationId: PutSubmodel
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
@@ -968,6 +968,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         required: true
       responses:
+        '201':
+          description: Submodel element created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '204':
           description: Submodel element updated successfully
         '400':

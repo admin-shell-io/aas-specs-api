@@ -175,6 +175,17 @@ paths:
                 contentType: application/asset-administration-shell-package
         required: true
       responses:
+        '201':
+          description: AASX package stored successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PackageDescription'
         '204':
           description: AASX package updated successfully
         '400':

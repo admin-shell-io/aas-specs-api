@@ -59,6 +59,8 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/AssetAdministrationShell'
         required: true
       responses:
+        '201':
+          description: Asset Administration Shell created successfully
         '204':
           description: Asset Administration Shell updated successfully
         '400':
@@ -360,7 +362,7 @@ paths:
     put:
       tags:
         - Asset Administration Shell API
-      summary: Creates or updates the Submodel
+      summary: Updates the Submodel
       operationId: PutSubmodel_AAS
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
@@ -983,6 +985,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         required: true
       responses:
+        '201':
+          description: Submodel element created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '204':
           description: Submodel element updated successfully
         '400':
@@ -1632,6 +1645,8 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Submodel'
         required: true
       responses:
+        '201':
+          description: Submodel created successfully
         '204':
           description: Submodel updated successfully
         '400':
@@ -2172,6 +2187,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         required: true
       responses:
+        '201':
+          description: Submodel element created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '204':
           description: Submodel element updated successfully
         '400':
@@ -2964,6 +2990,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/AssetAdministrationShell'
         required: true
       responses:
+        '201':
+          description: Asset Administration Shell created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/AssetAdministrationShell'
         '204':
           description: Asset Administration Shell updated successfully
         '400':
@@ -3312,7 +3349,7 @@ paths:
     put:
       tags:
         - Asset Administration Shell Repository API
-      summary: Creates or updates the Submodel
+      summary: Updates the Submodel
       operationId: PutSubmodelById_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodel/3/0
@@ -3923,6 +3960,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         required: true
       responses:
+        '201':
+          description: Submodel element created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '204':
           description: Submodel element updated successfully
         '400':
@@ -4835,6 +4883,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Submodel'
         required: true
       responses:
+        '201':
+          description: Submodel created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/Submodel'
         '204':
           description: Submodel updated successfully
         '400':
@@ -5433,6 +5492,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         required: true
       responses:
+        '201':
+          description: Submodel element created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/SubmodelElement'
         '204':
           description: Submodel element updated successfully
         '400':
@@ -6251,6 +6321,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription'
         required: true
       responses:
+        '201':
+          description: Concept Description created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription'
         '204':
           description: Concept Description updated successfully
         '400':
@@ -6430,7 +6511,7 @@ paths:
     put:
       tags:
         - Asset Administration Shell Registry API
-      summary: Updates an existing Asset Administration Shell Descriptor
+      summary: Creates or updates an existing Asset Administration Shell Descriptor
       operationId: PutAssetAdministrationShellDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/0
@@ -6451,6 +6532,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/AssetAdministrationShellDescriptor'
         required: true
       responses:
+        '201':
+          description: Asset Administration Shell Descriptor created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/AssetAdministrationShellDescriptor'
         '204':
           description: Asset Administration Shell Descriptor updated successfully
         '400':
@@ -6599,6 +6691,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor'
         required: true
       responses:
+        '201':
+          description: Submodel Descriptor created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor'
         '204':
           description: Submodel Descriptor updated successfully
         '400':
@@ -6931,6 +7034,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor'
         required: true
       responses:
+        '201':
+          description: Submodel Descriptor created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/SubmodelDescriptor'
         '204':
           description: Submodel Descriptor updated successfully
         '400':
@@ -7376,6 +7490,17 @@ paths:
                 contentType: application/asset-administration-shell-package
         required: true
       responses:
+        '201':
+          description: AASX package stored successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/schemas/PackageDescription'
         '204':
           description: AASX package updated successfully
         '400':

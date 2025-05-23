@@ -165,6 +165,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription'
         required: true
       responses:
+        '201':
+          description: Concept Description created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.0#/components/schemas/ConceptDescription'
         '204':
           description: Concept Description updated successfully
         '400':
