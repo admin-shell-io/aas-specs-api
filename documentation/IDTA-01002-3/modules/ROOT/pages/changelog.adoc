@@ -9,6 +9,17 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
+== Changes w.r.t. V3.1 to V3.1.1
+
+Major Changes:
+
+* 
+
+Minor Changes:
+
+* changed: Removed second regex pattern from Blob/contentType, File/contentType, File/value, Referable/idShort, Resource/path, and Resource/contentType attributes in the Part1-MetaModel-Schemas OpenAPI file. The first regex pattern is sufficient to cover all valid content types. While this is not directly fixing a bug, many downstream tools report issues, e.g. during code generation, when two regex patterns are defined for the same attribute. (https://github.com/admin-shell-io/aas-specs-api/issues/481[#481])
+
+
 == Changes w.r.t. V3.0.4 to V3.1
 
 Major Changes:
