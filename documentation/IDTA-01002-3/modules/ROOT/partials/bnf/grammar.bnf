@@ -170,19 +170,19 @@
  
 <DateTimeLiteral> ::= <datetime> <ws>
 <TimeLiteral> ::= <time> <ws>
-<datetime> ::= <date> <ws> ( "T" | " " ) <ws> <time> <ws> ( <timezone> <ws> )?
-<date> ::= <year> <ws> "-" <ws> <month> <ws> "-" <ws> <day> <ws>
-<year> ::= <digit> <ws> <digit> <ws> <digit> <ws> <digit> <ws>
-<month> ::= <digit> <ws> <digit> <ws>
-<day> ::= <digit> <ws> <digit> <ws>
-<time> ::= <hour> <ws> ":" <ws> <minute> <ws> ( ":" <ws> <second> <ws> )? ( "." <ws> <fraction> <ws> )?
-<timezone> ::= ( "Z" | ( "+" | "-" ) <ws> <hour> <ws> ":" <ws> <minute> <ws> )
-<hour> ::= <digit> <ws> <digit> <ws>
-<minute> ::= <digit> <ws> <digit> <ws>
-<second> ::= <digit> <ws> <digit> <ws>
-<fraction> ::= <digit>+ <ws>
+<datetime> ::= <date> "T" <time> ( <timezone> )?
+<date> ::= <year> "-" <month> "-" <day>
+<year> ::= <digit> <digit> <digit> <digit>
+<month> ::= <digit> <digit>
+<day> ::= <digit> <digit>
+<time> ::= <hour> ":" <minute> ( ":" <second> )? ( "." <fraction> )?
+<timezone> ::= ( "Z" | ( "+" | "-" ) <hour> ":" <minute> )
+<hour> ::= <digit> <digit>
+<minute> ::= <digit> <digit>
+<second> ::= <digit> <digit>
+<fraction> ::= <digit>+
  
-<digit> ::= [0-9] <ws>
+<digit> ::= [0-9]
 <StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "_" | "@" | "#" | "\\" | "+" | "-" | "." | "," | ":" | "$" | "^" | "*" )+ "\""
 <ClaimLiteral> ::= <StringLiteral>
 <ReferenceLiteral> ::= <StringLiteral>
@@ -194,8 +194,7 @@
 <NumericalLiteral> ::= ( "+" | "-" )? ( [0-9]+ ( "." [0-9]* )? | "." [0-9]+ ) ( ( "e" | "E" )? [0-9]+ )
 <HexLiteral> ::= "16#" ( [0-9] | [A-F] )+
 <BoolLiteral> ::= "true" | "false"
-<FieldIdentifier> ::= <FieldIdentifierString>
-<FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+<FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
 <FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels." <ReferenceClause> )
 <FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | "idShort" | "id" )
 <FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
@@ -208,7 +207,7 @@
 <ReferenceClause> ::= ( "type" | "keys" ( "[" ( [0-9]* ) "]" ) ( ".type" | ".value" ) )
 <SemanticIdClause> ::= ( "semanticId" | "semanticId." <ReferenceClause> )
 <SpecificAssetIdsClause> ::=  ( "specificAssetIds" ( "[" ( [0-9]* ) "]" ) ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> ) )
-<idShortPath> ::= ( <idShort> ("[" ( [0-9]* ) "]" )? ( "." <idShortPath> )* )
+<idShortPath> ::= ( <idShort> ("[" ( [0-9]* ) "]" )* ( "." <idShortPath> )* )
 <idShort> ::= ( ( [a-z] | [A-Z] ) ( [a-z] | [A-Z] | [0-9] | "_" )* )
 
-<ws> ::= ( " " | "\t" | "\r" | "\n" )+
+<ws> ::= ( " " | "\t" | "\r" | "\n" )*
