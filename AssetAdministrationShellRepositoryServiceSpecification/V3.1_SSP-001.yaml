@@ -376,7 +376,11 @@ paths:
         - https://admin-shell.io/aas/API/DeleteThumbnail/3/0
       responses:
         '200':
-          description: Thumbnail deletion successful
+          description: >-
+            Thumbnail deletion successful. 
+            Deprecated: Use response code 204 instead.
+        '204':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/no-content'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.0#/components/responses/bad-request'
         '401':
