@@ -211,6 +211,9 @@ components:
           minLength: 1
           maxLength: 2048
           pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+      required:
+        - name
+        - value
     BaseOperationResult:
       allOf:
         - $ref: "#/components/schemas/Result"
@@ -970,12 +973,14 @@ components:
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-005"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
@@ -992,7 +997,7 @@ components:
               - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005"
-              - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002"
       type: object
