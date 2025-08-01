@@ -9,6 +9,36 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
+== Changes w.r.t. V3.1 to V3.1.1
+
+Major Changes:
+
+
+* Extending the ServiceSpecificationProfileEnum to include all v3.1 profiles and correcting the example (https://github.com/admin-shell-io/aas-specs-api/issues/473[#473])
+* Make the AssetLink properties "name" and "value" mandatory in the OpenAPI files. This is a bugfix, as the AssetLink class already defines these properties as mandatory. (https://github.com/admin-shell-io/aas-specs-api/issues/471[#471])
+* changed: Push all semantic IDs to V3.1 (https://github.com/admin-shell-io/aas-specs-api/issues/490[#490])
+
+
+Minor Changes:
+
+* changed: Removed second regex pattern from Blob/contentType, File/contentType, File/value, Referable/idShort, Resource/path, and Resource/contentType attributes in the Part1-MetaModel-Schemas OpenAPI file. The first regex pattern is sufficient to cover all valid content types. While this is not directly fixing a bug, many downstream tools report issues, e.g. during code generation, when two regex patterns are defined for the same attribute. (https://github.com/admin-shell-io/aas-specs-api/issues/481[#481])
+* changed: Introduced 204 response code for DeleteThumbnail operation in the OpenAPI files. The 200 response code is deprecated and should not be used anymore. (https://github.com/admin-shell-io/aas-specs-api/issues/469[#469])
+* changed: Upgraded semanticIds of ProtocolInformation, SecurityAttributeObject, SecurityTypeEnum, and the items of the SecurityTypeEnum to V3.1 (https://github.com/admin-shell-io/aas-specs-api/issues/470[#470])
+* new: Add 404 'Not Found' to the PutSubmodelDescriptorByIdThroughSuperpath operation in the OpenAPI file for the AssetAdministrationShellRegistryServiceSpecification/SSP-001 profile.
+
+
+
+=== Operation Changes w.r.t. V3.1 to V3.1.1
+
+[%autowidth,width="100%",cols="40%,15%,45%",options="header",]
+|===
+h|Operation  h|Kind of Change h|Comment
+
+ | PostAllAssetLinksByID|change a| Corrected description of PostAllAssetLinksById operation to clarify that it creates or replaces all asset links associated to the Asset Administration Shell to edit discoverable content.
+
+|===
+
+
 == Changes w.r.t. V3.0.4 to V3.1
 
 Major Changes:
@@ -196,6 +226,7 @@ added new API-operation SearchAllAssetAdministrationShellIdsByAssetLink
 == Changes w.r.t. V3.0.3 to V3.0.4
 
 Major:
+
 * Change: paging_metadata is required in OpenAPI to match the definition in this document.
 * Change: ValueOnly classes changed from array to object for AnnotatedRelationshipElementValue/value, EntityValue/statements
 * Change: Return type of the OpenAPI classes GetSubmodelsValueResult and GetSubmodelElementsValueResult from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251])
@@ -278,7 +309,7 @@ Minor:
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
 | | GetOperationAsnycStatus    | Changed    | Replace payload type ‘OperationResult’ with ‘BaseOperationResult’ that OpenAPI descriptions already contained ‘BaseOperationResult’ from V3.0 on.
 | | ServiceSpecificationProfileEnum    | Remove    |
-Removed profiles https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002.
+Removed profiles https://admin-shell.io/aas/API/3/1/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/1/RepositoryServiceSpecification/SSP-002.
 Both profiles were not included in the V3.0.1 ServiceDescription class in the OpenAPI definition and only left-overs from previous drafts.
 
 | | PutAssetAdministrationShell    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"
