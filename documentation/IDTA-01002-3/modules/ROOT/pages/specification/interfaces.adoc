@@ -1331,8 +1331,12 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |aas |Asset Administration Shell object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 5+h|Output Parameter
+====
+Note: The `id` of the contained Asset Administration Shell object has to be exactly the same as in the `id` input parameter. A server shall respond with a `ClientErrorBadRequest` otherwise.
+====
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced Asset Administration Shell | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
