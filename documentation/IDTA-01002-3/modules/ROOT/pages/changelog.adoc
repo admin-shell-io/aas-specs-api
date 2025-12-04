@@ -9,6 +9,7 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
+
 == Changes w.r.t. V3.1.1 to V3.2
 
 Major Changes:
@@ -18,7 +19,7 @@ Major Changes:
 
 Minor Changes:
 
-* ...
+* Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
 
 
 
@@ -27,9 +28,8 @@ Minor Changes:
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
 h|Operation  h|Kind of Change h|Comment
-
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
-
+ | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
 |===
 
 
