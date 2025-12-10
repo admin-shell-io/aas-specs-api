@@ -1,6 +1,6 @@
 <grammar> ::= <query> | <AllAccessPermissionRules>
  
-<query> ::= <selectStatement>? <logicalExpression>
+<query> ::= <selectStatement>? <logicalExpression> ( <ws> "FILTER:" <ws> <logicalExpression> )?
 <selectStatement> ::= "$select" <ws> "id" <ws>
  
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
