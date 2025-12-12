@@ -12,7 +12,7 @@ info:
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
   version: V3.2.0_SSP-001
-  x-profile-identifier: https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001
+  x-profile-identifier: https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-001
 servers:
 - url: 'https://admin-shell.io/api/v3/'
 - url: 'https://example.com/'
@@ -26,7 +26,7 @@ paths:
       summary: Returns a list of Asset Administration Shell IDs linked to specific asset identifiers or the global asset ID
       operationId: GetAllAssetAdministrationShellIdsByAssetLink
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/1
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/2
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetIds'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
@@ -54,7 +54,7 @@ paths:
       summary: Returns a list of Asset Administration Shell IDs linked to specific asset identifiers or the global asset ID
       operationId: SearchAllAssetAdministrationShellIdsByAssetLink
       x-semanticIds:
-        - https://admin-shell.io/aas/API/SearchAllAssetAdministrationShellIdsByAssetLink/3/1
+        - https://admin-shell.io/aas/API/SearchAllAssetAdministrationShellIdsByAssetLink/3/2
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
@@ -94,7 +94,7 @@ paths:
       summary: Returns a list of specific asset identifiers based on an Asset Administration Shell ID to edit discoverable content. The global asset ID is returned as specific asset ID with "name" equal to "globalAssetId" (see Constraint AASd-116).
       operationId: GetAllAssetLinksById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/1
+        - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/2
       responses:
         '200':
           description: Requested specific Asset identifiers (including the global asset ID represented by a specific asset ID)
@@ -114,7 +114,7 @@ paths:
       summary: Creates or replaces all asset links associated to the Asset Administration Shell.
       operationId: PostAllAssetLinksById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/PostAllAssetLinksById/3/1
+        - https://admin-shell.io/aas/API/PostAllAssetLinksById/3/2
       requestBody:
         description: A set of specific asset identifiers
         content:
@@ -147,7 +147,7 @@ paths:
       summary: "Deletes specified specific asset identifiers linked to an Asset Administration Shell: discovery via these specific asset IDs shall not be supported any longer"
       operationId: DeleteAllAssetLinksById
       x-semanticIds:
-        - https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/1
+        - https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/2
       responses:
         '204':
           description: Specific asset identifiers deleted successfully
@@ -162,7 +162,7 @@ paths:
       summary: Returns the self-describing information of a network resource (ServiceDescription)
       operationId: GetSelfDescription
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetSelfDescription/3/1
+        - https://admin-shell.io/aas/API/GetSelfDescription/3/2
       responses:
         '200':
           description: Requested Description
