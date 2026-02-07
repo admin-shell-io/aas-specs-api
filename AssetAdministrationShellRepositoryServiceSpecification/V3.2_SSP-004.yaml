@@ -11,7 +11,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.2.0_SSP-003
+  version: V3.2.0_SSP-004
   x-profile-identifier: https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004
 servers:
 - url: 'https://admin-shell.io/api/v3/'
@@ -445,6 +445,12 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/ServiceDescription'
+              example:
+                {
+                  "profiles": [
+                    "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004"
+                  ]
+                }
         '401':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
         '403':
