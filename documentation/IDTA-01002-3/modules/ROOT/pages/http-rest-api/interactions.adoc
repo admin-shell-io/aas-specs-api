@@ -99,3 +99,107 @@ The returned objects are shortened for better readability.
 ....
 include::partial$diagrams/seq-sm-endpoints-http.puml[]
 ....
+
+
+== Direct Discovery of AAS Objects based on ID Link and LinkSets
+
+This section describes how a client can discover AAS and related resources by using an ID Link as the globalAssetId combined with RFC 9264 LinkSets. The ID Link is a resolvable HTTP(S) URL representing the asset identity (globalAssetId). The landing endpoint for the ID Link returns a LinkSet (media type application/linkset+json) that contains typed relations to AAS, Submodels, repositories, registries, and Digital Product Passport resources.
+
+Concept:
+- The globalAssetId is an ID Link, e.g., https://id.example.com/my-asset-id.
+- A GET on the ID Link with Accept: application/linkset+json returns a LinkSet anchored at the ID Link.
+- The LinkSet provides relations such as:
+  - aas: direct representations/endpoints of the Asset Administration Shell.
+  - aas-service-endpoints: a LinkSet enumerating infrastructure endpoints (AAS Repository, Submodel Repository, Discovery, Registry).
+  - dpp: Digital Product Passport endpoints.
+- Links may carry metadata (profiles, authentication, versions) to guide client interaction.
+
+[source,json]
+----
+{
+  "linkset": [
+    {
+      "anchor": "https://id.example.com/my-asset-id",
+      "aas": [
+        {
+          "href": "https://service.example.com/aas/shells/aHR0cHM6Ly9pZC5leGFtcGxlLmNvbS9teS1hc3NldC1pZA",
+          "type": "application/json",
+          "profiles": [
+            "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-001"
+          ],
+          "authentication": [
+            {
+              "id": "oidc",
+              "type": "OIDC",
+              "well_known_url": "https://auth.example.com/realm/.well-known/openid-configuration"
+            }
+          ]
+        }
+      ],
+      "aas-service-endpoints": [
+        {
+          "href": "https://service.example.com/aas/aas-service-endpoints",
+          "type": "application/linkset+json",
+          "returns": "linkset"
+        }
+      ],
+      "dpp": [
+        {
+          "href": "https://service.example.com/dpp/dpps/https%3A//id.example.com/my-asset-id",
+          "type": "application/json",
+          "dppVersion": ["1.0"],
+          "delegatedActs": [
+            { "act": "BatteryPassport", "version": "1.0" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+----
+
+Client interaction patterns:
+
+1) LinkSet-aware client
+- Request:
+  - GET https://id.example.com/my-asset-id
+  - Accept: application/linkset+json, application/json;q=0.9
+- Behavior:
+  - Parse LinkSet and select the appropriate relation (e.g., "aas" for a direct shell, or "aas-service-endpoints" to obtain repositories).
+  - Follow the selected href; apply authentication as indicated.
+- Example follow-up:
+  - GET https://service.example.com/aas/shells/aHR0cHM6Ly9pZC5leGFtcGxlLmNvbS9teS1hc3NldC1pZA
+  - Accept: application/json
+
+2) LinkSet-unaware client (fallback via redirect)
+- If the client requests JSON directly:
+  - Server may respond 302 Found with Location pointing to the specific AAS resource.
+  - Server may also include a Link header with rel="alternate" and type="application/linkset+json" to advertise discovery per RFC 8288.
+
+[plantuml, seq-idlink-linkset, svg]
+....
+@startuml
+actor Client
+participant IDProvider as "ID Link Landing"
+participant AASService as "AAS / Repo"
+
+Client -> IDProvider: GET /my-asset-id\nAccept: application/linkset+json
+IDProvider --> Client: 200 OK\nContent-Type: application/linkset+json\n{ 'aas', 'aas-service-endpoints', 'dpp' }
+
+Client -> AASService: GET /aas/shells/<encoded-globalAssetId>\nAccept: application/json
+AASService --> Client: 200 OK\n{ AssetAdministrationShell ... }
+@enduml
+....
+
+====
+// Guidance
+* Servers should support application/linkset+json (RFC 9264).
+* Use RFC 8288 relations; include profiles and auth hints where applicable.
+* The ID Link acts as a stable proxy; backend changes do not break clients.
+* Using referredSemanticId on Submodels is recommended to help clients select relevant Submodels.
+====
+
+References:
+- RFC 8288 Web Linking: https://www.rfc-editor.org/rfc/rfc8288.html
+- RFC 9264 LinkSet: https://www.rfc-editor.org/rfc/rfc9264.html
+
