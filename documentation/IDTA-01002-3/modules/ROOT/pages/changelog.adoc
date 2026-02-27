@@ -15,6 +15,7 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 Major Changes:
 
 * ...
+* Add new operations GetAssetAdministrationShellVersionByIdAndDate and GetSubmodelVersionByIdAndDate to retrieve a specific version of an AAS or Submodel from a given point in time.
 
 
 Minor Changes:
@@ -28,9 +29,19 @@ Minor Changes:
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
 h|Operation  h|Kind of Change h|Comment
+ | a| GetAssetAdministrationShellVersionByIdAndDate | New a| new API-Operation for AAS Repository interface to retrieve a specific version of an AAS from a given point in time.
+ | GetSubmodelVersionByIdAndDate | New a| new API-Operation for Submodel Repository interface to retrieve a specific version of a Submodel from a given point in time.
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
 |===
+
+
+=== Interface Changes w.r.t. V3.1.1 to V3.2
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+h|BWC h|Interface  h|Kind of Change h|Comment
+| ===
 
 
 == Changes w.r.t. V3.1 to V3.1.1
@@ -61,6 +72,7 @@ h|Operation  h|Kind of Change h|Comment
  | PostAllAssetLinksByID|change a| Corrected description of PostAllAssetLinksById operation to clarify that it creates or replaces all asset links associated to the Asset Administration Shell to edit discoverable content.
 
 |===
+
 
 
 == Changes w.r.t. V3.0.4 to V3.1

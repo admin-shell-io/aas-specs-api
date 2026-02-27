@@ -5,7 +5,7 @@ info:
   description: >- 
     The schemas implementing the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
     
-    Copyright: Industrial Digital Twin Association (IDTA) 2025
+    Copyright: Industrial Digital Twin Association (IDTA) 2026
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
@@ -60,6 +60,14 @@ components:
       required: false
       schema:
         type: string
+    Date:
+      name: date
+      in: query
+      description: Date and time of the requested version of the Asset Administration Shell in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. If not provided, the latest version is returned.
+      required: false
+      schema:
+        type: string
+        format: date-time
     Extent:
       name: extent
       in: query

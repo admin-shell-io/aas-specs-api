@@ -1310,7 +1310,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellVers
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
-|date |The Asset Administration Shell’s idShort |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] | 1
+|date |The point in time at which the Asset Administration Shell version is requested |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] | 1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Asset Administration Shell Version at the specified date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
@@ -1414,6 +1414,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 h|Operation Name h|Description
 e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
 e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
+e|xref:GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]|Returns a specific version of a Submodel from a given point in time
 e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
 e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] |Returns all Submodels with a specific _idShort_
 e|xref:PostSubmodel[PostSubmodel] a|
@@ -1468,6 +1469,26 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
+
+
+==== Operation GetSubmodelVersionByIdAndDate
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetSubmodelVersionByIdAndDate]]GetSubmodelVersionByIdAndDate
+h|Explanation 4+a|Returns a specific version of a Submodel from a given point in time. If no date is provided, the latest version is returned.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelVersionByIdAndDate/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|date |The point in time at which the Submodel version is requested |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Requested Submodel Version at the specified date |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
+|===
+
 
 ==== Operation GetAllSubmodelsBySemanticId
 
