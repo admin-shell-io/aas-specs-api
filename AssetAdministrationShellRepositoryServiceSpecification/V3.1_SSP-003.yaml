@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: DotAAS Part 2 | HTTP/REST | Submodel Registry Service Specification
+  title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Repository Service Specification
   description: >-
-    The Query Profile of the Submodel Registry Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
+    The Query Profile of the Asset Administration Shell Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
 
     Copyright: Industrial Digital Twin Association (IDTA) 2025
   contact:
@@ -11,21 +11,21 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.1.2_SSP-004
-  x-profile-identifier: https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004
+  version: V3.1.2_SSP-003
+  x-profile-identifier: https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-003
 servers:
 - url: 'https://admin-shell.io/api/v3/'
 - url: 'https://example.com/'
 
 paths:
-  /query/submodel-descriptors:
+  /query/shells:
     post:
       tags: 
-       - Submodel Registry API
-      summary: Returns all Submodel Descriptors that confirm to the input query
-      operationId: QuerySubmodelDescriptors
+       - Asset Administration Shell Repository API
+      summary: Returns all Asset Administration Shells that confirm to the input query
+      operationId: QueryAssetAdministrationShells
       x-semanticIds:
-        - https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1
+        - https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/parameters/Cursor'
@@ -37,11 +37,11 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/schemas/Query'
       responses:
         '200':
-          description: Requested Submodels
+          description: Requested Asset Administration Shells
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/schemas/QueryResultSubmodelDescriptor'
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/schemas/QueryResultAssetAdministrationShell'
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/responses/bad-request'
         '401':
@@ -52,7 +52,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/responses/default'
-
+          
 
   /description:
     get:
