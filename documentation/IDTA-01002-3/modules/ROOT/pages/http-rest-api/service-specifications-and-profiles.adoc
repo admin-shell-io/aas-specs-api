@@ -674,6 +674,7 @@ h|Service Specification / Profiles h|Description
 |<<asset-administration-shell-repository-service-specification-service-specification-ssp-001,AssetAdministrationShellRepositoryServiceSpecification/SSP-001>> |Full feature set
 |<<asset-administration-shell-repository-service-specification-service-specification-ssp-002,AssetAdministrationShellRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
 |<<asset-administration-shell-repository-service-specification-service-specification-ssp-003,AssetAdministrationShellRepositoryServiceSpecification/SSP-003>> |Query operations
+|<<asset-administration-shell-repository-service-specification-service-specification-ssp-004,AssetAdministrationShellRepositoryServiceSpecification/SSP-004>> |Operations on Identifiables only; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
 |===
 
 [#asset-administration-shell-repository-service-specification-service-specification-ssp-001]
@@ -823,6 +824,57 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 |===
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.2.0_SSP-003
+
+
+
+[#asset-administration-shell-repository-service-specification-service-specification-ssp-004]
+=== Asset Administration Shell Repository Service Specification – Identifiable Profile
+
+[%autowidth,width="100%",cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Identifiable Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellById[GetAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#PostAssetAdministrationShell[PostAssetAdministrationShell] +
+xref:specification/interfaces.adoc#PutAssetAdministrationShellById[PutAssetAdministrationShellById] +
+xref:specification/interfaces.adoc#DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById]
+
+_AAS API by superpath:_ +
+xref:specification/interfaces.adoc#GetThumbnail[GetThumbnail] +
+xref:specification/interfaces.adoc#PutThumbnail[PutThumbnail] +
+xref:specification/interfaces.adoc#DeleteThumbnail[DeleteThumbnail]
+
+__Submodel Repository API by superpath:__ +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel] +
+xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById] +
+xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById]
+
+__Submodel API by superpath:__ +
+xref:specification/interfaces.adoc#GetFileByPath[GetFileByPath] +
+xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath] +
+xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath]
+
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Deep
+
+Content: Normal
+
+Extent: WithoutBLOBValue
+
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.2.0_SSP-004
+
 
 
 [[submodel-repository-service-specification]]
