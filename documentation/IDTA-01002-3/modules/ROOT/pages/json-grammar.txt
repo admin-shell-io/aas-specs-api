@@ -136,10 +136,14 @@
                               | ( "," <ws> "\"USEOBJECTS\":" <ws> <string_array> <ws> ) )
                               ( ( "," <ws> "\"FORMULA\":" <ws> <logical_expression> <ws> )
                               | ("," <ws> "\"USEFORMULA\":" <ws> <StringLiteral> <ws> ) )
-                              ("," <ws> "\"FRAGMENT\":" <ws> <StringLiteral> <ws> )?
-                              ( ( "," <ws> "\"FILTER\":" <ws> <logical_expression> <ws> )
-                              | ("," <ws> "\"USEFILTER\":" <ws> <StringLiteral> <ws> ) )?
+                              ( "," <ws> "\"FILTER\":" <ws> <security_query_filter> <ws> )?
                               "}"
+
+<security_query_filter> ::= "{" <ws>
+                            ( ( "\"FRAGMENT\":" <ws> <StringLiteral> <ws>
+                                "," <ws> "\"CONDITION\":" <ws> <logical_expression> <ws> )
+                            | ( "\"USEFORMULA\":" <ws> <StringLiteral> <ws> ) )
+                            "}"
 
 <acl> ::= "{" <ws>
           ( ( "\"ATTRIBUTES\":" <ws> <attribute_array> <ws> )
