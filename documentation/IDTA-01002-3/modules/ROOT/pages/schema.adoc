@@ -655,39 +655,47 @@
           "additionalProperties": false
         }
       },
-      "oneOf": [
+      "allOf": [
         {
-          "required": [
-            "ACL"
+          "oneOf": [
+            {
+              "required": [
+                "ACL"
+              ]
+            },
+            {
+              "required": [
+                "USEACL"
+              ]
+            }
           ]
         },
         {
-          "required": [
-            "USEACL"
-          ]
-        }
-      ],
-      "oneOf": [
-        {
-          "required": [
-            "OBJECTS"
-          ]
-        },
-        {
-          "required": [
-            "USEOBJECTS"
-          ]
-        }
-      ],
-      "oneOf": [
-        {
-          "required": [
-            "FORMULA"
+          "oneOf": [
+            {
+              "required": [
+                "OBJECTS"
+              ]
+            },
+            {
+              "required": [
+                "USEOBJECTS"
+              ]
+            }
           ]
         },
         {
-          "required": [
-            "USEFORMULA"
+          "oneOf": [
+            {
+              "required": [
+                "FORMULA"
+              ]
+            },
+            {
+              "required": [
+                "USEFORMULA"
+              ]
+            }
           ]
         }
       ],
