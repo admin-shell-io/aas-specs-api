@@ -25,13 +25,13 @@
 <stringComparison> ::= 
     ( ( "$starts-with" | "$ends-with" | "$contains" | "$regex") <ws> "(" <ws> <stringOperand> <ws> "," <ws> <stringOperand> <ws> ")" <ws> ) |
     ( <stringOperand> <ws> <allComparisons> <ws> <stringOperand> <ws> ) |
-    ( <stringOperand> <ws> <allComparisons> <ws> <FieldIdentifierString> <ws> ) |
-    ( <FieldIdentifierString> <ws> <allComparisons> <ws> <stringOperand> <ws> )
+    ( <stringOperand> <ws> <allComparisons> <ws> <FieldIdentifier> <ws> ) |
+    ( <FieldIdentifier> <ws> <allComparisons> <ws> <stringOperand> <ws> )
 
 <numericalComparison> ::= 
     ( <numericalOperand> <ws> <allComparisons> <ws> <numericalOperand> <ws> ) |
-    ( <numericalOperand> <ws> <allComparisons> <ws> <FieldIdentifierString> <ws> ) |
-    ( <FieldIdentifierString> <ws> <allComparisons> <ws> <numericalOperand> <ws> )
+    ( <numericalOperand> <ws> <allComparisons> <ws> <FieldIdentifier> <ws> ) |
+    ( <FieldIdentifier> <ws> <allComparisons> <ws> <numericalOperand> <ws> )
  
 <hexComparison> ::= 
     <hexOperand> <ws> <allComparisons> <ws> <hexOperand> <ws>
@@ -51,7 +51,7 @@
 <operand> ::= <stringOperand> | <numericalOperand> | <hexOperand> | <boolOperand> | <dateTimeOperand> | <timeOperand>
  
 <stringOperand> ::= 
-    <FieldIdentifierString> | <StringLiteral> | <castToString> | <SingleAttribute>
+    <FieldIdentifier> | <StringLiteral> | <castToString> | <SingleAttribute>
  
 <numericalOperand> ::= 
     <NumericalLiteral> | <castToNumerical> | <dateTimeToNum>
@@ -195,8 +195,8 @@
 <NumericalLiteral> ::= ( "+" | "-" )? ( [0-9]+ ( "." [0-9]* )? | "." [0-9]+ ) ( ( "e" | "E" )? [0-9]+ )
 <HexLiteral> ::= "16#" ( [0-9] | [A-F] )+
 <BoolLiteral> ::= "true" | "false"
-<FieldIdentifier> ::= <FieldIdentifierString>
-<FieldIdentifierString> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+
+<FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
 <FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels." <ReferenceClause> )
 <FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | "idShort" | "id" )
 <FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
