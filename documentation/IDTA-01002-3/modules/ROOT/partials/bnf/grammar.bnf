@@ -90,7 +90,7 @@
     ( "DEFATTRIBUTES" <ws> <StringLiteral> <ws> <AttributeGroup> <ws> )* 
     ( "DEFACLS" <ws> <StringLiteral> <ws> <ACL> <ws> )* 
     ( "DEFOBJECTS" <ws> <StringLiteral> <ws> <ObjectGroup> <ws> )* 
-    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <Condition> <ws> )* 
+    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <logicalExpression> <ws> )* 
     ( <AccessPermissionRule> <ws> )*
  
 <AccessPermissionRule> ::= 
@@ -99,9 +99,12 @@
     "OBJECTS:" <ws> 
     ( <SingleObject> <ws> )* 
     ( <UseObjectGroup> <ws> )* 
-    "FORMULA:" <ws> 
-    ( <Condition> | <UseFormula> ) <ws>
-    ( "FILTER:" <ws> <FragmentObject> <ws> ( <Condition> | <UseFormula> ) <ws> )?
+    ( "FORMULA:" <ws> <logicalExpression> <ws> ) | <UseFormula> 
+    ( "FILTER:" <ws> <SecurityQueryFilter> )?
+
+<SecurityQueryFilter> ::= 
+    <FragmentObject> <ws> 
+    ( "CONDITION:" <ws> <logicalExpression> <ws> ) | <UseFormula>
 
 <ACL> ::= 
     "ATTRIBUTES:" <ws> 
@@ -111,7 +114,7 @@
     "ACCESS:" <ws> <Access> <ws>
  
 <UseACL> ::= 
-    "USEACLS" <ws> <StringLiteral> <ws>
+    "USEACL" <ws> <StringLiteral> <ws>
  
 <Right> ::= 
     "CREATE" | "READ" | "UPDATE" | "DELETE" | "EXECUTE" | "VIEW" | "ALL"
@@ -164,9 +167,7 @@
     "USEOBJECTS" <ws> <StringLiteral> <ws>
  
 <UseFormula> ::= 
-    "USEFORMULAS" <ws> <StringLiteral> <ws>
- 
-<Condition> ::= <logicalExpression> <ws>
+    "USEFORMULA" <ws> <StringLiteral> <ws>
  
 <DateTimeLiteral> ::= <datetime> <ws>
 <TimeLiteral> ::= <time> <ws>

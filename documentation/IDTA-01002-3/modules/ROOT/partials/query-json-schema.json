@@ -634,15 +634,9 @@
         "USEFORMULA": {
           "type": "string"
         },
-        "FRAGMENT": {
-          "type": "string"
-        },
         "FILTER": {
-          "$ref": "#/definitions/logicalExpression",
+          "$ref": "#/definitions/SecurityQueryFilter",
           "additionalProperties": false
-        },
-        "USEFILTER": {
-          "type": "string"
         }
       },
       "oneOf": [
@@ -673,6 +667,36 @@
         {
           "required": [
             "FORMULA"
+          ]
+        },
+        {
+          "required": [
+            "USEFORMULA"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "SecurityQueryFilter": {
+      "type": "object",
+      "properties": {
+        "FRAGMENT": {
+          "type": "string"
+        },
+        "CONDITION": {
+          "$ref": "#/definitions/logicalExpression"
+        },
+        "USEFORMULA": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "FRAGMENT"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "CONDITION"
           ]
         },
         {
