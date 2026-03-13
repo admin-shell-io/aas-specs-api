@@ -99,12 +99,12 @@
     "OBJECTS:" <ws> 
     ( <SingleObject> <ws> )* 
     ( <UseObjectGroup> <ws> )* 
-    ( "FORMULA:" <ws> <logicalExpression> <ws> ) | <UseFormula> 
+    ( ( "FORMULA:" <ws> <logicalExpression> <ws> ) | ( <UseFormula> <ws> ) )
     ( "FILTER:" <ws> <SecurityQueryFilter> )?
 
-<SecurityQueryFilter> ::= 
-    <FragmentObject> <ws> 
-    ( "CONDITION:" <ws> <logicalExpression> <ws> ) | <UseFormula>
+<SecurityQueryFilter> ::=
+    <FragmentObject> <ws>
+    ( ( "CONDITION:" <ws> <logicalExpression> <ws> ) | ( <UseFormula> <ws> ) )
 
 <ACL> ::= 
     "ATTRIBUTES:" <ws> 
