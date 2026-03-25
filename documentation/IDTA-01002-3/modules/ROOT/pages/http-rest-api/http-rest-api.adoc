@@ -531,6 +531,8 @@ path-suffix=$reference or no suffix normal
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
 s|AasInterface s|* s|/shells/\{aasIdentifier}/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShells |POST |/query/shells a| Input query in the request body
+|GetAssetAdministrationShellByIdSigned |GET |/shells/\{aasIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|Submodel Repository Interface
 |GetAllSubmodels |GET |/submodels a|
@@ -563,6 +565,8 @@ base64url-encoded identifier
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 s|SubmodelInterface s|* s|/submodels/\{submodelIdentifier}/* s|superpath as defined in service specification or profile
 |QuerySubmodels |POST |/query/submodels a| Input query in the request body
+|GetSubmodelByIdSigned |GET |/submodels/\{submodelIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|Concept Description Repository Interface
 |GetAllConceptDescriptions |GET |/concept-descriptions |Pagination
@@ -587,6 +591,8 @@ Pagination
 |PutConceptDescriptionById |PUT |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |DeleteConceptDescriptionById |DELETE |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |QueryConceptDescriptions |POST |/query/concept-descriptions a| Input query in the request body
+|GetConceptDescriptionByIdSigned |GET |/concept-descriptions/\{cdIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|AASX File Server Interface
 |GetAllAASXPackageIds |GET |/packages a|
