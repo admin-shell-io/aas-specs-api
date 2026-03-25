@@ -14,7 +14,8 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 
 Major Changes:
 
-* ...
+* New API operations for Signing
+* New Profile for Signing
 
 
 Minor Changes:
@@ -30,9 +31,33 @@ Minor Changes:
 |===
 h|Operation  h|Kind of Change h|Comment
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
+ | GetAssetAdministrationShellByIdSigned|new a|
+ | GetConceptDescriptionByIdSigned|new a|
+ | GetSubmodelByIdSigned|new a|
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
+
 |===
 
+=== Interface Changes w.r.t. V3.1.1 to V3.21
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+h|BWC h|Interface  h|Kind of Change h|Comment
+| |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned
+| |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned
+| |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned
+|===
+
+=== Profile Changes w.r.t. w.r.t. V3.1.1 to V3.2
+
+[%autowidth,width="100%",cols="30%,15%,55%",options="header",]
+|===
+h|Profile h|Kind of Change h|Comment
+
+ | Asset Administration Shell Repository Service Specification - Signature Profile SSP-004 |new a| signature operations
+ | Concept Description Repository Service Specification - Signature Profile SSP-004 |new a| signature operations
+ | Submodel Repository Service Specification - Signature Profile SSP-003 |new a| signature operations
+|===
 
 == Changes w.r.t. V3.1 to V3.1.1
 
