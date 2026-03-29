@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Asset Administration Shell Repository Service Specification
+  description: >-
+    The Signature Profile of the Asset Administration Shell Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
+
+    Copyright: Industrial Digital Twin Association (IDTA) 2026
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.2.0_SSP-004
+  x-profile-identifier: https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004
+servers:
+- url: 'https://admin-shell.io/api/v3/'
+- url: 'https://example.com/'
+paths:
+
+  /shells/{aasIdentifier}/$signed:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetAdministrationShellIdentifier'
+    get:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Returns a specific Asset Administration Shell as a JWS string
+      operationId: GetAssetAdministrationShellByIdSigned
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShellByIdSigned/3/2
+      responses:
+        '200':
+          description: Requested Asset Administration Shell as a JWS string.
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: jwt
+                description: A JWS string containing the requested Asset Administration Shell
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetSelfDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSelfDescription/3/2
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/ServiceDescription'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
