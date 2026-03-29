@@ -14,15 +14,18 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 
 Major Changes:
 
-* ...
 * Add new operations GetAssetAdministrationShellVersionByIdAndDate and GetSubmodelVersionByIdAndDate to retrieve a specific version of an AAS or Submodel from a given point in time.
+* Add the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+* Changing the serialization format for AASX packages from "application/asset-administration-shell-package+xml" to "application/aas+zip" in the OpenAPI files for the Asset Administration Shell Repository Service Specification and the Submodel Repository Service Specification. This change is necessary to align with the actual content type used by implementations and to avoid confusion, as the previous content type was not registered and could be misinterpreted as an XML-based format. (https://github.com/admin-shell-io/aas-specs-api/issues/538[#538])
 
 
 Minor Changes:
 
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
-
-
+* Fixing the values of the ServiceSpecificationProfileEnum to correctly contain minor versions. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
+* Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
+* Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
+* Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
 
 === Operation Changes w.r.t. V3.1.1 to V3.2
 
@@ -33,6 +36,9 @@ h|Operation  h|Kind of Change h|Comment
  | GetSubmodelVersionByIdAndDate | New a| new API-Operation for Submodel Repository interface to retrieve a specific version of a Submodel from a given point in time.
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
+ | PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 |===
 
 
@@ -61,6 +67,26 @@ Minor Changes:
 * changed: Upgraded semanticIds of ProtocolInformation, SecurityAttributeObject, SecurityTypeEnum, and the items of the SecurityTypeEnum to V3.1 (https://github.com/admin-shell-io/aas-specs-api/issues/470[#470])
 * new: Add 404 'Not Found' to the PutSubmodelDescriptorByIdThroughSuperpath operation in the OpenAPI file for the AssetAdministrationShellRegistryServiceSpecification/SSP-001 profile.
 
+
+
+== Changes w.r.t. V3.1.1 to V3.1.2
+
+Major Changes:
+
+
+* 
+
+Minor Changes:
+
+* fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
+* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
+* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
+* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
+* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
+* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
 
 
 === Operation Changes w.r.t. V3.1 to V3.1.1

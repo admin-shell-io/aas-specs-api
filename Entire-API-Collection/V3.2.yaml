@@ -6427,7 +6427,6 @@ paths:
       operationId: GetAllAssetAdministrationShellDescriptors
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/2
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsByAssetType/3/2
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
@@ -7545,6 +7544,110 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /packages-async:
+    post:
+      tags:
+        - AASX Async File Server API
+      summary: Initiates an asynchronous upload of an AASX package at the server.
+      operationId: PostAsyncAASXPackage
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostAsyncAASXPackage/3/2
+      requestBody:
+        description: AASX package
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                aasIds:
+                  type: array
+                  items:
+                    type: string
+                file:
+                  type: string
+                  format: binary
+                fileName:
+                  type: string
+            encoding:
+              file:
+                contentType: application/asset-administration-shell-package
+        required: true
+      responses:
+        '202':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/accepted'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '409':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/conflict'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /packages-async/status/{handleId}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/HandleId'
+    get:
+      tags:
+        - AASX Async File Server Status API
+      summary: Returns the status of an asynchronously invoked AASX operation.
+      operationId: GetAasxAsyncStatus
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAasxAsyncStatus/3/2
+      responses:
+        '200':
+          description: Operation result object containing information that the 'executionState' is still 'Running'
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/BaseOperationResult'
+        '302':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/found'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /packages-async/results/{handleId}:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/HandleId'
+    get:
+      tags:
+        - AASX Async File Server Result API
+      summary: Returns the result of an asynchronously invoked AASX operation.
+      operationId: GetAasxAsyncResult
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAasxAsyncResult/3/2
+      responses:
+        '200':
+          description: Operation result object
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/BaseOperationResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+
 
 
   /serialization:
@@ -7586,7 +7689,7 @@ paths:
         '200':
           description: Requested serialization based on SerializationFormat
           content:
-            application/asset-administration-shell-package+xml:
+            application/aas+zip:
               schema:
                 description: AASX package
                 type: string
