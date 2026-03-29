@@ -11,79 +11,13 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.2.0_SSP-004
-  x-profile-identifier: https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004
+  version: V3.2.0_SSP-005
+  x-profile-identifier: https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-005
 servers:
 - url: 'https://admin-shell.io/api/v3/'
 - url: 'https://example.com/'
 paths:
 
-  /shells:
-    get:
-      tags:
-        - Asset Administration Shell Repository API
-      summary: Returns all Asset Administration Shells
-      operationId: GetAllAssetAdministrationShells
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/2
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
-      responses:
-        '200':
-          description: Requested Asset Administration Shells
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetAssetAdministrationShellsResult'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
-        '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
-    post:
-      tags:
-        - Asset Administration Shell Repository API
-      summary: Creates a new Asset Administration Shell
-      operationId: PostAssetAdministrationShell
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/PostAssetAdministrationShell/3/2
-      requestBody:
-        description: Asset Administration Shell object
-        content:
-          application/json:
-            schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/AssetAdministrationShell'
-        required: true
-      responses:
-        '201':
-          description: Asset Administration Shell created successfully
-          headers:
-            Location:
-              description: URL of the newly created resource
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/AssetAdministrationShell'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
-        '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
-        '409':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/conflict'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
   /shells/{aasIdentifier}:
     parameters:
       - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetAdministrationShellIdentifier'
