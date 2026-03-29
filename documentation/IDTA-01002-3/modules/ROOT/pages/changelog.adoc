@@ -14,16 +14,18 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 
 Major Changes:
 
+* New API operations and profiles for signing, including Asset Administration Shell Repository Service Specification - Signature Profile SSP-004, Submodel Repository Service Specification - Signature Profile SSP-003, and  Concept Description Repository Service Specification - Signature Profile SSP-004 (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
 * Add the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
-* Changing the serialization format for AASX packages from "application/asset-administration-shell-package+xml" to "application/aas+zip" in the OpenAPI files for the Asset Administration Shell Repository Service Specification and the Submodel Repository Service Specification. This change is necessary to align with the actual content type used by implementations and to avoid confusion, as the previous content type was not registered and could be misinterpreted as an XML-based format. (https://github.com/admin-shell-io/aas-specs-api/issues/538[#538])
-* Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
-* Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
-* Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
 
 
 Minor Changes:
 
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
+* Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
+* Changing the serialization format for AASX packages from "application/asset-administration-shell-package+xml" to "application/aas+zip" in the OpenAPI files for the Asset Administration Shell Repository Service Specification and the Submodel Repository Service Specification. This change is necessary to align with the actual content type used by implementations and to avoid confusion, as the previous content type was not registered and could be misinterpreted as an XML-based format. (https://github.com/admin-shell-io/aas-specs-api/issues/538[#538])
+* Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
+* Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
+* Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
 
 
 === Operation Changes w.r.t. V3.1.2 to V3.2
@@ -32,12 +34,24 @@ Minor Changes:
 |===
 h|Operation  h|Kind of Change h|Comment
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
+ | GetAssetAdministrationShellByIdSigned|new a|
+ | GetConceptDescriptionByIdSigned|new a|
+ | GetSubmodelByIdSigned|new a|
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
- | PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
- | GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
- | GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 |===
 
+=== Interface Changes w.r.t. V3.1.2 to V3.2
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+h|BWC h|Interface  h|Kind of Change h|Comment
+| |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned
+| |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned
+| |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned
+| |PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+| |GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+| |GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+|===
 
 
 == Changes w.r.t. V3.1.1 to V3.1.2

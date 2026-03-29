@@ -694,18 +694,19 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.2.0_SSP-002
 
-[#asset-administration-shell-repository-service-specification-service-specification]
+[#asset-administration-shell-repository-service-specification]
 == Asset Administration Shell Repository Service Specification
 
 [%autowidth,width="100%",cols="42%,58%",options="header",]
 |===
 h|Service Specification / Profiles h|Description
-|<<asset-administration-shell-repository-service-specification-service-specification-ssp-001,AssetAdministrationShellRepositoryServiceSpecification/SSP-001>> |Full feature set
-|<<asset-administration-shell-repository-service-specification-service-specification-ssp-002,AssetAdministrationShellRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
-|<<asset-administration-shell-repository-service-specification-service-specification-ssp-003,AssetAdministrationShellRepositoryServiceSpecification/SSP-003>> |Query operations
+|<<asset-administration-shell-repository-service-specification-ssp-001,AssetAdministrationShellRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<asset-administration-shell-repository-service-specification-ssp-002,AssetAdministrationShellRepositoryServiceSpecification/SSP-002>> |Only read operations; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+|<<asset-administration-shell-repository-service-specification-ssp-003,AssetAdministrationShellRepositoryServiceSpecification/SSP-003>> |Query operations
+|<<asset-administration-shell-repository-service-specification-ssp-004,AssetAdministrationShellRepositoryServiceSpecification/SSP-004>> |Signature operations
 |===
 
-[#asset-administration-shell-repository-service-specification-service-specification-ssp-001]
+[#asset-administration-shell-repository-service-specification-ssp-001]
 === Asset Administration Shell Repository Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="30%,70%",options="header",]
@@ -854,6 +855,28 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.2.0_SSP-003
 
 
+[[asset-administration-shell-repository-service-specification-ssp-004]]
+=== Asset Administration Shell Repository Service Specification – Signature Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Signature Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#GetAssetAdministrationShellByIdSigned[GetAssetAdministrationShellByIdSigned]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.2.0_SSP-004
+
 [[submodel-repository-service-specification]]
 == Submodel Repository Service Specification
 
@@ -865,6 +888,7 @@ h|Service Specification / Profiles h|Description
 |<<submodel-repository-service-specification-ssp-003,SubmodelRepositoryServiceSpecification/SSP-003>> |Profile for a Submodel Repository which only contains Submodels with kind=Template; is _not_ included in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryServiceSpecification/SSP-002
 |<<submodel-repository-service-specification-ssp-004,SubmodelRepositoryServiceSpecification/SSP-004>> |Only read operations for a Submodel Repository which only contains Submodels with kind=Template; is included in the profile SubmodelRepositoryServiceSpecification/SSP-003 but _not_ in the profile SubmodelRepositoryServiceSpecification/SSP-001 or the profile SubmodelRepositoryService Specification/SSP-002
 |<<submodel-repository-service-specification-ssp-005,SubmodelRepositoryServiceSpecification/SSP-005>>|Query operations
+|<<submodel-repository-service-specification-ssp-005,SubmodelRepositoryServiceSpecification/SSP-006>>|Signature operations
 |===
 
 [[submodel-repository-service-specification-ssp-001]]
@@ -1098,17 +1122,40 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.2.0_SSP-005
 
-[#concept-description-repository-service-specification-service-specification]
+[[submodel-repository-service-specification-ssp-006]]
+=== Submodel Repository Service Specification – Signature Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Submodel Repository Signature Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-006`
+h|Feature h|Appearance
+|API and API Operations a|
+_AAS Repository API:_ +
+xref:specification/interfaces.adoc#GetSubmodelByIdSigned[GetSubmodelByIdSigned]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable 
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.2.0_SSP-006
+
+[#concept-description-repository-service-specification]
 == Concept Description Repository Service Specification
 
 [cols="59%,41%"]
 |===
 h|Service Specification / Profiles h|Description
-|<<concept-description-repository-service-specification-service-specification-ssp-001,ConceptDescriptionRepositoryServiceSpecification/SSP-001>> |Full feature set
-|<<concept-description-repository-service-specification-service-specification-ssp-002,ConceptDescriptionRepositoryServiceSpecification/SSP-002>> |Query operations
+|<<concept-description-repository-service-specification-ssp-001,ConceptDescriptionRepositoryServiceSpecification/SSP-001>> |Full feature set
+|<<concept-description-repository-service-specification-ssp-002,ConceptDescriptionRepositoryServiceSpecification/SSP-002>> |Query operations
+|<<concept-description-repository-service-specification-ssp-002,ConceptDescriptionRepositoryServiceSpecification/SSP-003>> |Signature operations
 |===
 
-[#concept-description-repository-service-specification-service-specification-ssp-001]
+[#concept-description-repository-service-specification-ssp-001]
 === Concept Description Repository Service Specification – Full Profile
 
 [%autowidth,width="100%",cols="30%,70%",options="header",]
@@ -1140,7 +1187,7 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.2.0_SSP-001
 
-[#concept-description-repository-service-specification-service-specification-ssp-002]
+[#concept-description-repository-service-specification-ssp-002]
 === Concept Description Repository Service Specification – Query Profile
 
 [%autowidth, width="100%", cols="30%,70%",options="header",]
@@ -1162,3 +1209,24 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.2.0_SSP-002
 
+[#concept-description-repository-service-specification-ssp-003]
+=== Concept Description Repository Service Specification – Signature Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Concept Description Repository Signature Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|API and API Operations a|
+_ConceptDescription Repository API:_ +
+xref:specification/interfaces.adoc#GetConceptDescriptionByIdSigned[GetConceptDescriptionByIdSigned]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |not applicable
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | supported
+|===
+
+See: https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification/V3.2.0_SSP-003
