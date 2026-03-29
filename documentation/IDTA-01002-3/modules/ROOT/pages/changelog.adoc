@@ -10,22 +10,25 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 ====
 
 
-== Changes w.r.t. V3.1.1 to V3.2
+== Changes w.r.t. V3.1.2 to V3.2
 
 Major Changes:
 
-* New API operations for Signing
-* New Profile for Signing
+* New API operations and profiles for signing, including Asset Administration Shell Repository Service Specification - Signature Profile SSP-004, Submodel Repository Service Specification - Signature Profile SSP-003, and  Concept Description Repository Service Specification - Signature Profile SSP-004 (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+* Add the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 
 
 Minor Changes:
 
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
 * Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
+* Changing the serialization format for AASX packages from "application/asset-administration-shell-package+xml" to "application/aas+zip" in the OpenAPI files for the Asset Administration Shell Repository Service Specification and the Submodel Repository Service Specification. This change is necessary to align with the actual content type used by implementations and to avoid confusion, as the previous content type was not registered and could be misinterpreted as an XML-based format. (https://github.com/admin-shell-io/aas-specs-api/issues/538[#538])
+* Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
+* Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
+* Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
 
 
-
-=== Operation Changes w.r.t. V3.1.1 to V3.2
+=== Operation Changes w.r.t. V3.1.2 to V3.2
 
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
@@ -35,10 +38,9 @@ h|Operation  h|Kind of Change h|Comment
  | GetConceptDescriptionByIdSigned|new a|
  | GetSubmodelByIdSigned|new a|
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
-
 |===
 
-=== Interface Changes w.r.t. V3.1.1 to V3.21
+=== Interface Changes w.r.t. V3.1.2 to V3.2
 
 [%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
@@ -46,18 +48,25 @@ h|BWC h|Interface  h|Kind of Change h|Comment
 | |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned
 | |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned
 | |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned
+| |PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+| |GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+| |GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 |===
 
-=== Profile Changes w.r.t. w.r.t. V3.1.1 to V3.2
 
-[%autowidth,width="100%",cols="30%,15%,55%",options="header",]
-|===
-h|Profile h|Kind of Change h|Comment
+== Changes w.r.t. V3.1.1 to V3.1.2
 
- | Asset Administration Shell Repository Service Specification - Signature Profile SSP-004 |new a| signature operations
- | Concept Description Repository Service Specification - Signature Profile SSP-004 |new a| signature operations
- | Submodel Repository Service Specification - Signature Profile SSP-003 |new a| signature operations
-|===
+Major Changes:
+
+* none
+
+Minor Changes:
+
+* fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
+* remove: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
+* Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
+* Fixing the values of the ServiceSpecificationProfileEnum to correctly contain minor versions. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
+
 
 == Changes w.r.t. V3.1 to V3.1.1
 
@@ -88,8 +97,14 @@ Major Changes:
 Minor Changes:
 
 * fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
-* remove: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
-
+* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
+* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
+* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
+* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
+* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
 
 
 === Operation Changes w.r.t. V3.1 to V3.1.1
