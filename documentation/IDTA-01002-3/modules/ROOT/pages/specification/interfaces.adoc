@@ -694,6 +694,9 @@ e|xref:GetAASXByPackageId[GetAASXByPackageId] |Returns a specific AASX package f
 e|xref:PostAASXPackage[PostAASXPackage] |Creates an AASX package at the server
 e|xref:PutAASXByPackageId[PutAASXByPackageId] |Replaces or creates the AASX package at the server
 e|xref:DeleteAASXByPackageId[DeleteAASXByPackageId] |Deletes a specific AASX package
+e|xref:PostAsyncAASXPackage[PostAsyncAASXPackage] |Initiates an asynchronous upload of an AASX package at the server.
+e|xref:GetAasxAsyncStatus[GetAasxAsyncStatus] |Returns the status of an asynchronously invoked AASX Operation.
+e|xref:GetOperationAsyncResult[GetOperationAsyncResult] |Returns the Operation result of an asynchronously invoked AASX operation.
 |===
 
 ==== Operation GetAllAASXPackageIds
@@ -806,6 +809,64 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
+
+==== Operation PostAsyncAASXPackage
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[PostAsyncAASXPackage]]PostAsyncAASXPackage
+h|Explanation 4+a|Initiates an asynchronous upload of an AASX package at the server
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAsyncAASXPackage/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|file |New AASX package |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01005/v3.1/index.html[AASX package] |1
+|filename |Filename of the AASX package |yes |string |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes | xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
+|===
+
+
+==== Operation GetAasxAsyncStatus
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAasxAsyncStatus]]GetAasxAsyncStatus
+h|Explanation 4+a|Returns the status of an asynchronously invoked AASX Operation
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAasxAsyncStatus/3/2`
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|todo | todo |yes |string |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Execution state of the operation |yes | xref:specification/interfaces-payload.adoc#BaseOperationResult[BaseOperationResult] |1
+|===
+
+
+
+==== Operation GetAasxAsyncResult
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAasxAsyncResult]]GetAasxAsyncResult
+h|Explanation 4+a|Returns the Operation result of an asynchronously invoked AASX operation
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAasxAsyncResult/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|operationHandle |The returned handle of an operation’s asynchronous invocation used to request the current state of the operation’s execution |yes |xref:specification/interfaces-payload.adoc#OperationHandle[OperationHandle] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Operation Result |yes |xref:specification/interfaces-payload.adoc#OperationResult[OperationResult] |1
+|===
+
+
+
+
 
 [#registration-interfaces]
 == Registration Interfaces

@@ -582,6 +582,9 @@ Pagination
 |GetAASXByPackageId |GET |/packages/\{packageId} |base64url-encoded identifier
 |PutAASXByPackageId |PUT |/packages/\{packageId} |base64url-encoded identifier
 |DeleteAASXByPackageId |DELETE |/packages/\{packageId} |base64url-encoded identifier
+|PostAsyncAASXPackage |POST |/packages-async |
+|GetAasxAsyncStatus |GET |/packages-async/\{handleId} |
+|GetAasxAsyncResult |GET |/packages-async/result/\{handleId} |
 
 4+h|Serialization Interface
 |GenerateSerializationByIds |GET |/serialization |base64url-encoded identifier; AcceptHeader: application/aasx+xml or application/json oder application/xml
@@ -686,6 +689,28 @@ In case incorrect inputs have been provided by the client but the server was onl
 Note: the invocation of the SubmodelElement "Operation" may also be conducted in the "ValueOnly" content.
 In this case, the "/$value" path segment is added to the previously mentioned endpoints.
 ====
+
+
+[#async-invocation-of-aasx-upload]
+== Asynchronous Invocation of an AASX File Upload
+The upload of an AASX file is only defined as an asynchronous operation in the current version of the specification.
+The expected behavior is therefore explained in detail.
+.Sequence for asynchronous AASX file upload
+[[aasx-upload-invocation]]
+[plantuml, aasx-upload-invocation, svg]
+....include::partial$diagrams/aasx-upload-invocation.puml[]
+....
+The client sends a POST request to the "/packages-async" endpoint with the AASX file in the request body.
+The server immediately responds with an Accepted (status code: 202) message containing the link to an endpoint where the client can fetch status information about his request (see <<aasx-upload-invocation>>).
+This status endpoint is located at "/packages-async/\{handleId}".
+In case the request is incorrect and the server already recognizes it, the server responds directly with the according status code, e.g. 400. If the server can only recognize the error during later processing and not at the time it receives the request, it responds with an Accepted (202) message at first. Hence, a received Accepted message does not guarantee the client that its request is valid in every case.
+If the server has not finished processing the request, the status endpoint responds with a message with the attribute "executionState" set to "Running".
+As soon as the processing is finished, the status endpoints deliver a Found (HTTP status code 302) response with the location of the result in the Location response header.
+The result is provided at the "/packages-async/result/\{handleId}" endpoint.
+In case incorrect inputs have been provided by the client but the server was only able to recognize this during processing, or if the server perceived any other error during processing, the server must still provide the result object with status code 200 and set the attribute "executionState" to "Failed".
+
+
+
 
 == Bulk Operations
 

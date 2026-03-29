@@ -14,6 +14,7 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 
 Major Changes:
 
+* Add the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 * Changing the serialization format for AASX packages from "application/asset-administration-shell-package+xml" to "application/aas+zip" in the OpenAPI files for the Asset Administration Shell Repository Service Specification and the Submodel Repository Service Specification. This change is necessary to align with the actual content type used by implementations and to avoid confusion, as the previous content type was not registered and could be misinterpreted as an XML-based format. (https://github.com/admin-shell-io/aas-specs-api/issues/538[#538])
 
 
@@ -25,7 +26,6 @@ Minor Changes:
 * Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
 * Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
 
-
 === Operation Changes w.r.t. V3.1.1 to V3.2
 
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
@@ -33,6 +33,9 @@ Minor Changes:
 h|Operation  h|Kind of Change h|Comment
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
+ | PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 |===
 
 
