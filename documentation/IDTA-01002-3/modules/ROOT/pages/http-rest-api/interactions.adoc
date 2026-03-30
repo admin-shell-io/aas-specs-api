@@ -124,14 +124,29 @@ Concept:
         {
           "href": "https://service.example.com/aas/shells/aHR0cHM6Ly9pZC5leGFtcGxlLmNvbS9teS1hc3NldC1pZA",
           "type": "application/json",
-          "profiles": [
-            "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-001"
-          ],
+          "profiles": {
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001": [
+              "GetAllAssetAdministrationShells",
+              "PostAssetAdministrationShells",
+              "GetAssetAdministrationShellById"
+            ],
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-004": [
+              "GetAssetAdministrationShellVersionByIdAndDate"
+            ]
+          },
           "authentication": [
             {
               "id": "oidc",
               "type": "OIDC",
               "well_known_url": "https://auth.example.com/realm/.well-known/openid-configuration"
+            },
+            {
+              "id": "another-oauth2",
+              "type": "OAuth2",
+              "base_url": "https://auth.example.com/realms/aas",
+              "flows": ["client-credential-flow"],
+              "scopes": ["whatever", "onemore"],
+              "well_known_url": "https://auth.example.com/.well-known/oauth-authorization-server"
             }
           ]
         }
@@ -186,8 +201,22 @@ participant AASService as "AAS / Repo"
 Client -> IDProvider: GET /my-asset-id\nAccept: application/linkset+json
 IDProvider --> Client: 200 OK\nContent-Type: application/linkset+json\n{ 'aas', 'aas-service-endpoints', 'dpp' }
 
-Client -> AASService: GET /aas/shells/<encoded-globalAssetId>\nAccept: application/json
+note right
+AAS endpoint lookup can be done in the background.
+No need for the client to figure it out by itself.
+end note
+
+Client -> AASService: GET /aas/shells/<encoded-shellId>\nAccept: application/json
 AASService --> Client: 200 OK\n{ AssetAdministrationShell ... }
+
+note right
+Select relation 'aas' and follow href
+with 'AAS Service Interface'.
+Superpathes enable access to Submodels.
+end note
+
+Client -> AASService: GET /aas/shells/<encoded-shellId>/submodels/<encoded-submodelId>\nAccept: application/json
+AASService --> Client: 200 OK\n{ Submodel ... }
 @enduml
 ....
 
