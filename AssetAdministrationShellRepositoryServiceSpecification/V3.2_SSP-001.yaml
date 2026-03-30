@@ -93,11 +93,9 @@ paths:
       tags:
         - Asset Administration Shell Repository API
       summary: Returns information about all Asset Administration Shells that have been changed recently
-      operationId: GetAllAssetAdministrationShells-Reference
+      operationId: GetAssetAdministrationShellRecentChanges
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/2
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/2
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByIdShort/3/2
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShellRecentChanges/3/2
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetIds'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedAt'
@@ -106,7 +104,7 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
       responses:
         '200':
-          description: Requested Asset Administration Shells as a list of References
+          description: Requested list of information about recently changed Asset Administration Shells
           content:
             application/json:
               schema:
