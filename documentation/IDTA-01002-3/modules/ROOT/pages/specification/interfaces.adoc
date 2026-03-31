@@ -1196,7 +1196,9 @@ The interfaces that provide access to the entities (Asset Administration Shells,
 2+|Interface: [[interface-AssetAdministrationShellRepository]]_Asset Administration Shell Repository_
 h|Operation Name h|Description
 e|xref:GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] |Returns all Asset Administration Shells
+changed Asset Administration Shells
 e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
+e|xref:GetAssetAdministrationShellRecentChanges[GetAssetAdministrationShellRecentChanges] |Returns information about recently
 e|xref:GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 e|xref:GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] |Returns all Asset Administration Shells with a specific idShort
 e|xref:GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate] |Explanation 4+a|Returns a specific Asset Administration Shell at a specific point in time.
@@ -1234,31 +1236,6 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 e|payload a|List of Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
 |===
 
-==== Operation GetAssetAdministrationShellRecentChanges
-
-[.table-with-appendix-table]
-[width=100%,cols="25%,35%,10%,20%,10%"]
-|===
-h|Operation Name 4+e|[[GetAssetAdministrationShellRecentChanges]]GetAssetAdministrationShellRecentChanges
-h|Explanation 4+a|Returns information about recently changed Asset Administration Shells
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellRecentChanges/3/2`
-
-h|Name h|Description h|Mand. h|Type h|Card.
-
-5+h|Input Parameter
-e|key a|The key of the AssetId
-
-The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
-e|createdAt a|Return Shells created at or later |no | xref:components/parameters/CreatedAt|1
-e|updatedAt a|Return Shells updated at or later |no | xref:components/parameters/UpdatedAt|1
-e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
-e|cursor a|The position from which to resume a result listing |no |string |1
-5+h|Output Parameter
-e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Asset Administration Shell Change Infos |yes |xref:specification/interfaces-payload.adoc#AssetAdministrationShellRecentChange[AssetAdministrationShellRecentChange] |1
-|===
-
-
 ==== Operation GetAssetAdministrationShellById
 
 [.table-with-appendix-table]
@@ -1277,6 +1254,31 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+|===
+
+==== Operation GetAssetAdministrationShellRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAssetAdministrationShellRecentChanges]]GetAssetAdministrationShellRecentChanges
+h|Explanation 4+a|Returns information about recently changed Asset Administration Shells
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellRecentChanges/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+
+5+h|Input Parameter
+e|key a|The key of the AssetId
+
+The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
+e|keyIdentifier a|The key identifier object |yes |string |1
+e|createdAt a|Return Shells created at or later |no | xref:components/parameters/CreatedAt|1
+e|updatedAt a|Return Shells updated at or later |no | xref:components/parameters/UpdatedAt|1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|Requested Asset Administration Shell Change Infos |yes |xref:specification/interfaces-payload.adoc#AssetAdministrationShellRecentChange[AssetAdministrationShellRecentChange] |1
 |===
 
 ==== Operation GetAllAssetAdministrationShellsByAssetId
@@ -1438,6 +1440,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 h|Operation Name h|Description
 e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
 e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
+e|xref:GetSubmodelRecentChanges[GetSubmodelRecentChanges] |Returns information about recently changed Submodels
 e|xref:GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]|Returns a specific version of a Submodel from a given point in time
 e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
 e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] |Returns all Submodels with a specific _idShort_
@@ -1494,6 +1497,26 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
+==== Operation GetSubmodelRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetSubmodelRecentChanges]]GetSubmodelRecentChanges
+h|Explanation 4+a|Returns information about all Submodels that have been changed recently
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelRecentChanges/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|semanticId |Identifier of the semantic definition |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference] |1
+e|createdAt a|Return Shells created at or later |no | xref:components/parameters/CreatedAt|1
+e|updatedAt a|Return Shells updated at or later |no | xref:components/parameters/UpdatedAt|1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|Requested Submodel Change Infos |yes |xref:specification/interfaces-payload.adoc#SubmodelRecentChange[SubmodelRecentChange] |1
+|===
 
 ==== Operation GetSubmodelVersionByIdAndDate
 
@@ -1512,7 +1535,6 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested Submodel Version at the specified date |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
-
 
 ==== Operation GetAllSubmodelsBySemanticId
 
