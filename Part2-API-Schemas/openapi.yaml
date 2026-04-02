@@ -53,10 +53,10 @@ components:
         minLength: 1
         maxLength: 2048
         pattern: ^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
-    CreatedAt:
-      name: createdAt
+    CreatedFrom:
+      name: createdFrom
       in: query
-      description: Date and time when the Identifiable earliest was created in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+      description: Returns Identifiables created at or after the given date and time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
       style: form
       required: false
       schema:
@@ -151,10 +151,10 @@ components:
       explode: false
       schema:
         type: string
-    UpdatedAt:
-      name: updatedAt
+    UpdatedFrom:
+      name: updatedFrom
       in: query
-      description: Date and time when the Identifiable earliest was created in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+      description: Returns Identifiables updated at or after the given date and time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
       style: form
       required: false
       schema:
