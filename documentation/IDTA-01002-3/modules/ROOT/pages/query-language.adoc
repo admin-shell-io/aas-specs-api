@@ -411,8 +411,12 @@ This shall also work for supplementalSemanticIds, e.g.:
 
 Which is equivilant to:
 ....
-  $sme#supplementalSemanticIds[0].keys[0].value $eq "https://example.com/a/supplemental/semantic/id"
+  $sme#supplementalSemanticIds[].keys[0].value $eq "https://example.com/a/supplemental/semantic/id"
 ....
+
+====
+Note: `supplementalSemanticIds` is a list, therefore, the comparison with the shortcut will be true if at least one of the supplementalSemanticIds has the given value, not necessarily the first one.
+====
 
 
 == Match of Elements in Lists
