@@ -167,6 +167,18 @@ Concept:
             { "act": "BatteryPassport", "version": "1.0" }
           ]
         }
+      ],
+      "dpp-service-endpoints": [
+        {
+          "href": "https://service.example.com/dpps/https%3A//id.example.com/my-asset-id",
+          "type": "application/json",
+          "provides": "ReadDPPByProductId"
+        },
+        {
+          "href": "https://service.example.com/dppsByProductIdAndDate/https%3A//id.example.com/my-asset-id?date={date}",
+          "type": "application/json",
+          "provides": "ReadDPPVersionByProductIdAndDate"
+        }
       ]
     }
   ]
@@ -199,7 +211,7 @@ participant IDProvider as "ID Link Landing"
 participant AASService as "AAS / Repo"
 
 Client -> IDProvider: GET /my-asset-id\nAccept: application/linkset+json
-IDProvider --> Client: 200 OK\nContent-Type: application/linkset+json\n{ 'aas', 'aas-service-endpoints', 'dpp' }
+IDProvider --> Client: 200 OK\nContent-Type: application/linkset+json\n{ 'aas', 'aas-service-endpoints', 'dpp', 'dpp-service-endpoints' }
 
 note right
 AAS endpoint lookup can be done in the background.
