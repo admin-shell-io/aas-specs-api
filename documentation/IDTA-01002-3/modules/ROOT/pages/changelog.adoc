@@ -22,6 +22,7 @@ Minor Changes:
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
 * Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
 * Changed SupplementalSemanticId to SupplementalSemanticIds in the OpenAPI file for the Part 1 classes to match the definition in the Part 1 OpenAPI file. (https://github.com/admin-shell-io/aas-specs-api/issues/553[#553])
+* Adjusted the return type for the operations OperationRequestValueOnly and OperationResultValueOnly from the incorrect SubmodelElementValue to ValueOnly. No changes in the already correct OpenAPI files. (https://github.com/admin-shell-io/aas-specs-metamodel/pull/663[Part 1#663])
 
 
 == Changes w.r.t. V3.1 to V3.1.1
