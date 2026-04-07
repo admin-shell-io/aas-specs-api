@@ -1,7 +1,10 @@
 <grammar> ::= <query> | <AllAccessPermissionRules>
  
-<query> ::= <selectStatement>? <logicalExpression>
+<query> ::= <selectStatement>? <logicalExpression> ( <ws> "$filters" <ws> <QueryFilter>* )?
 <selectStatement> ::= "$select" <ws> "id" <ws>
+<QueryFilter> ::= 
+    ( "$fragment" <ws> <FieldIdentifierFragment> <ws> )
+    ( "$condition" <ws> <logicalExpression> <ws> )
  
 <logicalExpression> ::= <logicalNestedExpression> | <logicalOrExpression> | <logicalAndExpression> |
 <logicalNotExpression> | <matchExpression> | <BoolLiteral> | <castToBool> | <singleComparison>
@@ -91,21 +94,22 @@
     ( "DEFACLS" <ws> <StringLiteral> <ws> <ACL> <ws> )* 
     ( "DEFOBJECTS" <ws> <StringLiteral> <ws> <ObjectGroup> <ws> )* 
     ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <logicalExpression> <ws> )* 
-    ( <AccessPermissionRule> <ws> )*
- 
+    ( <AccessPermissionRule> <ws> )* 
+
 <AccessPermissionRule> ::= 
-    "ACCESSRULE:" <ws>
+    "ACCESSRULE:" <ws> 
     ( <ACL> | <UseACL> ) <ws> 
     "OBJECTS:" <ws> 
     ( <SingleObject> <ws> )* 
     ( <UseObjectGroup> <ws> )* 
-    ( ( "FORMULA:" <ws> <logicalExpression> <ws> ) | ( <UseFormula> <ws> ) )
-    ( "FILTER:" <ws> <SecurityQueryFilter> )?
-
-<SecurityQueryFilter> ::=
-    <FragmentObject> <ws>
+    ( ( "FORMULA:" <ws> <logicalExpression> <ws> ) | ( <UseFormula> <ws> ) ) 
+    ( "FILTER:" <ws> <SecurityQueryFilter> )? 
+    ( "FILTERLIST:" <ws> ( <SecurityQueryFilter> <ws> )* )?
+ 
+<SecurityQueryFilter> ::= 
+    ( "FRAGMENT:" <ws> <FieldIdentifierFragment> <ws> )
     ( ( "CONDITION:" <ws> <logicalExpression> <ws> ) | ( <UseFormula> <ws> ) )
-
+ 
 <ACL> ::= 
     "ATTRIBUTES:" <ws> 
     ( <SingleAttribute> <ws> )* 
@@ -124,7 +128,7 @@
  
 <SingleAttribute> ::= 
     <ClaimAttribute> | <GlobalAttribute> | <ReferenceAttribute>
-
+ 
 <ClaimAttribute> ::= 
     "CLAIM" <ws> "(" <ws> <ClaimLiteral> <ws> ")"
  
@@ -132,12 +136,17 @@
     "GLOBAL" <ws> "(" <ws> ( "LOCALNOW" | "UTCNOW" | "CLIENTNOW" | "ANONYMOUS" ) <ws> ")"
  
 <ReferenceAttribute> ::= 
-    "REFERENCE" <ws> "(" <ws> <ReferenceLiteral> <ws> ")"
-
+    "REFERENCE(" ( 
+    ("$aas" <IdentifierInstance> "#" <FieldsAAS> ) | 
+    ("$sm" <IdentifierInstance> "#" <FieldsSM> ) | 
+    ("$cd" <IdentifierInstance> "#" <FieldsCD> ) | 
+    ("$sme" <IdentifierInstance> "." <idShortPath> "#" <FieldsSME> ) 
+    ) ")" 
+ 
 <AttributeGroup> ::= 
     ( <SingleAttribute> <ws> )* 
     ( <UseAttributeGroup> <ws> )*
-
+ 
 <UseAttributeGroup> ::= 
     "USEATTRIBUTES" <ws> <StringLiteral> <ws>
  
@@ -147,17 +156,20 @@
 <RouteObject> ::= 
     "ROUTE" <ws> <RouteLiteral> <ws>
  
+<IdentifierInstance> ::= "(" <StringLiteral> ")" 
+<IdentifierInstanceOrAll> ::= <IdentifierInstance> | "(\"*\")"
+ 
 <IdentifiableObject> ::= 
-    "IDENTIFIABLE" <ws> <IdentifiableLiteral> <ws>
+    "IDENTIFIABLE" <ws> ("$aas" | "$sm" | "$cd") <IdentifierInstanceOrAll>
  
 <ReferableObject> ::= 
-    "REFERABLE" <ws> <ReferableLiteral> <ws>
- 
-<FragmentObject> ::= 
+    "REFERABLE" <ws> "$sme" <IdentifierInstanceOrAll> "." <idShortPath>
+  
+<FragmentObject> ::=  
     "FRAGMENT" <ws> <FragmentLiteral> <ws>
  
 <DescriptorObject> ::= 
-    "DESCRIPTOR" <ws> <DescriptorLiteral> <ws>
+    "DESCRIPTOR" <ws> ("$aasdesc" | "$smdesc") <IdentifierInstanceOrAll>
  
 <ObjectGroup> ::= 
     ( <SingleObject> <ws> )* 
@@ -182,11 +194,10 @@
 <minute> ::= <digit> <digit>
 <second> ::= <digit> <digit>
 <fraction> ::= <digit>+
-
+ 
 <digit> ::= [0-9]
 <StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "_" | "@" | "#" | "\\" | "+" | "-" | "." | "," | ":" | "$" | "^" )+ "\""
 <ClaimLiteral> ::= <StringLiteral>
-<ReferenceLiteral> ::= <StringLiteral>
 <RouteLiteral> ::= <StringLiteral>
 <IdentifiableLiteral> ::= <StringLiteral>
 <ReferableLiteral> ::= <StringLiteral>
@@ -197,18 +208,44 @@
 <BoolLiteral> ::= "true" | "false"
 
 <FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
-<FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" ( [0-9]* ) "]" ) "." <ReferenceClause> )
-<FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | "idShort" | "id" )
-<FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" ( <SemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
-<FieldIdentifierCD> ::= "$cd#" ( "idShort" | "id" ) <ws>
-<FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" ) "." <SmDescriptorClause> )
+
+<FieldIdentifierAAS> ::= "$aas#" <FieldsAAS>
+<FieldIdentifierSM> ::= "$sm#" <FieldsSM>
+<FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" <FieldsSME>
+<FieldIdentifierCD> ::= "$cd#" <FieldsCD> <ws>
+<FieldIdentifierAasDescriptor> ::= "$aasdesc#" <FieldsAasDescriptor>
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
+
+<FieldsAAS> ::= "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" ( [0-9]* ) "]" ) "." <ReferenceClause>
+<FieldsSM> ::= <SemanticIdClause> | "idShort" | "id"
+<FieldsSME> ::= <SemanticIdClause> | "idShort" | "value" | "valueType" | "language"
+<FieldsCD> ::= "idShort" | "id"
+<FieldsAasDescriptor> ::= "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" ) "." <SmDescriptorClause>
 <SmDescriptorClause> ::= ( <SemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> )
-<EndpointClause> ::= "interface" | "protocolinformation.href" 
- 
+<EndpointClause> ::= "interface" | "protocolinformation.href"
+
 <ReferenceClause> ::= ( "type" | "keys" ( "[" ( [0-9]* ) "]" ) ( ".type" | ".value" ) )
 <SemanticIdClause> ::= ( "semanticId" | "semanticId." <ReferenceClause> )
 <SpecificAssetIdsClause> ::=  ( "specificAssetIds" ( "[" ( [0-9]* ) "]" ) ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> ) )
+
+
+<FieldIdentifierFragment> ::= <FieldIdentifierAASFragment> | <FieldIdentifierSMFragment> | <FieldIdentifierSMEFragment> | <FieldIdentifierCDFragment> | <FieldIdentifierAasDescriptorFragment> | <FieldIdentifierSmDescriptorFragment>
+
+<FieldIdentifierAASFragment> ::= "$aas#" ( "idShort" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClauseFragment> | "submodels" ( "[" ( [0-9]* ) "]" ) ("." <ReferenceClauseFragment>)? )
+<FieldIdentifierSMFragment> ::= "$sm#" ( <SemanticIdClauseFragment> | "idShort" | "id" )
+<FieldIdentifierSMEFragment> ::= "$sme" ( "." <idShortPath> )? ( "#" ( <SemanticIdClauseFragment> | "idShort" | "value" | "valueType" | "language" ))?
+<FieldIdentifierCDFragment> ::= "$cd#" ( "idShort" ) <ws>
+<FieldIdentifierAasDescriptorFragment> ::= "$aasdesc#" ( "idShort" | "description" | "displayName" | "extension" | "administration" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClauseFragment> | <EndpointClauseFragment> |  "submodelDescriptors[" ( [0-9]* ) "]" ("." <SmDescriptorClauseFragment>)? )
+<FieldIdentifierSmDescriptorFragment> ::= "$smdesc#" <SmDescriptorClauseFragment>
+
+<SpecificAssetIdsClauseFragment> ::= "specificAssetIds" ( "[" ( [0-9]* ) "]" ) (".externalSubjectId" | ".externalSubjectId." <ReferenceClauseFragment>)?
+<SmDescriptorClauseFragment> ::= ( <SemanticIdClauseFragment> | "idShort" | <EndpointClauseFragment> )
+<EndpointClauseFragment> ::= "endpoints" ( "[" ( [0-9]* ) "]" )
+
+<SemanticIdClauseFragment> ::= "semanticId" | "semanticId." <ReferenceClauseFragment>
+<ReferenceClauseFragment> ::= "keys[" ( [0-9]* ) "]"
+
+
 <idShortPath> ::= ( <idShort> ("[" ( [0-9]* ) "]" )* ( "." <idShortPath> )* )
 <idShort> ::= ( ( [a-z] | [A-Z] ) (( [a-z] | [A-Z] | [0-9] | "_"   | "-" )* ( [a-z] | [A-Z] | [0-9] | "_" ) )? )
 

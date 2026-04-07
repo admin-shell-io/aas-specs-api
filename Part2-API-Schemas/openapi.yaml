@@ -625,10 +625,14 @@ components:
           type: string
           pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
       type: object
-    modelStringPattern:
+    FieldIdentifier:
       type: string
       pattern: >-
         ^(?:\$aas#(?:idShort|id|assetInformation\.assetKind|assetInformation\.assetType|assetInformation\.globalAssetId|assetInformation\.specificAssetIds\[[0-9]*\]\.(?:name|value|externalSubjectId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?)|submodels\[[0-9]*\]\.(?:type|keys\[[0-9]*\]\.(?:type|value)))|\$sm#(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|id)|\$sme(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[[0-9]*\])*(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[[0-9]*\])*)*)?#(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|value|valueType|language)|\$cd#(?:idShort|id)|\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\[[0-9]*\]\.(?:name|value|externalSubjectId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?)|endpoints\[[0-9]*\]\.(?:interface|protocolinformation\.href)|submodelDescriptors\[[0-9]*\]\.(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|id|endpoints\[[0-9]*\]\.(?:interface|protocolinformation\.href)))|\$smdesc#(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|id|endpoints\[[0-9]*\]\.(?:interface|protocolinformation\.href)))$
+    FragmentFieldIdentifier:
+      type: string
+      pattern: >-
+        ^(?:\$aas#(?:idShort|assetInformation\.assetType|assetInformation\.globalAssetId|assetInformation\.specificAssetIds\[[0-9]*\](?:\.externalSubjectId(?:\.keys\[[0-9]*\])?)?|submodels\[[0-9]*\](?:\.keys\[[0-9]*\])?)|\$sm#(?:semanticId(?:\.keys\[[0-9]*\])?|idShort|id)|\$sme(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[[0-9]*\])*(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[[0-9]*\])*)*)?(?:#(?:semanticId(?:\.keys\[[0-9]*\])?|idShort|value|valueType|language))?|\$cd#idShort|\$aasdesc#(?:idShort|description|displayName|extension|administration|assetKind|assetType|globalAssetId|specificAssetIds\[[0-9]*\](?:\.externalSubjectId(?:\.keys\[[0-9]*\])?)?|endpoints\[[0-9]*\]|submodelDescriptors\[[0-9]*\](?:\.(?:semanticId(?:\.keys\[[0-9]*\])?|idShort|endpoints\[[0-9]*\]))?)|\$smdesc#(?:semanticId(?:\.keys\[[0-9]*\])?|idShort|endpoints\[[0-9]*\]))$
     MultiLanguagePropertyMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -792,7 +796,22 @@ components:
           pattern: ^id$
         $condition:
           $ref: '#/components/schemas/logicalExpression'
+        $filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
       required:
+        - $condition
+      additionalProperties: false
+    QueryFilter:
+      type: object
+      properties:
+        $fragment:
+          $ref: '#/components/schemas/FragmentFieldIdentifier'
+        $condition:
+          $ref: '#/components/schemas/logicalExpression'
+      required:
+        - $fragment
         - $condition
       additionalProperties: false
     QueryResultAssetAdministrationShell:
@@ -1054,7 +1073,7 @@ components:
       type: object
       properties:
         $field:
-          $ref: '#/components/schemas/modelStringPattern'
+          $ref: '#/components/schemas/FieldIdentifier'
         $strVal:
           $ref: '#/components/schemas/standardString'
         $strCast:
@@ -1178,7 +1197,7 @@ components:
       type: object
       properties:
         $field:
-          $ref: '#/components/schemas/modelStringPattern'
+          $ref: '#/components/schemas/FieldIdentifier'
         $strVal:
           $ref: '#/components/schemas/standardString'
         $numVal:
