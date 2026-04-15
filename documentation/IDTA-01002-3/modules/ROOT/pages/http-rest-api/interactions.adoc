@@ -103,7 +103,9 @@ include::partial$diagrams/seq-sm-endpoints-http.puml[]
 
 == Direct Discovery of AAS Objects based on ID Link and LinkSets
 
-This section describes how a client can discover AAS and related resources by using an ID Link as the globalAssetId combined with RFC 9264 LinkSets. The ID Link is a resolvable HTTP(S) URL representing the asset identity (globalAssetId). The landing endpoint for the ID Link returns a LinkSet (media type application/linkset+json) that contains typed relations to AAS, Submodels, repositories, registries, and Digital Product Passport resources.
+This section describes how a client can discover AAS and related resources by using an ID Link as the globalAssetId combined with RFC 9264 LinkSets.
+The ID Link is a resolvable HTTP(S) URL representing the asset identity (globalAssetId).
+The landing endpoint for the ID Link returns a LinkSet (media type application/linkset+json) that contains typed relations to AAS, Submodels, repositories, registries, and Digital Product Passport resources.
 
 Concept:
 - The globalAssetId is an ID Link, e.g., https://id.example.com/my-asset-id.
@@ -111,9 +113,11 @@ Concept:
 - The LinkSet provides relations such as:
   - aas: direct representations/endpoints of the Asset Administration Shell.
   - aas-service-endpoints: a LinkSet enumerating infrastructure endpoints (AAS Repository, Submodel Repository, Discovery, Registry).
-  - dpp: Digital Product Passport endpoints.
+  - dpp: direct represenation of the Digital Product Passport.
+    - dpp-service-endpoints: a LinkSet enumerating infrastructure endpoints for DPP services.
 - Links may carry metadata (profiles, authentication, versions) to guide client interaction.
 
+Example for the content of the LinkSet returned by the ID Link endpoint:
 [source,json]
 ----
 {
@@ -160,14 +164,96 @@ Concept:
       ],
       "dpp": [
         {
-          "href": "https://service.example.com/dpp/dpps/https%3A//id.example.com/my-asset-id",
+          "href": "https://service.example.com/dpp/v1/dpps/https%3A//id.example.com/my-asset-id",
           "type": "application/json",
-          "dppSchemaVersion": ["1.0"],
-          "delegatedActs": [
+          "dppSchemaVersion": "1.0", // the concrete url needs a concrete version, that's why single version is given here
+          "delegatedActs": [ // I forgot the requested term...
             { "act": "BatteryPassport", "version": "1.0" }
           ]
         }
       ],
+      "dpp-service-endpoint":
+        {
+          "href": "https://service.example.com/dpp", // Official API to append is 'v1/dpps/{dppId}'
+          "type": "application/json",
+          "dppSchemaVersions": ["1.0"], // This schema allows for multiple versions
+          "delegatedActs": [
+            { "act": "BatteryPassport", "version": "1.0" }
+          ]
+        }
+
+    }
+  ]
+}
+----
+
+Example for the content of the LinkSet returned by the AAS Service Endpoints endpoint:
+[source,json]
+----
+{
+  "linkset": [
+    {
+      "anchor": "https://service.example.com/aas/aas-service-endpoints",
+      "aas-repository": [
+        {
+          "href": "https://serviceprovider.example.com/aas/shells",
+          "type": "application/json",
+          "profiles": {
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001": [
+              "GetAllAssetAdministrationShells",
+              "PostAssetAdministrationShells",
+              "GetAssetAdministrationShellById"
+            ],
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-004": ["GetAssetAdministrationShellVersionByIdAndDate"]
+          },
+          "authentication": [
+            {
+              "id": "objective-partner",
+              "type": "OAuth2",
+              "base_url": "https://auth.example.com/realms/aas",
+              "flow": "client-credential-flow",
+              "scope": "<whatever>"
+            }
+          ]
+        }
+      ],
+      "sm-repository": [
+        {
+          "href": "https://serviceprovider.example.com/aas/submodels",
+          "type": "application/json",
+          "profiles": {
+            "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-001": [
+              "GetAllSubmodels",
+              "PostSubmodels",
+              "GetSubmodelById"
+            ],
+            "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-004": ["GetSubmodelVersionByIdAndDate"]
+          },
+          "authentication": [
+            {
+              "id": "objective-partner",
+              "type": "OAuth2",
+              "base_url": "https://auth.example.com/realms/aas",
+              "flow": "client-credential-flow",
+              "scope": "<whatever>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+----
+
+
+Example for the content of the LinkSet returned by the ID Link endpoint:
+[source,json]
+----
+{
+  "linkset": [
+    {
+      "anchor": "https://service.example.com/dpp/dpp-service-endpoints",
       "dpp-service-endpoints": [
         {
           "href": "https://service.example.com/dpps/https%3A//id.example.com/my-asset-id",
