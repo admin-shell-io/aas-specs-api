@@ -20,14 +20,9 @@ For metamodel elements like AssetAdministrationShell, Submodel, Identifier, etc.
 The AAS package format and the AAS Package type are defined in Part 5 xref:bibliography.adoc#bib4[[4\]]. 
 This clause only defines additional classes that are needed for communication with the API.
 
-[#metamodel-specification-details]
-== Metamodel Specification Details
-
-The following type definitions are used to describe specific metamodel elements like Asset Administration Shells and submodels regarding their network and deployment configuration.
-They use certain attributes copied from the model element itself to describe it – hence the name _Descriptor_.
 
 [#descriptor]
-=== Descriptor
+== Descriptor
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -51,7 +46,7 @@ e|displayName a|Display name; can be provided in several languages | link:https:
 e|extension a|An extension of the element |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/common.html#Extension[Extension] |0..*
 |===
 
-=== AssetAdministrationShellDescriptor
+== AssetAdministrationShellDescriptor
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -79,7 +74,7 @@ A client, therefore, might decide to skip the lookup on the AssetAdministrationS
 Nevertheless, in case the information contained in the AssetAdministrationShellDescriptor deviates from the related AssetAdministrationShell, or attributes are missing, the AssetAdministrationShell is always the source of truth.
 ====
 
-=== SubmodelDescriptor
+== SubmodelDescriptor
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -98,7 +93,7 @@ e|semanticId a|Identifier of the semantic definition of the Submodel |link:https
 e|supplementalSemanticId a|Identifier of a supplemental semantic definition of the element called supplemental semantic ID of the element |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |0..*
 |===
 
-=== Endpoint
+== Endpoint
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -178,7 +173,7 @@ See the following example for descriptor endpoints, that expose two submodel end
  ]
 ----
 
-=== ProtocolInformation
+== ProtocolInformation
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -280,7 +275,7 @@ a|TLSA according to RFC 6698
 a|Decentralized Identifiers according to the W3C Recommendation xref:bibliography.adoc#bib7[[7\]]
 |===
 
-=== AssetLink
+== AssetLink
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -417,7 +412,7 @@ An example ServiceDescription object might look like the following, indicating t
 ----
 
 [[QueryResult]]
-=== Query Results
+== Query Results
 
 Result elements of AAS queries depend on the declared output selector and the target of the query. Possible targets are Asset Administration Shells, Submodels, Concept Descriptions, Asset Administration Shell Descriptors, and Submodel Descriptors. In accordance, also these objects are returned in the Query Result. In addition, their representation can be controlled via the select statements of the input query, e.g., by only selecting the identifiers of the respective objects rather than the whole content. 
 
@@ -561,7 +556,7 @@ e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or
 ----
 |===
 
-=== Simple Data Types
+== Simple Data Types
 
 All simple data types from link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#predefined_simple_data_types[Part 1] xref:bibliography.adoc#bib1[[1\]] apply also to the specifications described in this document.
 Additional data types are defined in <<table-simple-data-types-used-for-api-specific-classes>>.
@@ -578,7 +573,7 @@ Additional data types are defined in <<table-simple-data-types-used-for-api-spec
 
 |===
 
-=== Primitive Data Types
+== Primitive Data Types
 
 All primitive data types from link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#primitive-data-types[Part 1] apply also to the specifications described in this document.
 All constraints and spelling patterns apply as well.
@@ -629,7 +624,7 @@ a|
 
 |===
 
-=== Status Code, Error Handling & Result Messages 
+== Status Code, Error Handling & Result Messages 
 
 This clause deals with the error and result handling of an operation’s execution in a technology-independent manner.
 
@@ -637,7 +632,7 @@ The first clause covers generic status codes that are returned on each request, 
 The subsequent clause describes the result object that is returned in case of failure.
 
 [[StatusCode]]
-==== Generic Status Codes
+=== Generic Status Codes
 
 Successful operations return one of the success status codes and their respective payload.
 
@@ -667,7 +662,7 @@ Additionally, the table indicates whether a specific status code comes with a re
 |===
 
 [[general-result-object]]
-==== General Result Object
+=== General Result Object
 
 In case of a failed operation execution, a result object [.underline]#shall be returned# containing more information about the reasons why the operation failed to execute.
 
@@ -714,11 +709,11 @@ e|Error a|Used for handling errors
 e|Exception a|Used in case of an internal and/or unhandled exception
 |===
 
-==== Operation Objects
+=== Operation Objects
 
 The following type definitions are used to call and handle the requests and responses while performing synchronous or asynchronous operation invocation.
 
-===== OperationRequest
+==== OperationRequest
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -736,7 +731,7 @@ h|Attribute h|Explanation h|Type h|Card.
 |===
 
 [#operation-request-value-only]
-===== OperationRequestValueOnly
+==== OperationRequestValueOnly
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -753,7 +748,7 @@ h|Attribute h|Explanation h|Type h|Card.
 |clientTimeoutDuration a|Duration indicating when the client suggests the server to have finished execution of the invoked operation. The server may take this value into account to decide on its effective timeout, however, the server may or may not use by its own discretion. |duration |0..1
 |===
 
-===== BaseOperationResult
+==== BaseOperationResult
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -768,7 +763,7 @@ e|executionState |Execution state |xref:ExecutionState[ExecutionState] |1
 e|success |Flag indicating whether the business operation behind the operation was successful (true) or not (false) |boolean |0..1
 |===
 
-===== OperationResult
+==== OperationResult
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -785,7 +780,7 @@ e|inoutputArguments |InOutput argument |link:https://industrialdigitaltwin.io/aa
 
 
 [#operation-result-value-only]
-===== OperationResultValueOnly
+==== OperationResultValueOnly
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -800,7 +795,7 @@ e|outputArguments |Output argument |link:https://industrialdigitaltwin.io/aas-sp
 e|inoutputArguments |InOutput argument |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#json-schema-value-only[ValueOnly] |0..*
 |===
 
-===== Enumeration ExecutionState 
+==== Enumeration ExecutionState 
 
 [.table-with-appendix-table]
 [cols="30%,70%"]
@@ -819,7 +814,7 @@ e|Timeout a|The operation has timed out due to given client or server timeout
 |===
 
 
-===== OperationHandle 
+==== OperationHandle 
 
 [.table-with-appendix-table]
 [cols="25%,40%,25%,10%"]
@@ -834,7 +829,7 @@ e|handleId |Handle ID |xref:ShortIdType[ShortIdType] |1
 |===
 
 [#file-content]
-=== File Content
+== File Content
 
 The “File Content” type of the operations mentioned above is seen as “arbitrary binary data” according to RFC 2046 and is as such defined as byte-array in UTF8-encoding.
 If a content type is required, “application/octet-stream” must be used as defined in RFC 2046.
