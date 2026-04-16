@@ -222,7 +222,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 
 ==== Submodel Interface
 
-[%autowidth,width="100%",options="header",]
+[width=100%,cols="25%,75%"]
 |===
 2+h|Interface: [[interface-Submodel]]_Submodel_
 h|Operation Name h|Description
@@ -654,7 +654,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |aasIds |The unique ids of the Asset Administration Shells to be contained in the serialization |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |submodelIds |The unique ids of the Submodels to be contained in the serialization |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
-|includeConceptDescriptions a|Include all concept descriptions that are referenced in the Submodels contained in the serialization and that are known to the server |no |boolean |1
+|includeConceptDescriptions a|Include all concept descriptions that are referenced in the Submodels contained in the serialization and that are known to the server
+====
+Note: This shall also include the concept descriptions that are indirectly referenced by a Submodel, e.g., via the `valueList` attribute from the  IEC 63260 data specification template.
+====
+
+|no |boolean |1
 |serializationFormat |Denotes in which serialization format the requested content shall be delivered |no |xref:specification/interfaces.adoc#SerializationFormat[SerializationFormat] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -666,7 +671,9 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 
 h|Enumeration: e|[[SerializationFormat]]SerializationFormat
-h|Explanation: a|Determines the format of serialization, i.e. JSON, XML, RDF, AML, etc.RFC 6838, IANA Media Types, and defined custom content types; additional elements may be added in future versions
+h|Explanation: a|Determines the format of serialization, for example JSON or XML.
+
+The values are media types conformant to RFC 2046 and registered as described in RFC 6838 (IANA).
 h|Set of: |--
 h|Literal h|Explanation
 e|application/json a|JSON serialization of the requested data object inside an AAS Environment structure
@@ -1331,8 +1338,12 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |aas |Asset Administration Shell object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 5+h|Output Parameter
+====
+Note: The `id` of the contained Asset Administration Shell object has to be exactly the same as in the `id` input parameter. A server shall respond with a `ClientErrorBadRequest` otherwise.
+====
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Replaced Asset Administration Shell | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
