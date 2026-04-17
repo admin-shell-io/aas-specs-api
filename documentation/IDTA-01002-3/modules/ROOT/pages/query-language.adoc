@@ -50,7 +50,7 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 
 1. Only selected attributes defined by the AAS data model xref:bibliography.adoc#bib1[[1\]] can be used as conditions for returned objects: Usage of custom or vendor-specific attributes outside of the AAS specifications is generally not recommended and may lead to a rejections of the query by the receiving systems.
 
-1. It is not possible to traverse through the specific fields of the SubmodelElements Entity (e.g. Entity/statements), AnnotatedRelationshipElement (e.g. AnnotatedRelationshipElement/annotations), or Operation (e.g. Operation/outputVariables). Only the fields `semanticId` `idShort`, `value`, and `valueType` are available for SubmodelElements.
+1. It is not possible to traverse through the specific fields of the SubmodelElements Entity (e.g. Entity/statements), AnnotatedRelationshipElement (e.g. AnnotatedRelationshipElement/annotations), or Operation (e.g. Operation/outputVariables). Only the fields `semanticId`, `supplementalSemanticIds`, `idShort`, `value`, `valueType`, and `language` are available for SubmodelElements.
 
 1. The rendering of the "oneOf" clause of logicalExpressions does not work in SwaggerHub. This issue has no effect on the functionality of the requirement.
 
@@ -115,7 +115,7 @@ Attribute declarations point to literal values that provide the input for compar
 |===
 h| Root Element h| Definition h| Example
 | `id` | Identifier, e.g., of an AAS, Submodel, or Condept Description | `$aas#id`
-| `idShort` | Value of the idShort attribute | `$aas#id`
+| `idShort` | Value of the idShort attribute | `$aas#idShort`
 | `assetInformation.assetKind` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetKind`
 | `assetInformation.assetType` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetType`
 | `assetInformation.globalAssetId` | Value of the globalAssetId attribute of an AAS | `$aas#assetInformation.globalAssetId`
@@ -124,10 +124,10 @@ h| Root Element h| Definition h| Example
 | `assetInformation.specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[0].externalSubjectId.type`
 | `assetInformation.specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[0].externalSubjectId.keys[].value`
 | `assetInformation.specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[0].externalSubjectId.keys[].type`
-| `submodels` | Shortcut for Submodels referenced by an AAS, see Clause xref:references[References] | `$aas#submodels`
-| `submodels.type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels.type`
-| `submodels.keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[].value`
-| `submodels.keys[<index>].type` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[0].type`
+| `submodels[<index>]` | Shortcut for Submodels referenced by an AAS, see Clause xref:references[References] | `$aas#submodels[]`
+| `submodels[<index>].type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels[].type`
+| `submodels[<index>].keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels[].keys[].value`
+| `submodels[<index>].keys[<index>].type` | Type of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels[0].keys[0].type`
 | `semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$sm#semanticId`
 | `semanticId.type` | ReferenceType of a semanticId Reference | `$sm#semanticId.type`
 | `semanticId.keys[<index>].type` | KeyType of a semanticId Reference | `$sm#semanticId.keys[].type`
@@ -163,18 +163,18 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 ====
 
 | `$smdesc#endpoints[0].protocolinformation.href`
-| `submodelDescriptors.semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.semanticId`
-| `submodelDescriptors.semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.type`
-| `submodelDescriptors.semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.keys[].type`
-| `submodelDescriptors.semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.keys[].value`
-| `submodelDescriptors.supplementalSemanticIds` | Shortcut for supplementalSemanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.supplementalSemanticIds`
-| `submodelDescriptors.supplementalSemanticIds[<index>].type` | ReferenceType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.supplementalSemanticIds[].type`
-| `submodelDescriptors.supplementalSemanticIds[<index>].keys[<index>].type` | KeyType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.supplementalSemanticIds[].keys[].type`
-| `submodelDescriptors.supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.supplementalSemanticIds[].keys[].value`
-| `submodelDescriptors.id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.id`
-| `submodelDescriptors.idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.idShort`
-| `submodelDescriptors.endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].interface`
-| `submodelDescriptors.endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].protocolinformation.href`
+| `submodelDescriptors[<index>].semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors[].semanticId`
+| `submodelDescriptors[<index>].semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].semanticId.type`
+| `submodelDescriptors[<index>].semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].semanticId.keys[].type`
+| `submodelDescriptors[<index>].semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].semanticId.keys[].value`
+| `submodelDescriptors[<index>].supplementalSemanticIds` | Shortcut for supplementalSemanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors[].supplementalSemanticIds`
+| `submodelDescriptors[<index>].supplementalSemanticIds[<index>].type` | ReferenceType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].type`
+| `submodelDescriptors[<index>].supplementalSemanticIds[<index>].keys[<index>].type` | KeyType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].type`
+| `submodelDescriptors[<index>].supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].value`
+| `submodelDescriptors[<index>].id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].id`
+| `submodelDescriptors[<index>].idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].idShort`
+| `submodelDescriptors[<index>].endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].endpoints[0].interface`
+| `submodelDescriptors[<index>].endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].endpoints[].protocolinformation.href`
 |===
 
 == Comparison Operators
@@ -269,17 +269,17 @@ h| Comparison h| Result h| Comment
 | `"11"` `$gt` `"2"` | false | String comparison is executed character-wise: The first character of the left parameter ("1") comes before the first character of the right parameter ("2").
 | `$aas#assetInformation.assetKind` +
 `$eq`  +
-`$aas#submodels` | false | `$aas#submodels` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
+`$aas#submodels[]` | false | `$aas#submodels[]` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
 | `$aas#assetInformation.assetKind`  +
 `$ne`  +
-`$aas#submodels` | true | `$aas#submodels` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
+`$aas#submodels[]` | true | `$aas#submodels[]` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
 | `$aas#assetInformation.assetKind`  +
 `$eq`  +
 `$aas#assetInformation.assetKind` | true | Comparison of identical values
 | `$aas#assetInformation.assetKind`  +
 `$ne`  +
 `$aas#assetInformation.assetKind` | false | Comparison of identical values
-| `$aas#submodels` `$eq` `$aas#submodels` | true | By definition.
+| `$aas#submodels[]` `$eq` `$aas#submodels[]` | true | By definition.
 | `$aas#assetInformation.assetKind` `$eq` `17` | false | `17` is implicetly casted to the string `"17"`, however, this is different to the value of the first paramter `"Instance"`.
 | `$aas#assetInformation.assetKind` `$ne` `17` | true | `17` is implicetly casted to the string `"17"`, which is not equal to the value of the first paramter `"Instance"`.
 | `$aas#assetInformation.assetKind`  +
@@ -323,13 +323,12 @@ For explicite casting the following casting operators are used:
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Casting Operator h| Description h| Definition
-| `$str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
-| `$num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
-| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
-| `$bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
-| `$hex(<value>)` | Casts the `value` to `xs:hexBinary`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-binary
-| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
-| `$time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
+| `str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| `num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number
+| `bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| `hex(<value>)` | Casts the `value` to `xs:hexBinary`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-binary
+| `dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
+| `time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
 |===
 
 Implicit casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
