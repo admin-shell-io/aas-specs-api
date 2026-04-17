@@ -536,6 +536,31 @@ a|
 
 The AAS Query Language does not introduce additional functionalities to control the pagination or sorting of the result sets. The general capabilities available for Operations apply as well for queries. See for instance xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] for the pagination mechanism for the HTTP APIs, which also define the pagination and sorting behavior for AAS queries that are exchanged via HTTP.
 
+[[query-evaluation-semantics]]
+== Query Evaluation Semantics (normative)
+
+This clause defines how an AAS query MUST be evaluated so that client and server implementations behave deterministically.
+
+=== Parse and Validation
+
+* A query that does not match the BNF `grammar.bnf` or does not validate against the JSON Schema MUST be rejected with HTTP status `400 Bad Request`.
+* Combinations that parse but are semantically unsupported by the server (e.g. operator/type combinations the server does not implement) MUST be rejected with HTTP status `422 Unprocessable Entity`.
+
+=== Evaluation of FieldIdentifiers
+
+* A FieldIdentifier that does not resolve to any value on a candidate object (because the field does not exist on that target) produces *no comparison match*: the candidate is excluded from the result set. This MUST NOT raise an error.
+* A FieldIdentifier that is not applicable for the active profile (see xref:http-rest-api/service-specifications-and-profiles.adoc#fieldidentifier-applicability[FieldIdentifier Applicability per Profile]) is treated like "field does not exist": the candidate is excluded, no error is raised.
+* A list-valued FieldIdentifier (`submodels[]`, `specificAssetIds[]`, `supplementalSemanticIds[]`, ...) matches when *at least one* list element satisfies the comparison, unless an explicit index is provided.
+
+=== Casting Errors
+
+* An explicit cast that fails on the current candidate (e.g. `num("abc")`) MUST exclude the candidate from the result set; it MUST NOT fail the whole query.
+* Implicit casts between the types listed in clause xref:_casting[] follow the same rule.
+
+=== Combination with Access Rules
+
+When a query is evaluated by a service that also enforces Access Rules (see IDTA-01004), the query's candidate set MUST be filtered through the applicable access rules before being returned. Access rules that evaluate to `not applicable` for a candidate (e.g. because a referenced FieldIdentifier does not exist in the current profile) MUST NOT cause the query to fail; such rules simply do not contribute an ALLOW for the candidate.
+
 == JSON Schema
 
 The AAS HTTP API represents AAS Queries as JSON objects. A JSON schema according to the grammar above has been defined.
