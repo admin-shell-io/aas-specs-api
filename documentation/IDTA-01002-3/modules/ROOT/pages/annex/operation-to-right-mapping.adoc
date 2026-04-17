@@ -1,0 +1,84 @@
+////
+Copyright (c) 2024 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+
+////
+
+[#operation-to-right-mapping]
+[appendix]
+= Operation to RIGHT Mapping (normative)
+
+This annex defines the normative mapping from each AAS HTTP/REST API operation to the RIGHT value that a security implementation (see IDTA-01004 Access Rule Model, clause "Rights and operation verbs") MUST use when evaluating access rules for the operation.
+
+The mapping is deterministic: if an implementation of IDTA-01004 denies a request with a given RIGHT, it MUST deny the operations that are listed for that RIGHT below, regardless of HTTP method.
+
+The table uses the following conventions:
+
+* `Operation Name` corresponds to the operationId in the OpenAPI document.
+* `URL Template` is the path template per xref:http-rest-api/http-rest-api.adoc[].
+* `RIGHT` is the RIGHT value from IDTA-01004 `rightsEnum`. When two RIGHTS are listed (for example for PUT on client-addressable resources), the security implementation MUST resolve the right at request time, based on whether the targeted resource already exists (UPDATE) or not (CREATE).
+* `ROUTE literal example` shows a compatible `ROUTE:` pattern for access rules. Wildcards follow xref:../access-rule-model.adoc#_object_group[ROUTE matching rules].
+
+[cols="3,1,3,2,3",options="header"]
+|===
+| Operation Name | HTTP | URL Template | RIGHT | ROUTE literal example
+
+| GetAllAssetAdministrationShells       | GET    | /shells                                      | READ           | "/shells"
+| GetAssetAdministrationShellById       | GET    | /shells/{aasIdentifier}                      | READ           | "/shells/*"
+| PostAssetAdministrationShell          | POST   | /shells                                      | CREATE         | "/shells"
+| PutAssetAdministrationShellById       | PUT    | /shells/{aasIdentifier}                      | CREATE or UPDATE | "/shells/*"
+| DeleteAssetAdministrationShellById    | DELETE | /shells/{aasIdentifier}                      | DELETE         | "/shells/*"
+
+| GetAllSubmodels                       | GET    | /submodels                                   | READ           | "/submodels"
+| GetSubmodelById                       | GET    | /submodels/{submodelIdentifier}              | READ           | "/submodels/*"
+| PostSubmodel                          | POST   | /submodels                                   | CREATE         | "/submodels"
+| PutSubmodelById                       | PUT    | /submodels/{submodelIdentifier}              | CREATE or UPDATE | "/submodels/*"
+| PatchSubmodelById                     | PATCH  | /submodels/{submodelIdentifier}              | UPDATE         | "/submodels/*"
+| DeleteSubmodelById                    | DELETE | /submodels/{submodelIdentifier}              | DELETE         | "/submodels/*"
+
+| GetAllSubmodelElements                | GET    | /submodels/{submodelIdentifier}/submodel-elements                          | READ    | "/submodels/*/submodel-elements"
+| GetSubmodelElementByPath              | GET    | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}            | READ    | "/submodels/*/submodel-elements/*"
+| PostSubmodelElementByPath             | POST   | /submodels/{submodelIdentifier}/submodel-elements                          | CREATE  | "/submodels/*/submodel-elements"
+| PutSubmodelElementByPath              | PUT    | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}            | CREATE or UPDATE | "/submodels/*/submodel-elements/*"
+| PatchSubmodelElementByPath            | PATCH  | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}            | UPDATE  | "/submodels/*/submodel-elements/*"
+| DeleteSubmodelElementByPath           | DELETE | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}            | DELETE  | "/submodels/*/submodel-elements/*"
+| InvokeOperation                       | POST   | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke     | EXECUTE | "/submodels/*/submodel-elements/*/invoke"
+| InvokeOperationAsync                  | POST   | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async | EXECUTE | "/submodels/*/submodel-elements/*/invoke-async"
+| GetOperationAsyncStatus               | GET    | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-status/{handleId} | READ | "/submodels/*/submodel-elements/*/operation-status/*"
+| GetFileByPath                         | GET    | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment | READ    | "/submodels/*/submodel-elements/*/attachment"
+| PutFileByPath                         | PUT    | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment | UPDATE  | "/submodels/*/submodel-elements/*/attachment"
+| DeleteFileByPath                      | DELETE | /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/attachment | DELETE  | "/submodels/*/submodel-elements/*/attachment"
+
+| GetAllConceptDescriptions             | GET    | /concept-descriptions                        | READ           | "/concept-descriptions"
+| GetConceptDescriptionById             | GET    | /concept-descriptions/{cdIdentifier}         | READ           | "/concept-descriptions/*"
+| PostConceptDescription                | POST   | /concept-descriptions                        | CREATE         | "/concept-descriptions"
+| PutConceptDescriptionById             | PUT    | /concept-descriptions/{cdIdentifier}         | CREATE or UPDATE | "/concept-descriptions/*"
+| DeleteConceptDescriptionById          | DELETE | /concept-descriptions/{cdIdentifier}         | DELETE         | "/concept-descriptions/*"
+
+| GetAllAssetAdministrationShellDescriptors | GET | /shell-descriptors                          | VIEW           | "/shell-descriptors"
+| GetAssetAdministrationShellDescriptorById | GET | /shell-descriptors/{aasIdentifier}          | VIEW           | "/shell-descriptors/*"
+| PostAssetAdministrationShellDescriptor    | POST | /shell-descriptors                         | CREATE         | "/shell-descriptors"
+| PutAssetAdministrationShellDescriptorById | PUT | /shell-descriptors/{aasIdentifier}          | CREATE or UPDATE | "/shell-descriptors/*"
+| DeleteAssetAdministrationShellDescriptorById | DELETE | /shell-descriptors/{aasIdentifier}     | DELETE         | "/shell-descriptors/*"
+
+| GetAllSubmodelDescriptors             | GET    | /submodel-descriptors                        | VIEW           | "/submodel-descriptors"
+| GetSubmodelDescriptorById             | GET    | /submodel-descriptors/{submodelIdentifier}   | VIEW           | "/submodel-descriptors/*"
+| PostSubmodelDescriptor                | POST   | /submodel-descriptors                        | CREATE         | "/submodel-descriptors"
+| PutSubmodelDescriptorById             | PUT    | /submodel-descriptors/{submodelIdentifier}   | CREATE or UPDATE | "/submodel-descriptors/*"
+| DeleteSubmodelDescriptorById          | DELETE | /submodel-descriptors/{submodelIdentifier}   | DELETE         | "/submodel-descriptors/*"
+
+| GetAllAssetLinks                      | GET    | /lookup/shells                               | VIEW           | "/lookup/shells"
+| GetAllAssetAdministrationShellIdsByAssetLink | POST | /lookup/shells                          | VIEW           | "/lookup/shells"
+| PostAllAssetLinksById                 | POST   | /lookup/shells/{aasIdentifier}               | CREATE or UPDATE | "/lookup/shells/*"
+| DeleteAllAssetLinksById               | DELETE | /lookup/shells/{aasIdentifier}               | DELETE         | "/lookup/shells/*"
+
+| GetDescription                        | GET    | /description                                 | READ           | "/description"
+
+| SearchQuery                           | POST   | /query                                       | READ           | "/query"
+|===
+
+For profiles that expose only a subset of these operations (see xref:http-rest-api/service-specifications-and-profiles.adoc#fieldidentifier-applicability[Profiles]), only the rows that correspond to supported operations are applicable. Operations that are added in future minor versions MUST be appended to this table and inherit their RIGHT from the Operation-verb column in xref:../access-rule-model.adoc#table-rights-to-verbs[IDTA-01004 Rights-to-verbs].
