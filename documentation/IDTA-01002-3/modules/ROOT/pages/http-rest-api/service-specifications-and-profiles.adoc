@@ -76,6 +76,30 @@ Additional profiles might be introduced in future versions of this document.
 Note: in the following, only the last part (<name of service specification>/SSP-<profile number>) is used in the text for better readability, e.g. “AssetAdministrationShellServiceSpecification/SSP-001” instead of “https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001”.
 ====
 
+[#fieldidentifier-applicability]
+=== FieldIdentifier Applicability per Profile
+
+The AAS Query Language (see xref:query-language.adoc[]) and the Security Access Rule Model (see the Security specification, IDTA-01004) use a set of FieldIdentifier prefixes (`$aas`, `$sm`, `$sme`, `$cd`, `$aasdesc`, `$smdesc`). Not every prefix is meaningful in every profile, because the underlying data is only exposed by specific service specifications.
+
+The following table summarises which FieldIdentifier prefix is applicable per service specification family:
+
+[cols="3,1,1,1,1,1,1",options="header"]
+|===
+| Service Specification (family) | $aas | $sm | $sme | $cd | $aasdesc | $smdesc
+| AssetAdministrationShellRepositoryServiceSpecification | ✓ | ✓ | ✓ | — | — | —
+| SubmodelRepositoryServiceSpecification                 | — | ✓ | ✓ | — | — | —
+| ConceptDescriptionRepositoryServiceSpecification       | — | — | — | ✓ | — | —
+| AssetAdministrationShellRegistryServiceSpecification   | — | — | — | — | ✓ | ✓
+| SubmodelRegistryServiceSpecification                   | — | — | — | — | — | ✓
+| AssetAdministrationShellServiceSpecification           | ✓ | ✓ | ✓ | — | — | —
+| SubmodelServiceSpecification                           | — | ✓ | ✓ | — | — | —
+| DiscoveryServiceSpecification                          | — | — | — | — | — | —
+|===
+
+Queries and access rules that reference a prefix marked with "—" for the chosen profile are treated as *not applicable* in that profile: they MUST NOT cause a parse or evaluation error, they simply do not match any object in the deployment. Implementations SHOULD clearly indicate in their deployment documentation which profiles they expose so that operators can scope their rules accordingly.
+
+This table is referenced by IDTA-01004 § "Descriptor FieldIdentifier Applicability".
+
 [#asset-administration-shell-service-specification]
 == Asset Administration Shell Service Specification
 
