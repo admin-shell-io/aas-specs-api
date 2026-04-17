@@ -132,6 +132,10 @@ h| Root Element h| Definition h| Example
 | `semanticId.type` | ReferenceType of a semanticId Reference | `$sm#semanticId.type`
 | `semanticId.keys[<index>].type` | KeyType of a semanticId Reference | `$sm#semanticId.keys[].type`
 | `semanticId.keys[<index>].value` | Value of a key of a semanticId Reference | `$sme#semanticId.keys[].value`
+| `supplementalSemanticIds` | Shortcut for supplementalSemanticIds, see Clause xref:references[References] | `$sm#supplementalSemanticIds`
+| `supplementalSemanticIds[<index>].type` | ReferenceType of a supplementalSemanticId Reference | `$sm#supplementalSemanticIds[].type`
+| `supplementalSemanticIds[<index>].keys[<index>].type` | KeyType of a supplementalSemanticId Reference | `$sm#supplementalSemanticIds[].keys[].type`
+| `supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference | `$sm#supplementalSemanticIds[].keys[].value`
 | `value` | Value of a Submodel Element | `$sme#value`
 | `valueType` | ValueType of a Submodel Element | `$sme.someIdShort#valueType`
 | `language` | Language of a Multilanguage Property | `$sme#language`
@@ -163,6 +167,10 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 | `submodelDescriptors.semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.type`
 | `submodelDescriptors.semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.keys[].type`
 | `submodelDescriptors.semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.keys[].value`
+| `submodelDescriptors.supplementalSemanticIds` | Shortcut for supplementalSemanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.supplementalSemanticIds`
+| `submodelDescriptors.supplementalSemanticIds[<index>].type` | ReferenceType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.supplementalSemanticIds[].type`
+| `submodelDescriptors.supplementalSemanticIds[<index>].keys[<index>].type` | KeyType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.supplementalSemanticIds[].keys[].type`
+| `submodelDescriptors.supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.supplementalSemanticIds[].keys[].value`
 | `submodelDescriptors.id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.id`
 | `submodelDescriptors.idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.idShort`
 | `submodelDescriptors.endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].interface`
@@ -394,6 +402,22 @@ A comparison using the semanticId as a shortcut could look like the following:
 ....
   $sme#semanticId $eq "https://example.com/a/semantic/id"
 ....
+
+This shall also work for supplementalSemanticIds, e.g.:
+
+....
+  $sme#supplementalSemanticIds $eq "https://example.com/a/supplemental/semantic/id"
+....
+
+Which is equivalent to:
+....
+  $sme#supplementalSemanticIds[].keys[0].value $eq "https://example.com/a/supplemental/semantic/id"
+....
+
+====
+Note: `supplementalSemanticIds` is a list, therefore, the comparison with the shortcut will be true if at least one of the supplementalSemanticIds has the given value, not necessarily the first one.
+====
+
 
 == Match of Elements in Lists
 
