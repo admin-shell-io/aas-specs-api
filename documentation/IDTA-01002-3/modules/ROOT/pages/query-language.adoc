@@ -22,6 +22,15 @@ The Asset Administration Shell propagates a Query Language inspired by the so-ca
 Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib3[[3\]] share the same BNF grammar. Therefore, the result is a superset, with `query` as the entrypoint for the Query Language. 
 ====
 
+[#formula-grammar-sot]
+=== Single source of truth for the formula grammar and JSON Schema
+
+The BNF grammar and JSON Schema productions for *formula expressions* (logical expressions, comparisons, FieldIdentifiers, value literals, operands, type casts, and `$match` / `$and` / `$or` / `$not` operators) are *normatively defined in this specification* (IDTA-01002, this chapter and the JSON Schema below).
+
+IDTA-01004 Part 4: Security xref:bibliography.adoc#bib3[[3\]] uses the same formula grammar and schema for `FORMULA`, `FILTER` and related constructs in Access Rules. IDTA-01004 MUST NOT redefine or diverge from these shared productions; it only adds Access-Rule-specific productions (`ACL`, `OBJECTS`, `RIGHTS`, `ACCESS`, `ROUTE`, etc.) on top.
+
+If a future bugfix or minor release changes a shared production in IDTA-01002, IDTA-01004 inherits that change. Implementations SHOULD validate formulas against the schema shipped with their IDTA-01002 version.
+
 
 == Use Case Examples
 
