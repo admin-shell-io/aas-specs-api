@@ -1,21 +1,21 @@
 {
     "$schema": "../../query-json-schema.json",
     "select": "id",
-    "filter": {
-        "$and":[
-            {
+    "$filters": [
+        {
+            "$fragment": "$sme#value",
+            "$condition": {
                 "$eq": [
                     {
-                        "strModel": "$sm.semanticId.keys.value"
+                        "$field": "$sm#semanticId.keys[].value"
                     },
                     {
-                        "strVal": "https://example.org/value"
+                        "$strVal": "https://example.org/value"
                     }
                 ]
-            },
-            {}
-        ]
-    },
+            }
+        }
+    ],
     "option": {
         "sort": {
             "id": "asc"
