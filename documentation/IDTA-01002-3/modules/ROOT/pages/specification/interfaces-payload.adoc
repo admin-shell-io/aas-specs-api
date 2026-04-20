@@ -557,6 +557,70 @@ e|QueryResult<AssetAdministrationShell> |List of Asset Administration Shells _or
 ----
 |===
 
+[[RecentChanges]]
+== Recent Changes
+
+Finding recently added or changed elements in the repository is required in several use cases.
+Since the number of changed objects can be very large the result of such a query might be paginated and only contain the identifiers of the changed objects and a few supporting attributes.
+The following table describes the data types used for such a result.
+
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[RecentChange]]RecentChange
+h|Explanation 3+a|
+
+
+This class is not part of the metamodel.
+
+
+h|Inherits from 3+|--
+h|semanticId 3+| `\https://admin-shell.io/aas/API/DataTypes/RecentChange/3/2`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|createdAt a|The point in time at which the Identifiable object was created |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] | 1
+e|updatedAt a|The point in time at which the Identifiable object was recently updated |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] | 1
+
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[AssetAdministrationShellRecentChange]]AssetAdministrationShellRecentChange
+h|Explanation 3+a|
+
+
+This class is not part of the metamodel.
+
+
+h|Inherits from 3+|xref:RecentChange[RecentChange]
+h|semanticId 3+| `\https://admin-shell.io/aas/API/DataTypes/AssetAdministrationShellRecentChange/3/2`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|id a|Globally unique identification of the Asset Administration Shell |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[SubmodelRecentChange]]SubmodelRecentChange
+h|Explanation 3+a|
+
+
+This class is not part of the metamodel.
+
+
+h|Inherits from 3+|xref:RecentChange[RecentChange]
+h|semanticId 3+| `\https://admin-shell.io/aas/API/DataTypes/SubmodelRecentChange/3/2`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|id a|Globally unique identification of the Submodel |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+
+|===
+
+
 == Simple Data Types
 
 All simple data types from link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#predefined_simple_data_types[Part 1] xref:bibliography.adoc#bib1[[1\]] apply also to the specifications described in this document.
