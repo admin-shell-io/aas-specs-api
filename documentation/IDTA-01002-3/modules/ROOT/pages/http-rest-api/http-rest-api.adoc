@@ -56,6 +56,7 @@ Reduced objects can be requested by the path suffix "/$<content>".
 See xref:bibliography.adoc#bib1[[1]] for further details.
 
 Exceptions to this rule are API Operations requiring pagination and error cases.
+
 * By default, blobs are not part of the payload.
 Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
 * Submodels define a hierarchical structure.
@@ -317,7 +318,7 @@ The payload is generated from the technology-neutral specification as described 
 // Previously pointing to Clause 11.4.2
 The link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#value-only-serialization-in-json[serialization of JSON values] is described in xref:bibliography.adoc#bib1[[1]].
 
-Additional classes needed for payload of the HTTP/REST API specification can be found in xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details].
+Additional classes needed for payload of the HTTP/REST API specification can be found in the xref:specification/interfaces-payload.adoc#descriptor[Descriptor Definition].
 
 [#modifier-constraints]
 == Modifier Constraints
@@ -517,6 +518,8 @@ date=\{dateTime\} is the date and time for which the version of the AAS shall be
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
 s|AasInterface s|* s|/shells/\{aasIdentifier}/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShells |POST |/query/shells a| Input query in the request body
+|GetAssetAdministrationShellByIdSigned |GET |/shells/\{aasIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|Submodel Repository Interface
 |GetAllSubmodels |GET |/submodels a|
@@ -551,6 +554,8 @@ date=\{dateTime\} is the date and time for which the version of the Submodel sha
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 s|SubmodelInterface s|* s|/submodels/\{submodelIdentifier}/* s|superpath as defined in service specification or profile
 |QuerySubmodels |POST |/query/submodels a| Input query in the request body
+|GetSubmodelByIdSigned |GET |/submodels/\{submodelIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|Concept Description Repository Interface
 |GetAllConceptDescriptions |GET |/concept-descriptions |Pagination
@@ -575,6 +580,8 @@ Pagination
 |PutConceptDescriptionById |PUT |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |DeleteConceptDescriptionById |DELETE |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |QueryConceptDescriptions |POST |/query/concept-descriptions a| Input query in the request body
+|GetConceptDescriptionByIdSigned |GET |/concept-descriptions/\{cdIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|AASX File Server Interface
 |GetAllAASXPackageIds |GET |/packages a|

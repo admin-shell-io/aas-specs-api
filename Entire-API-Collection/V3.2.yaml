@@ -1446,7 +1446,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequest'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsync'
         required: true
       responses:
         '202':
@@ -1479,7 +1479,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestValueOnly'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsyncValueOnly'
         required: true
       responses:
         '202':
@@ -2691,7 +2691,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequest'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsync'
         required: true
       responses:
         '202':
@@ -2729,7 +2729,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestValueOnly'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsyncValueOnly'
         required: true
       responses:
         '202':
@@ -2958,6 +2958,7 @@ paths:
       operationId: GetAssetAdministrationShellById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/2
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShellByIdAndDate/3/2
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Date'
       responses:
@@ -3062,6 +3063,37 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/Reference'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /shells/{aasIdentifier}/$signed:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetAdministrationShellIdentifier'
+    get:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Returns a specific Asset Administration Shell as a JWS string
+      operationId: GetAssetAdministrationShellByIdSigned
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAssetAdministrationShellByIdSigned/3/2
+      responses:
+        '200':
+          description: Requested Asset Administration Shell as a JWS string.
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: jwt
+                description: A JWS string containing the requested Asset Administration Shell
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
         '401':
@@ -4443,7 +4475,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequest'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsync'
         required: true
       responses:
         '202':
@@ -4477,7 +4509,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestValueOnly'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsyncValueOnly'
         required: true
       responses:
         '202':
@@ -5137,6 +5169,37 @@ paths:
             application/json:
               schema:
                 $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/Reference'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /submodels/{submodelIdentifier}/$signed:
+    parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns a specific Submodel as a JWS string
+      operationId: GetSubmodelByIdSigned
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelByIdSigned/3/2
+      responses:
+        '200':
+          description: Requested Submodel as a JWS string.
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: jwt
+                description: A JWS string containing the requested Submodel
         '400':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
         '401':
@@ -5995,7 +6058,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequest'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsync'
         required: true
       responses:
         '202':
@@ -6035,7 +6098,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestValueOnly'
+              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/OperationRequestAsyncValueOnly'
         required: true
       responses:
         '202':
@@ -6381,7 +6444,42 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
-
+  /concept-descriptions/{cdIdentifier}/$signed:
+    get:
+      tags:
+        - Concept Description Repository API
+      summary: Returns a specific Concept Description as a JWS string.
+      operationId: GetConceptDescriptionByIdSigned
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetConceptDescriptionByIdSigned/3/2
+      parameters:
+        - name: cdIdentifier
+          in: path
+          description: The Concept Description’s unique id (UTF8-BASE64-URL-encoded)
+          required: true
+          style: simple
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Requested Concept Description as a JWS string.
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: jwt
+                description: A JWS string containing the requested Concept Description.
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '404':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
 
   /query/concept-descriptions:
     post:
@@ -7689,7 +7787,7 @@ paths:
         '200':
           description: Requested serialization based on SerializationFormat
           content:
-            application/aas+zip:
+            application/asset-administration-shell-package+xml:
               schema:
                 description: AASX package
                 type: string
