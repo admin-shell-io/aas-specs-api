@@ -830,8 +830,8 @@ These identifiers may be discovered through the interfaces described in <<publis
 h|Operation Name h|Description
 
 |xref:GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] a|Returns all Asset Administration Shell Descriptors
-|xref:GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] a|Returns a specific Asset Administration Shell Descriptor
 |xref:GetAllAssetAdministrationShellDescriptorsRecentChanges[GetAllAssetAdministrationShellDescriptorsRecentChanges] a|Returns all Asset Administration Shell Descriptors that have been created or updated
+|xref:GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] a|Returns a specific Asset Administration Shell Descriptor
 |xref:PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
 |xref:CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
 |xref:PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] a|Creates or replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
@@ -861,23 +861,6 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
 |===
 
-==== Operation GetAssetAdministrationShellDescriptorById
-
-[.table-with-appendix-table]
-[width=100%,cols="25%,35%,10%,20%,10%"]
-|===
-h|Operation Name 4+e|[[GetAssetAdministrationShellDescriptorById]]GetAssetAdministrationShellDescriptorById
-h|Explanation 4+a|Returns a specific Asset Administration Shell Descriptor
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/1`
-
-h|Name h|Description h|Mand. h|Type h|Card.
-5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
-5+h|Output Parameter
-|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
-|payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
-|===
-
 ==== Operation GetAllAssetAdministrationShellDescriptorsRecentChanges
 
 [.table-with-appendix-table]
@@ -902,6 +885,23 @@ e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
+|===
+
+==== Operation GetAssetAdministrationShellDescriptorById
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAssetAdministrationShellDescriptorById]]GetAssetAdministrationShellDescriptorById
+h|Explanation 4+a|Returns a specific Asset Administration Shell Descriptor
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
+|payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
 ==== Operation PostAssetAdministrationShellDescriptor
@@ -1224,8 +1224,8 @@ The interfaces that provide access to the entities (Asset Administration Shells,
 h|Operation Name h|Description
 e|xref:GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] |Returns all Asset Administration Shells
 changed Asset Administration Shells
-e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
 e|xref:GetAllAssetAdministrationShellRecentChanges[GetAllAssetAdministrationShellRecentChanges] |Returns information about recently
+e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
 e|xref:GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 e|xref:GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] |Returns all Asset Administration Shells with a specific idShort
 e|xref:GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate] |Returns a specific Asset Administration Shell at a specific point in time.
@@ -1263,26 +1263,6 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 e|payload a|List of Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
 |===
 
-==== Operation GetAssetAdministrationShellById
-
-[.table-with-appendix-table]
-[width=100%,cols="25%,35%,10%,20%,10%"]
-|===
-h|Operation Name 4+e|[[GetAssetAdministrationShellById]]GetAssetAdministrationShellById
-h|Explanation 4+a|Returns a specific Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/1`
-
-h|Name h|Description h|Mand. h|Type h|Card.
-5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
-|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
-|limit |The maximum size of the result set |no |nonNegativeInteger |1
-|cursor |The position from which to resume a result listing |no |string |1
-5+h|Output Parameter
-|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
-|===
-
 ==== Operation GetAllAssetAdministrationShellRecentChanges
 
 [.table-with-appendix-table]
@@ -1306,6 +1286,26 @@ e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested Asset Administration Shell Change Infos |yes |xref:specification/interfaces-payload.adoc#AssetAdministrationShellRecentChange[AssetAdministrationShellRecentChange] |1
+|===
+
+==== Operation GetAssetAdministrationShellById
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAssetAdministrationShellById]]GetAssetAdministrationShellById
+h|Explanation 4+a|Returns a specific Asset Administration Shell
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
+|limit |The maximum size of the result set |no |nonNegativeInteger |1
+|cursor |The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Requested Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation GetAllAssetAdministrationShellsByAssetId
@@ -1466,8 +1466,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: [[interface-SubmodelRepository]]_Submodel Repository_
 h|Operation Name h|Description
 e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
-e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
 e|xref:GetAllSubmodelRecentChanges[GetAllSubmodelRecentChanges] |Returns information about recently changed Submodels
+e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
 e|xref:GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]|Returns a specific version of a Submodel from a given point in time
 e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
 e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] |Returns all Submodels with a specific _idShort_
@@ -1506,24 +1506,6 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |List of Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
-==== Operation GetSubmodelById
-
-[.table-with-appendix-table]
-[width=100%,cols="25%,35%,10%,20%,10%"]
-|===
-h|Operation Name 4+e|[[GetSubmodelById]]GetSubmodelById
-h|Explanation 4+a|Returns a specific Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/1`
-
-h|Name h|Description h|Mand. h|Type h|Card.
-5+h|Input Parameter
-|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
-|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
-5+h|Output Parameter
-|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
-|===
-
 ==== Operation GetAllSubmodelRecentChanges
 
 [.table-with-appendix-table]
@@ -1543,6 +1525,24 @@ e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested Submodel Change Infos |yes |xref:specification/interfaces-payload.adoc#SubmodelRecentChange[SubmodelRecentChange] |1
+|===
+
+==== Operation GetSubmodelById
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetSubmodelById]]GetSubmodelById
+h|Explanation 4+a|Returns a specific Submodel
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation GetSubmodelVersionByIdAndDate
@@ -1720,8 +1720,8 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: _Concept Description Repository_
 h|Operation Name h|Description
 e|xref:GetAllConceptDescriptions[GetAllConceptDescriptions] |Returns all Concept Descriptions
-e|xref:GetConceptDescriptionById[GetConceptDescriptionById] |Returns a specific Concept Description
 e|xref:GetAllConceptDescriptionRecentChanges[GetAllConceptDescriptionRecentChanges] |Returns recently changed Concept Descriptions
+e|xref:GetConceptDescriptionById[GetConceptDescriptionById] |Returns a specific Concept Description
 e|xref:GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] |Returns all Concept Descriptions with a specific _idShort_
 e|xref:GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
 e|xref:GetAllConceptDescriptionsByDataSpecificationReference[GetAllConceptDescriptionsByDataSpecificationReference] |Returns all Concept Descriptions with a specific _dataSpecification_ reference
@@ -1758,23 +1758,6 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
-==== Operation GetConceptDescriptionById
-
-[.table-with-appendix-table]
-[width=100%,cols="25%,35%,10%,20%,10%"]
-|===
-h|Operation Name 4+e|[[GetConceptDescriptionById]]GetConceptDescriptionById
-h|Explanation 4+a|Returns a specific Concept Description
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionById/3/1`
-
-h|Name h|Description h|Mand. h|Type h|Card.
-5+h|Input Parameter
-|id |The Concept Description’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
-5+h|Output Parameter
-|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
-|===
-
 ==== Operation GetAllConceptDescriptionRecentChanges
 
 [.table-with-appendix-table]
@@ -1793,6 +1776,23 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|===
+
+==== Operation GetConceptDescriptionById
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetConceptDescriptionById]]GetConceptDescriptionById
+h|Explanation 4+a|Returns a specific Concept Description
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionById/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|id |The Concept Description’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Requested Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation GetAllConceptDescriptionsByIdShort
