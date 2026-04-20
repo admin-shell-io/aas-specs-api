@@ -831,7 +831,7 @@ h|Operation Name h|Description
 
 |xref:GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] a|Returns all Asset Administration Shell Descriptors
 |xref:GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] a|Returns a specific Asset Administration Shell Descriptor
-|xref:GetAssetAdministrationShellDescriptorRecentChanges[GetAssetAdministrationShellDescriptorRecentChanges] a|Returns all Asset Administration Shell Descriptors that have been created or updated
+|xref:GetAllAssetAdministrationShellDescriptorsRecentChanges[GetAllAssetAdministrationShellDescriptorsRecentChanges] a|Returns all Asset Administration Shell Descriptors that have been created or updated
 |xref:PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
 |xref:CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
 |xref:PutAssetAdministrationShellDescriptorById[PutAssetAdministrationShellDescriptorById] a|Creates or replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
@@ -878,14 +878,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
 |===
 
-==== Operation GetAssetAdministrationShellDescriptorRecentChanges
+==== Operation GetAllAssetAdministrationShellDescriptorsRecentChanges
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetAssetAdministrationShellDescriptorRecentChanges]]GetAssetAdministrationShellDescriptorRecentChanges
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellDescriptorsRecentChanges]]GetAllAssetAdministrationShellDescriptorsRecentChanges
 h|Explanation 4+a|Returns all Asset Administration Shell Descriptors that have been created or updated
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorRecentChanges/3/1`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsRecentChanges/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1225,7 +1225,7 @@ h|Operation Name h|Description
 e|xref:GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] |Returns all Asset Administration Shells
 changed Asset Administration Shells
 e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
-e|xref:GetAssetAdministrationShellRecentChanges[GetAssetAdministrationShellRecentChanges] |Returns information about recently
+e|xref:GetAllAssetAdministrationShellRecentChanges[GetAllAssetAdministrationShellRecentChanges] |Returns information about recently
 e|xref:GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 e|xref:GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] |Returns all Asset Administration Shells with a specific idShort
 e|xref:GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate] |Returns a specific Asset Administration Shell at a specific point in time.
@@ -1283,14 +1283,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |Requested Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
-==== Operation GetAssetAdministrationShellRecentChanges
+==== Operation GetAllAssetAdministrationShellRecentChanges
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetAssetAdministrationShellRecentChanges]]GetAssetAdministrationShellRecentChanges
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellRecentChanges]]GetAllAssetAdministrationShellRecentChanges
 h|Explanation 4+a|Returns information about recently changed Asset Administration Shells
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellRecentChanges/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellRecentChanges/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
@@ -1467,7 +1467,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 h|Operation Name h|Description
 e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
 e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
-e|xref:GetSubmodelRecentChanges[GetSubmodelRecentChanges] |Returns information about recently changed Submodels
+e|xref:GetAllSubmodelRecentChanges[GetAllSubmodelRecentChanges] |Returns information about recently changed Submodels
 e|xref:GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]|Returns a specific version of a Submodel from a given point in time
 e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
 e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] |Returns all Submodels with a specific _idShort_
@@ -1524,14 +1524,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
-==== Operation GetSubmodelRecentChanges
+==== Operation GetAllSubmodelRecentChanges
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetSubmodelRecentChanges]]GetSubmodelRecentChanges
+h|Operation Name 4+e|[[GetAllSubmodelRecentChanges]]GetAllSubmodelRecentChanges
 h|Explanation 4+a|Returns information about all Submodels that have been changed recently
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelRecentChanges/3/1`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelRecentChanges/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1721,7 +1721,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 h|Operation Name h|Description
 e|xref:GetAllConceptDescriptions[GetAllConceptDescriptions] |Returns all Concept Descriptions
 e|xref:GetConceptDescriptionById[GetConceptDescriptionById] |Returns a specific Concept Description
-e|xref:GetConceptDescriptionRecentChanges[GetConceptDescriptionRecentChanges] |Returns recently changed Concept Descriptions
+e|xref:GetAllConceptDescriptionRecentChanges[GetAllConceptDescriptionRecentChanges] |Returns recently changed Concept Descriptions
 e|xref:GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] |Returns all Concept Descriptions with a specific _idShort_
 e|xref:GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
 e|xref:GetAllConceptDescriptionsByDataSpecificationReference[GetAllConceptDescriptionsByDataSpecificationReference] |Returns all Concept Descriptions with a specific _dataSpecification_ reference
@@ -1775,14 +1775,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |Requested Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
-==== Operation GetConceptDescriptionRecentChanges
+==== Operation GetAllConceptDescriptionRecentChanges
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetConceptDescriptionRecentChanges]]GetConceptDescriptionRecentChanges
+h|Operation Name 4+e|[[GetAllConceptDescriptionRecentChanges]]GetAllConceptDescriptionRecentChanges
 h|Explanation 4+a|Returns all Concept Descriptions that have been changed recently
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionRecentChanges/3/1`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionRecentChanges/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
