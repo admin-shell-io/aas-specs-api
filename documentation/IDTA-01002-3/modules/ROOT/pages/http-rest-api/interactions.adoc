@@ -99,3 +99,234 @@ The returned objects are shortened for better readability.
 ....
 include::partial$diagrams/seq-sm-endpoints-http.puml[]
 ....
+
+
+== Direct Discovery of AAS Objects based on ID Link and LinkSets
+
+This section describes how a client can discover AAS and related resources by using an ID Link as the globalAssetId combined with RFC 9264 LinkSets.
+The ID Link is a resolvable HTTP(S) URL representing the asset identity (globalAssetId).
+The landing endpoint for the ID Link returns a LinkSet (media type application/linkset+json) that contains typed relations to AAS, Submodels, repositories, registries, and Digital Product Passport resources.
+
+Concept:
+- The globalAssetId is an ID Link, e.g., https://id.example.com/my-asset-id.
+- A GET on the ID Link with Accept: application/linkset+json returns a LinkSet anchored at the ID Link.
+- The LinkSet provides relations such as:
+  - aas: direct representations/endpoints of the Asset Administration Shell.
+  - aas-service-endpoints: a LinkSet enumerating infrastructure endpoints (AAS Repository, Submodel Repository, Discovery, Registry).
+  - dpp: direct represenation of the Digital Product Passport.
+    - dpp-service-endpoints: a LinkSet enumerating infrastructure endpoints for DPP services.
+- Links may carry metadata (profiles, authentication, versions) to guide client interaction.
+
+Example for the content of the LinkSet returned by the ID Link endpoint:
+[source,json]
+----
+{
+  "linkset": [
+    {
+      "anchor": "https://id.example.com/my-asset-id",
+      "aas": [
+        {
+          "href": "https://service.example.com/aas/shells/aHR0cHM6Ly9pZC5leGFtcGxlLmNvbS9teS1hc3NldC1pZA",
+          "type": "application/json",
+          "profiles": {
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001": [
+              "GetAllAssetAdministrationShells",
+              "PostAssetAdministrationShells",
+              "GetAssetAdministrationShellById"
+            ],
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-004": [
+              "GetAssetAdministrationShellVersionByIdAndDate"
+            ]
+          },
+          "authentication": [
+            {
+              "id": "oidc",
+              "type": "OIDC",
+              "well_known_url": "https://auth.example.com/realm/.well-known/openid-configuration"
+            },
+            {
+              "id": "another-oauth2",
+              "type": "OAuth2",
+              "base_url": "https://auth.example.com/realms/aas",
+              "flows": ["client-credential-flow"],
+              "scopes": ["whatever", "onemore"],
+              "well_known_url": "https://auth.example.com/.well-known/oauth-authorization-server"
+            }
+          ]
+        }
+      ],
+      "aas-service-endpoints": [
+        {
+          "href": "https://service.example.com/aas/aas-service-endpoints",
+          "type": "application/linkset+json",
+          "returns": "linkset"
+        }
+      ],
+      "dpp": [
+        {
+          "href": "https://service.example.com/dpp/v1/dpps/https%3A//id.example.com/my-asset-id",
+          "type": "application/json",
+          "dppSchemaVersion": "1.0", // the concrete url needs a concrete version, that's why single version is given here
+          "delegatedActs": [ // I forgot the requested term...
+            { "act": "BatteryPassport", "version": "1.0" }
+          ]
+        }
+      ],
+      "dpp-service-endpoint":
+        {
+          "href": "https://service.example.com/dpp", // Official API to append is 'v1/dpps/{dppId}'
+          "type": "application/json",
+          "dppSchemaVersions": ["1.0"], // This schema allows for multiple versions
+          "delegatedActs": [
+            { "act": "BatteryPassport", "version": "1.0" }
+          ]
+        }
+
+    }
+  ]
+}
+----
+
+Example for the content of the LinkSet returned by the AAS Service Endpoints endpoint:
+[source,json]
+----
+{
+  "linkset": [
+    {
+      "anchor": "https://service.example.com/aas/aas-service-endpoints",
+      "aas-repository": [
+        {
+          "href": "https://serviceprovider.example.com/aas/shells",
+          "type": "application/json",
+          "profiles": {
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001": [
+              "GetAllAssetAdministrationShells",
+              "PostAssetAdministrationShells",
+              "GetAssetAdministrationShellById"
+            ],
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-004": ["GetAssetAdministrationShellVersionByIdAndDate"]
+          },
+          "authentication": [
+            {
+              "id": "objective-partner",
+              "type": "OAuth2",
+              "base_url": "https://auth.example.com/realms/aas",
+              "flow": "client-credential-flow",
+              "scope": "<whatever>"
+            }
+          ]
+        }
+      ],
+      "sm-repository": [
+        {
+          "href": "https://serviceprovider.example.com/aas/submodels",
+          "type": "application/json",
+          "profiles": {
+            "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-001": [
+              "GetAllSubmodels",
+              "PostSubmodels",
+              "GetSubmodelById"
+            ],
+            "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-004": ["GetSubmodelVersionByIdAndDate"]
+          },
+          "authentication": [
+            {
+              "id": "objective-partner",
+              "type": "OAuth2",
+              "base_url": "https://auth.example.com/realms/aas",
+              "flow": "client-credential-flow",
+              "scope": "<whatever>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+----
+
+
+Example for the content of the LinkSet returned by the ID Link endpoint:
+[source,json]
+----
+{
+  "linkset": [
+    {
+      "anchor": "https://service.example.com/dpp/dpp-service-endpoints",
+      "dpp-service-endpoints": [
+        {
+          "href": "https://service.example.com/dpps/https%3A//id.example.com/my-asset-id",
+          "type": "application/json",
+          "provides": "ReadDPPByProductId"
+        },
+        {
+          "href": "https://service.example.com/dppsByProductIdAndDate/https%3A//id.example.com/my-asset-id?date={date}",
+          "type": "application/json",
+          "provides": "ReadDPPVersionByProductIdAndDate"
+        }
+      ]
+    }
+  ]
+}
+----
+
+Client interaction patterns:
+
+1) LinkSet-aware client
+- Request:
+  - GET https://id.example.com/my-asset-id
+  - Accept: application/linkset+json, application/json;q=0.9
+- Behavior:
+  - Parse LinkSet and select the appropriate relation (e.g., "aas" for a direct shell, or "aas-service-endpoints" to obtain repositories).
+  - Follow the selected href; apply authentication as indicated.
+- Example follow-up:
+  - GET https://service.example.com/aas/shells/aHR0cHM6Ly9pZC5leGFtcGxlLmNvbS9teS1hc3NldC1pZA
+  - Accept: application/json
+
+2) LinkSet-unaware client (fallback via redirect)
+- If the client requests JSON directly:
+  - Server may respond 302 Found with Location pointing to the specific AAS resource.
+  - Server may also include a Link header with rel="alternate" and type="application/linkset+json" to advertise discovery per RFC 8288.
+
+[plantuml, seq-idlink-linkset, svg]
+....
+@startuml
+actor Client
+participant IDProvider as "ID Link Landing"
+participant AASService as "AAS / Repo"
+
+Client -> IDProvider: GET /my-asset-id\nAccept: application/linkset+json
+IDProvider --> Client: 200 OK\nContent-Type: application/linkset+json\n{ 'aas', 'aas-service-endpoints', 'dpp', 'dpp-service-endpoints' }
+
+note right
+AAS endpoint lookup can be done in the background.
+No need for the client to figure it out by itself.
+end note
+
+Client -> AASService: GET /aas/shells/<encoded-shellId>\nAccept: application/json
+AASService --> Client: 200 OK\n{ AssetAdministrationShell ... }
+
+note right
+Select relation 'aas' and follow href
+with 'AAS Service Interface'.
+Superpathes enable access to Submodels.
+end note
+
+Client -> AASService: GET /aas/shells/<encoded-shellId>/submodels/<encoded-submodelId>\nAccept: application/json
+AASService --> Client: 200 OK\n{ Submodel ... }
+@enduml
+....
+
+====
+// Guidance
+* Servers should support application/linkset+json (RFC 9264).
+* Use RFC 8288 relations; include profiles and auth hints where applicable.
+* The ID Link acts as a stable proxy; backend changes do not break clients.
+* Using referredSemanticId on Submodels is recommended to help clients select relevant Submodels.
+====
+
+References:
+- RFC 8288 Web Linking: https://www.rfc-editor.org/rfc/rfc8288.html
+- RFC 9264 LinkSet: https://www.rfc-editor.org/rfc/rfc9264.html
+
