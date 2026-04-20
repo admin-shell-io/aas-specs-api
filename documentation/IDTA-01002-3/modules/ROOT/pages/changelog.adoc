@@ -15,6 +15,8 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 Major Changes:
 
 * Add new subchapter on the discovery of endpoints of AAS services based on ID Link. (https://github.com/admin-shell-io/aas-specs-api/issues/535[#535])
+* Add new operations GetAssetAdministrationShellVersionByIdAndDate and GetSubmodelVersionByIdAndDate to retrieve a specific version of an AAS or Submodel from a given point in time. (https://github.com/admin-shell-io/aas-specs-api/issues/555[#555])
+* Added a new profile for the AAS Repository Service Specification, the "Identifiable Profile", which only includes operations that require an identifier as input parameter. (https://github.com/admin-shell-io/aas-specs-api/issues/496[#496])
 * New API operations and profiles for signing, including Asset Administration Shell Repository Service Specification - Signature Profile SSP-004, Submodel Repository Service Specification - Signature Profile SSP-003, and  Concept Description Repository Service Specification - Signature Profile SSP-004 (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
 * Add the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 
@@ -26,6 +28,7 @@ Minor Changes:
 * Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
 * Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
 * Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
+* Added `supplemantalSemanticIds` to the AAS Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/524[#524])
 
 
 === Operation Changes w.r.t. V3.1.2 to V3.2
@@ -33,10 +36,15 @@ Minor Changes:
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
 h|Operation  h|Kind of Change h|Comment
+ | GetAssetAdministrationShellVersionByIdAndDate | New a| new API-Operation for AAS Repository interface to retrieve a specific version of an AAS from a given point in time.
+ | GetSubmodelVersionByIdAndDate | New a| new API-Operation for Submodel Repository interface to retrieve a specific version of a Submodel from a given point in time.
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
+  |GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+  |GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
  | GetAssetAdministrationShellByIdSigned|new a|
  | GetConceptDescriptionByIdSigned|new a|
  | GetSubmodelByIdSigned|new a|
+ |PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
 |===
 
@@ -45,12 +53,10 @@ h|Operation  h|Kind of Change h|Comment
 [%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
 h|BWC h|Interface  h|Kind of Change h|Comment
+| |AASX File Server Interface  |Extended a| new API operations for asyncronous creation: PostAsyncAASXPackag, GetAasxAsyncStatus, GetAasxAsyncResult
 | |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned
 | |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned
 | |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned
-| |PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
-| |GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
-| |GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 |===
 
 
@@ -67,6 +73,15 @@ Minor Changes:
 * Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
 * Fixing the values of the ServiceSpecificationProfileEnum to correctly contain minor versions. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
 * Changed SupplementalSemanticId to SupplementalSemanticIds in the OpenAPI files to align with the definition in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/553[#553])
+* Adjusted the return type for the operations OperationRequestValueOnly and OperationResultValueOnly from the incorrect SubmodelElementValue to ValueOnly. No changes in the already correct OpenAPI files. (https://github.com/admin-shell-io/aas-specs-metamodel/pull/663[Part 1#663])
+
+
+=== Interface Changes w.r.t. V3.1.1 to V3.2
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+h|BWC h|Interface  h|Kind of Change h|Comment
+| ===
 
 
 == Changes w.r.t. V3.1 to V3.1.1

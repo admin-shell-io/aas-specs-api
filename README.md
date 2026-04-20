@@ -20,7 +20,7 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 
 |API SPEC|GitHub|SwaggerHub|
 |-----------------------------------------------------------------------|-----------------------------------------------------------------|----------------------------------------------------|
-|Entire-API-Collection |[Link](./Entire-API-Collection/V3.1.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
+|Entire-API-Collection |[Link](./Entire-API-Collection/V3.2.yaml)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection)|https://app.swaggerhub.com/apis/Plattform_i40/Entire-API-Collection
 |Asset Administration Shell Registry Service Specification|[Link](./AssetAdministrationShellRegistryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/RegistryServiceSpecification/V3.2.0_SSP-001
 |Asset Administration Shell Repository Service Specification|[Link](./AssetAdministrationShellRepositoryServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.2.0_SSP-001
 |Asset Administration Shell Service Specification|[Link](./AssetAdministrationShellServiceSpecification)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification)|https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.2.0_SSP-001
@@ -59,7 +59,9 @@ The following release contains the latest version of the AAS schemas (see also t
 
 Previous releases:
 
-* [3.1.1](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.1.1) is the latest bugfix release for the `V3.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.1.1".
+* [3.1.2](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.1.2) is the latest bugfix release for the `V3.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.1.2".
+
+* [3.1.1](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.1.1) is a bugfix release for the `V3.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.1.1".
 
 * [3.1.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.1.0) is the release for the `V3.1` version of the AAS APIs, containing the normative schemas for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.1.0".
 
