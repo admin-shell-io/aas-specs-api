@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAS API Specifications - IDTA-01002</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .header .subtitle {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .search-bar {
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 0 1rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .api-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #667eea;
+        }
+
+        .api-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .api-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .api-card .description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            min-height: 3rem;
+        }
+
+        .api-card .specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .spec-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #f0f0f0;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .api-card .actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #38a169;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #f7fafc;
+        }
+
+        .category-header {
+            max-width: 1200px;
+            margin: 2rem auto 1rem;
+            padding: 0 1rem;
+            font-size: 1.5rem;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #90cdf4;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .info-section {
+            background: white;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .info-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .info-section ul {
+            margin-left: 2rem;
+        }
+
+        .info-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .api-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Asset Administration Shell API Specifications</h1>
+            <p>IDTA-01002 - Industrial Digital Twin Association</p>
+            <div class="subtitle">
+                Version 3.2.0 | OpenAPI/REST API Documentation
+            </div>
+        </div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search API specifications...">
+    </div>
+
+    <div class="info-section container">
+        <h2>About</h2>
+        <p>This repository contains the normative OpenAPI specifications for the Asset Administration Shell (AAS) HTTP/REST APIs.
+        The specifications are maintained by the <a href="https://industrialdigitaltwin.org/en/" target="_blank">Industrial Digital Twin Association (IDTA)</a>.</p>
+        <p style="margin-top: 1rem;">
+            <strong>Documentation:</strong> Each API can be viewed using Swagger UI (interactive) or Redoc (documentation-focused).
+            Click on the respective buttons to explore the APIs.
+        </p>
+    </div>
+
+    <h2 class="category-header">Core API Specifications</h2>
+    <div class="api-grid" id="apiGrid">
+        <!-- Entire API Collection -->
+        <div class="api-card" data-search="entire api collection all complete full">
+            <h3>Entire API Collection</h3>
+            <p class="description">Complete collection of all AAS API specifications in a single document.</p>
+            <div class="specs">
+                <span class="spec-badge">V3.2</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../Entire-API-Collection/V3.2.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../Entire-API-Collection/V3.2.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../Entire-API-Collection/V3.2.yaml" class="btn btn-outline" download>YAML</a>
+            </div>
+        </div>
+
+        <!-- AAS Registry -->
+        <div class="api-card" data-search="asset administration shell registry service specification">
+            <h3>AAS Registry Service</h3>
+            <p class="description">Registry service for discovering and locating Asset Administration Shells.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+                <span class="spec-badge">SSP-003</span>
+                <span class="spec-badge">SSP-004</span>
+                <span class="spec-badge">SSP-005</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- AAS Repository -->
+        <div class="api-card" data-search="asset administration shell repository service specification">
+            <h3>AAS Repository Service</h3>
+            <p class="description">Repository service for storing and managing Asset Administration Shells.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+                <span class="spec-badge">SSP-003</span>
+                <span class="spec-badge">SSP-004</span>
+                <span class="spec-badge">SSP-005</span>
+                <span class="spec-badge">SSP-006</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- AAS Service -->
+        <div class="api-card" data-search="asset administration shell service specification">
+            <h3>AAS Service</h3>
+            <p class="description">Core service interface for individual Asset Administration Shells.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- Submodel Registry -->
+        <div class="api-card" data-search="submodel registry service specification">
+            <h3>Submodel Registry Service</h3>
+            <p class="description">Registry service for discovering and locating Submodels.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+                <span class="spec-badge">SSP-003</span>
+                <span class="spec-badge">SSP-004</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- Submodel Repository -->
+        <div class="api-card" data-search="submodel repository service specification">
+            <h3>Submodel Repository Service</h3>
+            <p class="description">Repository service for storing and managing Submodels.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+                <span class="spec-badge">SSP-003</span>
+                <span class="spec-badge">SSP-004</span>
+                <span class="spec-badge">SSP-005</span>
+                <span class="spec-badge">SSP-006</span>
+                <span class="spec-badge">SSP-007</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- Submodel Service -->
+        <div class="api-card" data-search="submodel service specification">
+            <h3>Submodel Service</h3>
+            <p class="description">Core service interface for individual Submodels.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+                <span class="spec-badge">SSP-003</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../SubmodelServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../SubmodelServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- Discovery Service -->
+        <div class="api-card" data-search="discovery service specification">
+            <h3>Discovery Service</h3>
+            <p class="description">Service for discovering AAS and asset information across systems.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../DiscoveryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../DiscoveryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- Concept Description Repository -->
+        <div class="api-card" data-search="concept description repository service specification">
+            <h3>Concept Description Repository</h3>
+            <p class="description">Repository for managing semantic Concept Descriptions.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+                <span class="spec-badge">SSP-003</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+
+        <!-- AASX File Server -->
+        <div class="api-card" data-search="aasx file server service specification">
+            <h3>AASX File Server Service</h3>
+            <p class="description">Service for managing AASX package files containing AAS data.</p>
+            <div class="specs">
+                <span class="spec-badge">SSP-001</span>
+                <span class="spec-badge">SSP-002</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="category-header">Schema Domains</h2>
+    <div class="api-grid">
+        <!-- Part 1 Metamodel -->
+        <div class="api-card" data-search="part1 metamodel schemas domain">
+            <h3>Part 1 - MetaModel Schemas</h3>
+            <p class="description">Core metamodel schemas defining the Asset Administration Shell structure.</p>
+            <div class="specs">
+                <span class="spec-badge">V3.2</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../Part1-MetaModel-Schemas/openapi_3.2.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../Part1-MetaModel-Schemas/openapi_3.2.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../Part1-MetaModel-Schemas/openapi_3.2.yaml" class="btn btn-outline" download>YAML</a>
+            </div>
+        </div>
+
+        <!-- Part 2 API Schemas -->
+        <div class="api-card" data-search="part2 api schemas domain">
+            <h3>Part 2 - API Schemas</h3>
+            <p class="description">Common API schemas and data structures used across AAS services.</p>
+            <div class="specs">
+                <span class="spec-badge">V3.2</span>
+            </div>
+            <div class="actions">
+                <a href="swagger-ui.html?url=../Part2-API-Schemas/openapi.yaml" class="btn btn-primary">Swagger UI</a>
+                <a href="redoc.html?url=../Part2-API-Schemas/openapi.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../Part2-API-Schemas/openapi.yaml" class="btn btn-outline" download>YAML</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2025 Industrial Digital Twin Association (IDTA)</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="https://github.com/admin-shell-io/aas-specs-api" target="_blank">GitHub Repository</a> |
+                <a href="https://industrialdigitaltwin.org/en/" target="_blank">IDTA Website</a> |
+                <a href="https://app.swaggerhub.com/search?owner=Plattform_i40" target="_blank">SwaggerHub</a>
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-detect path for links
+        function getPathPrefix() {
+            const path = window.location.pathname;
+            if (path.includes('/docs/')) {
+                return '../';
+            }
+            return '/';
+        }
+
+        function getBasePath() {
+            const path = window.location.pathname;
+            const match = path.match(/^(\/[^\/]+\/)/);
+            if (match && !path.startsWith('/docs/') && path !== '/') {
+                return match[1];
+            }
+            return '/';
+        }
+
+        function adjustSpecPath(url) {
+            const pathPrefix = getPathPrefix();
+            const basePath = getBasePath();
+
+            if (url.startsWith('../')) {
+                if (pathPrefix === '/') {
+                    return basePath + url.substring(3);
+                } else {
+                    return url;
+                }
+            }
+            return url;
+        }
+
+        // Update all links on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update all swagger-ui and redoc links
+            document.querySelectorAll('a[href*="swagger-ui.html"], a[href*="redoc.html"]').forEach(link => {
+                const href = link.getAttribute('href');
+                const urlMatch = href.match(/url=([^&]+)/);
+                if (urlMatch) {
+                    const specUrl = decodeURIComponent(urlMatch[1]);
+                    const adjustedUrl = adjustSpecPath(specUrl);
+                    link.href = href.replace(urlMatch[1], encodeURIComponent(adjustedUrl));
+                }
+            });
+
+            // Update download links
+            document.querySelectorAll('a[download]').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('../')) {
+                    link.href = adjustSpecPath(href);
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const apiCards = document.querySelectorAll('.api-card');
+
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            apiCards.forEach(card => {
+                const searchData = card.getAttribute('data-search') || '';
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('.description').textContent.toLowerCase();
+
+                const matches = searchData.includes(searchTerm) ||
+                               title.includes(searchTerm) ||
+                               description.includes(searchTerm);
+
+                if (matches || searchTerm === '') {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

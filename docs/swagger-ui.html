@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAS API - Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .topbar {
+            display: none;
+        }
+
+        #swagger-ui {
+            max-width: none;
+        }
+
+        .custom-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .custom-header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .custom-header .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .custom-header a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .custom-header a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .spec-selector {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .spec-selector label {
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .spec-selector select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            font-size: 1rem;
+            min-width: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .custom-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .spec-selector select {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-header">
+        <h1>AAS API Documentation - Swagger UI</h1>
+        <div class="nav-links">
+            <a href="index.html">← Home</a>
+            <a href="#" id="redocLink">View in Redoc</a>
+        </div>
+    </div>
+
+    <div class="spec-selector">
+        <label for="specSelect">Select API Specification:</label>
+        <select id="specSelect">
+            <optgroup label="Complete Collection">
+                <option value="../Entire-API-Collection/V3.2.yaml">Entire API Collection</option>
+            </optgroup>
+            <optgroup label="Core Services">
+                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml">AAS Registry Service - SSP-001</option>
+                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-002.yaml">AAS Registry Service - SSP-002</option>
+                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-003.yaml">AAS Registry Service - SSP-003</option>
+                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-004.yaml">AAS Registry Service - SSP-004</option>
+                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-005.yaml">AAS Registry Service - SSP-005</option>
+                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml">AAS Repository Service - SSP-001</option>
+                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-002.yaml">AAS Repository Service - SSP-002</option>
+                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-003.yaml">AAS Repository Service - SSP-003</option>
+                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-004.yaml">AAS Repository Service - SSP-004</option>
+                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-005.yaml">AAS Repository Service - SSP-005</option>
+                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-006.yaml">AAS Repository Service - SSP-006</option>
+                <option value="../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml">AAS Service - SSP-001</option>
+                <option value="../AssetAdministrationShellServiceSpecification/V3.2_SSP-002.yaml">AAS Service - SSP-002</option>
+            </optgroup>
+            <optgroup label="Submodel Services">
+                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml">Submodel Registry Service - SSP-001</option>
+                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-002.yaml">Submodel Registry Service - SSP-002</option>
+                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-003.yaml">Submodel Registry Service - SSP-003</option>
+                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-004.yaml">Submodel Registry Service - SSP-004</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml">Submodel Repository Service - SSP-001</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-002.yaml">Submodel Repository Service - SSP-002</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-003.yaml">Submodel Repository Service - SSP-003</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-004.yaml">Submodel Repository Service - SSP-004</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-005.yaml">Submodel Repository Service - SSP-005</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-006.yaml">Submodel Repository Service - SSP-006</option>
+                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-007.yaml">Submodel Repository Service - SSP-007</option>
+                <option value="../SubmodelServiceSpecification/V3.2_SSP-001.yaml">Submodel Service - SSP-001</option>
+                <option value="../SubmodelServiceSpecification/V3.2_SSP-002.yaml">Submodel Service - SSP-002</option>
+                <option value="../SubmodelServiceSpecification/V3.2_SSP-003.yaml">Submodel Service - SSP-003</option>
+            </optgroup>
+            <optgroup label="Additional Services">
+                <option value="../DiscoveryServiceSpecification/V3.2_SSP-001.yaml">Discovery Service - SSP-001</option>
+                <option value="../DiscoveryServiceSpecification/V3.2_SSP-002.yaml">Discovery Service - SSP-002</option>
+                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml">Concept Description Repository - SSP-001</option>
+                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-002.yaml">Concept Description Repository - SSP-002</option>
+                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-003.yaml">Concept Description Repository - SSP-003</option>
+                <option value="../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml">AASX File Server - SSP-001</option>
+                <option value="../AasxFileServerServiceSpecification/V3.2_SSP-002.yaml">AASX File Server - SSP-002</option>
+            </optgroup>
+            <optgroup label="Schema Domains">
+                <option value="../Part1-MetaModel-Schemas/openapi_3.2.yaml">Part 1 - MetaModel Schemas</option>
+                <option value="../Part2-API-Schemas/openapi.yaml">Part 2 - API Schemas</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div id="swagger-ui"></div>
+
+    <script>
+        // Auto-detect path prefix for local vs GitHub Pages
+        function getPathPrefix() {
+            // If serving from docs/ folder locally, specs are in ../
+            // If on GitHub Pages, specs are in root (served as /)
+            const path = window.location.pathname;
+
+            // Check if we're in docs/ subfolder (local) or root (GitHub Pages)
+            if (path.includes('/docs/')) {
+                return '../'; // Local: go up from docs/ to repo root
+            }
+            return '/'; // GitHub Pages: specs are at root level
+        }
+
+        // Get base path for the repository (handles GitHub Pages subpath)
+        function getBasePath() {
+            const path = window.location.pathname;
+            const match = path.match(/^(\/[^\/]+\/)/);
+            if (match && !path.startsWith('/docs/') && path !== '/') {
+                return match[1]; // Returns something like '/aas-specs-api/'
+            }
+            return '/';
+        }
+    </script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
+    <script>
+        // Get URL parameter or default
+        const urlParams = new URLSearchParams(window.location.search);
+        let specUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
+
+        // Adjust path based on environment
+        function adjustSpecPath(url) {
+            const pathPrefix = getPathPrefix();
+            const basePath = getBasePath();
+
+            // If URL starts with ../ it's a relative path
+            if (url.startsWith('../')) {
+                if (pathPrefix === '/') {
+                    // GitHub Pages: convert ../Folder/file.yaml to /repo-name/Folder/file.yaml
+                    return basePath + url.substring(3);
+                } else {
+                    // Local from docs/: keep as is
+                    return url;
+                }
+            }
+            return url;
+        }
+
+        // Initialize Swagger UI
+        function initSwaggerUI(url) {
+            const adjustedUrl = adjustSpecPath(url);
+            window.ui = SwaggerUIBundle({
+                url: adjustedUrl,
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl
+                ],
+                layout: "StandaloneLayout",
+                defaultModelsExpandDepth: 1,
+                defaultModelExpandDepth: 1,
+                docExpansion: "list",
+                filter: true,
+                tryItOutEnabled: true
+            });
+        }
+
+        // Initialize with current spec
+        initSwaggerUI(specUrl);
+
+        // Set dropdown to current spec
+        const select = document.getElementById('specSelect');
+        select.value = specUrl;
+
+        // Handle spec changes
+        select.addEventListener('change', function(e) {
+            const newUrl = e.target.value;
+            // Update URL without reload
+            const newUrlParams = new URLSearchParams(window.location.search);
+            newUrlParams.set('url', newUrl);
+            window.history.pushState({}, '', `${window.location.pathname}?${newUrlParams}`);
+
+            // Reinitialize Swagger UI
+            initSwaggerUI(newUrl);
+
+            // Update Redoc link
+            updateRedocLink(newUrl);
+        });
+
+        // Update Redoc link
+        function updateRedocLink(url) {
+            document.getElementById('redocLink').href = `redoc.html?url=${encodeURIComponent(url)}`;
+        }
+
+        updateRedocLink(specUrl);
+    </script>
+</body>
+</html>

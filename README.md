@@ -8,6 +8,20 @@ https://creativecommons.org/licenses/by/4.0/
 
 This repository contains specifications of the APIs of the Asset Administration Shell (AAS), including the normative OpenAPI files of the AAS HTTP/REST API.
 
+## 📚 Interactive API Documentation
+
+View and explore the API specifications using our interactive documentation site:
+
+**🌐 [View API Documentation](https://admin-shell-io.github.io/aas-specs-api/)**
+
+The documentation site provides:
+- 📖 **Interactive Swagger UI** - Try out API endpoints directly in your browser
+- 📘 **Redoc Documentation** - Beautiful, readable API reference
+- 🔍 **Search & Filter** - Quickly find the API you need
+- 📱 **Mobile Responsive** - Works on all devices
+
+> **Note:** Replace the URL above with your actual GitHub Pages URL after deployment. See [docs/SETUP.md](./docs/SETUP.md) for deployment instructions.
+
 ## Industrial Digital Twin Association (IDTA)
 
 Governance of the specification is done in the working group Open Technology of the [IDTA](https://industrialdigitaltwin.org/en/)
