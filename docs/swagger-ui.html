@@ -163,11 +163,12 @@
         // Get base path for the repository (handles GitHub Pages subpath)
         function getBasePath() {
             const path = window.location.pathname;
-            const match = path.match(/^(\/[^\/]+\/)/);
-            if (match && !path.startsWith('/docs/') && path !== '/') {
-                return match[1]; // Returns something like '/aas-specs-api/'
+            // Match pattern like /aas-specs-api/docs/
+            const match = path.match(/^(\/[^\/]+)\//);
+            if (match && !path.startsWith('/docs/')) {
+                return match[1]; // Returns something like '/aas-specs-api'
             }
-            return '/';
+            return '';
         }
     </script>
     <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
@@ -191,8 +192,8 @@
             // If URL starts with ../ it's a relative path
             if (url.startsWith('../')) {
                 if (pathPrefix === '/') {
-                    // GitHub Pages: convert ../Folder/file.yaml to /repo-name/Folder/file.yaml
-                    return basePath + url.substring(3);
+                    // GitHub Pages: convert ../Folder/file.yaml to /aas-specs-api/Folder/file.yaml
+                    return basePath + '/' + url.substring(3);
                 } else {
                     // Local from docs/: keep as is
                     return url;

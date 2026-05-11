@@ -544,11 +544,11 @@
 
         function getBasePath() {
             const path = window.location.pathname;
-            const match = path.match(/^(\/[^\/]+\/)/);
-            if (match && !path.startsWith('/docs/') && path !== '/') {
+            const match = path.match(/^(\/[^\/]+)\//);
+            if (match && !path.startsWith('/docs/')) {
                 return match[1];
             }
-            return '/';
+            return '';
         }
 
         function adjustSpecPath(url) {
@@ -557,7 +557,7 @@
 
             if (url.startsWith('../')) {
                 if (pathPrefix === '/') {
-                    return basePath + url.substring(3);
+                    return basePath + '/' + url.substring(3);
                 } else {
                     return url;
                 }
