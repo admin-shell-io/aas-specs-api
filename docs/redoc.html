@@ -231,6 +231,11 @@
                         },
                         document.getElementById('redoc-container')
                     );
+
+                    // Show warning for Query Profile specs after Redoc loads
+                    if (isQueryProfile(url)) {
+                        setTimeout(() => showQueryProfileWarning(), 1000);
+                    }
                 })
                 .catch(error => {
                     // Show error message when spec doesn't exist
@@ -258,6 +263,32 @@
                     </div>
                 </div>
             `;
+        }
+
+        // Check if this is a Query Profile spec (SSP-004)
+        function isQueryProfile(url) {
+            return url.includes('SSP-004');
+        }
+
+        // Show warning for Query Profile specs
+        function showQueryProfileWarning() {
+            const container = document.getElementById('redoc-container');
+            const warningDiv = document.createElement('div');
+            warningDiv.style.cssText = 'background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 1.5rem; margin: 1rem 2rem;';
+            warningDiv.innerHTML = `
+                <h3 style="color: #856404; margin-top: 0;">
+                    ⚠️ Known Rendering Issue
+                </h3>
+                <p style="color: #856404; margin-bottom: 0.5rem;">
+                    The Query Profile specification contains recursive schema definitions that may cause
+                    rendering issues. This is a known limitation of OpenAPI documentation tools.
+                </p>
+                <p style="color: #856404; margin-bottom: 0;">
+                    <strong>The specification itself is valid.</strong> You can download the YAML file
+                    or view it in Swagger UI, or check the non-Query profiles (SSP-001, SSP-002, SSP-003, SSP-005).
+                </p>
+            `;
+            container.insertBefore(warningDiv, container.firstChild);
         }
 
         // Initialize with current spec

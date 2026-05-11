@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AAS API - Swagger UI</title>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.32.5/swagger-ui.css">
     <style>
         body {
             margin: 0;
@@ -255,8 +255,8 @@
             return '';
         }
     </script>
-    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
-    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.32.5/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist@5.32.5/swagger-ui-standalone-preset.js"></script>
     <script>
         // Get URL parameter or default
         const urlParams = new URLSearchParams(window.location.search);
@@ -310,6 +310,11 @@
                             if (errors.length > 0) {
                                 console.log('Swagger UI loaded with resolver errors');
                             }
+
+                            // Show warning for Query Profile specs
+                            if (isQueryProfile(url)) {
+                                setTimeout(() => showQueryProfileWarning(), 500);
+                            }
                         }
                     });
                 })
@@ -339,6 +344,33 @@
                     </div>
                 </div>
             `;
+        }
+
+        // Check if this is a Query Profile spec (SSP-004)
+        function isQueryProfile(url) {
+            return url.includes('SSP-004');
+        }
+
+        // Show warning for Query Profile specs
+        function showQueryProfileWarning() {
+            const container = document.getElementById('swagger-ui');
+            const warningDiv = document.createElement('div');
+            warningDiv.style.cssText = 'background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 1.5rem; margin: 1rem auto; max-width: 1200px;';
+            warningDiv.innerHTML = `
+                <h3 style="color: #856404; margin-top: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    ⚠️ Known Rendering Issue
+                </h3>
+                <p style="color: #856404; margin-bottom: 0.5rem;">
+                    The Query Profile specification contains recursive schema definitions that may cause
+                    resolver errors in Swagger UI. This is a known limitation of the OpenAPI renderer.
+                </p>
+                <p style="color: #856404; margin-bottom: 0;">
+                    <strong>The specification itself is valid.</strong> You can download the YAML file
+                    and use it with tools that support recursive schemas, or view the non-Query profiles
+                    (SSP-001, SSP-002, SSP-003, SSP-005) which render correctly.
+                </p>
+            `;
+            container.insertBefore(warningDiv, container.firstChild);
         }
 
         // Initialize with current spec
