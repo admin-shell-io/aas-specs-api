@@ -94,59 +94,143 @@
     <div class="spec-selector">
         <label for="specSelect">Select API Specification:</label>
         <select id="specSelect">
-            <optgroup label="Complete Collection">
-                <option value="../Entire-API-Collection/V3.2.yaml">Entire API Collection</option>
-            </optgroup>
-            <optgroup label="Core Services">
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml">AAS Registry Service - SSP-001</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-002.yaml">AAS Registry Service - SSP-002</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-003.yaml">AAS Registry Service - SSP-003</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-004.yaml">AAS Registry Service - SSP-004</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-005.yaml">AAS Registry Service - SSP-005</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml">AAS Repository Service - SSP-001</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-002.yaml">AAS Repository Service - SSP-002</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-003.yaml">AAS Repository Service - SSP-003</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-004.yaml">AAS Repository Service - SSP-004</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-005.yaml">AAS Repository Service - SSP-005</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-006.yaml">AAS Repository Service - SSP-006</option>
-                <option value="../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml">AAS Service - SSP-001</option>
-                <option value="../AssetAdministrationShellServiceSpecification/V3.2_SSP-002.yaml">AAS Service - SSP-002</option>
-            </optgroup>
-            <optgroup label="Submodel Services">
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml">Submodel Registry Service - SSP-001</option>
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-002.yaml">Submodel Registry Service - SSP-002</option>
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-003.yaml">Submodel Registry Service - SSP-003</option>
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-004.yaml">Submodel Registry Service - SSP-004</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml">Submodel Repository Service - SSP-001</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-002.yaml">Submodel Repository Service - SSP-002</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-003.yaml">Submodel Repository Service - SSP-003</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-004.yaml">Submodel Repository Service - SSP-004</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-005.yaml">Submodel Repository Service - SSP-005</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-006.yaml">Submodel Repository Service - SSP-006</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-007.yaml">Submodel Repository Service - SSP-007</option>
-                <option value="../SubmodelServiceSpecification/V3.2_SSP-001.yaml">Submodel Service - SSP-001</option>
-                <option value="../SubmodelServiceSpecification/V3.2_SSP-002.yaml">Submodel Service - SSP-002</option>
-                <option value="../SubmodelServiceSpecification/V3.2_SSP-003.yaml">Submodel Service - SSP-003</option>
-            </optgroup>
-            <optgroup label="Additional Services">
-                <option value="../DiscoveryServiceSpecification/V3.2_SSP-001.yaml">Discovery Service - SSP-001</option>
-                <option value="../DiscoveryServiceSpecification/V3.2_SSP-002.yaml">Discovery Service - SSP-002</option>
-                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml">Concept Description Repository - SSP-001</option>
-                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-002.yaml">Concept Description Repository - SSP-002</option>
-                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-003.yaml">Concept Description Repository - SSP-003</option>
-                <option value="../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml">AASX File Server - SSP-001</option>
-                <option value="../AasxFileServerServiceSpecification/V3.2_SSP-002.yaml">AASX File Server - SSP-002</option>
-            </optgroup>
-            <optgroup label="Schema Domains">
-                <option value="../Part1-MetaModel-Schemas/openapi_3.2.yaml">Part 1 - MetaModel Schemas</option>
-                <option value="../Part2-API-Schemas/openapi.yaml">Part 2 - API Schemas</option>
-            </optgroup>
+            <!-- Options populated dynamically by JavaScript -->
         </select>
     </div>
 
     <div id="swagger-ui"></div>
 
     <script>
+        // Version configuration
+        const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/admin-shell-io/aas-specs-api';
+
+        const versionConfig = {
+            'v3.2.0': { tag: 'github-pages', local: true, format: '3.2', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
+            'v3.1.2': { tag: 'v3.1.2', local: false, format: '3.1', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
+            'v3.1.1': { tag: 'v3.1.1', local: false, format: '3.1', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
+            'v3.1.0': { tag: 'v3.1.0', local: false, format: '3.1', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
+            'v3.0.4': { tag: 'v3.0.4', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
+            'v3.0.3': { tag: 'v3.0.3', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
+            'v3.0.2': { tag: 'v3.0.2', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
+            'v3.0.1': { tag: 'v3.0.1', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
+            'v3.0.0': { tag: 'v3.0', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false }
+        };
+
+        // Function to build spec URL based on version
+        function buildSpecUrl(version, specPath, versionFormat) {
+            const config = versionConfig[version];
+            if (!config) return specPath;
+
+            // Replace version number in path
+            const updatedPath = specPath.replace(/V\d+\.\d+/, `V${versionFormat || config.format}`);
+            const finalPath = updatedPath.replace('openapi_3.2.yaml', 'openapi.yaml');
+
+            if (config.local) {
+                return finalPath;
+            } else {
+                const cleanPath = finalPath.replace('../', '');
+                return `${GITHUB_RAW_BASE}/${config.tag}/${cleanPath}`;
+            }
+        }
+
+        // Service specification SSP ranges
+        const serviceSSPRanges = {
+            'AssetAdministrationShellRegistryServiceSpecification': { count: 5, label: 'AAS Registry Service' },
+            'AssetAdministrationShellRepositoryServiceSpecification': { count: 6, label: 'AAS Repository Service' },
+            'AssetAdministrationShellServiceSpecification': { count: 2, label: 'AAS Service' },
+            'SubmodelRegistryServiceSpecification': { count: 4, label: 'Submodel Registry Service' },
+            'SubmodelRepositoryServiceSpecification': { count: 7, label: 'Submodel Repository Service' },
+            'SubmodelServiceSpecification': { count: 3, label: 'Submodel Service' },
+            'DiscoveryServiceSpecification': { count: 2, label: 'Discovery Service' },
+            'ConceptDescriptionRepositoryServiceSpecification': { count: 3, label: 'Concept Description Repository' },
+            'AasxFileServerServiceSpecification': { count: 2, label: 'AASX File Server' }
+        };
+
+        // Detect which service from the current spec URL
+        function detectServiceFromUrl(url) {
+            for (const [serviceName, config] of Object.entries(serviceSSPRanges)) {
+                if (url.includes(serviceName)) {
+                    return { serviceName, ...config };
+                }
+            }
+            // Check for special cases
+            if (url.includes('Entire-API-Collection')) {
+                return { serviceName: 'Entire-API-Collection', count: 1, label: 'Entire API Collection' };
+            }
+            if (url.includes('Part1-MetaModel-Schemas')) {
+                return { serviceName: 'Part1-MetaModel-Schemas', count: 1, label: 'Part 1 - MetaModel Schemas' };
+            }
+            if (url.includes('Part2-API-Schemas')) {
+                return { serviceName: 'Part2-API-Schemas', count: 1, label: 'Part 2 - API Schemas' };
+            }
+            return null;
+        }
+
+        // Populate dropdown with SSPs for the CURRENT service only
+        function populateSpecDropdown(version, currentSpecUrl) {
+            const config = versionConfig[version];
+            const versionFormat = config.format;
+            const select = document.getElementById('specSelect');
+            select.innerHTML = '';
+
+            const serviceInfo = detectServiceFromUrl(currentSpecUrl);
+            if (!serviceInfo) {
+                console.error('Could not detect service from URL:', currentSpecUrl);
+                return;
+            }
+
+            const serviceName = serviceInfo.serviceName;
+            const serviceLabel = serviceInfo.label;
+            const sspCount = serviceInfo.count;
+
+            // Handle special cases (single files)
+            if (serviceName === 'Entire-API-Collection') {
+                select.appendChild(createOption(
+                    `../Entire-API-Collection/V${versionFormat}.yaml`,
+                    'Entire API Collection',
+                    version,
+                    versionFormat
+                ));
+                return;
+            }
+
+            if (serviceName === 'Part1-MetaModel-Schemas') {
+                select.appendChild(createOption(
+                    `../Part1-MetaModel-Schemas/openapi_${versionFormat}.yaml`,
+                    'Part 1 - MetaModel Schemas',
+                    version,
+                    versionFormat
+                ));
+                return;
+            }
+
+            if (serviceName === 'Part2-API-Schemas') {
+                select.appendChild(createOption(
+                    '../Part2-API-Schemas/openapi.yaml',
+                    'Part 2 - API Schemas',
+                    version,
+                    versionFormat
+                ));
+                return;
+            }
+
+            // Regular service with multiple SSPs
+            for (let i = 1; i <= sspCount; i++) {
+                const ssp = i.toString().padStart(3, '0');
+                const path = `../${serviceName}/V${versionFormat}_SSP-${ssp}.yaml`;
+                const label = `${serviceLabel} - SSP-${ssp}`;
+                select.appendChild(createOption(path, label, version, versionFormat));
+            }
+        }
+
+        function createOption(path, label, version, versionFormat) {
+            const option = document.createElement('option');
+            option.value = buildSpecUrl(version, path, versionFormat);
+            option.setAttribute('data-original-path', path);
+            option.textContent = label;
+            return option;
+        }
+
         // Auto-detect path prefix for local vs GitHub Pages
         function getPathPrefix() {
             // If serving from docs/ folder locally, specs are in ../
@@ -226,11 +310,13 @@
         }
 
         // Initialize with current spec
+        populateSpecDropdown(version, specUrl);
         initSwaggerUI(specUrl);
 
         // Set dropdown to current spec
         const select = document.getElementById('specSelect');
-        select.value = specUrl;
+        const adjustedSpecUrl = adjustSpecPath(specUrl);
+        select.value = adjustedSpecUrl;
 
         // Handle spec changes
         select.addEventListener('change', function(e) {
