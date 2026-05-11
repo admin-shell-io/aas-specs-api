@@ -67,6 +67,11 @@
             min-width: 400px;
         }
 
+        .spec-selector select option:disabled {
+            color: #999;
+            font-style: italic;
+        }
+
         #redoc-container {
             height: calc(100vh - 122px);
         }
@@ -96,7 +101,7 @@
         <label for="specSelect">Select API Specification:</label>
         <select id="specSelect">
             <optgroup label="Complete Collection">
-                <option value="../Entire-API-Collection/V3.2.yaml">Entire API Collection</option>
+                <option value="../Entire-API-Collection/V3.2.yaml" disabled>Entire API Collection (too large for Redoc - use Swagger UI)</option>
             </optgroup>
             <optgroup label="Core Services">
                 <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml">AAS Registry Service - SSP-001</option>
@@ -185,7 +190,7 @@
 
         // Get URL parameter or default
         const urlParams = new URLSearchParams(window.location.search);
-        let specUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
+        let specUrl = urlParams.get('url') || '../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml';
 
         // Initialize Redoc
         function initRedoc(url) {
