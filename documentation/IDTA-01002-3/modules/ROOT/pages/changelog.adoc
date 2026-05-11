@@ -30,21 +30,31 @@ Minor Changes:
 * Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
 * Added `supplemantalSemanticIds` to the AAS Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/524[#524])
 
+=== Interface Changes w.r.t. V3.1.2 to V3.2
+
+[%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
+|===
+h|BWC h|Interface  h|Kind of Change h|Comment
+| |AASX File Server Interface  |Extended a| new API operations for asyncronous creation: PostAsyncAASXPackag, GetAasxAsyncStatus, GetAasxAsyncResult (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+| |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+| |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+| |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+|===No
 
 === Operation Changes w.r.t. V3.1.2 to V3.2
 
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
 |===
 h|Operation  h|Kind of Change h|Comment
- | GetAssetAdministrationShellVersionByIdAndDate | New a| new API-Operation for AAS Repository interface to retrieve a specific version of an AAS from a given point in time.
- | GetSubmodelVersionByIdAndDate | New a| new API-Operation for Submodel Repository interface to retrieve a specific version of a Submodel from a given point in time.
+ | GetAssetAdministrationShellVersionByIdAndDate | New a| new API-Operation for AAS Repository interface to retrieve a specific version of an AAS from a given point in time. (https://github.com/admin-shell-io/aas-specs-api/issues/555[#555])
+ | GetSubmodelVersionByIdAndDate | New a| new API-Operation for Submodel Repository interface to retrieve a specific version of a Submodel from a given point in time. (https://github.com/admin-shell-io/aas-specs-api/issues/555[#555])
  | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
-  |GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
-  |GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
- | GetAssetAdministrationShellByIdSigned|new a|
- | GetConceptDescriptionByIdSigned|new a|
- | GetSubmodelByIdSigned|new a|
- |PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification.. (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAssetAdministrationShellByIdSigned|new a| (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+ | GetConceptDescriptionByIdSigned|new a| (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+ | GetSubmodelByIdSigned|new a| (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+ | PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
 |===
 
