@@ -270,19 +270,9 @@
                 return url;
             }
 
-            const pathPrefix = getPathPrefix();
-            const basePath = getBasePath();
-
-            // If URL starts with ../ it's a relative path
-            if (url.startsWith('../')) {
-                if (pathPrefix === '/') {
-                    // GitHub Pages: convert ../Folder/file.yaml to /aas-specs-api/Folder/file.yaml
-                    return basePath + '/' + url.substring(3);
-                } else {
-                    // Local from docs/: keep as is
-                    return url;
-                }
-            }
+            // For local relative paths (../), keep them as-is
+            // This allows Swagger UI to properly resolve $ref references
+            // that are also relative in the YAML files
             return url;
         }
 

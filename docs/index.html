@@ -552,16 +552,7 @@
         }
 
         function adjustSpecPath(url) {
-            const pathPrefix = getPathPrefix();
-            const basePath = getBasePath();
-
-            if (url.startsWith('../')) {
-                if (pathPrefix === '/') {
-                    return basePath + '/' + url.substring(3);
-                } else {
-                    return url;
-                }
-            }
+            // Keep relative paths as-is for proper $ref resolution
             return url;
         }
 

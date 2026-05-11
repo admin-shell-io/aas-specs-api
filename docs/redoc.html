@@ -180,16 +180,8 @@
                 return url;
             }
 
-            const pathPrefix = getPathPrefix();
-            const basePath = getBasePath();
-
-            if (url.startsWith('../')) {
-                if (pathPrefix === '/') {
-                    return basePath + '/' + url.substring(3);
-                } else {
-                    return url;
-                }
-            }
+            // For local relative paths (../), keep them as-is
+            // This allows Redoc to properly resolve $ref references
             return url;
         }
 
