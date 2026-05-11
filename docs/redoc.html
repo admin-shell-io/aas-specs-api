@@ -193,36 +193,71 @@
         // Initialize Redoc
         function initRedoc(url) {
             const adjustedUrl = adjustSpecPath(url);
-            Redoc.init(
-                adjustedUrl,
-                {
-                    scrollYOffset: 122,
-                    hideDownloadButton: false,
-                    disableSearch: false,
-                    theme: {
-                        colors: {
-                            primary: {
-                                main: '#0028CD'
-                            }
-                        },
-                        typography: {
-                            fontSize: '15px',
-                            fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                            headings: {
-                                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-                            }
-                        },
-                        sidebar: {
-                            backgroundColor: '#fafafa',
-                            width: '260px'
-                        },
-                        logo: {
-                            gutter: '20px'
-                        }
+
+            // Check if the spec file exists
+            fetch(adjustedUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Spec not found');
                     }
-                },
-                document.getElementById('redoc-container')
-            );
+                    // File exists, initialize Redoc
+                    Redoc.init(
+                        adjustedUrl,
+                        {
+                            scrollYOffset: 122,
+                            hideDownloadButton: false,
+                            disableSearch: false,
+                            theme: {
+                                colors: {
+                                    primary: {
+                                        main: '#0028CD'
+                                    }
+                                },
+                                typography: {
+                                    fontSize: '15px',
+                                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                                    headings: {
+                                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+                                    }
+                                },
+                                sidebar: {
+                                    backgroundColor: '#fafafa',
+                                    width: '260px'
+                                },
+                                logo: {
+                                    gutter: '20px'
+                                }
+                            }
+                        },
+                        document.getElementById('redoc-container')
+                    );
+                })
+                .catch(error => {
+                    // Show error message when spec doesn't exist
+                    showSpecNotFoundError();
+                });
+        }
+
+        function showSpecNotFoundError() {
+            const container = document.getElementById('redoc-container');
+            container.innerHTML = `
+                <div style="padding: 2rem; max-width: 800px; margin: 2rem auto;">
+                    <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 2rem;">
+                        <h2 style="color: #856404; margin-top: 0;">
+                            ⚠️ Service Specification Not Available
+                        </h2>
+                        <p style="color: #856404; font-size: 1.1rem; line-height: 1.6;">
+                            This Service Specification is not part of the currently selected release version.
+                            Try a later version.
+                        </p>
+                        <p style="color: #856404; margin-bottom: 0;">
+                            <strong>Suggestion:</strong> Go back to the
+                            <a href="index.html" style="color: #0028CD; text-decoration: underline;">home page</a>
+                            and select a different version, or choose a different service specification from the dropdown above.
+                        </p>
+                    </div>
+                </div>
+            `;
         }
 
         // Initialize with current spec
