@@ -175,6 +175,11 @@
 
         // Adjust path based on environment
         function adjustSpecPath(url) {
+            // If it's already a full GitHub URL, return as-is
+            if (url.startsWith('http://') || url.startsWith('https://')) {
+                return url;
+            }
+
             const pathPrefix = getPathPrefix();
             const basePath = getBasePath();
 
@@ -191,6 +196,7 @@
         // Get URL parameter or default
         const urlParams = new URLSearchParams(window.location.search);
         let specUrl = urlParams.get('url') || '../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml';
+        const version = urlParams.get('version') || 'v3.2.0';
 
         // Initialize Redoc
         function initRedoc(url) {
@@ -253,7 +259,7 @@
 
         // Update Swagger link
         function updateSwaggerLink(url) {
-            document.getElementById('swaggerLink').href = `swagger-ui.html?url=${encodeURIComponent(url)}`;
+            document.getElementById('swaggerLink').href = `swagger-ui.html?url=${encodeURIComponent(url)}&version=${version}`;
         }
 
         updateSwaggerLink(specUrl);

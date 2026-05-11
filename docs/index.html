@@ -230,6 +230,41 @@
             margin-bottom: 0.5rem;
         }
 
+        .version-selector {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .version-selector label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .version-selector select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #0028CD;
+            border-radius: 6px;
+            font-size: 1rem;
+            min-width: 200px;
+            cursor: pointer;
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #00b755;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -237,6 +272,10 @@
 
             .api-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .version-selector {
+                flex-direction: column;
             }
         }
     </style>
@@ -247,9 +286,24 @@
             <h1>Asset Administration Shell API Specifications</h1>
             <p>IDTA-01002 - Industrial Digital Twin Association</p>
             <div class="subtitle">
-                Version 3.2.0 | OpenAPI/REST API Documentation
+                <span id="versionDisplay">Version 3.2.0</span> | OpenAPI/REST API Documentation
             </div>
         </div>
+    </div>
+
+    <div class="version-selector">
+        <label for="versionSelect">Select Version:</label>
+        <select id="versionSelect">
+            <option value="v3.2.0" selected>v3.2.0 (Latest)</option>
+            <option value="v3.1.2">v3.1.2</option>
+            <option value="v3.1.1">v3.1.1</option>
+            <option value="v3.1.0">v3.1.0</option>
+            <option value="v3.0.4">v3.0.4</option>
+            <option value="v3.0.3">v3.0.3</option>
+            <option value="v3.0.2">v3.0.2</option>
+            <option value="v3.0.1">v3.0.1</option>
+            <option value="v3.0.0">v3.0.0</option>
+        </select>
     </div>
 
     <div class="search-bar">
@@ -295,6 +349,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -313,6 +368,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -327,6 +383,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -343,6 +400,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -362,6 +420,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -377,6 +436,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../SubmodelServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../SubmodelServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../SubmodelServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -391,6 +451,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../DiscoveryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../DiscoveryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../DiscoveryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -406,6 +467,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
 
@@ -420,6 +482,7 @@
             <div class="actions">
                 <a href="swagger-ui.html?url=../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-primary">Swagger UI</a>
                 <a href="redoc.html?url=../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-secondary">Redoc</a>
+                <a href="../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml" class="btn btn-outline" download>YAML</a>
             </div>
         </div>
     </div>
@@ -546,6 +609,122 @@
                     card.style.display = 'none';
                 }
             });
+        });
+
+        // Version switching functionality
+        const versionSelect = document.getElementById('versionSelect');
+        const versionDisplay = document.getElementById('versionDisplay');
+        const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/admin-shell-io/aas-specs-api';
+
+        // Version mapping: major.minor version format
+        const versionConfig = {
+            'v3.2.0': { tag: 'github-pages', local: true, format: '3.2' },
+            'v3.1.2': { tag: 'v3.1.2', local: false, format: '3.1' },
+            'v3.1.1': { tag: 'v3.1.1', local: false, format: '3.1' },
+            'v3.1.0': { tag: 'v3.1.0', local: false, format: '3.1' },
+            'v3.0.4': { tag: 'v3.0.4', local: false, format: '3.0' },
+            'v3.0.3': { tag: 'v3.0.3', local: false, format: '3.0' },
+            'v3.0.2': { tag: 'v3.0.2', local: false, format: '3.0' },
+            'v3.0.1': { tag: 'v3.0.1', local: false, format: '3.0' },
+            'v3.0.0': { tag: 'v3.0', local: false, format: '3.0' }
+        };
+
+        function getSpecUrl(version, specPath) {
+            const config = versionConfig[version];
+            if (!config) return specPath;
+
+            if (config.local) {
+                // Current version - use local paths
+                return specPath;
+            } else {
+                // Old version - use GitHub raw URLs
+                // Replace version number in path
+                const updatedPath = specPath.replace(/V\d+\.\d+/, `V${config.format}`);
+                // Handle Part1/Part2 special cases
+                const finalPath = updatedPath
+                    .replace('openapi_3.2.yaml', 'openapi.yaml')
+                    .replace('../', '');
+                return `${GITHUB_RAW_BASE}/${config.tag}/${finalPath}`;
+            }
+        }
+
+        function updateAllLinks(version) {
+            // Update version display
+            versionDisplay.textContent = `Version ${version}`;
+
+            // Update all API card links
+            document.querySelectorAll('.api-card').forEach(card => {
+                // Update Swagger UI links
+                const swaggerLink = card.querySelector('a[href*="swagger-ui.html"]');
+                if (swaggerLink) {
+                    const originalHref = swaggerLink.getAttribute('data-original-href') || swaggerLink.getAttribute('href');
+                    if (!swaggerLink.getAttribute('data-original-href')) {
+                        swaggerLink.setAttribute('data-original-href', originalHref);
+                    }
+                    const urlMatch = originalHref.match(/url=([^&]+)/);
+                    if (urlMatch) {
+                        const originalSpecPath = decodeURIComponent(urlMatch[1]);
+                        const newSpecUrl = getSpecUrl(version, originalSpecPath);
+                        swaggerLink.href = `swagger-ui.html?url=${encodeURIComponent(newSpecUrl)}&version=${version}`;
+                    }
+                }
+
+                // Update Redoc links
+                const redocLink = card.querySelector('a[href*="redoc.html"]');
+                if (redocLink) {
+                    const originalHref = redocLink.getAttribute('data-original-href') || redocLink.getAttribute('href');
+                    if (!redocLink.getAttribute('data-original-href')) {
+                        redocLink.setAttribute('data-original-href', originalHref);
+                    }
+                    const urlMatch = originalHref.match(/url=([^&]+)/);
+                    if (urlMatch) {
+                        const originalSpecPath = decodeURIComponent(urlMatch[1]);
+                        const newSpecUrl = getSpecUrl(version, originalSpecPath);
+                        redocLink.href = `redoc.html?url=${encodeURIComponent(newSpecUrl)}&version=${version}`;
+                    }
+                }
+
+                // Update YAML download links
+                const yamlLink = card.querySelector('a[download]');
+                if (yamlLink) {
+                    const originalHref = yamlLink.getAttribute('data-original-href') || yamlLink.getAttribute('href');
+                    if (!yamlLink.getAttribute('data-original-href')) {
+                        yamlLink.setAttribute('data-original-href', originalHref);
+                    }
+                    const newSpecUrl = getSpecUrl(version, originalHref);
+                    yamlLink.href = newSpecUrl;
+                }
+
+                // Update version badges
+                const badges = card.querySelectorAll('.spec-badge');
+                badges.forEach(badge => {
+                    const config = versionConfig[version];
+                    if (config && badge.textContent.startsWith('V')) {
+                        badge.textContent = badge.textContent.replace(/V\d+\.\d+/, `V${config.format}`);
+                    }
+                });
+            });
+        }
+
+        // Handle version selection
+        versionSelect.addEventListener('change', function(e) {
+            const selectedVersion = e.target.value;
+            updateAllLinks(selectedVersion);
+
+            // Store selection in URL
+            const url = new URL(window.location);
+            url.searchParams.set('version', selectedVersion);
+            window.history.pushState({}, '', url);
+        });
+
+        // Check URL for version parameter on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlVersion = urlParams.get('version');
+            if (urlVersion && versionConfig[urlVersion]) {
+                versionSelect.value = urlVersion;
+                updateAllLinks(urlVersion);
+            }
         });
     </script>
 </body>

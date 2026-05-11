@@ -176,9 +176,15 @@
         // Get URL parameter or default
         const urlParams = new URLSearchParams(window.location.search);
         let specUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
+        const version = urlParams.get('version') || 'v3.2.0';
 
         // Adjust path based on environment
         function adjustSpecPath(url) {
+            // If it's already a full GitHub URL, return as-is
+            if (url.startsWith('http://') || url.startsWith('https://')) {
+                return url;
+            }
+
             const pathPrefix = getPathPrefix();
             const basePath = getBasePath();
 
@@ -254,7 +260,7 @@
                 redocLink.style.pointerEvents = 'auto';
                 redocLink.style.cursor = 'pointer';
                 redocLink.title = '';
-                redocLink.href = `redoc.html?url=${encodeURIComponent(url)}`;
+                redocLink.href = `redoc.html?url=${encodeURIComponent(url)}&version=${version}`;
             }
         }
 
