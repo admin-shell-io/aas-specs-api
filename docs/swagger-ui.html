@@ -242,7 +242,20 @@
 
         // Update Redoc link
         function updateRedocLink(url) {
-            document.getElementById('redocLink').href = `redoc.html?url=${encodeURIComponent(url)}`;
+            const redocLink = document.getElementById('redocLink');
+            // Disable Redoc link for Entire API Collection (too large)
+            if (url.includes('Entire-API-Collection')) {
+                redocLink.style.opacity = '0.5';
+                redocLink.style.pointerEvents = 'none';
+                redocLink.style.cursor = 'not-allowed';
+                redocLink.title = 'Redoc viewer not available for Entire API Collection (file too large)';
+            } else {
+                redocLink.style.opacity = '1';
+                redocLink.style.pointerEvents = 'auto';
+                redocLink.style.cursor = 'pointer';
+                redocLink.title = '';
+                redocLink.href = `redoc.html?url=${encodeURIComponent(url)}`;
+            }
         }
 
         updateRedocLink(specUrl);
