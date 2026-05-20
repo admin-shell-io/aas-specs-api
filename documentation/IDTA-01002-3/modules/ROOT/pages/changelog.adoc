@@ -22,6 +22,18 @@ Major Changes:
 
 Minor Changes:
 
+* fix: Harmonized `SecurityQueryFilter` between API and Security specifications and added missing `FILTERLIST` construct to the BNF grammar and JSON Schema.
+* fix: Aligned `idShort` pattern in BNF grammar and JSON Schema with Metamodel Constraint AASd-002 to correctly enforce minimum two characters and prevent trailing hyphens.
+* fix: Changed JSON Schema validation from `oneOf` to `anyOf` where BNF grammar allows mixed inline and named groups in concatenation scenarios.
+* fix: Aligned date/time extraction functions (`$dayOfWeek`, `$dayOfMonth`, `$month`, `$year`) in JSON Schema to accept all `dateTimeOperand` types per BNF grammar, and widened `timeLiteralPattern` to support fractional seconds.
+* docs: Aligned prose tables in Query Language specification with BNF grammar and JSON Schema patterns for cast operators, field identifiers, and submodel element limitations.
+* docs: Added normative FieldIdentifier applicability table per profile to clarify which Query and Access Rule prefixes apply to specific service specification families.
+* docs: Added normative Query Evaluation Semantics clause to standardize query behavior across implementations, including error handling, field resolution, and list-valued matching.
+* docs: Added normative Operation-to-RIGHT mapping table documenting the correspondence between HTTP/REST API operations and IDTA-01004 rightsEnum values.
+* docs: Added cross-spec terminology matrix reference to align Metamodel classes, API path segments, and Query/Access-Rule prefixes across specifications.
+* docs: Added cross-specification alignment matrix to document API compatibility with IDTA-01001 (Metamodel v3.2) and IDTA-01004 (Security v3.1).
+* docs: Established IDTA-01002 as authoritative source for formula grammar and JSON Schema shared between API and Security specifications.
+* docs: Added informative Conformance Test Corpus annex providing technology-neutral test cases for Query Language, HTTP/REST API, and error handling.
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
 * Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
 * Changing the serialization format for AASX packages from "application/asset-administration-shell-package+xml" to "application/aas+zip" in the OpenAPI files for the Asset Administration Shell Repository Service Specification and the Submodel Repository Service Specification. This change is necessary to align with the actual content type used by implementations and to avoid confusion, as the previous content type was not registered and could be misinterpreted as an XML-based format. (https://github.com/admin-shell-io/aas-specs-api/issues/538[#538])
