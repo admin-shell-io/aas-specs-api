@@ -54,7 +54,7 @@ e|xref:DeleteThumbnail[DeleteThumbnail] a|Deletes the thumbnail
 |===
 h|Operation Name 4+e|[[GetAssetAdministrationShell]]GetAssetAdministrationShell
 h|Explanation 4+a|Returns the Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShell/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShell/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
@@ -62,7 +62,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 e|serializationModifier a|Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Asset Administration Shell |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+e|payload a|Requested Asset Administration Shell |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation PutAssetAdministrationShell
@@ -72,14 +72,14 @@ e|payload a|Requested Asset Administration Shell |yes | link:https://industriald
 |===
 h|*Operation Name* 4+e|[[PutAssetAdministrationShell]]PutAssetAdministrationShell
 h|Explanation 4+a|Replaces the Asset Administration Shell
-h|*semanticId* 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShell/3/2`
+h|*semanticId* 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShell/3/1`
 
 h|Name h|*Description* h|*Mand.* h|*Type* h|*Card.*
 5+h|Input Parameter
-e|aas a|AssetAdministrationShell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] object |1
+e|aas a|AssetAdministrationShell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] object |1
 5+h|Output Parameter
 e|statusCode a|StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
-e|payload a|AssetAdministrationShell |no |Replaced link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+e|payload a|AssetAdministrationShell |no |Replaced link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation GetAllSubmodelReferences
@@ -89,7 +89,7 @@ e|payload a|AssetAdministrationShell |no |Replaced link:https://industrialdigita
 |===
 h|Operation Name 4+e|[[GetAllSubmodelReferences]]GetAllSubmodelReferences
 h|Explanation 4+a|Returns all Submodel References
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelReferences/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelReferences/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
@@ -99,7 +99,7 @@ e|cursor a|The position from which to resume a result listing |no |string |1
 
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Submodel References |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |0..*
+e|payload a|Requested Submodel References |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference]  |0..*
 |===
 
 ==== Operation PostSubmodelReference
@@ -109,14 +109,14 @@ e|payload a|Requested Submodel References |yes |link:https://industrialdigitaltw
 |===
 h|Operation Name 4+e|[[PostSubmodelReference]]PostSubmodelReference
 h|Explanation 4+a|Creates a Submodel Reference at the Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelReference/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelReference/3/1`
 
 h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelRef | Reference to the Submodel |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |1
+e|submodelRef | Reference to the Submodel |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference]  |1
 5+h|Output Parameter
 e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload | Created Submodel Reference |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |1
+e|payload | Created Submodel Reference |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference]  |1
 |===
 
 ==== Operation DeleteSubmodelReference
@@ -126,11 +126,11 @@ e|payload | Created Submodel Reference |yes |link:https://industrialdigitaltwin.
 |===
 h|Operation Name 4+e|[[DeleteSubmodelReference]]DeleteSubmodelReference
 h|Explanation 4+a|Deletes the Submodel Reference from the Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelReference/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelReference/3/1`
 
 h|Name h| Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelId | The unique ID of the Submodel for the reference to be deleted |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|submodelId | The unique ID of the Submodel for the reference to be deleted |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -142,13 +142,13 @@ e|statusCode | Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 |===
 h|Operation Name 4+e|[[GetAssetInformation]]GetAssetInformation
 h|Explanation 4+a|Returns the Asset Information
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetInformation/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetInformation/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested Asset Information |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
+e|payload a|Requested Asset Information |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
 |===
 
 ==== Operation PutAssetInformation
@@ -158,13 +158,13 @@ e|payload a|Requested Asset Information |yes |link:https://industrialdigitaltwin
 |===
 h|*Operation Name* 4+e|[[PutAssetInformation]]PutAssetInformation
 h|Explanation 4+a|Replaces the Asset Information
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetInformation/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetInformation/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
 
-e|assetInfo a|Asset Information object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
+e|assetInfo a|Asset Information object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetInformation[AssetInformation] |1
 
 5+h|Output Parameter
 
@@ -178,7 +178,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 |===
 h|Operation Name 4+e|[[GetThumbnail]]GetThumbnail
 h|Explanation 4+a|Returns the thumbnail file
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetThumbnail/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetThumbnail/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -194,7 +194,7 @@ e|payload a|Requested thumbnail file |yes | xref:specification/interfaces-payloa
 |===
 h|Operation Name 4+e|[[PutThumbnail]]PutThumbnail
 h|Explanation 4+a|Replaces the thumbnail file
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutThumbnail/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutThumbnail/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -210,7 +210,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 |===
 h|Operation Name 4+e|[[DeleteThumbnail]]DeleteThumbnail
 h|Explanation 4+a|Deletes the thumbnail file
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteThumbnail/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteThumbnail/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -254,14 +254,14 @@ e|xref:GetOperationAsyncResult[GetOperationAsyncResult] a|Returns the OperationR
 |===
 h|Operation Name 4+e|[[GetSubmodel]]GetSubmodel
 h|Explanation 4+a|Returns the Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodel/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodel/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodel |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Requested Submodel |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation GetAllSubmodelElements
@@ -271,7 +271,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAllSubmodelElements]]GetAllSubmodelElements
 h|Explanation 4+a|Returns all submodel elements including their hierarchy
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelElements/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelElements/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -280,7 +280,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested submodel elements |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |0..*
+|payload |Requested submodel elements |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |0..*
 |===
 
 ==== Operation GetSubmodelElementByPath
@@ -290,15 +290,15 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetSubmodelElementByPath]]GetSubmodelElementByPath
 h|Explanation 4+a|Returns a specific submodel element from the Submodel at a specified path
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path | {path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
+|path | {path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
 |serializationModifier |Defines the format of the response |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |0..1
+|payload |Requested submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |0..1
 |===
 
 ==== Operation GetFileByPath
@@ -308,11 +308,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetFileByPath]]GetFileByPath
 h|Explanation 4+a|Returns a specific file from the Submodel at a specified path
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetFileByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetFileByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
+|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |Requested file |yes |xref:specification/interfaces-payload.adoc#file-content[File Content] |0..1
@@ -325,11 +325,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PutFileByPath]]PutFileByPath
 h|Explanation 4+a|Replaces the file of an existing submodel element at a specified path within the submodel element hierarchy
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutFileByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutFileByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
+|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
 |payload |Replacing file |yes |xref:specification/interfaces-payload.adoc#file-content[File Content] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -342,11 +342,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[DeleteFileByPath]]DeleteFileByPath
 h|Explanation 4+a|Deletes the file of an existing submodel element at a specified path within the submodel element hierarchy
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteFileByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteFileByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |idShortPath via relative Reference/Keys to a submodel element |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key]  |1..*
+|path |idShortPath via relative Reference/Keys to a submodel element |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key]  |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -358,14 +358,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PutSubmodel]]PutSubmodel
 h|Explanation 4+a|Replaces the Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodel/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodel/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodel |Submodel object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel]  |1
+|submodel |Submodel object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Replaced submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PatchSubmodel
@@ -375,7 +375,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PatchSubmodel]]PatchSubmodel
 h|Explanation 4+a|Updates the Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodel/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodel/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -389,10 +389,10 @@ Note: values remain unchanged with content=metadata.
 
 
 |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
-|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Updated submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Updated submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PostSubmodelElement
@@ -411,18 +411,18 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElement/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElement/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
 
-|submodelElement |Submodel element object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |
+|submodelElement |Submodel element object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |
 
 5+h|Output Parameter
 
 |StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
-|payload |Created submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|payload |Created submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PostSubmodelElementByPath
@@ -441,15 +441,15 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElementByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelElementByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} under which the new SubmodelElement shall be added |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
-|submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|path |{path} under which the new SubmodelElement shall be added |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
+|submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Created submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|payload |Created submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ====
@@ -463,15 +463,15 @@ Note: if the PostSubmodelElementByPath is executed towards a SubmodelElementList
 |===
 h|Operation Name 4+e|[[PutSubmodelElementByPath]]PutSubmodelElementByPath
 h|Explanation 4+a|Replaces an existing submodel element or creates a new submodel element at a specified path within the submodel element hierarchy
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelElementByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} which shall be replaced |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
-|submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|path |{path} which shall be replaced |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
+|submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |StatusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |New state of the submodel element | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|payload |New state of the submodel element | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PatchSubmodelElementByPath
@@ -481,7 +481,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PatchSubmodelElementByPath]]PatchSubmodelElementByPath
 h|Explanation 4+a|Updates an existing submodel element at a specified path within the submodel element hierarchy
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -496,13 +496,13 @@ Note: values remain unchanged with content=metadata.
 
 |no |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 
-|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
-|submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
+|submodelElement |Submodel element object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 
-|payload |Updated submodel element | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|payload |Updated submodel element | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation GetSubmodelElementValueByPath
@@ -513,14 +513,14 @@ Note: values remain unchanged with content=metadata.
 h|Operation Name 4+e|[[GetSubmodelElementValueByPath]]GetSubmodelElementValueByPath
 h|Explanation 4+a|Returns a specific submodel element value from the Submodel at a specified path according to the ValueOnly-serialization as defined in xref:bibliography.adoc#bib1[[1]]
 // Previously pointing to Clause 11.4.1
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementValueByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelElementValueByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes  |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
+|path |{path} |yes  |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested submodel element value |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|payload |Requested submodel element value |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 |===
 
 ==== Operation PatchSubmodelElementValueByPath
@@ -531,12 +531,12 @@ h|Name h|Description h|Mand. h|Type h|Card.
 h|Operation Name 4+e|[[PatchSubmodelElementValueByPath]]PatchSubmodelElementValueByPath
 h|Explanation 4+a|Sets the value of the submodel element at a specified path according to the ValueOnly-serialization as defined in xref:bibliography.adoc#bib1[[1]]
 // Previously pointing to Clause 11.4.1
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementValueByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelElementValueByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
-|payload |The new value of the submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
+|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
+|payload |The new value of the submodel element |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -548,11 +548,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[DeleteSubmodelElementByPath]]DeleteSubmodelElementByPath
 h|Explanation 4+a|Deletes a submodel element at a specified path within the submodel elements hierarchy
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelElementByPath/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelElementByPath/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
+|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -564,13 +564,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[InvokeOperationSync]]InvokeOperationSync
 h|Explanation 4+a|Synchronously invokes an Operation at a specified path
-h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationSync/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationSync/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path}, in this case an operation |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
-|inputArgument |Input argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
-|inoutputArgument |Inoutput argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
+|path |{path}, in this case an operation |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
+|inputArgument |Input argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
+|inoutputArgument |Inoutput argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |The Operation Result |yes |xref:specification/interfaces-payload.adoc#OperationResult[OperationResult] |1
@@ -583,13 +583,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[InvokeOperationAsync]]InvokeOperationAsync
 h|Explanation 4+a|Asynchronously invokes an Operation at a specified path
-h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationAsync/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/InvokeOperationAsync/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|path |{path}, in this case an operation |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Key[Key] |1..*
-|inputArgument |Input argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
-|inoutputArgument |Inoutput argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
+|path |{path}, in this case an operation |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
+|inputArgument |Input argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
+|inoutputArgument |Inoutput argument |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/submodel-elements.html#OperationVariable[OperationVariable] |1..*
 |clientTimeoutDuration |Duration indicating when the client suggests the server to have finished execution of the invoked operation. The server may take this value into account to decide on its effective timeout, however, the server may or may not use by its own discretion. |yes |duration |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
@@ -603,7 +603,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetOperationAsyncStatus]]GetOperationAsyncStatus
 h|Explanation 4+a|Returns the current status of an asynchronously invoked operation
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycStatus/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycStatus/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -620,7 +620,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetOperationAsyncResult]]GetOperationAsyncResult
 h|Explanation 4+a|Returns the OperationResult of an asynchronously invoked operation
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycResult/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetOperationAsnycResult/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -648,12 +648,12 @@ h|Operation Name h|[[Description]]Description
 |===
 h|Operation Name 4+e|[[GenerateSerializationByIds]]GenerateSerializationByIds
 h|Explanation 4+a|Returns an appropriate serialization based on the specified format (see xref:specification/interfaces.adoc#SerializationFormat[SerializationFormat]).
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GenerateSerializationByIds/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GenerateSerializationByIds/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIds |The unique ids of the Asset Administration Shells to be contained in the serialization |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
-|submodelIds |The unique ids of the Submodels to be contained in the serialization |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+|aasIds |The unique ids of the Asset Administration Shells to be contained in the serialization |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+|submodelIds |The unique ids of the Submodels to be contained in the serialization |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |includeConceptDescriptions a|Include all concept descriptions that are referenced in the Submodels contained in the serialization and that are known to the server
 ====
 Note: This shall also include the concept descriptions that are indirectly referenced by a Submodel, e.g., via the `valueList` attribute from the  IEC 63260 data specification template.
@@ -663,7 +663,7 @@ Note: This shall also include the concept descriptions that are indirectly refer
 |serializationFormat |Denotes in which serialization format the requested content shall be delivered |no |xref:specification/interfaces.adoc#SerializationFormat[SerializationFormat] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Serialization of the requested Asset Administration Shells and/or Submodels with or without ConceptDescriptions in specified SerializationFormat. |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/environment.html#Environment[Environment] |1
+|payload |Serialization of the requested Asset Administration Shells and/or Submodels with or without ConceptDescriptions in specified SerializationFormat. |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/environment.html#Environment[Environment] |1
 |===
 
 [.table-with-appendix-table]
@@ -706,11 +706,11 @@ e|xref:GetOperationAsyncResult[GetOperationAsyncResult] |Returns the Operation r
 |===
 h|Operation Name 4+e|[[GetAllAASXPackageIds]]GetAllAASXPackageIds
 h|Explanation 4+a|Returns a list of available AASX packages at the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAASXPackageIds/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAASXPackageIds/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasId |Identifier of the AAS which must exist in each matching AASX package |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|aasId |Identifier of the AAS which must exist in each matching AASX package |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
@@ -725,7 +725,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAASXByPackageId]]GetAASXByPackageId
 h|Explanation 4+a|Returns a specific AASX package from the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAASXByPackageId/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAASXByPackageId/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -743,7 +743,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PostAASXPackage]]PostAASXPackage
 h|Explanation 4+a|Creates an AASX package at the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAASXPackage/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAASXPackage/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -757,7 +757,7 @@ Servers may simply store the AASX files with their related given aasIds.
 ====
 
 
-|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
 |file |New AASX package |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01005/v3.1/index.html[AASX package] |1
 |filename |Filename of the AASX package |yes |string |1
 5+h|Output Parameter
@@ -772,7 +772,7 @@ Servers may simply store the AASX files with their related given aasIds.
 |===
 h|Operation Name 4+e|[[PutAASXByPackageId]]PutAASXByPackageId
 h|Explanation 4+a|Replaces or creates the AASX package at the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAASXByPackageId/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAASXByPackageId/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -787,7 +787,7 @@ Servers may simply store the AASX files with their related given aasIds.
 ====
 
 
-|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
 |file |New AASX package |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01005/v3.1/index.html[AASX package] |1
 |filename |Filename of the AASX package |yes |string |1
 5+h|Output Parameter
@@ -801,7 +801,7 @@ Servers may simply store the AASX files with their related given aasIds.
 |===
 h|Operation Name 4+e|[[DeleteAASXByPackageId]]DeleteAASXByPackageId
 h|Explanation 4+a|Deletes a specific AASX package from the server
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAASXByPackageId/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAASXByPackageId/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -891,6 +891,7 @@ These identifiers may be discovered through the interfaces described in <<publis
 h|Operation Name h|Description
 
 |xref:GetAllAssetAdministrationShellDescriptors[GetAllAssetAdministrationShellDescriptors] a|Returns all Asset Administration Shell Descriptors
+|xref:GetAllAssetAdministrationShellDescriptorsRecentChanges[GetAllAssetAdministrationShellDescriptorsRecentChanges] a|Returns all Asset Administration Shell Descriptors that have been created or updated
 |xref:GetAssetAdministrationShellDescriptorById[GetAssetAdministrationShellDescriptorById] a|Returns a specific Asset Administration Shell Descriptor
 |xref:PostAssetAdministrationShellDescriptor[PostAssetAdministrationShellDescriptor] a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
 |xref:CreateBulkAssetAdministrationShellDescriptors[CreateBulkAssetAdministrationShellDescriptors] a| Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
@@ -908,14 +909,40 @@ h|Operation Name h|Description
 |===
 h|Operation Name 4+e|[[GetAllAssetAdministrationShellDescriptors]]GetAllAssetAdministrationShellDescriptors
 h|Explanation 4+a|Returns all Asset Administration Shell Descriptors
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
-|assetKind |The kind of the assets to retrieve (Type, Instance, Role, NotApplicable) | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetKind[AssetKind] |1
-|assetType |The type of the assets to retrieve, encoded as unique ID | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|assetKind |The kind of the assets to retrieve (Type, Instance, Role, NotApplicable) | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetKind[AssetKind] |1
+|assetType |The type of the assets to retrieve, encoded as unique ID | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
+|===
+
+==== Operation GetAllAssetAdministrationShellDescriptorsRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellDescriptorsRecentChanges]]GetAllAssetAdministrationShellDescriptorsRecentChanges
+h|Explanation 4+a|Returns all Asset Administration Shell Descriptors that have been created or updated
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsRecentChanges/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|assetKind |The kind of the assets to retrieve (Type, Instance, Role, NotApplicable) | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetKind[AssetKind] |1
+|assetType |The type of the assets to retrieve, encoded as unique ID | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|key a|The key of the AssetId
+
+The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
+e|keyIdentifier a|The key identifier object |yes |string |1
+e|createdFrom a|Return Shells created at or after the given date |no | xref:components/parameters/CreatedFrom|1
+e|updatedFrom a|Return Shells updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |List of Asset Administration Shell Descriptors |no | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1..*
@@ -928,11 +955,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAssetAdministrationShellDescriptorById]]GetAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Returns a specific Asset Administration Shell Descriptor
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellDescriptorById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]|1
 |payload |Requested Asset Administration Shell Descriptor |yes | xref:specification/interfaces-payload.adoc#AssetAdministrationShellDescriptor[AssetAdministrationShellDescriptor]  |1
@@ -945,7 +972,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PostAssetAdministrationShellDescriptor]]PostAssetAdministrationShellDescriptor
 h|Explanation 4+a|Creates a new Asset Administration Shell Descriptor, i.e., registers an AAS
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShellDescriptor/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShellDescriptor/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -962,7 +989,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[CreateBulkAssetAdministrationShellDescriptors]]CreateBulkAssetAdministrationShellDescriptors
 h|Explanation 4+a|Creates multiple new Asset Administration Shell Descriptors, i.e., registers multiple Asset Administration Shells
-h|semanticId 4+|`\https://admin-shell.io/aas/API/CreateBulkAssetAdministrationShellDescriptors/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/CreateBulkAssetAdministrationShellDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -978,7 +1005,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PutAssetAdministrationShellDescriptorById]]PutAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Creates or replaces an existing Asset Administration Shell Descriptor, i.e., replaces registration information
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellDescriptorById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -996,7 +1023,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 
 h|Operation Name 4+e|[[PutBulkAssetAdministrationShellDescriptorsById]]PutBulkAssetAdministrationShellDescriptorsById
 h|Explanation 4+a|Updates multiple existing Asset Administration Shell Descriptors or creates them if they do not exist
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkAssetAdministrationShellDescriptorsById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkAssetAdministrationShellDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1012,11 +1039,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[DeleteAssetAdministrationShellDescriptorById]]DeleteAssetAdministrationShellDescriptorById
 h|Explanation 4+a|Deletes an Asset Administration Shell Descriptor, i.e., de-registers an AAS
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellDescriptorById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellDescriptorById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|aasIdentifier |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1028,7 +1055,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[DeleteBulkAssetAdministrationShellDescriptorsById]]DeleteBulkAssetAdministrationShellDescriptorsById
 h|Explanation 4+a|Deletes multiple Asset Administration Shell Descriptors, i.e., de-registers multiple Asset Administration Shells
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkAssetAdministrationShellDescriptorsById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkAssetAdministrationShellDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1045,7 +1072,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[QueryAssetAdministrationShellDescriptors]]QueryAssetAdministrationShellDescriptors
 h|Explanation 4+a| Returns all Asset Administration Shell Descriptors that conform to a certain input query.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShellDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1082,7 +1109,7 @@ e|xref:QuerySubmodelDescriptors[QuerySubmodelDescriptors] a| Returns all Submode
 |===
 h|Operation Name 4+e|[[GetAllSubmodelDescriptors]]GetAllSubmodelDescriptors
 h|Explanation 4+a|Returns all submodel descriptors
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1100,11 +1127,11 @@ e|payload a|List of requested submodel descriptors |no |xref:specification/inter
 |===
 h|Operation Name 4+e|[[GetSubmodelDescriptorById]]GetSubmodelDescriptorById
 h|Explanation 4+a|Returns a specific Submodel Descriptor
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/1`
 =
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|submodelIdentifier a|The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|submodelIdentifier a|The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|Requested submodel descriptor |yes |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor] |1
@@ -1117,7 +1144,7 @@ e|payload a|Requested submodel descriptor |yes |xref:specification/interfaces-pa
 |===
 h|Operation Name 4+e|[[PostSubmodelDescriptor]]PostSubmodelDescriptor
 h|Explanation 4+a|Creates a new submodel descriptor, i.e. registers a submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodelDescriptor/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1134,7 +1161,7 @@ e|payload a|Created submodel descriptor |yes | xref:specification/interfaces-pay
 |===
 h|Operation Name 4+e|[[PostBulkSubmodelDescriptors]]PostBulkSubmodelDescriptors
 h|Explanation    4+a|Creates one or more new submodel descriptors, i.e., registers several submodels
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostBulkSubmodelDescriptors/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostBulkSubmodelDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
@@ -1155,7 +1182,7 @@ Descriptor    a|Object containing the Submodel’s identification and endpoint i
 |===
 h|Operation Name 4+e|[[PutSubmodelDescriptorById]]PutSubmodelDescriptorById
 h|Explanation 4+a|Replaces an existing submodel descriptor, i.e., replaces registration information
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelDescriptorById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1173,7 +1200,7 @@ e|payload a|Replaced submodel descriptor |no | xref:specification/interfaces-pay
 |===
 h|Operation Name 4+e|[[PutBulkSubmodelDescriptorsById]]PutBulkSubmodelDescriptorsById
 h|Explanation 4+a|Replaces one or more existing submodel descriptors, i.e., replaces registration information of several submodels
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkSubmodelDescriptorsById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutBulkSubmodelDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1191,11 +1218,11 @@ Descriptor |Object containing the Submodel’s identification and endpoint infor
 |===
 h|Operation Name 4+e|[[DeleteSubmodelDescriptorById]]DeleteSubmodelDescriptorById
 h|Explanation 4+a|Deletes a Submodel Descriptor, i.e., de-registers a submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodelIdentifier |The Submodel’s unique id |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|submodelIdentifier |The Submodel’s unique id |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1207,11 +1234,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[DeleteBulkSubmodelDescriptorsById]]DeleteBulkSubmodelDescriptorsById
 h|Explanation 4+a|Deletes one or more submodel descriptors, i.e., de-registers several submodels
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkSubmodelDescriptorsById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteBulkSubmodelDescriptorsById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodelIdentifier |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+|submodelIdentifier |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1223,7 +1250,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[QuerySubmodelDescriptors]]QuerySubmodelDescriptors
 h|Explanation 4+a| Returns all Submodel Descriptors that conform to a certain input query.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodelDescriptors/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1257,9 +1284,11 @@ The interfaces that provide access to the entities (Asset Administration Shells,
 2+|Interface: [[interface-AssetAdministrationShellRepository]]_Asset Administration Shell Repository_
 h|Operation Name h|Description
 e|xref:GetAllAssetAdministrationShells[GetAllAssetAdministrationShells] |Returns all Asset Administration Shells
+e|xref:GetAllAssetAdministrationShellsRecentChanges[GetAllAssetAdministrationShellsRecentChanges] |Returns information about recently changed Asset Administration Shells
 e|xref:GetAssetAdministrationShellById[GetAssetAdministrationShellById] |Returns a specific Asset Administration Shell
 e|xref:GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] |Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
 e|xref:GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort] |Returns all Asset Administration Shells with a specific idShort
+e|xref:GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate] |Returns a specific Asset Administration Shell at a specific point in time.
 e|xref:PostAssetAdministrationShell[PostAssetAdministrationShell] a|
 Creates a new Asset Administration Shell.
 The ID of the new Asset Administration Shell must be set in the payload.
@@ -1283,7 +1312,7 @@ e|xref:GetAssetAdministrationShellByIdSigned[GetAssetAdministrationShellByIdSign
 |===
 h|Operation Name 4+e|[[GetAllAssetAdministrationShells]]GetAllAssetAdministrationShells
 h|Explanation 4+a|Returns all Asset Administration Shells
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1292,7 +1321,32 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|List of Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
+e|payload a|List of Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
+|===
+
+==== Operation GetAllAssetAdministrationShellsRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellsRecentChanges]]GetAllAssetAdministrationShellsRecentChanges
+h|Explanation 4+a|Returns information about recently changed Asset Administration Shells
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsRecentChanges/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+
+5+h|Input Parameter
+e|key a|The key of the AssetId
+
+The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
+e|keyIdentifier a|The key identifier object |yes |string |1
+e|createdFrom a|Return Shells created at or after the given date |no | xref:components/parameters/CreatedFrom|1
+e|updatedFrom a|Return Shells updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|Requested Asset Administration Shell Change Infos |yes |xref:specification/interfaces-payload.adoc#AssetAdministrationShellRecentChange[AssetAdministrationShellRecentChange] |1
 |===
 
 ==== Operation GetAssetAdministrationShellById
@@ -1302,17 +1356,17 @@ e|payload a|List of Asset Administration Shells |no |link:https://industrialdigi
 |===
 h|Operation Name 4+e|[[GetAssetAdministrationShellById]]GetAssetAdministrationShellById
 h|Explanation 4+a|Returns a specific Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+|payload |Requested Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation GetAllAssetAdministrationShellsByAssetId
@@ -1322,7 +1376,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAllAssetAdministrationShellsByAssetId]]GetAllAssetAdministrationShellsByAssetId
 h|Explanation 4+a|Returns all Asset Administration Shells that are linked to a globally unique asset identifier or to specific asset ids
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByAssetId/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1335,7 +1389,7 @@ The name of the specific asset identifier or the predefined name “_globalAsset
 |cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload a|Requested Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
+|payload a|Requested Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
 |===
 
 ==== Operation GetAllAssetAdministrationShellsByIdShort
@@ -1345,17 +1399,36 @@ The name of the specific asset identifier or the predefined name “_globalAsset
 |===
 h|Operation Name 4+e|[[GetAllAssetAdministrationShellsByIdShort]]GetAllAssetAdministrationShellsByIdShort
 h|Explanation 4+a|Returns all Asset Administration Shells with a specific _idShort_
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByIdShort/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsByIdShort/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Asset Administration Shell’s idShort |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] | 1
+|idShort |The Asset Administration Shell’s idShort |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#NameType[NameType] | 1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  | 1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
+|payload |Requested Asset Administration Shells |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1..*
+|===
+
+
+==== Operation GetAssetAdministrationShellVersionByIdAndDate
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAssetAdministrationShellVersionByIdAndDate]]GetAssetAdministrationShellVersionByIdAndDate
+h|Explanation 4+a|Returns a specific Asset Administration Shell at a specific point in time. If no date is provided, the latest version is returned.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellVersionByIdAndDate/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|date |The point in time at which the Asset Administration Shell version is requested |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] | 1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Requested Asset Administration Shell Version at the specified date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation PostAssetAdministrationShell
@@ -1374,19 +1447,19 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShell/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAssetAdministrationShell/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
 
 5+h|Input Parameter
-|aas |Asset Administration Shell object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+|aas |Asset Administration Shell object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 
 5+h|Output Parameter
 
 |statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 
-|payload a|Created Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+|payload a|Created Asset Administration Shell |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation PutAssetAdministrationShellById
@@ -1396,18 +1469,18 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PutAssetAdministrationShellById]]PutAssetAdministrationShellById
 h|Explanation 4+a|Creates or replaces an existing Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutAssetAdministrationShellById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
-|aas |Asset Administration Shell object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|aas |Asset Administration Shell object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 5+h|Output Parameter
 ====
 Note: The `id` of the contained Asset Administration Shell object has to be exactly the same as in the `id` input parameter. A server shall respond with a `ClientErrorBadRequest` otherwise.
 ====
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Replaced Asset Administration Shell | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
+|payload |Replaced Asset Administration Shell | no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] |1
 |===
 
 ==== Operation DeleteAssetAdministrationShellById
@@ -1417,11 +1490,11 @@ Note: The `id` of the contained Asset Administration Shell object has to be exac
 |===
 h|Operation Name 4+e|[[DeleteAssetAdministrationShellById]]DeleteAssetAdministrationShellById
 h|Explanation 4+a|Deletes an Asset Administration Shell
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAssetAdministrationShellById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1434,7 +1507,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[QueryAssetAdministrationShells]]QueryAssetAdministrationShells
 h|Explanation 4+a| Returns all Asset Administration Shells that conform to a certain input query.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryAssetAdministrationShells/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1456,7 +1529,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellById
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Asset Administration Shell’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |JWS string for requested Asset Administration Shell |yes |string |1
@@ -1471,7 +1544,9 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: [[interface-SubmodelRepository]]_Submodel Repository_
 h|Operation Name h|Description
 e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
+e|xref:GetAllSubmodelRecentChanges[GetAllSubmodelRecentChanges] |Returns information about recently changed Submodels
 e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
+e|xref:GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]|Returns a specific version of a Submodel from a given point in time
 e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
 e|xref:GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort] |Returns all Submodels with a specific _idShort_
 e|xref:PostSubmodel[PostSubmodel] a|
@@ -1498,7 +1573,7 @@ e|xref:GetSubmodelByIdSigned[GetSubmodelByIdSigned]|Returns the JWS for a specif
 |===
 h|Operation Name 4+e|[[GetAllSubmodels]]GetAllSubmodels
 h|Explanation 4+a|Returns all Submodels
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodels/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodels/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1507,7 +1582,28 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |List of Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
+|payload |List of Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1..*
+|===
+
+==== Operation GetAllSubmodelRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllSubmodelRecentChanges]]GetAllSubmodelRecentChanges
+h|Explanation 4+a|Returns information about all Submodels that have been changed recently
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelRecentChanges/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|semanticId |Identifier of the semantic definition |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+e|createdFrom a|Return Submodels created at or after the given date |no | xref:components/parameters/CreatedFrom|1
+e|updatedFrom a|Return Submodels updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|Requested Submodel Change Infos |yes |xref:specification/interfaces-payload.adoc#SubmodelRecentChange[SubmodelRecentChange] |1
 |===
 
 ==== Operation GetSubmodelById
@@ -1517,15 +1613,33 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetSubmodelById]]GetSubmodelById
 h|Explanation 4+a|Returns a specific Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Requested Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
+|===
+
+==== Operation GetSubmodelVersionByIdAndDate
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetSubmodelVersionByIdAndDate]]GetSubmodelVersionByIdAndDate
+h|Explanation 4+a|Returns a specific version of a Submodel from a given point in time. If no date is provided, the latest version is returned.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelVersionByIdAndDate/3/2`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|date |The point in time at which the Submodel version is requested |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |Requested Submodel Version at the specified date |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation GetAllSubmodelsBySemanticId
@@ -1537,17 +1651,17 @@ h|Operation Name 4+e|[[GetAllSubmodelsBySemanticId]]GetAllSubmodelsBySemanticId
 h|Explanation 4+a|
 Returns all Submodels with a specific SemanticId or SupplementalSemanticId.
 If either the semanticId fits to the input parameter or at least one of the SupplementalSemanticIds, the submodel is returned.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsBySemanticId/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|semanticId |Identifier of the semantic definition |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference] |1
+|semanticId |Identifier of the semantic definition |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
+|payload |Requested Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
 ==== Operation GetAllSubmodelsByIdShort
@@ -1557,17 +1671,17 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAllSubmodelsByIdShort]]GetAllSubmodelsByIdShort
 h|Explanation 4+a|Returns all Submodels with a specific _idShort_
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsByIdShort/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Submodel’s idShort |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |1
+|idShort |The Submodel’s idShort |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#NameType[NameType] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1..*
+|payload |Requested Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
 ==== Operation PostSubmodel
@@ -1586,14 +1700,14 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodel/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostSubmodel/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Created Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Created Submodel |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PutSubmodelById
@@ -1603,14 +1717,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PutSubmodelById]]PutSubmodelById
 h|Explanation 4+a|Creates a new or replaces an existing Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutSubmodelById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |New state of the Submodel | no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |New state of the Submodel | no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation PatchSubmodelById
@@ -1620,7 +1734,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PatchSubmodelById]]PatchSubmodelById
 h|Explanation 4+a|Updates an existing Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PatchSubmodelById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1634,10 +1748,10 @@ Note: values remain unchanged with content=metadata.
 
 
 |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
-|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|submodel |Submodel object |yes | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Updated submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#Submodel[Submodel] |1
+|payload |Updated submodel |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1
 |===
 
 ==== Operation DeleteSubmodelById
@@ -1647,11 +1761,11 @@ Note: values remain unchanged with content=metadata.
 |===
 h|Operation Name 4+e|[[DeleteSubmodelById]]DeleteSubmodelById
 h|Explanation 4+a|Deletes a Submodel
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteSubmodelById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-e|id a|The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+e|id a|The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1665,7 +1779,7 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 |===
 h|Operation Name 4+e|[[QuerySubmodels]]QuerySubmodels
 h|Explanation 4+a| Returns all Submodels that conform to a certain input query.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QuerySubmodels/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1686,7 +1800,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelByIdSigned/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Submodel’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |JWS of the requested Submodel |yes | string |1
@@ -1702,6 +1816,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: _Concept Description Repository_
 h|Operation Name h|Description
 e|xref:GetAllConceptDescriptions[GetAllConceptDescriptions] |Returns all Concept Descriptions
+e|xref:GetAllConceptDescriptionRecentChanges[GetAllConceptDescriptionRecentChanges] |Returns recently changed Concept Descriptions
 e|xref:GetConceptDescriptionById[GetConceptDescriptionById] |Returns a specific Concept Description
 e|xref:GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] |Returns all Concept Descriptions with a specific _idShort_
 e|xref:GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
@@ -1729,7 +1844,7 @@ e|xref:GetConceptDescriptionByIdSigned[GetConceptDescriptionByIdSigned] |Returns
 |===
 h|Operation Name 4+e|[[GetAllConceptDescriptions]]GetAllConceptDescriptions
 h|Explanation 4+a|Returns all Concept Descriptions
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptions/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptions/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1737,7 +1852,27 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|===
+
+==== Operation GetAllConceptDescriptionRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllConceptDescriptionRecentChanges]]GetAllConceptDescriptionRecentChanges
+h|Explanation 4+a|Returns all Concept Descriptions that have been changed recently
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionRecentChanges/3/1`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+|createdFrom |Return Concept Descriptions created at or after the given date |no | xref:components/parameters/CreatedFrom|1
+|updatedFrom |Return Concept Descriptions updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+|limit |The maximum size of the result set |no |nonNegativeInteger |1
+|cursor |The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+|payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation GetConceptDescriptionById
@@ -1747,14 +1882,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetConceptDescriptionById]]GetConceptDescriptionById
 h|Explanation 4+a|Returns a specific Concept Description
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Concept Description’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Concept Description’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
+|payload |Requested Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation GetAllConceptDescriptionsByIdShort
@@ -1764,16 +1899,16 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAllConceptDescriptionsByIdShort]]GetAllConceptDescriptionsByIdShort
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _idShort_
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIdShort/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIdShort/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|idShort |The Concept Description’s idShort |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |1
+|idShort |The Concept Description’s idShort |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#NameType[NameType] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|payload |Requested Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation GetAllConceptDescriptionsByIsCaseOf
@@ -1783,16 +1918,16 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAllConceptDescriptionsByIsCaseOf]]GetAllConceptDescriptionsByIsCaseOf
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _IsCaseOf_ reference
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIsCaseOf/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByIsCaseOf/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|isCaseOf |IsCaseOf reference |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |1
+|isCaseOf |IsCaseOf reference |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference]  |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
-|payload |Requested Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|payload |Requested Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation GetAllConceptDescriptionsByDataSpecificationReference
@@ -1802,16 +1937,16 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAllConceptDescriptionsByDataSpecificationReference]]GetAllConceptDescriptionsByDataSpecificationReference
 h|Explanation 4+a|Returns all Concept Descriptions with a specific _dataSpecification_ reference
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByDataSpecificationReference/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsByDataSpecificationReference/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|dataSpecification-Reference |_DataSpecification_ reference |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/referencing.html#Reference[Reference]  |_1_
+|dataSpecification-Reference |_DataSpecification_ reference |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference]  |_1_
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Requested Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|payload |Requested Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
 ==== Operation PostConceptDescription
@@ -1830,18 +1965,18 @@ Note: the creation of the idShort is out of scope and must be handled in a propr
 ====
 
 
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostConceptDescription/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostConceptDescription/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 
 5+h|Input Parameter
 
-|conceptDescription a|Concept Description object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
+|conceptDescription a|Concept Description object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 
 5+h|Output Parameter
 
 |statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode]  |1
-|payload a|Created Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
+|payload a|Created Concept Description |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation PutConceptDescriptionById
@@ -1851,14 +1986,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[PutConceptDescriptionById]]PutConceptDescriptionById
 h|Explanation 4+a|Creates or replaces an existing Concept Description
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PutConceptDescriptionById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PutConceptDescriptionById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|conceptDescription |Concept Description object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
+|conceptDescription |Concept Description object |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |New state of the Concept Description |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
+|payload |New state of the Concept Description |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1
 |===
 
 ==== Operation DeleteConceptDescriptionById
@@ -1868,11 +2003,11 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[DeleteConceptDescriptionById]]DeleteConceptDescriptionById
 h|Explanation 4+a|Deletes a Concept Description
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteConceptDescriptionById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteConceptDescriptionById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|cdIdentifier |The Concept Description’s unique id |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|cdIdentifier |The Concept Description’s unique id |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
@@ -1884,7 +2019,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[QueryConceptDescriptions]]QueryConceptDescriptions
 h|Explanation 4+a|Returns a list of Concept Descriptions based on an input query.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/QueryConceptDescriptions/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1905,7 +2040,7 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetConceptDescriptionByIdSigned
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|id |The Concept Description’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1
+|id |The Concept Description’s unique ID |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |payload |JWS for the requested Concept Description |yes |string |1
@@ -1941,7 +2076,7 @@ e| xref:DeleteAllAssetLinksById[DeleteAllAssetLinksById]  |Deletes all asset ide
 |===
 h|Operation Name 4+e|[[GetAllAssetAdministrationShellIdsByAssetLink]]GetAllAssetAdministrationShellIdsByAssetLink \<<Deprecated>>
 h|Explanation 4+a|Returns a list of Asset Administration Shell ids based on asset identifier key-value-pairs
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellIdsByAssetLink/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -1955,12 +2090,12 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 ====
 
 
-|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
+|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |===
 
 ==== Operation GetAllAssetLinksById
@@ -1970,7 +2105,7 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 |===
 h|Operation Name 4+e|[[GetAllAssetLinksById]]GetAllAssetLinksById
 h|Explanation 4+a|Returns a list of asset identifier key-value-pairs based on an Asset Administration Shell id to edit discoverable content
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetLinksById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetLinksById/3/1`
 
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1988,7 +2123,7 @@ It is the predefined name “_globalAssetId_” that would refer to the _AssetIn
 ====
 
 
-|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
+|no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 |===
 
 ==== Operation SearchAllAssetAdministrationShellIdsByAssetLink
@@ -1998,7 +2133,7 @@ It is the predefined name “_globalAssetId_” that would refer to the _AssetIn
 |===
 h|Operation Name 4+e|[[SearchAllAssetAdministrationShellIdsByAssetLink]]SearchAllAssetAdministrationShellIdsByAssetLink
 h|Explanation 4+a|Returns a list of Asset Administration Shell IDs linked to specific asset identifiers or the global asset ID
-h|semanticId 4+|`https://admin-shell.io/aas/API/SearchAllAssetAdministrationShellIdsByAssetLink/3/2`
+h|semanticId 4+|`https://admin-shell.io/aas/API/SearchAllAssetAdministrationShellIdsByAssetLink/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -2016,7 +2151,7 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+|payload |Identifiers of all Asset Administration Shells which contain all asset identifier key-value-pairs in their asset information, i.e. AND-match of key-value-pairs per Asset Administration Shell |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
 |===
 
 ==== Operation PostAllAssetLinksById
@@ -2027,7 +2162,7 @@ It is the predefined key “_globalAssetId_” that would refer to the _AssetInf
 h|Operation Name 4+e|[[PostAllAssetLinksById]]PostAllAssetLinksById
 h|Explanation 4+a|
 Creates or replaces all asset links associated to the Asset Administration Shell.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAllAssetLinksById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/PostAllAssetLinksById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -2045,10 +2180,10 @@ Potentially included semanticId or supplementalSemanticIds are ignored.
 ====
 
 
-|yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
+|yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1..*
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |Asset identifier created successfully |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1
+|payload |Asset identifier created successfully |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SpecificAssetId[SpecificAssetId] |1
 |===
 
 ==== Operation DeleteAllAssetLinksById
@@ -2058,7 +2193,7 @@ Potentially included semanticId or supplementalSemanticIds are ignored.
 |===
 h|Operation Name 4+e|[[DeleteAllAssetLinksById]]DeleteAllAssetLinksById
 h|Explanation 4+a|Deletes all asset identifier key-value-pairs linked to an Asset Administration Shell to edit discoverable content
-h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -2085,7 +2220,7 @@ e|xref:GetSelfDescription[GetSelfDescription] |Returns a description object cont
 |===
 h|Operation Name 4+e|[[GetSelfDescription]]GetSelfDescription
 h|Explanation 4+a|Returns a description object containing the capabilities and supported features of the server.
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSelfDescription/3/2`
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSelfDescription/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Output Parameter

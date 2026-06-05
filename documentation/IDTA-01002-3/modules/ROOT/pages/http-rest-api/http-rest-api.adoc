@@ -316,7 +316,7 @@ e|cursor a|The cursor for the next part of the result set. No cursor attribute m
 
 The payload is generated from the technology-neutral specification as described in Part 1 of the Asset Administration Shell Series for JSON xref:bibliography.adoc#bib1[[1\]].
 // Previously pointing to Clause 11.4.2
-The link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#value-only-serialization-in-json[serialization of JSON values] is described in xref:bibliography.adoc#bib1[[1]].
+The link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[serialization of JSON values] is described in xref:bibliography.adoc#bib1[[1]].
 
 Additional classes needed for payload of the HTTP/REST API specification can be found in the xref:specification/interfaces-payload.adoc#descriptor[Descriptor Definition].
 
@@ -324,7 +324,7 @@ Additional classes needed for payload of the HTTP/REST API specification can be 
 == Modifier Constraints
 
 
-To use link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specification/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
+To use link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specification/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
 For example, a request for a specific submodel may look like: +
 GET /submodel/$value?level=deep&extent="withBlobValue"
 
@@ -511,6 +511,8 @@ base64url-encoded identifier
 
 path-suffix=$reference or no suffix normal
 
+date=\{dateTime\} is the date and time for which the version of the AAS shall be retrieved, e.g. "2024-01-01T12:00:00Z" for January 1st, 2024 at 12:00:00 UTC.
+
 |PostAssetAdministrationShell |POST |/shells |
 |PutAssetAdministrationShellById |PUT |/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
@@ -543,6 +545,8 @@ Pagination
 path-suffix=$metadata or no suffix for normal
 
 base64url-encoded identifier
+
+date=\{dateTime\} is the date and time for which the version of the Submodel shall be retrieved, e.g. "2024-01-01T12:00:00Z" for January 1st, 2024 at 12:00:00 UTC. Only applicable for the 'normal' and 'value' operations.
 
 |PostSubmodel |POST |/submodels |
 |PutSubmodelById |PUT |/submodels/\{submodelIdentifier} |base64url-encoded identifier
@@ -850,6 +854,6 @@ h|Inherits from 3+|--
 
 h|Attribute h|Explanation h|Type h|Card.
 e|packageId a|File server specific package id |xref:specification/interfaces-payload.adoc#ShortIdType[ShortIdType] |1
-e|aasId a|Asset Administration Shell unique identifier |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|aasId a|Asset Administration Shell unique identifier |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
 |===
 
