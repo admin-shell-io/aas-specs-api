@@ -3390,7 +3390,7 @@ paths:
     put:
       tags:
         - Asset Administration Shell Repository API
-      summary: Updates the Submodel
+      summary: Creates or updates the Submodel
       operationId: PutSubmodelById_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/PutSubmodelById/3/2
@@ -3402,6 +3402,17 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/Submodel'
         required: true
       responses:
+        '201':
+          description: Submodel created successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/Submodel'
         '204':
           description: Submodel updated successfully
         '400':
@@ -7415,11 +7426,7 @@ paths:
                 items:
                   $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/SpecificAssetId'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
-        '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
-        '409':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/conflict'
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/responses/bad-request'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
     delete:
