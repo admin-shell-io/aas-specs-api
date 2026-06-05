@@ -320,6 +320,7 @@ Paranthesises `(` `)` allow to combine logical expressions to define precedence.
 For explicite casting the following casting operators are used:
 
 [.table-with-appendix-table]
+[[casting]]
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Casting Operator h| Description h| Definition
@@ -555,7 +556,7 @@ This clause defines how an AAS query MUST be evaluated so that client and server
 === Casting Errors
 
 * An explicit cast that fails on the current candidate (e.g. `num("abc")`) MUST exclude the candidate from the result set; it MUST NOT fail the whole query.
-* Implicit casts between the types listed in clause xref:_casting[] follow the same rule.
+* Implicit casts between the types listed in the xref:casting[casting table] follow the same rule.
 
 === Combination with Access Rules
 
