@@ -1,0 +1,161 @@
+////
+Copyright (c) 2025 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+////
+
+[#conformance-test-corpus]
+= Conformance Test Corpus (informative)
+
+This annex defines an informative but structured set of *acceptance tests* for conforming implementations of the AAS Query Language and the HTTP/REST API defined in this specification. The corpus is intentionally technology-neutral and worded as a set of test cases; an implementation is said to be conformant to a given area if it passes every required test case in that area.
+
+The corpus is aligned with the conformance test corpus in IDTA-01004 Part 4: Security xref:bibliography.adoc#bib3[[3\]]. Tests that exercise shared formula grammar productions (logical expressions, comparisons, FieldIdentifiers, value literals, type casts, `$match`/`$and`/`$or`/`$not`) are normative for both specifications.
+
+Each test case has the shape:
+
+----
+ID:          <spec-id>.<category>.<nnn>
+Purpose:     <one-line intent>
+Input:       <request / query / rule as JSON or BNF>
+Expected:    <HTTP status, result predicate, or behavioural predicate>
+Requirement: MUST | SHOULD
+----
+
+[#ctc-query-language]
+== Query Language
+
+[cols="1,4,3",options="header"]
+|===
+| ID | Purpose | Expected
+
+| QL.parse.001
+| A syntactically valid query MUST be accepted.
+| HTTP 200 and a result set. No `400/422`.
+
+| QL.parse.002
+| A query with an unknown top-level key MUST be rejected.
+| HTTP 400 (syntactic) with a machine-readable error pointer.
+
+| QL.parse.003
+| A query whose JSON parses but violates the JSON Schema MUST be rejected.
+| HTTP 422 with a JSON-pointer to the failing element.
+
+| QL.field.001
+| `$aas#id` on an AAS Repository MUST resolve to AAS identifiers.
+| Result contains only AAS whose `id` matches.
+
+| QL.field.002
+| `$sm#semanticId.keys[0].value` MUST match the first key of the submodel semanticId.
+| Result filtered on that key only.
+
+| QL.field.003
+| `$sme#value` MUST search *recursively* over all matching SubmodelElements.
+| Matches occur in nested SubmodelElementCollections / Lists.
+
+| QL.field.004
+| `$aasdesc#...` on a non-Registry profile MUST be treated as "not applicable", not as an error.
+| HTTP 200, empty-match semantics (see Evaluation Semantics).
+
+| QL.cast.001
+| `num(str-attribute)` with a non-numeric value MUST yield "no match" for that item (not a 500).
+| HTTP 200, item excluded from the result.
+
+| QL.cast.002
+| `dateTime(<field>)` with a field value that is not a valid xsd:dateTime MUST yield "no match".
+| HTTP 200, item excluded.
+
+| QL.time.001
+| A `$timeVal` MUST accept `hh:mm`, `hh:mm:ss`, and `hh:mm:ss.fff` forms.
+| All three are accepted by the schema validator.
+
+| QL.time.002
+| A `$timeVal` with invalid components (e.g. `25:00`) MUST be rejected by the schema.
+| HTTP 422.
+
+| QL.dt.001
+| `$dayOfWeek`, `$dayOfMonth`, `$month`, `$year` MUST accept a `Value` operand (not only a literal).
+| A query using `$dayOfWeek($field: "$sm#...")` passes schema validation.
+
+| QL.supp.001
+| `$sm#supplementalSemanticIds[].keys[0].value $eq "..."` MUST match on any listed supplementalSemanticId.
+| Items whose supplementalSemanticIds contain the value are returned.
+
+| QL.logic.001
+| `$and` over an empty list MUST behave as `true` (identity of AND).
+| Equivalent to "match all".
+
+| QL.logic.002
+| `$or` over an empty list MUST behave as `false` (identity of OR).
+| Equivalent to "match none".
+|===
+
+[#ctc-http-api]
+== HTTP/REST API
+
+[cols="1,4,3",options="header"]
+|===
+| ID | Purpose | Expected
+
+| HTTP.auth.001
+| A request without credentials on a protected resource MUST receive `401`.
+| Status `401 Unauthorized`.
+
+| HTTP.auth.002
+| A request whose access rule evaluation yields "deny" MUST receive `403`.
+| Status `403 Forbidden`, no payload leakage.
+
+| HTTP.put.001
+| `PUT` on a client-addressable resource that does not yet exist MUST require the RIGHT `CREATE`.
+| Status `201 Created` if rule allows, else `403`.
+
+| HTTP.put.002
+| `PUT` on an existing client-addressable resource MUST require the RIGHT `UPDATE`.
+| Status `200 OK` if rule allows, else `403`.
+
+| HTTP.invoke.001
+| `POST /.../operations/{idShortPath}/invoke` MUST require the RIGHT `EXECUTE`.
+| Status `200` with result envelope or `403`.
+
+| HTTP.file.001
+| `GET .../attachment` for a File SubmodelElement MUST require the RIGHT `READ` on the File element.
+| Status `200` with binary body or `403`.
+
+| HTTP.query.001
+| `POST /query` MUST reject payloads that fail the Query JSON Schema with `422`.
+| Status `422`, JSON-pointer in body.
+
+| HTTP.discovery.001
+| Discovery endpoints MUST honour the operation-to-RIGHT mapping of this spec (xref:annex/operation-to-right-mapping.adoc[]).
+| Right resolved according to mapping table, not ad-hoc.
+|===
+
+[#ctc-error-handling]
+== Error handling and edge cases
+
+[cols="1,4,3",options="header"]
+|===
+| ID | Purpose | Expected
+
+| ERR.parse.001
+| A request body that is not valid JSON MUST receive `400`.
+| Status `400 Bad Request`.
+
+| ERR.schema.001
+| A request body that is valid JSON but violates the schema MUST receive `422`.
+| Status `422 Unprocessable Entity`.
+
+| ERR.cast.001
+| A runtime cast error (`num("abc")`) MUST NOT yield `500`; the item is excluded from the result.
+| Status `200`, item missing from response.
+
+| ERR.field.001
+| An unknown `<AttributeDeclaration>` MUST be rejected at schema level (`422`), not at runtime.
+| Status `422`.
+
+| ERR.profile.001
+| A rule/query referencing a FieldIdentifier that is not applicable to the current profile is treated as "not applicable" (no match, no error).
+| Status `200`.
+|===

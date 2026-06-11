@@ -244,6 +244,8 @@ components:
               type: array
               items:
                 $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/SpecificAssetId"
+      required:
+        - id
     AssetLink:
       properties:
         name:
@@ -310,6 +312,16 @@ components:
     CapabilityMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
+    ConceptDescriptionRecentChange:
+      allOf:
+        - $ref: '#/components/schemas/RecentChange'
+        - type: object
+          properties:
+            id:
+              type: string
+              minLength: 1
+              maxLength: 2048
+              pattern: ^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
     comparisonItems:
       type: array
       minItems: 2
@@ -434,6 +446,15 @@ components:
               type: array
               items: 
                 $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/ConceptDescription"
+    GetAllConceptDescriptionsRecentChangesResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items:
+                $ref: "#/components/schemas/ConceptDescriptionRecentChange"
     GetPackageDescriptionsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -1000,14 +1021,15 @@ components:
       type: object
     RecentChange:
       properties:
-        type:
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/RecentChangeType"
         createdAt:
           type: string
           format: date-time
         updatedAt:
           type: string
           format: date-time
+      required:
+        - createdAt
+        - updatedAt
     ReferenceElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -1278,6 +1300,8 @@ components:
               items:
                 $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/Reference"
               minItems: 1
+          required:
+            - id
     SubmodelValue:
       $ref: "#/components/schemas/ValueOnly"
     timeLiteralPattern:
