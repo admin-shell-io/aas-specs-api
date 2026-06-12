@@ -518,16 +518,12 @@ a|
 ----
 $or (
   $match (
-    $aas#assetInformation.specificAssetIds[]
-    .name    $eq   "supplierId",
-    $aas#assetInformation.specificAssetIds[]
-    .value   $eq   "aas-1"
+    $aas#assetInformation.specificAssetIds[].name    $eq   "supplierId",
+    $aas#assetInformation.specificAssetIds[].value   $eq   "aas-1"
   ),
   $match (
-    $aas#assetInformation.specificAssetIds[]
-    .name    $eq   "customerId",
-    $aas#assetInformation.specificAssetIds[]
-    .value   $eq   "aas-2"
+    $aas#assetInformation.specificAssetIds[].name    $eq   "customerId",
+    $aas#assetInformation.specificAssetIds[].value   $eq   "aas-2"
   )
 )
 ----
@@ -792,17 +788,13 @@ a|
 ----
 $or (
   $match (
-    $aas#assetInformation.specificAssetIds[]
-      .name     $eq   "supplierId",
-    $aas#assetInformation.specificAssetIds[]
-      .value    $eq   "aas-1"
+    $aas#assetInformation.specificAssetIds[].name     $eq   "supplierId",
+    $aas#assetInformation.specificAssetIds[].value    $eq   "aas-1"
   ),
 
   $match (
-    $aas#assetInformation.specificAssetIds[]
-      .name     $eq   "customerId",
-    $aas#assetInformation.specificAssetIds[] 
-      .value    $eq   "aas-2"
+    $aas#assetInformation.specificAssetIds[].name     $eq   "customerId",
+    $aas#assetInformation.specificAssetIds[].value    $eq   "aas-2"
   )
 )
 ----
