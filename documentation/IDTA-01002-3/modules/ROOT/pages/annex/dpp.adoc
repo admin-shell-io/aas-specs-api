@@ -68,9 +68,8 @@ The semanticIds of the contributing content Submodels shall be listed in the `co
 The Value-Only serialization (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[IDTA-01001 Part 1 -- Format "Value" (Value-Only Serialization) in JSON]) 
 of the DppMetadata Submodel (IDTA-02099) corresponds directly to the DPP header fields defined in EN 18223, Table 1. 
 No additional transformation of the header is required for neither the _compressed_ nor the _expanded_ representation (EN 18223, Clause 5.2). 
-For the content Submodels however transformation is needed as defined in 
-link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only] and
-link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html#section-json-serialization-normal[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Expanded vs. Normal].
+For the content Submodels however transformation is needed as defined in <<dpp-serialization>>.
+
 
 
 [[dpp-composition-read]]
@@ -95,18 +94,19 @@ If a `date` parameter is provided, the implementation shall retrieve the version
 include::partial$diagrams/seq-dpp.puml[]
 ....
 
-<<image-seq-dpp>> illustrates the composition process for a ReadDPPByProductId interaction. The DPP Application discovers the relevant AAS via the Discovery Service, resolves the Submodel endpoints via the Registry Service, retrieves the relevant Submodels, and merges them into a conformant DPP payload.
+<<image-seq-dpp>> illustrates the composition process for a ReadDPPByProductId interaction. 
+The DPP Application discovers the relevant AAS via the Discovery Service, resolves the Submodel endpoints via the Registry Service, retrieves the relevant Submodels, and merges them into a conformant DPP payload.
 
 [[dpp-decomposition]]
 === Decomposition Process (Write Path)
 
 When a `CreateDPP` or `UpdateDPPById` operation is invoked with a `DigitalProductPassport` JSON document, an implementation shall decompose the document into the corresponding AAS resources:
 
-* Parse the DPP header fields*: Extract the header attributes (`digitalProductPassportId`, `uniqueProductIdentifier`, `granularity`, etc.) from the input document.
-* Create or update the AAS*: Map the header fields to the appropriate AAS attributes (e.g., `uniqueProductIdentifier` to `AssetInformation/globalAssetId`, `granularity` to `assetKind`).
-* Create or update the DppMetadata Submodel*: Persist all header fields as properties of the DppMetadata Submodel.
-* Create or update the content Submodels*: For each top-level content key in the DPP document, create or update the corresponding Submodel with the appropriate semanticId (as referenced in `contentSpecificationIds`).
-* Register Submodel references*: Ensure all Submodel references are registered in the AAS.
+* *Parse the DPP header fields*: Extract the header attributes (`digitalProductPassportId`, `uniqueProductIdentifier`, `granularity`, etc.) from the input document.
+* *Create or update the AAS*: Map the header fields to the appropriate AAS attributes (e.g., `uniqueProductIdentifier` to `AssetInformation/globalAssetId`, `granularity` to `assetKind`).
+* *Create or update the DppMetadata Submodel*: Persist all header fields as properties of the DppMetadata Submodel.
+* *Create or update the content Submodels*: For each top-level content key in the DPP document, create or update the corresponding Submodel with the appropriate semanticId (as referenced in `contentSpecificationIds`).
+* *Register Submodel references*: Ensure all Submodel references are registered in the AAS.
 
 Write operations should be atomic: if any step fails, all preceding changes shall be rolled back to maintain data consistency.
 
@@ -228,11 +228,14 @@ EN 18223 defines two JSON serialization formats for DPP content. These map to th
 h| DPP Format (EN 18223) h| AAS Serialization h| Description
 
 | *Compressed* (EN 18223, Clause 5.2)
-| Value-Only (with minor differences)
+| Value-Only (with minor differences as defined in 
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only])
+)
 | The `elementId` is used as the JSON key. Metadata (`dictionaryReference`, `valueDataType`, `objectType`) is omitted. This is the default and mandatory format.
 
 | *Full / Expanded* (EN 18223, Annex A)
-| Normal (with differences)
+| Normal (with differences as defined in 
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html#section-json-serialization-normal[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Expanded vs. Normal])
 | Uses an `elements[]` array with explicit `elementId`, `objectType`, `dictionaryReference`, and `valueDataType` for each DataElement. Note that the AAS Normal serialization differs in structure: attribute names differ (`idShort` vs. `elementId`, `modelType` vs. `objectType`, `semanticId` vs. `dictionaryReference`), `semanticId` in AAS is a Reference object rather than a plain string, and the XSD data type prefix differs (`xs:` in AAS vs. `xsd:` in JTC24).
 |===
 
@@ -240,11 +243,11 @@ Implementations shall support the _compressed_ representation. The _full_ repres
 
 The `representation` query parameter (EN 18222, Clause 8) controls which format is returned. If omitted, the _compressed_ format shall be used as default.
 
+
 [NOTE]
 ====
-There are known differences in the serialization of MultiLanguageProperty and File between AAS Value-Only and JTC24 compressed format. Implementations shall ensure that the DPP output conforms to EN 18223. 
-For details on these differences and the required transformations, see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization].
-In link: https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization] also a detailed mapping for "Full / Expanded" format can be found.
+For the metadata as defined in the Submodel Template Specification IDTA-02099 the payload is identical for compressed and expanded serialization. 
+It corresponds to the Value-Only serialization of the AAS.
 ====
 
 
