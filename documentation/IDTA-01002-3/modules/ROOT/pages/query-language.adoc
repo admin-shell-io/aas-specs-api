@@ -85,6 +85,8 @@ This is the combined grammar for the AAS Query Language and the AAS Access Rules
 include::partial$bnf/grammar.bnf[]
 ----
 
+For AAS Query Language requests, only the `<query>` production SHALL be accepted as the request payload. The `<AllAccessPermissionRules>`, `<AccessPermissionRule>`, `FILTER` and `FILTERLIST` productions are included only for the shared grammar with IDTA-01004 and SHALL NOT be accepted as AAS Query request payloads unless explicitly specified by a security profile.
+
 == Select Expression
 
 The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers instead of a list of objects (`$select id`).
@@ -346,6 +348,8 @@ h| Casting Operator h| Description h| Definition
 | `time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
 |===
 
+`<TimeLiteral>` follows the `<time>` production in the BNF grammar: `HH:MM`, `HH:MM:SS`, and these forms with fractional seconds are valid. Timezone-qualified `xs:time` lexical forms, such as `12:00:00Z` or `12:00:00+01:00`, SHALL NOT be used as `<TimeLiteral>` values. The reference to `xs:time` defines casting semantics only.
+
 Implicit casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
 If a FieldIdentifier is used in a logicalExpression, it will be implicitly casted to `xs:boolean`, which can only create a valid result for the values true and false. +
 If a FieldIdentifier is used in a comparison, the second parameter decides implicit casting. If the second parameter is a constant (string, number, hex, boolean, dateTime, time) or a corresponding explicite casting operator, the value of the FieldIdentifier will be implicitely casted to the corresponding data type.
@@ -549,6 +553,44 @@ The Query Language supports a `$filters` option that allows clients to reduce th
 Since a valid Reference requires at least one key, filters that eliminate all keys remain valid but result in the removal of the entire Reference rather than just its keys.
 
 If no `$filters` is specified for a particular metamodel element, that element remains unfiltered. Thus, applying additional filters can only reduce the amount of data returned; it can never increase the amount of data or introduce information that is not already present in the underlying AAS. If multiple filters are specified and apply to overlapping data, they are combined using logical AND semantics.
+
+For fragments that address an array-valued object, a fragment ending with `[]` applies row-wise filtering to each array entry. The corresponding fragment without the trailing `[]` applies the condition to the entire array object. A row-wise condition evaluates the `$fragment` and any `$field` references in its `$condition` in the context of the same array entry. If a fragment does not define a form ending with `[]`, row-wise filtering for that fragment SHALL NOT be assumed.
+
+[source,json]
+----
+{
+  "$condition": { "$boolean": true },
+  "$filters": [
+    {
+      "$fragment": "$sme.a[]",
+      "$condition": {
+        "$eq": [
+          { "$field": "$sme.a[]#value" },
+          { "$strVal": "val" }
+        ]
+      }
+    }
+  ]
+}
+----
+
+[source,json]
+----
+{
+  "$condition": { "$boolean": true },
+  "$filters": [
+    {
+      "$fragment": "$sme.a",
+      "$condition": {
+        "$eq": [
+          { "$field": "$sme.a[]#value" },
+          { "$strVal": "val" }
+        ]
+      }
+    }
+  ]
+}
+----
 
 Filter example with boolean condition
 [.table-with-appendix-table]

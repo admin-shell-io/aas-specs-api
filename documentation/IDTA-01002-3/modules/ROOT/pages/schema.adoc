@@ -14,7 +14,7 @@
     },
     "FragmentFieldIdentifier": {
       "type": "string",
-      "pattern": "^(?:\\$aas#(?:idShort|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds\\[[0-9]*\\](?:\\.externalSubjectId(?:\\.keys\\[[0-9]*\\])?)?|submodels\\[[0-9]*\\](?:\\.keys\\[[0-9]*\\])?)|\\$sm#(?:semanticId(?:\\.keys\\[[0-9]*\\])?|idShort|id)|\\$sme(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[[0-9]*\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[[0-9]*\\])*)*)?(?:#(?:semanticId(?:\\.keys\\[[0-9]*\\])?|idShort|value|valueType|language))?|\\$cd#idShort|\\$aasdesc#(?:idShort|description|displayName|extension|administration|assetKind|assetType|globalAssetId|specificAssetIds\\[[0-9]*\\](?:\\.externalSubjectId(?:\\.keys\\[[0-9]*\\])?)?|endpoints\\[[0-9]*\\]|submodelDescriptors\\[[0-9]*\\](?:\\.(?:semanticId(?:\\.keys\\[[0-9]*\\])?|idShort|endpoints\\[[0-9]*\\]))?)|\\$smdesc#(?:semanticId(?:\\.keys\\[[0-9]*\\])?|idShort|endpoints\\[[0-9]*\\]))$"
+      "pattern": "^(?:\\$aas#(?:idShort|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds(?:\\[[0-9]*\\](?:\\.externalSubjectId(?:\\.keys(?:\\[[0-9]*\\])?)?)?)?|submodels(?:\\[[0-9]*\\](?:\\.keys(?:\\[[0-9]*\\])?)?)?)|\\$sm#(?:semanticId(?:\\.keys(?:\\[[0-9]*\\])?)?|idShort)|\\$sme(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[[0-9]*\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[[0-9]*\\])*)*)?(?:#(?:semanticId(?:\\.keys(?:\\[[0-9]*\\])?)?|idShort|value|valueType|language))?|\\$cd#idShort|\\$aasdesc#(?:idShort|description|displayName|extension|administration|assetKind|assetType|globalAssetId|specificAssetIds(?:\\[[0-9]*\\](?:\\.externalSubjectId(?:\\.keys(?:\\[[0-9]*\\])?)?)?)?|endpoints(?:\\[[0-9]*\\])?|submodelDescriptors(?:\\[[0-9]*\\](?:\\.(?:semanticId(?:\\.keys(?:\\[[0-9]*\\])?)?|idShort|endpoints(?:\\[[0-9]*\\])?))?)?)|\\$smdesc#(?:semanticId(?:\\.keys(?:\\[[0-9]*\\])?)?|idShort|endpoints(?:\\[[0-9]*\\])?))$"
     },
     "hexLiteralPattern": {
       "type": "string",
@@ -26,7 +26,7 @@
     },
     "timeLiteralPattern": {
       "type": "string",
-      "pattern": "^[0-9][0-9]:[0-9][0-9](:[0-9][0-9])?$"
+      "pattern": "^[0-9][0-9]:[0-9][0-9](:[0-9][0-9])?(\\.[0-9]+)?$"
     },
     "Value": {
       "type": "object",
