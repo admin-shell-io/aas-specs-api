@@ -49,7 +49,7 @@ In EN 18222 "method" is used, in IDTA-01002 "operation" is used.
 [NOTE]
 ====
 The mapping of DPP data elements to AAS metamodel elements (EN 18223) is specified in link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html[IDTA-01001]. 
-The DPP metadata Submodel Template is specified in link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA-02099-1-0 Digital Product Passport – Part 1: Metadata - Submodel Template Specification] with idShort "DppMetadata". 
+The DPP metadata Submodel Template is specified in link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA-02099-1 Digital Product Passport – Part 1: Metadata - Submodel Template Specification] with idShort "DppMetadata". 
 A conformant DPP service based on AAS shall implement all aspects described in this annex together with the metamodel mapping and the Submodel Template.
 ====
 
@@ -60,13 +60,13 @@ A conformant DPP service based on AAS shall implement all aspects described in t
 A Digital Product Passport as defined in EN 18223 is a single JSON or XML document comprising *header fields* and *content data elements*. When using AAS infrastructure, a DPP shall be composed from the following AAS resources:
 
 * An *Asset Administration Shell* representing the product for which the DPP is issued.
-* A *DppMetadata Submodel* (semanticId: `https://admin-shell.io/idta/cds/dppMetadata/1`, as defined in *IDTA-02099*) containing the DPP header fields (`digitalProductPassportId`, `uniqueProductIdentifier`, `granularity`, `dppSchemaVersion`, `dppStatus`, `lastUpdate`, `economicOperatorId`, `facilityId`, `contentSpecificationIds`).
+* A *DppMetadata Submodel* (semanticId: `https://admin-shell.io/idta/cds/dppMetadata/1`, as defined in *IDTA-02099-1*) containing the DPP header fields (`digitalProductPassportId`, `uniqueProductIdentifier`, `granularity`, `dppSchemaVersion`, `dppStatus`, `lastUpdate`, `economicOperatorId`, `facilityId`, `contentSpecificationIds`).
 * One or more *content Submodels*, each contributing a section of the DPP content. 
 The semanticIds of the contributing content Submodels shall be listed in the `contentSpecificationIds` property of the DppMetadata Submodel.
 
 
 The Value-Only serialization (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[IDTA-01001 Part 1 -- Format "Value" (Value-Only Serialization) in JSON]) 
-of the DppMetadata Submodel (IDTA-02099) corresponds directly to the DPP header fields defined in EN 18223, Table 1. 
+of the DppMetadata Submodel (IDTA-02099-1) corresponds directly to the DPP header fields defined in EN 18223, Table 1. 
 No additional transformation of the header is required for neither the _compressed_ nor the _expanded_ representation (EN 18223, Clause 5.2). 
 For the content Submodels however transformation is needed as defined in <<dpp-serialization>>.
 
@@ -246,7 +246,7 @@ The `representation` query parameter (EN 18222, Clause 8) controls which format 
 
 [NOTE]
 ====
-For the metadata as defined in the Submodel Template Specification IDTA-02099 the payload is identical for compressed and expanded serialization. 
+For the metadata as defined in the Submodel Template Specification IDTA-02099-1 the payload is identical for compressed and expanded serialization. 
 It corresponds to the Value-Only serialization of the AAS.
 ====
 
@@ -269,7 +269,7 @@ A typical DPP discovery sequence proceeds as follows:
 
 To enable discovery, the economic operator responsible for the product shall ensure that the AAS instance representing the DPP is linked to the product identifier via the `globalAssetId` or `specificAssetId` fields in the `AssetInformation` of the AAS. 
 The `uniqueProductIdentifier` in the DppMetadata Submodel shall correspond to the `globalAssetId` of the AAS. 
-The explicit mapping is defined in IDTA-02099.
+The explicit mapping is defined in IDTA-02099-1.
 
 .DPP Discovery and Composition Sequence with a Registry Service involved (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.1.2/http-rest-api/interactions.htm[IDTA-01002 Part 2 -- Chapter Interactions])
 [[image-seq-dpp-discovery-1]]
