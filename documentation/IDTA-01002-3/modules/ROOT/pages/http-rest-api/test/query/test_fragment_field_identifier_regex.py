@@ -6,6 +6,24 @@ from pathlib import Path
 
 ROOT_MODULE = Path(__file__).resolve().parents[4]
 QUERY_SCHEMA = ROOT_MODULE / "partials" / "query-json-schema.json"
+SCHEMA_PAGE = ROOT_MODULE / "pages" / "schema.adoc"
+OPENAPI_SCHEMA = ROOT_MODULE.parents[3] / "Part2-API-Schemas" / "openapi.yaml"
+
+
+def schema_page_pattern(definition):
+    lines = SCHEMA_PAGE.read_text(encoding="utf-8-sig").splitlines()
+    schema = json.loads("\n".join(lines[1:-1]))
+    return schema["definitions"][definition]["pattern"]
+
+
+def openapi_component_pattern(component):
+    lines = OPENAPI_SCHEMA.read_text(encoding="utf-8-sig").splitlines()
+    for index, line in enumerate(lines):
+        if line.strip() == f"{component}:":
+            for candidate_index, candidate in enumerate(lines[index + 1 :], start=index + 1):
+                if candidate.strip() == "pattern: >-":
+                    return lines[candidate_index + 1].strip()
+    raise AssertionError(f"OpenAPI component pattern not found: {component}")
 
 
 class FragmentFieldIdentifierRegexTest(unittest.TestCase):
@@ -13,6 +31,7 @@ class FragmentFieldIdentifierRegexTest(unittest.TestCase):
     def setUpClass(cls):
         schema = json.loads(QUERY_SCHEMA.read_text(encoding="utf-8-sig"))
         pattern = schema["definitions"]["FragmentFieldIdentifier"]["pattern"]
+        cls.pattern = pattern
         cls.fragment_field_identifier = re.compile(pattern)
 
     def assert_allowed(self, value):
@@ -49,6 +68,12 @@ class FragmentFieldIdentifierRegexTest(unittest.TestCase):
             "$sm#semanticId.keys",
             "$sm#semanticId.keys[]",
             "$sm#semanticId.keys[0]",
+            "$sm#supplementalSemanticIds",
+            "$sm#supplementalSemanticIds[]",
+            "$sm#supplementalSemanticIds[0]",
+            "$sm#supplementalSemanticIds[].keys",
+            "$sm#supplementalSemanticIds[].keys[]",
+            "$sm#supplementalSemanticIds[0].keys[0]",
             "$sm#idShort",
             "$sme",
             "$sme.AddressInformation",
@@ -59,6 +84,10 @@ class FragmentFieldIdentifierRegexTest(unittest.TestCase):
             "$sme.AddressInformation#semanticId",
             "$sme.AddressInformation#semanticId.keys",
             "$sme.AddressInformation#semanticId.keys[]",
+            "$sme.AddressInformation#supplementalSemanticIds",
+            "$sme.AddressInformation#supplementalSemanticIds[]",
+            "$sme.AddressInformation#supplementalSemanticIds[].keys",
+            "$sme.AddressInformation#supplementalSemanticIds[].keys[]",
             "$sme#idShort",
             "$sme#value",
             "$sme#valueType",
@@ -83,12 +112,20 @@ class FragmentFieldIdentifierRegexTest(unittest.TestCase):
             "$aasdesc#submodelDescriptors[0]",
             "$aasdesc#submodelDescriptors[].semanticId",
             "$aasdesc#submodelDescriptors[].semanticId.keys[]",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[]",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[]",
             "$aasdesc#submodelDescriptors[].idShort",
             "$aasdesc#submodelDescriptors[].endpoints",
             "$aasdesc#submodelDescriptors[].endpoints[]",
             "$smdesc#semanticId",
             "$smdesc#semanticId.keys",
             "$smdesc#semanticId.keys[]",
+            "$smdesc#supplementalSemanticIds",
+            "$smdesc#supplementalSemanticIds[]",
+            "$smdesc#supplementalSemanticIds[].keys",
+            "$smdesc#supplementalSemanticIds[].keys[]",
             "$smdesc#idShort",
             "$smdesc#endpoints",
             "$smdesc#endpoints[]",
@@ -113,12 +150,18 @@ class FragmentFieldIdentifierRegexTest(unittest.TestCase):
             "$sm#semanticId.type",
             "$sm#semanticId.keys[].value",
             "$sm#id",
-            "$sm#supplementalSemanticIds",
+            "$sm#supplementalSemanticIds.type",
+            "$sm#supplementalSemanticIds.keys",
+            "$sm#supplementalSemanticIds[].type",
+            "$sm#supplementalSemanticIds[].keys[].value",
             "$sme.1Invalid",
             "$sme.AddressInformation#id",
             "$sme.AddressInformation#bogus",
             "$sme.AddressInformation#semanticId.type",
             "$sme.AddressInformation#semanticId.keys[].value",
+            "$sme.AddressInformation#supplementalSemanticIds.type",
+            "$sme.AddressInformation#supplementalSemanticIds.keys",
+            "$sme.AddressInformation#supplementalSemanticIds[].keys[].value",
             "$cd#id",
             "$aasdesc#id",
             "$aasdesc#specificAssetIds.name",
@@ -126,14 +169,27 @@ class FragmentFieldIdentifierRegexTest(unittest.TestCase):
             "$aasdesc#endpoints.protocolinformation.href",
             "$aasdesc#submodelDescriptors.endpoints[]",
             "$aasdesc#submodelDescriptors[].id",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds.type",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds.keys",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].value",
             "$aasdesc#submodelDescriptors[].endpoints.protocolinformation.href",
             "$smdesc#id",
+            "$smdesc#supplementalSemanticIds.type",
+            "$smdesc#supplementalSemanticIds.keys",
+            "$smdesc#supplementalSemanticIds[].keys[].value",
             "$smdesc#endpoints.protocolinformation.href",
         ]
 
         for value in not_allowed:
             with self.subTest(value=value):
                 self.assert_not_allowed(value)
+
+    def test_documented_fragment_field_identifier_patterns_are_in_sync(self):
+        self.assertEqual(self.pattern, schema_page_pattern("FragmentFieldIdentifier"))
+        self.assertEqual(
+            self.pattern,
+            openapi_component_pattern("FragmentFieldIdentifier"),
+        )
 
 
 if __name__ == "__main__":

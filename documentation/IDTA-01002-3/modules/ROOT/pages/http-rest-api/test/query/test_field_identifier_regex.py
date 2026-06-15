@@ -6,6 +6,24 @@ from pathlib import Path
 
 ROOT_MODULE = Path(__file__).resolve().parents[4]
 QUERY_SCHEMA = ROOT_MODULE / "partials" / "query-json-schema.json"
+SCHEMA_PAGE = ROOT_MODULE / "pages" / "schema.adoc"
+OPENAPI_SCHEMA = ROOT_MODULE.parents[3] / "Part2-API-Schemas" / "openapi.yaml"
+
+
+def schema_page_pattern(definition):
+    lines = SCHEMA_PAGE.read_text(encoding="utf-8-sig").splitlines()
+    schema = json.loads("\n".join(lines[1:-1]))
+    return schema["definitions"][definition]["pattern"]
+
+
+def openapi_component_pattern(component):
+    lines = OPENAPI_SCHEMA.read_text(encoding="utf-8-sig").splitlines()
+    for index, line in enumerate(lines):
+        if line.strip() == f"{component}:":
+            for candidate_index, candidate in enumerate(lines[index + 1 :], start=index + 1):
+                if candidate.strip() == "pattern: >-":
+                    return lines[candidate_index + 1].strip()
+    raise AssertionError(f"OpenAPI component pattern not found: {component}")
 
 
 class FieldIdentifierRegexTest(unittest.TestCase):
@@ -13,6 +31,7 @@ class FieldIdentifierRegexTest(unittest.TestCase):
     def setUpClass(cls):
         schema = json.loads(QUERY_SCHEMA.read_text(encoding="utf-8-sig"))
         pattern = schema["definitions"]["FieldIdentifier"]["pattern"]
+        cls.pattern = pattern
         cls.field_identifier = re.compile(pattern)
 
     def assert_allowed(self, value):
@@ -48,16 +67,30 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$sm#semanticId.type",
             "$sm#semanticId.keys[].type",
             "$sm#semanticId.keys[0].value",
+            "$sm#supplementalSemanticIds",
+            "$sm#supplementalSemanticIds[]",
+            "$sm#supplementalSemanticIds[0]",
+            "$sm#supplementalSemanticIds.type",
+            "$sm#supplementalSemanticIds[].type",
+            "$sm#supplementalSemanticIds[].keys[].type",
+            "$sm#supplementalSemanticIds[0].keys[0].value",
             "$sm#idShort",
             "$sm#id",
             "$sme#semanticId",
             "$sme#semanticId.type",
             "$sme#semanticId.keys[].type",
             "$sme#semanticId.keys[0].value",
+            "$sme#supplementalSemanticIds",
+            "$sme#supplementalSemanticIds[]",
+            "$sme#supplementalSemanticIds[0].type",
+            "$sme#supplementalSemanticIds[].keys[].type",
+            "$sme#supplementalSemanticIds[0].keys[0].value",
             "$sme#idShort",
             "$sme#value",
             "$sme#valueType",
             "$sme#language",
+            "$sme.AddressInformation#supplementalSemanticIds",
+            "$sme.AddressInformation#supplementalSemanticIds[].keys[].value",
             "$sme.AddressInformation#value",
             "$sme.AddressInformation.Zipcode#value",
             "$sme.AddressInformation[]#value",
@@ -79,6 +112,10 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$aasdesc#submodelDescriptors[].semanticId",
             "$aasdesc#submodelDescriptors[].semanticId.type",
             "$aasdesc#submodelDescriptors[].semanticId.keys[].value",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[]",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[0].type",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].value",
             "$aasdesc#submodelDescriptors[].idShort",
             "$aasdesc#submodelDescriptors[].id",
             "$aasdesc#submodelDescriptors[].endpoints[].interface",
@@ -86,6 +123,10 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$smdesc#semanticId",
             "$smdesc#semanticId.type",
             "$smdesc#semanticId.keys[].value",
+            "$smdesc#supplementalSemanticIds",
+            "$smdesc#supplementalSemanticIds[]",
+            "$smdesc#supplementalSemanticIds[0].type",
+            "$smdesc#supplementalSemanticIds[].keys[].value",
             "$smdesc#idShort",
             "$smdesc#id",
             "$smdesc#endpoints[].interface",
@@ -108,12 +149,17 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$aas#submodels[].keys[]",
             "$sm#semanticId.keys",
             "$sm#semanticId.keys[]",
-            "$sm#supplementalSemanticIds",
+            "$sm#supplementalSemanticIds.keys",
+            "$sm#supplementalSemanticIds.keys[]",
+            "$sm#supplementalSemanticIds[].keys",
+            "$sm#supplementalSemanticIds[].keys[]",
             "$sme",
             "$sme.AddressInformation",
             "$sme.AddressInformation[]",
             "$sme.AddressInformation#id",
             "$sme.AddressInformation#bogus",
+            "$sme.AddressInformation#supplementalSemanticIds.keys",
+            "$sme.AddressInformation#supplementalSemanticIds[].keys",
             "$sme.1Invalid#value",
             "$cd",
             "$cd#description",
@@ -130,10 +176,14 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$aasdesc#endpoints[].protocolinformation",
             "$aasdesc#submodelDescriptors",
             "$aasdesc#submodelDescriptors[]",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds.keys",
+            "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys",
             "$aasdesc#submodelDescriptors[].endpoints",
             "$aasdesc#submodelDescriptors[].endpoints[]",
             "$smdesc#semanticId.keys",
             "$smdesc#semanticId.keys[]",
+            "$smdesc#supplementalSemanticIds.keys",
+            "$smdesc#supplementalSemanticIds[].keys",
             "$smdesc#endpoints",
             "$smdesc#endpoints[]",
             "$smdesc#endpoints[].protocolinformation",
@@ -142,6 +192,10 @@ class FieldIdentifierRegexTest(unittest.TestCase):
         for value in not_allowed:
             with self.subTest(value=value):
                 self.assert_not_allowed(value)
+
+    def test_documented_field_identifier_patterns_are_in_sync(self):
+        self.assertEqual(self.pattern, schema_page_pattern("FieldIdentifier"))
+        self.assertEqual(self.pattern, openapi_component_pattern("FieldIdentifier"))
 
 
 if __name__ == "__main__":

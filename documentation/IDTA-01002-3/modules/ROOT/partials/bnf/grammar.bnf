@@ -217,23 +217,24 @@
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
 
 <FieldsAAS> ::= "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" ( [0-9]* ) "]" ) "." <ReferenceClause>
-<FieldsSM> ::= <SemanticIdClause> | "idShort" | "id"
-<FieldsSME> ::= <SemanticIdClause> | "idShort" | "value" | "valueType" | "language"
+<FieldsSM> ::= <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id"
+<FieldsSME> ::= <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "value" | "valueType" | "language"
 <FieldsCD> ::= "idShort" | "id"
 <FieldsAasDescriptor> ::= "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" ( [0-9]* ) "]" ) "." <SmDescriptorClause>
-<SmDescriptorClause> ::= ( <SemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> )
+<SmDescriptorClause> ::= ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" ( [0-9]* ) "]" ) "." <EndpointClause> )
 <EndpointClause> ::= "interface" | "protocolinformation.href"
 
 <ReferenceClause> ::= ( "type" | "keys" ( "[" ( [0-9]* ) "]" ) ( ".type" | ".value" ) )
 <SemanticIdClause> ::= ( "semanticId" | "semanticId." <ReferenceClause> )
+<SupplementalSemanticIdClause> ::= ( "supplementalSemanticIds" ( "[" ( [0-9]* ) "]" )? ( "." <ReferenceClause> )? )
 <SpecificAssetIdsClause> ::=  ( "specificAssetIds" ( "[" ( [0-9]* ) "]" ) ( ".name" | ".value" | ".externalSubjectId" | ".externalSubjectId." <ReferenceClause> ) )
 
 
 <FieldIdentifierFragment> ::= <FieldIdentifierAASFragment> | <FieldIdentifierSMFragment> | <FieldIdentifierSMEFragment> | <FieldIdentifierCDFragment> | <FieldIdentifierAasDescriptorFragment> | <FieldIdentifierSmDescriptorFragment>
 
 <FieldIdentifierAASFragment> ::= "$aas#" ( "idShort" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClauseFragment> | <SubmodelsClauseFragment> )
-<FieldIdentifierSMFragment> ::= "$sm#" ( <SemanticIdClauseFragment> | "idShort" )
-<FieldIdentifierSMEFragment> ::= "$sme" ( "." <idShortPath> )? ( "#" ( <SemanticIdClauseFragment> | "idShort" | "value" | "valueType" | "language" ))?
+<FieldIdentifierSMFragment> ::= "$sm#" ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" )
+<FieldIdentifierSMEFragment> ::= "$sme" ( "." <idShortPath> )? ( "#" ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" | "value" | "valueType" | "language" ))?
 <FieldIdentifierCDFragment> ::= "$cd#" ( "idShort" ) <ws>
 <FieldIdentifierAasDescriptorFragment> ::= "$aasdesc#" ( "idShort" | "description" | "displayName" | "extension" | "administration" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClauseFragment> | <EndpointClauseFragment> | <SubmodelDescriptorsClauseFragment> )
 <FieldIdentifierSmDescriptorFragment> ::= "$smdesc#" <SmDescriptorClauseFragment>
@@ -241,10 +242,11 @@
 <SpecificAssetIdsClauseFragment> ::= "specificAssetIds" | "specificAssetIds" ( "[" ( [0-9]* ) "]" ) ( ".externalSubjectId" ( "." <ReferenceClauseFragment> )? )?
 <SubmodelsClauseFragment> ::= "submodels" | "submodels" ( "[" ( [0-9]* ) "]" ) ( "." <ReferenceClauseFragment> )?
 <SubmodelDescriptorsClauseFragment> ::= "submodelDescriptors" | "submodelDescriptors" ( "[" ( [0-9]* ) "]" ) ( "." <SmDescriptorClauseFragment> )?
-<SmDescriptorClauseFragment> ::= ( <SemanticIdClauseFragment> | "idShort" | <EndpointClauseFragment> )
+<SmDescriptorClauseFragment> ::= ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" | <EndpointClauseFragment> )
 <EndpointClauseFragment> ::= "endpoints" ( "[" ( [0-9]* ) "]" )?
 
 <SemanticIdClauseFragment> ::= "semanticId" | "semanticId." <ReferenceClauseFragment>
+<SupplementalSemanticIdClauseFragment> ::= "supplementalSemanticIds" ( "[" ( [0-9]* ) "]" ( "." <ReferenceClauseFragment> )? )?
 <ReferenceClauseFragment> ::= "keys" ( "[" ( [0-9]* ) "]" )?
 
 
