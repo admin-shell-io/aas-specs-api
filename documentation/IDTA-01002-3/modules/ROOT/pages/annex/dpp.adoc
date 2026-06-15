@@ -263,7 +263,7 @@ A typical DPP discovery sequence proceeds as follows:
 . A client application obtains a product identifier, for instance by scanning a data carrier (e.g., QR code) on the product. The client executes the DPP operation ReadDPPByProductId, passing the product identifier as input.
 . The DPP Service invokes the *SearchAllAssetAdministrationShellIdsByAssetLink* operation on the AAS Discovery Service, passing the product identifier as the `globalAssetId`.
 . The Discovery Service returns the identifiers of AAS instances associated with the product identifier.
-. The DPP Service selects the appropriate AAS identifier and invokes *GetAssetAdministrationShellDescriptorById* on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence xref{image-seq-dpp-discovery-1}), or
+. The DPP Service selects the appropriate AAS identifier and invokes *GetAssetAdministrationShellDescriptorById* on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence <<image-seq-dpp-discovery-1>>), or
 . directly retrieves the AAS using *GetAssetAdministrationShellById* on the AAS Repository or Service (see sequence <<image-seq-dpp-discovery-2>>).
 . The DPP Service retrieves the relevant Submodels and composes the DPP document.
 
