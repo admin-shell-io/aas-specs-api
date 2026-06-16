@@ -620,6 +620,122 @@
             'v3.0.0': { tag: 'v3.0', local: false, format: '3.0' }
         };
 
+        // Service name mapping from card title to spec folder name
+        const serviceNameMap = {
+            'AAS Registry Service': 'AssetAdministrationShellRegistryServiceSpecification',
+            'AAS Repository Service': 'AssetAdministrationShellRepositoryServiceSpecification',
+            'AAS Service': 'AssetAdministrationShellServiceSpecification',
+            'Submodel Registry Service': 'SubmodelRegistryServiceSpecification',
+            'Submodel Repository Service': 'SubmodelRepositoryServiceSpecification',
+            'Submodel Service': 'SubmodelServiceSpecification',
+            'Discovery Service': 'DiscoveryServiceSpecification',
+            'Concept Description Repository': 'ConceptDescriptionRepositoryServiceSpecification',
+            'AASX File Server Service': 'AasxFileServerServiceSpecification'
+        };
+
+        // Version-specific SSP availability
+        const versionSSPLimits = {
+            'v3.0.0': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.1': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.2': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.3': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.4': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 2,
+                'SubmodelRepositoryServiceSpecification': 4,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.1.0': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 5,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 2,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.1.1': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 5,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 2,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.1.2': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 5,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 2,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.2.0': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 6,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 7,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 3,
+                'AasxFileServerServiceSpecification': 2
+            }
+        };
+
         function getSpecUrl(version, specPath) {
             const config = versionConfig[version];
             if (!config) return specPath;
@@ -645,6 +761,38 @@
 
             // Update all API card links
             document.querySelectorAll('.api-card').forEach(card => {
+                const cardTitle = card.querySelector('h3').textContent;
+                const serviceName = serviceNameMap[cardTitle];
+
+                // Update SSP badges based on version
+                if (serviceName) {
+                    const specsContainer = card.querySelector('.specs');
+                    if (specsContainer) {
+                        const sspCount = versionSSPLimits[version][serviceName];
+
+                        // Clear existing badges
+                        specsContainer.innerHTML = '';
+
+                        if (sspCount === 0) {
+                            // Service doesn't exist in this version
+                            const notice = document.createElement('span');
+                            notice.className = 'spec-badge';
+                            notice.style.backgroundColor = '#f0f0f0';
+                            notice.style.color = '#999';
+                            notice.textContent = 'Not in ' + version;
+                            specsContainer.appendChild(notice);
+                        } else {
+                            // Add badges for available SSPs
+                            for (let i = 1; i <= sspCount; i++) {
+                                const badge = document.createElement('span');
+                                badge.className = 'spec-badge';
+                                badge.textContent = 'SSP-' + i.toString().padStart(3, '0');
+                                specsContainer.appendChild(badge);
+                            }
+                        }
+                    }
+                }
+
                 // Update Swagger UI links
                 const swaggerLink = card.querySelector('a[href*="swagger-ui.html"]');
                 if (swaggerLink) {
@@ -686,7 +834,7 @@
                     yamlLink.href = newSpecUrl;
                 }
 
-                // Update version badges
+                // Update version badges (V3.2 -> V3.0, etc.)
                 const badges = card.querySelectorAll('.spec-badge');
                 badges.forEach(badge => {
                     const config = versionConfig[version];
