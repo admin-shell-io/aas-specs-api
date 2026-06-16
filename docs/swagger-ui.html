@@ -133,7 +133,7 @@
             }
         }
 
-        // Service specification SSP ranges
+        // Service specification SSP ranges - defines maximum count per service
         const serviceSSPRanges = {
             'AssetAdministrationShellRegistryServiceSpecification': { count: 5, label: 'AAS Registry Service' },
             'AssetAdministrationShellRepositoryServiceSpecification': { count: 6, label: 'AAS Repository Service' },
@@ -144,6 +144,114 @@
             'DiscoveryServiceSpecification': { count: 2, label: 'Discovery Service' },
             'ConceptDescriptionRepositoryServiceSpecification': { count: 3, label: 'Concept Description Repository' },
             'AasxFileServerServiceSpecification': { count: 2, label: 'AASX File Server' }
+        };
+
+        // Version-specific SSP availability - defines which SSP files actually exist in each version
+        const versionSSPLimits = {
+            'v3.0.0': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 2,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 0,  // Not in v3.0.0
+                    'SubmodelRepositoryServiceSpecification': 2,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 1,
+                    'ConceptDescriptionRepositoryServiceSpecification': 0,  // Not in v3.0.0
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.0.1': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 2,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 0,
+                    'SubmodelRepositoryServiceSpecification': 2,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 1,
+                    'ConceptDescriptionRepositoryServiceSpecification': 0,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.0.2': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 2,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 0,
+                    'SubmodelRepositoryServiceSpecification': 2,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 1,
+                    'ConceptDescriptionRepositoryServiceSpecification': 0,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.0.3': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 2,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 0,
+                    'SubmodelRepositoryServiceSpecification': 2,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 1,
+                    'ConceptDescriptionRepositoryServiceSpecification': 0,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.0.4': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 2,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 2,
+                    'SubmodelRepositoryServiceSpecification': 4,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 1,
+                    'ConceptDescriptionRepositoryServiceSpecification': 0,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.1.0': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 5,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 4,
+                    'SubmodelRepositoryServiceSpecification': 5,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 2,
+                    'ConceptDescriptionRepositoryServiceSpecification': 2,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.1.1': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 5,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 4,
+                    'SubmodelRepositoryServiceSpecification': 5,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 2,
+                    'ConceptDescriptionRepositoryServiceSpecification': 2,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            },
+            'v3.1.2': {
+                maxSSP: {
+                    'AssetAdministrationShellRegistryServiceSpecification': 5,
+                    'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                    'AssetAdministrationShellServiceSpecification': 2,
+                    'SubmodelRegistryServiceSpecification': 4,
+                    'SubmodelRepositoryServiceSpecification': 5,
+                    'SubmodelServiceSpecification': 3,
+                    'DiscoveryServiceSpecification': 2,
+                    'ConceptDescriptionRepositoryServiceSpecification': 2,
+                    'AasxFileServerServiceSpecification': 1
+                }
+            }
         };
 
         // Detect which service from the current spec URL
@@ -215,7 +323,25 @@
             }
 
             // Regular service with multiple SSPs
-            for (let i = 1; i <= sspCount; i++) {
+            // Check if this version has limits for this service
+            let effectiveCount = sspCount;
+            const versionLimits = versionSSPLimits[version];
+            if (versionLimits && versionLimits.maxSSP && versionLimits.maxSSP.hasOwnProperty(serviceName)) {
+                effectiveCount = versionLimits.maxSSP[serviceName];
+            }
+
+            // If service doesn't exist in this version, show a message
+            if (effectiveCount === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = `${serviceLabel} - Not available in ${version}`;
+                option.disabled = true;
+                option.selected = true;
+                select.appendChild(option);
+                return;
+            }
+
+            for (let i = 1; i <= effectiveCount; i++) {
                 const ssp = i.toString().padStart(3, '0');
                 const path = `../${serviceName}/V${versionFormat}_SSP-${ssp}.yaml`;
                 const label = `${serviceLabel} - SSP-${ssp}`;
