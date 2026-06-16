@@ -348,7 +348,7 @@ h| Casting Operator h| Description h| Definition
 | `time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
 |===
 
-`<TimeLiteral>` follows the `<time>` production in the BNF grammar: `HH:MM`, `HH:MM:SS`, and these forms with fractional seconds are valid. Timezone-qualified `xs:time` lexical forms, such as `12:00:00Z` or `12:00:00+01:00`, SHALL NOT be used as `<TimeLiteral>` values. The reference to `xs:time` defines casting semantics only.
+`<TimeLiteral>` follows the `<time>` production in the BNF grammar: `HH:MM`, `HH:MM:SS`, and these forms with fractional seconds are valid. Timezone-qualified `xs:time` lexical forms, such as `12:00:00Z` or `12:00:00+01:00`, are also valid `<TimeLiteral>` values.
 
 Implicit casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
 If a FieldIdentifier is used in a logicalExpression, it will be implicitly casted to `xs:boolean`, which can only create a valid result for the values true and false. +
@@ -549,23 +549,40 @@ a|
 
 The Query Language supports a `$filters` option that allows clients to reduce the amount of returned data. This can significantly improve response times, as the backend may scan and process fewer data elements. Furthermore, filtering is an important mechanism in the security domain, as it helps restrict access to sensitive information by preventing unnecessary exposure of internal data structures.
 
-`$filters` expressions can be applied to specific metamodel elements of the AAS (e.g., `Submodel`, `Submodel Elements` contained within an `Submodel`, etc.). However, not all elements can be filtered arbitrarily. If a particular metamodel element is mandatory according to the AAS specification, filtering it out would result in invalid or incomplete data structures. Therefore, such filtering operations are prohibited to ensure consistency and correctness of the returned data.
+`$filters` expressions can be applied to specific metamodel elements of the AAS (e.g., `Submodel`, `Submodel Elements` contained within a `Submodel`, etc.).
+However, not all elements can be filtered arbitrarily.
+If a particular metamodel element is mandatory according to the AAS specification, filtering it out would result in invalid or incomplete data structures.
+Therefore, such filtering operations are prohibited to ensure consistency and correctness of the returned data.
 Since a valid Reference requires at least one key, filters that eliminate all keys remain valid but result in the removal of the entire Reference rather than just its keys.
 
 If no `$filters` is specified for a particular metamodel element, that element remains unfiltered. Thus, applying additional filters can only reduce the amount of data returned; it can never increase the amount of data or introduce information that is not already present in the underlying AAS. If multiple filters are specified and apply to overlapping data, they are combined using logical AND semantics.
 
 For fragments that address an array-valued object, a fragment ending with `[]` applies row-wise filtering to each array entry. The corresponding fragment without the trailing `[]` applies the condition to the entire array object. A row-wise condition evaluates the `$fragment` and any `$field` references in its `$condition` in the context of the same array entry. If a fragment does not define a form ending with `[]`, row-wise filtering for that fragment SHALL NOT be assumed.
 
+.Array-valued fragment filter examples
+[.table-with-appendix-table]
+[width=100%, cols="35%,45%,20%"]
+|===
+h| Grammar h| JSON Schema h| Comment
+a|
+[source]
+----
+true
+$filters
+  $fragment   $sme.someIdShort[]
+  $condition  $sme.someIdShort[]#value $eq "val"
+----
+a|
 [source,json]
 ----
 {
   "$condition": { "$boolean": true },
   "$filters": [
     {
-      "$fragment": "$sme.a[]",
+      "$fragment": "$sme.someIdShort[]",
       "$condition": {
         "$eq": [
-          { "$field": "$sme.a[]#value" },
+          { "$field": "$sme.someIdShort[]#value" },
           { "$strVal": "val" }
         ]
       }
@@ -573,20 +590,96 @@ For fragments that address an array-valued object, a fragment ending with `[]` a
   ]
 }
 ----
-
+| Applies the condition row-wise to each array entry.
+a|
+[source]
+----
+true
+$filters
+  $fragment   $sme.someIdShort
+  $condition  $sme.someIdShort[]#value $eq "val"
+----
+a|
 [source,json]
 ----
 {
   "$condition": { "$boolean": true },
   "$filters": [
     {
-      "$fragment": "$sme.a",
+      "$fragment": "$sme.someIdShort",
       "$condition": {
         "$eq": [
-          { "$field": "$sme.a[]#value" },
+          { "$field": "$sme.someIdShort[]#value" },
           { "$strVal": "val" }
         ]
       }
+    }
+  ]
+}
+----
+| Applies the condition to the entire array-valued object.
+|===
+
+Assume the returned object contains this fragment before filtering:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        },
+        {
+          "idShort": "entry2",
+          "value": "other"
+        }
+      ]
+    }
+  ]
+}
+----
+
+The row-wise fragment `$sme.someIdShort[]` keeps only the array entries for which the condition is true:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        }
+      ]
+    }
+  ]
+}
+----
+
+The fragment `$sme.someIdShort` keeps or removes the entire array-valued object. Since at least one entry satisfies the condition, the whole fragment remains:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        },
+        {
+          "idShort": "entry2",
+          "value": "other"
+        }
+      ]
     }
   ]
 }
@@ -639,9 +732,9 @@ $sm#semanticId $eq
   "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
 $filters
   $fragment   $sme#value
-  $condition  $sm#semanticId.keys[].value $eq "HIDE_VALUE"
+  $condition  $sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value"
   $fragment   $sm#semanticId.keys[]
-  $condition  $sm#semanticId.keys[].value $eq "HIDE_VALUE"
+  $condition  $sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value"
 ----
 a|
 [source,json]
@@ -666,7 +759,7 @@ a|
             "$field": "$sm#semanticId.keys[].value"
           },
           {
-            "$strVal": "HIDE_VALUE"
+            "$strVal": "https://example.com/semantic-id/hide-value"
           }
         ]
       }
@@ -679,7 +772,7 @@ a|
             "$field": "$sm#semanticId.keys[].value"
           },
           {
-            "$strVal": "HIDE_VALUE"
+            "$strVal": "https://example.com/semantic-id/hide-value"
           }
         ]
       }
@@ -688,7 +781,7 @@ a|
 }
 
 ----
-a| Selects Nameplate submodels and filters out values from all nested submodel elements when the key "HIDE_VALUE" is present in the submodel’s semanticId. Additionally, any "HIDE_VALUE" keys in the submodel’s semanticId are removed from the result.
+a| Selects Nameplate submodels and filters out values from all nested submodel elements when the key `https://example.com/semantic-id/hide-value` is present in the submodel’s semanticId. Additionally, any keys with this value in the submodel’s semanticId are removed from the result.
 |===
 
 == Sorting and Pagination
@@ -744,8 +837,8 @@ h| JSON Schema h| Grammar h| Comment
 | hexLiteralPattern | <HexLiteral> |
 | dateTimeLiteralPattern | <DateTimeLiteral> |
 | timeLiteralPattern | <TimeLiteral> |
-| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: strModel etc.
-| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: strModel etc.
+| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: $field etc.
+| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: $field etc.
 | $field | - | string following the FieldIdentifier pattern
 | $strVal | - | string following the standardString
 | $attribute | - | explained in Security Access Rules; not used for query language

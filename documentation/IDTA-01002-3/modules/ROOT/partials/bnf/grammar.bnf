@@ -182,7 +182,7 @@
     "USEFORMULA" <ws> <StringLiteral> <ws>
  
 <DateTimeLiteral> ::= <datetime> <ws>
-<TimeLiteral> ::= <time> <ws>
+<TimeLiteral> ::= <time> ( <timezone> )? <ws>
 <datetime> ::= <date> ( "T" )? <time> ( <timezone> )?
 <date> ::= <year> "-" <month> "-" <day>
 <year> ::= <digit> <digit> <digit> <digit>
@@ -212,7 +212,7 @@
 <FieldIdentifierAAS> ::= "$aas#" <FieldsAAS>
 <FieldIdentifierSM> ::= "$sm#" <FieldsSM>
 <FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" <FieldsSME>
-<FieldIdentifierCD> ::= "$cd#" <FieldsCD> <ws>
+<FieldIdentifierCD> ::= "$cd#" <FieldsCD>
 <FieldIdentifierAasDescriptor> ::= "$aasdesc#" <FieldsAasDescriptor>
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
 
@@ -235,7 +235,7 @@
 <FieldIdentifierAASFragment> ::= "$aas#" ( "idShort" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClauseFragment> | <SubmodelsClauseFragment> )
 <FieldIdentifierSMFragment> ::= "$sm#" ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" )
 <FieldIdentifierSMEFragment> ::= "$sme" ( "." <idShortPath> )? ( "#" ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" | "value" | "valueType" | "language" ))?
-<FieldIdentifierCDFragment> ::= "$cd#" ( "idShort" ) <ws>
+<FieldIdentifierCDFragment> ::= "$cd#" ( "idShort" )
 <FieldIdentifierAasDescriptorFragment> ::= "$aasdesc#" ( "idShort" | "description" | "displayName" | "extension" | "administration" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClauseFragment> | <EndpointClauseFragment> | <SubmodelDescriptorsClauseFragment> )
 <FieldIdentifierSmDescriptorFragment> ::= "$smdesc#" <SmDescriptorClauseFragment>
 
