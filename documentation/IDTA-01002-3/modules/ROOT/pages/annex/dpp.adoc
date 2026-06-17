@@ -87,7 +87,7 @@ If a `date` parameter is provided, the implementation shall retrieve the version
 * *Serialize the content*: For each content Submodel, serialize the Submodel in the requested `representation` format (see <<dpp-serialization>>). The JSON key for each content section shall be the Submodel's `semanticId`, equal to the contentSpecificationId, as described in IDTA-01099-1.
 * *Assemble the DPP document*: Merge the header fields and the content sections into a single `DigitalProductPassport` JSON document.
 
-For details see <<dpp-discovery]>>.
+For details see <<dpp-discovery>>.
 
 
 
@@ -260,8 +260,8 @@ A typical DPP discovery sequence proceeds as follows:
 . A client application obtains a product identifier, for instance by scanning a data carrier (e.g., QR code) on the product. The client executes the DPP operation ReadDPPByProductId, passing the product identifier as input.
 . The DPP Service invokes the xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[*SearchAllAssetAdministrationShellIdsByAssetLink*] operation on the AAS Discovery Service, passing the product identifier as the `globalAssetId`.
 . The Discovery Service returns the identifiers of AAS instances associated with the product identifier.
-. The DPP Service selects the appropriate AAS identifier and invokes *GetAssetAdministrationShellDescriptorById* on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence <<image-seq-dpp-re>>), or
-. directly retrieves the AAS using xref:specification/interfaces.adoc#GetAssetAdministrationShellById[*GetAssetAdministrationShellById*] on the AAS Repository or Service (see sequence <<image-seq-dpp-discovery-2>>).
+. The DPP Service selects the appropriate AAS identifier and invokes xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[*GetAssetAdministrationShellDescriptorById*]  on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence <<image-seq-dpp>>), or
+. directly retrieves the AAS using xref:specification/interfaces.adoc#GetAssetAdministrationShellById[*GetAssetAdministrationShellById*] on the AAS Repository or Service (see sequence <<image-seq-dpp-repo>>).
 . The DPP Service retrieves the relevant Submodels and composes the DPP document.
 
 To enable discovery, the economic operator responsible for the product shall ensure that the AAS instance representing the DPP is linked to the product identifier via the `globalAssetId` or `specificAssetId` fields in the `AssetInformation` of the AAS. 
@@ -284,7 +284,7 @@ include::partial$diagrams/seq-dpp.puml[]
 include::partial$diagrams/seq-dpp-repo.puml[]
 ....
 
-<<image-seq-dpp-registry>> illustrates the composition process for a ReadDPPByProductId  interaction. 
+<<image-seq-dpp>> illustrates the composition process for a ReadDPPByProductId  interaction. 
 The DPP Application discovers the relevant AAS via the Discovery Service, resolves the Submodel endpoints via the Registry Service, retrieves the relevant Submodels, and merges them into a conformant DPP payload.
 
 
