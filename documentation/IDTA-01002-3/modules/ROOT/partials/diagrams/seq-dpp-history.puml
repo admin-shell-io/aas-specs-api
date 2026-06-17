@@ -7,39 +7,32 @@ participant Client as "DPP Application"
 end box
 
 
-box "Discovery Service"
-  participant AASDiscovery as "AAS Discovery Interface"
-end box
 
 box "Registry Service"
    participant AASRegistry as "AAS Registry Interface"
 end box
 
-box "AAS or Submodel (Repository) Service"
-  participant SMService as "Submodel Interface"
+box "Submodel Repository Service"
+  participant SMService as "Submodel Repository Interface"
 end box
 
 activate DPPClient
-DPPClient -> Client : ReadDPPByProductId(productId)
+DPPClient -> Client : ReadDPPVersionByIdAndDate(dppId,date)
 
 activate Client
-Client <- Client : map productId to globalAssetId
-
-Client -> AASDiscovery: SearchAllAssetAdministrationShellIdsByAssetLink(specificAssetId = productId)
-activate AASDiscovery
-Client <-- AASDiscovery : IDs of AAS
-deactivate AASDiscovery
-Client -> Client : select AAS ID
+Client <- Client : map dppId to aasId
 
 
-Client -> AASRegistry : GetAssetAdministrationShellDescriptorById
+
+Client -> AASRegistry : GetAssetAdministrationShellDescriptorByIdAndDate
 activate AASRegistry
 Client <-- AASRegistry : AAS Descriptor with Submodel Endpoints
 deactivate AASRegistry
 Client -> Client : extract  Submodel Endpoint for DPP Metadata
 
 
-Client -> SMService : GetSubmodel(ById)
+
+Client -> SMService : GetSubmodelByIdAndDate DPP Metadata via Endpoint
 activate SMService
 Client <-- SMService : Submodel DPP Metadata
 deactivate SMService
@@ -50,7 +43,7 @@ note left of Client
   in contentSpecificationIds
 end note
 loop for all relevant Submodels
-Client -> SMService : GetSubmodel(ById)
+Client -> SMService : GetSubmodelByIdAndDate via Endpoint
 activate SMService
 Client <-- SMService : content Submodel
 deactivate SMService

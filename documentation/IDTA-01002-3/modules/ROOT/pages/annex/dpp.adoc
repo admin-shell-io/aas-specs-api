@@ -46,7 +46,7 @@ The terms "method" and "operation" are synonym in this context.
 In EN 18222 "method" is used, in IDTA-01002 "operation" is used.
 ====
 
-[NOTE]
+[Note]
 ====
 The mapping of DPP data elements to AAS metamodel elements (EN 18223) is specified in link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html[IDTA-01001]. 
 The DPP metadata Submodel Template is specified in link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA-02099-1 Digital Product Passport – Part 1: Metadata - Submodel Template Specification] with idShort "DppMetadata". 
@@ -81,21 +81,15 @@ To assemble a `DigitalProductPassport` JSON document, an implementation shall pe
 * *Retrieve the AAS*: Fetch the AAS from the AAS Repository, the AAS Service or via the AAS Registry.
 * *Retrieve all referenced Submodels*: Obtain the Submodel references from the AAS or AAS Descriptor and retrieve each Submodel from the Submodel Repository, Submodel Service or via the AAS Registry. 
 If a `date` parameter is provided, the implementation shall retrieve the version of each Submodel that was current at the specified point in time.
-* *Identify the DppMetadata Submodel*: Select the Submodel with semanticId `urn:samm:io.admin-shell.idta.dpp_meta:1.0.0#DppMetadata` (exact identifier not yet finalized). This Submodel provides the DPP header fields.
+* *Identify the DppMetadata Submodel*: Select the Submodel with semanticId `https://admin-shell.io/idta/cds/dppMetadata/1` (IDTA-02099-1). This Submodel provides the DPP header fields.
 * *Identify the content Submodels*: Select all remaining Submodels whose semanticId is listed in the `contentSpecificationIds` property of the DppMetadata Submodel.
-* *Serialize the header*: Serialize the DppMetadata Submodel in Value-Only (for compacted DPPs) or "normal" format (for extended DPPs). The resulting JSON object constitutes the DPP header.
-* *Serialize the content*: For each content Submodel, serialize the Submodel in the requested `representation` format (see <<dpp-serialization>>). The JSON key for each content section shall be the Submodel's `idShort` with the first letter in lower case (camelCase convention).
+* *Serialize the header*: Serialize the DppMetadata Submodel in Value-Only. The resulting JSON object constitutes the DPP header.
+* *Serialize the content*: For each content Submodel, serialize the Submodel in the requested `representation` format (see <<dpp-serialization>>). The JSON key for each content section shall be the Submodel's `semanticId`, equal to the contentSpecificationId, as described in IDTA-01099-1.
 * *Assemble the DPP document*: Merge the header fields and the content sections into a single `DigitalProductPassport` JSON document.
 
-.DPP Composition Sequence via AAS Discovery, Registry, and Submodel Services
-[[image-seq-dpp]]
-[plantuml, seq-dpp, svg]
-....
-include::partial$diagrams/seq-dpp.puml[]
-....
+For details see <<dpp-discovery]>>.
 
-<<image-seq-dpp>> illustrates the composition process for a ReadDPPByProductId interaction. 
-The DPP Application discovers the relevant AAS via the Discovery Service, resolves the Submodel endpoints via the Registry Service, retrieves the relevant Submodels, and merges them into a conformant DPP payload.
+
 
 [[dpp-decomposition]]
 === Decomposition Process (Write Path)
@@ -158,15 +152,18 @@ Multiple AAS instances might be associated with the provided product identifier.
 
 == DPP Registry API Operations
 
-The DPP Registry API (EN 18222, Clause 5, Table 17) defines operations for registering DPPs at a centrally hosted DPP Registry. When an AAS-based service acts as a data source for DPPs, it may also act as a client of the DPP Registry.
+The DPP Registry API (EN 18222, Clause 5, Table 17) defines operations for registering DPPs at a centrally hosted DPP Registry. 
+When an AAS-based service acts as a data source for DPPs, it may also act as a client of the DPP Registry.
 
-.Mapping of DPP Registry API Operations to AAS Service Operations
+
 
 [Note]
 ====
 Although the AAS supports an AAS Registry this kind of Registry is not necessarily the same as for the DPP Registry and should not be mixed up. 
 An AAS Registry can be used to implement a DPP Registry.
 ====
+
+.Mapping of DPP Registry API Operations to AAS Service Operations
 [.table-with-appendix-table]
 [cols="22%,30%,48%"]
 |===
@@ -174,7 +171,7 @@ h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 
 | RegisterProductDPP
 | Direct call to the DPP Registry
-| Upon creation of a new DPP, the implementation should register the DPP at the DPP Registry. 
+a| Upon creation of a new DPP, the implementation should register the DPP at the DPP Registry. 
 
 [Note]
 ====
@@ -182,7 +179,7 @@ So far no Submodel Template Specification is available for posting the DPP regis
 ====
 |===
 
-[NOTE]
+[Note]
 ====
 The DPP Registry is typically a centrally hosted service operated independently from individual DPP data providers. The exact mechanism for registration may depend on the specific DPP Registry implementation and the applicable regulatory framework.
 ====
@@ -244,7 +241,7 @@ Implementations shall support the _compressed_ representation. The _full_ repres
 The `representation` query parameter (EN 18222, Clause 8) controls which format is returned. If omitted, the _compressed_ format shall be used as default.
 
 
-[NOTE]
+[Note]
 ====
 For the metadata as defined in the Submodel Template Specification IDTA-02099-1 the payload is identical for compressed and expanded serialization. 
 It corresponds to the Value-Only serialization of the AAS.
@@ -261,146 +258,78 @@ These steps enable clients to discover and access AAS instances based on asset i
 A typical DPP discovery sequence proceeds as follows:
 
 . A client application obtains a product identifier, for instance by scanning a data carrier (e.g., QR code) on the product. The client executes the DPP operation ReadDPPByProductId, passing the product identifier as input.
-. The DPP Service invokes the *SearchAllAssetAdministrationShellIdsByAssetLink* operation on the AAS Discovery Service, passing the product identifier as the `globalAssetId`.
+. The DPP Service invokes the xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[*SearchAllAssetAdministrationShellIdsByAssetLink*] operation on the AAS Discovery Service, passing the product identifier as the `globalAssetId`.
 . The Discovery Service returns the identifiers of AAS instances associated with the product identifier.
-. The DPP Service selects the appropriate AAS identifier and invokes *GetAssetAdministrationShellDescriptorById* on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence <<image-seq-dpp-discovery-1>>), or
-. directly retrieves the AAS using *GetAssetAdministrationShellById* on the AAS Repository or Service (see sequence <<image-seq-dpp-discovery-2>>).
+. The DPP Service selects the appropriate AAS identifier and invokes *GetAssetAdministrationShellDescriptorById* on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence <<image-seq-dpp-re>>), or
+. directly retrieves the AAS using xref:specification/interfaces.adoc#GetAssetAdministrationShellById[*GetAssetAdministrationShellById*] on the AAS Repository or Service (see sequence <<image-seq-dpp-discovery-2>>).
 . The DPP Service retrieves the relevant Submodels and composes the DPP document.
 
 To enable discovery, the economic operator responsible for the product shall ensure that the AAS instance representing the DPP is linked to the product identifier via the `globalAssetId` or `specificAssetId` fields in the `AssetInformation` of the AAS. 
 The `uniqueProductIdentifier` in the DppMetadata Submodel shall correspond to the `globalAssetId` of the AAS. 
 The explicit mapping is defined in IDTA-02099-1.
 
-.DPP Discovery and Composition Sequence with a Registry Service involved (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.1.2/http-rest-api/interactions.htm[IDTA-01002 Part 2 -- Chapter Interactions])
-[[image-seq-dpp-discovery-1]]
-[plantuml, seq-dpp-discovery, svg]
+
+.DPP Composition Sequence via AAS Discovery, Registry, and Submodel Services
+[[image-seq-dpp]]
+[plantuml, seq-dpp, svg]
 ....
-@startuml
-'title Discovery and Composition via AAS Services
-
-actor "DPP Client" as C
-participant "DPP Service" as DPPS
-participant "AAS Discovery Service" as DS
-participant "AAS Registry Service" as RS
-participant "AAS or Submodel Repository / Service" as ASR
-
-activate C
-C -> DPPS: ReadDPPByProductId
-activate DPPS
-
-DPPS -> DS: SearchAllAssetAdministrationShellIdsByAssetLink(globalAssetId=productId)
-activate DS
-DS --> DPPS: aasIds[]
-deactivate DS
-
-DPPS -> RS: GetAssetAdministrationShellDescriptorById(aasId)
-activate RS
-RS --> DPPS: AAS Descriptor (incl. Submodel endpoints)
-deactivate RS
-
-DPPS -> ASR: GetSubmodelById(DppMetadataSubmodelId)
-activate ASR
-ASR --> DPPS: DppMetadata (header fields + contentSpecificationIds)
-deactivate ASR
-
-loop for each object in contentSpecificationIds
-  DPPS -> ASR: GetSubmodelById(contentSubmodelId, representation[, date])
-  activate ASR
-  ASR --> DPPS: Content Submodel
-  deactivate ASR
-end
-
-note right of DPPS
-  Compose the DPP document
-end note
-
-
-DPPS -> C: DPP document
-deactivate DPPS
-
-
-@enduml
+include::partial$diagrams/seq-dpp.puml[]
 ....
 
 
-.DPP Discovery and Composition Sequence with a Repository Service involved (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.1.2/http-rest-api/interactions.html[IDTA-01002 Part 2 -- Chapter Interactions])
-[[image-seq-dpp-discovery-2]]
-[plantuml, seq-dpp-discovery, svg]
+.DPP Composition Sequence via AAS Discovery and AAS/Submodel Repository
+[[image-seq-dpp-repo]]
+[plantuml, seq-dpp-repo, svg]
 ....
-@startuml
-'title Discovery and Composition via AAS Services
-
-actor "DPP Client" as C
-participant "DPP Service" as DPPS
-participant "AAS Discovery Service" as DS
-participant "AAS or Submodel Repository / Service" as ASR
-
-activate C
-
-C -> DPPS: ReadDPPByProductId
-
-activate DPPS
-
-DPPS -> DS: SearchAllAssetAdministrationShellIdsByAssetLink(globalAssetId=productId)
-activate DS
-DS --> DPPS: aasIds[]
-deactivate DS
-
-DPPS -> ASR: GetAssetAdministrationShellById(aasId)
-activate ASR
-ASR --> DPPS: AAS (incl. Submodel references)
-deactivate ASR
-
-DPPS -> ASR: GetSubmodelById(DppMetadataSubmodelId)
-activate ASR
-ASR --> DPPS: DppMetadata (header fields + contentSpecificationIds)
-deactivate ASR
-
-loop for each object in contentSpecificationIds
-  DPPS -> ASR: GetSubmodelById(contentSubmodelId, representation[, date])
-  activate ASR
-  ASR --> DPPS: Content Submodel
-  deactivate ASR
-end
-
-note right of DPPS
-  Compose the DPP document
-end note
-
-DPPS -> C: DPP document
-deactivate DPPS
-
-@enduml
+include::partial$diagrams/seq-dpp-repo.puml[]
 ....
+
+<<image-seq-dpp-registry>> illustrates the composition process for a ReadDPPByProductId  interaction. 
+The DPP Application discovers the relevant AAS via the Discovery Service, resolves the Submodel endpoints via the Registry Service, retrieves the relevant Submodels, and merges them into a conformant DPP payload.
+
+
 
 [[readdppversionbyidanddate]]
 == Retrieving Historical Versions of DPPs via AAS Versioning Mechanisms ==
-EN 18222 defines the ReadDPPVersionByIdAndDate operation for retrieving the version of a DPP that was current at a specified point in time. When using AAS infrastructure, this can be implemented by leveraging the versioning and timestamping features of AAS resources.
 
-To implement ReadDPPVersionByIdAndDate, an implementation shall perform the following steps:
-. Retrieve the AAS and all referenced Submodels as described in <<dpp-composition-read>>.
-. For each Submodel, select the version whose `updatedAt` timestamp is less than or equal to the requested date. This can be achieved by using the `date` query parameter when retrieving the Submodel, which instructs the AAS Service to return the version that was current at that point in time.
-. Compose the DPP document from the selected versions of the Submodels as described in <<dpp-composition-read>>.
+EN 18222 defines the _ReadDPPVersionByIdAndDate_ operation for retrieving the version of a DPP that was current at a specified point in time. 
+When using AAS infrastructure, this can be implemented by leveraging the versioning and timestamping features of AAS resources.
 
-.ReadDPPVersionByProductIdAndDate Sequence via AAS Versioning
-[[image-seq-dpp-versioning]]
-[plantuml, seq-dpp-versioning, svg]
+To implement _ReadDPPVersionByIdAndDate_, an implementation shall perform the following steps:
+
+* Retrieve the AAS and all referenced Submodels as described in <<dpp-composition-read>> but considering the _updatedAt_ time information within the AAS and its Submodels.
+* For each Submodel, select the version whose `updatedAt` timestamp is less than or equal to the requested date. This can be achieved by using the `date` query parameter when retrieving the Submodel, which instructs the AAS Service to return the version that was current at that point in time.
+* Compose the DPP document from the selected versions of the Submodels as described in <<dpp-composition-read>>.
+
+In <<image-seq-dpp-repo-history>> the steps to be performed by directly accessing an AAS and Submodel Repository is shown.
+In <<image-seq-dpp-history>> the steps to be performed when using an AAS Registry with Submodel Endpoints contained in the AssetAdministrationShellDescriptor is shown.
+In <<image-seq-dpp-registry-history>> the steps to be performed when using an AAS Registry with AAS Endpoints and a Submodel Registry with Submodel Endpoints is shown.
+
+[Note]
+====
+The endpoints contained in the descriptors implicitly map to corresponding xref:specification/interfaces.adoc#GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate]  or xref:specification/interfaces.adoc#GetSubmodelByIdAndDate[GetSubmodelByIdAndDate] operation calls.
+====
+
+.ReadDPPVersionByProductIdAndDate Sequence via AAS Versioning with Repository
+[[image-seq-dpp-repo-history]]
+[plantuml, seq-dpp-repo-history, svg]
 ....
-@startuml
-title ReadDPPVersionByIdAndDate via AAS Versioning
-
-actor Client as C
-participant "AAS Repository/Service" as AR
-participant "Submodel Repository/Service" as SR
-C -> AR: GetAssetAdministrationShellByIdAndDate(aasId, date)
-AR --> C: AAS (incl. Submodel references)
-loop for each Submodel in the AAS
-  C -> SR: GetSubmodelByIdAndDate(DppMetadataSubmodelId, date)
-  SR --> C: Content Submodel (version at date)
-end
-@enduml
+include::partial$diagrams/seq-dpp-repo-history.puml[]
 ....
 
+.ReadDPPVersionByProductIdAndDate Sequence via AAS Registry
+[[image-seq-dpp-history]]
+[plantuml, seq-dpp-history, svg]
+....
+include::partial$diagrams/seq-dpp-history.puml[]
+....
+
+.ReadDPPVersionByProductIdAndDate Sequence via AAS and Submodel Registry
+[[image-seq-dpp-registry-history]]
+[plantuml, seq-dpp-registry-history, svg]
+....
+include::partial$diagrams/seq-dpp-registry-history.puml[]
+....
 
 == HTTP API Mapping
 
