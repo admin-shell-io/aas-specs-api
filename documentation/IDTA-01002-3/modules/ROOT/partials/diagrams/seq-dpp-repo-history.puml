@@ -24,12 +24,12 @@ activate Client
 Client <- Client : map dppId to aasId
 
 
-Client -> AASService : GetAssetAdministrationShellByIdAndDate(aasId,date)
+Client -> AASService : GetAssetAdministrationShellVersionByIdAndDate(aasId,date)
 activate AASService
 Client <-- AASService : AAS incl. Submodel references (version at specified date)
 deactivate AASService
 
-Client -> SMService : GetSubmodelByIdAndDate(Submodel ID for DPP Metadata)
+Client -> SMService : GetSubmodelVersionByIdAndDate(Submodel ID for DPP Metadata)
 activate SMService
 Client <-- SMService : Submodel DPP Metadata (includes contentSpecificationIds) (version at specified date)
 deactivate SMService
@@ -41,7 +41,7 @@ note left of Client
 end note
 
 loop for all relevant Submodels
-Client -> SMService : GetSubmodelByIdAndDate(ById,date)
+Client -> SMService : GetSubmodelVersionByIdAndDate(ById,date)
 activate SMService
 Client <-- SMService : content Submodel (version at specified date)
 deactivate SMService
