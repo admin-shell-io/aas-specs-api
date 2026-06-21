@@ -70,16 +70,44 @@
           "$ref": "#/definitions/Value"
         },
         "$dayOfWeek": {
-          "$ref": "#/definitions/Value"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         },
         "$dayOfMonth": {
-          "$ref": "#/definitions/Value"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         },
         "$month": {
-          "$ref": "#/definitions/Value"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         },
         "$year": {
-          "$ref": "#/definitions/Value"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         }
       },
       "oneOf": [
