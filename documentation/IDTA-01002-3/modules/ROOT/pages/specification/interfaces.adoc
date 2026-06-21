@@ -1092,6 +1092,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: _Submodel Registry_
 h|Operation Name h|Description
 e|xref:GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] a|Returns all submodel descriptors
+e|xref:GetAllSubmodelDescriptorsRecentChanges[GetAllSubmodelDescriptorsRecentChanges] a|Returns all Submodel Descriptors that have been recently changed
 e|xref:GetSubmodelDescriptorById[GetSubmodelDescriptorById] a|Returns a specific submodel descriptor
 e|xref:PostSubmodelDescriptor[PostSubmodelDescriptor] a|Creates a new submodel descriptor, i.e., registers a submodel
 e|xref:PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] a|Creates one or more new submodel descriptors, i.e., registers several submodels
@@ -1117,6 +1118,25 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a| StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|List of requested submodel descriptors |no |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
+|===
+
+==== Operation GetAllSubmodelDescriptorsRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllSubmodelDescriptorsRecentChanges]]GetAllSubmodelDescriptorsRecentChanges \<<Experimental>>
+h|Explanation 4+a|Returns all Submodel Descriptors that have been created or updated. CreatedFrom and UpdatedFrom are evaluated with OR semantics.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelDescriptorsRecentChanges/3/2`
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+e|createdFrom a|Return Submodel Descriptors created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Submodel Descriptors updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|List of requested submodel descriptors |no |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
 |===
 
