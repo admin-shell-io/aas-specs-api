@@ -1,0 +1,32 @@
+@startuml
+
+
+
+box "Appliocation Service"
+participant Client as "Application"
+end box
+
+box "AAS Repository Service"
+  participant AASService as "AAS Repository Interface"
+end box
+
+box "Submodel Repository Service"
+  participant SMService as "Submodel Repository Interface"
+end box
+
+activate Client
+Client -> AASService : GetAllAssetAdministrationShellsRecentChanges(createdFrom)
+activate AASService
+Client <-- AASService : AAS incl. Submodel IDs (version created after specified date)
+deactivate AASService
+
+
+loop for all relevant Submodels
+Client -> SMService : GetSubmodelById
+activate SMService
+Client <-- SMService : Submodel 
+deactivate SMService
+end
+
+
+@enduml
