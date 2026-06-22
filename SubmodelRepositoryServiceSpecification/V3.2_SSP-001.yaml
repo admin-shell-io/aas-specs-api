@@ -94,9 +94,9 @@ paths:
       tags:
         - Submodel Repository API
       summary: Returns information about all Submodels that have been changed recently
-      operationId: GetAllSubmodelRecentChanges
+      operationId: GetAllSubmodelsRecentChanges
       x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllSubmodelRecentChanges/3/2
+        - https://admin-shell.io/aas/API/GetAllSubmodelsRecentChanges/3/2
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SemanticId'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
@@ -109,7 +109,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetAllSubmodelRecentChangesResult'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetAllSubmodelsRecentChangesResult'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
