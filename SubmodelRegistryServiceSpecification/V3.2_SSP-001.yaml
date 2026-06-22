@@ -26,23 +26,23 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelDescriptors/3/2
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Submodel Descriptors
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetSubmodelDescriptorsResult'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetSubmodelDescriptorsResult'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.2#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'    
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'    
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
     post:
       tags:
         - Submodel Registry API
@@ -55,7 +55,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/SubmodelDescriptor'
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
         required: true
       responses:
         '201':
@@ -68,15 +68,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/SubmodelDescriptor'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '409':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/conflict'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/conflict'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
   /submodel-descriptors/$recent-changes:
     get:
       tags:
@@ -86,28 +86,28 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllSubmodelDescriptorsRecentChanges/3/2
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
       responses:
         '200':
           description: Requested Submodel Descriptors that have been recently changed
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetSubmodelDescriptorsResult'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetSubmodelDescriptorsResult'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
   /submodel-descriptors/{submodelIdentifier}:
     parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SubmodelIdentifier'
+      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Submodel Registry API
@@ -121,17 +121,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/SubmodelDescriptor'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'    
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'    
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
     put:
       tags:
         - Submodel Registry API
@@ -144,7 +144,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/SubmodelDescriptor'
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
         required: true
       responses:
         '201':
@@ -157,17 +157,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/SubmodelDescriptor'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
         '204':
           description: Submodel Descriptor updated successfully
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'    
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'    
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
     delete:
       tags:
         - Submodel Registry API
@@ -179,13 +179,13 @@ paths:
         '204':
           description: Submodel Descriptor deleted successfully
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
   /description:
     get:
       tags:
@@ -200,8 +200,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/ServiceDescription'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/ServiceDescription'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden' 
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden' 
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'

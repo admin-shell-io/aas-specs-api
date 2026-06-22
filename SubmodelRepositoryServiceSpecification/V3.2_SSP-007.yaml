@@ -20,7 +20,7 @@ servers:
 paths:
   /submodels/{submodelIdentifier}/$history:
     parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SubmodelIdentifier'
+      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
     get:
       tags:
         - Submodel Repository API
@@ -29,28 +29,28 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelByIdAndDate/3/2
       parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Level'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Extent'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Date'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Date'
       responses:
         '200':
           description: Requested Submodel at a specific point in time
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#/components/schemas/Submodel'
+                $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel'
         '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/not-found'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
           
 
   /description:
@@ -67,8 +67,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/ServiceDescription'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/ServiceDescription'
         '401':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
         '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
