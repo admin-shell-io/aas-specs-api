@@ -11,6 +11,8 @@ SPDX-License-Identifier: CC-BY-4.0
 
 = Interactions
 
+== General
+
 Interactions describe the sequence of calls of operations by a client application to achieve a defined goal in a use case.
 In the following, exemplary interaction sequences are depicted.
 
@@ -28,6 +30,9 @@ If the application has cached an endpoint that is no longer vivid, the applicati
 * The asset IDs (either the global asset ID or some specific asset IDs) are known to the calling application.
 * Access to any API is allowed only if the caller is authenticated.
 * Response to any API call takes access rules as defined for the services into account, e.g. access rules for the AASs, the Submodels, or SubmodelElements within a Submodel.
+
+
+== Accessing Submodel Data
 
 An interaction typically starts with a client application using the discovery service to get the IDs of the AAS representing the asset under consideration.
 In the second step the AAS Registry is called to get the relevant endpoints for the AASs found.
@@ -53,7 +58,7 @@ From the point of view of a data provider the Submodel Registry interfaces are s
 
 .Interaction for Client Application using Submodel Endpoints
 [[fig:seq-sm-endpoints]]
-[plantuml, seq-aas-endpoints, svg]
+[plantuml, seq-sm-endpoints, svg]
 ....
 include::partial$diagrams/seq-sm-endpoints.puml[]
 ....
@@ -95,9 +100,38 @@ The returned objects are shortened for better readability.
 
 .Interaction for Client Application using Submodel Endpoints (for HTTP API Operations)
 [[fig:seq-sm-endpoints-http]]
-[plantuml, seq-aas-endpoints, svg]
+[plantuml, seq-sm-endpoints-http, svg]
 ....
 include::partial$diagrams/seq-sm-endpoints-http.puml[]
+....
+
+== Accessing recently changes objects
+
+For recently changed Asset Administration Shells or Submodels there are the two API Operations 
+xref:specification/interfaces-payload.adoc#GetAllSubmodelsRecentChanges[GetAllSubmodelsRecentChanges] and 
+xref:specification/interfaces-payload.adoc#GetAllAssetAdministrationShellsRecentChanges[GetAllAssetAdministrationShellsRecentChanges] 
+as well as similar API Operation for the AAS Registry and Submodel Registry:
+xref:specification/interfaces-payload.adoc#GetAllAssetAdministrationShellDecriptorsRecentChanges[GetAllAssetAdministrationShellDescriptorsRecentChanges] 
+xref:specification/interfaces-payload.adoc#GetAllSubmodelDecriptorsRecentChanges[GetAllSubmodelDescriptorsRecentChanges]. 
+
+In <<fig:seq-repo-recent-changes>> a sequence interaction is described for an application looking for Asset Administration Shells created after a specified date interacting directly with an AAS repository.
+In <<fig:seq-registry-recent-changes>> a sequence interaction is described for an application looking for Asset Administration Shells created after a specified date but using the AAS Registry as entry point.
+
+
+
+.Interaction for Client Application looking for Recent Changes using an Asset Administration Shell Repository 
+[[fig:seq-repo-recent-changes]]
+[plantuml, seq-repo-recent-changes, svg]
+....
+include::partial$diagrams/seq-repo-recent-changes.puml[]
+....
+
+
+.Interaction for Client Application looking for Recent Changes using an Asset Administration Shell Registry
+[[fig:seq-registry-recent-changes]]
+[plantuml, seq-registry-recent-changes, svg]
+....
+include::partial$diagrams/seq-registry-recent-changes.puml[]
 ....
 
 
