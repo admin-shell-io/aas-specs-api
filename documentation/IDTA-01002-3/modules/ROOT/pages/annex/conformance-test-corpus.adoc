@@ -68,8 +68,8 @@ Requirement: MUST | SHOULD
 | HTTP 200, item excluded.
 
 | QL.time.001
-| A `$timeVal` MUST accept `hh:mm`, `hh:mm:ss`, and `hh:mm:ss.fff` forms.
-| All three are accepted by the schema validator.
+| A `$timeVal` MUST accept `hh:mm`, `hh:mm:ss`, `hh:mm:ss.fff`, and timezone-qualified forms such as `hh:mm:ssZ` and `hh:mm:ss+01:00`.
+| All forms are accepted by the schema validator.
 
 | QL.time.002
 | A `$timeVal` with invalid components (e.g. `25:00`) MUST be rejected by the schema.
