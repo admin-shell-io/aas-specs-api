@@ -10,13 +10,19 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 ====
 
 
-== Changes w.r.t. V3.1.2 to V3.2
+== Changes w.r.t. V3.1.3 to V3.2
 
 Major Changes:
 
+* Add new subchapter on the discovery of endpoints of AAS services based on ID Link. (https://github.com/admin-shell-io/aas-specs-api/issues/535[#535])
+* Add new operations GetAssetAdministrationShellVersionByIdAndDate and GetSubmodelVersionByIdAndDate to retrieve a specific version of an AAS or Submodel from a given point in time. (https://github.com/admin-shell-io/aas-specs-api/issues/555[#555])
+* Added a new profile for the AAS Repository Service Specification, the "Identifiable Profile", which only includes operations that require an identifier as input parameter. (https://github.com/admin-shell-io/aas-specs-api/issues/496[#496])
 * New API operations and profiles for signing, including Asset Administration Shell Repository Service Specification - Signature Profile SSP-004, Submodel Repository Service Specification - Signature Profile SSP-003, and  Concept Description Repository Service Specification - Signature Profile SSP-004 (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
 * Add the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
-
+* Added: Query Filter and FragmentFieldIdentifiers (https://github.com/admin-shell-io/aas-specs-api/issues/517)
+* Add new section in the annex on the usage of the AAS Services for implementing a digital product passport (DPP) based on EN 18222 and the relevant API operations for DPP interactions. 
+This section also includes an overview of how to expose the DPP interactions through a REST API that follows the specifications of the AAS Services.
+* Added new experimental operations `GetAllAssetAdministrationShellDescriptorsRecentChanges`, `GetAllSubmodelDescriptorsRecentChanges`, `GetAllAssetAdministrationShellsRecentChanges` , `GetAllSubmodelsRecentChanges`, `GetAllConceptDescriptionsRecentChanges` which rely on the `createdAt` and `updatedAt` attributes of `AdministrativeInformation` introduced in V3.2 of the metamodel. (https://github.com/admin-shell-io/aas-specs-api/issues/551[#551])
 
 Minor Changes:
 
@@ -26,49 +32,89 @@ Minor Changes:
 * Editorial fixes in Table 2 of the Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/507[#507])
 * Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
 * Editorial: Remove links to SwaggerHub from the HTTP API section, as the links are maintained in the service specifications and profiles sections. (https://github.com/admin-shell-io/aas-specs-api/issues/475[#475])
+* Added `supplementalSemanticIds` to the AAS Query Language specification (https://github.com/admin-shell-io/aas-specs-api/issues/524[#524])
+* Fixed examples for `endpointProtocolVersion` (https://github.com/admin-shell-io/aas-specs-api/issues/599[#599])
+* Editorial changes w.r.t. structuring of sections
+* Corrected examples for the Query Language specification and fixed the grammar and JSON Schema, which did not correctly reflect the intended semantics for optional Reference constraints.
 
 
-=== Operation Changes w.r.t. V3.1.2 to V3.2
-
-[%autowidth,width="100%",cols="40%,15%,45%",options="header",]
-|===
-h|Operation  h|Kind of Change h|Comment
- | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
-  |GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
-  |GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
- | GetAssetAdministrationShellByIdSigned|new a|
- | GetConceptDescriptionByIdSigned|new a|
- | GetSubmodelByIdSigned|new a|
- |PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
- | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
-|===
-
-=== Interface Changes w.r.t. V3.1.2 to V3.2
+=== Interface Changes w.r.t. V3.1.3 to V3.2
 
 [%autowidth,width="100%",cols="10%,29%,10%,51%",options="header",]
 |===
 h|BWC h|Interface  h|Kind of Change h|Comment
-| |AASX File Server Interface  |Extended a| new API operations for asyncronous creation: PostAsyncAASXPackag, GetAasxAsyncStatus, GetAasxAsyncResult
-| |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned
-| |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned
-| |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned
+| |AASX File Server Interface  |Extended a| new API operations for asynchronous creation: PostAsyncAASXPackage, GetAasxAsyncStatus, GetAasxAsyncResult (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+| |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+| |Asset Administration Shell Repository Interface  |Extended a| new API operation for retrieving changed objects: GetAllAssetAdministrationShellsRecentChanges
+| |Asset Administration Shell Registry Interface  |Extended a| new API operation for retrieving changed objects: GetAllAssetAdministrationShellDescriptorsRecentChanges
+| |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+| |Concept Description Repository Interface  |Extended a| new API operation for retrieving changed objects: GetAllConceptDescriptionsRecentChanges
+| |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+| |Submodel Repository Interface  |Extended a| new API operation for retrieving changed objects: GetAllSubmodelsRecentChanges
+| |Submodel Registry Interface  |Extended a| new API operation for retrieving changed objects: GetAllSubmodelDescriptorsRecentChanges
 |===
+
+=== Operation Changes w.r.t. V3.1.3 to V3.2
+
+[%autowidth,width="100%",cols="40%,15%,45%",options="header",]
+|===
+h|Operation  h|Kind of Change h|Comment
+ | GetAssetAdministrationShellVersionByIdAndDate | New a| new API-Operation for AAS Repository interface to retrieve a specific version of an AAS from a given point in time. (https://github.com/admin-shell-io/aas-specs-api/issues/555[#555])
+ | GetSubmodelVersionByIdAndDate | New a| new API-Operation for Submodel Repository interface to retrieve a specific version of a Submodel from a given point in time. (https://github.com/admin-shell-io/aas-specs-api/issues/555[#555])
+ | GenerateSerializationByIds|change a| Added a note to clarify the intended behavior for transitively referenced concept descriptions. (https://github.com/admin-shell-io/aas-specs-api/issues/510[#510])
+ | GetAasxAsyncResult|new a| New API Operation for the asynchronous AASX File Server Service Specification.. (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAasxAsyncStatus|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | GetAssetAdministrationShellByIdSigned|new a| (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+ | GetConceptDescriptionByIdSigned|new a| (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+ | GetSubmodelByIdSigned|new a| (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
+ | PostAsyncAASXPackage|new a| New API Operation for the asynchronous AASX File Server Service Specification (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
+ | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
+|===
+
+
+== Changes w.r.t. V3.1.2 to V3.1.3
+
+Major Changes:
+
+* ...
+
+
+Minor Changes:
+
+* Fixed the response payload type of `PutSubmodelById` in the Asset Administration Shell Repository OpenAPI files: status code `201` now returns a `Submodel` instead of a `Reference`. (https://github.com/admin-shell-io/aas-specs-api/issues/601[#601])
+* Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `404` for `POST /lookup/shells/{aasIdentifier}` to align with create-or-replace semantics. (https://github.com/admin-shell-io/aas-specs-api/issues/595[#595])
+* Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `409` for `POST /lookup/shells/{aasIdentifier}` to align with replace/update behavior on repeated payloads. (https://github.com/admin-shell-io/aas-specs-api/issues/596[#596])
+* Updated the response contract of `GetAllSubmodelDescriptors` in Submodel Registry OpenAPI files by removing status code `404` for `GET /submodel-descriptors`, so an empty collection is consistently represented by `200` with an empty result. (https://github.com/admin-shell-io/aas-specs-api/issues/597[#597])
+* Submodel Service Specification – Read Profile had the wrong identifier `https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002` instead of https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002`
 
 
 == Changes w.r.t. V3.1.1 to V3.1.2
 
 Major Changes:
 
+
 * none
 
 Minor Changes:
 
 * fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
-* remove: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
-* Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
-* Fixing the values of the ServiceSpecificationProfileEnum to correctly contain minor versions. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
+* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
+* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
+* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
+* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
+* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
+* Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. 
+This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema.
+ (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
 * Changed SupplementalSemanticId to SupplementalSemanticIds in the OpenAPI files to align with the definition in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/553[#553])
-* Adjusted the return type for the operations OperationRequestValueOnly and OperationResultValueOnly from the incorrect SubmodelElementValue to ValueOnly. No changes in the already correct OpenAPI files. (https://github.com/admin-shell-io/aas-specs-metamodel/pull/663[Part 1#663])
+* Adjusted the return type for the operations OperationRequestValueOnly and OperationResultValueOnly from the incorrect SubmodelElementValue to ValueOnly. No changes in the already correct OpenAPI files. 
+(https://github.com/admin-shell-io/aas-specs-metamodel/pull/663[Part 1#663])
+
+
+
 
 
 == Changes w.r.t. V3.1 to V3.1.1
@@ -90,26 +136,6 @@ Minor Changes:
 
 
 
-== Changes w.r.t. V3.1.1 to V3.1.2
-
-Major Changes:
-
-
-* 
-
-Minor Changes:
-
-* fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
-* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
-* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
-* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
-* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
-* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
-
-
 === Operation Changes w.r.t. V3.1 to V3.1.1
 
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
@@ -119,6 +145,7 @@ h|Operation  h|Kind of Change h|Comment
  | PostAllAssetLinksByID|change a| Corrected description of PostAllAssetLinksById operation to clarify that it creates or replaces all asset links associated to the Asset Administration Shell to edit discoverable content.
 
 |===
+
 
 
 

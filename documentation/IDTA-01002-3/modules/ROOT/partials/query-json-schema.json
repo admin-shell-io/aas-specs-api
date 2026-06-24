@@ -8,9 +8,13 @@
       "type": "string",
       "pattern": "^(?!\\$).*"
     },
-    "modelStringPattern": {
+    "FieldIdentifier": {
       "type": "string",
-      "pattern": "^(?:\\$aas#(?:idShort|id|assetInformation\\.assetKind|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds\\[[0-9]*\\]\\.(?:name|value|externalSubjectId(?:\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))?)|submodels\\[[0-9]*\\]\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))|\\$sm#(?:semanticId(?:\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))?|idShort|id)|\\$sme(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[[0-9]*\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[[0-9]*\\])*)*)?#(?:semanticId(?:\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))?|idShort|value|valueType|language)|\\$cd#(?:idShort|id)|\\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\\[[0-9]*\\]\\.(?:name|value|externalSubjectId(?:\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))?)|endpoints\\[[0-9]*\\]\\.(?:interface|protocolinformation\\.href)|submodelDescriptors\\[[0-9]*\\]\\.(?:semanticId(?:\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))?|idShort|id|endpoints\\[[0-9]*\\]\\.(?:interface|protocolinformation\\.href)))|\\$smdesc#(?:semanticId(?:\\.(?:type|keys\\[[0-9]*\\]\\.(?:type|value)))?|idShort|id|endpoints\\[[0-9]*\\]\\.(?:interface|protocolinformation\\.href)))$"
+      "pattern": "^(?:\\$aas#(?:idShort|id|assetInformation\\.assetKind|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds\\[(?:0|[1-9][0-9]*)\\]\\.(?:name|value|externalSubjectId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?)|submodels\\[(?:0|[1-9][0-9]*)\\](?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?)|\\$sm#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|idShort|id)|\\$sme(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)\\])*)*)?#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|idShort|value|valueType|language)|\\$cd#(?:idShort|id)|\\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\\[(?:0|[1-9][0-9]*)\\]\\.(?:name|value|externalSubjectId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?)|endpoints\\[(?:0|[1-9][0-9]*)\\]\\.(?:interface|protocolinformation\\.href)|submodelDescriptors\\[(?:0|[1-9][0-9]*)\\]\\.(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|idShort|id|endpoints\\[(?:0|[1-9][0-9]*)\\]\\.(?:interface|protocolinformation\\.href)))|\\$smdesc#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)\\]\\.(?:type|value)))?|idShort|id|endpoints\\[(?:0|[1-9][0-9]*)\\]\\.(?:interface|protocolinformation\\.href)))$"
+    },
+    "FragmentFieldIdentifier": {
+      "type": "string",
+      "pattern": "^(?:\\$aas#(?:idShort|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.externalSubjectId(?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?)?|submodels(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?)|\\$sm#(?:semanticId(?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?|idShort)|\\$sme(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)\\])*)*)?(?:#(?:semanticId(?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?|idShort|value|valueType|language))?|\\$cd#idShort|\\$aasdesc#(?:idShort|description|displayName|extension|administration|assetKind|assetType|globalAssetId|specificAssetIds(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.externalSubjectId(?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?)?|endpoints(?:\\[(?:0|[1-9][0-9]*)\\])?|submodelDescriptors(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.(?:semanticId(?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?|idShort|endpoints(?:\\[(?:0|[1-9][0-9]*)\\])?))?)?)|\\$smdesc#(?:semanticId(?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)\\](?:\\.keys(?:\\[(?:0|[1-9][0-9]*)\\])?)?)?|idShort|endpoints(?:\\[(?:0|[1-9][0-9]*)\\])?))$"
     },
     "hexLiteralPattern": {
       "type": "string",
@@ -22,13 +26,13 @@
     },
     "timeLiteralPattern": {
       "type": "string",
-      "pattern": "^[0-9]{2}:[0-9]{2}(:[0-9]{2})?(\\.[0-9]+)?$"
+      "pattern": "^[0-9][0-9]:[0-9][0-9](:[0-9][0-9])?(\\.[0-9]+)?(Z|[+-][0-9][0-9]:[0-9][0-9])?$"
     },
     "Value": {
       "type": "object",
       "properties": {
         "$field": {
-          "$ref": "#/definitions/modelStringPattern"
+          "$ref": "#/definitions/FieldIdentifier"
         },
         "$strVal": {
           "$ref": "#/definitions/standardString"
@@ -200,7 +204,7 @@
       "type": "object",
       "properties": {
         "$field": {
-          "$ref": "#/definitions/modelStringPattern"
+          "$ref": "#/definitions/FieldIdentifier"
         },
         "$strVal": {
           "$ref": "#/definitions/standardString"
@@ -619,7 +623,7 @@
         "RIGHTS",
         "ACCESS"
       ],
-      "oneOf": [
+      "anyOf": [
         {
           "required": [
             "ATTRIBUTES"
@@ -665,6 +669,12 @@
         "FILTER": {
           "$ref": "#/definitions/SecurityQueryFilter",
           "additionalProperties": false
+        },
+        "FILTERLIST": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SecurityQueryFilter"
+          }
         }
       },
       "allOf": [
@@ -683,7 +693,7 @@
           ]
         },
         {
-          "oneOf": [
+          "anyOf": [
             {
               "required": [
                 "OBJECTS"
@@ -717,7 +727,7 @@
       "type": "object",
       "properties": {
         "FRAGMENT": {
-          "type": "string"
+          "$ref": "#/definitions/FragmentFieldIdentifier"
         },
         "CONDITION": {
           "$ref": "#/definitions/logicalExpression"
@@ -743,6 +753,22 @@
       ],
       "additionalProperties": false
     },
+    "QueryFilter": {
+      "type": "object",
+      "properties": {
+        "$fragment": {
+          "$ref": "#/definitions/FragmentFieldIdentifier"
+        },
+        "$condition": {
+          "$ref": "#/definitions/logicalExpression"
+        }
+      },
+      "required": [
+        "$fragment",
+        "$condition"
+      ],
+      "additionalProperties": false
+    },
     "Query": {
       "type": "object",
       "properties": {
@@ -752,6 +778,12 @@
         },
         "$condition": {
           "$ref": "#/definitions/logicalExpression"
+        },
+        "$filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QueryFilter"
+          }
         }
       },
       "required": [
