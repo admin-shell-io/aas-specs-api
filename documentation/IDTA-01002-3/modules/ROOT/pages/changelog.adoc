@@ -18,6 +18,8 @@ Major Changes:
 
 Minor Changes:
 
+* fix: Aligned date/time extraction functions (`$dayOfWeek`, `$dayOfMonth`, `$month`, `$year`) in JSON Schema to accept all `dateTimeOperand` types per BNF grammar, and widened `timeLiteralPattern` to support fractional seconds.
+* fix: Harmonized `SecurityQueryFilter` between API and Security specifications and added missing `FILTERLIST` construct to the BNF grammar and JSON Schema.
 * fix: Changed JSON Schema validation from `oneOf` to `anyOf` where BNF grammar allows mixed inline and named groups in concatenation scenarios.
 * Fixed the response payload type of `PutSubmodelById` in the Asset Administration Shell Repository OpenAPI files: status code `201` now returns a `Submodel` instead of a `Reference`. (https://github.com/admin-shell-io/aas-specs-api/issues/601[#601])
 * Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `404` for `POST /lookup/shells/{aasIdentifier}` to align with create-or-replace semantics. (https://github.com/admin-shell-io/aas-specs-api/issues/595[#595])
@@ -70,7 +72,6 @@ Major Changes:
 
 Minor Changes:
 
-* fix: Harmonized `SecurityQueryFilter` between API and Security specifications and added missing `FILTERLIST` construct to the BNF grammar and JSON Schema.
 * fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
 * removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
 * fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
