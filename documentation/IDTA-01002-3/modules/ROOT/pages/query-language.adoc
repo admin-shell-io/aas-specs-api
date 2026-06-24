@@ -85,6 +85,8 @@ This is the combined grammar for the AAS Query Language and the AAS Access Rules
 include::partial$bnf/grammar.bnf[]
 ----
 
+For AAS Query Language requests, only the `<query>` production SHALL be accepted as the request payload. The `<AllAccessPermissionRules>`, `<AccessPermissionRule>`, `FILTER` and `FILTERLIST` productions are included only for the shared grammar with IDTA-01004 and SHALL NOT be accepted as AAS Query request payloads unless explicitly specified by a security profile.
+
 == Select Expression
 
 The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers instead of a list of objects (`$select id`).
@@ -344,6 +346,8 @@ h| Casting Operator h| Description h| Definition
 | `time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
 |===
 
+`<TimeLiteral>` follows the `<time>` production in the BNF grammar: `HH:MM`, `HH:MM:SS`, and these forms with fractional seconds are valid. Timezone-qualified `xs:time` lexical forms, such as `12:00:00Z` or `12:00:00+01:00`, are also valid `<TimeLiteral>` values.
+
 Implicit casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
 If a FieldIdentifier is used in a logicalExpression, it will be implicitly casted to `xs:boolean`, which can only create a valid result for the values true and false. +
 If a FieldIdentifier is used in a comparison, the second parameter decides implicit casting. If the second parameter is a constant (string, number, hex, boolean, dateTime, time) or a corresponding explicite casting operator, the value of the FieldIdentifier will be implicitely casted to the corresponding data type.
@@ -539,6 +543,244 @@ a|
 | Both $match conditions are fulfilled, even though for different SpecificAssetIds. Therefore the OR clause also evaluates to `true` for both items.
 |===
 
+== Query Filter
+
+The Query Language supports a `$filters` option that allows clients to reduce the amount of returned data. This can significantly improve response times, as the backend may scan and process fewer data elements. Furthermore, filtering is an important mechanism in the security domain, as it helps restrict access to sensitive information by preventing unnecessary exposure of internal data structures.
+
+`$filters` expressions can be applied to specific metamodel elements of the AAS (e.g., `Submodel`, `Submodel Elements` contained within a `Submodel`, etc.).
+However, not all elements can be filtered arbitrarily.
+If a particular metamodel element is mandatory according to the AAS specification, filtering it out would result in invalid or incomplete data structures.
+Therefore, such filtering operations are prohibited to ensure consistency and correctness of the returned data.
+Since a valid Reference requires at least one key, filters that eliminate all keys remain valid but result in the removal of the entire Reference rather than just its keys.
+
+If no `$filters` is specified for a particular metamodel element, that element remains unfiltered. Thus, applying additional filters can only reduce the amount of data returned; it can never increase the amount of data or introduce information that is not already present in the underlying AAS. If multiple filters are specified and apply to overlapping data, they are combined using logical AND semantics.
+
+For fragments that address an array-valued object, a fragment ending with `[]` applies row-wise filtering to each array entry. The corresponding fragment without the trailing `[]` applies the condition to the entire array object. A row-wise condition evaluates the `$fragment` and any `$field` references in its `$condition` in the context of the same array entry. If a fragment does not define a form ending with `[]`, row-wise filtering for that fragment SHALL NOT be assumed.
+
+.Array-valued fragment filter examples
+[.table-with-appendix-table]
+[width=100%, cols="35%,45%,20%"]
+|===
+h| Grammar h| JSON Schema h| Comment
+a|
+[source]
+----
+true
+$filters
+  $fragment   $sme.someIdShort[]
+  $condition  $sme.someIdShort[]#value $eq "val"
+----
+a|
+[source,json]
+----
+{
+  "$condition": { "$boolean": true },
+  "$filters": [
+    {
+      "$fragment": "$sme.someIdShort[]",
+      "$condition": {
+        "$eq": [
+          { "$field": "$sme.someIdShort[]#value" },
+          { "$strVal": "val" }
+        ]
+      }
+    }
+  ]
+}
+----
+| Applies the condition row-wise to each array entry.
+a|
+[source]
+----
+true
+$filters
+  $fragment   $sme.someIdShort
+  $condition  $sme.someIdShort[]#value $eq "val"
+----
+a|
+[source,json]
+----
+{
+  "$condition": { "$boolean": true },
+  "$filters": [
+    {
+      "$fragment": "$sme.someIdShort",
+      "$condition": {
+        "$eq": [
+          { "$field": "$sme.someIdShort[]#value" },
+          { "$strVal": "val" }
+        ]
+      }
+    }
+  ]
+}
+----
+| Applies the condition to the entire array-valued object.
+|===
+
+Assume the returned object contains this fragment before filtering:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        },
+        {
+          "idShort": "entry2",
+          "value": "other"
+        }
+      ]
+    }
+  ]
+}
+----
+
+The row-wise fragment `$sme.someIdShort[]` keeps only the array entries for which the condition is true:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        }
+      ]
+    }
+  ]
+}
+----
+
+The fragment `$sme.someIdShort` keeps or removes the entire array-valued object. Since at least one entry satisfies the condition, the whole fragment remains:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        },
+        {
+          "idShort": "entry2",
+          "value": "other"
+        }
+      ]
+    }
+  ]
+}
+----
+
+Filter example with boolean condition
+[.table-with-appendix-table]
+[width=100%, cols="40%,40%,20%"]
+|===
+h| Grammar h| JSON Schema h| Comment
+a|
+[source]
+----
+$sm#semanticId $eq
+  "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+$filters
+  $fragment   $sme.AddressInformation.Zipcode
+  $condition  false
+----
+a|
+[source,json]
+----
+{
+  "$condition": {
+    "$eq": [
+      {
+        "$field": "$sm#semanticId"
+      },
+      {
+        "$strVal": "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+      }
+    ]
+  },
+  "$filters": [
+    {
+      "$fragment": "$sme.AddressInformation.Zipcode",
+      "$condition": {
+        "$boolean": false
+      }
+    }
+  ]
+}
+
+----
+a| Selects Nameplate submodels and filters out `AddressInformation.Zipcode` data.
+a|
+[source]
+----
+$sm#semanticId $eq
+  "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+$filters
+  $fragment   $sme#value
+  $condition  $sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value"
+  $fragment   $sm#semanticId.keys[]
+  $condition  $sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value"
+----
+a|
+[source,json]
+----
+{
+  "$condition": {
+    "$eq": [
+      {
+        "$field": "$sm#semanticId"
+      },
+      {
+        "$strVal": "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+      }
+    ]
+  },
+  "$filters": [
+    {
+      "$fragment": "$sme#value",
+      "$condition": {
+        "$eq": [
+          {
+            "$field": "$sm#semanticId.keys[].value"
+          },
+          {
+            "$strVal": "https://example.com/semantic-id/hide-value"
+          }
+        ]
+      }
+    },
+    {
+      "$fragment": "$sm#semanticId.keys[]",
+      "$condition": {
+        "$eq": [
+          {
+            "$field": "$sm#semanticId.keys[].value"
+          },
+          {
+            "$strVal": "https://example.com/semantic-id/hide-value"
+          }
+        ]
+      }
+    }
+  ]
+}
+
+----
+a| Selects Nameplate submodels and filters out values from all nested submodel elements when the key `https://example.com/semantic-id/hide-value` is present in the submodel’s semanticId. Additionally, any keys with this value in the submodel’s semanticId are removed from the result.
+|===
 
 == Sorting and Pagination
 
@@ -587,14 +829,15 @@ The table follows the structure of the JSON schema top to bottom.
 [width=100%, cols="25%,25%,50%"]
 |===
 h| JSON Schema h| Grammar h| Comment
-| modelStringPattern | <FieldIdentifier> | AAS model elements are strings which start with a $
+| FieldIdentifier | <FieldIdentifier> | AAS model elements are strings which start with a $
+| FragmentFieldIdentifier | <FieldIdentifierFragment> | AAS model fragments for query/security filtering
 | standardString | | All other value strings
 | hexLiteralPattern | <HexLiteral> |
 | dateTimeLiteralPattern | <DateTimeLiteral> |
 | timeLiteralPattern | <TimeLiteral> |
-| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: strModel etc.
-| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: strModel etc.
-| $field | - | string following the modelStringPattern
+| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: $field etc.
+| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: $field etc.
+| $field | - | string following the FieldIdentifier pattern
 | $strVal | - | string following the standardString
 | $attribute | - | explained in Security Access Rules; not used for query language
 | $numVal | <NumericalLiteral> | Number constant
@@ -621,7 +864,9 @@ h| JSON Schema h| Grammar h| Comment
 | rightsEnum | - | explained in Security Access Rules; not used for query language
 | AccessPermissionRule | - | explained in Security Access Rules; not used for query language
 | AllAccessPermissionRules | - | explained in Security Access Rules; not used for query language
+| QueryFilter | <QueryFilter> | A single filter block with $fragment and $condition
 | $condition | <logicalExpression> | Root object for the query condition expression
+| $filters | <QueryFilter>* | Optional list of filter blocks evaluated together
 | $select | <selectStatement> | Optional expresion to control the returned fields. Only 'id' is possible.
 |===
 
