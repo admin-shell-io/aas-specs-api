@@ -74,16 +74,44 @@
           "$ref": "#/definitions/Value"
         },
         "$dayOfWeek": {
-          "$ref": "#/definitions/dateTimeLiteralPattern"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/dateTimeLiteralPattern"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         },
         "$dayOfMonth": {
-          "$ref": "#/definitions/dateTimeLiteralPattern"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/dateTimeLiteralPattern"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         },
         "$month": {
-          "$ref": "#/definitions/dateTimeLiteralPattern"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/dateTimeLiteralPattern"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         },
         "$year": {
-          "$ref": "#/definitions/dateTimeLiteralPattern"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/dateTimeLiteralPattern"
+            },
+            {
+              "$ref": "#/definitions/attributeItem"
+            }
+          ]
         }
       },
       "oneOf": [
