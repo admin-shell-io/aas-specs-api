@@ -538,6 +538,12 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
 Pagination
 
+|GetAllSubmodelsRecentChanges |GET |/submodels/$recent-changes a|
+
+
+Pagination
+
+
 |GetAllSubmodelsByIdShort |GET |/submodels a|
 path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
@@ -612,12 +618,18 @@ base64url-encoded JSON-serialized key-value-pairs
 
 Pagination
 
+|GetAllAssetAdministrationShellRecentChanges |GET |/shells/$recent-changes a|
+
+
+Pagination
+
 |GetAllAssetLinksById |GET |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |PostAllAssetLinksById |POST |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAllAssetLinksById |DELETE |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 
 4+h|AAS Registry Interface
-|GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a|
+|GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a| _key_ and _keyIdentifier_ are mapped to _assetIds_
+
 Pagination
 
 assetKind=Type\|Instance\|Role\|NotApplicable
@@ -628,7 +640,7 @@ assetType= base64url-encoded identifier
 |PostAssetAdministrationShellDescriptorById |POST |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |PutAssetAdministrationShellDescriptorById |PUT |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellDescriptorById |DELETE |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
-s|Submodel Registry Interface s|* s|/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* s|superpath as defined in Service Specification or Profile
+|Submodel Registry Interface s|* s|/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShellDescriptors |POST |/query/shell-descriptors a| Input query in the request body
 |CreateBulkAssetAdministrationShellDescriptors |POST |/bulk/shell-descriptors a| List of new Asset Administration Shell Descriptors in the request body
 |PutBulkAssetAdministrationShellDescriptorsById |PUT |/bulk/shell-descriptors a| List of new versions of Asset Administration Shell Descriptors in the request body. Mapping to existing Asset Administration Shell Descriptors happens via the `id` attribute.
@@ -646,8 +658,9 @@ Note: Same endpoint as for the Submodel Registry Interface bulk result.
 ====
 
 4+h|Submodel Registry Interface
-|GetAllSubmodelDescriptors |GET |/submodel-descriptors |Pagination
-|GetAllSubmodelDescriptorsRecentChanges |GET |/submodel-descriptors/$recent-changes |Pagination
+|GetAllSubmodelDescriptors |GET |/submodel-descriptors a| 
+
+Pagination
 |GetSubmodelDescriptorById |GET |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PostSubmodelDescriptor |POST |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PutSubmodelDescriptorById |PUT |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
