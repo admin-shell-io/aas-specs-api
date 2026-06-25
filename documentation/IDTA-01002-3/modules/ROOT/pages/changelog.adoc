@@ -23,6 +23,7 @@ Major Changes:
 * Add new section in the annex on the usage of the AAS Services for implementing a digital product passport (DPP) based on EN 18222 and the relevant API operations for DPP interactions. 
 This section also includes an overview of how to expose the DPP interactions through a REST API that follows the specifications of the AAS Services.
 * Added new experimental operations `GetAllAssetAdministrationShellsRecentChanges` , `GetAllSubmodelsRecentChanges`, `GetAllConceptDescriptionsRecentChanges` which rely on the `createdAt` and `updatedAt` attributes of `AdministrativeInformation` introduced in V3.2 of the metamodel. (https://github.com/admin-shell-io/aas-specs-api/issues/551[#551])
+* Added new input parameter for `GetAllAssetAdministrationShells` and  `GetAllSubmodels`
 * Added new input parameters to `GetAllAssetAdministrationShellDesriptors` and `GetAllSubmodelDescriptors` for filtering for recently changed AAS or Submodels, resp.  (https://github.com/admin-shell-io/aas-specs-api/issues/346[#346])
 
 Minor Changes:
@@ -47,11 +48,13 @@ h|BWC h|Interface  h|Kind of Change h|Comment
 | |AASX File Server Interface  |Extended a| new API operations for asynchronous creation: PostAsyncAASXPackage, GetAasxAsyncStatus, GetAasxAsyncResult (https://github.com/admin-shell-io/aas-specs-api/issues/347[#347])
 | |Asset Administration Shell Repository Interface  |Extended a| new API operation for signing: GetAssetAdministrationShellByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
 | |Asset Administration Shell Repository Interface  |Extended a| new API operation for retrieving changed objects: GetAllAssetAdministrationShellsRecentChanges
+| |Asset Administration Shell Repository Interface  |Extended a| extended API operation GetAllAssetAdministrationShells with additional input parameters
 | |Asset Administration Shell Registry Interface  |Extended a| extended API operation for retrieving changed objects and objects based on specific Asset IDs
 | |Concept Description Repository Interface  |Extended a| new API operation for signing: GetConceptDescriptionByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
 | |Concept Description Repository Interface  |Extended a| new API operation for retrieving changed objects: GetAllConceptDescriptionsRecentChanges
 | |Submodel Repository Interface  |Extended a| new API operation for signing: GetSubmodelByIdSigned (https://github.com/admin-shell-io/aas-specs-api/issues/518[#518])
 | |Submodel Repository Interface  |Extended a| new API operation for retrieving changed objects: GetAllSubmodelsRecentChanges
+| |Submodel Repository Interface  |Extended a| extended API operation GetAllSubmodels with additional input parameters
 | |Submodel Registry Interface  |Extended a| extended API operation for retrieving changed objects
 |===
 
@@ -72,6 +75,8 @@ h|Operation  h|Kind of Change h|Comment
  | PutAssetAdministrationShellById|change a| Added the missing `id` input parameter and a note explaining the behavior in case the AAS identifier does not match the value of `id`. (https://github.com/admin-shell-io/aas-specs-api/issues/506[#506])
  | GetAllAssetAdministrationShellDescriptors | change a| added new input parameters `createdFrom` and `updatedFrom` 
  | GetAllSubmodelDescriptors | change a| added new input parameters `createdFrom` and `updatedFrom` for recent changes as well as `key` and `keyIdentifier` for specific Asset IDs.
+ | GetAllAssetAdministrationShells | change a| added new input parameters `createdFrom` and `updatedFrom` for recent changes as well as `key` and `keyIdentifier` for specific Asset IDs.
+ | GetAllSubmodels  | change a| added new input parameters `createdFrom` and `updatedFrom` for recent changes as well as `semanticId`
 |===
 
 
