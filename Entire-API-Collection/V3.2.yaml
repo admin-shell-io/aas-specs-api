@@ -2859,6 +2859,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetIds'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
       responses:
@@ -2916,6 +2918,37 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /shells/$recent-changes:
+    get:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Returns information about all Asset Administration Shells that have been changed recently
+      operationId: GetAllAssetAdministrationShellsRecentChanges
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsRecentChanges/3/2
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetIds'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested list of information about recently changed Asset Administration Shells
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetAllAssetAdministrationShellsRecentChangesResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
   /shells/$reference:
     get:
       tags:
@@ -2929,6 +2962,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetIds'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
       responses:
@@ -4713,6 +4748,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SemanticId'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Level'
@@ -4772,6 +4809,37 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /submodels/$recent-changes:
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns information about all Submodels that have been changed recently
+      operationId: GetAllSubmodelsRecentChanges
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelsRecentChanges/3/2
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SemanticId'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested list of information about recently changed Submodels
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetAllSubmodelsRecentChangesResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
   /submodels/$metadata:
     get:
       tags:
@@ -4785,6 +4853,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SemanticId'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
       responses:
@@ -4817,6 +4887,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SemanticId'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Level'
@@ -4853,6 +4925,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SemanticId'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
         - name: level
@@ -4896,6 +4970,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/SemanticId'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/IdShort'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Level'
@@ -6355,6 +6431,8 @@ paths:
           explode: true
           schema:
             type: string
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
       responses:
@@ -6404,6 +6482,36 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
         '409':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/conflict'
+        '500':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
+  /concept-descriptions/$recent-changes:
+    get:
+      tags:
+        - Concept Description Repository API
+      summary: Returns all Concept Descriptions that have been changed recently
+      operationId: GetAllConceptDescriptionsRecentChanges
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllConceptDescriptionsRecentChanges/3/2
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested list of recently changed Concept Descriptions
+          content:
+            application/json:
+              schema:
+                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetAllConceptDescriptionsRecentChangesResult'
+        '400':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
+        '401':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/unauthorized'
+        '403':
+          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
         '500':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
         default:
@@ -6602,6 +6710,8 @@ paths:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetKind'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/AssetType'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
       responses:
         '200':
           description: Requested Asset Administration Shell Descriptors
@@ -7120,6 +7230,8 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
         - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
+        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
       responses:
         '200':
           description: Requested Submodel Descriptors
@@ -7167,34 +7279,6 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
         '409':
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/conflict'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
-  /submodel-descriptors/$recent-changes:
-    get:
-      tags:
-        - Submodel Registry API
-      summary: Returns all Submodel Descriptors that have been recently changed
-      operationId: GetAllSubmodelDescriptorsRecentChanges
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllSubmodelDescriptorsRecentChanges/3/2
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/CreatedFrom'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/UpdatedFrom'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Limit'
-        - $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/parameters/Cursor'
-      responses:
-        '200':
-          description: Requested Submodel Descriptors that have been recently changed
-          content:
-            application/json:
-              schema:
-                $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/schemas/GetSubmodelDescriptorsResult'
-        '400':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/bad-request'
-        '403':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/forbidden'
-        '500':
-          $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/internal-server-error'
         default:
           $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#/components/responses/default'
   /submodel-descriptors/{submodelIdentifier}:
