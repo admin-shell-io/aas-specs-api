@@ -33,12 +33,20 @@ Minor Changes:
 
 Major Changes:
 
-* ...
+* none
 
 
 Minor Changes:
 
-* Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
+* fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
+* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
+* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
+* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
+* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
+* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
+* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
 * Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
 * Changed SupplementalSemanticId to SupplementalSemanticIds in the OpenAPI file for the Part 1 classes to match the definition in the Part 1 OpenAPI file. (https://github.com/admin-shell-io/aas-specs-api/issues/553[#553])
 * Adjusted the return type for the operations OperationRequestValueOnly and OperationResultValueOnly from the incorrect SubmodelElementValue to ValueOnly. No changes in the already correct OpenAPI files. (https://github.com/admin-shell-io/aas-specs-metamodel/pull/663[Part 1#663])
@@ -61,25 +69,6 @@ Minor Changes:
 * changed: Upgraded semanticIds of ProtocolInformation, SecurityAttributeObject, SecurityTypeEnum, and the items of the SecurityTypeEnum to V3.1 (https://github.com/admin-shell-io/aas-specs-api/issues/470[#470])
 * new: Add 404 'Not Found' to the PutSubmodelDescriptorByIdThroughSuperpath operation in the OpenAPI file for the AssetAdministrationShellRegistryServiceSpecification/SSP-001 profile.
 
-
-
-== Changes w.r.t. V3.1.1 to V3.1.2
-
-Major Changes:
-
-* None.
-
-Minor Changes:
-
-* fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
-* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
-* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
-* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
-* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
-* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
 
 === Operation Changes w.r.t. V3.1 to V3.1.1
 
