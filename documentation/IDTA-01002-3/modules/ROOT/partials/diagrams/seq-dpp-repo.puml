@@ -1,0 +1,63 @@
+@startuml
+
+participant DPPClient as "DPP Client"
+
+box "DPP Service"
+participant Client as "DPP Application"
+end box
+
+
+box "Discovery Service"
+  participant AASDiscovery as "AAS Discovery Interface"
+end box
+
+box "AAS including Submodel Repository Service"
+  participant SMService as "Submodel Interface"
+end box
+
+activate DPPClient
+DPPClient -> Client : ReadDPPByProductId(productId)
+
+activate Client
+Client <- Client : map productId to globalAssetId
+
+Client -> AASDiscovery: SearchAllAssetAdministrationShellIdsByAssetLink
+note left of Client
+   specificAssetId = productId
+end note
+activate AASDiscovery
+Client <-- AASDiscovery : IDs of AAS
+deactivate AASDiscovery
+Client -> Client : select AAS ID
+
+
+Client -> SMService : GetAssetAdministrationShellById(AAS ID)
+activate SMService
+Client <-- SMService : AAS incl. Submodel references
+deactivate SMService
+
+
+Client -> SMService : GetSubmodel(Submodel ID for DPP Metadata)
+activate SMService
+Client <-- SMService : Submodel DPP Metadata (includes contentSpecificationIds)
+deactivate SMService
+Client -> Client : extract relevant Submodel IDs
+note left of Client
+  i.e. content Submodels with 
+  semanticId   as specified 
+  in contentSpecificationIds
+end note
+
+loop for all relevant Submodels
+Client -> SMService : GetSubmodel(ById)
+activate SMService
+Client <-- SMService : content Submodel
+deactivate SMService
+end
+
+Client <- Client : serialize and assemble DPP document
+DPPClient <-- Client : return DPP
+deactivate Client
+deactivate DPPClient
+
+@enduml

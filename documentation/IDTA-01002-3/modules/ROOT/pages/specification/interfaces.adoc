@@ -927,9 +927,9 @@ h|Name h|Description h|Mand. h|Type h|Card.
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetAllAssetAdministrationShellDescriptorsRecentChanges]]GetAllAssetAdministrationShellDescriptorsRecentChanges
-h|Explanation 4+a|Returns all Asset Administration Shell Descriptors that have been created or updated
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsRecentChanges/3/1`
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellDescriptorsRecentChanges]]GetAllAssetAdministrationShellDescriptorsRecentChanges \<<Experimental>>
+h|Explanation 4+a|Returns all Asset Administration Shell Descriptors that have been created or updated. All parameters are evaluated with AND semantics, except that CreatedFrom and UpdatedFrom are grouped together and evaluated with OR semantics within that group.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsRecentChanges/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
@@ -939,8 +939,8 @@ e|key a|The key of the AssetId
 
 The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
 e|keyIdentifier a|The key identifier object |yes |string |1
-e|createdFrom a|Return Shells created at or after the given date |no | xref:components/parameters/CreatedFrom|1
-e|updatedFrom a|Return Shells updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+e|createdFrom a|Return Shells created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Shells updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
 e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
@@ -1092,6 +1092,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: _Submodel Registry_
 h|Operation Name h|Description
 e|xref:GetAllSubmodelDescriptors[GetAllSubmodelDescriptors] a|Returns all submodel descriptors
+e|xref:GetAllSubmodelDescriptorsRecentChanges[GetAllSubmodelDescriptorsRecentChanges] a|Returns all Submodel Descriptors that have been recently changed
 e|xref:GetSubmodelDescriptorById[GetSubmodelDescriptorById] a|Returns a specific submodel descriptor
 e|xref:PostSubmodelDescriptor[PostSubmodelDescriptor] a|Creates a new submodel descriptor, i.e., registers a submodel
 e|xref:PostBulkSubmodelDescriptors[PostBulkSubmodelDescriptors] a|Creates one or more new submodel descriptors, i.e., registers several submodels
@@ -1117,6 +1118,25 @@ e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 e|statusCode a| StatusCode |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload a|List of requested submodel descriptors |no |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
+|===
+
+==== Operation GetAllSubmodelDescriptorsRecentChanges
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllSubmodelDescriptorsRecentChanges]]GetAllSubmodelDescriptorsRecentChanges \<<Experimental>>
+h|Explanation 4+a|Returns all Submodel Descriptors that have been created or updated. CreatedFrom and UpdatedFrom are evaluated with OR semantics.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelDescriptorsRecentChanges/3/2`
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+e|createdFrom a|Return Submodel Descriptors created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Submodel Descriptors updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor a|The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 e|payload a|List of requested submodel descriptors |no |xref:specification/interfaces-payload.adoc#SubmodelDescriptor[SubmodelDescriptor]  |1..*
 |===
 
@@ -1329,8 +1349,8 @@ e|payload a|List of Asset Administration Shells |no |link:https://industrialdigi
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetAllAssetAdministrationShellsRecentChanges]]GetAllAssetAdministrationShellsRecentChanges
-h|Explanation 4+a|Returns information about recently changed Asset Administration Shells
+h|Operation Name 4+e|[[GetAllAssetAdministrationShellsRecentChanges]]GetAllAssetAdministrationShellsRecentChanges \<<Experimental>>
+h|Explanation 4+a|Returns information about recently changed Asset Administration Shells. All parameters are evaluated with AND semantics, except that CreatedFrom and UpdatedFrom are grouped together and evaluated with OR semantics within that group.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsRecentChanges/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1338,10 +1358,10 @@ h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 e|key a|The key of the AssetId
 
-The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |yes |string |1
-e|keyIdentifier a|The key identifier object |yes |string |1
-e|createdFrom a|Return Shells created at or after the given date |no | xref:components/parameters/CreatedFrom|1
-e|updatedFrom a|Return Shells updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |no |string |1
+e|keyIdentifier a|The key identifier object |no |string |1
+e|createdFrom a|Return Shells created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Shells updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
 e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
@@ -1420,6 +1440,14 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetAssetAdministrationShellVersionByIdAndDate]]GetAssetAdministrationShellVersionByIdAndDate
 h|Explanation 4+a|Returns a specific Asset Administration Shell at a specific point in time. If no date is provided, the latest version is returned.
+
+====
+Note 1: Asset Administration Shell version in the operation name shall not be confused with the attribute version in the AdministrativeInformation class. The version attribute is not relevant for the versioning of Asset Administration Shells in the context of this operation.
+
+Note 2: Any kind of change in an Asset Administration Shell object may lead to a new version of the Asset Administration Shell. The exact definition of what constitutes a new version is not defined by this specification.
+====
+
+
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAssetAdministrationShellVersionByIdAndDate/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1544,7 +1572,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: [[interface-SubmodelRepository]]_Submodel Repository_
 h|Operation Name h|Description
 e|xref:GetAllSubmodels[GetAllSubmodels] |Returns all Submodels
-e|xref:GetAllSubmodelRecentChanges[GetAllSubmodelRecentChanges] |Returns information about recently changed Submodels
+e|xref:GetAllSubmodelsRecentChanges[GetAllSubmodelsRecentChanges] |Returns information about recently changed Submodels
 e|xref:GetSubmodelById[GetSubmodelById]|Returns a specific Submodel
 e|xref:GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]|Returns a specific version of a Submodel from a given point in time
 e|xref:GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] |Returns all Submodels with a specific SemanticId
@@ -1585,20 +1613,21 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |List of Submodels |no | link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel] |1..*
 |===
 
-==== Operation GetAllSubmodelRecentChanges
+==== Operation GetAllSubmodelsRecentChanges
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetAllSubmodelRecentChanges]]GetAllSubmodelRecentChanges
-h|Explanation 4+a|Returns information about all Submodels that have been changed recently
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelRecentChanges/3/1`
+h|Operation Name 4+e|[[GetAllSubmodelsRecentChanges]]GetAllSubmodelsRecentChanges \<<Experimental>>
+h|Explanation 4+a|Returns information about all Submodels that have been changed recently.
+All parameters are evaluated with AND semantics, except that CreatedFrom and UpdatedFrom are grouped together and evaluated with OR semantics within that group.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodelsRecentChanges/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 |semanticId |Identifier of the semantic definition |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
-e|createdFrom a|Return Submodels created at or after the given date |no | xref:components/parameters/CreatedFrom|1
-e|updatedFrom a|Return Submodels updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+e|createdFrom a|Return Submodels created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Submodels updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
 e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
@@ -1631,6 +1660,13 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |===
 h|Operation Name 4+e|[[GetSubmodelVersionByIdAndDate]]GetSubmodelVersionByIdAndDate
 h|Explanation 4+a|Returns a specific version of a Submodel from a given point in time. If no date is provided, the latest version is returned.
+
+====
+Note 1: Submodel version in the operation name shall not be confused with the attribute version in the AdministrativeInformation of a Submodel. The version attribute is not relevant for the versioning of Submodels in the context of this operation.
+
+Note 2: Any kind of change in a Submodel object may lead to a new version of the Submodel. The exact definition of what constitutes a new version is not defined by this specification.
+====
+
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetSubmodelVersionByIdAndDate/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -1816,7 +1852,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 2+|Interface: _Concept Description Repository_
 h|Operation Name h|Description
 e|xref:GetAllConceptDescriptions[GetAllConceptDescriptions] |Returns all Concept Descriptions
-e|xref:GetAllConceptDescriptionRecentChanges[GetAllConceptDescriptionRecentChanges] |Returns recently changed Concept Descriptions
+e|xref:GetAllConceptDescriptionsRecentChanges[GetAllConceptDescriptionsRecentChanges] |Returns recently changed Concept Descriptions
 e|xref:GetConceptDescriptionById[GetConceptDescriptionById] |Returns a specific Concept Description
 e|xref:GetAllConceptDescriptionsByIdShort[GetAllConceptDescriptionsByIdShort] |Returns all Concept Descriptions with a specific _idShort_
 e|xref:GetAllConceptDescriptionsByIsCaseOf[GetAllConceptDescriptionsByIsCaseOf] |Returns all Concept Descriptions with a specific _IsCaseOf_-reference
@@ -1855,19 +1891,19 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
 |===
 
-==== Operation GetAllConceptDescriptionRecentChanges
+==== Operation GetAllConceptDescriptionsRecentChanges
 
 [.table-with-appendix-table]
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
-h|Operation Name 4+e|[[GetAllConceptDescriptionRecentChanges]]GetAllConceptDescriptionRecentChanges
-h|Explanation 4+a|Returns all Concept Descriptions that have been changed recently
-h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionRecentChanges/3/1`
+h|Operation Name 4+e|[[GetAllConceptDescriptionsRecentChanges]]GetAllConceptDescriptionsRecentChanges \<<Experimental>>
+h|Explanation 4+a|Returns all Concept Descriptions that have been changed recently. All parameters are evaluated with AND semantics, except that CreatedFrom and UpdatedFrom are grouped together and evaluated with OR semantics within that group.
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllConceptDescriptionsRecentChanges/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
-|createdFrom |Return Concept Descriptions created at or after the given date |no | xref:components/parameters/CreatedFrom|1
-|updatedFrom |Return Concept Descriptions updated at or after the given date |no | xref:components/parameters/UpdatedFrom|1
+|createdFrom |Return Concept Descriptions created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+|updatedFrom |Return Concept Descriptions updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
