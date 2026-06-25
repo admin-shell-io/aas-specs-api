@@ -1304,11 +1304,21 @@ e|xref:GetAssetAdministrationShellByIdSigned[GetAssetAdministrationShellByIdSign
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[GetAllAssetAdministrationShells]]GetAllAssetAdministrationShells
-h|Explanation 4+a|Returns all Asset Administration Shells
+h|Explanation 4+a|Returns all Asset Administration Shells 
+
+All parameters are evaluated with AND semantics, except that CreatedFrom and UpdatedFrom are grouped together and evaluated with OR semantics within that group.
+
+_key_ and _keyIdentifier_ shall be both available or both missing, they are presenting a key-value-pair.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShells/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
+e|key a|The key of the AssetId
+
+The name of the specific asset identifier or the predefined name “_globalAssetId_” that would refer to the _AssetInformation/globalAssetId_ |no |string |1
+e|keyIdentifier a|The key identifier object |no |string |1
+e|createdFrom a|Return Shells created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Shells updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
 e|serializationModifier a|Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier]  |1
 e|limit a|The maximum size of the result set |no |nonNegativeInteger |1
 e|cursor a|The position from which to resume a result listing |no |string |1
@@ -1325,6 +1335,7 @@ e|payload a|List of Asset Administration Shells |no |link:https://industrialdigi
 h|Operation Name 4+e|[[GetAllAssetAdministrationShellsRecentChanges]]GetAllAssetAdministrationShellsRecentChanges \<<Experimental>>
 h|Explanation 4+a|Returns information about recently changed Asset Administration Shells. 
 All parameters are evaluated with AND semantics, except that CreatedFrom and UpdatedFrom are grouped together and evaluated with OR semantics within that group.
+
 _key_ and _keyIdentifier_ shall be both available or both missing, they are presenting a key-value-pair.
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsRecentChanges/3/2`
 
@@ -1581,6 +1592,9 @@ h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllSubmodels/3/1`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
+|semanticId |Identifier of the semantic definition |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+e|createdFrom a|Return Submodels created at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|updatedFrom a|Return Submodels updated at or after the given date |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
 |serializationModifier |Defines the format of the response |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
 |limit |The maximum size of the result set |no |nonNegativeInteger |1
 |cursor |The position from which to resume a result listing |no |string |1
@@ -1884,7 +1898,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |cursor |The position from which to resume a result listing |no |string |1
 5+h|Output Parameter
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-|payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] |1..*
+|payload |List of Concept Descriptions |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescriptionRecentChange[ConceptDescriptionRecentChange] |1..*
 |===
 
 ==== Operation GetConceptDescriptionById
