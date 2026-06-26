@@ -15,8 +15,7 @@ Governance of the specification is done in the working group Open Technology of 
 The specification number is: **IDTA-01002**
 
 ## Content
-This repository provides the OpenAPI files published in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40).
-All published SwaggerHub APIs are synchronized all the time with the respective folders in this repository using the [GitHub Integration](https://support.smartbear.com/swaggerhub/docs/integrations/github-sync.html) feature. In particular, the following APIs are contained:
+This repository provides the OpenAPI files published via [GitHub Pages](https://industrialdigitaltwin.io/aas-specs-api/docs/index.html). For legacy reasons, versions up to V3.1.3 are also available in the SwaggerHub organization [Plattform_i40](https://app.swaggerhub.com/search?owner=Plattform_i40). In particular, the following APIs are contained:
 
 |API SPEC|GitHub|GitHub Pages|SwaggerHub [^1] |
 |-----------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|-----------------------------------------------------|
@@ -31,7 +30,7 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 |Concept Description Repository Service Specification|[Link](./ConceptDescriptionRepositoryServiceSpecification)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/ConceptDescriptionRepositoryServiceSpecification)|
 |Aasx-File-Server Service Specification |[Link](./AasxFileServerServiceSpecification)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/apis/Plattform_i40/AasxFileServerServiceSpecification)|
 
-The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
+The following *domains* are also published:
 |API SPEC|GitHub|GitHub Pages|SwaggerHub [^1] |
 |------------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|-----------------------------------------------------|
 | Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
@@ -45,9 +44,7 @@ The sources of the specification, both website and PDF document, are maintained 
 
 ## API Versions in GitHub Branches
 
-The `main` branch contains the latest released version of all APIs and Domains. Current and previously released states are tagged with the corresponding release version in this repository, and marked with the `Published` tag in SwaggerHub.
-Working versions may be marked as `private` in SwaggerHub and therefore may not be visible to the public audience yet. In this repository, working versions appear as branches named after the target release version.  
-**Note:** In order to synchronize with the same GitHub branch, all versions should follow the exact same pattern.
+The `main` branch contains the latest released version of all APIs and Domains. Current and previously released states are tagged with the corresponding release version in this repository. Working versions appear as branches named after the target release version.
 
 ### Releases
 
@@ -89,6 +86,3 @@ If you want to contribute, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 
 
-## SwaggerHub GitHub Synchronization
-
-SwaggerHub requires a GitHub Access Token with `repo` permissions. It is good practice that the selected token has a defined expiration date. Therefore, at some point in time when the current token expires, the synchronization will fail and a new token needs to be added through the IDTA repository management team.
