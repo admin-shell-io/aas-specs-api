@@ -34,7 +34,7 @@ All published SwaggerHub APIs are synchronized all the time with the respective 
 The following *domains* are synchronized manually as domain synchronization is not yet available in SwaggerHub:
 |API SPEC|GitHub|GitHub Pages|SwaggerHub [^1] |
 |------------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|-----------------------------------------------------|
-| Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
+| Part1-MetaModel-Schemas Domain |[Link](./Part1-MetaModel-Schemas/openapi.yaml)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas)|
 | Part2-API-Schemas Domain |[Link](./Part2-API-Schemas/openapi.yaml)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../Part2-API-Schemas/openapi.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas)|
 | DINSPEC16593-Schemas Domain (Deprecated) |[Link](./DINSPEC16593-Schemas/openapi.yaml)|[Link](https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../DINSPEC16593-Schemas/openapi.yaml&version=v3.2.0)|[Link](https://app.swaggerhub.com/domains/Plattform_i40/DINSPEC16593-Schemas)|
 
