@@ -164,12 +164,12 @@ components:
   schemas: 
     AnnotatedRelationshipElementMetadata: 
       $ref: "#/components/schemas/SubmodelElementAttributes"
-    AnnotatedRelationshipElementValue: 
-      properties: 
-        first: 
-          $ref: "#/components/schemas/ReferenceValue"
-        second: 
-          $ref: "#/components/schemas/ReferenceValue"
+    AnnotatedRelationshipElementValue:
+      properties:
+        first:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+        second:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
         annotations:
           $ref: "#/components/schemas/ValueOnly"
       type: object
@@ -287,9 +287,9 @@ components:
             maxInterval: 
               type: string
     BasicEventElementValue:
-      properties: 
-        observed: 
-          $ref: "#/components/schemas/ReferenceValue"
+      properties:
+        observed:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
       required:
         - observed
       type: object
@@ -992,26 +992,17 @@ components:
     ReferenceElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    ReferenceElementValue: 
-      $ref: "#/components/schemas/ReferenceValue"
-    ReferenceValue:
-      type: object
-      properties:
-        type: 
-          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/ReferenceTypes"
-        keys:
-          type: array
-          items:
-            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Key"
+    ReferenceElementValue:
+      $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     RelationshipElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    RelationshipElementValue: 
-      properties: 
-        first: 
-          $ref: "#/components/schemas/ReferenceValue"
-        second: 
-          $ref: "#/components/schemas/ReferenceValue"
+    RelationshipElementValue:
+      properties:
+        first:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+        second:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
       type: object
     Result: 
       properties: 
