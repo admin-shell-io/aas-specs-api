@@ -30,6 +30,8 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SemanticId'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
@@ -41,6 +43,38 @@ paths:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetSubmodelsResult'
+        '400':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '500':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
+        default:
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
+  /submodels/$recent-changes:
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns information about all Submodels that have been changed recently
+      operationId: GetAllSubmodelsRecentChanges
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllSubmodelsRecentChanges/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SemanticId'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested list of information about recently changed Submodels
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetAllSubmodelsRecentChangesResult'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -64,6 +98,8 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SemanticId'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
       responses:
@@ -96,6 +132,8 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SemanticId'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'

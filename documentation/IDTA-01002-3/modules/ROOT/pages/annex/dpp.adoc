@@ -81,7 +81,8 @@ To assemble a `DigitalProductPassport` JSON document, an implementation shall pe
 * *Retrieve the AAS*: Fetch the AAS from the AAS Repository, the AAS Service or via the AAS Registry.
 * *Retrieve all referenced Submodels*: Obtain the Submodel references from the AAS or AAS Descriptor and retrieve each Submodel from the Submodel Repository, Submodel Service or via the AAS Registry. 
 If a `date` parameter is provided, the implementation shall retrieve the version of each Submodel that was current at the specified point in time.
-* *Identify the DppMetadata Submodel*: Select the Submodel with semanticId `https://admin-shell.io/idta/cds/dppMetadata/1` (IDTA-02099-1). This Submodel provides the DPP header fields, including the Digital Product Passport ID.
+* *Identify the DppMetadata Submodel*: Select the Submodel with semanticId `https://admin-shell.io/idta/cds/dppMetadata/1` (IDTA-02099-1). 
+This Submodel provides the DPP header fields, including the Digital Product Passport ID.
 * *Identify the content Submodels*: Select all remaining Submodels whose semanticId is listed in the `contentSpecificationIds` property of the DppMetadata Submodel.
 * *Serialize the header*: Serialize the DppMetadata Submodel in Value-Only. The resulting JSON object constitutes the DPP header.
 * *Serialize the content*: For each content Submodel, serialize the Submodel in the requested `representation` format (see <<dpp-serialization>>). The JSON key for each content section shall be the Submodel's `semanticId`, equal to the contentSpecificationId, as described in IDTA-01099-1.
@@ -330,6 +331,7 @@ include::partial$diagrams/seq-dpp-history.puml[]
 ....
 include::partial$diagrams/seq-dpp-registry-history.puml[]
 ....
+
 
 == HTTP API Mapping
 

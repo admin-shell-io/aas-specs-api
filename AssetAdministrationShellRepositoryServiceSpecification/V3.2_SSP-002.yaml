@@ -31,6 +31,8 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetIds'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
       responses:
@@ -40,6 +42,38 @@ paths:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetAssetAdministrationShellsResult'
+        '400':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '500':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
+        default:
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
+  /shells/$recent-changes:
+    get:
+      tags:
+        - Asset Administration Shell Repository API
+      summary: Returns information about all Asset Administration Shells that have been changed recently
+      operationId: GetAllAssetAdministrationShellsRecentChanges
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellsRecentChanges/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested list of information about recently changed Asset Administration Shells
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetAllAssetAdministrationShellsRecentChangesResult'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -63,6 +97,8 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetIds'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShort'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
       responses:

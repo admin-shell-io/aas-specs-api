@@ -30,6 +30,9 @@ paths:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetKind'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetType'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
       responses:
         '200':
           description: Requested Asset Administration Shell Descriptors
@@ -77,37 +80,6 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '409':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/conflict'
-        '500':
-          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'    
-        default:
-          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
-  /shell-descriptors/$recent-changes:
-    get:
-      tags:
-        - Asset Administration Shell Registry API
-      summary: Returns all Asset Administration Shell Descriptors that have been recently changed
-      operationId: GetAllAssetAdministrationShellDescriptorsRecentChanges
-      x-semanticIds:
-        - https://admin-shell.io/aas/API/GetAllAssetAdministrationShellDescriptorsRecentChanges/3/2
-      parameters:
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetKind'
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetType'
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetIds'
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
-        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
-      responses:
-        '200':
-          description: Requested Asset Administration Shell Descriptors that have been recently changed
-          content:
-            application/json:
-              schema:
-                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetAssetAdministrationShellDescriptorsResult'
-        '400':
-          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
-        '403':
-          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
