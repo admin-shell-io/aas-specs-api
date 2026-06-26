@@ -141,9 +141,9 @@ components:
     AnnotatedRelationshipElementValue: 
       properties: 
         first: 
-          $ref: "#/components/schemas/ReferenceValue"
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Reference"
         second: 
-          $ref: "#/components/schemas/ReferenceValue"
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Reference"
         annotations:
           $ref: "#/components/schemas/ValueOnly"
       type: object
@@ -244,7 +244,7 @@ components:
     BasicEventElementValue:
       properties: 
         observed: 
-          $ref: "#/components/schemas/ReferenceValue"
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Reference"
       required:
         - observed
       type: object
@@ -920,25 +920,16 @@ components:
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
     ReferenceElementValue: 
-      $ref: "#/components/schemas/ReferenceValue"
-    ReferenceValue:
-      type: object
-      properties:
-        type: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/ReferenceTypes"
-        keys:
-          type: array
-          items:
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Key"
+      $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Reference"
     RelationshipElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
     RelationshipElementValue: 
       properties: 
         first: 
-          $ref: "#/components/schemas/ReferenceValue"
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Reference"
         second: 
-          $ref: "#/components/schemas/ReferenceValue"
+          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.2#/components/schemas/Reference"
       type: object
     Result: 
       properties: 
