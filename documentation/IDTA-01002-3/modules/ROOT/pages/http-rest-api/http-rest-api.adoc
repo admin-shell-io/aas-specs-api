@@ -18,18 +18,18 @@ include::../includes/constraints.adoc[]
 
 This clause describes the technology mapping to HTTP/REST APIs.
 
-The OpenAPI specification of the HTTP/REST APIs can be found at SwaggerHub.
+The OpenAPI specification of the HTTP/REST APIs can be found https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html[here] and, for legacy reasons, also at https://app.swaggerhub.com/search?owner=Plattform_i40[SwaggerHub] until version v3.1.3.
 
 To clearly separate the different parts of the AAS model, the model has been split into several HTTP/REST APIs.
 Combinations then form service specifications and profiles, each materialized as an individual OpenAPI document.
 
 The schema for the metamodel of Part 1 is available at: +
-https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#[https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.2.0#] +
+https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0[https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0] +
 This schema includes general objects, which are used in the further defined APIs.
 
 Additional objects are needed for Part 2, e.g., the Descriptors for the Registry.
 The related schema of Part 2 objects is available at: +
-https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#[https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.2.0#] +
+https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part2-API-Schemas/openapi.yaml&version=v3.2.0[https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part2-API-Schemas/openapi.yaml&version=v3.2.0] +
 This schema includes general objects, which are used in the further defined APIs.
 
 The specific OpenAPI documents for the different APIs are listed in the sections for the respective service specifications and profiles in Clause xref:http-rest-api/service-specifications-and-profiles.adoc#service-specifications-and-profiles[Service Specifications and Profiles].
@@ -41,7 +41,7 @@ This clause gives an overview of the HTTP/REST API and describes general design 
 
 The following design decisions and constraints hold for the HTTP/REST API:
 
-* OpenAPI and SwaggerHub shall be used for specification.
+* OpenAPI, hosted by SwaggerHub (legacy versions) and rendered via Github Pages shall be used for specification.
 This leads to the constraint that one operation can only provide one type of a resulting payload.
 * This document assumes version 1.1 of HTTP.
 * An endpoint of the HTTP/REST API shall always use HTTPS (Port 443) with an up-to-date level of encryption.
