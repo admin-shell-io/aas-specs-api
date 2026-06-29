@@ -18,7 +18,7 @@ try:
         warnings.simplefilter("ignore", DeprecationWarning)
         from jsonschema import RefResolver
 except ImportError as exc:  # pragma: no cover - exercised in CI setup failures.
-    print("Missing dependency: jsonschema. Install it with: python -m pip install jsonschema")
+    print('Missing dependency: jsonschema. Install it with: python -m pip install "jsonschema[format]"')
     raise SystemExit(2) from exc
 
 
@@ -34,6 +34,7 @@ OPENAPI_SCHEMA = ROOT / "Part2-API-Schemas/openapi.yaml"
 QUERY_EXAMPLES = [
     ROOT_MODULE / "pages/http-rest-api/test/query/test1.json",
 ]
+FORMAT_CHECKER_MESSAGE = 'jsonschema date-time format checking is inactive; install "jsonschema[format]"'
 
 RULE_RE = re.compile(r"^\s*<([^<>]+)>\s*::=\s*(.*)$")
 REF_RE = re.compile(r"<([^<>]+)>")
@@ -143,23 +144,39 @@ def validate_json_schema(validation: Validation) -> dict[str, Any] | None:
     if embedded_schema is not None and embedded_schema != schema:
         validation.fail(SCHEMA_PAGE, "embedded schema differs from partials/query-json-schema.json")
 
-    validate_query_examples(schema, validation)
-    validate_schema_smoke_tests(schema, validation)
+    format_checker = active_format_checker(validation)
+    validate_query_examples(schema, validation, format_checker)
+    validate_schema_smoke_tests(schema, validation, format_checker)
     validate_openapi_pattern_sync(schema, validation)
     return schema
 
 
-def schema_validator(schema: dict[str, Any], ref: str) -> Draft7Validator:
+def active_format_checker(validation: Validation) -> FormatChecker:
+    format_checker = FormatChecker()
+    validator = Draft7Validator(
+        {"type": "string", "format": "date-time"},
+        format_checker=format_checker,
+    )
+    if not list(validator.iter_errors("not-a-date-time")):
+        validation.fail(QUERY_SCHEMA, FORMAT_CHECKER_MESSAGE)
+    return format_checker
+
+
+def schema_validator(schema: dict[str, Any], ref: str, format_checker: FormatChecker) -> Draft7Validator:
     resolver = RefResolver(base_uri=QUERY_SCHEMA.resolve().as_uri(), referrer=schema)
-    return Draft7Validator({"$ref": ref}, resolver=resolver, format_checker=FormatChecker())
+    return Draft7Validator({"$ref": ref}, resolver=resolver, format_checker=format_checker)
 
 
-def definition_validator(schema: dict[str, Any], definition_name: str) -> Draft7Validator:
-    return schema_validator(schema, f"#/definitions/{definition_name}")
+def definition_validator(
+    schema: dict[str, Any],
+    definition_name: str,
+    format_checker: FormatChecker,
+) -> Draft7Validator:
+    return schema_validator(schema, f"#/definitions/{definition_name}", format_checker)
 
 
-def validate_query_examples(schema: dict[str, Any], validation: Validation) -> None:
-    validator = Draft7Validator(schema, format_checker=FormatChecker())
+def validate_query_examples(schema: dict[str, Any], validation: Validation, format_checker: FormatChecker) -> None:
+    validator = Draft7Validator(schema, format_checker=format_checker)
     for path in QUERY_EXAMPLES:
         data = load_json(path, validation)
         if data is None:
@@ -170,7 +187,7 @@ def validate_query_examples(schema: dict[str, Any], validation: Validation) -> N
             validation.fail(path, f"{location}: {error.message}")
 
 
-def validate_schema_smoke_tests(schema: dict[str, Any], validation: Validation) -> None:
+def validate_schema_smoke_tests(schema: dict[str, Any], validation: Validation, format_checker: FormatChecker) -> None:
     cases = [
         ("FieldIdentifier", "$aas#submodels[]", True),
         ("FieldIdentifier", "$aas#submodels[01]", False),
@@ -193,7 +210,7 @@ def validate_schema_smoke_tests(schema: dict[str, Any], validation: Validation) 
 
     validators: dict[str, Draft7Validator] = {}
     for definition_name, value, should_pass in cases:
-        validators.setdefault(definition_name, definition_validator(schema, definition_name))
+        validators.setdefault(definition_name, definition_validator(schema, definition_name, format_checker))
         is_valid = validators[definition_name].is_valid(value)
         if is_valid != should_pass:
             expected = "valid" if should_pass else "invalid"

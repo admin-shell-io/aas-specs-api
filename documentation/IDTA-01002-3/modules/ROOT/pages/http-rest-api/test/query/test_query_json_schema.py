@@ -7,6 +7,7 @@ from jsonschema import Draft7Validator, FormatChecker
 
 ROOT_MODULE = Path(__file__).resolve().parents[4]
 QUERY_SCHEMA = ROOT_MODULE / "partials" / "query-json-schema.json"
+FORMAT_CHECKER_MESSAGE = 'jsonschema date-time format checking is inactive; install "jsonschema[format]"'
 
 
 def format_errors(errors):
@@ -21,7 +22,18 @@ class QueryJsonSchemaValidationTest(unittest.TestCase):
     def setUpClass(cls):
         cls.schema = json.loads(QUERY_SCHEMA.read_text(encoding="utf-8-sig"))
         Draft7Validator.check_schema(cls.schema)
-        cls.validator = Draft7Validator(cls.schema, format_checker=FormatChecker())
+        cls.format_checker = FormatChecker()
+        cls.ensure_date_time_format_checking_is_active()
+        cls.validator = Draft7Validator(cls.schema, format_checker=cls.format_checker)
+
+    @classmethod
+    def ensure_date_time_format_checking_is_active(cls):
+        validator = Draft7Validator(
+            {"type": "string", "format": "date-time"},
+            format_checker=cls.format_checker,
+        )
+        if not list(validator.iter_errors("not-a-date-time")):
+            raise RuntimeError(FORMAT_CHECKER_MESSAGE)
 
     def assert_valid(self, instance):
         errors = sorted(self.validator.iter_errors(instance), key=lambda error: list(error.absolute_path))
