@@ -60,6 +60,7 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$aas#assetInformation.specificAssetIds[].externalSubjectId.type",
             "$aas#assetInformation.specificAssetIds[].externalSubjectId.keys[].type",
             "$aas#assetInformation.specificAssetIds[].externalSubjectId.keys[0].value",
+            "$aas#submodels[]",
             "$aas#submodels[].type",
             "$aas#submodels[].keys[].type",
             "$aas#submodels[0].keys[0].value",
@@ -141,14 +142,16 @@ class FieldIdentifierRegexTest(unittest.TestCase):
         not_allowed = [
             "$aas#assetInformation.specificAssetIds",
             "$aas#assetInformation.specificAssetIds[]",
+            "$aas#assetInformation.specificAssetIds[01].name",
             "$aas#assetInformation.specificAssetIds[].externalSubjectId.keys",
             "$aas#assetInformation.specificAssetIds[].externalSubjectId.keys[]",
             "$aas#submodels",
-            "$aas#submodels[]",
+            "$aas#submodels[01].type",
             "$aas#submodels[].keys",
             "$aas#submodels[].keys[]",
             "$sm#semanticId.keys",
             "$sm#semanticId.keys[]",
+            "$sm#supplementalSemanticIds[01]",
             "$sm#supplementalSemanticIds.keys",
             "$sm#supplementalSemanticIds.keys[]",
             "$sm#supplementalSemanticIds[].keys",
@@ -158,6 +161,7 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$sme.AddressInformation[]",
             "$sme.AddressInformation#id",
             "$sme.AddressInformation#bogus",
+            "$sme.AddressInformation#supplementalSemanticIds[01]",
             "$sme.AddressInformation#supplementalSemanticIds.keys",
             "$sme.AddressInformation#supplementalSemanticIds[].keys",
             "$sme.1Invalid#value",
@@ -173,9 +177,11 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$aasdesc#specificAssetIds[].externalSubjectId.keys[]",
             "$aasdesc#endpoints",
             "$aasdesc#endpoints[]",
+            "$aasdesc#endpoints[01].interface",
             "$aasdesc#endpoints[].protocolinformation",
             "$aasdesc#submodelDescriptors",
             "$aasdesc#submodelDescriptors[]",
+            "$aasdesc#submodelDescriptors[01].idShort",
             "$aasdesc#submodelDescriptors[].supplementalSemanticIds.keys",
             "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys",
             "$aasdesc#submodelDescriptors[].endpoints",
@@ -183,9 +189,11 @@ class FieldIdentifierRegexTest(unittest.TestCase):
             "$smdesc#semanticId.keys",
             "$smdesc#semanticId.keys[]",
             "$smdesc#supplementalSemanticIds.keys",
+            "$smdesc#supplementalSemanticIds[01]",
             "$smdesc#supplementalSemanticIds[].keys",
             "$smdesc#endpoints",
             "$smdesc#endpoints[]",
+            "$smdesc#endpoints[01].interface",
             "$smdesc#endpoints[].protocolinformation",
         ]
 
@@ -196,6 +204,61 @@ class FieldIdentifierRegexTest(unittest.TestCase):
     def test_documented_field_identifier_patterns_are_in_sync(self):
         self.assertEqual(self.pattern, schema_page_pattern("FieldIdentifier"))
         self.assertEqual(self.pattern, openapi_component_pattern("FieldIdentifier"))
+
+
+class ReferenceIdentifierRegexTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        schema = json.loads(QUERY_SCHEMA.read_text(encoding="utf-8-sig"))
+        pattern = schema["definitions"]["ReferenceIdentifier"]["pattern"]
+        cls.pattern = pattern
+        cls.reference_identifier = re.compile(pattern)
+
+    def assert_allowed(self, value):
+        self.assertIsNotNone(
+            self.reference_identifier.fullmatch(value),
+            f"Expected ReferenceIdentifier to allow: {value}",
+        )
+
+    def assert_not_allowed(self, value):
+        self.assertIsNone(
+            self.reference_identifier.fullmatch(value),
+            f"Expected ReferenceIdentifier to reject: {value}",
+        )
+
+    def test_allowed_reference_identifiers(self):
+        allowed = [
+            '$aas("aas-id")#assetInformation.specificAssetIds[].externalSubjectId.keys[0].value',
+            '$sm("SubmodelID")#id',
+            '$sm("SubmodelID")#supplementalSemanticIds[].keys[].value',
+            '$cd("ConceptDescriptionID")#idShort',
+            '$sme("SubmodelID-OperationalData").machineState#value',
+            '$sme("SubmodelID").AddressInformation[0].Zipcode#semanticId.keys[].value',
+        ]
+
+        for value in allowed:
+            with self.subTest(value=value):
+                self.assert_allowed(value)
+
+    def test_not_allowed_reference_identifiers(self):
+        not_allowed = [
+            "$sm#id",
+            '$sm("SubmodelID")#bogus',
+            '$sm("SubmodelID")#supplementalSemanticIds[01]',
+            '$aas("aas-id")#assetInformation.specificAssetIds[]',
+            '$cd("ConceptDescriptionID")#description',
+            '$sme("SubmodelID").machineState',
+            '$sme("SubmodelID").machineState#id',
+            '$sme("SubmodelID").1Invalid#value',
+            '$aasdesc("aas-id")#idShort',
+        ]
+
+        for value in not_allowed:
+            with self.subTest(value=value):
+                self.assert_not_allowed(value)
+
+    def test_documented_reference_identifier_patterns_are_in_sync(self):
+        self.assertEqual(self.pattern, schema_page_pattern("ReferenceIdentifier"))
 
 
 if __name__ == "__main__":

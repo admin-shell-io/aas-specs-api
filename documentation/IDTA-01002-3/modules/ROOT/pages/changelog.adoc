@@ -37,6 +37,7 @@ Minor Changes:
 * docs: Added cross-spec terminology matrix reference to align Metamodel classes, API path segments, and Query/Access-Rule prefixes across specifications.
 * docs: Added cross-specification alignment matrix to document API compatibility with IDTA-01001 (Metamodel v3.2 instead of v3.1), DTA-01003-a, IDTA-01003-b, IDTA-01004 (Security v3.1), and IDTA-01005 (from v3.1 to v3.2).
 * docs: Established IDTA-01002 as authoritative source for formula grammar and JSON Schema shared between API and Security specifications.
+* fix: Aligned Query Language BNF and JSON Schema with IDTA-01004 Security access-rule schema, including wildcard array indexes, stricter object/reference identifiers, and artifact validation tests.
 * docs: Added informative Conformance Test Corpus annex providing technology-neutral test cases for Query Language, HTTP/REST API, and error handling.
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
 * Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
@@ -772,4 +773,3 @@ PostConceptDescription
 |PutConceptDescription |PutConceptDescriptionById |Changed |Naming pattern byId
 | |PostConceptDescription |New |
 |===
-
