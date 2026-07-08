@@ -53,7 +53,7 @@ Major versions indicate breaking changes while minor updates are backward compat
 The patch position is increased whenever bugfixes need to be applied.
 The following release contains the latest version of the AAS schemas (see also the [releases](https://github.com/admin-shell-io/aas-specs-api/releases) section of this repository):
 
-* [3.2.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.2.0) is the latest bugfix release for the `V3.2.0` version of the AAS APIs, containing the normative specification and schemas of IDTA-01002-3-2.
+* [3.2.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/v3.2.0) is the latest release for the `V3.2.0` version of the AAS APIs, containing the normative specification and schemas of IDTA-01002-3-2.
 * *Use this release if you want to work with the latest specified AAS version.*
 
 Previous releases:
