@@ -9,27 +9,6 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
-== Changes w.r.t. V3.1.2 to V3.1.3
-
-Major Changes:
-
-* Fixed the response payload type of `PutSubmodelById` in the Asset Administration Shell Repository OpenAPI files: status code `201` now returns a `Submodel` instead of a `Reference`. (https://github.com/admin-shell-io/aas-specs-api/issues/601[#601])
-
-
-Minor Changes:
-
-* fix: Aligned date/time extraction functions (`$dayOfWeek`, `$dayOfMonth`, `$month`, `$year`) in JSON Schema to accept all `dateTimeOperand` types per BNF grammar, and widened `timeLiteralPattern` to support fractional seconds.
-* fix: Harmonized `SecurityQueryFilter` between API and Security specifications and added missing `FILTERLIST` construct to the BNF grammar and JSON Schema.
-* fix: Changed JSON Schema validation from `oneOf` to `anyOf` where BNF grammar allows mixed inline and named groups in concatenation scenarios.
-* Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `404` for `POST /lookup/shells/{aasIdentifier}` to align with create-or-replace semantics. (https://github.com/admin-shell-io/aas-specs-api/issues/595[#595])
-* Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `409` for `POST /lookup/shells/{aasIdentifier}` to align with replace/update behavior on repeated payloads. (https://github.com/admin-shell-io/aas-specs-api/issues/596[#596])
-* Updated the response contract of `GetAllSubmodelDescriptors` in Submodel Registry OpenAPI files by removing status code `404` for `GET /submodel-descriptors`, so an empty collection is consistently represented by `200` with an empty result. (https://github.com/admin-shell-io/aas-specs-api/issues/597[#597])
-* Submodel Service Specification – Read Profile had the wrong identifier `https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002` instead of https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002`
-* fix: Aligned `idShort` pattern in BNF grammar and JSON Schema with Metamodel Constraint AASd-002 to correctly enforce minimum two characters and prevent trailing hyphens.
-* fix: Replaced OpenAPI references to `ReferenceValue` with `Reference` to align with the specification text. (https://github.com/admin-shell-io/aas-specs-api/issues/521[#521])
-
-
-
 == Changes w.r.t. V3.1.3 to V3.2
 
 Major Changes:
@@ -58,6 +37,8 @@ Minor Changes:
 * docs: Added cross-specification alignment matrix to document API compatibility with IDTA-01001 (Metamodel v3.2 instead of v3.1), DTA-01003-a, IDTA-01003-b, IDTA-01004 (Security v3.1), and IDTA-01005 (from v3.1 to v3.2).
 * docs: Established IDTA-01002 as authoritative source for formula grammar and JSON Schema shared between API and Security specifications.
 * fix: Aligned Query Language BNF and JSON Schema with IDTA-01004 Security access-rule schema, including wildcard array indexes, stricter object/reference identifiers, and artifact validation tests.
+* fix: Replaced `dateTimeLiteralPattern` OpenAPI `format: date-time` with explicit ISO 8601 regex pattern and strengthened `timeLiteralPattern`
+  validation to enforce proper hour/minute/second ranges and timezone handling in Query Language temporal literals.
 * docs: Added informative Conformance Test Corpus annex providing technology-neutral test cases for Query Language, HTTP/REST API, and error handling.
 * Added the `ServerNotImplemented` status code to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes]. Note that the HTTP API mentioned this status code already, therefore, no change in OpenAPI or other related files. (https://github.com/admin-shell-io/aas-specs-api/issues/499[#499])
 * Removed the `GetAllAssetAdministrationShellDescriptorsByAssetType` operation from the OpenAPI files for the Asset Administration Shell Registry Service Specification, as it was not intended to be included in the first place and is not implemented by any known implementation. (https://github.com/admin-shell-io/aas-specs-api/issues/515[#515])
@@ -135,23 +116,6 @@ Minor Changes:
 * Submodel Service Specification – Read Profile had the wrong identifier `https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002` instead of https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002`
 * fix: Replaced OpenAPI references to `ReferenceValue` with `Reference` to include the `referredSemanticId` field and align with the specification text that mandates Normal serialization format for References in valueOnly JSON. (https://github.com/admin-shell-io/aas-specs-api/issues/521[#521])
 
-== Changes w.r.t. V3.1.2 to V3.1.3
-
-Major Changes:
-
-* none
-
-
-Minor Changes:
-
-<<<<<<< HEAD
-* Fixed the response payload type of `PutSubmodelById` in the Asset Administration Shell Repository OpenAPI files: status code `201` now returns a `Submodel` instead of a `Reference`. (https://github.com/admin-shell-io/aas-specs-api/issues/601[#601])
-* Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `404` for `POST /lookup/shells/{aasIdentifier}` to align with create-or-replace semantics. (https://github.com/admin-shell-io/aas-specs-api/issues/595[#595])
-* Updated the response contract of `PostAllAssetLinksById` in Discovery OpenAPI files by removing status code `409` for `POST /lookup/shells/{aasIdentifier}` to align with replace/update behavior on repeated payloads. (https://github.com/admin-shell-io/aas-specs-api/issues/596[#596])
-* Updated the response contract of `GetAllSubmodelDescriptors` in Submodel Registry OpenAPI files by removing status code `404` for `GET /submodel-descriptors`, so an empty collection is consistently represented by `200` with an empty result. (https://github.com/admin-shell-io/aas-specs-api/issues/597[#597])
-* Submodel Service Specification – Read Profile had the wrong identifier `https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002` instead of https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002`
-
-
 == Changes w.r.t. V3.1.1 to V3.1.2
 
 Major Changes:
@@ -179,20 +143,6 @@ This is a change in the OpenAPI files only, as the "clientTimeoutDuration" param
 
 
 
-=======
-* fix: Wrong ServiceSpecificationProfileEnum values for v3.0 profiles. (https://github.com/admin-shell-io/aas-specs-api/issues/526[#526])
-* removed: Remove TREE. (https://github.com/admin-shell-io/aas-specs-api/issues/537)
-* fix: fixed FILTER object in json schema & fixed inconsistencies in BNF (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: naming inconsistencies inside BNF and json schema (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: aligned BNF and json schema to api spec (https://github.com/admin-shell-io/aas-specs-api/issues/547)
-* fix: BNF did not compile (https://github.com/admin-shell-io/aas-specs-security/issues/62)
-* fix: BNF used incorrectly plural for USEACL & USEFORMULA (https://github.com/admin-shell-io/aas-specs-security/issues/61)
-* fix: Regex FieldIdentifier was incorrect (https://github.com/admin-shell-io/aas-specs-security/issues/60)
-* fix: Incorrect FieldIdentifier AAS Submodel References (https://github.com/admin-shell-io/aas-specs-security/issues/59)
-* Remove the requirement to have "clientTimeoutDuration" for asynchronous operation invocations in the OpenAPI files. This is a change in the OpenAPI files only, as the "clientTimeoutDuration" parameter was already optional in the definition of the OperationRequestAsync class in the OpenAPI schema. (https://github.com/admin-shell-io/aas-specs-api/issues/563[#563])
-* Changed SupplementalSemanticId to SupplementalSemanticIds in the OpenAPI file for the Part 1 classes to match the definition in the Part 1 OpenAPI file. (https://github.com/admin-shell-io/aas-specs-api/issues/553[#553])
-* Adjusted the return type for the operations OperationRequestValueOnly and OperationResultValueOnly from the incorrect SubmodelElementValue to ValueOnly. No changes in the already correct OpenAPI files. (https://github.com/admin-shell-io/aas-specs-metamodel/pull/663[Part 1#663])
->>>>>>> origin/main
 
 
 == Changes w.r.t. V3.1 to V3.1.1
@@ -213,10 +163,7 @@ Minor Changes:
 * new: Add 404 'Not Found' to the PutSubmodelDescriptorByIdThroughSuperpath operation in the OpenAPI file for the AssetAdministrationShellRegistryServiceSpecification/SSP-001 profile.
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
 === Operation Changes w.r.t. V3.1 to V3.1.1
 
 [%autowidth,width="100%",cols="40%,15%,45%",options="header",]
