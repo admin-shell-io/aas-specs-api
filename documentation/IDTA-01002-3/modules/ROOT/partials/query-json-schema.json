@@ -48,11 +48,207 @@
     },
     "dateTimeLiteralPattern": {
       "type": "string",
-      "format": "date-time"
+      "pattern": "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?$"
     },
     "timeLiteralPattern": {
       "type": "string",
-      "pattern": "^[0-9][0-9]:[0-9][0-9](:[0-9][0-9])?(\\.[0-9]+)?(Z|[+-][0-9][0-9]:[0-9][0-9])?$"
+      "pattern": "^(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?$"
+    },
+    "dateTimeAttributeItem": {
+      "type": "object",
+      "properties": {
+        "GLOBAL": {
+          "type": "string",
+          "enum": [
+            "LOCALNOW",
+            "UTCNOW",
+            "CLIENTNOW"
+          ]
+        }
+      },
+      "required": [
+        "GLOBAL"
+      ],
+      "additionalProperties": false
+    },
+    "dateTimeOperand": {
+      "type": "object",
+      "properties": {
+        "$dateTimeVal": {
+          "$ref": "#/definitions/dateTimeLiteralPattern"
+        },
+        "$dateTimeCast": {
+          "$ref": "#/definitions/stringValue"
+        },
+        "$attribute": {
+          "$ref": "#/definitions/dateTimeAttributeItem"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "$dateTimeVal"
+          ]
+        },
+        {
+          "required": [
+            "$dateTimeCast"
+          ]
+        },
+        {
+          "required": [
+            "$attribute"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "fieldOperand": {
+      "type": "object",
+      "properties": {
+        "$field": {
+          "$ref": "#/definitions/FieldIdentifier"
+        }
+      },
+      "required": [
+        "$field"
+      ],
+      "additionalProperties": false
+    },
+    "numericalOperand": {
+      "type": "object",
+      "properties": {
+        "$numVal": {
+          "type": "number"
+        },
+        "$numCast": {
+          "$ref": "#/definitions/Value"
+        },
+        "$dayOfWeek": {
+          "$ref": "#/definitions/dateTimeOperand"
+        },
+        "$dayOfMonth": {
+          "$ref": "#/definitions/dateTimeOperand"
+        },
+        "$month": {
+          "$ref": "#/definitions/dateTimeOperand"
+        },
+        "$year": {
+          "$ref": "#/definitions/dateTimeOperand"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "$numVal"
+          ]
+        },
+        {
+          "required": [
+            "$numCast"
+          ]
+        },
+        {
+          "required": [
+            "$dayOfWeek"
+          ]
+        },
+        {
+          "required": [
+            "$dayOfMonth"
+          ]
+        },
+        {
+          "required": [
+            "$month"
+          ]
+        },
+        {
+          "required": [
+            "$year"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "hexOperand": {
+      "type": "object",
+      "properties": {
+        "$hexVal": {
+          "$ref": "#/definitions/hexLiteralPattern"
+        },
+        "$hexCast": {
+          "$ref": "#/definitions/Value"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "$hexVal"
+          ]
+        },
+        {
+          "required": [
+            "$hexCast"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "boolOperand": {
+      "type": "object",
+      "properties": {
+        "$boolean": {
+          "type": "boolean"
+        },
+        "$boolCast": {
+          "$ref": "#/definitions/Value"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "$boolean"
+          ]
+        },
+        {
+          "required": [
+            "$boolCast"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "timeOperand": {
+      "type": "object",
+      "properties": {
+        "$timeVal": {
+          "$ref": "#/definitions/timeLiteralPattern"
+        },
+        "$timeCast": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/stringValue"
+            },
+            {
+              "$ref": "#/definitions/dateTimeOperand"
+            }
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "$timeVal"
+          ]
+        },
+        {
+          "required": [
+            "$timeCast"
+          ]
+        }
+      ],
+      "additionalProperties": false
     },
     "Value": {
       "type": "object",
@@ -94,50 +290,29 @@
           "$ref": "#/definitions/Value"
         },
         "$dateTimeCast": {
-          "$ref": "#/definitions/Value"
+          "$ref": "#/definitions/stringValue"
         },
         "$timeCast": {
-          "$ref": "#/definitions/Value"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/stringValue"
+            },
+            {
+              "$ref": "#/definitions/dateTimeOperand"
+            }
+          ]
         },
         "$dayOfWeek": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/dateTimeLiteralPattern"
-            },
-            {
-              "$ref": "#/definitions/attributeItem"
-            }
-          ]
+          "$ref": "#/definitions/dateTimeOperand"
         },
         "$dayOfMonth": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/dateTimeLiteralPattern"
-            },
-            {
-              "$ref": "#/definitions/attributeItem"
-            }
-          ]
+          "$ref": "#/definitions/dateTimeOperand"
         },
         "$month": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/dateTimeLiteralPattern"
-            },
-            {
-              "$ref": "#/definitions/attributeItem"
-            }
-          ]
+          "$ref": "#/definitions/dateTimeOperand"
         },
         "$year": {
-          "oneOf": [
-            {
-              "$ref": "#/definitions/dateTimeLiteralPattern"
-            },
-            {
-              "$ref": "#/definitions/attributeItem"
-            }
-          ]
+          "$ref": "#/definitions/dateTimeOperand"
         }
       },
       "oneOf": [
@@ -274,21 +449,301 @@
       ],
       "additionalProperties": false
     },
+    "stringNonFieldValue": {
+      "type": "object",
+      "properties": {
+        "$strVal": {
+          "$ref": "#/definitions/standardString"
+        },
+        "$strCast": {
+          "$ref": "#/definitions/Value"
+        },
+        "$attribute": {
+          "$ref": "#/definitions/attributeItem"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "$strVal"
+          ]
+        },
+        {
+          "required": [
+            "$strCast"
+          ]
+        },
+        {
+          "required": [
+            "$attribute"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
     "comparisonItems": {
-      "type": "array",
-      "minItems": 2,
-      "maxItems": 2,
-      "items": {
-        "$ref": "#/definitions/Value"
-      }
+      "$ref": "#/definitions/equalityComparisonItems"
     },
     "stringItems": {
-      "type": "array",
-      "minItems": 2,
-      "maxItems": 2,
-      "items": {
-        "$ref": "#/definitions/stringValue"
-      }
+      "anyOf": [
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/stringValue"
+            },
+            {
+              "$ref": "#/definitions/stringNonFieldValue"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/stringNonFieldValue"
+            },
+            {
+              "$ref": "#/definitions/stringValue"
+            }
+          ]
+        }
+      ]
+    },
+    "numericalComparisonItems": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/numericalOperand"
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/numericalOperand"
+            },
+            {
+              "$ref": "#/definitions/fieldOperand"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/fieldOperand"
+            },
+            {
+              "$ref": "#/definitions/numericalOperand"
+            }
+          ]
+        }
+      ]
+    },
+    "hexComparisonItems": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/hexOperand"
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/hexOperand"
+            },
+            {
+              "$ref": "#/definitions/fieldOperand"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/fieldOperand"
+            },
+            {
+              "$ref": "#/definitions/hexOperand"
+            }
+          ]
+        }
+      ]
+    },
+    "boolComparisonItems": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/boolOperand"
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/boolOperand"
+            },
+            {
+              "$ref": "#/definitions/fieldOperand"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/fieldOperand"
+            },
+            {
+              "$ref": "#/definitions/boolOperand"
+            }
+          ]
+        }
+      ]
+    },
+    "dateTimeComparisonItems": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/dateTimeOperand"
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/dateTimeOperand"
+            },
+            {
+              "$ref": "#/definitions/fieldOperand"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/fieldOperand"
+            },
+            {
+              "$ref": "#/definitions/dateTimeOperand"
+            }
+          ]
+        }
+      ]
+    },
+    "timeComparisonItems": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/timeOperand"
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/timeOperand"
+            },
+            {
+              "$ref": "#/definitions/fieldOperand"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/fieldOperand"
+            },
+            {
+              "$ref": "#/definitions/timeOperand"
+            }
+          ]
+        }
+      ]
+    },
+    "equalityComparisonItems": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/stringItems"
+        },
+        {
+          "$ref": "#/definitions/numericalComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/hexComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/boolComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/dateTimeComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/timeComparisonItems"
+        }
+      ]
+    },
+    "orderedComparisonItems": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/stringItems"
+        },
+        {
+          "$ref": "#/definitions/numericalComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/hexComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/dateTimeComparisonItems"
+        },
+        {
+          "$ref": "#/definitions/timeComparisonItems"
+        }
+      ]
     },
     "matchExpression": {
       "type": "object",
@@ -301,22 +756,22 @@
           }
         },
         "$eq": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/equalityComparisonItems"
         },
         "$ne": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/equalityComparisonItems"
         },
         "$gt": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$ge": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$lt": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$le": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$contains": {
           "$ref": "#/definitions/stringItems"
@@ -329,9 +784,6 @@
         },
         "$regex": {
           "$ref": "#/definitions/stringItems"
-        },
-        "$boolean": {
-          "type": "boolean"
         }
       },
       "oneOf": [
@@ -387,11 +839,6 @@
         },
         {
           "required": [
-            "$boolean"
-          ]
-        },
-        {
-          "required": [
             "$match"
           ]
         }
@@ -426,22 +873,22 @@
           "$ref": "#/definitions/logicalExpression"
         },
         "$eq": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/equalityComparisonItems"
         },
         "$ne": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/equalityComparisonItems"
         },
         "$gt": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$ge": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$lt": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$le": {
-          "$ref": "#/definitions/comparisonItems"
+          "$ref": "#/definitions/orderedComparisonItems"
         },
         "$contains": {
           "$ref": "#/definitions/stringItems"

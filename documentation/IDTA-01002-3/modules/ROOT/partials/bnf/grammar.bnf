@@ -93,10 +93,10 @@
     ( "DEFATTRIBUTES" <ws> <StringLiteral> <ws> <AttributeGroup> <ws> )* 
     ( "DEFACLS" <ws> <StringLiteral> <ws> <ACL> <ws> )* 
     ( "DEFOBJECTS" <ws> <StringLiteral> <ws> <ObjectGroup> <ws> )* 
-    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <logicalExpression> <ws> )* 
+    ( "DEFFORMULAS" <ws> <StringLiteral> <ws> <logicalExpression> <ws> )*
     ( <AccessPermissionRule> <ws> )*
 
-<AccessPermissionRule> ::= 
+<AccessPermissionRule> ::=
     "ACCESSRULE:" <ws>
     ( <ACL> | <UseACL> ) <ws>
     "OBJECTS:" <ws>
@@ -107,7 +107,7 @@
     ( "FILTERLIST:" <ws> ( <SecurityQueryFilter> <ws> )* )?
 
 <SecurityQueryFilter> ::=
-    ( "FRAGMENT:" <FieldIdentifierFragment> <ws> )
+    ( "FRAGMENT:" <ws> <FieldIdentifierFragment> <ws> )
     ( ( "CONDITION:" <ws> <logicalExpression> <ws> ) | ( <UseFormula> <ws> ) )
 
 <ACL> ::= 
