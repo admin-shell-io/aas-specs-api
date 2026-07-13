@@ -41,7 +41,7 @@ Requirement: MUST | SHOULD
 
 | QL.parse.003
 | A query whose JSON parses but violates the JSON Schema MUST be rejected.
-| HTTP 422 with a JSON-pointer to the failing element.
+| HTTP 400 with a JSON-pointer to the failing element.
 
 | QL.field.001
 | `$aas#id` on an AAS Repository MUST resolve to AAS identifiers.
@@ -73,7 +73,7 @@ Requirement: MUST | SHOULD
 
 | QL.time.002
 | A `$timeVal` with invalid components (e.g. `25:00`) MUST be rejected by the schema.
-| HTTP 422.
+| HTTP 400.
 
 | QL.dt.001
 | `$dayOfWeek`, `$dayOfMonth`, `$month`, `$year` MUST accept a `Value` operand (not only a literal).
@@ -84,12 +84,12 @@ Requirement: MUST | SHOULD
 | Items whose supplementalSemanticIds contain the value are returned.
 
 | QL.logic.001
-| `$and` over an empty list MUST behave as `true` (identity of AND).
-| Equivalent to "match all".
+| `$and` with fewer than two operands MUST be rejected by the schema.
+| HTTP 400.
 
 | QL.logic.002
-| `$or` over an empty list MUST behave as `false` (identity of OR).
-| Equivalent to "match none".
+| `$or` with fewer than two operands MUST be rejected by the schema.
+| HTTP 400.
 |===
 
 [#ctc-http-api]
@@ -124,8 +124,8 @@ Requirement: MUST | SHOULD
 | Status `200` with binary body or `403`.
 
 | HTTP.query.001
-| `POST /query` MUST reject payloads that fail the Query JSON Schema with `422`.
-| Status `422`, JSON-pointer in body.
+| `POST /query` MUST reject payloads that fail the Query JSON Schema with `400`.
+| Status `400`, JSON-pointer in body.
 
 | HTTP.discovery.001
 | Discovery endpoints MUST honour the operation-to-RIGHT mapping of this spec (xref:annex/operation-to-right-mapping.adoc[]).
@@ -144,16 +144,16 @@ Requirement: MUST | SHOULD
 | Status `400 Bad Request`.
 
 | ERR.schema.001
-| A request body that is valid JSON but violates the schema MUST receive `422`.
-| Status `422 Unprocessable Entity`.
+| A request body that is valid JSON but violates the schema MUST receive `400`.
+| Status `400 Bad Request`.
 
 | ERR.cast.001
 | A runtime cast error (`num("abc")`) MUST NOT yield `500`; the item is excluded from the result.
 | Status `200`, item missing from response.
 
 | ERR.field.001
-| An unknown `<AttributeDeclaration>` MUST be rejected at schema level (`422`), not at runtime.
-| Status `422`.
+| An unknown `<AttributeDeclaration>` MUST be rejected at schema level (`400`), not at runtime.
+| Status `400`.
 
 | ERR.profile.001
 | A rule/query referencing a FieldIdentifier that is not applicable to the current profile is treated as "not applicable" (no match, no error).

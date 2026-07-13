@@ -730,9 +730,9 @@ $sm#semanticId $eq
   "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
 $filters
   $fragment   $sme#value
-  $condition  $sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value"
+  $condition  $not ($sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value")
   $fragment   $sm#semanticId.keys[]
-  $condition  $sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value"
+  $condition  $not ($sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value")
 ----
 a|
 [source,json]
@@ -752,27 +752,31 @@ a|
     {
       "$fragment": "$sme#value",
       "$condition": {
-        "$eq": [
-          {
-            "$field": "$sm#semanticId.keys[].value"
-          },
-          {
-            "$strVal": "https://example.com/semantic-id/hide-value"
-          }
-        ]
+        "$not": {
+          "$eq": [
+            {
+              "$field": "$sm#semanticId.keys[].value"
+            },
+            {
+              "$strVal": "https://example.com/semantic-id/hide-value"
+            }
+          ]
+        }
       }
     },
     {
       "$fragment": "$sm#semanticId.keys[]",
       "$condition": {
-        "$eq": [
-          {
-            "$field": "$sm#semanticId.keys[].value"
-          },
-          {
-            "$strVal": "https://example.com/semantic-id/hide-value"
-          }
-        ]
+        "$not": {
+          "$eq": [
+            {
+              "$field": "$sm#semanticId.keys[].value"
+            },
+            {
+              "$strVal": "https://example.com/semantic-id/hide-value"
+            }
+          ]
+        }
       }
     }
   ]
