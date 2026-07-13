@@ -95,6 +95,7 @@ paths:
               minItems: 1
               items:
                 type: string
+        required: true
       responses:
         '202':
           $ref: "../Part2-API-Schemas/openapi.yaml#/components/responses/accepted"
@@ -115,11 +116,7 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetBulkAsyncStatus/3/2
       parameters:
-        - in: path
-          name: handleId
-          schema:
-            $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
-          required: true
+        - $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
       responses:
         '200':
           description: Bulk operation result object containing information that the
@@ -153,11 +150,7 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetBulkAsyncResult/3/2
       parameters:
-        - in: path
-          name: handleId
-          schema:
-            $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
-          required: true
+        - $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
       responses:
         '204':
           description: The bulk request itself was correct and all elements have been
