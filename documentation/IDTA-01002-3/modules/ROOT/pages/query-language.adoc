@@ -87,6 +87,8 @@ include::partial$bnf/grammar.bnf[]
 
 For AAS Query Language requests, only the `<query>` production SHALL be accepted as the request payload. The `<AllAccessPermissionRules>`, `<AccessPermissionRule>`, `FILTER` and `FILTERLIST` productions are included only for the shared grammar with IDTA-01004 and SHALL NOT be accepted as AAS Query request payloads unless explicitly specified by a security profile.
 
+Within a `<StringLiteral>`, a quotation mark and a reverse solidus SHALL be escaped as `\"` and `\\`, respectively. All other Unicode characters may be used without escaping. The `<IdentifierStringLiteral>` used in identifier instance selectors is additionally limited to 1–2048 characters from the AAS `String` character range. This allows selectors to represent the complete AAS `Identifier` value space without making their closing quotation mark ambiguous.
+
 == Select Expression
 
 The default return type is a list containing the respective AAS objects. For an AAS Repository, it's a list of Asset Administration Shells, while a Submodel Registry returns a list of SubmodelDescriptors. The optional `$select` statement declares whether the response shall deviate from this default behavior, and only return a list of identifiers instead of a list of objects (`$select id`).
