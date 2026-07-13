@@ -7852,7 +7852,16 @@ paths:
         required: true
       responses:
         '202':
-          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/accepted'
+          description: The server has accepted the request.
+          headers:
+            Location:
+              description: The URL where the client can request the current status of the operation.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/OperationHandle'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -7865,7 +7874,7 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
-  /packages-async/status/{handleId}:
+  /packages-async/{handleId}:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId'
     get:
@@ -7896,7 +7905,7 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
-  /packages-async/results/{handleId}:
+  /packages-async/result/{handleId}:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId'
     get:
@@ -7912,7 +7921,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/BaseOperationResult'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/OperationResult'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
