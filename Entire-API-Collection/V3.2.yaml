@@ -1430,7 +1430,7 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
-  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-asnyc:
+  /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShortPath'
@@ -1499,7 +1499,6 @@ paths:
   /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-status/{handleId}:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
-      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShortPath'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId'
     get:
@@ -1533,7 +1532,6 @@ paths:
   /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-results/{handleId}:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
-      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShortPath'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId'
     get:
@@ -1565,7 +1563,6 @@ paths:
   /aas/submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/operation-results/{handleId}/$value:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
-      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShortPath'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId'
     get:
@@ -6156,7 +6153,6 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
   /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke/$value:
     parameters:
-      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShortPath'
     post:
@@ -6233,7 +6229,6 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
   /submodels/{submodelIdentifier}/submodel-elements/{idShortPath}/invoke-async/$value:
     parameters:
-      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/AssetAdministrationShellIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IdShortPath'
     post:
