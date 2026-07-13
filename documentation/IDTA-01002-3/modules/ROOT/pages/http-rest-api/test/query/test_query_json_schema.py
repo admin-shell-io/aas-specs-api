@@ -82,6 +82,18 @@ class QueryJsonSchemaValidationTest(unittest.TestCase):
 
         self.assert_valid(query)
 
+    def test_field_to_field_comparison_is_valid(self):
+        query = {
+            "$condition": {
+                "$eq": [
+                    {"$field": "$aas#idShort"},
+                    {"$field": "$aas#assetInformation.assetType"},
+                ]
+            }
+        }
+
+        self.assert_valid(query)
+
     def test_access_rule_payload_with_constrained_identifiers_is_valid(self):
         access_rules = {
             "DEFATTRIBUTES": [
@@ -125,6 +137,23 @@ class QueryJsonSchemaValidationTest(unittest.TestCase):
                     ],
                 }
             ],
+        }
+
+        self.assert_valid(access_rules)
+
+    def test_acl_can_reference_multiple_attribute_groups(self):
+        access_rules = {
+            "rules": [
+                {
+                    "ACL": {
+                        "USEATTRIBUTES": ["baseAttributes", "timeAttributes"],
+                        "RIGHTS": ["READ"],
+                        "ACCESS": "ALLOW",
+                    },
+                    "OBJECTS": [{"IDENTIFIABLE": '$aas("aas-id")'}],
+                    "FORMULA": {"$boolean": True},
+                }
+            ]
         }
 
         self.assert_valid(access_rules)
