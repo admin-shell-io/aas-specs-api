@@ -28,6 +28,7 @@ This section also includes an overview of how to expose the DPP interactions thr
 
 Minor Changes:
 
+* fix: Required the binary `file` part for AASX package uploads and removed the redundant `fileName` multipart field; an optional source filename is conveyed by the standard `filename` parameter of the file part.
 * fix: Corrected `USEATTRIBUTES` in the access-rule JSON Schema to accept a list, so one ACL can reference multiple named attribute groups as defined by the BNF.
 * fix: Marked the Query request body as required in all repository and registry query profiles, matching the mandatory query input in the interface definitions.
 * fix: Marked bulk DELETE request bodies as required and corrected the reusable `handleId` parameter references in the asynchronous registry bulk profiles.
