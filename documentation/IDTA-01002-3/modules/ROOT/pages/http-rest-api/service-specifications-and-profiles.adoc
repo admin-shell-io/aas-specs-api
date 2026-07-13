@@ -103,12 +103,14 @@ The following table summarises which FieldIdentifier prefix is applicable per se
 | ConceptDescriptionRepositoryServiceSpecification       | — | — | — | ✓ | — | —
 | AssetAdministrationShellRegistryServiceSpecification   | — | — | — | — | ✓ | ✓
 | SubmodelRegistryServiceSpecification                   | — | — | — | — | — | ✓
-| AssetAdministrationShellServiceSpecification           | — | — | — | — | — | —
-| SubmodelServiceSpecification                           | — | — | — | — | — | —
+| AssetAdministrationShellServiceSpecification           | ✓ | ✓ | ✓ | — | — | —
+| SubmodelServiceSpecification                           | — | ✓ | ✓ | — | — | —
 | DiscoveryServiceSpecification                          | — | — | — | — | — | —
 |===
 
 Queries and access rules that reference a prefix marked with "—" for the chosen profile are treated as *not applicable* in that profile: they MUST NOT cause a parse or evaluation error, they simply do not match any object in the deployment. Implementations SHOULD clearly indicate in their deployment documentation which profiles they expose so that operators can scope their rules accordingly.
+
+Applicability describes which data types may be evaluated by access rules; it does not imply that every profile in a service specification family exposes the Query API.
 
 This table is referenced by IDTA-01004 § "Descriptor FieldIdentifier Applicability".
 
