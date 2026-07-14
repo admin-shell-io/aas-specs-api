@@ -512,6 +512,19 @@
               "$ref": "#/definitions/stringValue"
             }
           ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "$ref": "#/definitions/fieldOperand"
+            },
+            {
+              "$ref": "#/definitions/fieldOperand"
+            }
+          ]
         }
       ]
     },
@@ -1093,7 +1106,10 @@
           }
         },
         "USEATTRIBUTES": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "RIGHTS": {
           "type": "array",
