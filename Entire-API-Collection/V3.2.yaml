@@ -7133,6 +7133,7 @@ paths:
               minItems: 1
               items:
                 type: string
+        required: true
       responses:
         '202':
           $ref: "../Part2-API-Schemas/openapi.yaml#/components/responses/accepted"
@@ -7153,11 +7154,7 @@ paths:
       x-semanticIds:
         - https://admin-shell.io/aas/API/BulkGetAsyncStatus/3/2
       parameters:
-        - in: path
-          name: handleId
-          schema:
-            $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
-          required: true
+        - $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
       responses:
         '200':
           description:   Bulk operation result object containing information that the
@@ -7189,11 +7186,7 @@ paths:
       summary: Returns the result object of an asynchronously invoked bulk operation
       operationId: BulkGetAsyncResult
       parameters:
-        - in: path
-          name: handleId
-          schema:
-            $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
-          required: true
+        - $ref: "../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId"
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetBulkAsyncResult/3/2
       responses:
@@ -7471,6 +7464,7 @@ paths:
               minItems: 1
               items:
                 type: string
+        required: true
       responses:
         '202':
           $ref: "../Part2-API-Schemas/openapi.yaml#/components/responses/accepted"
