@@ -325,11 +325,191 @@ components:
           required:
             - id
     comparisonItems:
+      $ref: '#/components/schemas/equalityComparisonItems'
+    fieldOperand:
+      type: object
+      properties:
+        $field:
+          $ref: '#/components/schemas/FieldIdentifier'
+      required:
+        - $field
+      additionalProperties: false
+    attributeItem:
+      type: object
+      properties:
+        CLAIM:
+          type: string
+        GLOBAL:
+          type: string
+          enum:
+            - LOCALNOW
+            - UTCNOW
+            - CLIENTNOW
+            - ANONYMOUS
+        REFERENCE:
+          type: string
+      oneOf:
+        - required:
+            - CLAIM
+        - required:
+            - GLOBAL
+        - required:
+            - REFERENCE
+      additionalProperties: false
+    dateTimeAttributeItem:
+      type: object
+      properties:
+        GLOBAL:
+          type: string
+          enum:
+            - LOCALNOW
+            - UTCNOW
+            - CLIENTNOW
+      required:
+        - GLOBAL
+      additionalProperties: false
+    dateTimeOperand:
+      type: object
+      properties:
+        $dateTimeVal:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+        $dateTimeCast:
+          $ref: '#/components/schemas/stringValue'
+        $attribute:
+          $ref: '#/components/schemas/dateTimeAttributeItem'
+      oneOf:
+        - required:
+            - $dateTimeVal
+        - required:
+            - $dateTimeCast
+        - required:
+            - $attribute
+      additionalProperties: false
+    numericalOperand:
+      type: object
+      properties:
+        $numVal:
+          type: number
+        $numCast:
+          $ref: '#/components/schemas/Value'
+        $dayOfWeek:
+          $ref: '#/components/schemas/dateTimeOperand'
+        $dayOfMonth:
+          $ref: '#/components/schemas/dateTimeOperand'
+        $month:
+          $ref: '#/components/schemas/dateTimeOperand'
+        $year:
+          $ref: '#/components/schemas/dateTimeOperand'
+      oneOf:
+        - required:
+            - $numVal
+        - required:
+            - $numCast
+        - required:
+            - $dayOfWeek
+        - required:
+            - $dayOfMonth
+        - required:
+            - $month
+        - required:
+            - $year
+      additionalProperties: false
+    hexOperand:
+      type: object
+      properties:
+        $hexVal:
+          $ref: '#/components/schemas/hexLiteralPattern'
+        $hexCast:
+          $ref: '#/components/schemas/Value'
+      oneOf:
+        - required:
+            - $hexVal
+        - required:
+            - $hexCast
+      additionalProperties: false
+    boolOperand:
+      type: object
+      properties:
+        $boolean:
+          type: boolean
+        $boolCast:
+          $ref: '#/components/schemas/Value'
+      oneOf:
+        - required:
+            - $boolean
+        - required:
+            - $boolCast
+      additionalProperties: false
+    timeOperand:
+      type: object
+      properties:
+        $timeVal:
+          $ref: '#/components/schemas/timeLiteralPattern'
+        $timeCast:
+          anyOf:
+            - $ref: '#/components/schemas/stringValue'
+            - $ref: '#/components/schemas/dateTimeOperand'
+      oneOf:
+        - required:
+            - $timeVal
+        - required:
+            - $timeCast
+      additionalProperties: false
+    numericalComparisonItems:
       type: array
       minItems: 2
       maxItems: 2
       items:
-        $ref: '#/components/schemas/Value'
+        oneOf:
+          - $ref: '#/components/schemas/numericalOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    hexComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/hexOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    boolComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/boolOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    dateTimeComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/dateTimeOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    timeComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/timeOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    equalityComparisonItems:
+      anyOf:
+        - $ref: '#/components/schemas/stringItems'
+        - $ref: '#/components/schemas/numericalComparisonItems'
+        - $ref: '#/components/schemas/hexComparisonItems'
+        - $ref: '#/components/schemas/boolComparisonItems'
+        - $ref: '#/components/schemas/dateTimeComparisonItems'
+        - $ref: '#/components/schemas/timeComparisonItems'
+    orderedComparisonItems:
+      anyOf:
+        - $ref: '#/components/schemas/stringItems'
+        - $ref: '#/components/schemas/numericalComparisonItems'
+        - $ref: '#/components/schemas/hexComparisonItems'
+        - $ref: '#/components/schemas/dateTimeComparisonItems'
+        - $ref: '#/components/schemas/timeComparisonItems'
     dateTimeLiteralPattern:
       type: string
       pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?$"
@@ -577,17 +757,17 @@ components:
         $not:
           $ref: '#/components/schemas/logicalExpression'
         $eq:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $ne:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $gt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $ge:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $lt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $le:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $contains:
           $ref: '#/components/schemas/stringItems'
         $starts-with:
@@ -640,17 +820,17 @@ components:
           items:
             $ref: '#/components/schemas/matchExpression'
         $eq:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $ne:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $gt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $ge:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $lt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $le:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $contains:
           $ref: '#/components/schemas/stringItems'
         $starts-with:
@@ -659,8 +839,6 @@ components:
           $ref: '#/components/schemas/stringItems'
         $regex:
           $ref: '#/components/schemas/stringItems'
-        $boolean:
-          type: boolean
       oneOf:
         - required:
             - $eq
@@ -682,8 +860,6 @@ components:
             - $ends-with
         - required:
             - $regex
-        - required:
-            - $boolean
         - required:
             - $match
       additionalProperties: false
@@ -1166,6 +1342,8 @@ components:
           $ref: '#/components/schemas/standardString'
         $strCast:
           $ref: '#/components/schemas/Value'
+        $attribute:
+          $ref: '#/components/schemas/attributeItem'
       oneOf:
         - required:
             - $field
@@ -1173,6 +1351,8 @@ components:
             - $strVal
         - required:
             - $strCast
+        - required:
+            - $attribute
       additionalProperties: false
     StringValue: 
       type: string
@@ -1307,6 +1487,8 @@ components:
           $ref: '#/components/schemas/FieldIdentifier'
         $strVal:
           $ref: '#/components/schemas/standardString'
+        $attribute:
+          $ref: '#/components/schemas/attributeItem'
         $numVal:
           type: number
         $hexVal:
@@ -1326,17 +1508,19 @@ components:
         $boolCast:
           $ref: '#/components/schemas/Value'
         $dateTimeCast:
-          $ref: '#/components/schemas/Value'
+          $ref: '#/components/schemas/stringValue'
         $timeCast:
-          $ref: '#/components/schemas/Value'
+          anyOf:
+            - $ref: '#/components/schemas/stringValue'
+            - $ref: '#/components/schemas/dateTimeOperand'
         $dayOfWeek:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
         $dayOfMonth:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
         $month:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
         $year:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
       oneOf:
         - required:
             - $field

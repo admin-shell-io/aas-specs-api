@@ -1,7 +1,18 @@
 
 <json> ::= <ws> (<query> | <all_access_permission_rules>) <ws>
 
-<query> ::=  "{" <ws> "\"Query\":" <ws> "{" <ws> "\"$condition\":" <ws> <logical_expression> <ws> ("," <ws> "\"$select\":" <ws> "id" <ws> )? <ws> "}" <ws> "}"
+<query> ::= "{" <ws>
+              "\"$condition\":" <ws> <logical_expression> <ws>
+              ("," <ws> "\"$select\":" <ws> "\"id\"" <ws>)?
+              ("," <ws> "\"$filters\":" <ws> <query_filter_array> <ws>)?
+            "}"
+
+<query_filter_array> ::= "[" <ws> <query_filter> <ws> ("," <ws> <query_filter> <ws>)* "]"
+
+<query_filter> ::= "{" <ws>
+                     "\"$fragment\":" <ws> <FragmentFieldIdentifier> <ws>
+                     "," <ws> "\"$condition\":" <ws> <logical_expression> <ws>
+                   "}"
 
 <logical_expression> ::= "{" <ws>
                           (
@@ -9,15 +20,15 @@
                               | "\"$or\":" <ws> <logical_expression_array>
                               | "\"$not\":" <ws> <logical_expression>
                               | "\"$match\":" <ws> <match_expression_array>
-                              | "\"$eq\":" <ws> <comparison_items>
-                              | "\"$ne\":" <ws> <comparison_items>
-                              | "\"$gt\":" <ws> <comparison_items>
-                              | "\"$ge\":" <ws> <comparison_items>
-                              | "\"$lt\":" <ws> <comparison_items>
-                              | "\"$le\":" <ws> <comparison_items>
+                              | "\"$eq\":" <ws> <equality_comparison_items>
+                              | "\"$ne\":" <ws> <equality_comparison_items>
+                              | "\"$gt\":" <ws> <ordered_comparison_items>
+                              | "\"$ge\":" <ws> <ordered_comparison_items>
+                              | "\"$lt\":" <ws> <ordered_comparison_items>
+                              | "\"$le\":" <ws> <ordered_comparison_items>
                               | "\"$contains\":" <ws> <string_items>
-                              | "\"$starts_with\":" <ws> <string_items>
-                              | "\"$ends_with\":" <ws> <string_items>
+                              | "\"$starts-with\":" <ws> <string_items>
+                              | "\"$ends-with\":" <ws> <string_items>
                               | "\"$regex\":" <ws> <string_items>
                               | "\"$boolean\":" <ws> <boolean> <ws>
                           )
@@ -26,47 +37,64 @@
 <match_expression> ::= "{" <ws>
                           (
                               "\"$match\":" <ws> <match_expression_array>
-                              | "\"$eq\":" <ws> <comparison_items>
-                              | "\"$ne\":" <ws> <comparison_items>
-                              | "\"$gt\":" <ws> <comparison_items>
-                              | "\"$ge\":" <ws> <comparison_items>
-                              | "\"$lt\":" <ws> <comparison_items>
-                              | "\"$le\":" <ws> <comparison_items>
+                              | "\"$eq\":" <ws> <equality_comparison_items>
+                              | "\"$ne\":" <ws> <equality_comparison_items>
+                              | "\"$gt\":" <ws> <ordered_comparison_items>
+                              | "\"$ge\":" <ws> <ordered_comparison_items>
+                              | "\"$lt\":" <ws> <ordered_comparison_items>
+                              | "\"$le\":" <ws> <ordered_comparison_items>
                               | "\"$contains\":" <ws> <string_items>
-                              | "\"$starts_with\":" <ws> <string_items>
-                              | "\"$ends_with\":" <ws> <string_items>
+                              | "\"$starts-with\":" <ws> <string_items>
+                              | "\"$ends-with\":" <ws> <string_items>
                               | "\"$regex\":" <ws> <string_items>
-                              | "\"$boolean\":" <ws> <boolean>
                           )
                           <ws> "}"
 
-<comparison_items> ::= "[" <ws> <value> <ws> "," <ws> <value> <ws> "]"
+<equality_comparison_items> ::= <string_items> | <numerical_comparison_items> | <hex_comparison_items> | <bool_comparison_items> | <date_time_comparison_items> | <time_comparison_items>
+
+<ordered_comparison_items> ::= <string_items> | <numerical_comparison_items> | <hex_comparison_items> | <date_time_comparison_items> | <time_comparison_items>
 
 <string_items> ::= "[" <ws> <string_value> <ws> "," <ws> <string_value> <ws> "]"
+
+<numerical_comparison_items> ::= "[" <ws> (<numerical_operand> | <field_operand>) <ws> "," <ws> (<numerical_operand> | <field_operand>) <ws> "]"
+
+<hex_comparison_items> ::= "[" <ws> (<hex_operand> | <field_operand>) <ws> "," <ws> (<hex_operand> | <field_operand>) <ws> "]"
+
+<bool_comparison_items> ::= "[" <ws> (<bool_operand> | <field_operand>) <ws> "," <ws> (<bool_operand> | <field_operand>) <ws> "]"
+
+<date_time_comparison_items> ::= "[" <ws> (<date_time_operand> | <field_operand>) <ws> "," <ws> (<date_time_operand> | <field_operand>) <ws> "]"
+
+<time_comparison_items> ::= "[" <ws> (<time_operand> | <field_operand>) <ws> "," <ws> (<time_operand> | <field_operand>) <ws> "]"
 
 <logical_expression_array> ::= "[" <ws> <logical_expression> <ws> ( "," <ws> <logical_expression> <ws>)* "]"
 <match_expression_array> ::= "[" <ws> <match_expression> <ws> ( "," <ws> <match_expression> <ws>)* "]"
 
-<value> ::= "{" <ws>
-                   (
-                       "\"$field\":" <ws> <FieldIdentifier>
-                       | "\"$strVal\":" <ws> <StringLiteral>
-                       | "\"$attribute\":" <ws> <attribute>
-                       | "\"$numVal\":" <ws> <NumericalLiteral>
-                       | "\"$hexVal\":" <ws> <HexLiteral>
-                       | "\"$dateTimeVal\":" <ws> <DateTimeLiteral>
-                       | "\"$timeVal\":" <ws> <TimeLiteral>
-                       | "\"$boolean\":" <ws> <boolean>
-                       | "\"$numCast\":" <ws> <value>
-                       | "\"$hexCast\":" <ws> <value>
-                       | "\"$boolCast\":" <ws> <value>
-                       | "\"$dateTimeCast\":" <ws> <value>
-                       | "\"$timeCast\":" <ws> <value>
-                       | "\"$dayOfWeek\":" <ws> <value>
-                       | "\"$dayOfMonth\":" <ws> <value>
-                       | "\"$month\":" <ws> <value>
-                       | "\"$year\":" <ws> <value>
-                   )
+<value> ::= <string_value> | <numerical_operand> | <hex_operand> | <bool_operand> | <date_time_operand> | <time_operand>
+
+<field_operand> ::= "{" <ws> "\"$field\":" <ws> <FieldIdentifier> <ws> "}"
+
+<numerical_operand> ::= "{" <ws>
+                          ("\"$numVal\":" <ws> <NumericalLiteral>
+                           | "\"$numCast\":" <ws> <value>
+                           | "\"$dayOfWeek\":" <ws> <date_time_operand>
+                           | "\"$dayOfMonth\":" <ws> <date_time_operand>
+                           | "\"$month\":" <ws> <date_time_operand>
+                           | "\"$year\":" <ws> <date_time_operand>)
+                        <ws> "}"
+
+<hex_operand> ::= "{" <ws> ("\"$hexVal\":" <ws> <HexLiteral> | "\"$hexCast\":" <ws> <value>) <ws> "}"
+
+<bool_operand> ::= "{" <ws> ("\"$boolean\":" <ws> <boolean> | "\"$boolCast\":" <ws> <value>) <ws> "}"
+
+<date_time_operand> ::= "{" <ws>
+                          ("\"$dateTimeVal\":" <ws> <DateTimeLiteral>
+                           | "\"$dateTimeCast\":" <ws> <string_value>
+                           | "\"$attribute\":" <ws> <attribute>)
+                        <ws> "}"
+
+<time_operand> ::= "{" <ws>
+                     ("\"$timeVal\":" <ws> <TimeLiteral>
+                      | "\"$timeCast\":" <ws> (<string_value> | <date_time_operand>))
                    <ws> "}"
 
 
@@ -75,8 +103,8 @@
             | "\"$numCast\":" <ws> <value>
             | "\"$hexCast\":" <ws> <value>
             | "\"$boolCast\":" <ws> <value>
-            | "\"$dateTimeCast\":" <ws> <value>
-            | "\"$timeCast\":" <ws> <value>
+            | "\"$dateTimeCast\":" <ws> <string_value>
+            | "\"$timeCast\":" <ws> (<string_value> | <date_time_operand>)
           )
 
 <string_value> ::= "{" <ws>
@@ -229,6 +257,22 @@
 <NumericalLiteral> ::= ( "+" | "-" )? ( [0-9]+ ( "." [0-9]* )? | "." [0-9]+ ) ( ( "e" | "E" )? [0-9]+ )
 <HexLiteral> ::= "\"" "16#" ( [0-9] | [A-F] )+ "\""
 <BoolLiteral> ::= "true" | "false"
+
+<FragmentFieldIdentifier> ::= "\"" ( <FieldIdentifierAASFragment> | <FieldIdentifierSMFragment> | <FieldIdentifierSMEFragment> | <FieldIdentifierCDFragment> | <FieldIdentifierAasDescriptorFragment> | <FieldIdentifierSmDescriptorFragment> ) "\""
+<FieldIdentifierAASFragment> ::= "$aas#" ( "idShort" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClauseFragment> | <SubmodelsClauseFragment> )
+<FieldIdentifierSMFragment> ::= "$sm#" ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" )
+<FieldIdentifierSMEFragment> ::= "$sme" ( "." <idShortPath> )? ( "#" ( <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" | "value" | "valueType" | "language" ) )?
+<FieldIdentifierCDFragment> ::= "$cd#idShort"
+<FieldIdentifierAasDescriptorFragment> ::= "$aasdesc#" ( "idShort" | "description" | "displayName" | "extension" | "administration" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClauseFragment> | <EndpointClauseFragment> | <SubmodelDescriptorsClauseFragment> )
+<FieldIdentifierSmDescriptorFragment> ::= "$smdesc#" <SmDescriptorClauseFragment>
+<SpecificAssetIdsClauseFragment> ::= "specificAssetIds" ( "[" <ArrayIndex>? "]" ( ".externalSubjectId" ( "." <ReferenceClauseFragment> )? )? )?
+<SubmodelsClauseFragment> ::= "submodels" ( "[" <ArrayIndex>? "]" ( "." <ReferenceClauseFragment> )? )?
+<SubmodelDescriptorsClauseFragment> ::= "submodelDescriptors" ( "[" <ArrayIndex>? "]" ( "." <SmDescriptorClauseFragment> )? )?
+<SmDescriptorClauseFragment> ::= <SemanticIdClauseFragment> | <SupplementalSemanticIdClauseFragment> | "idShort" | <EndpointClauseFragment>
+<EndpointClauseFragment> ::= "endpoints" ( "[" <ArrayIndex>? "]" )?
+<SemanticIdClauseFragment> ::= "semanticId" ( "." <ReferenceClauseFragment> )?
+<SupplementalSemanticIdClauseFragment> ::= "supplementalSemanticIds" ( "[" <ArrayIndex>? "]" ( "." <ReferenceClauseFragment> )? )?
+<ReferenceClauseFragment> ::= "keys" ( "[" <ArrayIndex>? "]" )?
 
 <FieldIdentifier> ::= "\"" ( <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor> ) "\""
 <FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" <ArrayIndex>? "]" ) ("." <ReferenceClause>)? )
