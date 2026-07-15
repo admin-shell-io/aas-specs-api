@@ -14,26 +14,26 @@
   "definitions": {
     "standardString": {
       "type": "string",
-      "pattern": "^[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+$"
+      "minLength": 1
     },
     "ReferenceIdentifier": {
       "type": "string",
-      "pattern": "^(?:\\$aas\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)#(?:idShort|id|assetInformation\\.assetKind|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds\\[(?:0|[1-9][0-9]*)?\\]\\.(?:name|value|externalSubjectId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?)|submodels\\[(?:0|[1-9][0-9]*)?\\](?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?)|\\$sm\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)?\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|idShort|id)|\\$cd\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)#(?:idShort|id)|\\$sme\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*)*#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)?\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|idShort|value|valueType|language))$"
+      "pattern": "^(?:\\$aas\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)#(?:idShort|id|assetInformation\\.assetKind|assetInformation\\.assetType|assetInformation\\.globalAssetId|assetInformation\\.specificAssetIds\\[(?:0|[1-9][0-9]*)?\\]\\.(?:name|value|externalSubjectId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?)|submodels\\[(?:0|[1-9][0-9]*)?\\](?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?)|\\$sm\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)?\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|idShort|id)|\\$cd\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)#(?:idShort|id)|\\$sme\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*)*#(?:semanticId(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|supplementalSemanticIds(?:\\[(?:0|[1-9][0-9]*)?\\])?(?:\\.(?:type|keys\\[(?:0|[1-9][0-9]*)?\\]\\.(?:type|value)))?|idShort|value|valueType|language))$"
     },
     "IdentifiableIdentifier": {
       "type": "string",
-      "pattern": "^\\$(?:aas|sm|cd)\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)$"
+      "pattern": "^\\$(?:aas|sm|cd)\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)$"
     },
     "ReferableIdentifier": {
       "type": "string",
-      "pattern": "^\\$sme\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*)*$"
+      "pattern": "^\\$sme\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*(?:\\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\\[(?:0|[1-9][0-9]*)?\\])*)*$"
     },
     "FragmentIdentifier": {
       "$ref": "#/definitions/FragmentFieldIdentifier"
     },
     "DescriptorIdentifier": {
       "type": "string",
-      "pattern": "^\\$(?:aasdesc|smdesc)\\(\"[A-Za-z0-9/\\*\\[\\]\\(\\) _@#\\\\+\\-\\.,:\\$\\^]+\"\\)$"
+      "pattern": "^\\$(?:aasdesc|smdesc)\\(\"(?:[\\x09\\x0A\\x0D\\x20-\\x21\\x23-\\x5B\\x5D-\\uD7FF\\uE000-\\uFFFD]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[^\\u0000-\\uFFFF]|\\\\[\"\\\\]){1,2048}\"\\)$"
     },
     "FieldIdentifier": {
       "type": "string",

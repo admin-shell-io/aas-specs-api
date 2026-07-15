@@ -246,7 +246,10 @@
 
 <digit> ::= [0-9]
 <ArrayIndex> ::= "0" | ( [1-9] [0-9]* )
-<StringLiteral> ::= "\"" ( [A-Z] | [a-z] | [0-9] | "/" | "*" | "[" | "]" | "(" | ")" | " " | "_" | "@" | "#" | "\\" | "+" | "-" | "." | "," | ":" | "$" | "^" )+ "\""
+<StringLiteral> ::= "\"" <StringCharacter>+ "\""
+<StringCharacter> ::= <UnescapedStringCharacter> | <EscapedStringCharacter>
+<UnescapedStringCharacter> ::= ? any Unicode character except quotation mark and reverse solidus ?
+<EscapedStringCharacter> ::= "\\" ( "\"" | "\\" )
 <ClaimLiteral> ::= <StringLiteral>
 <ReferenceLiteral> ::= <StringLiteral>
 <RouteLiteral> ::= <StringLiteral>

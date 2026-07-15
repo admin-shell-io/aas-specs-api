@@ -212,6 +212,47 @@ class QueryJsonSchemaValidationTest(unittest.TestCase):
 
         self.assert_valid(access_rules)
 
+    def test_identifier_literals_support_unicode_and_escaping(self):
+        cases = [
+            ("IdentifiableIdentifier", '$aas("urn:example:Ä/设备")'),
+            ("IdentifiableIdentifier", '$aas("urn:example:\\"quoted\\"\\\\path")'),
+            ("ReferenceIdentifier", '$sm("urn:example:日本")#id'),
+            ("ReferableIdentifier", '$sme("urn:example:日本").AddressInformation[]'),
+            ("DescriptorIdentifier", '$aasdesc("https://例子.测试/ä")'),
+        ]
+
+        for definition_name, value in cases:
+            with self.subTest(definition=definition_name, value=value):
+                validator = Draft7Validator(self.schema["definitions"][definition_name])
+                self.assertTrue(validator.is_valid(value))
+
+        identifier_validator = Draft7Validator(self.schema["definitions"]["IdentifiableIdentifier"])
+        self.assertTrue(identifier_validator.is_valid('$aas("' + "ä" * 2048 + '")'))
+        self.assertTrue(identifier_validator.is_valid('$aas("' + "😀" * 2048 + '")'))
+
+    def test_malformed_identifier_escapes_and_lengths_are_rejected(self):
+        identifier_validator = Draft7Validator(self.schema["definitions"]["IdentifiableIdentifier"])
+        cases = [
+            '$aas("")',
+            '$aas("urn:example:"quoted"")',
+            '$aas("urn:example:\\q")',
+            '$aas("urn:example:\\")',
+            '$aas("urn:example:\x00control")',
+            '$aas("urn:example:\ud800")',
+            '$aas("urn:example:\uffff")',
+            '$aas("' + "ä" * 2049 + '")',
+            '$aas("' + "😀" * 2049 + '")',
+        ]
+
+        for value in cases:
+            with self.subTest(value=value):
+                self.assertFalse(identifier_validator.is_valid(value))
+
+    def test_standard_strings_support_unicode(self):
+        validator = Draft7Validator(self.schema["definitions"]["standardString"])
+        self.assertTrue(validator.is_valid('$ arbitrary "quoted" Unicode 设备 \\ value'))
+        self.assertFalse(validator.is_valid(""))
+
     def test_invalid_query_payloads_are_rejected(self):
         cases = [
             {
