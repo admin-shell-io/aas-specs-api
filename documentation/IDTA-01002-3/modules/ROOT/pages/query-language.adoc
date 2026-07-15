@@ -348,6 +348,8 @@ h| Casting Operator h| Description h| Definition
 
 `<TimeLiteral>` follows the `<time>` production in the BNF grammar: `HH:MM`, `HH:MM:SS`, and these forms with fractional seconds are valid. Timezone-qualified `xs:time` lexical forms, such as `12:00:00Z` or `12:00:00+01:00`, are also valid `<TimeLiteral>` values.
 
+`<DateTimeLiteral>` follows the `<datetime>` production in the BNF grammar: a valid four-digit calendar date is followed by a `<time>`, with an optional `T` separator and optional timezone.
+
 Implicit casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
 If a FieldIdentifier is used in a logicalExpression, it will be implicitly casted to `xs:boolean`, which can only create a valid result for the values true and false. +
 If a FieldIdentifier is used in a comparison, the second parameter decides implicit casting. If the second parameter is a constant (string, number, hex, boolean, dateTime, time) or a corresponding explicite casting operator, the value of the FieldIdentifier will be implicitely casted to the corresponding data type.

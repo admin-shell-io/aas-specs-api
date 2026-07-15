@@ -25,6 +25,8 @@ class QueryJsonSchemaValidationTest(unittest.TestCase):
         cls.format_checker = FormatChecker()
         cls.ensure_date_time_format_checking_is_active()
         cls.validator = Draft7Validator(cls.schema, format_checker=cls.format_checker)
+        cls.date_time_validator = Draft7Validator(cls.schema["definitions"]["dateTimeLiteralPattern"])
+        cls.time_validator = Draft7Validator(cls.schema["definitions"]["timeLiteralPattern"])
 
     @classmethod
     def ensure_date_time_format_checking_is_active(cls):
@@ -42,6 +44,58 @@ class QueryJsonSchemaValidationTest(unittest.TestCase):
     def assert_invalid(self, instance):
         errors = sorted(self.validator.iter_errors(instance), key=lambda error: list(error.absolute_path))
         self.assertTrue(errors, "Expected schema validation to fail")
+
+    def test_bnf_temporal_forms_are_valid(self):
+        date_time_values = [
+            "2024-02-29T12:34Z",
+            "2026-06-2912:34",
+            "2000-02-29T24:00:00.0+14:00",
+            "1900-02-28T12:34.5-13:59",
+            "0000-02-29T00:00",
+        ]
+        time_values = [
+            "00:00",
+            "12:34.5",
+            "23:59:59.999Z",
+            "24:00",
+            "24:00:00.0+01:00",
+        ]
+
+        for value in date_time_values:
+            with self.subTest(date_time=value):
+                self.assertTrue(self.date_time_validator.is_valid(value))
+        for value in time_values:
+            with self.subTest(time=value):
+                self.assertTrue(self.time_validator.is_valid(value))
+
+    def test_invalid_temporal_values_are_rejected(self):
+        date_time_values = [
+            "2023-02-29T12:34",
+            "1900-02-29T12:34",
+            "2026-04-31T12:34",
+            "12345-01-01T12:34",
+            "-2026-01-01T12:34",
+            "2026-01-01T24:00:01",
+            "2026-01-01T12:60",
+            "2026-01-01T12:34+14:01",
+            "2026-01-01",
+        ]
+        time_values = [
+            "12",
+            "24:01",
+            "12:60",
+            "12:34:60",
+            "12:34.",
+            "12:34+14:01",
+            "12:34:56+01",
+        ]
+
+        for value in date_time_values:
+            with self.subTest(date_time=value):
+                self.assertFalse(self.date_time_validator.is_valid(value))
+        for value in time_values:
+            with self.subTest(time=value):
+                self.assertFalse(self.time_validator.is_valid(value))
 
     def test_complex_query_payload_is_valid(self):
         query = {
