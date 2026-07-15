@@ -28,3 +28,6 @@ jobs:
 
       - name: Run query schema and regex tests
         run: python -m unittest discover -s documentation/IDTA-01002-3/modules/ROOT/pages/http-rest-api/test/query
+
+      - name: Validate multipart file uploads
+        run: python tools/validate_multipart_uploads.py
