@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the query grammar, JSON schema, and synchronized schema copies."""
+"""Validate synchronized specification artifacts and normative mappings."""
 
 from __future__ import annotations
 
@@ -10,6 +10,12 @@ import warnings
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
+
+try:
+    import yaml
+except ImportError as exc:  # pragma: no cover - exercised in CI setup failures.
+    print("Missing dependency: PyYAML. Install it with: python -m pip install PyYAML")
+    raise SystemExit(2) from exc
 
 try:
     from jsonschema import Draft7Validator, FormatChecker
@@ -31,6 +37,8 @@ GRAMMAR_FILES = [
     ROOT_MODULE / "pages/json-grammar.txt",
 ]
 OPENAPI_SCHEMA = ROOT / "Part2-API-Schemas/openapi.yaml"
+COMBINED_OPENAPI = ROOT / "Entire-API-Collection/V3.2.yaml"
+OPERATION_RIGHT_MAPPING = ROOT_MODULE / "pages/annex/operation-to-right-mapping.adoc"
 QUERY_EXAMPLES = [
     ROOT_MODULE / "pages/http-rest-api/test/query/test1.json",
 ]
@@ -38,6 +46,12 @@ FORMAT_CHECKER_MESSAGE = 'jsonschema date-time format checking is inactive; inst
 
 RULE_RE = re.compile(r"^\s*<([^<>]+)>\s*::=\s*(.*)$")
 REF_RE = re.compile(r"<([^<>]+)>")
+OPENAPI_HTTP_METHODS = ("get", "put", "post", "delete", "options", "head", "patch", "trace")
+RIGHT_MAPPING_ROW_RE = re.compile(
+    r'^\| (?P<operation_id>[^|]+?) \| (?P<method>GET|PUT|POST|DELETE|OPTIONS|HEAD|PATCH|TRACE) '
+    r'\| (?P<path>[^|]+?) \| (?P<right>VIEW|READ|CREATE(?: or UPDATE)?|UPDATE|DELETE|EXECUTE|originating RIGHT) '
+    r'\| "(?P<route>[^"]+)"\s*$'
+)
 
 
 @dataclass(frozen=True)
@@ -351,10 +365,121 @@ def validate_bnf_grammar_files(validation: Validation) -> None:
                     )
 
 
+def parse_combined_openapi_operations(
+    validation: Validation,
+) -> dict[str, tuple[str, str]]:
+    operations: dict[str, tuple[str, str]] = {}
+    try:
+        document = yaml.safe_load(COMBINED_OPENAPI.read_text(encoding="utf-8-sig"))
+    except Exception as exc:  # noqa: BLE001 - keep parser detail in output.
+        validation.fail(COMBINED_OPENAPI, f"invalid YAML: {exc}")
+        return operations
+
+    if not isinstance(document, dict) or not isinstance(document.get("paths"), dict):
+        validation.fail(COMBINED_OPENAPI, "missing or invalid paths object")
+        return operations
+
+    for path, path_item in document["paths"].items():
+        if not isinstance(path, str) or not isinstance(path_item, dict):
+            validation.fail(COMBINED_OPENAPI, f"invalid Path Item for {path!r}")
+            continue
+
+        for method in OPENAPI_HTTP_METHODS:
+            operation = path_item.get(method)
+            if operation is None:
+                continue
+            if not isinstance(operation, dict):
+                validation.fail(COMBINED_OPENAPI, f"invalid {method.upper()} operation for {path!r}")
+                continue
+
+            operation_id = operation.get("operationId")
+            if not isinstance(operation_id, str) or not operation_id:
+                validation.fail(
+                    COMBINED_OPENAPI,
+                    f"{method.upper()} {path} has no non-empty operationId",
+                )
+                continue
+
+            previous = operations.get(operation_id)
+            if previous is not None:
+                validation.fail(
+                    COMBINED_OPENAPI,
+                    f"duplicate operationId {operation_id!r}; used by "
+                    f"{previous[0]} {previous[1]} and {method.upper()} {path}",
+                )
+            operations[operation_id] = (method.upper(), path)
+
+    if not operations:
+        validation.fail(COMBINED_OPENAPI, "no operations found")
+    return operations
+
+
+def validate_operation_right_mapping(validation: Validation) -> None:
+    operations = parse_combined_openapi_operations(validation)
+    rows: dict[str, tuple[str, str, str, str, int]] = {}
+
+    for line_number, line in enumerate(
+        OPERATION_RIGHT_MAPPING.read_text(encoding="utf-8-sig").splitlines(), start=1
+    ):
+        if not line.startswith("| ") or line.startswith("| Operation Name"):
+            continue
+
+        row_match = RIGHT_MAPPING_ROW_RE.match(line)
+        if not row_match:
+            validation.fail(OPERATION_RIGHT_MAPPING, f"line {line_number}: malformed mapping row")
+            continue
+
+        operation_id = row_match.group("operation_id")
+        previous = rows.get(operation_id)
+        if previous is not None:
+            validation.fail(
+                OPERATION_RIGHT_MAPPING,
+                f"line {line_number}: duplicate mapping for {operation_id!r} "
+                f"previously defined on line {previous[4]}",
+            )
+        rows[operation_id] = (
+            row_match.group("method"),
+            row_match.group("path"),
+            row_match.group("right"),
+            row_match.group("route"),
+            line_number,
+        )
+
+    for operation_id in sorted(operations.keys() - rows.keys()):
+        validation.fail(OPERATION_RIGHT_MAPPING, f"missing mapping for {operation_id!r}")
+    for operation_id in sorted(rows.keys() - operations.keys()):
+        validation.fail(OPERATION_RIGHT_MAPPING, f"unknown operationId {operation_id!r}")
+
+    for operation_id in sorted(operations.keys() & rows.keys()):
+        expected_method, expected_path = operations[operation_id]
+        method, path, _, route, line_number = rows[operation_id]
+        if method != expected_method:
+            validation.fail(
+                OPERATION_RIGHT_MAPPING,
+                f"line {line_number}: {operation_id!r} uses {method}, expected {expected_method}",
+            )
+        if path != expected_path:
+            validation.fail(
+                OPERATION_RIGHT_MAPPING,
+                f"line {line_number}: {operation_id!r} uses path {path!r}, expected {expected_path!r}",
+            )
+
+        expected_route = expected_path
+        parameter_start = expected_path.find("{")
+        if parameter_start >= 0:
+            expected_route = f"{expected_path[:parameter_start]}*"
+        if route != expected_route:
+            validation.fail(
+                OPERATION_RIGHT_MAPPING,
+                f"line {line_number}: {operation_id!r} uses ROUTE {route!r}, expected {expected_route!r}",
+            )
+
+
 def main() -> int:
     validation = Validation()
     validate_json_schema(validation)
     validate_bnf_grammar_files(validation)
+    validate_operation_right_mapping(validation)
     validation.assert_ok()
     print("OK: spec artifact validation completed")
     return 0
