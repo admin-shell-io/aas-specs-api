@@ -7874,7 +7874,7 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
-  /packages-async/{handleId}:
+  /packages-async/status/{handleId}:
     parameters:
       - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/HandleId'
     get:
@@ -7921,7 +7921,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/OperationResult'
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/BaseOperationResult'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
