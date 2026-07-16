@@ -198,7 +198,7 @@ h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 
 | ReadDataElement
 | GetSubmodelElementByPath or GetSubmodel / GetSubmodelById
-| Shall retrieve a single data element within a content Submodel by its element path. The `elementId` in the DPP maps to the `idShort`-based path in the AAS Submodel (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.1/mappings/mappings.html#_format_path_idshortpath_serialization_in_json[IDTA-01001 Part 1]).
+| Shall retrieve a single data element within a content Submodel by its element path. The `elementId` in the DPP maps to the `idShort`-based path in the AAS Submodel (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#_format_path_idshortpath_serialization_in_json[IDTA-01001 Part 1]).
 In special cases it may also be the complete Submodel itself.
 
 
@@ -211,7 +211,7 @@ In special cases it may also be the complete Submodel itself.
 |===
 
 For the mapping of DPP data element types (SingleValuedDataElement, MultiValuedDataElement, DataElementCollection, MultiLanguageDataElement, RelatedResource) to AAS SubmodelElement types (Property, SubmodelElementList, SubmodelElementCollection, MultiLanguageProperty, File), 
-see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Data Element Mapping].
+see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Data Element Mapping].
 
 
 [[dpp-serialization]]
@@ -227,13 +227,13 @@ h| DPP Format (EN 18223) h| AAS Serialization h| Description
 
 | *Compressed* (EN 18223, Clause 5.2)
 | Value-Only (with minor differences as defined in 
-link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only])
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only])
 )
 | The `elementId` is used as the JSON key. Metadata (`dictionaryReference`, `valueDataType`, `objectType`) is omitted. This is the default and mandatory format.
 
 | *Full / Expanded* (EN 18223, Annex A)
 | Normal (with differences as defined in 
-link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1.2/annex/dpp.html#section-json-serialization-normal[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Expanded vs. Normal])
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html#section-json-serialization-normal[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Expanded vs. Normal])
 | Uses an `elements[]` array with explicit `elementId`, `objectType`, `dictionaryReference`, and `valueDataType` for each DataElement. Note that the AAS Normal serialization differs in structure: attribute names differ (`idShort` vs. `elementId`, `modelType` vs. `objectType`, `semanticId` vs. `dictionaryReference`), `semanticId` in AAS is a Reference object rather than a plain string, and the XSD data type prefix differs (`xs:` in AAS vs. `xsd:` in JTC24).
 |===
 
@@ -253,7 +253,7 @@ It corresponds to the Value-Only serialization of the AAS.
 == Discovery of Digital Product Passports via AAS Discovery Sequences
 
 The discovery of Digital Product Passports can be implemented using the AAS discovery steps defined in 
-link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.1.2/http-rest-api/interactions.html#fig:seq-aas-endpoints[IDTA-01002 Part 2 -- Figure 2]. 
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/http-rest-api/interactions.html#fig:seq-aas-endpoints[IDTA-01002 Part 2 -- Figure 2]. 
 These steps enable clients to discover and access AAS instances based on asset identifiers, including the product identifiers used in Digital Product Passports.
 
 A typical DPP discovery sequence proceeds as follows:
