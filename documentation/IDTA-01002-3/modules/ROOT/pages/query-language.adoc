@@ -22,6 +22,15 @@ The Asset Administration Shell propagates a Query Language inspired by the so-ca
 Note: The AAS Query Language and the AAS Access Rules xref:bibliography.adoc#bib3[[3\]] share the same BNF grammar. Therefore, the result is a superset, with `query` as the entrypoint for the Query Language. 
 ====
 
+[#formula-grammar-sot]
+=== Single source of truth for the formula grammar and JSON Schema
+
+The BNF grammar and JSON Schema productions for *formula expressions* (logical expressions, comparisons, FieldIdentifiers, value literals, operands, type casts, and `$match` / `$and` / `$or` / `$not` operators) are *normatively defined in this specification* (IDTA-01002, this chapter and the JSON Schema below).
+
+IDTA-01004 Part 4: Security xref:bibliography.adoc#bib3[[3\]] uses the same formula grammar and schema for `FORMULA`, `FILTER` and related constructs in Access Rules. IDTA-01004 MUST NOT redefine or diverge from these shared productions; it only adds Access-Rule-specific productions (`ACL`, `OBJECTS`, `RIGHTS`, `ACCESS`, `ROUTE`, etc.) on top.
+
+If a future bugfix or minor release changes a shared production in IDTA-01002, IDTA-01004 inherits that change. Implementations SHOULD validate formulas against the schema shipped with their IDTA-01002 version.
+
 
 == Use Case Examples
 
@@ -50,7 +59,7 @@ The AAS Query Language is not intended as feature-comparable to existing query l
 
 1. Only selected attributes defined by the AAS data model xref:bibliography.adoc#bib1[[1\]] can be used as conditions for returned objects: Usage of custom or vendor-specific attributes outside of the AAS specifications is generally not recommended and may lead to a rejections of the query by the receiving systems.
 
-1. It is not possible to traverse through the specific fields of the SubmodelElements Entity (e.g. Entity/statements), AnnotatedRelationshipElement (e.g. AnnotatedRelationshipElement/annotations), or Operation (e.g. Operation/outputVariables). Only the fields `semanticId` `idShort`, `value`, and `valueType` are available for SubmodelElements.
+1. It is not possible to traverse through the specific fields of the SubmodelElements Entity (e.g. Entity/statements), AnnotatedRelationshipElement (e.g. AnnotatedRelationshipElement/annotations), or Operation (e.g. Operation/outputVariables). Only the fields `semanticId`, `supplementalSemanticIds`, `idShort`, `value`, `valueType`, and `language` are available for SubmodelElements.
 
 1. The rendering of the "oneOf" clause of logicalExpressions does not work in SwaggerHub. This issue has no effect on the functionality of the requirement.
 
@@ -75,6 +84,10 @@ This is the combined grammar for the AAS Query Language and the AAS Access Rules
 ----
 include::partial$bnf/grammar.bnf[]
 ----
+
+For AAS Query Language requests, only the `<query>` production SHALL be accepted as the request payload. The `<AllAccessPermissionRules>`, `<AccessPermissionRule>`, `FILTER` and `FILTERLIST` productions are included only for the shared grammar with IDTA-01004 and SHALL NOT be accepted as AAS Query request payloads unless explicitly specified by a security profile.
+
+Within a `<StringLiteral>`, a quotation mark and a reverse solidus SHALL be escaped as `\"` and `\\`, respectively. All other Unicode characters may be used without escaping. The `<IdentifierStringLiteral>` used in identifier instance selectors is additionally limited to 1–2048 characters from the AAS `String` character range. This allows selectors to represent the complete AAS `Identifier` value space without making their closing quotation mark ambiguous.
 
 == Select Expression
 
@@ -107,6 +120,11 @@ Can start at any possible Submodel Element, is *not* restricted to Submodel Elem
 | `$smdesc` a| Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
 |===
 
+[NOTE]
+====
+The prefixes `$aas`, `$sm`, `$sme`, `$cd`, `$aasdesc` and `$smdesc` correspond directly to the AAS Metamodel classes `AssetAdministrationShell`, `Submodel`, `SubmodelElement`, `ConceptDescription`, `AssetAdministrationShellDescriptor` and `SubmodelDescriptor`, and to the API resources `/shells`, `/submodels`, `.../submodel-elements/{idShortPath}`, `/concept-descriptions`, `/shell-descriptors` and `/submodel-descriptors` respectively. The normative cross-specification mapping is given in the "Terminology Across IDTA-01001, IDTA-01002 and IDTA-01004" section of IDTA-01001 (AAS Metamodel). All prefixes are lower-case; variants such as `$aasDesc` or `$SmDesc` MUST be rejected by conforming parsers.
+====
+
 Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause xref:specification/interfaces-payload.adoc[Data Types for Payload].
 
 .Attribute Elements for Field Identifiers. `<index>` is an optional nonNegativeInteger value. No `<index>` shall be interpreted as 'anywhere in the list'.
@@ -115,23 +133,27 @@ Attribute declarations point to literal values that provide the input for compar
 |===
 h| Root Element h| Definition h| Example
 | `id` | Identifier, e.g., of an AAS, Submodel, or Condept Description | `$aas#id`
-| `idShort` | Value of the idShort attribute | `$aas#id`
+| `idShort` | Value of the idShort attribute | `$aas#idShort`
 | `assetInformation.assetKind` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetKind`
 | `assetInformation.assetType` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetType`
 | `assetInformation.globalAssetId` | Value of the globalAssetId attribute of an AAS | `$aas#assetInformation.globalAssetId`
-| `assetInformation.assetInformation.specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[].name`
-| `assetInformation.assetInformation.specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[1].value`
-| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.` `specificAssetIds[0].` `externalSubjectId.type`
-| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.` `keys[].value`
-| `assetInformation.assetInformation.specificAssetIds[<index>].externalSubjectId.` `keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.assetInformation.specificAssetIds[0].externalSubjectId.` `keys[].type`
-| `submodels` | Shortcut for Submodels referenced by an AAS, see Clause xref:references[References] | `$aas#submodels`
-| `submodels.type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels.type`
-| `submodels.keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[].value`
-| `submodels.keys[<index>].type` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels.keys[0].type`
+| `assetInformation.specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[].name`
+| `assetInformation.specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[1].value`
+| `assetInformation.specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[0].externalSubjectId.type`
+| `assetInformation.specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[0].externalSubjectId.keys[].value`
+| `assetInformation.specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS | `$aas#assetInformation.specificAssetIds[0].externalSubjectId.keys[].type`
+| `submodels[<index>]` | Shortcut for Submodels referenced by an AAS, see Clause xref:references[References] | `$aas#submodels[]`
+| `submodels[<index>].type` | Type of a Reference that associates an AAS with a Submodel | `$aas#submodels[].type`
+| `submodels[<index>].keys[<index>].value` | Value of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels[].keys[].value`
+| `submodels[<index>].keys[<index>].type` | Type of a key used in a Reference that associates an AAS with a Submodel | `$aas#submodels[0].keys[0].type`
 | `semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$sm#semanticId`
 | `semanticId.type` | ReferenceType of a semanticId Reference | `$sm#semanticId.type`
 | `semanticId.keys[<index>].type` | KeyType of a semanticId Reference | `$sm#semanticId.keys[].type`
 | `semanticId.keys[<index>].value` | Value of a key of a semanticId Reference | `$sme#semanticId.keys[].value`
+| `supplementalSemanticIds` | Shortcut for supplementalSemanticIds, see Clause xref:references[References] | `$sm#supplementalSemanticIds`
+| `supplementalSemanticIds[<index>].type` | ReferenceType of a supplementalSemanticId Reference | `$sm#supplementalSemanticIds[].type`
+| `supplementalSemanticIds[<index>].keys[<index>].type` | KeyType of a supplementalSemanticId Reference | `$sm#supplementalSemanticIds[].keys[].type`
+| `supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference | `$sm#supplementalSemanticIds[].keys[].value`
 | `value` | Value of a Submodel Element | `$sme#value`
 | `valueType` | ValueType of a Submodel Element | `$sme.someIdShort#valueType`
 | `language` | Language of a Multilanguage Property | `$sme#language`
@@ -140,9 +162,9 @@ h| Root Element h| Definition h| Example
 | `globalAssetId` | Value of the globalAssetId attribute of an AAS Descriptor | `$aasdesc#globalAssetId`
 | `specificAssetIds[<index>].name` | Name of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[].name`
 | `specificAssetIds[<index>].value` | Value of a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[1].value`
-| `specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].` `externalSubjectId.type`
-| `specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].value`
-| `specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].` `externalSubjectId.keys[].type`
+| `specificAssetIds[<index>].externalSubjectId.type` | Type of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[<index>].externalSubjectId.type`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].value` | Value of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].externalSubjectId.keys[].value`
+| `specificAssetIds[<index>].externalSubjectId.keys[<index>].type` | Type of a key of a Reference used as an externalSubjectId in a SpecificAssetId of an AAS Descriptor | `$aasdesc#specificAssetIds[0].externalSubjectId.keys[].type`
 | `endpoints[<index>].interface` a| 
 
 Interface of an endpoint of an AAS or Submodel
@@ -158,15 +180,19 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 Note: Can only be used with Asset Administration Shell Descriptors or Submodel Descriptors.
 ====
 
-| `$smdesc#endpoints[0].` `protocolinformation.href`
-| `submodelDescriptors.semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors.semanticId`
-| `submodelDescriptors.semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.` `semanticId.type`
-| `submodelDescriptors.semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].type`
-| `submodelDescriptors.semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.semanticId.` `keys[].value`
-| `submodelDescriptors.id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.id`
-| `submodelDescriptors.idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.idShort`
-| `submodelDescriptors.endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[0].` `interface`
-| `submodelDescriptors.endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors.endpoints[].` `protocolinformation.href`
+| `$smdesc#endpoints[0].protocolinformation.href`
+| `submodelDescriptors[<index>].semanticId` | Shortcut for semanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors[].semanticId`
+| `submodelDescriptors[<index>].semanticId.type` | ReferenceType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].semanticId.type`
+| `submodelDescriptors[<index>].semanticId.keys[<index>].type` | KeyType of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].semanticId.keys[].type`
+| `submodelDescriptors[<index>].semanticId.keys[<index>].value` | Value of a key of a semanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].semanticId.keys[].value`
+| `submodelDescriptors[<index>].supplementalSemanticIds` | Shortcut for supplementalSemanticIds, see Clause xref:references[References] | `$aasdesc#submodelDescriptors[].supplementalSemanticIds`
+| `submodelDescriptors[<index>].supplementalSemanticIds[<index>].type` | ReferenceType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].type`
+| `submodelDescriptors[<index>].supplementalSemanticIds[<index>].keys[<index>].type` | KeyType of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].type`
+| `submodelDescriptors[<index>].supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].value`
+| `submodelDescriptors[<index>].id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].id`
+| `submodelDescriptors[<index>].idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].idShort`
+| `submodelDescriptors[<index>].endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].endpoints[0].interface`
+| `submodelDescriptors[<index>].endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].endpoints[].protocolinformation.href`
 |===
 
 == Comparison Operators
@@ -261,24 +287,22 @@ h| Comparison h| Result h| Comment
 | `"11"` `$gt` `"2"` | false | String comparison is executed character-wise: The first character of the left parameter ("1") comes before the first character of the right parameter ("2").
 | `$aas#assetInformation.assetKind` +
 `$eq`  +
-`$aas#submodels` | false | `$aas#submodels` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
+`$aas#submodels[]` | false | `$aas#submodels[]` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
 | `$aas#assetInformation.assetKind`  +
 `$ne`  +
-`$aas#submodels` | true | `$aas#submodels` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
+`$aas#submodels[]` | true | `$aas#submodels[]` returns the strings `https://example.com/submodel-1` and `https://example.com/submodel-2`, neither is equal to the value of the `assetKind` = `Instance`.
 | `$aas#assetInformation.assetKind`  +
 `$eq`  +
 `$aas#assetInformation.assetKind` | true | Comparison of identical values
 | `$aas#assetInformation.assetKind`  +
 `$ne`  +
 `$aas#assetInformation.assetKind` | false | Comparison of identical values
-| `$aas#submodels` `$eq` `$aas#submodels` | true | By definition.
+| `$aas#submodels[]` `$eq` `$aas#submodels[]` | true | By definition.
 | `$aas#assetInformation.assetKind` `$eq` `17` | false | `17` is implicetly casted to the string `"17"`, however, this is different to the value of the first paramter `"Instance"`.
 | `$aas#assetInformation.assetKind` `$ne` `17` | true | `17` is implicetly casted to the string `"17"`, which is not equal to the value of the first paramter `"Instance"`.
 | `$aas#assetInformation.assetKind`  +
 `$le`  +
 `$aas#assetInformation.assetKind` | true | `$eq` implies `$le`
-| `bool("true")` `$ge` `bool("true")` | true | `$eq` implies `$ge`
-| `bool("true")` `$gt` `bool("true")` | false | Booleans do not offer `$lt`/`$gt` comparison
 | `$aas#id`  +
 `$contains`  +
 `"https://example.com/asset-administration"` | true | "https://example.com/asset-administration" is a substring of the `id` value ("https://example.com/asset-administration-shell-1")
@@ -312,21 +336,25 @@ Paranthesises `(` `)` allow to combine logical expressions to define precedence.
 For explicite casting the following casting operators are used:
 
 [.table-with-appendix-table]
+[[casting]]
 [width=100%, cols="10%,40%,50%"]
 |===
 h| Casting Operator h| Description h| Definition
-| `$str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
-| `$num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number 
-| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-dateTime
-| `$bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
-| `$hex(<value>)` | Casts the `value` to `xs:hexBinary`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-binary
-| `$dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
-| `$time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
+| `str(<value>)` | Casts the `value` to `xs:string`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-string
+| `num(<value>)` | Casts the `value` to `xs:integer`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-number
+| `bool(<value>)` | Casts the `value` to `xs:boolean`. | Defined by https://www.w3.org/TR/xpath-functions-30/#func-boolean
+| `hex(<value>)` | Casts the `value` to `xs:hexBinary`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-binary
+| `dateTime(<value>)` | Casts the `value` to `xs:dateTime`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
+| `time(<value>)` | Casts the `value` to `xs:time`. | Defined by https://www.w3.org/TR/xpath-functions/#casting-to-datetimes
 |===
 
-Implicite casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
-If a FieldIdentifier is used in a logicalExpression, it will be implicitely casted to `xs:boolean`, which can only create a valid result for the values true and false. +
-If a FieldIdentifier is used in a comparison, the second parameter decides implicite casting. If the second parameter is a constant (string, number, hex, boolean, dateTime, time) or a corresponding explicite casting operator, the value of the FieldIdentifier will be implicitely casted to the corresponding data type.
+`<TimeLiteral>` follows the `<time>` production in the BNF grammar: `HH:MM`, `HH:MM:SS`, and these forms with fractional seconds are valid. Timezone-qualified `xs:time` lexical forms, such as `12:00:00Z` or `12:00:00+01:00`, are also valid `<TimeLiteral>` values.
+
+`<DateTimeLiteral>` follows the `<datetime>` production in the BNF grammar: a valid four-digit calendar date is followed by a `<time>`, with an optional `T` separator and optional timezone.
+
+Implicit casting is used together with FieldIdentifiers. FieldIdentifiers are generally treated as `xs:string` in the query language. +
+If a FieldIdentifier is used in a logicalExpression, it will be implicitly casted to `xs:boolean`, which can only create a valid result for the values true and false. +
+If a FieldIdentifier is used in a comparison, the second parameter decides implicit casting. If the second parameter is a constant (string, number, hex, boolean, dateTime, time) or a corresponding explicite casting operator, the value of the FieldIdentifier will be implicitely casted to the corresponding data type.
 
 
 == Referring to Elements in Lists and Arrays
@@ -394,6 +422,22 @@ A comparison using the semanticId as a shortcut could look like the following:
 ....
   $sme#semanticId $eq "https://example.com/a/semantic/id"
 ....
+
+This shall also work for supplementalSemanticIds, e.g.:
+
+....
+  $sme#supplementalSemanticIds $eq "https://example.com/a/supplemental/semantic/id"
+....
+
+Which is equivalent to:
+....
+  $sme#supplementalSemanticIds[].keys[0].value $eq "https://example.com/a/supplemental/semantic/id"
+....
+
+====
+Note: `supplementalSemanticIds` is a list, therefore, the comparison with the shortcut will be true if at least one of the supplementalSemanticIds has the given value, not necessarily the first one.
+====
+
 
 == Match of Elements in Lists
 
@@ -480,16 +524,12 @@ a|
 ----
 $or (
   $match (
-    $aas#assetInformation.specificAssetIds[]
-    .name    $eq   "supplierId",
-    $aas#assetInformation.specificAssetIds[]
-    .value   $eq   "aas-1"
+    $aas#assetInformation.specificAssetIds[].name    $eq   "supplierId",
+    $aas#assetInformation.specificAssetIds[].value   $eq   "aas-1"
   ),
   $match (
-    $aas#assetInformation.specificAssetIds[]
-    .name    $eq   "customerId",
-    $aas#assetInformation.specificAssetIds[]
-    .value   $eq   "aas-2"
+    $aas#assetInformation.specificAssetIds[].name    $eq   "customerId",
+    $aas#assetInformation.specificAssetIds[].value   $eq   "aas-2"
   )
 )
 ----
@@ -507,10 +547,277 @@ a|
 | Both $match conditions are fulfilled, even though for different SpecificAssetIds. Therefore the OR clause also evaluates to `true` for both items.
 |===
 
+== Query Filter
+
+The Query Language supports a `$filters` option that allows clients to reduce the amount of returned data. This can significantly improve response times, as the backend may scan and process fewer data elements. Furthermore, filtering is an important mechanism in the security domain, as it helps restrict access to sensitive information by preventing unnecessary exposure of internal data structures.
+
+`$filters` expressions can be applied to specific metamodel elements of the AAS (e.g., `Submodel`, `Submodel Elements` contained within a `Submodel`, etc.).
+However, not all elements can be filtered arbitrarily.
+If a particular metamodel element is mandatory according to the AAS specification, filtering it out would result in invalid or incomplete data structures.
+Therefore, such filtering operations are prohibited to ensure consistency and correctness of the returned data.
+Since a valid Reference requires at least one key, filters that eliminate all keys remain valid but result in the removal of the entire Reference rather than just its keys.
+
+If no `$filters` is specified for a particular metamodel element, that element remains unfiltered. Thus, applying additional filters can only reduce the amount of data returned; it can never increase the amount of data or introduce information that is not already present in the underlying AAS. If multiple filters are specified and apply to overlapping data, they are combined using logical AND semantics.
+
+For fragments that address an array-valued object, a fragment ending with `[]` applies row-wise filtering to each array entry. The corresponding fragment without the trailing `[]` applies the condition to the entire array object. A row-wise condition evaluates the `$fragment` and any `$field` references in its `$condition` in the context of the same array entry. If a fragment does not define a form ending with `[]`, row-wise filtering for that fragment SHALL NOT be assumed.
+
+.Array-valued fragment filter examples
+[.table-with-appendix-table]
+[width=100%, cols="35%,45%,20%"]
+|===
+h| Grammar h| JSON Schema h| Comment
+a|
+[source]
+----
+true
+$filters
+  $fragment   $sme.someIdShort[]
+  $condition  $sme.someIdShort[]#value $eq "val"
+----
+a|
+[source,json]
+----
+{
+  "$condition": { "$boolean": true },
+  "$filters": [
+    {
+      "$fragment": "$sme.someIdShort[]",
+      "$condition": {
+        "$eq": [
+          { "$field": "$sme.someIdShort[]#value" },
+          { "$strVal": "val" }
+        ]
+      }
+    }
+  ]
+}
+----
+| Applies the condition row-wise to each array entry.
+a|
+[source]
+----
+true
+$filters
+  $fragment   $sme.someIdShort
+  $condition  $sme.someIdShort[]#value $eq "val"
+----
+a|
+[source,json]
+----
+{
+  "$condition": { "$boolean": true },
+  "$filters": [
+    {
+      "$fragment": "$sme.someIdShort",
+      "$condition": {
+        "$eq": [
+          { "$field": "$sme.someIdShort[]#value" },
+          { "$strVal": "val" }
+        ]
+      }
+    }
+  ]
+}
+----
+| Applies the condition to the entire array-valued object.
+|===
+
+Assume the returned object contains this fragment before filtering:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        },
+        {
+          "idShort": "entry2",
+          "value": "other"
+        }
+      ]
+    }
+  ]
+}
+----
+
+The row-wise fragment `$sme.someIdShort[]` keeps only the array entries for which the condition is true:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        }
+      ]
+    }
+  ]
+}
+----
+
+The fragment `$sme.someIdShort` keeps or removes the entire array-valued object. Since at least one entry satisfies the condition, the whole fragment remains:
+
+[source,json]
+----
+{
+  "submodelElements": [
+    {
+      "idShort": "someIdShort",
+      "value": [
+        {
+          "idShort": "entry1",
+          "value": "val"
+        },
+        {
+          "idShort": "entry2",
+          "value": "other"
+        }
+      ]
+    }
+  ]
+}
+----
+
+Filter example with boolean condition
+[.table-with-appendix-table]
+[width=100%, cols="40%,40%,20%"]
+|===
+h| Grammar h| JSON Schema h| Comment
+a|
+[source]
+----
+$sm#semanticId $eq
+  "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+$filters
+  $fragment   $sme.AddressInformation.Zipcode
+  $condition  false
+----
+a|
+[source,json]
+----
+{
+  "$condition": {
+    "$eq": [
+      {
+        "$field": "$sm#semanticId"
+      },
+      {
+        "$strVal": "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+      }
+    ]
+  },
+  "$filters": [
+    {
+      "$fragment": "$sme.AddressInformation.Zipcode",
+      "$condition": {
+        "$boolean": false
+      }
+    }
+  ]
+}
+
+----
+a| Selects Nameplate submodels and filters out `AddressInformation.Zipcode` data.
+a|
+[source]
+----
+$sm#semanticId $eq
+  "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+$filters
+  $fragment   $sme#value
+  $condition  $not ($sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value")
+  $fragment   $sm#semanticId.keys[]
+  $condition  $not ($sm#semanticId.keys[].value $eq "https://example.com/semantic-id/hide-value")
+----
+a|
+[source,json]
+----
+{
+  "$condition": {
+    "$eq": [
+      {
+        "$field": "$sm#semanticId"
+      },
+      {
+        "$strVal": "https://admin-shell.io/idta/nameplate/3/0/Nameplate"
+      }
+    ]
+  },
+  "$filters": [
+    {
+      "$fragment": "$sme#value",
+      "$condition": {
+        "$not": {
+          "$eq": [
+            {
+              "$field": "$sm#semanticId.keys[].value"
+            },
+            {
+              "$strVal": "https://example.com/semantic-id/hide-value"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "$fragment": "$sm#semanticId.keys[]",
+      "$condition": {
+        "$not": {
+          "$eq": [
+            {
+              "$field": "$sm#semanticId.keys[].value"
+            },
+            {
+              "$strVal": "https://example.com/semantic-id/hide-value"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+
+----
+a| Selects Nameplate submodels and filters out values from all nested submodel elements when the key `https://example.com/semantic-id/hide-value` is present in the submodel’s semanticId. Additionally, any keys with this value in the submodel’s semanticId are removed from the result.
+|===
 
 == Sorting and Pagination
 
 The AAS Query Language does not introduce additional functionalities to control the pagination or sorting of the result sets. The general capabilities available for Operations apply as well for queries. See for instance xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] for the pagination mechanism for the HTTP APIs, which also define the pagination and sorting behavior for AAS queries that are exchanged via HTTP.
+
+[[query-evaluation-semantics]]
+== Query Evaluation Semantics (normative)
+
+This clause defines how an AAS query MUST be evaluated so that client and server implementations behave deterministically.
+
+=== Parse and Validation
+
+* A query that does not match the BNF `grammar.bnf` or does not validate against the JSON Schema MUST be rejected with HTTP status `400 Bad Request`.
+* Combinations that parse but are semantically unsupported by the server (e.g. operator/type combinations the server does not implement) MUST be rejected with HTTP status `422 Unprocessable Entity`.
+
+=== Evaluation of FieldIdentifiers
+
+* A FieldIdentifier that does not resolve to any value on a candidate object (because the field does not exist on that target) produces *no comparison match*: the candidate is excluded from the result set. This MUST NOT raise an error.
+* A FieldIdentifier that is not applicable for the active profile (see xref:http-rest-api/service-specifications-and-profiles.adoc#fieldidentifier-applicability[FieldIdentifier Applicability per Profile]) is treated like "field does not exist": the candidate is excluded, no error is raised.
+* A list-valued FieldIdentifier (`submodels[]`, `specificAssetIds[]`, `supplementalSemanticIds[]`, ...) matches when *at least one* list element satisfies the comparison, unless an explicit index is provided.
+
+=== Casting Errors
+
+* An explicit cast that fails on the current candidate (e.g. `num("abc")`) MUST exclude the candidate from the result set; it MUST NOT fail the whole query.
+* Implicit casts between the types listed in the xref:casting[casting table] follow the same rule.
+
+=== Combination with Access Rules
+
+When a query is evaluated by a service that also enforces Access Rules (see IDTA-01004), the query's candidate set MUST be filtered through the applicable access rules before being returned. Access rules that evaluate to `not applicable` for a candidate (e.g. because a referenced FieldIdentifier does not exist in the current profile) MUST NOT cause the query to fail; such rules simply do not contribute an ALLOW for the candidate.
 
 == JSON Schema
 
@@ -530,14 +837,15 @@ The table follows the structure of the JSON schema top to bottom.
 [width=100%, cols="25%,25%,50%"]
 |===
 h| JSON Schema h| Grammar h| Comment
-| modelStringPattern | <FieldIdentifier> | AAS model elements are strings which start with a $
+| FieldIdentifier | <FieldIdentifier> | AAS model elements are strings which start with a $
+| FragmentFieldIdentifier | <FieldIdentifierFragment> | AAS model fragments for query/security filtering
 | standardString | | All other value strings
 | hexLiteralPattern | <HexLiteral> |
 | dateTimeLiteralPattern | <DateTimeLiteral> |
 | timeLiteralPattern | <TimeLiteral> |
-| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: strModel etc.
-| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: strModel etc.
-| $field | - | string following the modelStringPattern
+| Value | <operand> | Comparisons eq, ne, gt, ge, lt, le; explicit properties for automatic code generation: $field etc.
+| stringValue | <stringOperand> | String operations contains, starts-with, ends-with, regex; explicit properties for automatic code generation: $field etc.
+| $field | - | string following the FieldIdentifier pattern
 | $strVal | - | string following the standardString
 | $attribute | - | explained in Security Access Rules; not used for query language
 | $numVal | <NumericalLiteral> | Number constant
@@ -549,8 +857,8 @@ h| JSON Schema h| Grammar h| Comment
 | $numCast | <castToNumerical> | any Value can be used as input
 | $hexCast | <castToHex> | any Value can be used as input
 | $boolCast | <castToBool> | any Value can be used as input
-| $dateTimeCast | <castToDateTime> | any Value can be used as input
-| $timeCast | <castToTime> | any Value can be used as input
+| $dateTimeCast | <castToDateTime> | string operands can be used as input
+| $timeCast | <castToTime> | string or DateTime operands can be used as input
 | $dayOfWeek | <dateTimeToNum> | extract day of week from DateTime; needed for Security Access Rules
 | $dayOfMonth | <dateTimeToNum> | extract day of month from DateTime; needed for Security Access Rules
 | $month | <dateTimeToNum> | extract month from DateTime; needed for Security Access Rules
@@ -564,7 +872,9 @@ h| JSON Schema h| Grammar h| Comment
 | rightsEnum | - | explained in Security Access Rules; not used for query language
 | AccessPermissionRule | - | explained in Security Access Rules; not used for query language
 | AllAccessPermissionRules | - | explained in Security Access Rules; not used for query language
+| QueryFilter | <QueryFilter> | A single filter block with $fragment and $condition
 | $condition | <logicalExpression> | Root object for the query condition expression
+| $filters | <QueryFilter>* | Optional list of filter blocks evaluated together
 | $select | <selectStatement> | Optional expresion to control the returned fields. Only 'id' is possible.
 |===
 
@@ -575,7 +885,7 @@ Single comparison +
 [.table-with-appendix-table]
 [width=100%, cols="50%,50%"]
 |===
-h| Grammar h| JSON Schema
+h| Grammar h| JSON Representation
 a|
 [source]
 ----
@@ -602,12 +912,12 @@ a|
 ----
 |===
 
-HandoverDocumentation with VDI 2770 Class 03-01 Commissioning and language NL (as expected with SubmodelElementList)+
+HandoverDocumentation with VDI 2770 Class 03-01 Commissioning and language NL (as expected with SubmodelElementList).
 
 [.table-with-appendix-table]
 [width=100%, cols="50%,50%"]
 |===
-h| Grammar h| JSON Schema
+h| Grammar h| JSON Representation
 a|
 [source]
 ----
@@ -649,7 +959,7 @@ TechnicalData with motor starter (ECLASS ClassId = 27-37-09-05) and width less t
 [.table-with-appendix-table]
 [width=100%, cols="45%,55%"]
 |===
-h| Grammar h| JSON Schema
+h| Grammar h| JSON Representation
 a|
 [source]
 ----
@@ -718,28 +1028,24 @@ a|
 ----
 |===
 
-Match specificAssetIDs +
+Match specificAssetIds: Find Asset Administration Shells where either the "supplierId" is equal to "aas-1", or the "customerId" is equal to "aas-2", or both. +
 
 [.table-with-appendix-table]
 [width=100%, cols="50%,50%"]
 |===
-h| Grammar h| JSON Schema
+h| Grammar h| JSON Representation
 a|
 [source]
 ----
 $or (
   $match (
-    $aas#assetInformation.specificAssetIds[]
-      .name     $eq   "supplierId",
-    $aas#assetInformation.specificAssetIds[]
-      .value    $eq   "aas-1"
+    $aas#assetInformation.specificAssetIds[].name     $eq   "supplierId",
+    $aas#assetInformation.specificAssetIds[].value    $eq   "aas-1"
   ),
 
   $match (
-    $aas#assetInformation.specificAssetIds[]
-      .name     $eq   "customerId",
-    $aas#assetInformation.specificAssetIds[] 
-      .value    $eq   "aas-2"
+    $aas#assetInformation.specificAssetIds[].name     $eq   "customerId",
+    $aas#assetInformation.specificAssetIds[].value    $eq   "aas-2"
   )
 )
 ----

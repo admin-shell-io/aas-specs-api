@@ -5,14 +5,14 @@ info:
   description: >- 
     The schemas implementing the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
     
-    Copyright: Industrial Digital Twin Association (IDTA) 2025
+    Copyright: Industrial Digital Twin Association (IDTA) 2026
   contact:
     name: Industrial Digital Twin Association (IDTA)
     email: info@idtwin.org
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.1.3
+  version: V3.2.0
 components: 
   parameters:
     AssetAdministrationShellIdentifier:
@@ -30,11 +30,11 @@ components:
       required: false
       description: The Asset's kind (Instance or Type)
       schema:
-        $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AssetKind"
+        $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetKind"
     AssetIds:
       name: assetIds
       in: query
-      description: A list of specific Asset identifiers. Each Asset identifier is a base64-url-encoded [SpecificAssetId](https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/SpecificAssetId)
+      description: A list of specific Asset identifiers. Each Asset identifier is a base64-url-encoded [SpecificAssetId](../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId)
       required: false
       style: form
       explode: true
@@ -53,6 +53,15 @@ components:
         minLength: 1
         maxLength: 2048
         pattern: ^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+    CreatedFrom:
+      name: createdFrom
+      in: query
+      description: Returns Identifiables created at or after the given date and time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+      style: form
+      required: false
+      schema:
+        type: string
+        format: date-time
     Cursor:    
       name: cursor
       in: query
@@ -60,6 +69,14 @@ components:
       required: false
       schema:
         type: string
+    Date:
+      name: date
+      in: query
+      description: Date and time of the requested version of the Identifiable in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+      required: false
+      schema:
+        type: string
+        format: date-time
     Extent:
       name: extent
       in: query
@@ -134,16 +151,25 @@ components:
       explode: false
       schema:
         type: string
+    UpdatedFrom:
+      name: updatedFrom
+      in: query
+      description: Returns Identifiables updated at or after the given date and time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+      style: form
+      required: false
+      schema:
+        type: string
+        format: date-time
         
   schemas: 
     AnnotatedRelationshipElementMetadata: 
       $ref: "#/components/schemas/SubmodelElementAttributes"
-    AnnotatedRelationshipElementValue: 
-      properties: 
-        first: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
-        second: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+    AnnotatedRelationshipElementValue:
+      properties:
+        first:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+        second:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
         annotations:
           $ref: "#/components/schemas/ValueOnly"
       type: object
@@ -152,9 +178,9 @@ components:
         - $ref: "#/components/schemas/Descriptor"
         - properties: 
             administration: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AdministrativeInformation"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AdministrativeInformation"
             assetKind:
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AssetKind"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetKind"
             assetType:
               type: string
               minLength: 1
@@ -183,7 +209,7 @@ components:
             specificAssetIds: 
               type: array
               items:
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/SpecificAssetId"
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId"
             submodelDescriptors: 
               items: 
                 $ref: "#/components/schemas/SubmodelDescriptor"
@@ -194,11 +220,32 @@ components:
       example: '{ "id": "https://example.org/aas/motor", "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
     AssetAdministrationShellMetadata: 
       allOf: 
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Identifiable"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasDataSpecification"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Identifiable"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasDataSpecification"
         - properties: 
             derivedFrom: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+    AssetAdministrationShellRecentChange:
+      allOf:
+        - $ref: '#/components/schemas/RecentChange'
+        - type: object
+          properties:
+            id:
+              type: string
+              minLength: 1
+              maxLength: 2048
+              pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            globalAssetId:
+              type: string
+              minLength: 1
+              maxLength: 2048
+              pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            specificAssetIds:
+              type: array
+              items:
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId"
+      required:
+        - id
     AssetLink:
       properties:
         name:
@@ -227,14 +274,14 @@ components:
         - $ref: "#/components/schemas/SubmodelElementAttributes"
         - properties: 
             direction: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Direction"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Direction"
             state: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/StateOfEvent"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/StateOfEvent"
             messageTopic: 
               type: string
               maxLength: 255
             messageBroker: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
             lastUpdate: 
               type: string
             minInterval: 
@@ -242,9 +289,9 @@ components:
             maxInterval: 
               type: string
     BasicEventElementValue:
-      properties: 
-        observed: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+      properties:
+        observed:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
       required:
         - observed
       type: object
@@ -265,30 +312,222 @@ components:
     CapabilityMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
+    ConceptDescriptionRecentChange:
+      allOf:
+        - $ref: '#/components/schemas/RecentChange'
+        - type: object
+          properties:
+            id:
+              type: string
+              minLength: 1
+              maxLength: 2048
+              pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+          required:
+            - id
     comparisonItems:
+      $ref: '#/components/schemas/equalityComparisonItems'
+    fieldOperand:
+      type: object
+      properties:
+        $field:
+          $ref: '#/components/schemas/FieldIdentifier'
+      required:
+        - $field
+      additionalProperties: false
+    attributeItem:
+      type: object
+      properties:
+        CLAIM:
+          type: string
+        GLOBAL:
+          type: string
+          enum:
+            - LOCALNOW
+            - UTCNOW
+            - CLIENTNOW
+            - ANONYMOUS
+        REFERENCE:
+          type: string
+      oneOf:
+        - required:
+            - CLAIM
+        - required:
+            - GLOBAL
+        - required:
+            - REFERENCE
+      additionalProperties: false
+    dateTimeAttributeItem:
+      type: object
+      properties:
+        GLOBAL:
+          type: string
+          enum:
+            - LOCALNOW
+            - UTCNOW
+            - CLIENTNOW
+      required:
+        - GLOBAL
+      additionalProperties: false
+    dateTimeOperand:
+      type: object
+      properties:
+        $dateTimeVal:
+          $ref: '#/components/schemas/dateTimeLiteralPattern'
+        $dateTimeCast:
+          $ref: '#/components/schemas/stringValue'
+        $attribute:
+          $ref: '#/components/schemas/dateTimeAttributeItem'
+      oneOf:
+        - required:
+            - $dateTimeVal
+        - required:
+            - $dateTimeCast
+        - required:
+            - $attribute
+      additionalProperties: false
+    numericalOperand:
+      type: object
+      properties:
+        $numVal:
+          type: number
+        $numCast:
+          $ref: '#/components/schemas/Value'
+        $dayOfWeek:
+          $ref: '#/components/schemas/dateTimeOperand'
+        $dayOfMonth:
+          $ref: '#/components/schemas/dateTimeOperand'
+        $month:
+          $ref: '#/components/schemas/dateTimeOperand'
+        $year:
+          $ref: '#/components/schemas/dateTimeOperand'
+      oneOf:
+        - required:
+            - $numVal
+        - required:
+            - $numCast
+        - required:
+            - $dayOfWeek
+        - required:
+            - $dayOfMonth
+        - required:
+            - $month
+        - required:
+            - $year
+      additionalProperties: false
+    hexOperand:
+      type: object
+      properties:
+        $hexVal:
+          $ref: '#/components/schemas/hexLiteralPattern'
+        $hexCast:
+          $ref: '#/components/schemas/Value'
+      oneOf:
+        - required:
+            - $hexVal
+        - required:
+            - $hexCast
+      additionalProperties: false
+    boolOperand:
+      type: object
+      properties:
+        $boolean:
+          type: boolean
+        $boolCast:
+          $ref: '#/components/schemas/Value'
+      oneOf:
+        - required:
+            - $boolean
+        - required:
+            - $boolCast
+      additionalProperties: false
+    timeOperand:
+      type: object
+      properties:
+        $timeVal:
+          $ref: '#/components/schemas/timeLiteralPattern'
+        $timeCast:
+          anyOf:
+            - $ref: '#/components/schemas/stringValue'
+            - $ref: '#/components/schemas/dateTimeOperand'
+      oneOf:
+        - required:
+            - $timeVal
+        - required:
+            - $timeCast
+      additionalProperties: false
+    numericalComparisonItems:
       type: array
       minItems: 2
       maxItems: 2
       items:
-        $ref: '#/components/schemas/Value'
+        oneOf:
+          - $ref: '#/components/schemas/numericalOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    hexComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/hexOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    boolComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/boolOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    dateTimeComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/dateTimeOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    timeComparisonItems:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/timeOperand'
+          - $ref: '#/components/schemas/fieldOperand'
+    equalityComparisonItems:
+      anyOf:
+        - $ref: '#/components/schemas/stringItems'
+        - $ref: '#/components/schemas/numericalComparisonItems'
+        - $ref: '#/components/schemas/hexComparisonItems'
+        - $ref: '#/components/schemas/boolComparisonItems'
+        - $ref: '#/components/schemas/dateTimeComparisonItems'
+        - $ref: '#/components/schemas/timeComparisonItems'
+    orderedComparisonItems:
+      anyOf:
+        - $ref: '#/components/schemas/stringItems'
+        - $ref: '#/components/schemas/numericalComparisonItems'
+        - $ref: '#/components/schemas/hexComparisonItems'
+        - $ref: '#/components/schemas/dateTimeComparisonItems'
+        - $ref: '#/components/schemas/timeComparisonItems'
     dateTimeLiteralPattern:
       type: string
-      format: date-time
+      pattern: "^(?:(?:[0-9]{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12][0-9]|3[01])|(?:0[469]|11)-(?:0[1-9]|[12][0-9]|30)|02-(?:0[1-9]|1[0-9]|2[0-8])))|(?:(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:[02468][048]|[13579][26])00)-02-29))T?(?:(?:[01][0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?(?:\\.[0-9]+)?|24:00(?::00)?(?:\\.0+)?)(?:Z|[+-](?:(?:0[0-9]|1[0-3]):[0-5][0-9]|14:00))?$"
     Descriptor: 
       example: '{ "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
       properties: 
         description: 
           type: array
           items:
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/LangStringTextType"
+            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/LangStringTextType"
         displayName: 
           type: array
           items:
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/LangStringNameType"
+            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/LangStringNameType"
         extensions:
           type: array
           items:
-            "$ref": "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Extension"
+            "$ref": "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Extension"
           minItems: 1
       type: object
     Endpoint: 
@@ -308,7 +547,7 @@ components:
     EntityValue: 
       properties: 
         entityType: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/EntityType"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/EntityType"
         globalAssetId: 
           type: string
           minLength: 1
@@ -362,6 +601,15 @@ components:
               type: array
               items: 
                 $ref: "#/components/schemas/AssetAdministrationShellMetadata"
+    GetAllAssetAdministrationShellsRecentChangesResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items:
+                $ref: "#/components/schemas/AssetAdministrationShellRecentChange"
     GetAssetAdministrationShellsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -370,7 +618,7 @@ components:
             result:
               type: array
               items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AssetAdministrationShell"
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetAdministrationShell"
     GetConceptDescriptionsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -379,7 +627,16 @@ components:
             result:
               type: array
               items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/ConceptDescription"
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/ConceptDescription"
+    GetAllConceptDescriptionsRecentChangesResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items:
+                $ref: "#/components/schemas/ConceptDescriptionRecentChange"
     GetPackageDescriptionsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -406,7 +663,7 @@ components:
             result:
               type: array
               items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     GetSubmodelDescriptorsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -433,7 +690,7 @@ components:
             result:
               type: array
               items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/SubmodelElement"
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SubmodelElement"
     GetSubmodelElementsValueResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -441,7 +698,16 @@ components:
           properties:
             result:
               type: object
-              description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value. 
+              description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
+    GetAllSubmodelsRecentChangesResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items:
+                $ref: "#/components/schemas/SubmodelRecentChange"
     GetSubmodelsMetadataResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -459,7 +725,7 @@ components:
             result:
               type: array
               items: 
-                $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Submodel"
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel"
     GetSubmodelsValueResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -491,17 +757,17 @@ components:
         $not:
           $ref: '#/components/schemas/logicalExpression'
         $eq:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $ne:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $gt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $ge:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $lt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $le:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $contains:
           $ref: '#/components/schemas/stringItems'
         $starts-with:
@@ -554,17 +820,17 @@ components:
           items:
             $ref: '#/components/schemas/matchExpression'
         $eq:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $ne:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/equalityComparisonItems'
         $gt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $ge:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $lt:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $le:
-          $ref: '#/components/schemas/comparisonItems'
+          $ref: '#/components/schemas/orderedComparisonItems'
         $contains:
           $ref: '#/components/schemas/stringItems'
         $starts-with:
@@ -573,8 +839,6 @@ components:
           $ref: '#/components/schemas/stringItems'
         $regex:
           $ref: '#/components/schemas/stringItems'
-        $boolean:
-          type: boolean
       oneOf:
         - required:
             - $eq
@@ -596,8 +860,6 @@ components:
             - $ends-with
         - required:
             - $regex
-        - required:
-            - $boolean
         - required:
             - $match
       additionalProperties: false
@@ -625,10 +887,14 @@ components:
           type: string
           pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)(Z|\\+00:00|-00:00)$"
       type: object
-    modelStringPattern:
+    FieldIdentifier:
       type: string
       pattern: >-
-        ^(?:\$aas#(?:idShort|id|assetInformation\.assetKind|assetInformation\.assetType|assetInformation\.globalAssetId|assetInformation\.specificAssetIds\[[0-9]*\]\.(?:name|value|externalSubjectId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?)|submodels\[[0-9]*\]\.(?:type|keys\[[0-9]*\]\.(?:type|value)))|\$sm#(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|id)|\$sme(?:\.[A-Za-z][A-Za-z0-9_-]*[A-Za-z0-9_](?:\[[0-9]*\])*(?:\.[A-Za-z][A-Za-z0-9_-]*[A-Za-z0-9_](?:\[[0-9]*\])*)*)?#(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|value|valueType|language)|\$cd#(?:idShort|id)|\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\[[0-9]*\]\.(?:name|value|externalSubjectId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?)|endpoints\[[0-9]*\]\.(?:interface|protocolinformation\.href)|submodelDescriptors\[[0-9]*\]\.(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|id|endpoints\[[0-9]*\]\.(?:interface|protocolinformation\.href)))|\$smdesc#(?:semanticId(?:\.(?:type|keys\[[0-9]*\]\.(?:type|value)))?|idShort|id|endpoints\[[0-9]*\]\.(?:interface|protocolinformation\.href)))$
+        ^(?:\$aas#(?:idShort|id|assetInformation\.assetKind|assetInformation\.assetType|assetInformation\.globalAssetId|assetInformation\.specificAssetIds\[(?:0|[1-9][0-9]*)?\]\.(?:name|value|externalSubjectId(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?)|submodels\[(?:0|[1-9][0-9]*)?\](?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?)|\$sm#(?:semanticId(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\])?(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|idShort|id)|\$sme(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[(?:0|[1-9][0-9]*)?\])*(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[(?:0|[1-9][0-9]*)?\])*)*)?#(?:semanticId(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\])?(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|idShort|value|valueType|language)|\$cd#(?:idShort|id)|\$aasdesc#(?:idShort|id|assetKind|assetType|globalAssetId|specificAssetIds\[(?:0|[1-9][0-9]*)?\]\.(?:name|value|externalSubjectId(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?)|endpoints\[(?:0|[1-9][0-9]*)?\]\.(?:interface|protocolinformation\.href)|submodelDescriptors\[(?:0|[1-9][0-9]*)?\]\.(?:semanticId(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\])?(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|idShort|id|endpoints\[(?:0|[1-9][0-9]*)?\]\.(?:interface|protocolinformation\.href)))|\$smdesc#(?:semanticId(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\])?(?:\.(?:type|keys\[(?:0|[1-9][0-9]*)?\]\.(?:type|value)))?|idShort|id|endpoints\[(?:0|[1-9][0-9]*)?\]\.(?:interface|protocolinformation\.href)))$
+    FragmentFieldIdentifier:
+      type: string
+      pattern: >-
+        ^(?:\$aas#(?:idShort|assetInformation\.assetType|assetInformation\.globalAssetId|assetInformation\.specificAssetIds(?:\[(?:0|[1-9][0-9]*)?\](?:\.externalSubjectId(?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?)?|submodels(?:\[(?:0|[1-9][0-9]*)?\](?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?)|\$sm#(?:semanticId(?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\](?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?|idShort)|\$sme(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[(?:0|[1-9][0-9]*)?\])*(?:\.[A-Za-z](?:[A-Za-z0-9_-]*[A-Za-z0-9_])?(?:\[(?:0|[1-9][0-9]*)?\])*)*)?(?:#(?:semanticId(?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\](?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?|idShort|value|valueType|language))?|\$cd#idShort|\$aasdesc#(?:idShort|description|displayName|extension|administration|assetKind|assetType|globalAssetId|specificAssetIds(?:\[(?:0|[1-9][0-9]*)?\](?:\.externalSubjectId(?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?)?|endpoints(?:\[(?:0|[1-9][0-9]*)?\])?|submodelDescriptors(?:\[(?:0|[1-9][0-9]*)?\](?:\.(?:semanticId(?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\](?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?|idShort|endpoints(?:\[(?:0|[1-9][0-9]*)?\])?))?)?)|\$smdesc#(?:semanticId(?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?|supplementalSemanticIds(?:\[(?:0|[1-9][0-9]*)?\](?:\.keys(?:\[(?:0|[1-9][0-9]*)?\])?)?)?|idShort|endpoints(?:\[(?:0|[1-9][0-9]*)?\])?))$
     MultiLanguagePropertyMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -650,11 +916,11 @@ components:
       properties: 
         inoutputArguments: 
           items: 
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/OperationVariable"
+            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/OperationVariable"
           type: array
         inputArguments: 
           items: 
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/OperationVariable"
+            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/OperationVariable"
           type: array
         clientTimeoutDuration: 
           type: string
@@ -686,11 +952,11 @@ components:
       - properties: 
           inoutputArguments: 
             items: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/OperationVariable"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/OperationVariable"
             type: array
           outputArguments: 
             items: 
-              $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/OperationVariable"
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/OperationVariable"
             type: array
       type: object
     OperationResultValueOnly: 
@@ -733,7 +999,7 @@ components:
         - $ref: "#/components/schemas/SubmodelElementAttributes"
       properties: 
         valueType: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/DataTypeDefXsd"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/DataTypeDefXsd"
     PropertyValue: 
       oneOf: 
         - $ref: "#/components/schemas/StringValue"
@@ -792,7 +1058,22 @@ components:
           pattern: ^id$
         $condition:
           $ref: '#/components/schemas/logicalExpression'
+        $filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
       required:
+        - $condition
+      additionalProperties: false
+    QueryFilter:
+      type: object
+      properties:
+        $fragment:
+          $ref: '#/components/schemas/FragmentFieldIdentifier'
+        $condition:
+          $ref: '#/components/schemas/logicalExpression'
+      required:
+        - $fragment
         - $condition
       additionalProperties: false
     QueryResultAssetAdministrationShell:
@@ -813,7 +1094,7 @@ components:
           type: array
           items:
             oneOf:
-            - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AssetAdministrationShell"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetAdministrationShell"
             - type: string
     QueryResultAssetAdministrationShellDescriptor:
       type: object
@@ -852,7 +1133,7 @@ components:
           type: array
           items:
             oneOf:
-            - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/ConceptDescription"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/ConceptDescription"
             - type: string
       required:
         - paging_metadata
@@ -874,7 +1155,7 @@ components:
           type: array
           items:
             oneOf:
-            - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Submodel"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel"
             - type: string
       required:
         - paging_metadata
@@ -905,7 +1186,7 @@ components:
         - $ref: "#/components/schemas/SubmodelElementAttributes"
       properties: 
         valueType: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/DataTypeDefXsd"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/DataTypeDefXsd"
     RangeValue: 
       properties: 
         max: 
@@ -916,20 +1197,31 @@ components:
         - min
         - max
       type: object
+    RecentChange:
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - createdAt
+        - updatedAt
     ReferenceElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    ReferenceElementValue: 
-      $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+    ReferenceElementValue:
+      $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     RelationshipElementMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
-    RelationshipElementValue: 
-      properties: 
-        first: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
-        second: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+    RelationshipElementValue:
+      properties:
+        first:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+        second:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
       type: object
     Result: 
       properties: 
@@ -943,69 +1235,98 @@ components:
       example: >-
         {
           "profiles": [
-            "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-002",
-            "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002"
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-002",
+            "https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-002"
           ]
         }
       properties: 
         profiles:
           type: array
+          description: The list of profiles implemented by the server. The profiles are identified by their URI. Note that the list of example profiles is not exhaustive, but only includes the profiles defined in the current version of the specification. The server might also include proprietary profiles, which are not defined in the specification. Clients should be designed to ignore unknown profiles, but might use them to implement additional functionality if they are known.
           minItems: 1
           items:
             type: string
             example:
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/AasxFileServerServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/1/AasxFileServerServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-005"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-005"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001"
-              - "https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-004"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005"
+              - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-005"
               - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
+              - "https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002"
       type: object
     SpecificAssetIdValue:
       type: object
       description: Since patternProperties and propertyNames are not supported by OpenApi yet, the ValueOnly serialization for this elements works with the key-attribute as the JSON-property name and the value-attribute as the corresponding value.
     standardString:
       type: string
-      pattern: ^(?!\$).*
+      minLength: 1
     stringItems:
       type: array
       minItems: 2
@@ -1016,11 +1337,13 @@ components:
       type: object
       properties:
         $field:
-          $ref: '#/components/schemas/modelStringPattern'
+          $ref: '#/components/schemas/FieldIdentifier'
         $strVal:
           $ref: '#/components/schemas/standardString'
         $strCast:
           $ref: '#/components/schemas/Value'
+        $attribute:
+          $ref: '#/components/schemas/attributeItem'
       oneOf:
         - required:
             - $field
@@ -1028,6 +1351,8 @@ components:
             - $strVal
         - required:
             - $strCast
+        - required:
+            - $attribute
       additionalProperties: false
     StringValue: 
       type: string
@@ -1036,7 +1361,7 @@ components:
         - $ref: "#/components/schemas/Descriptor"
       properties: 
         administration: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AdministrativeInformation"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AdministrativeInformation"
         endpoints: 
           items: 
             $ref: "#/components/schemas/Endpoint"
@@ -1053,11 +1378,11 @@ components:
           maxLength: 2048
           pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
         semanticId: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
         supplementalSemanticIds:
           type: array
           items:
-            $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
           minItems: 1
       required: 
         - id
@@ -1066,11 +1391,11 @@ components:
       example: '{ "id": "https://admin-shell.io/zvei/nameplate/1/0/Nameplate", "endpoints": [ { "href": { "href": "https://localhost:1234/api/v3.0/submodel", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
     SubmodelElementAttributes: 
       allOf: 
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Referable"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasDataSpecification"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasSemantics"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Qualifiable"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasKind"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Referable"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasDataSpecification"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasSemantics"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Qualifiable"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasKind"
     SubmodelElementListMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -1078,11 +1403,11 @@ components:
         orderRelevant:
           type: boolean
         semanticIdListElement: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Reference"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
         typeValueListElement: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/ModelType"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/ModelType"
         valueTypeListElement: 
-          $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/DataTypeDefXsd"
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/DataTypeDefXsd"
     SubmodelElementListValue:
       type: array
       items:
@@ -1126,23 +1451,44 @@ components:
         - $ref: "#/components/schemas/SubmodelElementListValue"
     SubmodelMetadata: 
       allOf: 
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Identifiable"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasDataSpecification"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Qualifiable"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasSemantics"
-        - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/HasKind"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Identifiable"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasDataSpecification"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Qualifiable"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasSemantics"
+        - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasKind"
+    SubmodelRecentChange:
+      allOf:
+        - $ref: '#/components/schemas/RecentChange'
+        - type: object
+          properties:
+            id:
+              type: string
+              minLength: 1
+              maxLength: 2048
+              pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+            semanticId:
+              $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+            supplementalSemanticIds:
+              type: array
+              items:
+                $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+              minItems: 1
+          required:
+            - id
     SubmodelValue:
       $ref: "#/components/schemas/ValueOnly"
     timeLiteralPattern:
       type: string
-      pattern: '^[0-9][0-9]:[0-9][0-9](:[0-9][0-9])?$'
+      pattern: "^(?:(?:[01][0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?(?:\\.[0-9]+)?|24:00(?::00)?(?:\\.0+)?)(?:Z|[+-](?:(?:0[0-9]|1[0-3]):[0-5][0-9]|14:00))?$"
     Value:
       type: object
       properties:
         $field:
-          $ref: '#/components/schemas/modelStringPattern'
+          $ref: '#/components/schemas/FieldIdentifier'
         $strVal:
           $ref: '#/components/schemas/standardString'
+        $attribute:
+          $ref: '#/components/schemas/attributeItem'
         $numVal:
           type: number
         $hexVal:
@@ -1162,17 +1508,19 @@ components:
         $boolCast:
           $ref: '#/components/schemas/Value'
         $dateTimeCast:
-          $ref: '#/components/schemas/Value'
+          $ref: '#/components/schemas/stringValue'
         $timeCast:
-          $ref: '#/components/schemas/Value'
+          anyOf:
+            - $ref: '#/components/schemas/stringValue'
+            - $ref: '#/components/schemas/dateTimeOperand'
         $dayOfWeek:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
         $dayOfMonth:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
         $month:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
         $year:
-          $ref: '#/components/schemas/dateTimeLiteralPattern'
+          $ref: '#/components/schemas/dateTimeOperand'
       oneOf:
         - required:
             - $field
@@ -1229,7 +1577,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: 'https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/AssetAdministrationShell'
+            $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetAdministrationShell'
     'found':
       description: The target resource is available but at a different location.
       headers:

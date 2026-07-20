@@ -1,0 +1,415 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+
+////
+
+
+[[dpp]]
+= Implementing Digital Product Passport Operations via Asset Administration Shell Services
+
+== Introduction
+
+To support the implementation of DPPs, 8 standards have been developed:
+ 
+* EN 18219:2026 – Digital product passport – Unique identifiers
+* EN 18220:2026 – Digital product passport – Data carriers
+* EN 18216:2026 – Digital product passport – Data exchange protocols
+* EN 18222: 2026 – Digital Product Passport – Application Programming Interfaces (APIs) for the product passport lifecycle management and searchability
+* EN 18223:2026 – Digital Product Passport – System interoperability
+* EN 18221:2026 – Digital product passport – data storage, archiving, and data persistence
+* EN 18239:2026 – Digital Product Passport – access rights management, information system security, and business confidentiality (not yet released)
+* EN 18246:2026 – Digital Product Passport – Data authentication, reliability and integrity (not yet released)
+ 
+This annex specifies how the requirements as specified in
+ 
+* EN 18222:2026 – Application Programming Interfaces (APIs) for the product passport lifecycle management and searchability
+ 
+can be implemented using the Asset Administration Shell (AAS) Services specification.
+The mapping enables implementations based on AAS infrastructure to expose a fully conformant DPP API.
+
+The DPP operations defined in EN 18222 are organized into three API surfaces:
+
+* *Life Cycle API - main API methods* (EN 18222, Clause 4, Table 16) -- Mandatory read operations and CRUD operations for DPP lifecycle management.
+* *DPP Registry API* (EN 18222, Clause 5, Table 17) -- Registration of DPPs at the DPP Registry.
+* *Life Cycle API - fine granular API methods* (EN 18222, Clause 6, Table 18) -- Element-level read and update operations within a DPP.
+
+The following sections describe, for each of these API surfaces, how the corresponding API methods shall be mapped to AAS Interface and API operations as well as services.
+
+[Note]
+====
+The terms "method" and "operation" are synonym in this context. 
+In EN 18222 "method" is used, in IDTA-01002 "operation" is used.
+====
+
+[Note]
+====
+The mapping of DPP data elements to AAS metamodel elements (EN 18223) is specified in link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html[IDTA-01001]. 
+The DPP metadata Submodel Template is specified in link:https://industrialdigitaltwin.org/en/content-hub/submodels[IDTA-02099-1 Digital Product Passport – Part 1: Metadata - Submodel Template Specification] with idShort "DppMetadata". 
+A conformant DPP service based on AAS shall implement all aspects described in this annex together with the metamodel mapping and the Submodel Template.
+====
+
+
+
+== DPP Composition from AAS Infrastructure
+
+A Digital Product Passport as defined in EN 18223 is a single JSON or XML document comprising *header fields* and *content data elements*. When using AAS infrastructure, a DPP shall be composed from the following AAS resources:
+
+* An *Asset Administration Shell* representing the product for which the DPP is issued.
+* A *DppMetadata Submodel* (semanticId: `https://admin-shell.io/idta/cds/dppMetadata/1`, as defined in *IDTA-02099-1*) containing the DPP header fields (`digitalProductPassportId`, `uniqueProductIdentifier`, `granularity`, `dppSchemaVersion`, `dppStatus`, `lastUpdate`, `economicOperatorId`, `facilityId`, `contentSpecificationIds`).
+* One or more *content Submodels*, each contributing a section of the DPP content. 
+The semanticIds of the contributing content Submodels shall be listed in the `contentSpecificationIds` property of the DppMetadata Submodel.
+
+
+The Value-Only serialization (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[IDTA-01001 Part 1 -- Format "Value" (Value-Only Serialization) in JSON]) 
+of the DppMetadata Submodel (IDTA-02099-1) corresponds directly to the DPP header fields defined in EN 18223, Table 1. 
+No additional transformation of the header is required for neither the _compressed_ nor the _expanded_ representation (EN 18223, Clause 5.2). 
+For the content Submodels however transformation is needed as defined in <<dpp-serialization>>.
+
+
+
+[[dpp-composition-read]]
+=== Composition Process (Read Path)
+
+To assemble a `DigitalProductPassport` JSON document, an implementation shall perform the following steps:
+
+* *Resolve the DPP identifier to an AAS*: Determine the corresponding AAS, either by direct lookup of the DPP identifier or by resolving a product identifier through the AAS Discovery Service (see <<dpp-discovery>>).
+* *Retrieve the AAS*: Fetch the AAS from the AAS Repository, the AAS Service or via the AAS Registry.
+* *Retrieve all referenced Submodels*: Obtain the Submodel references from the AAS or AAS Descriptor and retrieve each Submodel from the Submodel Repository, Submodel Service or via the AAS Registry. 
+If a `date` parameter is provided, the implementation shall retrieve the version of each Submodel that was current at the specified point in time.
+* *Identify the DppMetadata Submodel*: Select the Submodel with semanticId `https://admin-shell.io/idta/cds/dppMetadata/1` (IDTA-02099-1). 
+This Submodel provides the DPP header fields, including the Digital Product Passport ID.
+* *Identify the content Submodels*: Select all remaining Submodels whose semanticId is listed in the `contentSpecificationIds` property of the DppMetadata Submodel.
+* *Serialize the header*: Serialize the DppMetadata Submodel in Value-Only. The resulting JSON object constitutes the DPP header.
+* *Serialize the content*: For each content Submodel, serialize the Submodel in the requested `representation` format (see <<dpp-serialization>>). The JSON key for each content section shall be the Submodel's `semanticId`, equal to the contentSpecificationId, as described in IDTA-01099-1.
+* *Assemble the DPP document*: Merge the header fields and the content sections into a single `DigitalProductPassport` JSON document.
+
+For details see <<dpp-discovery>>.
+
+
+
+[[dpp-decomposition]]
+=== Decomposition Process (Write Path)
+
+When a `CreateDPP` or `UpdateDPPById` operation is invoked with a `DigitalProductPassport` JSON document, an implementation shall decompose the document into the corresponding AAS resources:
+
+* *Parse the DPP header fields*: Extract the header attributes (`digitalProductPassportId`, `uniqueProductIdentifier`, `granularity`, etc.) from the input document.
+* *Create or update the AAS*: Map the header fields to the appropriate AAS attributes (e.g., `uniqueProductIdentifier` to `AssetInformation/globalAssetId`, `granularity` to `assetKind`).
+* *Create or update the DppMetadata Submodel*: Persist all header fields as properties of the DppMetadata Submodel.
+* *Create or update the content Submodels*: For each top-level content key in the DPP document, create or update the corresponding Submodel with the appropriate semanticId (as referenced in `contentSpecificationIds`).
+* *Register Submodel references*: Ensure all Submodel references are registered in the AAS.
+
+Write operations should be atomic: if any step fails, all preceding changes shall be rolled back to maintain data consistency.
+
+
+== Life Cycle API Operations
+
+The Life Cycle API (EN 18222, Clause 4, Table 16) defines the mandatory read operations and CRUD operations for managing the DPP lifecycle. The following table specifies how each DPP operation shall be mapped to AAS Service operations.
+
+.Mapping of DPP Life Cycle API Operations to AAS Service Operations
+[.table-with-appendix-table]
+[cols="22%,30%,48%"]
+|===
+h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
+
+| ReadDPPById
+| GetAssetAdministrationShellById / GetAssetAdministrationShell or GetAssetAdministrationShellDescriptorById + GetSubmodel / GetSubmodelById (Value-Only or Normal) for each referenced and relevant Submodel
+| Shall retrieve the AAS by its identifier, fetch all referenced Submodels, and compose the DPP document as described in <<dpp-composition-read>>. The `representation` query parameter controls the serialization format (see <<dpp-serialization>>).
+
+| ReadDPPByProductId
+| GetAllAssetAdministrationShellsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
+| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document. 
+
+[Note]
+===
+Multiple AAS instances might be associated with the provided product identifier.
+===
+
+| ReadDPPVersionByIdAndDate
+| GetAssetAdministrationShellVersionByIdAndDate / QueryAssetAdministrationShells / QueryAssetAdministrationShellDescriptors + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
+| Shall retrieve the version of the DPP that was current at the specified point in time (ISO 8601 UTC timestamp). The implementation shall select the latest version of each Submodel whose `updatedAt` timestamp is less than or equal to the requested date.
+
+| ReadDPPIdsByProductIds
+| GetAllAssetAdministrationShellIdsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink
+| Shall resolve a set of product identifiers to their corresponding DPP identifiers. The operation calls GetAllAssetAdministrationShellIdsByAssetId with the set of product identifiers and returns the union of all discovered DPP identifiers. Pagination via `limit` and `cursor` parameters should be supported.
+
+| CreateDPP
+| PostAssetAdministrationShell / PostAssetAdministrationShellDescriptor + CreateSubmodel (for DppMetadata and each content Submodel)
+| Shall decompose the submitted DPP document and create the corresponding AAS and Submodels as described in <<dpp-decomposition>>. The DppMetadata Submodel shall be created for every new DPP. Shall return the `digitalProductPassportId` with HTTP status 201.
+
+| UpdateDPPById
+| PutAssetAdministrationShellById / PutAssetAdministrationShellDescriptorById + PutSubmodelById (for affected Submodels)
+| Shall accept a partial DPP document (JSON Merge Patch per RFC 7396). If DPP header fields are present, the DppMetadata Submodel shall be updated. If content fields are present, the corresponding content Submodels shall be updated. The `lastUpdate` field of the DppMetadata Submodel shall be updated accordingly. All changes shall be archived per EN 18221.
+
+| DeleteDPPById
+| DeleteAssetAdministrationShellById / DeleteAssetAdministrationShellDescriptorById ( + DeleteSubmodelReference / DeleteSubmodelDescriptorById + DeleteSubmodelById for the Submodel "DppMetadata")
+| Shall delete the AAS and Submodels that contain the DPP metadata. Implementations shall ensure compliance with applicable regulations regarding archiving periods and the prohibition of deleting DPPs for products that are still in use. Shall return HTTP status 204.
+|===
+
+
+== DPP Registry API Operations
+
+The DPP Registry API (EN 18222, Clause 5, Table 17) defines operations for registering DPPs at a centrally hosted DPP Registry. 
+When an AAS-based service acts as a data source for DPPs, it may also act as a client of the DPP Registry.
+
+
+
+[Note]
+====
+Although the AAS supports an AAS Registry this kind of Registry is not necessarily the same as for the DPP Registry and should not be mixed up. 
+An AAS Registry can be used to implement a DPP Registry.
+====
+
+.Mapping of DPP Registry API Operations to AAS Service Operations
+[.table-with-appendix-table]
+[cols="22%,30%,48%"]
+|===
+h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
+
+| RegisterProductDPP
+| Direct call to the DPP Registry
+a| Upon creation of a new DPP, the implementation should register the DPP at the DPP Registry. 
+
+[Note]
+====
+So far no Submodel Template Specification is available for posting the DPP registration information.
+====
+|===
+
+[Note]
+====
+The DPP Registry is typically a centrally hosted service operated independently from individual DPP data providers. The exact mechanism for registration may depend on the specific DPP Registry implementation and the applicable regulatory framework.
+====
+
+
+== Fine Granular API Operations
+
+The Fine Granular API (EN 18222, Clause 6, Table 18) defines operations for reading and updating individual data elements within a DPP without retrieving or modifying the entire document. The following table specifies how each fine-grained DPP operation shall be mapped to AAS SubmodelElement operations.
+
+.Mapping of DPP Fine Granular API Operations to AAS SubmodelElement Operations
+[.table-with-appendix-table]
+[cols="22%,30%,48%"]
+|===
+h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
+
+| ReadDataElement
+| GetSubmodelElementByPath or GetSubmodel / GetSubmodelById
+| Shall retrieve a single data element within a content Submodel by its element path. The `elementId` in the DPP maps to the `idShort`-based path in the AAS Submodel (see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#_format_path_idshortpath_serialization_in_json[IDTA-01001 Part 1]).
+In special cases it may also be the complete Submodel itself.
+
+
+
+| UpdateDataElement
+| PutSubmodelElementByPath or PutSubmodel / PutSubmodelById
+| Shall update a single data element within a content Submodel. The `lastUpdate` field of the DppMetadata Submodel should be updated accordingly.
+
+
+|===
+
+For the mapping of DPP data element types (SingleValuedDataElement, MultiValuedDataElement, DataElementCollection, MultiLanguageDataElement, RelatedResource) to AAS SubmodelElement types (Property, SubmodelElementList, SubmodelElementCollection, MultiLanguageProperty, File), 
+see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Data Element Mapping].
+
+
+[[dpp-serialization]]
+== Serialization Considerations
+
+EN 18223 defines two JSON serialization formats for DPP content. These map to the existing AAS serialization formats as follows:
+
+.Mapping of DPP Serialization Formats to AAS Serialization Formats
+[.table-with-appendix-table]
+[cols="20%,25%,55%"]
+|===
+h| DPP Format (EN 18223) h| AAS Serialization h| Description
+
+| *Compressed* (EN 18223, Clause 5.2)
+| Value-Only (with minor differences as defined in 
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only])
+)
+| The `elementId` is used as the JSON key. Metadata (`dictionaryReference`, `valueDataType`, `objectType`) is omitted. This is the default and mandatory format.
+
+| *Full / Expanded* (EN 18223, Annex A)
+| Normal (with differences as defined in 
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html#section-json-serialization-normal[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Expanded vs. Normal])
+| Uses an `elements[]` array with explicit `elementId`, `objectType`, `dictionaryReference`, and `valueDataType` for each DataElement. Note that the AAS Normal serialization differs in structure: attribute names differ (`idShort` vs. `elementId`, `modelType` vs. `objectType`, `semanticId` vs. `dictionaryReference`), `semanticId` in AAS is a Reference object rather than a plain string, and the XSD data type prefix differs (`xs:` in AAS vs. `xsd:` in JTC24).
+|===
+
+Implementations shall support the _compressed_ representation. The _full_ representation may be supported optionally.
+
+The `representation` query parameter (EN 18222, Clause 8) controls which format is returned. If omitted, the _compressed_ format shall be used as default.
+
+
+[Note]
+====
+For the metadata as defined in the Submodel Template Specification IDTA-02099-1 the payload is identical for compressed and expanded serialization. 
+It corresponds to the Value-Only serialization of the AAS.
+====
+
+
+[[dpp-discovery]]
+== Discovery of Digital Product Passports via AAS Discovery Sequences
+
+The discovery of Digital Product Passports can be implemented using the AAS discovery steps defined in 
+link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01002/v3.2/http-rest-api/interactions.html#fig:seq-aas-endpoints[IDTA-01002 Part 2 -- Figure 2]. 
+These steps enable clients to discover and access AAS instances based on asset identifiers, including the product identifiers used in Digital Product Passports.
+
+A typical DPP discovery sequence proceeds as follows:
+
+. A client application obtains a product identifier, for instance by scanning a data carrier (e.g., QR code) on the product. The client executes the DPP operation ReadDPPByProductId, passing the product identifier as input.
+. The DPP Service invokes the xref:specification/interfaces.adoc#SearchAllAssetAdministrationShellIdsByAssetLink[*SearchAllAssetAdministrationShellIdsByAssetLink*] operation on the AAS Discovery Service, passing the product identifier as the `globalAssetId`.
+. The Discovery Service returns the identifiers of AAS instances associated with the product identifier.
+. The DPP Service selects the appropriate AAS identifier and invokes xref:specification/interfaces.adoc#GetAssetAdministrationShellDescriptorById[*GetAssetAdministrationShellDescriptorById*]  on the AAS Registry Service to obtain the AAS Descriptor, which includes the endpoints for accessing the AAS and/or its Submodels (see sequence <<image-seq-dpp>>), or
+. directly retrieves the AAS using xref:specification/interfaces.adoc#GetAssetAdministrationShellById[*GetAssetAdministrationShellById*] on the AAS Repository or Service (see sequence <<image-seq-dpp-repo>>).
+. The DPP Service retrieves the relevant Submodels and composes the DPP document.
+
+To enable discovery, the economic operator responsible for the product shall ensure that the AAS instance representing the DPP is linked to the product identifier via the `globalAssetId` or `specificAssetId` fields in the `AssetInformation` of the AAS. 
+The `uniqueProductIdentifier` in the DppMetadata Submodel shall correspond to the `globalAssetId` of the AAS. 
+The explicit mapping is defined in IDTA-02099-1.
+
+
+.DPP Composition Sequence via AAS Discovery, Registry, and Submodel Services
+[[image-seq-dpp]]
+[plantuml, seq-dpp, svg]
+....
+include::partial$diagrams/seq-dpp.puml[]
+....
+
+
+.DPP Composition Sequence via AAS Discovery and AAS/Submodel Repository
+[[image-seq-dpp-repo]]
+[plantuml, seq-dpp-repo, svg]
+....
+include::partial$diagrams/seq-dpp-repo.puml[]
+....
+
+<<image-seq-dpp>> illustrates the composition process for a ReadDPPByProductId  interaction. 
+The DPP Application discovers the relevant AAS via the Discovery Service, resolves the Submodel endpoints via the Registry Service, retrieves the relevant Submodels, and merges them into a conformant DPP payload.
+
+
+
+[[readdppversionbyidanddate]]
+== Retrieving Historical Versions of DPPs via AAS Versioning Mechanisms ==
+
+EN 18222 defines the _ReadDPPVersionByIdAndDate_ operation for retrieving the version of a DPP that was current at a specified point in time. 
+When using AAS infrastructure, this can be implemented by leveraging the versioning and timestamping features of AAS resources.
+
+To implement _ReadDPPVersionByIdAndDate_, an implementation shall perform the following steps:
+
+* Retrieve the AAS and all referenced Submodels as described in <<dpp-composition-read>> but considering the _updatedAt_ time information within the AAS and its Submodels.
+* For each Submodel, select the version whose `updatedAt` timestamp is less than or equal to the requested date. This can be achieved by using the `date` query parameter when retrieving the Submodel, which instructs the AAS Service to return the version that was current at that point in time.
+* Compose the DPP document from the selected versions of the Submodels as described in <<dpp-composition-read>>.
+
+In <<image-seq-dpp-repo-history>> the steps to be performed by directly accessing an AAS and Submodel Repository is shown.
+In <<image-seq-dpp-history>> the steps to be performed when using an AAS Registry with Submodel Endpoints contained in the AssetAdministrationShellDescriptor is shown.
+In <<image-seq-dpp-registry-history>> the steps to be performed when using an AAS Registry with AAS Endpoints and a Submodel Registry with Submodel Endpoints is shown.
+
+[Note]
+====
+The endpoints contained in the descriptors implicitly map to corresponding xref:specification/interfaces.adoc#GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate]  or xref:specification/interfaces.adoc#GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate] operation calls.
+====
+
+.ReadDPPVersionByProductIdAndDate Sequence via AAS Versioning with Repository
+[[image-seq-dpp-repo-history]]
+[plantuml, seq-dpp-repo-history, svg]
+....
+include::partial$diagrams/seq-dpp-repo-history.puml[]
+....
+
+.ReadDPPVersionByProductIdAndDate Sequence via AAS Registry
+[[image-seq-dpp-history]]
+[plantuml, seq-dpp-history, svg]
+....
+include::partial$diagrams/seq-dpp-history.puml[]
+....
+
+.ReadDPPVersionByProductIdAndDate Sequence via AAS and Submodel Registry
+[[image-seq-dpp-registry-history]]
+[plantuml, seq-dpp-registry-history, svg]
+....
+include::partial$diagrams/seq-dpp-registry-history.puml[]
+....
+
+
+== HTTP API Mapping
+
+The DPP operations described above shall be exposed through an HTTP REST API following the specifications of the Asset Administration Shell Services (EN 18222, Clause 8). In-path identifiers shall be percent-encoded.
+
+[Note]
+====
+In-path identifiers in AAS are base64url-encoded.
+====
+
+.Exemplary HTTP Mapping of DPP Operations to AAS Repository Endpoints
+[.table-with-appendix-table]
+[cols="25%,10%,30%,35%"]
+|===
+h| DPP Operation h| HTTP Method h| DPP Path (EN 18222) h| AAS Equivalent Endpoint
+
+| ReadDPPById
+| GET
+| `v1/dpps/{dppId}`
+| `shells/{aasId}` + `submodels/{smId}/$value` (per Submodel)
+
+| ReadDPPByProductId
+| GET
+| `v1/dppsByProductId/{productId}`
+| `shells?assetIds={productId}` + Submodel retrieval
+
+| ReadDPPVersionByIdAndDate
+| GET
+| `v1/dppsByIdAndDate/{dppId}?date={timestamp}`
+| `shells/{aasId}/$history` + `submodels/{smId}/$value` with `date` filter
+
+| ReadDPPIdsByProductIds
+| POST
+| `v1/dppsByProductIds`
+| `lookup/shells` (Discovery) for each product ID
+
+| CreateDPP
+| POST
+| `v1/dpps`
+| `shells` (POST) + `submodels` (POST per Submodel)
+
+| UpdateDPPById
+| PATCH
+| `v1/dpps/{dppId}`
+| `shells/{aasId}` (PUT) + `submodels/{smId}` (PUT per Submodel)
+
+| DeleteDPPById
+| DELETE
+| `v1/dpps/{dppId}`
+| `shells/{aasId}` (DELETE)
+
+| RegisterProductDPP
+| POST
+| `v1/registerDPP`
+| `registry/shell-descriptors` (POST) or DPP Registry API
+
+| ReadDataElement
+| GET
+| `v1/dpps/{dppId}/elements/{elementPath}`
+| `submodels/{smId}/submodel-elements/{elementPath}/$value`
+
+| UpdateDataElement
+| PATCH
+| `v1/dpps/{dppId}/elements/{elementPath}`
+| `submodels/{smId}/submodel-elements/{elementPath}`
+|===
+
+
+== Compliance Considerations
+
+Implementations of a DPP service based on AAS infrastructure shall ensure compliance with the applicable regulatory requirements. The following aspects are of particular importance:
+
+*Archiving*: All changes to a DPP shall be tracked and archived per EN 18221. The AAS Services support this through the `updatedAt` attribute in `AdministrativeInformation` and the `date` query parameter for retrieving historical versions. Implementations shall maintain a complete audit trail of all modifications to a DPP.
+
+*Deletion restrictions*: Applicable regulations may prohibit the deletion of a DPP while the corresponding product is still in use or within mandatory retention periods. AAS implementations exposing DPPs shall enforce these restrictions regardless of whether the DeleteDPPById operation is supported. The AAS Services specification provides the DeleteAssetAdministrationShellById operation, but its use shall be governed by the applicable regulatory framework.
+
+*Access control*: Implementations should enforce appropriate access control policies on DPP operations, in accordance with EN 18222, Clause 4.2–4.5. 
+Different data elements within a DPP may require different levels of authorization depending on the stakeholder and their role in the product lifecycle. 
+For further details see link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01004/v3.1/index.html[IDTA-01004 Part 4].
+
+*Error handling*: All error responses shall conform to the `Result` object structure defined in EN 18222, Clause 7, containing an array of `Message` objects with `messageType`, `text`, `code`, `correlationId`, and `timestamp`. The HTTP status codes shall follow EN 18222, Table 15.

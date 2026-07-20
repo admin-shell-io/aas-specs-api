@@ -1,0 +1,348 @@
+import json
+import unittest
+from pathlib import Path
+
+from jsonschema import Draft7Validator, FormatChecker
+
+
+ROOT_MODULE = Path(__file__).resolve().parents[4]
+QUERY_SCHEMA = ROOT_MODULE / "partials" / "query-json-schema.json"
+FORMAT_CHECKER_MESSAGE = 'jsonschema date-time format checking is inactive; install "jsonschema[format]"'
+
+
+def format_errors(errors):
+    return "\n".join(
+        f"{'/'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
+        for error in errors
+    )
+
+
+class QueryJsonSchemaValidationTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.schema = json.loads(QUERY_SCHEMA.read_text(encoding="utf-8-sig"))
+        Draft7Validator.check_schema(cls.schema)
+        cls.format_checker = FormatChecker()
+        cls.ensure_date_time_format_checking_is_active()
+        cls.validator = Draft7Validator(cls.schema, format_checker=cls.format_checker)
+        cls.date_time_validator = Draft7Validator(cls.schema["definitions"]["dateTimeLiteralPattern"])
+        cls.time_validator = Draft7Validator(cls.schema["definitions"]["timeLiteralPattern"])
+
+    @classmethod
+    def ensure_date_time_format_checking_is_active(cls):
+        validator = Draft7Validator(
+            {"type": "string", "format": "date-time"},
+            format_checker=cls.format_checker,
+        )
+        if not list(validator.iter_errors("not-a-date-time")):
+            raise RuntimeError(FORMAT_CHECKER_MESSAGE)
+
+    def assert_valid(self, instance):
+        errors = sorted(self.validator.iter_errors(instance), key=lambda error: list(error.absolute_path))
+        self.assertEqual([], errors, format_errors(errors))
+
+    def assert_invalid(self, instance):
+        errors = sorted(self.validator.iter_errors(instance), key=lambda error: list(error.absolute_path))
+        self.assertTrue(errors, "Expected schema validation to fail")
+
+    def test_bnf_temporal_forms_are_valid(self):
+        date_time_values = [
+            "2024-02-29T12:34Z",
+            "2026-06-2912:34",
+            "2000-02-29T24:00:00.0+14:00",
+            "1900-02-28T12:34.5-13:59",
+            "0000-02-29T00:00",
+        ]
+        time_values = [
+            "00:00",
+            "12:34.5",
+            "23:59:59.999Z",
+            "24:00",
+            "24:00:00.0+01:00",
+        ]
+
+        for value in date_time_values:
+            with self.subTest(date_time=value):
+                self.assertTrue(self.date_time_validator.is_valid(value))
+        for value in time_values:
+            with self.subTest(time=value):
+                self.assertTrue(self.time_validator.is_valid(value))
+
+    def test_invalid_temporal_values_are_rejected(self):
+        date_time_values = [
+            "2023-02-29T12:34",
+            "1900-02-29T12:34",
+            "2026-04-31T12:34",
+            "12345-01-01T12:34",
+            "-2026-01-01T12:34",
+            "2026-01-01T24:00:01",
+            "2026-01-01T12:60",
+            "2026-01-01T12:34+14:01",
+            "2026-01-01",
+        ]
+        time_values = [
+            "12",
+            "24:01",
+            "12:60",
+            "12:34:60",
+            "12:34.",
+            "12:34+14:01",
+            "12:34:56+01",
+        ]
+
+        for value in date_time_values:
+            with self.subTest(date_time=value):
+                self.assertFalse(self.date_time_validator.is_valid(value))
+        for value in time_values:
+            with self.subTest(time=value):
+                self.assertFalse(self.time_validator.is_valid(value))
+
+    def test_complex_query_payload_is_valid(self):
+        query = {
+            "$select": "id",
+            "$condition": {
+                "$and": [
+                    {
+                        "$match": [
+                            {
+                                "$eq": [
+                                    {"$field": "$sm#supplementalSemanticIds[].keys[].value"},
+                                    {"$strVal": "https://example.org/semantic-id"},
+                                ]
+                            },
+                            {
+                                "$gt": [
+                                    {"$numCast": {"$field": "$sme.OperationalData.Temperature#value"}},
+                                    {"$numVal": 42.5},
+                                ]
+                            },
+                        ]
+                    },
+                    {"$not": {"$boolean": False}},
+                ]
+            },
+            "$filters": [
+                {
+                    "$fragment": "$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[]",
+                    "$condition": {
+                        "$contains": [
+                            {"$field": "$smdesc#semanticId.keys[].value"},
+                            {"$strVal": "admin-shell"},
+                        ]
+                    },
+                }
+            ],
+        }
+
+        self.assert_valid(query)
+
+    def test_field_to_field_comparison_is_valid(self):
+        query = {
+            "$condition": {
+                "$eq": [
+                    {"$field": "$aas#idShort"},
+                    {"$field": "$aas#assetInformation.assetType"},
+                ]
+            }
+        }
+
+        self.assert_valid(query)
+
+    def test_access_rule_payload_with_constrained_identifiers_is_valid(self):
+        access_rules = {
+            "DEFATTRIBUTES": [
+                {
+                    "name": "timeAttributes",
+                    "USEATTRIBUTES": ["baseAttributes"],
+                }
+            ],
+            "rules": [
+                {
+                    "ACL": {
+                        "ATTRIBUTES": [
+                            {"CLAIM": "bpn"},
+                            {"GLOBAL": "UTCNOW"},
+                            {"REFERENCE": '$sm("SubmodelID")#supplementalSemanticIds[].keys[].value'},
+                        ],
+                        "RIGHTS": ["READ", "UPDATE"],
+                        "ACCESS": "ALLOW",
+                    },
+                    "OBJECTS": [
+                        {"IDENTIFIABLE": '$aas("aas-id")'},
+                        {"REFERABLE": '$sme("SubmodelID").AddressInformation[]'},
+                        {"FRAGMENT": "$aasdesc#submodelDescriptors[].semanticId.keys[]"},
+                        {"DESCRIPTOR": '$smdesc("submodel-id")'},
+                    ],
+                    "FORMULA": {
+                        "$eq": [
+                            {"$attribute": {"CLAIM": "bpn"}},
+                            {"$strVal": "BPNL123"},
+                        ]
+                    },
+                    "FILTERLIST": [
+                        {
+                            "FRAGMENT": "$sme#value",
+                            "CONDITION": {"$boolean": True},
+                        },
+                        {
+                            "FRAGMENT": "$sm#supplementalSemanticIds[]",
+                            "USEFORMULA": "predefinedFormula",
+                        },
+                    ],
+                }
+            ],
+        }
+
+        self.assert_valid(access_rules)
+
+    def test_acl_can_reference_multiple_attribute_groups(self):
+        access_rules = {
+            "rules": [
+                {
+                    "ACL": {
+                        "USEATTRIBUTES": ["baseAttributes", "timeAttributes"],
+                        "RIGHTS": ["READ"],
+                        "ACCESS": "ALLOW",
+                    },
+                    "OBJECTS": [{"IDENTIFIABLE": '$aas("aas-id")'}],
+                    "FORMULA": {"$boolean": True},
+                }
+            ]
+        }
+
+        self.assert_valid(access_rules)
+
+    def test_identifier_literals_support_unicode_and_escaping(self):
+        cases = [
+            ("IdentifiableIdentifier", '$aas("urn:example:Ä/设备")'),
+            ("IdentifiableIdentifier", '$aas("urn:example:\\"quoted\\"\\\\path")'),
+            ("ReferenceIdentifier", '$sm("urn:example:日本")#id'),
+            ("ReferableIdentifier", '$sme("urn:example:日本").AddressInformation[]'),
+            ("DescriptorIdentifier", '$aasdesc("https://例子.测试/ä")'),
+        ]
+
+        for definition_name, value in cases:
+            with self.subTest(definition=definition_name, value=value):
+                validator = Draft7Validator(self.schema["definitions"][definition_name])
+                self.assertTrue(validator.is_valid(value))
+
+        identifier_validator = Draft7Validator(self.schema["definitions"]["IdentifiableIdentifier"])
+        self.assertTrue(identifier_validator.is_valid('$aas("' + "ä" * 2048 + '")'))
+        self.assertTrue(identifier_validator.is_valid('$aas("' + "😀" * 2048 + '")'))
+
+    def test_malformed_identifier_escapes_and_lengths_are_rejected(self):
+        identifier_validator = Draft7Validator(self.schema["definitions"]["IdentifiableIdentifier"])
+        cases = [
+            '$aas("")',
+            '$aas("urn:example:"quoted"")',
+            '$aas("urn:example:\\q")',
+            '$aas("urn:example:\\")',
+            '$aas("urn:example:\x00control")',
+            '$aas("urn:example:\ud800")',
+            '$aas("urn:example:\uffff")',
+            '$aas("' + "ä" * 2049 + '")',
+            '$aas("' + "😀" * 2049 + '")',
+        ]
+
+        for value in cases:
+            with self.subTest(value=value):
+                self.assertFalse(identifier_validator.is_valid(value))
+
+    def test_standard_strings_support_unicode(self):
+        validator = Draft7Validator(self.schema["definitions"]["standardString"])
+        self.assertTrue(validator.is_valid('$ arbitrary "quoted" Unicode 设备 \\ value'))
+        self.assertFalse(validator.is_valid(""))
+
+    def test_invalid_query_payloads_are_rejected(self):
+        cases = [
+            {
+                "$condition": {
+                    "$eq": [
+                        {"$field": "$sm#supplementalSemanticIds[01]"},
+                        {"$strVal": "https://example.org/semantic-id"},
+                    ]
+                }
+            },
+            {
+                "$condition": {
+                    "$and": [{"$boolean": True}, {"$boolean": False}],
+                    "$or": [{"$boolean": True}, {"$boolean": False}],
+                }
+            },
+            {
+                "$condition": {
+                    "$eq": [
+                        {"$dateTimeVal": "not-a-date-time"},
+                        {"$dateTimeVal": "2026-06-29T12:00:00Z"},
+                    ]
+                }
+            },
+            {
+                "$condition": {"$boolean": True},
+                "$filters": [
+                    {
+                        "$fragment": "$sme#value",
+                    }
+                ],
+            },
+            {
+                "Query": {
+                    "$condition": {"$boolean": True},
+                }
+            },
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                self.assert_invalid(case)
+
+    def test_invalid_access_rule_identifiers_are_rejected(self):
+        cases = [
+            {
+                "rules": [
+                    {
+                        "ACL": {
+                            "ATTRIBUTES": [{"REFERENCE": "$sm#id"}],
+                            "RIGHTS": ["READ"],
+                            "ACCESS": "ALLOW",
+                        },
+                        "OBJECTS": [{"IDENTIFIABLE": '$aas("aas-id")'}],
+                        "FORMULA": {"$boolean": True},
+                    }
+                ]
+            },
+            {
+                "rules": [
+                    {
+                        "ACL": {
+                            "ATTRIBUTES": [{"CLAIM": "bpn"}],
+                            "RIGHTS": ["READ"],
+                            "ACCESS": "ALLOW",
+                        },
+                        "OBJECTS": [{"IDENTIFIABLE": '$aasdesc("aas-id")'}],
+                        "FORMULA": {"$boolean": True},
+                    }
+                ]
+            },
+            {
+                "rules": [
+                    {
+                        "ACL": {
+                            "ATTRIBUTES": [{"CLAIM": "bpn"}],
+                            "RIGHTS": ["READ"],
+                            "ACCESS": "ALLOW",
+                        },
+                        "OBJECTS": [{"REFERABLE": '$sme("SubmodelID").AddressInformation[01]'}],
+                        "FORMULA": {"$boolean": True},
+                    }
+                ]
+            },
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                self.assert_invalid(case)
+
+
+if __name__ == "__main__":
+    unittest.main()

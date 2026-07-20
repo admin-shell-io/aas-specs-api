@@ -1,4 +1,4 @@
-= Part 2: Application Programming Interfaces (IDTA-01002-3-1)
+= Part 2: Application Programming Interfaces (IDTA-01002-3-2)
 
 *Specification of the Asset Administration Shell*
 
@@ -8,21 +8,61 @@ This specification is part of the https://industrialdigitaltwin.org/en/content-h
 
 == Version
 
-This is version 3.1.3 of the specification IDTA-01002.
+This is version 3.2.0 of the specification IDTA-01002.
 
-Previous version: 3.1.2
+Previous version: 3.1.3
 
-[#metamodel-versions]
-== Metamodel Versions
+[#cross-spec-alignment]
+=== Alignment with other AAS Specifications
 
-This document uses the following parts of the “Specification of the Asset Administration Shell” series:
+This version of IDTA-01002 (v3.2) is designed to be used together with the following companion specifications:
 
-* IDTA-01001 Part 1: Metamodel in version 3.1 xref:bibliography.adoc#bib1[[1\]]
-* IDTA-01003-a Part 3a: Data Specification – IEC 61360 in version 3.1 xref:bibliography.adoc#bib2[[2\]]
-* IDTA-01004 Part 4: Security in version 3.1 xref:bibliography.adoc#bib3[[3\]]
-* IDTA-01005 Part 5: Package File Format (AASX) in version 3.1 xref:bibliography.adoc#bib4[[4\]]
+[cols="1,2,2,3",options="header"]
+|===
+h| Dependency h| Specification h| Aligned Version h| Notes
 
-If there are bugfixes of the parts, these shall be used.
+| x | IDTA-01001 Part 1: Metamodel
+| v3.2
+a| 
+API: 
+
+* defines payload of many API operations like `GetAssetAdministrationShell`, `GetSubmodel` etc. (collected in `Part1-MetaModel-Schemas`)
+* is the basis for derived data types for payload like `AssetLink`, `SubmodelDescriptor` etc. used in Registry or Discovery API operations
+* defines mapping rules for serializations like `Value`, `Metadata` etc.
+
+Query Language: 
+
+* defines the classes referenced by `$aas`, `$sm`, `$sme`, `$cd` 
+* defines the attributes used in conditions like  `semanticId`, `specificAssetIds` etc.
+
+| x | IDTA-01003-a Part 3a: Data Specification Template IEC61360
+| v3.1
+a| is integrated into the schema of Part 1
+
+| x | IDTA-01003-b Part 3b: Data Specification Template Measurement Units
+| v3.0
+a| is integrated into the schema of Part 1
+
+| x | IDTA-01004 Part 4: Security
+| v3.1
+a| 
+
+API:
+
+* security measurements shall be applied to API
+* access control rules shall be implemented (Note: if an implementation only supports a subset of access control rules this shall be specified)
+
+
+Query Language: 
+
+* IDTA-01002 and IDTA-01004 share the same BNF grammar and JSON Schema for formula expressions; see xref:query-language.adoc[] and the Access Rule Model in IDTA-01004.
+
+| x | IDTA-01005 Part 5: Package File Format (AASX)
+| v3.2
+a| defines return object for API operations like `GetAASXByPackageId`
+|===
+
+Bugfix (patch) releases of aligned specifications shall be substituted. 
 
 == Notice
 
@@ -30,9 +70,9 @@ Copyright: Industrial Digital Twin Association e.V. (IDTA)
 
 IDTA Number: IDTA-01002
 
-Version: 3.1.3
+Version: 3.2.0
 
-DOI: https://doi.org/10.62628/IDTA.01002-3-1-3
+DOI: https://doi.org/10.62628/IDTA.01002-3-2
 
 This work is licensed under a
 https://creativecommons.org/licenses/by/4.0/[Creative Commons Attribution 4.0 International License].
@@ -58,7 +98,9 @@ Feedback:
 
 === History
 
-This document (version 3.1) was produced by the Work Stream "Specification of the Asset Administration Shell" of the Working Group "Open Technology" of the https://industrialdigitaltwin.org/[Industrial Digital Twin Association (IDTA)].
+This document (version 3.2) was produced by the Work Stream "Specification of the Asset Administration Shell" of the Working Group "Open Technology" of the https://industrialdigitaltwin.org/[Industrial Digital Twin Association (IDTA)].
+
+Version 3.1 was finalized in May 2025 by the Work Stream "Specification of the Asset Administration Shell" of the Working Group "Open Technology" of the https://industrialdigitaltwin.org/[Industrial Digital Twin Association (IDTA)].
 It is the first version published as html document and maintained completely open source.
 
 Version 3.0, the first release of the API, was finalized from November 2021 to May 2023 by the joint sub working group "Asset Administration Shell" of the working group "Reference Architectures, Standards and Norms" of the Plattform Industrie 4.0 and the working group "Open Technology" of the Industrial Digital Twin Association (IDTA). 

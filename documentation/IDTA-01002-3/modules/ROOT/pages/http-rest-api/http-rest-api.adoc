@@ -18,37 +18,21 @@ include::../includes/constraints.adoc[]
 
 This clause describes the technology mapping to HTTP/REST APIs.
 
-The OpenAPI specification of the HTTP/REST APIs can be found at SwaggerHub.
+The OpenAPI specification of the HTTP/REST APIs can be found https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html[here] and, for legacy reasons, also at https://app.swaggerhub.com/search?owner=Plattform_i40[SwaggerHub] until version v3.1.3.
 
 To clearly separate the different parts of the AAS model, the model has been split into several HTTP/REST APIs.
 Combinations then form service specifications and profiles, each materialized as an individual OpenAPI document.
 
 The schema for the metamodel of Part 1 is available at: +
-https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#[https://app.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#] +
+https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0[https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part1-MetaModel-Schemas/openapi_3.2.yaml&version=v3.2.0] +
 This schema includes general objects, which are used in the further defined APIs.
 
 Additional objects are needed for Part 2, e.g., the Descriptors for the Registry.
 The related schema of Part 2 objects is available at: +
-https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.3#[https://app.swaggerhub.com/domains/Plattform_i40/Part2-API-Schemas/V3.1.3#] +
+https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part2-API-Schemas/openapi.yaml&version=v3.2.0[https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=./Part2-API-Schemas/openapi.yaml&version=v3.2.0] +
 This schema includes general objects, which are used in the further defined APIs.
 
-The AAS Service Specification including the AAS API, the Submodel API, the Serialization API, and the Self-Description API is available at: +
-https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellServiceSpecification/V3.1.3_SSP-001#] +
-
-The Submodel Service Specification including the Submodel API, the Serialization API, and the Self-Description API is available at: +
-https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelServiceSpecification/V3.1.3_SSP-001#] +
-
-The AAS Repository Service Specification including the AAS Repository API, the AAS API, the Submodel API, the Submodel Repository API, the Serialization API, and the Self-Description API is available at: https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRepositoryServiceSpecification/V3.1.3_SSP-001#] +
-
-The Submodel Repository Service Specification including the Submodel Repository API, Submodel API, the Serialization API, and the Self-Description API is available at: https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRepositoryServiceSpecification/V3.1.3_SSP-001#] +
-
-The AAS Registry Service Specification Registry including the AAS Registry API and the Self-Description API is available at: +
-https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/AssetAdministrationShellRegistryServiceSpecification/V3.1.3_SSP-001#]
-
-The Submodel Registry Service Specification including the Submodel Registry API and the Self-Description API is available at https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/SubmodelRegistryServiceSpecification/V3.1.3_SSP-001#]
-
-The Service Specification including the AAS Discovery API and the Self-Description API is available at:
-https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.3_SSP-001#[https://app.swaggerhub.com/apis/Plattform_i40/DiscoveryServiceSpecification/V3.1.3_SSP-001#]
+The specific OpenAPI documents for the different APIs are listed in the sections for the respective service specifications and profiles in Clause xref:http-rest-api/service-specifications-and-profiles.adoc#service-specifications-and-profiles[Service Specifications and Profiles].
 
 This clause gives an overview of the HTTP/REST API and describes general design decisions.
 
@@ -57,7 +41,7 @@ This clause gives an overview of the HTTP/REST API and describes general design 
 
 The following design decisions and constraints hold for the HTTP/REST API:
 
-* OpenAPI and SwaggerHub shall be used for specification.
+* OpenAPI, hosted by SwaggerHub (legacy versions) and rendered via Github Pages shall be used for specification.
 This leads to the constraint that one operation can only provide one type of a resulting payload.
 * This document assumes version 1.1 of HTTP.
 * An endpoint of the HTTP/REST API shall always use HTTPS (Port 443) with an up-to-date level of encryption.
@@ -72,6 +56,7 @@ Reduced objects can be requested by the path suffix "/$<content>".
 See xref:bibliography.adoc#bib1[[1]] for further details.
 
 Exceptions to this rule are API Operations requiring pagination and error cases.
+
 * By default, blobs are not part of the payload.
 Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
 * Submodels define a hierarchical structure.
@@ -331,15 +316,15 @@ e|cursor a|The cursor for the next part of the result set. No cursor attribute m
 
 The payload is generated from the technology-neutral specification as described in Part 1 of the Asset Administration Shell Series for JSON xref:bibliography.adoc#bib1[[1\]].
 // Previously pointing to Clause 11.4.2
-The link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#value-only-serialization-in-json[serialization of JSON values] is described in xref:bibliography.adoc#bib1[[1]].
+The link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[serialization of JSON values] is described in xref:bibliography.adoc#bib1[[1]].
 
-Additional classes needed for payload of the HTTP/REST API specification can be found in xref:specification/interfaces-payload.adoc#metamodel-specification-details[Metamodel Specification Details].
+Additional classes needed for payload of the HTTP/REST API specification can be found in the xref:specification/interfaces-payload.adoc#descriptor[Descriptor Definition].
 
 [#modifier-constraints]
 == Modifier Constraints
 
 
-To use link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specification/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
+To use link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#_format_metadata_metadata_serialization[metadata objects] as described in xref:bibliography.adoc#bib1[[1]], xref:specification/interfaces-operation-parameters.adoc[modifiers] are implemented as HTTP query parameters or path suffixes.
 For example, a request for a specific submodel may look like: +
 GET /submodel/$value?level=deep&extent="withBlobValue"
 
@@ -526,11 +511,17 @@ base64url-encoded identifier
 
 path-suffix=$reference or no suffix normal
 
+date=\{dateTime\} is the date and time for which the version of the AAS shall be retrieved, e.g. "2024-01-01T12:00:00Z" for January 1st, 2024 at 12:00:00 UTC.
+
 |PostAssetAdministrationShell |POST |/shells |
 |PutAssetAdministrationShellById |PUT |/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellById |DELETE |/shells/\{aasIdentifier} |base64url-encoded identifier
 s|AasInterface s|* s|/shells/\{aasIdentifier}/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShells |POST |/query/shells a| Input query in the request body
+|GetAssetAdministrationShellVersionByIdAndDate |GET |/shells/\{aasIdentifier}/$history a|
+base64url-encoded identifier
+|GetAssetAdministrationShellByIdSigned |GET |/shells/\{aasIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|Submodel Repository Interface
 |GetAllSubmodels |GET |/submodels a|
@@ -547,6 +538,12 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
 Pagination
 
+|GetAllSubmodelsRecentChanges |GET |/submodels/$recent-changes a|
+
+
+Pagination
+
+
 |GetAllSubmodelsByIdShort |GET |/submodels a|
 path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
@@ -557,12 +554,18 @@ path-suffix=$metadata or no suffix for normal
 
 base64url-encoded identifier
 
+date=\{dateTime\} is the date and time for which the version of the Submodel shall be retrieved, e.g. "2024-01-01T12:00:00Z" for January 1st, 2024 at 12:00:00 UTC. Only applicable for the 'normal' and 'value' operations.
+
 |PostSubmodel |POST |/submodels |
 |PutSubmodelById |PUT |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 |PatchSubmodelById |PATCH |/submodels/\{submodelIdentifier} |path-suffix=$metadata/$value or no suffix for normal
 |DeleteSubmodelById |DELETE |/submodels/\{submodelIdentifier} |base64url-encoded identifier
 s|SubmodelInterface s|* s|/submodels/\{submodelIdentifier}/* s|superpath as defined in service specification or profile
 |QuerySubmodels |POST |/query/submodels a| Input query in the request body
+|GetSubmodelVersionByIdAndDate |GET |/submodels/\{submodelIdentifier}/$history a|
+base64url-encoded identifier
+|GetSubmodelByIdSigned |GET |/submodels/\{submodelIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|Concept Description Repository Interface
 |GetAllConceptDescriptions |GET |/concept-descriptions |Pagination
@@ -587,6 +590,8 @@ Pagination
 |PutConceptDescriptionById |PUT |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |DeleteConceptDescriptionById |DELETE |/concept-descriptions/\{cdIdentifier} |base64url-encoded identifier
 |QueryConceptDescriptions |POST |/query/concept-descriptions a| Input query in the request body
+|GetConceptDescriptionByIdSigned |GET |/concept-descriptions/\{cdIdentifier}/$signed a|
+base64url-encoded identifier
 
 4+h|AASX File Server Interface
 |GetAllAASXPackageIds |GET |/packages a|
@@ -598,6 +603,9 @@ Pagination
 |GetAASXByPackageId |GET |/packages/\{packageId} |base64url-encoded identifier
 |PutAASXByPackageId |PUT |/packages/\{packageId} |base64url-encoded identifier
 |DeleteAASXByPackageId |DELETE |/packages/\{packageId} |base64url-encoded identifier
+|PostAsyncAASXPackage |POST |/packages-async |
+|GetAasxAsyncStatus |GET |/packages-async/status/\{handleId} |
+|GetAasxAsyncResult |GET |/packages-async/result/\{handleId} |
 
 4+h|Serialization Interface
 |GenerateSerializationByIds |GET |/serialization |base64url-encoded identifier; AcceptHeader: application/aasx+xml or application/json oder application/xml
@@ -610,12 +618,22 @@ base64url-encoded JSON-serialized key-value-pairs
 
 Pagination
 
+|GetAllAssetAdministrationShellRecentChanges |GET |/shells/$recent-changes a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
+
+?assetids=…
+
+
+Pagination
+
 |GetAllAssetLinksById |GET |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |PostAllAssetLinksById |POST |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAllAssetLinksById |DELETE |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 
 4+h|AAS Registry Interface
-|GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a|
+|GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
+
+?assetids=…
+
 Pagination
 
 assetKind=Type\|Instance\|Role\|NotApplicable
@@ -626,7 +644,7 @@ assetType= base64url-encoded identifier
 |PostAssetAdministrationShellDescriptorById |POST |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |PutAssetAdministrationShellDescriptorById |PUT |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAssetAdministrationShellDescriptorById |DELETE |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
-s|Submodel Registry Interface s|* s|/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* s|superpath as defined in Service Specification or Profile
+|Submodel Registry Interface s|* s|/shell-descriptors/\{aasIdentifier}/submodelDescriptors/* s|superpath as defined in Service Specification or Profile
 |QueryAssetAdministrationShellDescriptors |POST |/query/shell-descriptors a| Input query in the request body
 |CreateBulkAssetAdministrationShellDescriptors |POST |/bulk/shell-descriptors a| List of new Asset Administration Shell Descriptors in the request body
 |PutBulkAssetAdministrationShellDescriptorsById |PUT |/bulk/shell-descriptors a| List of new versions of Asset Administration Shell Descriptors in the request body. Mapping to existing Asset Administration Shell Descriptors happens via the `id` attribute.
@@ -644,7 +662,9 @@ Note: Same endpoint as for the Submodel Registry Interface bulk result.
 ====
 
 4+h|Submodel Registry Interface
-|GetAllSubmodelDescriptors |GET |/submodel-descriptors |Pagination
+|GetAllSubmodelDescriptors |GET |/submodel-descriptors a| 
+
+Pagination
 |GetSubmodelDescriptorById |GET |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PostSubmodelDescriptor |POST |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PutSubmodelDescriptorById |PUT |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
@@ -702,6 +722,23 @@ In case incorrect inputs have been provided by the client but the server was onl
 Note: the invocation of the SubmodelElement "Operation" may also be conducted in the "ValueOnly" content.
 In this case, the "/$value" path segment is added to the previously mentioned endpoints.
 ====
+
+
+[#async-invocation-of-aasx-upload]
+== Asynchronous Invocation of an AASX File Upload
+The upload of an AASX file is only defined as an asynchronous operation in the current version of the specification.
+The expected behavior is therefore explained in detail.
+The client sends a POST request to the "/packages-async" endpoint with the AASX file in the request body.
+The server immediately responds with an Accepted (status code: 202) message containing an OperationHandle in the response body and the link to the status endpoint in the Location response header.
+This status endpoint is located at "/packages-async/status/\{handleId}".
+In case the request is incorrect and the server already recognizes it, the server responds directly with the according status code, e.g. 400. If the server can only recognize the error during later processing and not at the time it receives the request, it responds with an Accepted (202) message at first. Hence, a received Accepted message does not guarantee the client that its request is valid in every case.
+If the server has not finished processing the request, the status endpoint responds with a message with the attribute "executionState" set to "Running".
+As soon as the processing is finished, the status endpoints deliver a Found (HTTP status code 302) response with the location of the result in the Location response header.
+The result is provided at the "/packages-async/result/\{handleId}" endpoint.
+In case incorrect inputs have been provided by the client but the server was only able to recognize this during processing, or if the server perceived any other error during processing, the server must still provide the result object with status code 200 and set the attribute "executionState" to "Failed".
+
+
+
 
 == Bulk Operations
 
@@ -834,6 +871,5 @@ h|Inherits from 3+|--
 
 h|Attribute h|Explanation h|Type h|Card.
 e|packageId a|File server specific package id |xref:specification/interfaces-payload.adoc#ShortIdType[ShortIdType] |1
-e|aasId a|Asset Administration Shell unique identifier |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|aasId a|Asset Administration Shell unique identifier |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
 |===
-

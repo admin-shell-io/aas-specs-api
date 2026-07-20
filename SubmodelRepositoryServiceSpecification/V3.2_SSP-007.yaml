@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | Submodel Repository Service Specification
+  description: >-
+    The History Profile of the Submodel Repository Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).  
+
+    Copyright: Industrial Digital Twin Association (IDTA) 2026
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license: 
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.2.0_SSP-007
+  x-profile-identifier: https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-007
+servers:
+- url: 'https://admin-shell.io/api/v3/'
+- url: 'https://example.com/'
+
+paths:
+  /submodels/{submodelIdentifier}/$history:
+    parameters:
+      - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/SubmodelIdentifier'
+    get:
+      tags:
+        - Submodel Repository API
+      summary: Returns a specific Submodel valid at a specific point in time
+      operationId: GetSubmodelVersionByIdAndDate
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSubmodelVersionByIdAndDate/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Date'
+      responses:
+        '200':
+          description: Requested Submodel at a specific point in time
+          content:
+            application/json:
+              schema:
+                $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel'
+        '400':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '404':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '500':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
+        default:
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
+          
+
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetSelfDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSelfDescription/3/2
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/ServiceDescription'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
