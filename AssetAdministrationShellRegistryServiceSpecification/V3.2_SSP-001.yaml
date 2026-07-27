@@ -11,7 +11,7 @@ info:
   license: 
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
-  version: V3.2.0_SSP-001
+  version: V3.2.1_SSP-001
   x-profile-identifier: https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-001
 servers:
 - url: 'https://admin-shell.io/api/v3/'
@@ -203,6 +203,8 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/CreatedFrom'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/UpdatedFrom'
       responses:
         '200':
           description: Requested Submodel Descriptors
