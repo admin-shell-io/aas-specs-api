@@ -100,53 +100,7 @@
     <div class="spec-selector">
         <label for="specSelect">Select API Specification:</label>
         <select id="specSelect">
-            <optgroup label="Complete Collection">
-                <option value="../Entire-API-Collection/V3.2.yaml" disabled>Entire API Collection (too large for Redoc - use Swagger UI)</option>
-            </optgroup>
-            <optgroup label="Core Services">
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml">AAS Registry Service - SSP-001</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-002.yaml">AAS Registry Service - SSP-002</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-003.yaml">AAS Registry Service - SSP-003</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-004.yaml">AAS Registry Service - SSP-004</option>
-                <option value="../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-005.yaml">AAS Registry Service - SSP-005</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-001.yaml">AAS Repository Service - SSP-001</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-002.yaml">AAS Repository Service - SSP-002</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-003.yaml">AAS Repository Service - SSP-003</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-004.yaml">AAS Repository Service - SSP-004</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-005.yaml">AAS Repository Service - SSP-005</option>
-                <option value="../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-006.yaml">AAS Repository Service - SSP-006</option>
-                <option value="../AssetAdministrationShellServiceSpecification/V3.2_SSP-001.yaml">AAS Service - SSP-001</option>
-                <option value="../AssetAdministrationShellServiceSpecification/V3.2_SSP-002.yaml">AAS Service - SSP-002</option>
-            </optgroup>
-            <optgroup label="Submodel Services">
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-001.yaml">Submodel Registry Service - SSP-001</option>
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-002.yaml">Submodel Registry Service - SSP-002</option>
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-003.yaml">Submodel Registry Service - SSP-003</option>
-                <option value="../SubmodelRegistryServiceSpecification/V3.2_SSP-004.yaml">Submodel Registry Service - SSP-004</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-001.yaml">Submodel Repository Service - SSP-001</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-002.yaml">Submodel Repository Service - SSP-002</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-003.yaml">Submodel Repository Service - SSP-003</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-004.yaml">Submodel Repository Service - SSP-004</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-005.yaml">Submodel Repository Service - SSP-005</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-006.yaml">Submodel Repository Service - SSP-006</option>
-                <option value="../SubmodelRepositoryServiceSpecification/V3.2_SSP-007.yaml">Submodel Repository Service - SSP-007</option>
-                <option value="../SubmodelServiceSpecification/V3.2_SSP-001.yaml">Submodel Service - SSP-001</option>
-                <option value="../SubmodelServiceSpecification/V3.2_SSP-002.yaml">Submodel Service - SSP-002</option>
-                <option value="../SubmodelServiceSpecification/V3.2_SSP-003.yaml">Submodel Service - SSP-003</option>
-            </optgroup>
-            <optgroup label="Additional Services">
-                <option value="../DiscoveryServiceSpecification/V3.2_SSP-001.yaml">Discovery Service - SSP-001</option>
-                <option value="../DiscoveryServiceSpecification/V3.2_SSP-002.yaml">Discovery Service - SSP-002</option>
-                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-001.yaml">Concept Description Repository - SSP-001</option>
-                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-002.yaml">Concept Description Repository - SSP-002</option>
-                <option value="../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-003.yaml">Concept Description Repository - SSP-003</option>
-                <option value="../AasxFileServerServiceSpecification/V3.2_SSP-001.yaml">AASX File Server - SSP-001</option>
-                <option value="../AasxFileServerServiceSpecification/V3.2_SSP-002.yaml">AASX File Server - SSP-002</option>
-            </optgroup>
-            <optgroup label="Schema Domains">
-                <option value="../Part1-MetaModel-Schemas/openapi_3.2.yaml">Part 1 - MetaModel Schemas</option>
-                <option value="../Part2-API-Schemas/openapi.yaml">Part 2 - API Schemas</option>
-            </optgroup>
+            <!-- Options populated dynamically by JavaScript -->
         </select>
     </div>
 
@@ -154,55 +108,250 @@
 
     <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
     <script>
-        // Auto-detect path prefix for local vs GitHub Pages
-        function getPathPrefix() {
-            const path = window.location.pathname;
-            if (path.includes('/docs/')) {
-                return '../'; // Local: go up from docs/ to repo root
+        // Version configuration
+        const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/admin-shell-io/aas-specs-api';
+
+        const versionConfig = {
+            'v3.2.0': { tag: 'v3.2.0', local: false, format: '3.2' },
+            'v3.1.2': { tag: 'v3.1.2', local: false, format: '3.1' },
+            'v3.1.1': { tag: 'v3.1.1', local: false, format: '3.1' },
+            'v3.1.0': { tag: 'v3.1.0', local: false, format: '3.1' },
+            'v3.0.4': { tag: 'v3.0.4', local: false, format: '3.0' },
+            'v3.0.3': { tag: 'v3.0.3', local: false, format: '3.0' },
+            'v3.0.2': { tag: 'v3.0.2', local: false, format: '3.0' },
+            'v3.0.1': { tag: 'v3.0.1', local: false, format: '3.0' },
+            'v3.0.0': { tag: 'v3.0', local: false, format: '3.0' }
+        };
+
+        // Function to build spec URL based on version
+        function buildSpecUrl(version, specPath) {
+            const config = versionConfig[version];
+            if (!config) return specPath;
+
+            // Replace version number in path
+            const updatedPath = specPath.replace(/V\d+\.\d+/, `V${config.format}`);
+            const finalPath = updatedPath.replace('openapi_3.2.yaml', 'openapi.yaml');
+
+            if (config.local) {
+                return finalPath;
+            } else {
+                const cleanPath = finalPath.replace('../', '');
+                return `${GITHUB_RAW_BASE}/${config.tag}/${cleanPath}`;
             }
-            return '/'; // GitHub Pages: specs are at root level
         }
 
-        // Get base path for the repository
-        function getBasePath() {
-            const path = window.location.pathname;
-            const match = path.match(/^(\/[^\/]+)\//);
-            if (match && !path.startsWith('/docs/')) {
-                return match[1];
+        // Version-specific SSP availability
+        const versionSSPLimits = {
+            'v3.0.0': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.1': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.2': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.3': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 0,
+                'SubmodelRepositoryServiceSpecification': 2,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.0.4': {
+                'AssetAdministrationShellRegistryServiceSpecification': 2,
+                'AssetAdministrationShellRepositoryServiceSpecification': 2,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 2,
+                'SubmodelRepositoryServiceSpecification': 4,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 1,
+                'ConceptDescriptionRepositoryServiceSpecification': 0,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.1.0': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 5,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 2,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.1.1': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 5,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 2,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.1.2': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 3,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 5,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 2,
+                'AasxFileServerServiceSpecification': 1
+            },
+            'v3.2.0': {
+                'AssetAdministrationShellRegistryServiceSpecification': 5,
+                'AssetAdministrationShellRepositoryServiceSpecification': 6,
+                'AssetAdministrationShellServiceSpecification': 2,
+                'SubmodelRegistryServiceSpecification': 4,
+                'SubmodelRepositoryServiceSpecification': 7,
+                'SubmodelServiceSpecification': 3,
+                'DiscoveryServiceSpecification': 2,
+                'ConceptDescriptionRepositoryServiceSpecification': 3,
+                'AasxFileServerServiceSpecification': 2
             }
-            return '';
-        }
+        };
 
-        // Adjust path based on environment
-        function adjustSpecPath(url) {
-            // If it's already a full GitHub URL, return as-is
-            if (url.startsWith('http://') || url.startsWith('https://')) {
-                return url;
+        // Service specifications structure
+        const serviceSpecs = [
+            {
+                group: 'Complete Collection',
+                services: [
+                    { path: '../Entire-API-Collection/V3.2.yaml', label: 'Entire API Collection (too large for Redoc - use Swagger UI)', disabled: true }
+                ]
+            },
+            {
+                group: 'Core Services',
+                services: [
+                    { folder: 'AssetAdministrationShellRegistryServiceSpecification', label: 'AAS Registry Service', maxSSP: 5 },
+                    { folder: 'AssetAdministrationShellRepositoryServiceSpecification', label: 'AAS Repository Service', maxSSP: 6 },
+                    { folder: 'AssetAdministrationShellServiceSpecification', label: 'AAS Service', maxSSP: 2 }
+                ]
+            },
+            {
+                group: 'Submodel Services',
+                services: [
+                    { folder: 'SubmodelRegistryServiceSpecification', label: 'Submodel Registry Service', maxSSP: 4 },
+                    { folder: 'SubmodelRepositoryServiceSpecification', label: 'Submodel Repository Service', maxSSP: 7 },
+                    { folder: 'SubmodelServiceSpecification', label: 'Submodel Service', maxSSP: 3 }
+                ]
+            },
+            {
+                group: 'Additional Services',
+                services: [
+                    { folder: 'DiscoveryServiceSpecification', label: 'Discovery Service', maxSSP: 2 },
+                    { folder: 'ConceptDescriptionRepositoryServiceSpecification', label: 'Concept Description Repository', maxSSP: 3 },
+                    { folder: 'AasxFileServerServiceSpecification', label: 'AASX File Server', maxSSP: 2 }
+                ]
+            },
+            {
+                group: 'Schema Domains',
+                services: [
+                    { path: '../Part1-MetaModel-Schemas/openapi_3.2.yaml', label: 'Part 1 - MetaModel Schemas' },
+                    { path: '../Part2-API-Schemas/openapi.yaml', label: 'Part 2 - API Schemas' }
+                ]
             }
+        ];
 
-            // For local relative paths (../), keep them as-is
-            // This allows Redoc to properly resolve $ref references
-            return url;
+        // Populate dropdown based on version
+        function populateDropdown(version) {
+            const select = document.getElementById('specSelect');
+            select.innerHTML = '';
+            const config = versionConfig[version];
+
+            serviceSpecs.forEach(category => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = category.group;
+
+                category.services.forEach(service => {
+                    if (service.path) {
+                        // Fixed path (Entire Collection, Part1, Part2)
+                        const option = document.createElement('option');
+                        option.value = buildSpecUrl(version, service.path);
+                        option.textContent = service.label;
+                        if (service.disabled) option.disabled = true;
+                        optgroup.appendChild(option);
+                    } else if (service.folder) {
+                        // Service with SSPs
+                        const limits = versionSSPLimits[version];
+                        const actualMax = limits && limits[service.folder] ? limits[service.folder] : service.maxSSP;
+
+                        if (actualMax === 0) {
+                            // Service not available in this version
+                            const option = document.createElement('option');
+                            option.value = '';
+                            option.textContent = `${service.label} - Not in ${version}`;
+                            option.disabled = true;
+                            optgroup.appendChild(option);
+                        } else {
+                            // Add SSP options
+                            for (let i = 1; i <= actualMax; i++) {
+                                const ssp = i.toString().padStart(3, '0');
+                                const path = `../${service.folder}/V${config.format}_SSP-${ssp}.yaml`;
+                                const option = document.createElement('option');
+                                option.value = buildSpecUrl(version, path);
+                                option.textContent = `${service.label} - SSP-${ssp}`;
+                                optgroup.appendChild(option);
+                            }
+                        }
+                    }
+                });
+
+                select.appendChild(optgroup);
+            });
         }
 
         // Get URL parameter or default
         const urlParams = new URLSearchParams(window.location.search);
-        let specUrl = urlParams.get('url') || '../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml';
         const version = urlParams.get('version') || 'v3.2.0';
+        const defaultPath = '../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml';
+        let specUrl = urlParams.get('url') ? urlParams.get('url') : buildSpecUrl(version, defaultPath);
+
+        // Populate dropdown with current version
+        populateDropdown(version);
 
         // Initialize Redoc
         function initRedoc(url) {
-            const adjustedUrl = adjustSpecPath(url);
-
             // Check if the spec file exists
-            fetch(adjustedUrl, { method: 'HEAD' })
+            fetch(url, { method: 'HEAD' })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Spec not found');
                     }
                     // File exists, initialize Redoc
                     Redoc.init(
-                        adjustedUrl,
+                        url,
                         {
                             scrollYOffset: 122,
                             hideDownloadButton: false,
