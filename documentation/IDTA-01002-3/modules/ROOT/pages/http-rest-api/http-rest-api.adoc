@@ -494,6 +494,9 @@ path-suffix=$reference or no suffix normal
 
 Pagination
 
+|GetAllAssetAdministrationShellsRecentChanges |GET |/shells/$recent-changes a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
+Pagination
+
 |GetAllAssetAdministrationShellsByAssetId |GET |/shells a|
 base64url-encoded JSON-serialized key-value-pairs
 
@@ -538,8 +541,7 @@ path-suffix= $metadata/$value/$reference/$path or no suffix for normal
 
 Pagination
 
-|GetAllSubmodelsRecentChanges |GET |/submodels/$recent-changes a|
-
+|GetAllSubmodelsRecentChanges |GET |/submodels/$recent-changes a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
 
 Pagination
 
@@ -569,6 +571,7 @@ base64url-encoded identifier
 
 4+h|Concept Description Repository Interface
 |GetAllConceptDescriptions |GET |/concept-descriptions |Pagination
+|GetAllConceptDescriptionsRecentChanges |GET |/concept-descriptions/$recent-changes a| Pagination
 |GetConceptDescriptionById |GET |/concept-descriptions/\{cdIdentifier} a|
 base64url-encoded identifier
 
@@ -618,13 +621,6 @@ base64url-encoded JSON-serialized key-value-pairs
 
 Pagination
 
-|GetAllAssetAdministrationShellRecentChanges |GET |/shells/$recent-changes a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
-
-?assetids=…
-
-
-Pagination
-
 |GetAllAssetLinksById |GET |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |PostAllAssetLinksById |POST |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 |DeleteAllAssetLinksById |DELETE |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
@@ -636,9 +632,13 @@ Pagination
 
 Pagination
 
-assetKind=Type\|Instance\|Role\|NotApplicable
+?assetKind=Type\|Instance\|Role\|NotApplicable
 
-assetType= base64url-encoded identifier
+?assetType= base64url-encoded identifier
+
+?createdFrom= date time according to RFC 3339, section 5.6, e.g. "2026-07-01T10:20:30Z"
+
+?updatedFrom= date time according to RFC 3339, section 5.6, e.g. "2026-07-01T10:20:30Z"
 
 |GetAssetAdministrationShellDescriptorById |GET |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
 |PostAssetAdministrationShellDescriptorById |POST |/shell-descriptors/\{aasIdentifier} |base64url-encoded identifier
@@ -662,9 +662,13 @@ Note: Same endpoint as for the Submodel Registry Interface bulk result.
 ====
 
 4+h|Submodel Registry Interface
-|GetAllSubmodelDescriptors |GET |/submodel-descriptors a| 
+|GetAllSubmodelDescriptors |GET |/submodel-descriptors a|Pagination
 
-Pagination
+?createdFrom= date time according to RFC 3339, section 5.6, e.g. "2026-07-01T10:20:30Z"
+
+?updatedFrom= date time according to RFC 3339, section 5.6, e.g. "2026-07-01T10:20:30Z"
+
+
 |GetSubmodelDescriptorById |GET |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PostSubmodelDescriptor |POST |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
 |PutSubmodelDescriptorById |PUT |/submodel-descriptors/\{submodelIdentifier} |base64url-encoded identifier
