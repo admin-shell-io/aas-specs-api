@@ -386,35 +386,25 @@
     <script>
         // Get URL parameter or default
         const urlParams = new URLSearchParams(window.location.search);
-        let specUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
         const version = urlParams.get('version') || 'v3.2.0';
+        const rawUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
 
-        // Adjust path based on environment
-        function adjustSpecPath(url) {
-            // If it's already a full GitHub URL, return as-is
-            if (url.startsWith('http://') || url.startsWith('https://')) {
-                return url;
-            }
-
-            // For local relative paths (../), keep them as-is
-            // This allows Swagger UI to properly resolve $ref references
-            // that are also relative in the YAML files
-            return url;
-        }
+        // Build the actual spec URL based on version
+        const specUrl = buildSpecUrl(version, rawUrl);
 
         // Initialize Swagger UI
         function initSwaggerUI(url) {
-            const adjustedUrl = adjustSpecPath(url);
+            // URL is already built by buildSpecUrl, use it directly
 
             // First check if the spec file exists
-            fetch(adjustedUrl, { method: 'HEAD' })
+            fetch(url, { method: 'HEAD' })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Spec not found');
                     }
                     // File exists, initialize Swagger UI
                     window.ui = SwaggerUIBundle({
-                        url: adjustedUrl,
+                        url: url,
                         dom_id: '#swagger-ui',
                         deepLinking: true,
                         presets: [
@@ -505,8 +495,7 @@
 
         // Set dropdown to current spec
         const select = document.getElementById('specSelect');
-        const adjustedSpecUrl = adjustSpecPath(specUrl);
-        select.value = adjustedSpecUrl;
+        select.value = specUrl;
 
         // Handle spec changes
         select.addEventListener('change', function(e) {
