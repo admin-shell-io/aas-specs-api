@@ -118,6 +118,11 @@
 
         // Function to build spec URL based on version
         function buildSpecUrl(version, specPath, versionFormat) {
+            // If already a full URL, return as-is
+            if (specPath.startsWith('http://') || specPath.startsWith('https://')) {
+                return specPath;
+            }
+
             const config = versionConfig[version];
             if (!config) return specPath;
 
