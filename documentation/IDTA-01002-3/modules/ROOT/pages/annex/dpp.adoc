@@ -125,9 +125,9 @@ h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 | Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document. 
 
 [Note]
-===
+====
 Multiple AAS instances might be associated with the provided product identifier.
-===
+====
 
 | ReadDPPVersionByIdAndDate
 | GetAssetAdministrationShellVersionByIdAndDate / QueryAssetAdministrationShells / QueryAssetAdministrationShellDescriptors + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
@@ -332,6 +332,55 @@ include::partial$diagrams/seq-dpp-history.puml[]
 include::partial$diagrams/seq-dpp-registry-history.puml[]
 ....
 
+
+== Updating DPPs including Historization
+
+EN 18222 defines the UpdateDPPById and UpdateDataElement methods for changing the DPP.
+They are mandatory to be provided in case there are recyclers or professional repairers etc. who are obliged to update the DPP.
+
+The input is a partial DPP. 
+Although not explicitly stated in EN 18222 it is assumed this partial DPP payload is conformant to link:https://datatracker.ietf.org/doc/html/rfc7396[RFC 7396 - JSON Merge Patch], 
+i.e. the patch document has the same structure as the target document but contains only the changes.
+Fields included in the patch overwrite existing ones; missing fields remain unchanged; fields explicitly set to null are deleted.
+
+
+[Note]
+====
+Although the economic operator or DPP service provider may use the same update methods this is not mandatory.
+====
+
+To implement UpdateDPPById, an implementation shall perform the following steps for the AAS affected and its Submodels:
+
+* For all  AAS and Submodels changed the administration/updatedAt date shall be set. 
+The date value shall be identical.
+* For all  AAS and Submodels changed the administration/version and administration/revision should be set by increasing the version and setting the revision to '0' 
+[Note]
+====
+It is proposed to always assume that the result is a new major version of the AAS or Submodel.
+====
+* Before calling the corresponding AAS API operations the serialization might need to be aligned.
+This also depends on the serialization format that is used for the update.
+If Value-Only serialization is used then additionally, a Normal serialization patch is needed for updating the administrative data like "createdAt" attribute.
+For details on mapping see IDTA-01001.
+* Ensure that a previous version and the new version of the AAS and the affected Submodels are stored. 
+Only then the ReadDPPVersionByIdAndDate operation for retrieving the version of a DPP that was current at a specified point in time can be supported that is used for implementing ReadDPPVersionByIdAndDate (see <<readdppversionbyidanddate>>).
+See link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.3/spec-metamodel/common.html#administrative-information-attributesIDTA-01001[information on administrative information] in IDTA-01001.
+[Note]
+====
+Former version numbers of the AAS and its Submodels shall be distinguished from their current version. 
+So in the example <<image-seq-dpp-update-repo-history>> it is assumed that there are two repositories, one containing the current versions and one for the older versions.
+Although the API interfaces are the same only the History Repository is supporting the xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-007[history profile]
+whereas the "normal" Repository is for example supporting xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-001[the full profile].
+
+<<image-seq-dpp-update-repo-history>> shows a possible sequence of steps to update a DPP by updating the corresponding AAS and its Submodels who are affected by the change.
+
+
+.UpdateDPPById Sequence via AAS and Submodel (History) Repository
+[[image-seq-dpp-update-repo-history]]
+[plantuml, seq-dpp-update-repo-history, svg]
+....
+include::partial$diagrams/seq-dpp-update-repo-history.puml[]
+....
 
 == HTTP API Mapping
 
