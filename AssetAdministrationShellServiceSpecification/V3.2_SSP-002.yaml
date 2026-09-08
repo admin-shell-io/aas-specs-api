@@ -97,6 +97,15 @@ paths:
     get:
       tags:
         - Asset Administration Shell API
+      description: >-
+        Returns managed file content with 200 OK. If AssetInformation.defaultThumbnail.path is an
+        absolute HTTP(S) URL, returns 302 Found with that URL in the Location
+        header. The server shall enforce authorization before returning the
+        redirect and shall not fetch or check the external resource. The client
+        can follow the redirect subject to its own security policy and the
+        external server's authorization. For non-HTTP(S) locations, returns
+        404 Not Found if no corresponding managed file is available. A missing
+        location also results in 404 Not Found.
       operationId: GetThumbnail
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetThumbnail/3/2
@@ -108,6 +117,8 @@ paths:
               schema:
                 type: string
                 format: binary
+        '302':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/external-file-redirect'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -663,6 +674,15 @@ paths:
       tags:
         - Asset Administration Shell API
       summary: Downloads file content from a specific submodel element from the Submodel at a specified path
+      description: >-
+        Returns managed file content with 200 OK. If File.value is an
+        absolute HTTP(S) URL, returns 302 Found with that URL in the Location
+        header. The server shall enforce authorization before returning the
+        redirect and shall not fetch or check the external resource. The client
+        can follow the redirect subject to its own security policy and the
+        external server's authorization. For non-HTTP(S) locations, returns
+        404 Not Found if no corresponding managed file is available. A missing
+        location also results in 404 Not Found.
       operationId: GetFileByPath
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetFileByPath/3/2
@@ -680,6 +700,8 @@ paths:
               schema:
                 type: string
                 format: binary
+        '302':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/external-file-redirect'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':

@@ -1585,6 +1585,23 @@ components:
           description: The URL where the client can find the target resource.
           schema:
             type: string
+    'external-file-redirect':
+      description: >-
+        Found. The file or thumbnail is referenced by an external HTTP(S) URL.
+        The client can retrieve it from the URL in the required Location header,
+        subject to its own security policy and the external server's authorization.
+        The server does not fetch or check the external resource and does not
+        return file content in this response.
+      headers:
+        Location:
+          description: >-
+            The absolute HTTP(S) URL from File.value for an attachment or
+            AssetInformation.defaultThumbnail.path for a thumbnail.
+          required: true
+          schema:
+            type: string
+            format: uri
+          example: 'https://files.example.com/manual.pdf'
     'bad-request':
       description: Bad Request, e.g. the request parameters of the format of the request body is wrong.
       content:
