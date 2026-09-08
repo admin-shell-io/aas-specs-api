@@ -177,14 +177,14 @@ e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#Stat
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[GetThumbnail]]GetThumbnail
-h|Explanation 4+a|Returns the thumbnail file
+h|Explanation 4+a|Returns the thumbnail file. For an external thumbnail, the HTTP/REST binding redirects the client as defined in xref:http-rest-api/http-rest-api.adoc#retrieving-files[Retrieving Files and Thumbnails].
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetThumbnail/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
 5+h|Input Parameter
 5+h|Output Parameter
 e|statusCode a|Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload a|Requested thumbnail file |yes | xref:specification/interfaces-payload.adoc#file-content[File Content] |1
+e|payload a|Requested thumbnail file; present when file content is returned directly, absent for an HTTP redirect |no | xref:specification/interfaces-payload.adoc#file-content[File Content] |0..1
 |===
 
 ==== Operation PutThumbnail
@@ -307,7 +307,7 @@ e|serializationModifier |Defines the format of the response |no |xref:specificat
 [width=100%,cols="25%,35%,10%,20%,10%"]
 |===
 h|Operation Name 4+e|[[GetFileByPath]]GetFileByPath
-h|Explanation 4+a|Returns a specific file from the Submodel at a specified path
+h|Explanation 4+a|Returns the file associated with a File SubmodelElement at the specified path. The path identifies the SubmodelElement, not a filesystem path or the value of the File. For an external file, the HTTP/REST binding redirects the client as defined in xref:http-rest-api/http-rest-api.adoc#retrieving-files[Retrieving Files and Thumbnails].
 h|semanticId 4+|`\https://admin-shell.io/aas/API/GetFileByPath/3/2`
 
 h|Name h|Description h|Mand. h|Type h|Card.
@@ -315,7 +315,7 @@ h|Name h|Description h|Mand. h|Type h|Card.
 e|path |{path} |yes |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Key[Key] |1..*
 5+h|Output Parameter
 e|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
-e|payload |Requested file |yes |xref:specification/interfaces-payload.adoc#file-content[File Content] |0..1
+e|payload |Requested file; present when file content is returned directly, absent for an HTTP redirect |no |xref:specification/interfaces-payload.adoc#file-content[File Content] |0..1
 |===
 
 ==== Operation PutFileByPath
