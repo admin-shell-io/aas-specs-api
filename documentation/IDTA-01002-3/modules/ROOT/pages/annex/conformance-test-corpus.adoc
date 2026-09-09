@@ -121,7 +121,23 @@ Requirement: MUST | SHOULD
 
 | HTTP.file.001
 | `GET .../attachment` for a File SubmodelElement MUST require the RIGHT `READ` on the File element.
-| Status `200` with binary body or `403`.
+| Status `200` with managed file content, `302` with `Location` for an external HTTP(S) URL, or `403` if access is denied.
+
+| HTTP.file.002
+| An authorized `GET .../attachment` with an HTTP(S) URL in `File.value` MUST redirect without fetching or probing the external resource.
+| Status `302 Found`, `Location` equals `File.value`, no file content and no outbound request to the resource. Repeat with both schemes and with an unreachable external URL.
+
+| HTTP.file.003
+| An authorized `GET .../asset-information/thumbnail` with an HTTP(S) URL in `AssetInformation.defaultThumbnail.path` MUST redirect without fetching or probing the external resource.
+| Status `302 Found`, `Location` equals the thumbnail path, no file content and no outbound request to the resource. Repeat with both schemes and with an unreachable external URL.
+
+| HTTP.file.004
+| An authorized attachment or thumbnail GET with no location, or with a non-HTTP(S) location for which no managed file exists, MUST report the missing resource.
+| Status `404 Not Found`; no redirect or dereferencing of a relative path or a non-HTTP(S) URI outside the server's managed file storage.
+
+| HTTP.file.005
+| A denied attachment or thumbnail GET with an external HTTP(S) URL MUST enforce authorization before disclosing the URL.
+| Status `403 Forbidden`, no `Location` header and no outbound request to the resource.
 
 | HTTP.query.001
 | `POST /query` MUST reject payloads that fail the Query JSON Schema with `400`.

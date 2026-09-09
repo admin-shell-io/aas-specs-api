@@ -726,6 +726,9 @@ The subsequent clause describes the result object that is returned in case of fa
 
 Successful operations return one of the success status codes and their respective payload.
 
+If the requester is directed to another location, the operation can return a redirection status code.
+A redirection does not return a Result object; the technology binding defines how the alternative location is conveyed.
+
 Unsuccessful operations return one of the failure status codes and a result object as defined in <<general-result-object>>.
 
 <<table-status-codes>> shows generic status codes returned to the requester.
@@ -740,6 +743,7 @@ Additionally, the table indicates whether a specific status code comes with a re
 |SuccessCreated |Successful creation of a new resource |No
 |SuccessAccepted |The reception of the request was successful |No
 |SuccessNoContent |Success with explicitly no content in the payload |No
+|RedirectionFound |The requested resource can be requested at another location |No
 |ClientErrorBadRequest |Bad or malformed request |Yes
 |ClientNotAuthorized |Wrong or missing authorization credentials |Yes
 |ClientForbidden |Authorization has been refused |Yes

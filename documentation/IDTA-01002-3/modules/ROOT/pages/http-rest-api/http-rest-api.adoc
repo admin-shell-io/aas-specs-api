@@ -376,7 +376,7 @@ Note 2: There is no API defined for a client to directly send a GET towards this
 |DeleteSubmodelReference |DELETE |/aas/submodel-refs/\{submodelIdentifier} |use base64url-encoded identifier
 |GetAssetInformation |GET |/aas/asset-information |
 |PutAssetInformation |PUT |/aas/asset-information |
-|GetThumbnail |GET |/aas/asset-information/thumbnail |
+|GetThumbnail |GET |/aas/asset-information/thumbnail |See <<retrieving-files>> for file content and external thumbnail redirects.
 |PutThumbnail |PUT |/aas/asset-information/thumbnail |
 |DeleteThumbnail |DELETE |/aas/asset-information/thumbnail |
 s| s|* s|/aas/submodels/\{submodel-identifier}/* s|superpath as defined in service specification or profile
@@ -418,6 +418,8 @@ URL-encoded IdShortPath
 use separated idShortPath of this element
 
 URL-encoded IdShortPath
+
+See <<retrieving-files>> for file content and external file redirects.
 
 |PutFileByPath |PUT |/submodel/submodel-elements/\{idShortPath}/attachment a|
 use separated idShortPath of this element
@@ -689,6 +691,45 @@ Note: Same endpoint as for the Asset Administration Shell Registry Interface bul
 s|GetDescription s|GET s|/description s|Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
 |===
 
+[#retrieving-files]
+== Retrieving Files and Thumbnails
+
+Clients can use `GetFileByPath` (`GET .../submodel-elements/\{idShortPath}/attachment`) to retrieve the file associated with a File SubmodelElement, and `GetThumbnail` (`GET .../asset-information/thumbnail`) to retrieve the default thumbnail of an asset.
+These rules apply to every service specification and profile offering these operations, including the corresponding repository and nested Submodel endpoints.
+The `idShortPath` identifies the File SubmodelElement within the Submodel; it is not the file's location.
+The file's location is given by `File.value`, or by `AssetInformation.defaultThumbnail.path` for a thumbnail.
+
+After applying the authorization checks for the requested operation, the server shall handle the location as follows:
+
+* If the location is an absolute URL with the scheme `http` or `https`, the server shall return `302 Found` with that URL in the `Location` response header, as defined in https://www.rfc-editor.org/rfc/rfc9110.html#section-15.4.3[RFC 9110, Section 15.4.3].
+The response does not contain the file content.
+The server shall not fetch the external resource or make an outbound request to check its availability while handling this operation.
+* Otherwise, the server shall return the file content it manages for the requested File SubmodelElement or thumbnail with `200 OK`.
+If no location is provided or no corresponding managed file is available, the server shall return `404 Not Found`.
+The server shall resolve other URI schemes and relative paths only against its managed file storage.
+It shall not dereference them as arbitrary filesystem paths or network locations, or return them as external redirect destinations.
+
+A `302 Found` response indicates where the client can request the resource; it does not guarantee that the external resource exists or that the client is authorized to access it.
+The client can follow the redirect according to its own security policy without first retrieving and interpreting `File.value` or the thumbnail's `path`.
+Authorization for the attachment or thumbnail operation shall be enforced before disclosing the redirect URL.
+Access to the external resource is subject to the external server's own authorization requirements.
+
+====
+Note: Fetching a URL supplied through writable model data on behalf of a client can expose the AAS server to server-side request forgery (SSRF), for example by making it contact internal services.
+Returning a redirect avoids this server-side fetch.
+Clients remain responsible for validating redirect destinations, limiting redirect chains, and protecting their own network access when following redirects.
+Credentials intended for the AAS server must not be forwarded to another origin.
+====
+
+For example, if the File SubmodelElement `Manual` has `value` set to `https://files.example.com/manual.pdf`, a request to `GET /submodel/submodel-elements/Manual/attachment` returns:
+
+[source,http]
+----
+HTTP/1.1 302 Found
+Location: https://files.example.com/manual.pdf
+Content-Length: 0
+----
+
 [#async-invocation-of-se-operation]
 == Asynchronous Invocation of the SubmodelElement "Operation"
 
@@ -840,6 +881,7 @@ The following table shows the mapping of the generic status codes to HTTP status
 |SuccessCreated |Successful creation of a new resource |201 (Created) |Successful request resulting in the creation of a new resource, e.g. SubmodelElement
 |SuccessAccepted |The reception of the request was successful |202 (Accepted) |The server has accepted the request, but the result will be supplied later
 |SuccessNoContent |Success with explicitly no content in the payload |204 (No Content) |Successful request with no content in return, e.g. used for updating existing resources
+|RedirectionFound |The requested resource can be requested at another location |302 (Found) |The Location response header contains the URL where the client can request the resource. For external files and thumbnails, see <<retrieving-files>>.
 |ClientErrorBadRequest |Bad or malformed request |400 (Bad Request) |The server does not / cannot process the request due to a general client error, e.g. a malformed request
 |ClientNotAuthorized |Wrong or missing authorization credentials |401 (Unauthorized) |The client missed or provided invalid credentials
 |ClientForbidden |Authorization has been refused |403 (Forbidden) |The request content is basically valid and understood by the server, but the server refuses the action due to certain restrictions, e.g. profiles or roles
@@ -850,6 +892,10 @@ The following table shows the mapping of the generic status codes to HTTP status
 |ServerNotImplemented |Not implemented |501 (Not Implemented) |The server does not support the functionality to fulfill the request
 |ServerErrorBadGateway |Bad Gateway |502 (Bad Gateway) |The primarily addressed server that was acting as gateway or proxy received an invalid response from subsequent systems/servers
 |===
+
+The generic status code `RedirectionFound` maps to `302 Found` in the HTTP/REST binding.
+For external files and thumbnails, the required `Location` header and response behavior are defined in <<retrieving-files>>.
+A redirect is not an error and does not require a Result object or a File Content payload.
 
 == Additional Data Types for Payload for HTTP/REST
 
