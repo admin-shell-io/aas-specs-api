@@ -881,6 +881,7 @@ The following table shows the mapping of the generic status codes to HTTP status
 |SuccessCreated |Successful creation of a new resource |201 (Created) |Successful request resulting in the creation of a new resource, e.g. SubmodelElement
 |SuccessAccepted |The reception of the request was successful |202 (Accepted) |The server has accepted the request, but the result will be supplied later
 |SuccessNoContent |Success with explicitly no content in the payload |204 (No Content) |Successful request with no content in return, e.g. used for updating existing resources
+|RedirectionFound |The requested resource can be requested at another location |302 (Found) |The Location response header contains the URL where the client can request the resource. For external files and thumbnails, see <<retrieving-files>>.
 |ClientErrorBadRequest |Bad or malformed request |400 (Bad Request) |The server does not / cannot process the request due to a general client error, e.g. a malformed request
 |ClientNotAuthorized |Wrong or missing authorization credentials |401 (Unauthorized) |The client missed or provided invalid credentials
 |ClientForbidden |Authorization has been refused |403 (Forbidden) |The request content is basically valid and understood by the server, but the server refuses the action due to certain restrictions, e.g. profiles or roles
@@ -892,7 +893,7 @@ The following table shows the mapping of the generic status codes to HTTP status
 |ServerErrorBadGateway |Bad Gateway |502 (Bad Gateway) |The primarily addressed server that was acting as gateway or proxy received an invalid response from subsequent systems/servers
 |===
 
-In addition to these generic status-code mappings, the HTTP/REST binding uses `302 Found` for redirects.
+The generic status code `RedirectionFound` maps to `302 Found` in the HTTP/REST binding.
 For external files and thumbnails, the required `Location` header and response behavior are defined in <<retrieving-files>>.
 A redirect is not an error and does not require a Result object or a File Content payload.
 
