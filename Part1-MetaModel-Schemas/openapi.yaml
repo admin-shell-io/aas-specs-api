@@ -832,7 +832,20 @@ components:
         type:
           $ref: "#/components/schemas/ReferenceTypes"
         referredSemanticId:
-          $ref: "#/components/schemas/Reference"
+          $ref: "#/components/schemas/ReferenceParent"
+        keys:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/Key"
+    ReferenceParent:
+      type: object
+      required:
+        - type
+        - keys
+      properties:
+        type:
+          $ref: "#/components/schemas/ReferenceTypes"
         keys:
           type: array
           minItems: 1
