@@ -41,6 +41,7 @@ COMBINED_OPENAPI = ROOT / "Entire-API-Collection/V3.2.yaml"
 OPERATION_RIGHT_MAPPING = ROOT_MODULE / "pages/annex/operation-to-right-mapping.adoc"
 QUERY_EXAMPLES = [
     ROOT_MODULE / "pages/http-rest-api/test/query/test1.json",
+    ROOT_MODULE / "partials/examples/query-administration-timestamps.json",
 ]
 FORMAT_CHECKER_MESSAGE = 'jsonschema date-time format checking is inactive; install "jsonschema[format]"'
 
