@@ -8,14 +8,15 @@ from jsonschema import Draft7Validator, FormatChecker
 
 ROOT_MODULE = Path(__file__).resolve().parents[4]
 QUERY_SCHEMA = ROOT_MODULE / "partials/query-json-schema.json"
+TIMESTAMP_PREFIXES = (
+    "$aas#", "$sm#", "$cd#", "$aasdesc#", "$smdesc#",
+    "$aasdesc#submodelDescriptors[].",
+    "$aasdesc#submodelDescriptors[0].",
+    "$aasdesc#submodelDescriptors[12].",
+)
 TIMESTAMP_FIELDS = [
-    f"{prefix}administration.{attribute}"
-    for prefix in (
-        "$aas#", "$sm#", "$cd#", "$aasdesc#", "$smdesc#",
-        "$aasdesc#submodelDescriptors[].",
-        "$aasdesc#submodelDescriptors[0].",
-        "$aasdesc#submodelDescriptors[12].",
-    )
+    f"{prefix}{attribute}"
+    for prefix in TIMESTAMP_PREFIXES
     for attribute in ("createdAt", "updatedAt")
 ]
 
@@ -45,13 +46,12 @@ class AdministrationTimestampsTest(unittest.TestCase):
             f"{prefix}{suffix}"
             for prefix in ("$aas#", "$sm#", "$cd#", "$aasdesc#", "$smdesc#")
             for suffix in (
-                "createdAt", "updatedAt", "administration.CreatedAt",
-                "administration.updatedat", "administration.createdAt[]",
-                "administration.updatedAt.value", "administration.version",
+                "CreatedAt", "updatedat", "createdAt[]",
+                "updatedAt.value", "administration.version",
             )
         ]
         invalid += [
-            f"{prefix}administration.{attribute}"
+            f"{prefix}{attribute}"
             for prefix in (
                 "$sme#", "$sme.OperationalData#", "$sme.OperationalData[]#",
                 "$aas#assetInformation.", "$aas#submodels[].",
@@ -66,6 +66,27 @@ class AdministrationTimestampsTest(unittest.TestCase):
             for field in invalid:
                 with self.subTest(definition=definition, field=field):
                     self.assertIsNone(self.patterns[definition].fullmatch(field))
+
+    def test_full_administration_paths_are_rejected(self):
+        fields = [
+            f"{prefix}administration.{attribute}"
+            for prefix in TIMESTAMP_PREFIXES
+            for attribute in ("createdAt", "updatedAt")
+        ]
+        for field in fields:
+            with self.subTest(field=field):
+                for definition in ("FieldIdentifier", "FragmentFieldIdentifier"):
+                    self.assertIsNone(self.patterns[definition].fullmatch(field))
+                self.assertFalse(self.validator.is_valid({
+                    "$condition": {"$ge": [
+                        {"$field": field},
+                        {"$dateTimeVal": "2026-10-01T00:00:00Z"},
+                    ]},
+                }))
+                self.assertFalse(self.validator.is_valid({
+                    "$condition": {"$boolean": True},
+                    "$filters": [{"$fragment": field, "$condition": {"$boolean": False}}],
+                }))
 
     def test_timestamp_comparisons_allow_implicit_datetime_casting(self):
         for field in TIMESTAMP_FIELDS:
@@ -105,7 +126,7 @@ class AdministrationTimestampsTest(unittest.TestCase):
     def test_timestamp_references_in_access_rule_formulas(self):
         for root in ("aas", "sm", "cd"):
             for attribute in ("createdAt", "updatedAt"):
-                reference = f'${root}("urn:example:object")#administration.{attribute}'
+                reference = f'${root}("urn:example:object")#{attribute}'
                 with self.subTest(reference=reference):
                     self.assertIsNotNone(self.patterns["ReferenceIdentifier"].fullmatch(reference))
                     self.assert_valid({
@@ -125,15 +146,20 @@ class AdministrationTimestampsTest(unittest.TestCase):
 
     def test_timestamp_reference_scope_is_not_widened(self):
         for reference in (
-            '$sme("urn:example:object").Temperature#administration.createdAt',
-            '$sme("urn:example:object").Temperature#administration.updatedAt',
-            '$aasdesc("urn:example:object")#administration.updatedAt',
-            '$smdesc("urn:example:object")#administration.updatedAt',
-            '$sm("urn:example:object")#createdAt',
-            '$sm("urn:example:object")#administration.updatedAt[]',
+            '$sme("urn:example:object").Temperature#createdAt',
+            '$sme("urn:example:object").Temperature#updatedAt',
+            '$aasdesc("urn:example:object")#updatedAt',
+            '$smdesc("urn:example:object")#updatedAt',
+            '$sm("urn:example:object")#updatedAt[]',
         ):
             with self.subTest(reference=reference):
                 self.assertIsNone(self.patterns["ReferenceIdentifier"].fullmatch(reference))
+
+        for root in ("aas", "sm", "cd"):
+            for attribute in ("createdAt", "updatedAt"):
+                reference = f'${root}("urn:example:object")#administration.{attribute}'
+                with self.subTest(reference=reference):
+                    self.assertIsNone(self.patterns["ReferenceIdentifier"].fullmatch(reference))
 
 
 if __name__ == "__main__":

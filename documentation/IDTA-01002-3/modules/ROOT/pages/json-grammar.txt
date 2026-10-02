@@ -285,7 +285,7 @@
 <FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( <AdministrationTimestampClause> | "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" <ArrayIndex>? "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" <ArrayIndex>? "]" ) "." <SmDescriptorClause> )
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
 <SmDescriptorClause> ::= ( <AdministrationTimestampClause> | <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" <ArrayIndex>? "]" ) "." <EndpointClause> )
-<AdministrationTimestampClause> ::= "administration." ( "createdAt" | "updatedAt" )
+<AdministrationTimestampClause> ::= "createdAt" | "updatedAt"
 <EndpointClause> ::= "interface" | "protocolinformation.href"
 <ReferenceClause> ::= ( "type" | "keys" ( "[" <ArrayIndex>? "]" ) ( ".type" | ".value" ) )
 <SemanticIdClause> ::= ( "semanticId" | "semanticId." <ReferenceClause> )

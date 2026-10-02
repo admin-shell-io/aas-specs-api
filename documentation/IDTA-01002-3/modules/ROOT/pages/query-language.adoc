@@ -134,8 +134,8 @@ Attribute declarations point to literal values that provide the input for compar
 h| Root Element h| Definition h| Example
 | `id` | Identifier, e.g., of an AAS, Submodel, or Condept Description | `$aas#id`
 | `idShort` | Value of the idShort attribute | `$aas#idShort`
-| `administration.createdAt` | Creation timestamp in AdministrativeInformation; available for `$aas`, `$sm`, `$cd`, `$aasdesc`, and `$smdesc` | `$aas#administration.createdAt`
-| `administration.updatedAt` | Update timestamp in AdministrativeInformation; available for `$aas`, `$sm`, `$cd`, `$aasdesc`, and `$smdesc` | `$sm#administration.updatedAt`
+| `createdAt` | Shortcut for `administration.createdAt`; available for `$aas`, `$sm`, `$cd`, `$aasdesc`, and `$smdesc` | `$aas#createdAt`
+| `updatedAt` | Shortcut for `administration.updatedAt`; available for `$aas`, `$sm`, `$cd`, `$aasdesc`, and `$smdesc` | `$sm#updatedAt`
 | `assetInformation.assetKind` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetKind`
 | `assetInformation.assetType` | Value of the assetKind attribute of an AAS | `$aas#assetInformation.assetType`
 | `assetInformation.globalAssetId` | Value of the globalAssetId attribute of an AAS | `$aas#assetInformation.globalAssetId`
@@ -193,8 +193,8 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 | `submodelDescriptors[<index>].supplementalSemanticIds[<index>].keys[<index>].value` | Value of a key of a supplementalSemanticId Reference used in a referenced Submodel of an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].supplementalSemanticIds[].keys[].value`
 | `submodelDescriptors[<index>].id` | Identifier of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].id`
 | `submodelDescriptors[<index>].idShort` | idShort of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].idShort`
-| `submodelDescriptors[<index>].administration.createdAt` | Creation timestamp of a described Submodel | `$aasdesc#submodelDescriptors[].administration.createdAt`
-| `submodelDescriptors[<index>].administration.updatedAt` | Update timestamp of a described Submodel | `$aasdesc#submodelDescriptors[0].administration.updatedAt`
+| `submodelDescriptors[<index>].createdAt` | Shortcut for `administration.createdAt` of a described Submodel | `$aasdesc#submodelDescriptors[].createdAt`
+| `submodelDescriptors[<index>].updatedAt` | Shortcut for `administration.updatedAt` of a described Submodel | `$aasdesc#submodelDescriptors[0].updatedAt`
 | `submodelDescriptors[<index>].endpoints[<index>].interface` | Endpoint interface of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].endpoints[0].interface`
 | `submodelDescriptors[<index>].endpoints[<index>].protocolinformation.href` | Endpoint href of a referenced Submodel as available in an Asset Administration Shell Descriptor | `$aasdesc#submodelDescriptors[].endpoints[].protocolinformation.href`
 |===
@@ -204,13 +204,12 @@ Note: Can only be used with Asset Administration Shell Descriptors or Submodel D
 
 The `createdAt` and `updatedAt` attributes of `AdministrativeInformation` are optional timestamps of type `DateTimeUtc` defined by the Metamodel xref:bibliography.adoc#bib1[[1\]].
 They are reached through `Identifiable/administration` for Asset Administration Shells, Submodels, and ConceptDescriptions, and through `administration` on AssetAdministrationShellDescriptors and SubmodelDescriptors (see xref:specification/interfaces-payload.adoc[]).
-For a descriptor, these attributes describe the lifecycle of the represented AAS or Submodel, not the time at which the descriptor was registered or changed.
-SubmodelElements do not have `administration`; `$sme#administration.createdAt` and `$sme#administration.updatedAt` are invalid FieldIdentifiers.
 
-The shared `<AdministrationTimestampClause>` adds both paths to `<FieldsAAS>`, `<FieldsSM>`, `<FieldsCD>`, `<FieldsAasDescriptor>`, and `<SmDescriptorClause>`.
-The latter also permits access through `$aasdesc#submodelDescriptors[<index>].administration.createdAt` and `.administration.updatedAt`.
-The corresponding fragment productions use the same clause, so the optional timestamp attributes can also be addressed individually by `$fragment`.
-Access Rule `REFERENCE` attributes inherit the paths for AAS, Submodels, and ConceptDescriptions from the shared field productions.
+For a descriptor, these attributes describe the lifecycle of the represented AAS or Submodel, not the time at which the descriptor was registered or changed.
+SubmodelElements do not have `administration`; `$sme#createdAt` and `$sme#updatedAt` are invalid FieldIdentifiers.
+
+The shared `<AdministrationTimestampClause>` adds both shortcuts to `<FieldsAAS>`, `<FieldsSM>`, `<FieldsCD>`, `<FieldsAasDescriptor>`, and `<SmDescriptorClause>`.
+The latter also permits access through `$aasdesc#submodelDescriptors[<index>].createdAt` and `$aasdesc#submodelDescriptors[<index>].updatedAt`.
 
 Comparing one of these fields with a DateTime literal (`$dateTimeVal` in JSON) implicitly casts the field value to `xs:dateTime` according to <<casting>>; an explicit `dateTime(...)` cast is not required.
 For example, the following query selects the identifiers of Submodels whose administrative update timestamp is on or after 1 October 2026:
@@ -218,7 +217,7 @@ For example, the following query selects the identifiers of Submodels whose admi
 [source]
 ----
 $select id
-$sm#administration.updatedAt $ge 2026-10-01T00:00:00Z
+$sm#updatedAt $ge 2026-10-01T00:00:00Z
 ----
 
 [source,json]
