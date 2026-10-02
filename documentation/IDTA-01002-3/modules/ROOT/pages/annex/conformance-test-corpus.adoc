@@ -60,11 +60,11 @@ Requirement: MUST | SHOULD
 | HTTP 200, empty-match semantics (see Evaluation Semantics).
 
 | QL.field.005
-| `dateTime($sm#administration.updatedAt) $ge 2026-10-01T00:00:00Z` MUST compare the timestamp chronologically. Apply the same check to `createdAt` and to the `$aas`, `$cd`, `$aasdesc`, and `$smdesc` roots in their applicable profiles.
+| `$sm#administration.updatedAt $ge 2026-10-01T00:00:00Z` MUST implicitly cast the field value to `xs:dateTime` and compare the timestamp chronologically. Apply the same check to `createdAt` and to the `$aas`, `$cd`, `$aasdesc`, and `$smdesc` roots in their applicable profiles.
 | Only candidates with a timestamp at or after the threshold match. An absent `administration` or timestamp produces no match and no error.
 
 | QL.field.006
-| `dateTime($aasdesc#submodelDescriptors[].administration.updatedAt) $ge 2026-10-01T00:00:00Z` MUST match on any embedded SubmodelDescriptor. An explicit index MUST restrict the comparison to that entry.
+| `$aasdesc#submodelDescriptors[].administration.updatedAt $ge 2026-10-01T00:00:00Z` MUST match on any embedded SubmodelDescriptor using implicit dateTime casting. An explicit index MUST restrict the comparison to that entry.
 | A matching timestamp on another entry satisfies the unindexed query but not the indexed query. The same applies to `createdAt`.
 
 | QL.field.007

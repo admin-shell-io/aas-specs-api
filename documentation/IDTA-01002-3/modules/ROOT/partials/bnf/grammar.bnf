@@ -43,7 +43,9 @@
     <boolOperand> <ws> ( "$eq" | "$ne" ) <ws> <boolOperand> <ws>
  
 <dateTimeComparison> ::= 
-    <dateTimeOperand> <ws> <allComparisons> <ws> <dateTimeOperand> <ws>
+    ( <dateTimeOperand> <ws> <allComparisons> <ws> <dateTimeOperand> <ws> ) |
+    ( <dateTimeOperand> <ws> <allComparisons> <ws> <FieldIdentifier> <ws> ) |
+    ( <FieldIdentifier> <ws> <allComparisons> <ws> <dateTimeOperand> <ws> )
  
 <dateTimeToNum> ::= 
     ( "$dayOfWeek" | "$dayOfMonth" | "$month" | "$year" ) <ws> "(" <ws> <dateTimeOperand> <ws> ")" <ws>

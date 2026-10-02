@@ -67,7 +67,20 @@ class AdministrationTimestampsTest(unittest.TestCase):
                 with self.subTest(definition=definition, field=field):
                     self.assertIsNone(self.patterns[definition].fullmatch(field))
 
-    def test_timestamp_comparisons_use_existing_datetime_cast(self):
+    def test_timestamp_comparisons_allow_implicit_datetime_casting(self):
+        for field in TIMESTAMP_FIELDS:
+            for operator in ("$eq", "$ne", "$gt", "$ge", "$lt", "$le"):
+                operands = [
+                    {"$field": field},
+                    {"$dateTimeVal": "2026-10-01T00:00:00Z"},
+                ]
+                for field_first in (True, False):
+                    with self.subTest(field=field, operator=operator, field_first=field_first):
+                        self.assert_valid({
+                            "$condition": {operator: operands if field_first else operands[::-1]},
+                        })
+
+    def test_timestamp_comparisons_allow_explicit_datetime_casting(self):
         for field in TIMESTAMP_FIELDS:
             for operator in ("$eq", "$ne", "$gt", "$ge", "$lt", "$le"):
                 with self.subTest(field=field, operator=operator):

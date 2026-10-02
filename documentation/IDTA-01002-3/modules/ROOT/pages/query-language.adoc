@@ -212,13 +212,13 @@ The latter also permits access through `$aasdesc#submodelDescriptors[<index>].ad
 The corresponding fragment productions use the same clause, so the optional timestamp attributes can also be addressed individually by `$fragment`.
 Access Rule `REFERENCE` attributes inherit the paths for AAS, Submodels, and ConceptDescriptions from the shared field productions.
 
-Use the existing `dateTime(...)` cast (`$dateTimeCast` in JSON) for chronological comparisons with these fields.
+Comparing one of these fields with a DateTime literal (`$dateTimeVal` in JSON) implicitly casts the field value to `xs:dateTime` according to <<casting>>; an explicit `dateTime(...)` cast is not required.
 For example, the following query selects the identifiers of Submodels whose administrative update timestamp is on or after 1 October 2026:
 
 [source]
 ----
 $select id
-dateTime($sm#administration.updatedAt) $ge 2026-10-01T00:00:00Z
+$sm#administration.updatedAt $ge 2026-10-01T00:00:00Z
 ----
 
 [source,json]
