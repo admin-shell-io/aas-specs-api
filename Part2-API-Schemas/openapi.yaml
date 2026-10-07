@@ -77,6 +77,80 @@ components:
       schema:
         type: string
         format: date-time
+    EventGlobalAssetIds:
+      name: globalAssetId
+      in: query
+      description: Returns events whose globalAssetIds contain one of the given globalAssetIds (UTF8-BASE64-URL-encoded)
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    EventIdShortPath:
+      name: idShortPath
+      in: query
+      description: Returns SubmodelElement and profile events of the SubmodelElement with the given idShortPath and of its child elements; requires exactly one value of id
+      required: false
+      schema:
+        type: string
+    EventIdentifiableIds:
+      name: id
+      in: query
+      description: Returns events of the Identifiables with the given identifiers (UTF8-BASE64-URL-encoded), including SubmodelElement and profile events of Submodels with these identifiers
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    EventSemanticIds:
+      name: semanticId
+      in: query
+      description: Returns Submodel and SubmodelElement events of objects with one of the given semanticIds or supplementalSemanticIds (JSON-serialized References, BASE64-URL-encoded)
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+          maxLength: 3072
+          minLength: 1
+    EventSubmodelSemanticIds:
+      name: submodelSemanticId
+      in: query
+      description: Returns Submodel, SubmodelElement, and profile events of Submodels with one of the given semanticIds or supplementalSemanticIds (JSON-serialized References, BASE64-URL-encoded)
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+          maxLength: 3072
+          minLength: 1
+    EventSince:
+      name: since
+      in: query
+      description: Returns events with a time at or after the given date and time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format; shall not be combined with lastEventId
+      required: false
+      schema:
+        type: string
+        format: date-time
+    EventTypes:
+      name: type
+      in: query
+      description: Returns events of the given event types
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
     Extent:
       name: extent
       in: query
@@ -115,6 +189,14 @@ components:
       explode: false
       schema:
         type: string
+    LastEventId:
+      name: lastEventId
+      in: query
+      description: Returns events provided after the event with the given id; shall not be combined with since
+      required: false
+      schema:
+        type: string
+        minLength: 1
     Level:
       name: level
       in: query
@@ -218,6 +300,24 @@ components:
         - id
       type: object
       example: '{ "id": "https://example.org/aas/motor", "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
+    AssetAdministrationShellEventData:
+      type: object
+      required:
+        - assetAdministrationShell
+      properties:
+        globalAssetIds:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+            pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        assetAdministrationShell:
+          oneOf:
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetAdministrationShell"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     AssetAdministrationShellMetadata: 
       allOf: 
         - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Identifiable"
@@ -246,6 +346,25 @@ components:
                 $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId"
       required:
         - id
+    AssetEventData:
+      type: object
+      required:
+        - globalAssetIds
+      properties:
+        globalAssetIds:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+            pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        assetAdministrationShells:
+          type: array
+          minItems: 1
+          items:
+            $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     AssetLink:
       properties:
         name:
@@ -312,6 +431,15 @@ components:
     CapabilityMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
+    ConceptDescriptionEventData:
+      type: object
+      required:
+        - conceptDescription
+      properties:
+        conceptDescription:
+          oneOf:
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/ConceptDescription"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     ConceptDescriptionRecentChange:
       allOf:
         - $ref: '#/components/schemas/RecentChange'
@@ -560,6 +688,48 @@ components:
         statements: 
           $ref: "#/components/schemas/ValueOnly"
       type: object
+    Event:
+      type: object
+      description: CloudEvent in the JSON event format; the class of data is identified by dataschema
+      required:
+        - specversion
+        - id
+        - source
+        - subject
+        - type
+        - time
+        - dataschema
+        - data
+      properties:
+        specversion:
+          type: string
+          enum:
+            - "1.0"
+        id:
+          type: string
+          minLength: 1
+        source:
+          type: string
+          format: uri-reference
+          minLength: 1
+        subject:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          minLength: 1
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum:
+            - application/json
+        dataschema:
+          type: string
+          format: uri
+        data:
+          type: object
     ExecutionState:
       enum: 
         - Initiated
@@ -637,6 +807,15 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/ConceptDescriptionRecentChange"
+    GetEventsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items:
+                $ref: "#/components/schemas/Event"
     GetPackageDescriptionsResult:
       allOf:
         - $ref: '#/components/schemas/PagedResult'
@@ -1296,6 +1475,7 @@ components:
               - "https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/3/DiscoveryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-001"
@@ -1304,6 +1484,7 @@ components:
               - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-003"
               - "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-003"
+              - "https://admin-shell.io/aas/API/3/3/AssetAdministrationShellRepositoryServiceSpecification/SSP-007"
               - "https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-001"
@@ -1318,11 +1499,13 @@ components:
               - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-004"
               - "https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005"
               - "https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-005"
+              - "https://admin-shell.io/aas/API/3/3/SubmodelRepositoryServiceSpecification/SSP-008"
               - "https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-001"
               - "https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002"
               - "https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002"
+              - "https://admin-shell.io/aas/API/3/3/ConceptDescriptionRepositoryServiceSpecification/SSP-004"
       type: object
     SpecificAssetIdValue:
       type: object
@@ -1399,6 +1582,27 @@ components:
         - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasSemantics"
         - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Qualifiable"
         - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/HasKind"
+    SubmodelElementEventData:
+      type: object
+      required:
+        - submodel
+        - submodelElement
+      properties:
+        submodel:
+          $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
+        globalAssetIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+            pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        submodelElement:
+          anyOf:
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SubmodelElement"
+            - $ref: "#/components/schemas/SubmodelElementValue"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     SubmodelElementListMetadata: 
       allOf: 
         - $ref: "#/components/schemas/SubmodelElementAttributes"
@@ -1452,6 +1656,24 @@ components:
         - $ref: "#/components/schemas/EntityValue"
         - $ref: "#/components/schemas/SubmodelElementCollectionValue"
         - $ref: "#/components/schemas/SubmodelElementListValue"
+    SubmodelEventData:
+      type: object
+      required:
+        - submodel
+      properties:
+        globalAssetIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+            pattern: "^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$"
+        submodel:
+          anyOf:
+            - $ref: "#/components/schemas/SubmodelMetadata"
+            - $ref: "#/components/schemas/SubmodelValue"
+            - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference"
     SubmodelMetadata: 
       allOf: 
         - $ref: "../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Identifiable"

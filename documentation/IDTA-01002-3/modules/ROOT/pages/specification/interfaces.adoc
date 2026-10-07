@@ -2228,6 +2228,47 @@ h|Name h|Description h|Mand. h|Type h|Card.
 |statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
 |===
 
+[#event-interface]
+== Event Interface
+
+=== Event Interface
+
+[%autowidth,width="100%",options="header"]
+|===
+2+|Interface: _Event_
+h|Operation Name h|Description
+e|xref:GetAllEvents[GetAllEvents] |Returns the events provided by the server
+|===
+
+=== Operation GetAllEvents
+
+[.table-with-appendix-table]
+[width=100%,cols="25%,35%,10%,20%,10%"]
+|===
+h|Operation Name 4+e|[[GetAllEvents]]GetAllEvents
+h|Explanation 4+a|Returns the events provided by the server.
+Different input parameters are evaluated with AND semantics; the values of one input parameter with OR semantics.
+The semantics of the input parameters and of the result are defined in Clause xref:eventing.adoc#eventing-retrieval[Retrieval of Events].
+h|semanticId 4+|`\https://admin-shell.io/aas/API/GetAllEvents/3/3`
+
+h|Name h|Description h|Mand. h|Type h|Card.
+5+h|Input Parameter
+e|type a|Return events of the given types |no |string |0..*
+e|id a|Return events of the given Identifiables, i.e. AAS, Submodel, and Concept Description events of the Identifiable with this identifier, and SubmodelElement and profile events of the Submodel with this identifier |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|idShortPath a|Return SubmodelElement and profile events of the SubmodelElement with the given idShortPath and of its child elements; requires exactly one `id` |no |string |1
+e|globalAssetId a|Return events whose `globalAssetIds` contain the given value |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|semanticId a|Return Submodel and SubmodelElement events of objects with the given _semanticId_ or _supplementalSemanticId_ |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |0..*
+e|submodelSemanticId a|Return Submodel, SubmodelElement, and profile events of Submodels with the given _semanticId_ or _supplementalSemanticId_ |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |0..*
+e|since a|Return events with a `time` at or after the given date; shall not be combined with `lastEventId` |no |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|lastEventId a|Return events provided after the event with the given `id`; shall not be combined with `since` |no |string |1
+e|serializationModifier a|Defines the format of the response; Content _Normal_, _Value_, or _Reference_ |yes |xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] |1
+e|limit |The maximum size of the result set |no |nonNegativeInteger |1
+e|cursor |The position from which to resume a result listing |no |string |1
+5+h|Output Parameter
+e|statusCode |Status code |yes |xref:specification/interfaces-payload.adoc#StatusCode[StatusCode] |1
+e|payload |List of events |no |xref:specification/interfaces-payload.adoc#Event[Event] |1..*
+|===
+
 == Self Description Interface
 
 === Self-Description Interface

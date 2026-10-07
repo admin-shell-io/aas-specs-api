@@ -125,6 +125,7 @@ h|*Interface* h|*interface-shortName*
 |Submodel Repository Interface |SUBMODEL-REPOSITORY
 |Concept Description Repository Interface |CD-REPOSITORY
 |Asset Administration Shell Basic Discovery Interface |AAS-DISCOVERY
+|Event Interface |EVENT
 |===
 
 Which can be combined with the following serialisation modifiers:
@@ -370,6 +371,7 @@ e|https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001 |Indi
 e|https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Discovery Service Specification Read Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/3/DiscoveryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Discovery Service Specification Event Profile in version 3.3.
 e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.2.
@@ -380,6 +382,7 @@ e|https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSp
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Query Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Signature Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Identifiable Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/3/AssetAdministrationShellRepositoryServiceSpecification/SSP-007 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Event Profile in version 3.3.
 e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.2.
@@ -395,12 +398,14 @@ e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-
 e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Service Repository Specification Query Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Service Repository Specification Query Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-006 |Indicates that the server implemented all details of the Submodel Service Repository Specification Signature Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/3/SubmodelRepositoryServiceSpecification/SSP-008 |Indicates that the server implemented all details of the Submodel Repository Service Specification Event Profile in version 3.3.
 e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Query Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Query Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Query Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Signature Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/3/ConceptDescriptionRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Event Profile in version 3.3.
 |===
 
 An example ServiceDescription object might look like the following, indicating that the server supports two profiles at the same time, the Discovery Service Specification Full Profile and the AAS Registry Service Specification Full Profile (see Clause xref:http-rest-api/service-specifications-and-profiles.adoc#service-specifications-and-profiles[Service Specifications and Profiles] for further details on service specifications and profiles):
@@ -644,6 +649,121 @@ e|semanticId a|Identifier of the semantic definition of the Submodel |link:https
 e|supplementalSemanticId a|Identifier of a supplemental semantic definition of the element called supplemental semantic ID of the element |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference]  |0..*
 
 |===
+
+
+[[events]]
+== Events
+
+The following classes describe events as defined in Clause xref:eventing.adoc[Eventing].
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[Event]]Event
+h|Explanation 3+a|Modification of the content provided by a service, serialized as CloudEvent in the JSON event format.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|--
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/Event/3/3`
+
+h|Attribute h|Explanation h|Type h|Card.
+e|specversion a|CloudEvents version; value `1.0` |string |1
+e|id a|Identifier of the event, unique within the scope of `source`, e.g. a UUID xref:bibliography.adoc#bib19[[19\]] |string |1
+e|source a|Base URL of the service, see xref:eventing.adoc#eventing-source-subject[Source and Subject] |string (URI-reference) |1
+e|subject a|Path of the modified object relative to `source`, see xref:eventing.adoc#eventing-source-subject[Source and Subject] |string |1
+e|type a|Event type, see xref:eventing.adoc#eventing-event-types[Event Types] |string |1
+e|time a|Point in time at which the modification became effective |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#DateTimeUtc[DateTimeUtc] |1
+e|datacontenttype a|Value `application/json`; if omitted, the data is `application/json` as defined by the JSON event format xref:bibliography.adoc#bib17[[17\]] |string |0..1
+e|dataschema a|Identifier of the class and Content of `data`, see xref:eventing.adoc#eventing-data-schemas[Data Schemas] |string (URI) |1
+e|data a|Data of the event |xref:EventData[EventData] |1
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[EventData]]EventData \<<abstract>>
+h|Explanation 3+a|Data of an event.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|--
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/EventData/3/3`
+h|Attribute h|Explanation h|Type h|Card.
+4+|--
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[AssetAdministrationShellEventData]]AssetAdministrationShellEventData
+h|Explanation 3+a|Data of an event of type `io.admin-shell.aas.<modification>.v1`.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|xref:EventData[EventData]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/AssetAdministrationShellEventData/3/3`
+h|Attribute h|Explanation h|Type h|Card.
+e|globalAssetIds a|_globalAssetId_ of the Asset Administration Shell, if set; at most one entry |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|assetAdministrationShell a|Asset Administration Shell (Content _Normal_) or ModelReference to it (Content _Reference_) |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#AssetAdministrationShell[AssetAdministrationShell] or link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[SubmodelEventData]]SubmodelEventData
+h|Explanation 3+a|Data of an event of type `io.admin-shell.submodel.<modification>.v1`.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|xref:EventData[EventData]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/SubmodelEventData/3/3`
+h|Attribute h|Explanation h|Type h|Card.
+e|globalAssetIds a|_globalAssetIds_ of the Asset Administration Shells referencing the Submodel |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|submodel a|Submodel with Content _Metadata_ (Content _Normal_), its ValueOnly serialization (Content _Value_), or ModelReference to it (Content _Reference_) |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#Submodel[Submodel], link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[ValueOnly], or link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[SubmodelElementEventData]]SubmodelElementEventData
+h|Explanation 3+a|Data of an event of type `io.admin-shell.submodelelement.<modification>.v1`.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|xref:EventData[EventData]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/SubmodelElementEventData/3/3`
+h|Attribute h|Explanation h|Type h|Card.
+e|submodel a|ModelReference to the Submodel containing the SubmodelElement |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+e|globalAssetIds a|_globalAssetIds_ of the Asset Administration Shells referencing the Submodel |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |0..*
+e|submodelElement a|SubmodelElement (Content _Normal_), its ValueOnly serialization (Content _Value_), or ModelReference to it (Content _Reference_) |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#SubmodelElement[SubmodelElement], link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[ValueOnly], or link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[ConceptDescriptionEventData]]ConceptDescriptionEventData
+h|Explanation 3+a|Data of an event of type `io.admin-shell.conceptdescription.<modification>.v1`.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|xref:EventData[EventData]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/ConceptDescriptionEventData/3/3`
+h|Attribute h|Explanation h|Type h|Card.
+e|conceptDescription a|Concept Description (Content _Normal_) or ModelReference to it (Content _Reference_) |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/concept-description.html#ConceptDescription[ConceptDescription] or link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |1
+|===
+
+[.table-with-appendix-table]
+[cols="25%,40%,25%,10%"]
+|===
+h|Class Name 3+e|[[AssetEventData]]AssetEventData
+h|Explanation 3+a|Data of an event of type `io.admin-shell.asset.<modification>.v1`.
+
+This class is not part of the metamodel.
+h|Inherits from 3+|xref:EventData[EventData]
+h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/AssetEventData/3/3`
+h|Attribute h|Explanation h|Type h|Card.
+e|globalAssetIds a|_globalAssetId_ of the asset; exactly one entry |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#Identifier[Identifier] |1..*
+e|assetAdministrationShells a|Content _Normal_ only: ModelReferences to the Asset Administration Shells linked to the asset after the modification; for _deleted_ events, before the modification |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/referencing.html#Reference[Reference] |0..*
+|===
+
+====
+Note: `globalAssetIds` is a list in all classes to allow a uniform JSON path for filtering.
+====
 
 
 == Simple Data Types

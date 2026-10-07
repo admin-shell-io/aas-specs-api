@@ -1,0 +1,55 @@
+@startuml
+!pragma useIntermediatePackages false
+hide circle
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Event {
+  +specversion: string [1]
+  +id: string [1]
+  +source: string [1]
+  +subject: string [1]
+  +type: string [1]
+  +time: DateTimeUtc [1]
+  +datacontenttype: string [0..1]
+  +dataschema: string [1]
+  +data: EventData [1]
+}
+
+abstract class EventData <<abstract>> {
+}
+
+class AssetAdministrationShellEventData {
+  +globalAssetIds: Identifier [0..*]
+  +assetAdministrationShell: AssetAdministrationShell | Reference [1]
+}
+
+class SubmodelEventData {
+  +globalAssetIds: Identifier [0..*]
+  +submodel: Submodel | ValueOnly | Reference [1]
+}
+
+class SubmodelElementEventData {
+  +submodel: Reference [1]
+  +globalAssetIds: Identifier [0..*]
+  +submodelElement: SubmodelElement | ValueOnly | Reference [1]
+}
+
+class ConceptDescriptionEventData {
+  +conceptDescription: ConceptDescription | Reference [1]
+}
+
+class AssetEventData {
+  +globalAssetIds: Identifier [1..*]
+  +assetAdministrationShells: Reference [0..*]
+}
+
+Event *-- "1" EventData : data
+EventData <|-- AssetAdministrationShellEventData
+EventData <|-- SubmodelEventData
+EventData <|-- SubmodelElementEventData
+EventData <|-- ConceptDescriptionEventData
+EventData <|-- AssetEventData
+
+@enduml

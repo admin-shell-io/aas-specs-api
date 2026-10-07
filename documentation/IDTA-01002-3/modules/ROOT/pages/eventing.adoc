@@ -1,0 +1,409 @@
+////
+Copyright (c) 2023 Industrial Digital Twin Association
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](
+https://creativecommons.org/licenses/by/4.0/).
+
+SPDX-License-Identifier: CC-BY-4.0
+
+////
+
+:mm: https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2
+
+[#eventing]
+= Eventing
+
+[#eventing-general]
+== General
+
+Eventing enables clients to react to modifications of Asset Administration Shells, Submodels, SubmodelElements, Concept Descriptions, and asset links.
+For every modification of its content, a service provides an _event_.
+An event identifies the modified object, the kind of modification, and its time, and contains either the modified object or a Reference to it.
+Typical use cases are:
+
+* *New products:* a provider informs its customers about new Asset Administration Shells and Submodels, e.g. new components in a product portfolio.
+Each receiver decides, e.g. by the semanticIds of the Submodels, whether to retrieve them.
+* *New aspects of existing products:* a provider adds Submodels to existing Asset Administration Shells, e.g. a carbon footprint or a new version of a Submodel template.
+* *Updated product data:* a provider adds or changes SubmodelElements of existing Submodels, e.g. technical data.
+* *Notifications with domain-specific semantics:* a provider adds a record to a Submodel, e.g. a product change notification, that receivers route to a dedicated application and process without retrieving the complete Submodel.
+* *Monitoring:* a client observes values of SubmodelElements, e.g. to detect that a measured value exceeds a threshold.
+* *Synchronization:* systems such as engineering tools, product configurators, PLM, and ERP systems, as well as replicas, caches, and search indexes, keep their data consistent with a service.
+* *Asset links:* a client detects that an Asset Administration Shell for an asset has become available or has been replaced.
+
+In these use cases, one provider informs one or many receivers, within seconds or within the interval in which receivers retrieve events.
+
+Events are represented according to CloudEvents xref:bibliography.adoc#bib16[[16\]] in the JSON event format xref:bibliography.adoc#bib17[[17\]].
+This chapter defines the events, the modifications that result in events, event profiles, the operation _GetAllEvents_ for retrieving events, and the transmission of events via message brokers.
+
+[#eventing-event]
+== Event
+
+[#eventing-event-structure]
+=== Event Structure
+
+<<fig-eventing-event-data>> shows the class _Event_ and the classes of its data.
+The attributes of _Event_ are the CloudEvents context attributes and the data; CloudEvents extension attributes are not used.
+
+.Event and event data
+[[fig-eventing-event-data]]
+[plantuml, eventing-event-data, svg]
+....
+include::partial$diagrams/eventing-event-data.puml[]
+....
+
+The class _Event_ and the event data classes are defined in Clause xref:specification/interfaces-payload.adoc#events[Events].
+
+The following rules apply:
+
+. All events resulting from the same modification shall have the same `time`.
+. An event with a given `source` and `id` shall always have the same context attributes, except `dataschema`, and the same data for the same Content.
+
+[#eventing-source-subject]
+=== Source and Subject
+
+The `source` of an event is the base URL of the HTTP/REST API of the service.
+The `subject` is the path of the modified object relative to this base URL, without leading "/".
+Appending "/" and the `subject` to the `source` results in the URL of the modified object; for asset events, it results in the request of xref:specification/interfaces.adoc#GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] for the asset.
+
+.Subject
+[%autowidth,width="100%",cols="20%,80%",options="header",]
+|===
+|Events of |subject
+e|AssetAdministrationShell |`shells/\{aasIdentifier}`
+e|Submodel |`submodels/\{submodelIdentifier}`
+e|SubmodelElement |`submodels/\{submodelIdentifier}/submodel-elements/\{idShortPath}`
+e|ConceptDescription |`concept-descriptions/\{cdIdentifier}`
+e|Asset |`lookup/shells?assetIds=\{assetLink}`
+|===
+
+The placeholders are encoded as follows, so that the same object always results in the same `subject`:
+
+* `\{aasIdentifier}`, `\{submodelIdentifier}`, and `\{cdIdentifier}` are the base64url-encoded identifiers without padding, see xref:http-rest-api/http-rest-api.adoc#design-decisions[Design Decisions].
+* `\{idShortPath}` is the link:{mm}/mappings/mappings.html#_format_path_idshortpath_serialization_in_json[idShortPath] of the SubmodelElement, in which `[` is replaced by `%5B` and `]` by `%5D`; no other characters are encoded.
+* `\{assetLink}` is the base64url-encoded, without padding, JSON array containing the single xref:specification/interfaces-payload.adoc#AssetLink[AssetLink] with name `globalAssetId` and the _globalAssetId_ of the asset as value, serialized according to the JSON Canonicalization Scheme xref:bibliography.adoc#bib20[[20\]].
+
+The `subject` does not depend on the path used for the modification; e.g. a Submodel modified via `/shells/\{aasIdentifier}/submodels/\{submodelIdentifier}` has the `subject` `submodels/\{submodelIdentifier}`.
+The `subject` identifies the object and does not depend on the Content of the data; in particular, it does not contain a content-suffix such as `$reference`.
+
+====
+Note: the path prefix of the `subject` of a Submodel, e.g. `submodels/\{submodelIdentifier}/`, is shared by the events of all its SubmodelElements, so that prefix filters select a Submodel together with its SubmodelElements.
+====
+
+[#eventing-event-types]
+=== Event Types
+
+The `type` of an event has the form `io.admin-shell.<object>.<modification>.v1` with the values of <<table-eventing-event-types>>.
+
+[[table-eventing-event-types]]
+.Event types
+[%autowidth,width="100%",cols="22%,28%,50%",options="header",]
+|===
+|<object> |<modification> |data
+|`aas` |`created`, `updated`, `deleted` |xref:specification/interfaces-payload.adoc#AssetAdministrationShellEventData[AssetAdministrationShellEventData]
+|`submodel` |`created`, `updated`, `deleted` |xref:specification/interfaces-payload.adoc#SubmodelEventData[SubmodelEventData]
+|`submodelelement` |`created`, `updated`, `deleted` |xref:specification/interfaces-payload.adoc#SubmodelElementEventData[SubmodelElementEventData]
+|`conceptdescription` |`created`, `updated`, `deleted` |xref:specification/interfaces-payload.adoc#ConceptDescriptionEventData[ConceptDescriptionEventData]
+|`asset` |`created`, `updated`, `deleted` |xref:specification/interfaces-payload.adoc#AssetEventData[AssetEventData]
+|===
+
+Further event types may be defined by event profiles, see <<eventing-profiles>>.
+
+[#eventing-event-data]
+=== Event Data
+
+The data of an event is provided with the xref:specification/interfaces-operation-parameters.adoc#enumeration-content[Content] _Normal_, _Value_, or _Reference_.
+With Content _Normal_, the data contains the modified object after the modification, and for _deleted_ events the object before the modification.
+With Content _Value_, the data contains the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#value-only-serialization-in-json[ValueOnly serialization] of this object instead.
+With Content _Reference_, the data contains a ModelReference to the modified object instead.
+The other attributes of the data are identical for all Contents.
+
+.Modified object in the event data
+[width="100%",cols="27%,30%,28%,15%",options="header",]
+|===
+|Event data |Content _Normal_ |Content _Value_ |Content _Reference_
+e|AssetAdministrationShellEventData |AssetAdministrationShell |not applicable |Reference
+e|SubmodelEventData |Submodel with Content _Metadata_ |ValueOnly serialization of the Submodel with Level _Deep_ and Extent _WithoutBLOBValue_ |Reference
+e|SubmodelElementEventData |SubmodelElement with Level _Deep_ and Extent _WithoutBLOBValue_ |ValueOnly serialization of the SubmodelElement with Extent _WithoutBLOBValue_ |Reference
+e|ConceptDescriptionEventData |ConceptDescription |not applicable |Reference
+e|AssetEventData |References to the linked Asset Administration Shells |not applicable |not present
+|===
+
+If Content _Value_ is requested, events whose data class is not applicable for Content _Value_ are provided with Content _Normal_.
+
+A ModelReference to a Submodel or SubmodelElement in the data shall contain `referredSemanticId` if the referenced object has a _semanticId_.
+This does not apply to References that are part of a serialized AssetAdministrationShell, Submodel, or SubmodelElement.
+
+The `globalAssetIds` of Submodel and SubmodelElement events are the _globalAssetIds_ of all Asset Administration Shells provided by the same service that reference the Submodel at the time of the modification.
+Changes of these references result in AAS events, not in Submodel events.
+
+The event data classes are defined in Clause xref:specification/interfaces-payload.adoc#events[Events].
+
+[#eventing-data-schemas]
+=== Data Schemas
+
+The `dataschema` of an event identifies the class and the Content of its data:
+
+....
+https://admin-shell.io/aas/API/Events/<class name>/<Content>/3/3
+....
+
+`<class name>` is the name of the event data class and `<Content>` is `Normal`, `Value`, or `Reference`, e.g. `\https://admin-shell.io/aas/API/Events/SubmodelElementEventData/Reference/3/3`.
+
+A service may provide an event with Content _Reference_ where Content _Normal_ or _Value_ was requested, e.g. if the event exceeds a size limit.
+Clients shall therefore evaluate the `dataschema` of each event.
+
+The following event reports a new value of the Property `temperature` in the SubmodelElementCollection `Measurements` with Content _Normal_.
+Examples for all event types are given in Annex xref:annex/eventing-examples.adoc[Eventing Examples].
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "0192a3f5-1a03-7003-b2d8-6e1f4c9a0b27",
+  "type": "io.admin-shell.submodelelement.updated.v1",
+  "source": "https://aas.example.com",
+  "subject": "submodels/aHR0cHM6Ly9leGFtcGxlLmNvbS9pZHMvc20vNDIxMF8wODAyXzYxNTJfNTQyMQ/submodel-elements/Measurements.temperature",
+  "time": "2026-09-29T10:05:12.345678Z",
+  "datacontenttype": "application/json",
+  "dataschema": "https://admin-shell.io/aas/API/Events/SubmodelElementEventData/Normal/3/3",
+  "data": {
+    "submodel": {
+      "type": "ModelReference",
+      "referredSemanticId": {
+        "type": "ExternalReference",
+        "keys": [ { "type": "GlobalReference", "value": "https://example.com/semantics/OperationalData/1/0" } ]
+      },
+      "keys": [ { "type": "Submodel", "value": "https://example.com/ids/sm/4210_0802_6152_5421" } ]
+    },
+    "globalAssetIds": [ "https://example.com/ids/asset/7600_5912_3951_6917" ],
+    "submodelElement": {
+      "modelType": "Property",
+      "idShort": "temperature",
+      "semanticId": {
+        "type": "ExternalReference",
+        "keys": [ { "type": "GlobalReference", "value": "https://example.com/ids/cd/temperature" } ]
+      },
+      "valueType": "xs:double",
+      "value": "21.4"
+    }
+  }
+}
+----
+
+[#eventing-modifications]
+== Modifications and Events
+
+[#eventing-modifications-general]
+=== General
+
+A modification is a change of the content provided by a service that becomes visible to clients as a whole, e.g. the result of a successful API operation.
+The following rules apply:
+
+. Every modification shall result in the events defined in this clause, regardless of whether it is caused by an API operation, an import of an AASX package or environment, or the service itself.
+Unsuccessful operations and operations without any change of the content result in no events.
+. A modification of an Asset Administration Shell, Submodel, or Concept Description results in exactly one event for this Identifiable, of type `created`, `updated`, or `deleted`.
+. A modification of SubmodelElements additionally results in SubmodelElement events according to <<eventing-sme-events>>.
+The creation or deletion of a Submodel results in no SubmodelElement events.
+. A modification of the link between an asset and Asset Administration Shells additionally results in asset events according to <<eventing-asset-events>>.
+. Events concerning the same Identifiable shall be provided in the order of the modifications; for SubmodelElement events this is the Submodel, for asset events the asset.
+Within one modification, SubmodelElement events precede the Submodel event, and the AAS event precedes the asset events.
+
+<<table-eventing-operations>> lists the events resulting from the operations of this specification.
+
+[[table-eventing-operations]]
+.Events resulting from operations
+[%autowidth,width="100%",cols="45%,55%",options="header",]
+|===
+|Operation |Events (without prefix `io.admin-shell.` and suffix `.v1`)
+|xref:specification/interfaces.adoc#PostAssetAdministrationShell[PostAssetAdministrationShell], xref:specification/interfaces.adoc#PutAssetAdministrationShellById[PutAssetAdministrationShellById], xref:specification/interfaces.adoc#PutAssetAdministrationShell[PutAssetAdministrationShell], xref:specification/interfaces.adoc#PutAssetInformation[PutAssetInformation], xref:specification/interfaces.adoc#PutThumbnail[PutThumbnail], xref:specification/interfaces.adoc#DeleteThumbnail[DeleteThumbnail], xref:specification/interfaces.adoc#PostSubmodelReference[PostSubmodelReference], xref:specification/interfaces.adoc#DeleteSubmodelReference[DeleteSubmodelReference], xref:specification/interfaces.adoc#DeleteAssetAdministrationShellById[DeleteAssetAdministrationShellById] |`+aas.*+`; `+asset.*+` if the _globalAssetId_ is set, changed, or removed
+|xref:specification/interfaces.adoc#PostSubmodel[PostSubmodel], xref:specification/interfaces.adoc#DeleteSubmodelById[DeleteSubmodelById] |`submodel.created`, `submodel.deleted`
+|xref:specification/interfaces.adoc#PutSubmodelById[PutSubmodelById], xref:specification/interfaces.adoc#PutSubmodel[PutSubmodel], xref:specification/interfaces.adoc#PatchSubmodelById[PatchSubmodelById], xref:specification/interfaces.adoc#PatchSubmodel[PatchSubmodel] |`submodel.created`, or `submodelelement.*` and `submodel.updated`
+|xref:specification/interfaces.adoc#PostSubmodelElement[PostSubmodelElement], xref:specification/interfaces.adoc#PostSubmodelElementByPath[PostSubmodelElementByPath], xref:specification/interfaces.adoc#PutSubmodelElementByPath[PutSubmodelElementByPath], xref:specification/interfaces.adoc#PatchSubmodelElementByPath[PatchSubmodelElementByPath], xref:specification/interfaces.adoc#PatchSubmodelElementValueByPath[PatchSubmodelElementValueByPath], xref:specification/interfaces.adoc#PutFileByPath[PutFileByPath], xref:specification/interfaces.adoc#DeleteFileByPath[DeleteFileByPath], xref:specification/interfaces.adoc#DeleteSubmodelElementByPath[DeleteSubmodelElementByPath] |`submodelelement.*` and `submodel.updated`
+|xref:specification/interfaces.adoc#PostConceptDescription[PostConceptDescription], xref:specification/interfaces.adoc#PutConceptDescriptionById[PutConceptDescriptionById], xref:specification/interfaces.adoc#DeleteConceptDescriptionById[DeleteConceptDescriptionById] |`conceptdescription.*`
+|xref:specification/interfaces.adoc#PostAllAssetLinksById[PostAllAssetLinksById], xref:specification/interfaces.adoc#DeleteAllAssetLinksById[DeleteAllAssetLinksById] |`asset.*` if an AssetLink with name `globalAssetId` is added or removed
+|===
+
+[#eventing-sme-events]
+=== SubmodelElement Events
+
+SubmodelElement events are determined by comparing the Submodel before and after the modification.
+Child elements, i.e. the elements in `value` of SubmodelElementCollections and SubmodelElementLists, in `statements` of Entities, and in `annotations` of AnnotatedRelationshipElements, are SubmodelElements of their own and not attributes of their parent.
+The following rules apply:
+
+. A SubmodelElement with a modified attribute results in one `submodelelement.updated` event.
+A modification of a child element does not result in an event for its parent.
+. An added SubmodelElement results in one `submodelelement.created` event, a removed SubmodelElement in one `submodelelement.deleted` event.
+The child elements of an added or removed SubmodelElement result in no events.
+. A modified `idShort` results in `submodelelement.deleted` for the previous and `submodelelement.created` for the new idShortPath.
+. If a modification changes the index of existing elements of a SubmodelElementList, it results in one `submodelelement.updated` event for the SubmodelElementList instead of events for its elements.
+Elements added to or removed from the end of a SubmodelElementList result in `submodelelement.created` or `submodelelement.deleted` events.
+. SubmodelElement events of one modification are ordered depth-first according to the position of the SubmodelElements in the Submodel.
+
+.Examples for SubmodelElement events
+[%autowidth,width="100%",cols="50%,50%",options="header",]
+|===
+|Modification |SubmodelElement events
+|Value of `Measurements.temperature` modified |`updated` for `Measurements.temperature`
+|`description` of `Measurements` and value of `Measurements.temperature` modified |`updated` for `Measurements` and for `Measurements.temperature`
+|SubmodelElementCollection `Maintenance` with two Properties added |`created` for `Maintenance`
+|`idShort` of `Measurements.temp` modified to `temperature` |`deleted` for `Measurements.temp`, `created` for `Measurements.temperature`
+|Element appended to SubmodelElementList `Records` with three elements |`created` for `Records[3]`
+|Element inserted at index 0 of SubmodelElementList `Records` |`updated` for `Records`
+|Only `description` of the Submodel modified |none
+|===
+
+<<fig-eventing-seq-sme-update>> shows the events resulting from a value update and their retrieval with both Contents.
+
+.Events of a SubmodelElement value update
+[[fig-eventing-seq-sme-update]]
+[plantuml, eventing-seq-submodel-element-update, svg]
+....
+include::partial$diagrams/eventing-seq-submodel-element-update.puml[]
+....
+
+[#eventing-asset-events]
+=== Asset Events
+
+An Asset Administration Shell is linked to the asset with the _globalAssetId_ `X` if it is provided by the service and the attribute `globalAssetId` of its link:{mm}/spec-metamodel/core.html#AssetInformation[AssetInformation] has the value `X`, or if an xref:specification/interfaces-payload.adoc#AssetLink[AssetLink] with name `globalAssetId` and value `X` is registered for it.
+A modification that changes the set of Asset Administration Shells linked to `X` results in one asset event for `X`, as shown in <<fig-eventing-asset-link-states>>:
+
+* `asset.created` if the set was empty before the modification,
+* `asset.deleted` if the set is empty after the modification,
+* `asset.updated` otherwise.
+
+A modification of the _globalAssetId_ of an Asset Administration Shell from `A` to `B` results in asset events for `A` and for `B`.
+
+.Asset events
+[[fig-eventing-asset-link-states]]
+[plantuml, eventing-asset-link-states, svg]
+....
+include::partial$diagrams/eventing-asset-link-states.puml[]
+....
+
+[#eventing-profiles]
+== Event Profiles
+
+An event profile defines additional event types for a Submodel template, e.g. an event type for a new record in a Submodel with Product Change Notifications.
+An event profile shall define
+
+. the event types in the form `<prefix>.<object>.<modification>.v<major>`, where `<prefix>` is `io.admin-shell` for profiles defined by the IDTA and a reverse domain name of the defining organization otherwise,
+. the SubmodelElement events of <<eventing-sme-events>> that result in a profile event,
+. `source` and `subject` according to <<eventing-source-subject>>,
+. the event data for Content _Normal_ and _Reference_, composed of classes of Part 1 xref:bibliography.adoc#bib1[[1\]] and this specification,
+. the `dataschema` values.
+
+Profile events are provided in addition to the events of <<eventing-modifications>>, and precede the Submodel event of the same modification.
+
+[#eventing-retrieval]
+== Retrieval of Events
+
+[#eventing-retrieval-getallevents]
+=== GetAllEvents
+
+Events are retrieved with the operation xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents] of the xref:specification/interfaces.adoc#event-interface[Event Interface].
+The operation is provided by the Event profiles of the
+xref:http-rest-api/service-specifications-and-profiles.adoc#asset-administration-shell-repository-service-specification-ssp-007[Asset Administration Shell Repository],
+xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-008[Submodel Repository],
+xref:http-rest-api/service-specifications-and-profiles.adoc#concept-description-repository-service-specification-ssp-004[Concept Description Repository], and
+xref:http-rest-api/service-specifications-and-profiles.adoc#discovery-service-specification-ssp-003[Discovery] service specifications.
+
+The following rules apply:
+
+. Filters are evaluated on the event independent of the requested Content.
+. Events are returned from the oldest to the most recent, in the order in which the service provides them.
+This order is the deterministic order required by xref:http-rest-api/http-rest-api.adoc#pagination[Pagination], fulfills the ordering rules of <<eventing-modifications-general>>, and does not change between requests.
+Events of different Identifiables may be provided in a different order than their `time`.
+. Without `lastEventId`, the result starts with the oldest available event that matches the filters.
+With `lastEventId`, it starts with the first matching event provided after the event with this `id`.
+If no event with this `id` is available, the server shall respond with the status code _ClientErrorResourceNotFound_.
+. `since` and `lastEventId` both determine the start of the result and shall not be combined; otherwise, the server shall respond with the status code _ClientErrorBadRequest_.
+Because events may be provided in a different order than their `time`, only `lastEventId` guarantees that no event is skipped when continuing.
+. A server may remove events after a server-defined period.
+. Access to events is subject to Part 4 xref:bibliography.adoc#bib3[[3\]]; an event shall only be returned if the client may read the complete event data.
+
+====
+Note 1: a client reads the available events page by page with `cursor` until the response contains no cursor.
+To read events provided later, it sends a new request with the `id` of the last processed event as `lastEventId`.
+
+Note 2: to initialize a copy of the content of a service and to keep it consistent afterwards, a client determines a point in time `T`, reads the content, and then requests events with `since` set to `T`.
+Modifications with a `time` before `T` are contained in the content read afterwards, so no modification is missed.
+Events of modifications that are also contained in the content read can be applied again without effect, because events contain the state of the modified object.
+`T` should be chosen with a margin for deviations between the clocks of client and service.
+====
+
+The mapping of _GetAllEvents_ to the HTTP/REST API is defined in xref:http-rest-api/http-rest-api.adoc#table-mapping-operations[Mapping of Operations].
+The response is a Result object according to xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] whose `result` contains the events.
+
+[#eventing-retrieval-brokers]
+=== Message Brokers
+
+In addition to _GetAllEvents_, a service may transmit its events via message brokers, e.g. via MQTT, Apache Kafka, or AMQP.
+Message brokers deliver events to receivers as soon as they are provided and distribute them to many receivers.
+The following rules apply:
+
+. Events transmitted via a message broker shall be represented according to the CloudEvents protocol binding of the respective protocol xref:bibliography.adoc#bib18[[18\]].
+. An event transmitted via a message broker shall be identical to the event with the same `source` and `id` provided by _GetAllEvents_ with the same Content.
+. The ordering rules of <<eventing-modifications-general>> apply to each topic or partition that contains events of the same Identifiable.
+
+====
+Note: topic names, the selection of events per topic, the Content of the event data, quality of service, and access control are configured for the message broker and are not defined by this specification.
+====
+
+[#eventing-related-concepts]
+== Relation to Other Concepts
+
+[#eventing-related-recent-changes]
+=== Recent Changes
+
+The operations
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsRecentChanges[GetAllAssetAdministrationShellsRecentChanges],
+xref:specification/interfaces.adoc#GetAllSubmodelsRecentChanges[GetAllSubmodelsRecentChanges], and
+xref:specification/interfaces.adoc#GetAllConceptDescriptionsRecentChanges[GetAllConceptDescriptionsRecentChanges]
+return Identifiables created or updated after a given point in time, based on their current state.
+They report neither deletions nor modified SubmodelElements, and they return an Identifiable once, regardless of the number of its modifications.
+Events report every modification, including deletions and modifications of SubmodelElements.
+
+[#eventing-related-history]
+=== Versions at a Point in Time
+
+The operations
+xref:specification/interfaces.adoc#GetAssetAdministrationShellVersionByIdAndDate[GetAssetAdministrationShellVersionByIdAndDate] and
+xref:specification/interfaces.adoc#GetSubmodelVersionByIdAndDate[GetSubmodelVersionByIdAndDate]
+return an Identifiable as it was at a given point in time.
+Called with the `time` of an event with Content _Reference_, they return the state described by the event.
+
+[#eventing-related-event-element]
+=== EventElement and EventPayload
+
+Part 1 xref:bibliography.adoc#bib1[[1\]] defines the classes
+link:{mm}/spec-metamodel/submodel-elements.html#EventElement[EventElement],
+link:{mm}/spec-metamodel/submodel-elements.html#BasicEventElement[BasicEventElement], and
+link:{mm}/spec-metamodel/submodel-elements.html#EventPayload[EventPayload].
+They describe events that are declared as part of the model content and refer to a source EventElement.
+The events of this chapter result from modifications of the content provided by a service, independent of the model content, and do not use these classes.
+
+[#eventing-query-language]
+== Filtering with the AAS Query Language (informative)
+
+[IMPORTANT]
+====
+*This clause is a proposal and not part of this specification.*
+The normative filters are the input parameters of xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents].
+====
+
+The xref:query-language.adoc[AAS Query Language] could be extended by a root element `$event` for FieldIdentifiers, e.g. `$event#type`, `$event#subject`, `$event#time`, `$event#globalAssetIds[]`, `$event#semanticId`, and `$event#submodelSemanticId`.
+This would allow filters that the input parameters cannot express, e.g. a negation:
+
+[source,json]
+----
+{
+  "$condition": {
+    "$and": [
+      { "$starts-with": [ { "$field": "$event#type" }, { "$strVal": "io.admin-shell.submodelelement." } ] },
+      { "$not": { "$eq": [ { "$field": "$event#globalAssetIds[]" }, { "$strVal": "https://example.com/ids/asset/0000" } ] } }
+    ]
+  }
+}
+----
+
+This requires changes of the grammar and JSON Schema shared with Part 4 xref:bibliography.adoc#bib3[[3\]], see xref:query-language.adoc#formula-grammar-sot[Single source of truth for the formula grammar and JSON Schema].

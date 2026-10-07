@@ -8016,6 +8016,123 @@ paths:
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
 
+  /events:
+    get:
+      tags:
+        - Event API
+      summary: Returns the events provided by the service
+      operationId: GetAllEvents
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllEvents/3/3
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventTypes'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventIdentifiableIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventIdShortPath'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventGlobalAssetIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSemanticIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSubmodelSemanticIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSince'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/LastEventId'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested events
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetEventsResult'
+        '400':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '404':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '500':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
+        default:
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
+
+  /events/$value:
+    get:
+      tags:
+        - Event API
+      summary: Returns the events provided by the service with the event data in Content Value
+      operationId: GetAllEvents-ValueOnly
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllEvents/3/3
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventTypes'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventIdentifiableIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventIdShortPath'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventGlobalAssetIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSemanticIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSubmodelSemanticIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSince'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/LastEventId'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested events with the event data in Content Value
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetEventsResult'
+        '400':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '404':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '500':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
+        default:
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
+
+  /events/$reference:
+    get:
+      tags:
+        - Event API
+      summary: Returns the events provided by the service with the event data in Content Reference
+      operationId: GetAllEvents-Reference
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllEvents/3/3
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventTypes'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventIdentifiableIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventIdShortPath'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventGlobalAssetIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSemanticIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSubmodelSemanticIds'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/EventSince'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/LastEventId'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Limit'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested events with the event data in Content Reference
+          content:
+            application/json:
+              schema:
+                $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/GetEventsResult'
+        '400':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '401':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
+        '403':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '404':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '500':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
+        default:
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
+
   /description:
     get:
       tags:

@@ -1,0 +1,40 @@
+@startuml
+
+box "Application Service"
+participant App as "Application"
+end box
+
+box "Submodel Repository Service"
+  participant SMService as "Submodel Repository Interface"
+  participant EventService as "Event Interface"
+end box
+
+box "Consuming Service"
+  participant Client as "Client"
+end box
+
+activate App
+App -> SMService : PatchSubmodelElementValueByPath(\nsubmodelId, "Measurements.temperature", 21.4)
+activate SMService
+App <-- SMService : SuccessNoContent
+deactivate SMService
+deactivate App
+
+activate Client
+Client -> EventService : GetAllEvents(submodelSemanticId, lastEventId)
+activate EventService
+Client <-- EventService : submodelelement.updated ("Measurements.temperature"),\nsubmodel.updated
+deactivate EventService
+
+alt dataschema with Content Normal
+  Client -> Client : use SubmodelElement from event data
+else dataschema with Content Reference
+  Client -> SMService : GetSubmodelVersionByIdAndDate(submodelId, time)
+  activate SMService
+  Client <-- SMService : Submodel
+  deactivate SMService
+end
+
+deactivate Client
+
+@enduml
