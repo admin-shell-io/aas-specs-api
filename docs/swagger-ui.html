@@ -354,9 +354,49 @@
             }
         }
 
+        // SSP pattern: matches paths/URLs ending in V<ver>_SSP-<n>.yaml.
+        // Used to decide whether to rewrite to a bundled path for v3.2.0.
+        const SSP_YAML_PATTERN = /\/V(\d+\.\d+)_SSP-(\d+)\.yaml$/;
+
+        // Resolve the final URL that Swagger UI should load for a given logical spec path.
+        //
+        // For v3.2.0 SSP paths, we load the bundled variant served from the
+        // github-pages branch (../ServiceDir/bundled-V3.2_SSP-<n>.yaml) because
+        // Swagger UI's cross-document $ref resolver chokes on the unbundled
+        // originals. The bundled files only exist on github-pages, not at the
+        // v3.2.0 tag, so we always return a relative path for v3.2.0 SSPs even
+        // when the caller passed an absolute raw-GitHub URL (which happens when
+        // index.html pre-rewrites hrefs via its own getSpecUrl helper).
+        //
+        // Non-SSP entries (Entire-API-Collection, Part1, Part2) and all other
+        // versions fall through to the regular buildSpecUrl() path (or pass
+        // through unchanged if already absolute).
+        function resolveSpecUrl(version, path, versionFormat) {
+            // v3.2.0 SSPs: always rewrite to the relative bundled variant,
+            // regardless of whether `path` is relative or an absolute raw-GitHub URL.
+            if (version === 'v3.2.0' && SSP_YAML_PATTERN.test(path)) {
+                // Extract ServiceDir/V3.2_SSP-<n>.yaml from either form:
+                //   relative: ../ServiceDir/V3.2_SSP-001.yaml
+                //   absolute: https://raw.githubusercontent.com/.../v3.2.0/ServiceDir/V3.2_SSP-001.yaml
+                const match = path.match(/\/([^\/]+)\/(V\d+\.\d+_SSP-\d+\.yaml)$/);
+                if (match) {
+                    const serviceDir = match[1];
+                    const filename = match[2];
+                    return `../${serviceDir}/bundled-${filename}`;
+                }
+            }
+            // Already a full URL for non-SSP paths — pass through.
+            if (path.startsWith('http://') || path.startsWith('https://')) {
+                return path;
+            }
+            return buildSpecUrl(version, path, versionFormat);
+        }
+
         function createOption(path, label, version, versionFormat) {
             const option = document.createElement('option');
-            option.value = buildSpecUrl(version, path, versionFormat);
+            option.value = resolveSpecUrl(version, path, versionFormat);
+            // data-original-path always holds the canonical (non-bundled) path so
+            // version-switching logic can compute SSP paths for other versions correctly.
             option.setAttribute('data-original-path', path);
             option.textContent = label;
             return option;
@@ -394,8 +434,10 @@
         const version = urlParams.get('version') || 'v3.2.0';
         const rawUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
 
-        // Build the actual spec URL based on version
-        const specUrl = buildSpecUrl(version, rawUrl);
+        // Build the actual spec URL based on version. Uses resolveSpecUrl so that
+        // v3.2.0 SSPs load their bundled variant on initial page load (not just
+        // when the user re-selects from the dropdown).
+        const specUrl = resolveSpecUrl(version, rawUrl);
 
         // Initialize Swagger UI
         function initSwaggerUI(url) {

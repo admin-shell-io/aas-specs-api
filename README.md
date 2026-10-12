@@ -90,6 +90,11 @@ Previous releases:
 * [3.0](https://github.com/admin-shell-io/aas-specs-api/releases/tag/V3.0) is the first major release for the AAS APIs, containing the normative API descriptions for the published document "Specification of the Asset Administration Shell - Part 2: Application Programming Interfaces - Version 3.0".
 
 
+## Bundled Specs
+
+The `github-pages` branch contains pre-bundled single-file variants of the v3.2 SSP YAMLs that are served by the docs site's Swagger UI. See [`docs/README.md`](./docs/README.md#bundled-specs) for details and regeneration instructions.
+
+
 ## Contributing
 
 Feature requests, reports about inconsistencies, mistakes *etc.* are highly

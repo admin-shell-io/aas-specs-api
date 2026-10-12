@@ -1,0 +1,461 @@
+openapi: 3.0.3
+info:
+  title: DotAAS Part 2 | HTTP/REST | AASX File Server Service Specification
+  description: |-
+    The File Server Service Specification as part of the [Specification of the Asset Administration Shell: Part 2](https://industrialdigitaltwin.org/en/content-hub/aasspecifications).
+    Copyright: Industrial Digital Twin Association (IDTA) 2025
+  contact:
+    name: Industrial Digital Twin Association (IDTA)
+    email: info@idtwin.org
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  version: V3.2.0_SSP-001
+  x-profile-identifier: https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-001
+  termsOfService: https://github.com/admin-shell-io/aas-specs-metamodel
+servers:
+  - url: https://admin-shell.io/api/v3
+  - url: https://example.com/
+paths:
+  /packages:
+    get:
+      tags:
+        - AASX File Server API
+      summary: Returns a list of available AASX packages at the server
+      operationId: GetAllAASXPackageIds
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAllAASXPackageIds/3/2
+      parameters:
+        - name: aasId
+          in: query
+          description: The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Requested package list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPackageDescriptionsResult'
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '500':
+          $ref: '#/components/responses/internal-server-error'
+        default:
+          $ref: '#/components/responses/default'
+    post:
+      tags:
+        - AASX File Server API
+      summary: Stores the AASX package at the server
+      operationId: PostAASXPackage
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PostAASXPackage/3/2
+      requestBody:
+        description: AASX package
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                aasIds:
+                  type: array
+                  items:
+                    type: string
+                file:
+                  type: string
+                  format: binary
+                fileName:
+                  type: string
+            encoding:
+              file:
+                contentType: application/asset-administration-shell-package
+        required: true
+      responses:
+        '201':
+          description: AASX package stored successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageDescription'
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '409':
+          $ref: '#/components/responses/conflict'
+        '500':
+          $ref: '#/components/responses/internal-server-error'
+        default:
+          $ref: '#/components/responses/default'
+  /packages/{packageId}:
+    parameters:
+      - name: packageId
+        in: path
+        description: The package Id (UTF8-BASE64-URL-encoded)
+        required: true
+        style: simple
+        explode: true
+        schema:
+          type: string
+    get:
+      tags:
+        - AASX File Server API
+      summary: Returns a specific AASX package from the server
+      operationId: GetAASXByPackageId
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetAASXByPackageId/3/2
+      responses:
+        '200':
+          description: Requested AASX package
+          headers:
+            X-FileName:
+              schema:
+                type: string
+              description: Filename of the package
+          content:
+            application/asset-administration-shell-package:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/not-found'
+        '500':
+          $ref: '#/components/responses/internal-server-error'
+        default:
+          $ref: '#/components/responses/default'
+    put:
+      tags:
+        - AASX File Server API
+      summary: Creates or updates the AASX package at the server
+      operationId: PutAASXByPackageId
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/PutAASXByPackageId/3/2
+      requestBody:
+        description: AASX package
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                aasIds:
+                  type: array
+                  items:
+                    type: string
+                file:
+                  type: string
+                  format: binary
+                fileName:
+                  type: string
+            encoding:
+              file:
+                contentType: application/asset-administration-shell-package
+        required: true
+      responses:
+        '201':
+          description: AASX package stored successfully
+          headers:
+            Location:
+              description: URL of the newly created resource
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageDescription'
+        '204':
+          description: AASX package updated successfully
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '500':
+          $ref: '#/components/responses/internal-server-error'
+        default:
+          $ref: '#/components/responses/default'
+    delete:
+      tags:
+        - AASX File Server API
+      summary: Deletes a specific AASX package from the server
+      operationId: DeleteAASXByPackageId
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/DeleteAASXByPackageId/3/2
+      responses:
+        '204':
+          description: Deleted successfully
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/not-found'
+        '500':
+          $ref: '#/components/responses/internal-server-error'
+        default:
+          $ref: '#/components/responses/default'
+  /description:
+    get:
+      tags:
+        - Description API
+      summary: Returns the self-describing information of a network resource (ServiceDescription)
+      operationId: GetSelfDescription
+      x-semanticIds:
+        - https://admin-shell.io/aas/API/GetSelfDescription/3/2
+      responses:
+        '200':
+          description: Requested Description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDescription'
+        '400':
+          $ref: '#/components/responses/bad-request'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/not-found'
+        '500':
+          $ref: '#/components/responses/internal-server-error'
+        default:
+          $ref: '#/components/responses/default'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The maximum number of elements in the response array
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+    Cursor:
+      name: cursor
+      in: query
+      description: A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue
+      required: false
+      schema:
+        type: string
+  schemas:
+    Message:
+      properties:
+        code:
+          type: string
+          maxLength: 32
+          minLength: 1
+        correlationId:
+          type: string
+          maxLength: 128
+          minLength: 1
+        messageType:
+          enum:
+            - Undefined
+            - Info
+            - Warning
+            - Error
+            - Exception
+          type: string
+        text:
+          type: string
+        timestamp:
+          type: string
+          pattern: ^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\.[0-9]+)?)|24:00:00(\.0+)?)(Z|\+00:00|-00:00)$
+      type: object
+    Result:
+      properties:
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+      type: object
+    PagedResult:
+      type: object
+      properties:
+        paging_metadata:
+          type: object
+          properties:
+            cursor:
+              type: string
+              example: wJlCDLIl6KTWypN7T6vc6nWEmEYe99Hjf1XY1xmqV-M=#
+      required:
+        - paging_metadata
+    PackageDescription:
+      properties:
+        aasIds:
+          items:
+            type: string
+            maxLength: 2048
+            pattern: ^([\\x09\\x0a\\x0d\\x20-\\ud7ff\\ue000-\\ufffd]|\\ud800[\\udc00-\\udfff]|[\\ud801-\\udbfe][\\udc00-\\udfff]|\\udbff[\\udc00-\\udfff])*$
+          type: array
+        packageId:
+          type: string
+          maxLength: 128
+      type: object
+    GetPackageDescriptionsResult:
+      allOf:
+        - $ref: '#/components/schemas/PagedResult'
+        - type: object
+          properties:
+            result:
+              type: array
+              items:
+                $ref: '#/components/schemas/PackageDescription'
+    ServiceDescription:
+      description: The Description object enables servers to present their capabilities to the clients, in particular which profiles they implement. At least one defined profile is required. Additional, proprietary attributes might be included. Nevertheless, the server must not expect that a regular client understands them.
+      example: |-
+        {
+          "profiles": [
+            "https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-002",
+            "https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-002"
+          ]
+        }
+      properties:
+        profiles:
+          type: array
+          description: The list of profiles implemented by the server. The profiles are identified by their URI. Note that the list of example profiles is not exhaustive, but only includes the profiles defined in the current version of the specification. The server might also include proprietary profiles, which are not defined in the specification. Clients should be designed to ignore unknown profiles, but might use them to implement additional functionality if they are known.
+          minItems: 1
+          items:
+            type: string
+            example:
+              - https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/0/AssetAdministrationShellServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/AasxFileServerServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/AasxFileServerServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-005
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-005
+              - https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/0/SubmodelRegistryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/1/SubmodelRegistryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-003
+              - https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-004
+              - https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005
+              - https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-005
+              - https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-001
+              - https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002
+              - https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002
+      type: object
+  responses:
+    default:
+      description: Default error handling for unmentioned status codes
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    bad-request:
+      description: Bad Request, e.g. the request parameters of the format of the request body is wrong.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    unauthorized:
+      description: Unauthorized, e.g. the server refused the authorization attempt.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    internal-server-error:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    conflict:
+      description: Conflict, a resource which shall be created exists already. Might be thrown if an object with the same id (for Identifiables) or idShort (for Referables within the same Container Element or Submodel) is contained in a POST request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    not-found:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
