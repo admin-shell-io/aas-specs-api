@@ -77,7 +77,7 @@ Features:
 
 Regular maintenance tasks:
 - [ ] Update when new API versions are released
-- [ ] **When SSP source files are updated, run `npm install && npm run bundle` and commit all regenerated `bundled-*.yaml` files before pushing to `github-pages`.** Swagger UI on the docs site loads these bundled files for v3.2 SSPs; stale bundled files will cause resolver errors to reappear.
+- [ ] **When SSP source files are updated or new SSP versions land, run `npm install && npm run bundle` and commit all regenerated `bundled-*.yaml` files before pushing to `github-pages`.** Swagger UI loads bundled files when present and falls back to the original raw-GitHub URL otherwise; stale bundled files will cause resolver errors to reappear for v3.2+ SSPs.
 - [ ] Monitor GitHub Pages build status
 - [ ] Review and respond to user feedback
 - [ ] Update links if repository structure changes

@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-# bundle-specs.sh — Bundle all v3.2 SSP YAMLs using Redocly CLI.
+# bundle-specs.sh — Bundle all SSP YAMLs using Redocly CLI.
 #
-# Produces a bundled-<original>.yaml alongside each source V3.2_SSP-*.yaml so
+# Produces a bundled-<original>.yaml alongside each source V<ver>_SSP-*.yaml so
 # that Swagger UI can resolve all $ref pointers within a single document and
 # eliminate cross-document resolver errors.
+#
+# Version-agnostic: picks up any V<ver>_SSP-<n>.yaml source file in the 9
+# service directories (v3.2, v3.3, v4.0, etc.). When new versions land on the
+# github-pages branch, running this script bundles them automatically with
+# no code changes required.
 #
 # Usage:
 #   npm run bundle        (via package.json)
@@ -23,7 +28,7 @@ if [[ ! -x "${REDOCLY}" ]]; then
   exit 1
 fi
 
-# All 9 service specification directories that have v3.2 SSP YAMLs
+# All 9 service specification directories that may contain SSP YAMLs.
 SERVICE_DIRS=(
   AasxFileServerServiceSpecification
   AssetAdministrationShellRegistryServiceSpecification
@@ -46,7 +51,8 @@ for dir in "${SERVICE_DIRS[@]}"; do
     continue
   fi
 
-  # Find all V3.2_SSP-*.yaml source files in this directory (not bundled- ones)
+  # Find all V<ver>_SSP-*.yaml source files in this directory (not bundled- ones).
+  # Pattern matches V3.2_SSP-001.yaml, V3.3_SSP-001.yaml, V4.0_SSP-001.yaml, etc.
   while IFS= read -r -d '' src; do
     total=$((total + 1))
     filename="$(basename "${src}")"
@@ -60,7 +66,7 @@ for dir in "${SERVICE_DIRS[@]}"; do
     "${REDOCLY}" bundle "${src}" -o "${out_file}" --force 2>&1
 
     bundled=$((bundled + 1))
-  done < <(find "${abs_dir}" -maxdepth 1 -name "V3.2_SSP-*.yaml" -not -name "bundled-*" -print0 | sort -z)
+  done < <(find "${abs_dir}" -maxdepth 1 -name "V*_SSP-*.yaml" -not -name "bundled-*" -print0 | sort -z)
 done
 
 echo ""

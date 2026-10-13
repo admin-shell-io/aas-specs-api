@@ -92,7 +92,7 @@ Previous releases:
 
 ## Bundled Specs
 
-The `github-pages` branch contains pre-bundled single-file variants of the v3.2 SSP YAMLs that are served by the docs site's Swagger UI. See [`docs/README.md`](./docs/README.md#bundled-specs) for details and regeneration instructions.
+The `github-pages` branch contains pre-bundled single-file variants of the SSP YAMLs that are served by the docs site's Swagger UI. See [`docs/README.md`](./docs/README.md#bundled-specs) for details and regeneration instructions.
 
 
 ## Contributing
