@@ -1,0 +1,88 @@
+@startuml
+
+participant DPPClient as "Recycler"
+
+box "DPP Service"
+participant Client as "DPP Application"
+end box
+
+
+
+
+box "AAS Repository Service"
+  participant AASService as "AAS Repository Interface"
+end box
+
+box "Submodel Repository Service"
+  participant SMService as "Submodel Repository Interface"
+end box
+
+box "AAS Repository History Service"
+  participant AASHistoryService as "AAS Repository Interface"
+end box
+
+box "Submodel Repository History Service"
+  participant SMHistoryService as "Submodel Repository Interface"
+end box
+
+activate DPPClient
+DPPClient -> Client : UpdateDPPById(dppId, partialDPP)
+
+activate Client
+Client <- Client : map dppId to aasId
+Client <- Client : identify updatedAt value
+
+Client -> AASService : GetAssetAdministrationShellById(aasId) \n- store version of AAS
+activate AASService
+Client <-- AASService :  AAS
+Client -> AASService : set updatedAt and increase version information for AAS
+Client -> AASService :PutAssetAdministrationShellById(aasId,updated AAS)
+
+
+
+
+AASService -> AASHistoryService : PutAssetAdministrationShellById(aasId,AAS) \n- store version of AAS
+activate AASHistoryService
+AASService <-- AASHistoryService : historized AAS
+deactivate AASHistoryService
+Client <-- AASService : updated AAS incl. Submodel references
+deactivate AASService
+Client <- Client : serialize the Submodel payload
+Client -> SMService : PutSubmodelById(Submodel ID for DPP Metadata)
+activate SMService
+
+SMService -> SMHistoryService : PutSubmodelById - store version of DPP Metadata
+activate SMHistoryService
+SMService <-- SMHistoryService : historized DPP Metadata Submodel
+
+deactivate SMHistoryService
+Client <-- SMService : Submodel DPP Metadata (includes contentSpecificationIds) 
+deactivate SMService
+Client -> Client : extract relevant Submodel IDs\n for which there are changes
+
+
+note left of Client
+  i.e. content Submodels with 
+  semanticId   as specified 
+  in contentSpecificationIds
+end note
+
+loop for all relevant Submodels
+Client <- Client : serialize the Submodel payload
+Client -> SMService :PutSubmodelById(ById)
+activate SMService
+
+activate SMHistoryService
+SMService -> SMHistoryService : PutSubmodelById - store version
+SMService <-- SMHistoryService : historized content Submodel
+deactivate SMHistoryService
+Client <-- SMService : content Submodel
+deactivate SMService
+end
+
+Client <- Client : serialize and assemble DPP \ndocument (see ReadDPPByProductId)
+DPPClient <-- Client : return DPP
+deactivate Client
+deactivate DPPClient
+
+@enduml
