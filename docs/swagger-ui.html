@@ -354,9 +354,65 @@
             }
         }
 
+        // SSP pattern: matches paths/URLs ending in V<ver>_SSP-<n>.yaml.
+        const SSP_YAML_PATTERN = /\/V(\d+\.\d+)_SSP-(\d+)\.yaml$/;
+
+        // Resolve the final URL(s) that Swagger UI should load for a given logical spec path.
+        //
+        // For any SSP path (V<ver>_SSP-<n>.yaml) we prefer the bundled variant
+        // served from the github-pages branch (../ServiceDir/bundled-V<ver>_SSP-<n>.yaml)
+        // because Swagger UI's cross-document $ref resolver chokes on the unbundled
+        // originals (recursive Reference schema). This is version-agnostic: as soon
+        // as new source SSP YAMLs for v3.3, v4.0, etc. land on github-pages and
+        // `npm run bundle` is run, their bundled variants are loaded automatically.
+        //
+        // The returned `fallback` is what buildSpecUrl() would have returned. If
+        // the bundled file does not exist for a given version (e.g. older
+        // v3.0.x / v3.1.x that were never bundled, or a new version where the
+        // bundle step has not been run yet), initSwaggerUI falls back to it.
+        //
+        // Non-SSP entries (Entire-API-Collection, Part1, Part2) only have a
+        // primary URL and no bundled fallback is attempted.
+        function resolveSpecUrl(version, path, versionFormat) {
+            // Non-SSP paths: pass through buildSpecUrl (or the absolute URL as-is).
+            if (!SSP_YAML_PATTERN.test(path)) {
+                if (path.startsWith('http://') || path.startsWith('https://')) {
+                    return { primary: path, fallback: null };
+                }
+                return { primary: buildSpecUrl(version, path, versionFormat), fallback: null };
+            }
+
+            // SSP paths: extract ServiceDir/V<ver>_SSP-<n>.yaml from either form:
+            //   relative: ../ServiceDir/V3.2_SSP-001.yaml
+            //   absolute: https://raw.githubusercontent.com/.../<tag>/ServiceDir/V3.2_SSP-001.yaml
+            const match = path.match(/\/([^\/]+)\/(V\d+\.\d+_SSP-\d+\.yaml)$/);
+            if (!match) {
+                // Shouldn't happen given SSP_YAML_PATTERN matched, but be defensive.
+                return { primary: buildSpecUrl(version, path, versionFormat), fallback: null };
+            }
+            const serviceDir = match[1];
+            const filename = match[2];
+            const bundledUrl = `../${serviceDir}/bundled-${filename}`;
+            // Compute the non-bundled fallback. If `path` is already an absolute
+            // URL, use it directly; otherwise ask buildSpecUrl.
+            const fallbackUrl = (path.startsWith('http://') || path.startsWith('https://'))
+                ? path
+                : buildSpecUrl(version, path, versionFormat);
+            return { primary: bundledUrl, fallback: fallbackUrl };
+        }
+
+        // Convenience wrapper for callers that just want a single URL to store
+        // on an <option>. The returned value is the primary (bundled) URL for
+        // SSPs; initSwaggerUI handles falling back on HEAD 404.
+        function primarySpecUrl(version, path, versionFormat) {
+            return resolveSpecUrl(version, path, versionFormat).primary;
+        }
+
         function createOption(path, label, version, versionFormat) {
             const option = document.createElement('option');
-            option.value = buildSpecUrl(version, path, versionFormat);
+            option.value = primarySpecUrl(version, path, versionFormat);
+            // data-original-path always holds the canonical (non-bundled) path so
+            // version-switching logic can compute SSP paths for other versions correctly.
             option.setAttribute('data-original-path', path);
             option.textContent = label;
             return option;
@@ -394,22 +450,38 @@
         const version = urlParams.get('version') || 'v3.2.0';
         const rawUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
 
-        // Build the actual spec URL based on version
-        const specUrl = buildSpecUrl(version, rawUrl);
+        // Resolve to a {primary, fallback} pair. For SSP paths, primary is the
+        // bundled variant (../ServiceDir/bundled-V<ver>_SSP-<n>.yaml) and
+        // fallback is what buildSpecUrl would have returned (e.g. the raw-GitHub
+        // tag URL). initSwaggerUI tries primary first and falls back if the
+        // HEAD check returns a non-OK status — this makes the loader
+        // version-agnostic: any SSP that has a bundled sibling on github-pages
+        // is loaded from there; anything else loads from the normal source.
+        const initialSpec = resolveSpecUrl(version, rawUrl);
+        const specUrl = initialSpec.primary;
 
-        // Initialize Swagger UI
-        function initSwaggerUI(url) {
-            // URL is already built by buildSpecUrl, use it directly
-
-            // First check if the spec file exists
+        // Initialize Swagger UI.
+        //
+        // Tries `url` first via a HEAD request. If that returns non-OK (e.g.
+        // bundled file does not exist for this version) AND a `fallback` URL
+        // was supplied, retry with the fallback. If both fail, show the
+        // "Spec Not Available" error.
+        function initSwaggerUI(url, fallback) {
             fetch(url, { method: 'HEAD' })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Spec not found');
+                    if (response.ok) return url;
+                    if (fallback) {
+                        return fetch(fallback, { method: 'HEAD' }).then(r2 => {
+                            if (r2.ok) return fallback;
+                            throw new Error('Spec not found (primary and fallback both missing)');
+                        });
                     }
+                    throw new Error('Spec not found');
+                })
+                .then(resolvedUrl => {
                     // File exists, initialize Swagger UI
                     window.ui = SwaggerUIBundle({
-                        url: url,
+                        url: resolvedUrl,
                         dom_id: '#swagger-ui',
                         deepLinking: true,
                         presets: [
@@ -433,7 +505,7 @@
                             }
 
                             // Show warning for Query Profile specs
-                            if (isQueryProfile(url)) {
+                            if (isQueryProfile(resolvedUrl)) {
                                 setTimeout(() => showQueryProfileWarning(), 500);
                             }
                         }
@@ -496,7 +568,7 @@
 
         // Initialize with current spec
         populateSpecDropdown(version, specUrl);
-        initSwaggerUI(specUrl);
+        initSwaggerUI(specUrl, initialSpec.fallback);
 
         // Set dropdown to current spec
         const select = document.getElementById('specSelect');
@@ -505,13 +577,20 @@
         // Handle spec changes
         select.addEventListener('change', function(e) {
             const newUrl = e.target.value;
+            // Recompute the fallback for the chosen option so the loader can
+            // gracefully fall back if the bundled file is missing. Use the
+            // option's data-original-path (the canonical, non-bundled path).
+            const selectedOption = select.options[select.selectedIndex];
+            const originalPath = selectedOption ? selectedOption.getAttribute('data-original-path') : null;
+            const fallback = originalPath ? resolveSpecUrl(version, originalPath).fallback : null;
+
             // Update URL without reload
             const newUrlParams = new URLSearchParams(window.location.search);
             newUrlParams.set('url', newUrl);
             window.history.pushState({}, '', `${window.location.pathname}?${newUrlParams}`);
 
             // Reinitialize Swagger UI
-            initSwaggerUI(newUrl);
+            initSwaggerUI(newUrl, fallback);
 
             // Update Redoc link
             updateRedocLink(newUrl);
