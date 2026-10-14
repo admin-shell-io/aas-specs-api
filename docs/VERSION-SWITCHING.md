@@ -13,10 +13,18 @@ The documentation site now supports viewing multiple versions of the AAS API spe
 
 ### Version Selector
 
-Located at the top of the index page, the version selector allows users to switch between:
-- v3.2.0 (Latest) - local files
-- v3.1.2, v3.1.1, v3.1.0 - from git tags
-- v3.0.4, v3.0.3, v3.0.2, v3.0.1, v3.0.0 - from git tags
+Located at the top of the index page, the version selector lists every release tag of the repository
+(`vMAJOR.MINOR` or `vMAJOR.MINOR.PATCH`, from v3.0 onwards). The newest one is marked "(Latest)".
+
+The list is built at runtime by `docs/assets/js/versions.js`, which is shared by all three pages:
+
+1. Fetches the tags from the GitHub API (`/repos/admin-shell-io/aas-specs-api/tags`)
+2. Uses the SSP counts from its built-in `KNOWN_VERSIONS` table for known tags
+3. For any other tag, counts the `V<major.minor>_SSP-<n>.yaml` files per service in that tag's file tree
+4. Caches the result in `localStorage` for one hour
+
+If the GitHub API is unreachable or rate-limited (60 unauthenticated requests per hour per IP),
+the pages fall back to the built-in `KNOWN_VERSIONS` table.
 
 ### URL Structure
 
@@ -55,32 +63,21 @@ https://yourdomain.com/docs/swagger-ui.html?url=...&version=v3.1.2
 
 ✅ **No file duplication** - Only v3.2.0 files are stored on github-pages branch
 ✅ **Zero maintenance** - Old versions are served from existing git tags
-✅ **Instant availability** - New versions can be added by just updating the dropdown
+✅ **Instant availability** - New release tags appear in the dropdown automatically
 ✅ **Bookmarkable** - Users can share links to specific versions
 ✅ **Fast loading** - GitHub's CDN serves the raw files efficiently
 
 ## Adding New Versions
 
-To add a new version (e.g., v3.3.0):
+Push a release tag (e.g. `v3.2.1`). It shows up in the version selector automatically,
+no change to the github-pages branch is needed.
 
-1. **Update index.html** - Add new option to version selector:
-   ```javascript
-   const versionConfig = {
-       'v3.3.0': { tag: 'github-pages', local: true, format: '3.3' },
-       'v3.2.0': { tag: 'v3.2.0', local: false, format: '3.2' }, // Move to remote
-       // ... rest
-   };
-   ```
+Optionally add the tag to `KNOWN_VERSIONS` in `docs/assets/js/versions.js` so it is also
+available when the GitHub API cannot be reached.
 
-2. **Tag the release** in git:
-   ```bash
-   git tag v3.2.0
-   git push origin v3.2.0
-   ```
-
-3. **Update local files** to v3.3.0 specs on github-pages branch
-
-That's it! The old v3.2.0 will automatically be served from the git tag.
+When a new major/minor version (e.g. v3.3) replaces the spec files on the github-pages
+branch, update `DEFAULT_VERSION` in `versions.js` and the default `version`/`V3.2` paths
+in `index.html`, `swagger-ui.html` and `redoc.html`.
 
 ## Limitations
 

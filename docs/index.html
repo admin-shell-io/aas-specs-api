@@ -295,14 +295,6 @@
         <label for="versionSelect">Select Version:</label>
         <select id="versionSelect">
             <option value="v3.2.0" selected>v3.2.0 (Latest)</option>
-            <option value="v3.1.2">v3.1.2</option>
-            <option value="v3.1.1">v3.1.1</option>
-            <option value="v3.1.0">v3.1.0</option>
-            <option value="v3.0.4">v3.0.4</option>
-            <option value="v3.0.3">v3.0.3</option>
-            <option value="v3.0.2">v3.0.2</option>
-            <option value="v3.0.1">v3.0.1</option>
-            <option value="v3.0.0">v3.0.0</option>
         </select>
     </div>
 
@@ -532,6 +524,7 @@
         </div>
     </div>
 
+    <script src="assets/js/versions.js"></script>
     <script>
         // Auto-detect path for links
         function getPathPrefix() {
@@ -605,20 +598,10 @@
         // Version switching functionality
         const versionSelect = document.getElementById('versionSelect');
         const versionDisplay = document.getElementById('versionDisplay');
-        const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/admin-shell-io/aas-specs-api';
+        const GITHUB_RAW_BASE = AASVersions.GITHUB_RAW_BASE;
 
-        // Version mapping: major.minor version format
-        const versionConfig = {
-            'v3.2.0': { tag: 'v3.2.0', local: false, format: '3.2' },
-            'v3.1.2': { tag: 'v3.1.2', local: false, format: '3.1' },
-            'v3.1.1': { tag: 'v3.1.1', local: false, format: '3.1' },
-            'v3.1.0': { tag: 'v3.1.0', local: false, format: '3.1' },
-            'v3.0.4': { tag: 'v3.0.4', local: false, format: '3.0' },
-            'v3.0.3': { tag: 'v3.0.3', local: false, format: '3.0' },
-            'v3.0.2': { tag: 'v3.0.2', local: false, format: '3.0' },
-            'v3.0.1': { tag: 'v3.0.1', local: false, format: '3.0' },
-            'v3.0.0': { tag: 'v3.0', local: false, format: '3.0' }
-        };
+        // Filled from AASVersions.load() (see assets/js/versions.js)
+        let versionConfig = {};
 
         // Service name mapping from card title to spec folder name
         const serviceNameMap = {
@@ -633,108 +616,8 @@
             'AASX File Server Service': 'AasxFileServerServiceSpecification'
         };
 
-        // Version-specific SSP availability
-        const versionSSPLimits = {
-            'v3.0.0': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.1': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.2': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.3': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.4': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 2,
-                'SubmodelRepositoryServiceSpecification': 4,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.1.0': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 5,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 2,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.1.1': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 5,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 2,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.1.2': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 5,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 2,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.2.0': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 6,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 7,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 3,
-                'AasxFileServerServiceSpecification': 2
-            }
-        };
+        // Version-specific SSP availability, filled from AASVersions.load()
+        let versionSSPLimits = {};
 
         function getSpecUrl(version, specPath) {
             const config = versionConfig[version];
@@ -856,12 +739,15 @@
             window.history.pushState({}, '', url);
         });
 
-        // Check URL for version parameter on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlVersion = urlParams.get('version');
-            if (urlVersion && versionConfig[urlVersion]) {
-                versionSelect.value = urlVersion;
+        // Load available versions from the release tags, then apply the version from the URL
+        AASVersions.load().then(function(data) {
+            versionConfig = data.versionConfig;
+            versionSSPLimits = data.versionSSPLimits;
+
+            const urlVersion = new URLSearchParams(window.location.search).get('version');
+            const validUrlVersion = urlVersion && versionConfig[urlVersion];
+            AASVersions.populateVersionSelect(versionSelect, data, validUrlVersion ? urlVersion : AASVersions.DEFAULT_VERSION);
+            if (validUrlVersion) {
                 updateAllLinks(urlVersion);
             }
         });
