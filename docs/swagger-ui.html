@@ -100,21 +100,13 @@
 
     <div id="swagger-ui"></div>
 
+    <script src="assets/js/versions.js"></script>
     <script>
         // Version configuration
-        const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/admin-shell-io/aas-specs-api';
+        const GITHUB_RAW_BASE = AASVersions.GITHUB_RAW_BASE;
 
-        const versionConfig = {
-            'v3.2.0': { tag: 'v3.2.0', local: false, format: '3.2', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
-            'v3.1.2': { tag: 'v3.1.2', local: false, format: '3.1', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
-            'v3.1.1': { tag: 'v3.1.1', local: false, format: '3.1', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
-            'v3.1.0': { tag: 'v3.1.0', local: false, format: '3.1', hasSSP004: true, hasSSP005: true, hasSSP006: true, hasSSP007: true },
-            'v3.0.4': { tag: 'v3.0.4', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
-            'v3.0.3': { tag: 'v3.0.3', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
-            'v3.0.2': { tag: 'v3.0.2', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
-            'v3.0.1': { tag: 'v3.0.1', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false },
-            'v3.0.0': { tag: 'v3.0', local: false, format: '3.0', hasSSP004: false, hasSSP005: false, hasSSP006: false, hasSSP007: false }
-        };
+        // Filled from AASVersions.load() (see assets/js/versions.js)
+        let versionConfig = {};
 
         // Function to build spec URL based on version
         function buildSpecUrl(version, specPath, versionFormat) {
@@ -151,113 +143,8 @@
             'AasxFileServerServiceSpecification': { count: 2, label: 'AASX File Server' }
         };
 
-        // Version-specific SSP availability - defines which SSP files actually exist in each version
-        const versionSSPLimits = {
-            'v3.0.0': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 2,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 0,  // Not in v3.0.0
-                    'SubmodelRepositoryServiceSpecification': 2,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 1,
-                    'ConceptDescriptionRepositoryServiceSpecification': 0,  // Not in v3.0.0
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.0.1': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 2,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 0,
-                    'SubmodelRepositoryServiceSpecification': 2,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 1,
-                    'ConceptDescriptionRepositoryServiceSpecification': 0,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.0.2': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 2,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 0,
-                    'SubmodelRepositoryServiceSpecification': 2,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 1,
-                    'ConceptDescriptionRepositoryServiceSpecification': 0,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.0.3': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 2,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 0,
-                    'SubmodelRepositoryServiceSpecification': 2,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 1,
-                    'ConceptDescriptionRepositoryServiceSpecification': 0,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.0.4': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 2,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 2,
-                    'SubmodelRepositoryServiceSpecification': 4,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 1,
-                    'ConceptDescriptionRepositoryServiceSpecification': 0,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.1.0': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 5,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 4,
-                    'SubmodelRepositoryServiceSpecification': 5,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 2,
-                    'ConceptDescriptionRepositoryServiceSpecification': 2,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.1.1': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 5,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 4,
-                    'SubmodelRepositoryServiceSpecification': 5,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 2,
-                    'ConceptDescriptionRepositoryServiceSpecification': 2,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            },
-            'v3.1.2': {
-                maxSSP: {
-                    'AssetAdministrationShellRegistryServiceSpecification': 5,
-                    'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                    'AssetAdministrationShellServiceSpecification': 2,
-                    'SubmodelRegistryServiceSpecification': 4,
-                    'SubmodelRepositoryServiceSpecification': 5,
-                    'SubmodelServiceSpecification': 3,
-                    'DiscoveryServiceSpecification': 2,
-                    'ConceptDescriptionRepositoryServiceSpecification': 2,
-                    'AasxFileServerServiceSpecification': 1
-                }
-            }
-        };
+        // Version-specific SSP availability, filled from AASVersions.load()
+        let versionSSPLimits = {};
 
         // Detect which service from the current spec URL
         function detectServiceFromUrl(url) {
@@ -331,8 +218,8 @@
             // Check if this version has limits for this service
             let effectiveCount = sspCount;
             const versionLimits = versionSSPLimits[version];
-            if (versionLimits && versionLimits.maxSSP && versionLimits.maxSSP.hasOwnProperty(serviceName)) {
-                effectiveCount = versionLimits.maxSSP[serviceName];
+            if (versionLimits && versionLimits.hasOwnProperty(serviceName)) {
+                effectiveCount = versionLimits[serviceName];
             }
 
             // If service doesn't exist in this version, show a message
@@ -450,16 +337,6 @@
         const version = urlParams.get('version') || 'v3.2.0';
         const rawUrl = urlParams.get('url') || '../Entire-API-Collection/V3.2.yaml';
 
-        // Resolve to a {primary, fallback} pair. For SSP paths, primary is the
-        // bundled variant (../ServiceDir/bundled-V<ver>_SSP-<n>.yaml) and
-        // fallback is what buildSpecUrl would have returned (e.g. the raw-GitHub
-        // tag URL). initSwaggerUI tries primary first and falls back if the
-        // HEAD check returns a non-OK status — this makes the loader
-        // version-agnostic: any SSP that has a bundled sibling on github-pages
-        // is loaded from there; anything else loads from the normal source.
-        const initialSpec = resolveSpecUrl(version, rawUrl);
-        const specUrl = initialSpec.primary;
-
         // Initialize Swagger UI.
         //
         // Tries `url` first via a HEAD request. If that returns non-OK (e.g.
@@ -566,13 +443,7 @@
             container.insertBefore(warningDiv, container.firstChild);
         }
 
-        // Initialize with current spec
-        populateSpecDropdown(version, specUrl);
-        initSwaggerUI(specUrl, initialSpec.fallback);
-
-        // Set dropdown to current spec
         const select = document.getElementById('specSelect');
-        select.value = specUrl;
 
         // Handle spec changes
         select.addEventListener('change', function(e) {
@@ -614,7 +485,27 @@
             }
         }
 
-        updateRedocLink(specUrl);
+        // Initialize with current spec once the available versions are known
+        AASVersions.load().then(function(data) {
+            versionConfig = data.versionConfig;
+            versionSSPLimits = data.versionSSPLimits;
+
+            // Resolve to a {primary, fallback} pair. For SSP paths, primary is the
+            // bundled variant (../ServiceDir/bundled-V<ver>_SSP-<n>.yaml) and
+            // fallback is what buildSpecUrl would have returned (e.g. the raw-GitHub
+            // tag URL). initSwaggerUI tries primary first and falls back if the
+            // HEAD check returns a non-OK status — this makes the loader
+            // version-agnostic: any SSP that has a bundled sibling on github-pages
+            // is loaded from there; anything else loads from the normal source.
+            const initialSpec = resolveSpecUrl(version, rawUrl);
+            const specUrl = initialSpec.primary;
+            populateSpecDropdown(version, specUrl);
+            initSwaggerUI(specUrl, initialSpec.fallback);
+
+            // Set dropdown to current spec
+            select.value = specUrl;
+            updateRedocLink(specUrl);
+        });
     </script>
 </body>
 </html>

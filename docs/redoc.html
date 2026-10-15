@@ -107,21 +107,13 @@
     <div id="redoc-container"></div>
 
     <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+    <script src="assets/js/versions.js"></script>
     <script>
         // Version configuration
-        const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/admin-shell-io/aas-specs-api';
+        const GITHUB_RAW_BASE = AASVersions.GITHUB_RAW_BASE;
 
-        const versionConfig = {
-            'v3.2.0': { tag: 'v3.2.0', local: false, format: '3.2' },
-            'v3.1.2': { tag: 'v3.1.2', local: false, format: '3.1' },
-            'v3.1.1': { tag: 'v3.1.1', local: false, format: '3.1' },
-            'v3.1.0': { tag: 'v3.1.0', local: false, format: '3.1' },
-            'v3.0.4': { tag: 'v3.0.4', local: false, format: '3.0' },
-            'v3.0.3': { tag: 'v3.0.3', local: false, format: '3.0' },
-            'v3.0.2': { tag: 'v3.0.2', local: false, format: '3.0' },
-            'v3.0.1': { tag: 'v3.0.1', local: false, format: '3.0' },
-            'v3.0.0': { tag: 'v3.0', local: false, format: '3.0' }
-        };
+        // Filled from AASVersions.load() (see assets/js/versions.js)
+        let versionConfig = {};
 
         // Function to build spec URL based on version
         function buildSpecUrl(version, specPath) {
@@ -145,108 +137,8 @@
             }
         }
 
-        // Version-specific SSP availability
-        const versionSSPLimits = {
-            'v3.0.0': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.1': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.2': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.3': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 0,
-                'SubmodelRepositoryServiceSpecification': 2,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.0.4': {
-                'AssetAdministrationShellRegistryServiceSpecification': 2,
-                'AssetAdministrationShellRepositoryServiceSpecification': 2,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 2,
-                'SubmodelRepositoryServiceSpecification': 4,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 1,
-                'ConceptDescriptionRepositoryServiceSpecification': 0,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.1.0': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 5,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 2,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.1.1': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 5,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 2,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.1.2': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 3,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 5,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 2,
-                'AasxFileServerServiceSpecification': 1
-            },
-            'v3.2.0': {
-                'AssetAdministrationShellRegistryServiceSpecification': 5,
-                'AssetAdministrationShellRepositoryServiceSpecification': 6,
-                'AssetAdministrationShellServiceSpecification': 2,
-                'SubmodelRegistryServiceSpecification': 4,
-                'SubmodelRepositoryServiceSpecification': 7,
-                'SubmodelServiceSpecification': 3,
-                'DiscoveryServiceSpecification': 2,
-                'ConceptDescriptionRepositoryServiceSpecification': 3,
-                'AasxFileServerServiceSpecification': 2
-            }
-        };
+        // Version-specific SSP availability, filled from AASVersions.load()
+        let versionSSPLimits = {};
 
         // Service specifications structure
         const serviceSpecs = [
@@ -310,7 +202,7 @@
                     } else if (service.folder) {
                         // Service with SSPs
                         const limits = versionSSPLimits[version];
-                        const actualMax = limits && limits[service.folder] ? limits[service.folder] : service.maxSSP;
+                        const actualMax = limits && limits.hasOwnProperty(service.folder) ? limits[service.folder] : service.maxSSP;
 
                         if (actualMax === 0) {
                             // Service not available in this version
@@ -341,10 +233,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const version = urlParams.get('version') || 'v3.2.0';
         const defaultPath = '../AssetAdministrationShellRegistryServiceSpecification/V3.2_SSP-001.yaml';
-        let specUrl = urlParams.get('url') ? urlParams.get('url') : buildSpecUrl(version, defaultPath);
-
-        // Populate dropdown with current version
-        populateDropdown(version);
 
         // Initialize Redoc
         function initRedoc(url) {
@@ -445,12 +333,7 @@
             container.insertBefore(warningDiv, container.firstChild);
         }
 
-        // Initialize with current spec
-        initRedoc(specUrl);
-
-        // Set dropdown to current spec
         const select = document.getElementById('specSelect');
-        select.value = specUrl;
 
         // Handle spec changes
         select.addEventListener('change', function(e) {
@@ -474,7 +357,19 @@
             document.getElementById('swaggerLink').href = `swagger-ui.html?url=${encodeURIComponent(url)}&version=${version}`;
         }
 
-        updateSwaggerLink(specUrl);
+        // Initialize with current spec once the available versions are known
+        AASVersions.load().then(function(data) {
+            versionConfig = data.versionConfig;
+            versionSSPLimits = data.versionSSPLimits;
+
+            const specUrl = urlParams.get('url') ? urlParams.get('url') : buildSpecUrl(version, defaultPath);
+            populateDropdown(version);
+            initRedoc(specUrl);
+
+            // Set dropdown to current spec
+            select.value = specUrl;
+            updateSwaggerLink(specUrl);
+        });
     </script>
 </body>
 </html>
