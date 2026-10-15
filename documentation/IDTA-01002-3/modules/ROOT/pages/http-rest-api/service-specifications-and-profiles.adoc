@@ -24,7 +24,7 @@ Furthermore, profiles also define which of the SerializationModifiers (Content, 
 
 
 .Overview of Service Specifications and the Contained APIs
-[width="100%", options="header", cols="12,~,~,~,~,~,~,~,~,~,~,~"]
+[width="100%", options="header", cols="12,~,~,~,~,~,~,~,~,~,~,~,~"]
 |===
 a|
 *Contained APIs:*
@@ -40,17 +40,18 @@ a|
 |Concept Description Repository API
 |Asset Administration Shell Basic Discovery API
 |Serialization API
+|Event API
 |Description API
 
-|Asset Administration Shell Service Specification |x |s | | | | | | | |x |x
-|Submodel Service Specification | |x | | | | | | | |x |x
-|AASX File Server Service Specification | | |x | | | | | | | |x
-|Asset Administration Shell Registry Serv. Spec. | | | |x |s | | | | | |x
-|Submodel Registry Service Specification | | | | |x | | | | | |x
-|Discovery Service Specification | | | | | | | | |x | |x
-|Asset Administration Shell Repository Serv. Spec. |s |s | | | |x |s | | |x |x
-|Submodel Repository Service Specification | |s | | | | |x | | |x |x
-|ConceptDescription Repository Service Spec. | | | | | | | |x | |x |x
+|Asset Administration Shell Service Specification |x |s | | | | | | | |x | |x
+|Submodel Service Specification | |x | | | | | | | |x | |x
+|AASX File Server Service Specification | | |x | | | | | | | | |x
+|Asset Administration Shell Registry Serv. Spec. | | | |x |s | | | | | | |x
+|Submodel Registry Service Specification | | | | |x | | | | | | |x
+|Discovery Service Specification | | | | | | | | |x | |x |x
+|Asset Administration Shell Repository Serv. Spec. |s |s | | | |x |s | | |x |x |x
+|Submodel Repository Service Specification | |s | | | | |x | | |x |x |x
+|ConceptDescription Repository Service Spec. | | | | | | | |x | |x |x |x
 |===
 
 
@@ -682,6 +683,7 @@ See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../
 h|Service Specification / Profiles h|Description
 |<<discovery-service-specification-ssp-001,DiscoveryServiceSpecification/SSP-001>> |Full feature set
 |<<discovery-service-specification-ssp-002,DiscoveryServiceSpecification/SSP-002>> |only read operations; does not contain the deprecated read operation from DiscoveryServiceSpecification/SSP-001
+|<<discovery-service-specification-ssp-003,DiscoveryServiceSpecification/SSP-003>> |Event operations
 |===
 
 [#discovery-service-specification-ssp-001]
@@ -734,6 +736,28 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../DiscoveryServiceSpecification/V3.2_SSP-002.yaml&version=v3.2.0
 
+[#discovery-service-specification-ssp-003]
+=== Discovery Service Specification – Event Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Discovery Event Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/3/DiscoveryServiceSpecification/SSP-003`
+h|Feature h|Appearance
+|API and API Operations a|
+_Event API:_ +
+xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|Content: Normal, Value, Reference
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../DiscoveryServiceSpecification/V3.3_SSP-003.yaml&version=v3.3.0
+
+
 [#asset-administration-shell-repository-service-specification]
 == Asset Administration Shell Repository Service Specification
 
@@ -746,6 +770,7 @@ h|Service Specification / Profiles h|Description
 |<<asset-administration-shell-repository-service-specification-ssp-004,AssetAdministrationShellRepositoryServiceSpecification/SSP-004>> |Signature operations
 |<<asset-administration-shell-repository-service-specification-ssp-005,AssetAdministrationShellRepositoryServiceSpecification/SSP-005>> |Operations on Identifiables only; is included in the profile AssetAdministrationShellRepositoryServiceSpecification/SSP-001
 |<<asset-administration-shell-repository-service-specification-ssp-006,AssetAdministrationShellRepositoryServiceSpecification/SSP-006>> |Retrieves the Asset Administration Shell that was valid at a given date.
+|<<asset-administration-shell-repository-service-specification-ssp-007,AssetAdministrationShellRepositoryServiceSpecification/SSP-007>> |Event operations
 |===
 
 [#asset-administration-shell-repository-service-specification-ssp-001]
@@ -997,6 +1022,28 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../AssetAdministrationShellRepositoryServiceSpecification/V3.2_SSP-006.yaml&version=v3.2.0
 
+[#asset-administration-shell-repository-service-specification-ssp-007]
+=== Asset Administration Shell Repository Service Specification – Event Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|AAS Repository Event Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/3/AssetAdministrationShellRepositoryServiceSpecification/SSP-007`
+h|Feature h|Appearance
+|API and API Operations a|
+_Event API:_ +
+xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|Content: Normal, Value, Reference
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../AssetAdministrationShellRepositoryServiceSpecification/V3.3_SSP-007.yaml&version=v3.3.0
+
+
 
 
 [[submodel-repository-service-specification]]
@@ -1012,6 +1059,7 @@ h|Service Specification / Profiles h|Description
 |<<submodel-repository-service-specification-ssp-005,SubmodelRepositoryServiceSpecification/SSP-005>>|Query operations
 |<<submodel-repository-service-specification-ssp-006,SubmodelRepositoryServiceSpecification/SSP-006>>|Signature operations
 |<<submodel-repository-service-specification-ssp-007,SubmodelRepositoryServiceSpecification/SSP-007>>|History Profile: Retrieves the Submodel that was valid at a given date.
+|<<submodel-repository-service-specification-ssp-008,SubmodelRepositoryServiceSpecification/SSP-008>>|Event operations
 |===
 
 [[submodel-repository-service-specification-ssp-001]]
@@ -1292,6 +1340,28 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 
 See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../SubmodelRepositoryServiceSpecification/V3.2_SSP-007.yaml&version=v3.2.0
 
+[#submodel-repository-service-specification-ssp-008]
+=== Submodel Repository Service Specification – Event Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Submodel Repository Event Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/3/SubmodelRepositoryServiceSpecification/SSP-008`
+h|Feature h|Appearance
+|API and API Operations a|
+_Event API:_ +
+xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|Content: Normal, Value, Reference
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../SubmodelRepositoryServiceSpecification/V3.3_SSP-008.yaml&version=v3.3.0
+
+
 
 
 [#concept-description-repository-service-specification]
@@ -1303,6 +1373,7 @@ h|Service Specification / Profiles h|Description
 |<<concept-description-repository-service-specification-ssp-001,ConceptDescriptionRepositoryServiceSpecification/SSP-001>> |Full feature set
 |<<concept-description-repository-service-specification-ssp-002,ConceptDescriptionRepositoryServiceSpecification/SSP-002>> |Query operations
 |<<concept-description-repository-service-specification-ssp-003,ConceptDescriptionRepositoryServiceSpecification/SSP-003>> |Signature operations
+|<<concept-description-repository-service-specification-ssp-004,ConceptDescriptionRepositoryServiceSpecification/SSP-004>> |Event operations
 |===
 
 [#concept-description-repository-service-specification-ssp-001]
@@ -1382,3 +1453,25 @@ xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
 |===
 
 See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.2_SSP-003.yaml&version=v3.2.0
+
+[#concept-description-repository-service-specification-ssp-004]
+=== Concept Description Repository Service Specification – Event Profile
+
+[%autowidth, width="100%", cols="30%,70%",options="header",]
+|===
+h|Name: h|Concept Description Repository Event Profile
+h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/3/ConceptDescriptionRepositoryServiceSpecification/SSP-004`
+h|Feature h|Appearance
+|API and API Operations a|
+_Event API:_ +
+xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents]
+
+_Description API:_ +
+xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|Content: Normal, Value, Reference
+|SerializationFormat |JSON
+|xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] |supported
+|===
+
+See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../ConceptDescriptionRepositoryServiceSpecification/V3.3_SSP-004.yaml&version=v3.3.0
+

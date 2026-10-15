@@ -1,0 +1,12 @@
+@startuml
+hide empty description
+
+state "No Asset Administration Shell linked" as Unlinked
+state "At least one Asset Administration Shell linked" as Linked
+
+[*] --> Unlinked
+Unlinked --> Linked : first Asset Administration Shell linked\n/ io.admin-shell.asset.created.v1
+Linked --> Linked : set of linked Asset Administration Shells changed\n/ io.admin-shell.asset.updated.v1
+Linked --> Unlinked : last Asset Administration Shell unlinked\n/ io.admin-shell.asset.deleted.v1
+
+@enduml
