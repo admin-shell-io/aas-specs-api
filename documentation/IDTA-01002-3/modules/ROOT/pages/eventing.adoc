@@ -62,31 +62,31 @@ The following rules apply:
 === Source and Subject
 
 The `source` of an event is the base URL of the HTTP/REST API of the service.
-The `subject` is the path of the modified object relative to this base URL, without leading "/".
-Appending "/" and the `subject` to the `source` results in the URL of the modified object; for asset events, it results in the request of xref:specification/interfaces.adoc#GetAllAssetAdministrationShellIdsByAssetLink[GetAllAssetAdministrationShellIdsByAssetLink] for the asset.
+The `subject` identifies the modified object independently of the API, as defined in <<table-eventing-subject>>.
 
+[[table-eventing-subject]]
 .Subject
-[%autowidth,width="100%",cols="20%,80%",options="header",]
+[%autowidth,width="100%",cols="25%,75%",options="header",]
 |===
 |Events of |subject
-e|AssetAdministrationShell |`shells/\{aasIdentifier}`
-e|Submodel |`submodels/\{submodelIdentifier}`
-e|SubmodelElement |`submodels/\{submodelIdentifier}/submodel-elements/\{idShortPath}`
-e|ConceptDescription |`concept-descriptions/\{cdIdentifier}`
-e|Asset |`lookup/shells?assetIds=\{assetLink}`
+e|AssetAdministrationShell |Identifier of the Asset Administration Shell
+e|Submodel |Identifier of the Submodel
+e|SubmodelElement |ModelReference to the SubmodelElement in the link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/mappings/mappings.html#reference-serialization[text serialization of References] without _ReferenceType_ and _referredSemanticId_
+e|ConceptDescription |Identifier of the Concept Description
+e|Asset |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/core.html#globalAssetId[globalAssetId] of the asset
 |===
 
-The placeholders are encoded as follows, so that the same object always results in the same `subject`:
+For example, the `subject` of an event of the Property `temperature` in the SubmodelElementCollection `Measurements` is `(Submodel)\https://example.com/ids/sm/4210_0802_6152_5421, (SubmodelElementCollection)Measurements, (Property)temperature`.
 
-* `\{aasIdentifier}`, `\{submodelIdentifier}`, and `\{cdIdentifier}` are the base64url-encoded identifiers without padding, see xref:http-rest-api/http-rest-api.adoc#design-decisions[Design Decisions].
-* `\{idShortPath}` is the link:{mm}/mappings/mappings.html#_format_path_idshortpath_serialization_in_json[idShortPath] of the SubmodelElement, in which `[` is replaced by `%5B` and `]` by `%5D`; no other characters are encoded.
-* `\{assetLink}` is the base64url-encoded, without padding, JSON array containing the single xref:specification/interfaces-payload.adoc#AssetLink[AssetLink] with name `globalAssetId` and the _globalAssetId_ of the asset as value, serialized according to the JSON Canonicalization Scheme xref:bibliography.adoc#bib20[[20\]].
+The following rules apply:
 
-The `subject` does not depend on the path used for the modification; e.g. a Submodel modified via `/shells/\{aasIdentifier}/submodels/\{submodelIdentifier}` has the `subject` `submodels/\{submodelIdentifier}`.
-The `subject` identifies the object and does not depend on the Content of the data; in particular, it does not contain a content-suffix such as `$reference`.
+. The `subject` shall not be encoded.
+. The `subject` does not depend on the path or operation used for the modification, nor on the Content of the event data.
+
+The event type determines the operations with which the modified object can be retrieved, e.g. xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] for Submodel events.
 
 ====
-Note: the path prefix of the `subject` of a Submodel, e.g. `submodels/\{submodelIdentifier}/`, is shared by the events of all its SubmodelElements, so that prefix filters select a Submodel together with its SubmodelElements.
+Note: the `subject` of a SubmodelElement event starts with the key of its Submodel, e.g. `(Submodel)\https://example.com/ids/sm/4210_0802_6152_5421`, so that prefix filters select all SubmodelElement events of a Submodel.
 ====
 
 [#eventing-event-types]
@@ -162,7 +162,7 @@ Examples for all event types are given in Annex xref:annex/eventing-examples.ado
   "id": "0192a3f5-1a03-7003-b2d8-6e1f4c9a0b27",
   "type": "io.admin-shell.submodelelement.updated.v1",
   "source": "https://aas.example.com",
-  "subject": "submodels/aHR0cHM6Ly9leGFtcGxlLmNvbS9pZHMvc20vNDIxMF8wODAyXzYxNTJfNTQyMQ/submodel-elements/Measurements.temperature",
+  "subject": "(Submodel)https://example.com/ids/sm/4210_0802_6152_5421, (SubmodelElementCollection)Measurements, (Property)temperature",
   "time": "2026-09-29T10:05:12.345678Z",
   "datacontenttype": "application/json",
   "dataschema": "https://admin-shell.io/aas/API/Events/SubmodelElementEventData/Normal/3/3",
@@ -391,7 +391,9 @@ The events of this chapter result from modifications of the content provided by 
 The normative filters are the input parameters of xref:specification/interfaces.adoc#GetAllEvents[GetAllEvents].
 ====
 
-The xref:query-language.adoc[AAS Query Language] could be extended by a root element `$event` for FieldIdentifiers, e.g. `$event#type`, `$event#subject`, `$event#time`, `$event#globalAssetIds[]`, `$event#semanticId`, and `$event#submodelSemanticId`.
+The xref:query-language.adoc[AAS Query Language] could be extended by a root element `$event` for FieldIdentifiers.
+They follow the structure of the event: `$event#<attribute>` for the CloudEvents attributes, e.g. `$event#type`, `$event#subject`, or `$event#time`, and `$event#data.<path>` for the event data with Content _Normal_, e.g. `$event#data.globalAssetIds[]` or `$event#data.submodel.semanticId`.
+A query would be sent in the request body of an operation `QueryEvents` (`POST /query/events`), analogous to the existing query operations, e.g. xref:specification/interfaces.adoc#QuerySubmodels[QuerySubmodels].
 This would allow filters that the input parameters cannot express, e.g. a negation:
 
 [source,json]
@@ -400,7 +402,7 @@ This would allow filters that the input parameters cannot express, e.g. a negati
   "$condition": {
     "$and": [
       { "$starts-with": [ { "$field": "$event#type" }, { "$strVal": "io.admin-shell.submodelelement." } ] },
-      { "$not": { "$eq": [ { "$field": "$event#globalAssetIds[]" }, { "$strVal": "https://example.com/ids/asset/0000" } ] } }
+      { "$not": { "$eq": [ { "$field": "$event#data.globalAssetIds[]" }, { "$strVal": "https://example.com/ids/asset/0000" } ] } }
     ]
   }
 }

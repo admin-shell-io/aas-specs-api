@@ -88,17 +88,10 @@ components:
         type: array
         items:
           type: string
-    EventIdShortPath:
-      name: idShortPath
+    EventAasIdentifiers:
+      name: aasIdentifier
       in: query
-      description: Returns SubmodelElement and profile events of the SubmodelElement with the given idShortPath and of its child elements; requires exactly one value of id
-      required: false
-      schema:
-        type: string
-    EventIdentifiableIds:
-      name: id
-      in: query
-      description: Returns events of the Identifiables with the given identifiers (UTF8-BASE64-URL-encoded), including SubmodelElement and profile events of Submodels with these identifiers
+      description: Returns AAS events of the Asset Administration Shells with the given identifiers (UTF8-BASE64-URL-encoded)
       required: false
       style: form
       explode: true
@@ -106,6 +99,24 @@ components:
         type: array
         items:
           type: string
+    EventCdIdentifiers:
+      name: cdIdentifier
+      in: query
+      description: Returns Concept Description events of the Concept Descriptions with the given identifiers (UTF8-BASE64-URL-encoded)
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    EventIdShortPath:
+      name: idShortPath
+      in: query
+      description: Returns SubmodelElement and profile events of the SubmodelElement with the given idShortPath and of its child elements; requires exactly one value of submodelIdentifier
+      required: false
+      schema:
+        type: string
     EventSemanticIds:
       name: semanticId
       in: query
@@ -119,6 +130,17 @@ components:
           type: string
           maxLength: 3072
           minLength: 1
+    EventSubmodelIdentifiers:
+      name: submodelIdentifier
+      in: query
+      description: Returns Submodel, SubmodelElement, and profile events of the Submodels with the given identifiers (UTF8-BASE64-URL-encoded)
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
     EventSubmodelSemanticIds:
       name: submodelSemanticId
       in: query
