@@ -9,6 +9,12 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
+== Changes w.r.t. V3.2.1 to V3.3
+
+Major Changes:
+
+* Clarified retrieval of external files via `GetFileByPath` and external thumbnails via `GetThumbnail`: for HTTP(S) URLs, the server should return `302 Found` with the URL in the `Location` header instead of fetching the external resource, with a warning about the SSRF risks of server-side fetching. Added the generic status code `RedirectionFound` and its HTTP mapping, added the redirect response to all affected OpenAPI profiles and the combined API, and clarified authorization and client responsibilities. (https://github.com/admin-shell-io/aas-specs-api/issues/495[#495])
+
 == Changes w.r.t. V3.2 to V3.2.1
 
 Bugfixes:
