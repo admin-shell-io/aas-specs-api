@@ -77,7 +77,7 @@ Features:
 
 Regular maintenance tasks:
 - [ ] Update when new API versions are released
-- [ ] **When SSP source files are updated or new SSP versions land, run `npm install && npm run bundle` and commit all regenerated `bundled-*.yaml` files before pushing to `github-pages`.** Swagger UI loads bundled files when present and falls back to the original raw-GitHub URL otherwise; stale bundled files will cause resolver errors to reappear for v3.2+ SSPs.
+- [ ] **Bundling is automated; spec content and version config stay manual.** When new/updated `V*_SSP-*.yaml` source files land on `github-pages`, the `Bundle SSP specs` workflow ([`.github/workflows/bundle-specs.yml`](../.github/workflows/bundle-specs.yml)) regenerates and commits the `bundled-*.yaml` files automatically (it can also be run from the **Actions** tab). Adding the spec files themselves, and updating `DEFAULT_VERSION` / default paths for a new current version, remain manual steps. If `github-pages` is protected, set the `BUNDLE_PUSH_TOKEN` secret (PAT/fine-grained token with **Contents: write**) so the bot can push. Only run `npm install && npm run bundle` locally if you need to debug; stale bundled files would cause resolver errors to reappear for v3.2+ SSPs.
 - [ ] Monitor GitHub Pages build status
 - [ ] Review and respond to user feedback
 - [ ] Update links if repository structure changes

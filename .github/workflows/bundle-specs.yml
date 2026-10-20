@@ -1,0 +1,75 @@
+name: Bundle SSP specs
+
+# Automates the manual "Regenerating" procedure documented in docs/README.md:
+#   npm install && npm run bundle
+#   git add */bundled-V*_SSP-*.yaml && git commit && push to github-pages
+#
+# Whenever a source SSP YAML (or the bundling tooling) changes on the
+# github-pages branch, this workflow regenerates all bundled-V<ver>_SSP-*.yaml
+# files with Redocly CLI and commits them back to github-pages. It can also be
+# run on demand via "Run workflow".
+
+on:
+  push:
+    branches: [github-pages]
+    paths:
+      # Source SSP YAMLs (filename starts with "V", so "bundled-V..." never matches,
+      # which prevents the workflow's own commit from re-triggering it).
+      - '**/V*_SSP-*.yaml'
+      # Re-bundle if the tooling itself changes.
+      - 'scripts/bundle-specs.sh'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/bundle-specs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bundle-specs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout github-pages
+        uses: actions/checkout@v4
+        with:
+          ref: github-pages
+          # Use a dedicated push token when available so the bot can push to a
+          # protected github-pages branch; otherwise fall back to GITHUB_TOKEN.
+          # Set a repo/org secret named BUNDLE_PUSH_TOKEN (a PAT or fine-grained
+          # token with "Contents: write") and, if the branch is protected, allow
+          # that identity to bypass the push restrictions.
+          token: ${{ secrets.BUNDLE_PUSH_TOKEN || github.token }}
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies (@redocly/cli)
+        run: npm ci
+
+      - name: Regenerate bundled SSP files
+        run: npm run bundle
+
+      - name: Commit and push regenerated bundles
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Stage only the bundled outputs produced by the script.
+          git add '*/bundled-V*_SSP-*.yaml'
+
+          if git diff --cached --quiet; then
+            echo "Bundled files already up to date; nothing to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: regenerate bundled SSP files [skip ci]"
+          git push origin HEAD:github-pages
