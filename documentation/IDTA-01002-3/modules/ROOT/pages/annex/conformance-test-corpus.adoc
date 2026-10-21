@@ -130,6 +130,30 @@ Requirement: MUST | SHOULD
 | HTTP.discovery.001
 | Discovery endpoints MUST honour the operation-to-RIGHT mapping of this spec (xref:annex/operation-to-right-mapping.adoc[]).
 | Right resolved according to mapping table, not ad-hoc.
+
+| HTTP.cond.001
+| A request without `If-Match` and `If-None-Match` MUST be processed as if conditional requests were not supported.
+| Same status and payload as without support of conditional requests.
+
+| HTTP.cond.002
+| If the server returned an `ETag` for a resource, a `PATCH`, `PUT`, `POST` below the resource, or `DELETE` with `If-Match` and that entity tag MUST be performed as long as the resource has not changed.
+| Status of the successful request, e.g. `204 No Content`.
+
+| HTTP.cond.003
+| If the server returned an `ETag` for a resource, a write with `If-Match` and that entity tag MUST fail after the resource or one of its nested elements has changed.
+| Status `412 Precondition Failed` with Result object; resource unchanged.
+
+| HTTP.cond.004
+| If the server returned an `ETag` for a resource, a `GET` with `If-None-Match` and that entity tag MUST be answered without content as long as the resource has not changed.
+| Status `304 Not Modified` with `ETag` header, no payload.
+
+| HTTP.cond.005
+| If the server supports conditional requests for a resource, a `PUT` with `If-None-Match: *` on the existing resource MUST NOT change it.
+| Status `412 Precondition Failed`; resource unchanged.
+
+| HTTP.cond.006
+| A conditional request that the client is not allowed to perform, or a conditional `GET`, `PATCH`, or `DELETE` of a resource that does not exist, MUST NOT be answered with `304` or `412`.
+| Status `401`, `403`, or `404` as without the precondition.
 |===
 
 [#ctc-error-handling]

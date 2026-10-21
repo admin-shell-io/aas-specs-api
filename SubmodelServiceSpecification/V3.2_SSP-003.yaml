@@ -29,13 +29,19 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -57,13 +63,19 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: ValueOnly representation of the Submodel
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelValue'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':

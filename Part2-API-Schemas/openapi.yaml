@@ -14,6 +14,15 @@ info:
     url: https://creativecommons.org/licenses/by/4.0/
   version: V3.2.0
 components: 
+  headers:
+    ETag:
+      description: >-
+        Optional entity tag of the current representation of the resource according to RFC 9110, section 8.8.3.
+        The entity tag changes whenever the resource or one of its nested elements changes.
+        It can be used in the `If-Match` and `If-None-Match` headers of subsequent requests for the resource.
+      required: false
+      schema:
+        type: string
   parameters:
     AssetAdministrationShellIdentifier:
       name: aasIdentifier
@@ -113,6 +122,28 @@ components:
       required: true
       style: simple
       explode: false
+      schema:
+        type: string
+    IfMatch:
+      name: If-Match
+      in: header
+      description: >-
+        Optional conditional request according to RFC 9110, section 13.1.1.
+        One or more entity tags previously returned by the server in the `ETag` header for the resource, or `*`.
+        A server that supports conditional requests for the resource performs the request only if one of the entity tags matches the current entity tag of the resource (strong comparison), or, for `*`, if the resource exists.
+        Otherwise, it responds with 412 Precondition Failed and does not change the resource.
+      required: false
+      schema:
+        type: string
+    IfNoneMatch:
+      name: If-None-Match
+      in: header
+      description: >-
+        Optional conditional request according to RFC 9110, section 13.1.2.
+        One or more entity tags previously returned by the server in the `ETag` header for the resource, or `*`.
+        For GET, a server that supports conditional requests for the resource responds with 304 Not Modified if one of the entity tags matches the current entity tag of the resource (weak comparison).
+        For PUT, `*` requests that the resource is only created; a server that supports this responds with 412 Precondition Failed if the resource already exists.
+      required: false
       schema:
         type: string
     Level:
@@ -1588,6 +1619,11 @@ components:
           description: The URL where the client can find the target resource.
           schema:
             type: string
+    'not-modified':
+      description: Not Modified, the current representation of the resource matches one of the entity tags in the If-None-Match header. The response has no content.
+      headers:
+        ETag:
+          $ref: '#/components/headers/ETag'
     'bad-request':
       description: Bad Request, e.g. the request parameters of the format of the request body is wrong.
       content:
@@ -1620,6 +1656,12 @@ components:
             $ref: '#/components/schemas/Result'
     'conflict':
       description: Conflict, a resource which shall be created exists already. Might be thrown if an object with the same id (for Identifiables) or idShort (for Referables within the same Container Element or Submodel) is contained in a POST request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Result'
+    'precondition-failed':
+      description: Precondition Failed, the condition given in the If-Match or If-None-Match header does not hold for the current state of the resource. The resource was not changed.
       content:
         application/json:
           schema:

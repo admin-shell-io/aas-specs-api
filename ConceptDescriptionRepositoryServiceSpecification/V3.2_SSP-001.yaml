@@ -156,13 +156,19 @@ paths:
           explode: true
           schema:
             type: string
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Concept Description
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/ConceptDescription'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
@@ -189,6 +195,8 @@ paths:
           explode: false
           schema:
             type: string
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       requestBody:
         description: Concept Description object
         content:
@@ -214,6 +222,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -234,6 +244,7 @@ paths:
           explode: false
           schema:
             type: string
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Concept Description deleted successfully
@@ -243,6 +254,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:

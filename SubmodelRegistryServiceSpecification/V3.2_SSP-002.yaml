@@ -55,13 +55,20 @@ paths:
       operationId: GetSubmodelDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel Descriptor
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':

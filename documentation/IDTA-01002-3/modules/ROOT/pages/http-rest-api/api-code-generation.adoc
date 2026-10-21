@@ -27,6 +27,10 @@ image:swaggerhub-gen-code.png[width=203,height=110]
 
 API code can be created for both servers and clients in various programming languages.
 
+The OpenAPI documents declare the optional `If-Match` and `If-None-Match` request headers, the `ETag` response header, and the status codes 304 and 412 for conditional requests (see xref:http-rest-api/http-rest-api.adoc#conditional-requests[Conditional Requests]).
+Code generators therefore create optional header parameters for the respective API operations.
+A server that does not support conditional requests may ignore these parameters, and a client may omit them.
+
 Known issues include the following:
 
 * When generating the aspnetcore server stub for the AssetAdministrationShellEnvironmentApi, the operation PutFileByPath is not generated automatically and must be added manually.
