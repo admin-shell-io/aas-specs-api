@@ -95,15 +95,22 @@ paths:
       operationId: GetAllAssetLinksById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested specific Asset identifiers (including the global asset ID represented by a specific asset ID)
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         default:
@@ -124,9 +131,14 @@ paths:
               items:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '201':
           description: Specific asset identifiers created successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
@@ -135,6 +147,8 @@ paths:
                   $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
     delete:
@@ -144,11 +158,15 @@ paths:
       operationId: DeleteAllAssetLinksById
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteAllAssetLinksById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Specific asset identifiers deleted successfully
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         default:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/default'
   /description:

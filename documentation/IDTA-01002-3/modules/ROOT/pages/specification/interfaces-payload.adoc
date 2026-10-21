@@ -740,12 +740,14 @@ Additionally, the table indicates whether a specific status code comes with a re
 |SuccessCreated |Successful creation of a new resource |No
 |SuccessAccepted |The reception of the request was successful |No
 |SuccessNoContent |Success with explicitly no content in the payload |No
+|SuccessNotModified |The requested resource has not been modified with respect to the version known to the requester; only returned for optional conditional requests (see xref:http-rest-api/http-rest-api.adoc#conditional-requests[Conditional Requests]) |No
 |ClientErrorBadRequest |Bad or malformed request |Yes
 |ClientNotAuthorized |Wrong or missing authorization credentials |Yes
 |ClientForbidden |Authorization has been refused |Yes
 |ClientMethodNotAllowed |Operation request is not allowed |Yes
 |ClientErrorResourceNotFound |Resource not found |Yes
 |ClientResourceConflict |Conflict-creating resource (resource already exists) |Yes
+|ClientPreconditionFailed |A precondition given by the requester does not hold for the current state of the resource, e.g. because the resource has been changed concurrently; only returned for optional conditional requests (see xref:http-rest-api/http-rest-api.adoc#conditional-requests[Conditional Requests]) |Yes
 |ServerInternalError |Unexpected error |Yes
 |ServerNotImplemented |The server has not implemented this API Operation. Intended for cases where API Operations beyond the supported service profiles are requested. |No
 |ServerErrorBadGateway |Bad gateway |Yes

@@ -166,13 +166,20 @@ paths:
       operationId: GetAssetAdministrationShellById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Asset Administration Shell
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetAdministrationShell'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -199,6 +206,9 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetAdministrationShell'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '201':
           description: Asset Administration Shell created successfully
@@ -219,6 +229,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
         '403':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -230,6 +242,8 @@ paths:
       operationId: DeleteAssetAdministrationShellById
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteAssetAdministrationShellById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Asset Administration Shell deleted successfully
@@ -243,6 +257,8 @@ paths:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/Result'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -261,13 +277,20 @@ paths:
       operationId: GetAssetAdministrationShellById-Reference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetAdministrationShellById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Asset Administration Shell
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -290,13 +313,20 @@ paths:
       operationId: GetAssetInformation_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAssetInformation/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Asset Information
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetInformation'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -323,6 +353,9 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/AssetInformation'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '204':
           description: Asset Information updated successfully
@@ -334,6 +367,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -347,14 +382,21 @@ paths:
       operationId: GetThumbnail_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetThumbnail/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: The thumbnail of the Asset Information.
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/octet-stream:
               schema:
                 type: string
                 format: binary
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -392,6 +434,9 @@ paths:
               file:
                 contentType: application/octet-stream
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '204':
           description: Thumbnail updated successfully
@@ -403,6 +448,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -413,6 +460,8 @@ paths:
       operationId: DeleteThumbnail_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteThumbnail/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '200':
           description: >-
@@ -428,6 +477,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -478,6 +529,8 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '201':
           description: Submodel reference created successfully
@@ -486,6 +539,8 @@ paths:
               description: URL of the newly created resource
               schema:
                 type: string
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
@@ -500,6 +555,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         '409':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/conflict'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -515,6 +572,8 @@ paths:
       operationId: DeleteSubmodelReference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelReference/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Submodel reference deleted successfully
@@ -526,6 +585,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -544,13 +605,19 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -577,6 +644,9 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Submodel'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '201':
           description: Submodel created successfully
@@ -599,6 +669,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -622,6 +694,7 @@ paths:
             enum:
               #- deep
               - core  # only 'core' is allowed for PATCH
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       requestBody:
         description: Submodel object
         content:
@@ -632,6 +705,9 @@ paths:
       responses:
         '204':
           description: Submodel updated successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -640,6 +716,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -651,6 +729,8 @@ paths:
       operationId: DeleteSubmodelById_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Submodel deleted successfully
@@ -662,6 +742,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -677,13 +759,20 @@ paths:
       operationId: GetSubmodelById-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelMetadata'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -710,9 +799,14 @@ paths:
             schema:
               $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelMetadata'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Submodel updated successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -721,6 +815,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -739,13 +835,19 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelValue'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -776,6 +878,7 @@ paths:
             enum:
               #- deep
               - core  # only 'core' is allowed for PATCH
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       requestBody:
         description: Submodel object in the ValueOnly representation
         content:
@@ -786,6 +889,9 @@ paths:
       responses:
         '204':
           description: Submodel updated successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -794,6 +900,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -809,13 +917,20 @@ paths:
       operationId: GetSubmodelById-Reference_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodel/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel as a Reference
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -842,15 +957,21 @@ paths:
         - https://admin-shell.io/aas/API/GetSubmodel/3/2
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel in Path notation
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/PathItem'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -912,6 +1033,8 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SubmodelElement'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '201':
           description: Submodel element created successfully
@@ -920,6 +1043,8 @@ paths:
               description: URL of the newly created resource
               schema:
                 type: string
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
@@ -934,6 +1059,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         '409':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/conflict'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1100,13 +1227,19 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested submodel element
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SubmodelElement'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1133,6 +1266,8 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SubmodelElement'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '201':
           description: Submodel element created successfully
@@ -1141,6 +1276,8 @@ paths:
               description: URL of the newly created resource
               schema:
                 type: string
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
@@ -1155,6 +1292,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         '409':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/conflict'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1173,6 +1312,9 @@ paths:
             schema:
               $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SubmodelElement'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '201':
           description: Submodel element created successfully
@@ -1195,6 +1337,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1208,6 +1352,7 @@ paths:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/2
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       requestBody:
         description: The updated value of the submodel element
         content:
@@ -1218,6 +1363,9 @@ paths:
       responses:
         '204':
           description: Submodel element updated successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1226,6 +1374,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1237,6 +1387,8 @@ paths:
       operationId: DeleteSubmodelElementByPath_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelElementByPath/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Submodel element deleted successfully
@@ -1248,6 +1400,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1265,13 +1419,20 @@ paths:
       operationId: GetSubmodelElementByPath-Metadata_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested submodel element
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelElementMetadata'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1298,9 +1459,14 @@ paths:
             schema:
               $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelElementMetadata'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Submodel element updated successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1309,6 +1475,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1329,13 +1497,19 @@ paths:
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Extent'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested submodel element in its ValueOnly representation
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelElementValue'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1357,6 +1531,7 @@ paths:
         - https://admin-shell.io/aas/API/PatchSubmodelElementByPath/3/2
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       requestBody:
         description: The updated value of the submodel element
         content:
@@ -1367,6 +1542,9 @@ paths:
       responses:
         '204':
           description: Submodel element updated successfully
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1375,6 +1553,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1403,13 +1583,19 @@ paths:
             enum:
               # - deep
               - core # only 'core' is allowed for Content=Reference
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested submodel element in its ValueOnly representation
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/Reference'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1436,15 +1622,21 @@ paths:
         - https://admin-shell.io/aas/API/GetSubmodelElementByPath/3/2
       parameters:
         - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/Level'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested submodel element in the Path notation
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/PathItem'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1469,6 +1661,8 @@ paths:
       operationId: GetFileByPath_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetFileByPath/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested file
@@ -1478,11 +1672,15 @@ paths:
                 type: string
               description: In order to physically download the file usually set to attachment with a filename
               example: 'attachment; filename="filename.jpg"'
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/octet-stream:
               schema:
                 type: string
                 format: binary
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -1521,6 +1719,9 @@ paths:
               file:
                 contentType: application/octet-stream
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '204':
           description: Submodel element updated successfully
@@ -1532,6 +1733,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -1543,6 +1746,8 @@ paths:
       operationId: DeleteFileByPath_AasRepository
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteFileByPath/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '200':
           description: Submodel element updated successfully
@@ -1554,6 +1759,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:

@@ -66,15 +66,22 @@ paths:
       operationId: GetAllAssetLinksById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAllAssetLinksById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested specific Asset identifiers
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '../Part1-MetaModel-Schemas/openapi.yaml#/components/schemas/SpecificAssetId'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
         default:

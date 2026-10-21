@@ -9,6 +9,18 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
+== Changes w.r.t. V3.2 to V3.3
+
+Major Changes:
+
+* Added optional conditional requests according to RFC 9110 to the HTTP/REST API to detect concurrent changes of a resource ("lost updates") and to revalidate retrieved representations: the `ETag` response header and the `If-Match` and `If-None-Match` request headers with the status codes 304 (Not Modified) and 412 (Precondition Failed), see xref:http-rest-api/http-rest-api.adoc#conditional-requests[Conditional Requests]. Support is optional for servers and clients and not bound to a profile; existing servers and clients remain conformant. (https://github.com/admin-shell-io/aas-specs-api/issues/691[#691])
+
+Minor Changes:
+
+* Added the generic status codes `SuccessNotModified` and `ClientPreconditionFailed` to the xref:specification/interfaces-payload.adoc#table-status-codes[Status Codes] and their mapping to the HTTP status codes 304 and 412 to xref:http-rest-api/http-rest-api.adoc#mapping-of-status-codes[Mapping of Status Codes]. (https://github.com/admin-shell-io/aas-specs-api/issues/691[#691])
+* Added the reusable components `ETag` (header), `IfMatch` and `IfNoneMatch` (parameters), and `not-modified` and `precondition-failed` (responses) to the Part 2 API schemas and referenced them as optional elements in the API operations on single resources of all service specifications and profiles and in the Entire-API-Collection. No API operation of the technology-neutral interfaces has changed. (https://github.com/admin-shell-io/aas-specs-api/issues/691[#691])
+* Added conformance test cases for conditional requests to the xref:annex/conformance-test-corpus.adoc#ctc-http-api[Conformance Test Corpus]. (https://github.com/admin-shell-io/aas-specs-api/issues/691[#691])
+
 == Changes w.r.t. V3.2 to V3.2.1
 
 Bugfixes:

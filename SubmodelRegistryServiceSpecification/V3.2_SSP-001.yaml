@@ -89,13 +89,20 @@ paths:
       operationId: GetSubmodelDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetSubmodelDescriptorById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested Submodel Descriptor
+          headers:
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/json:
               schema:
                 $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
@@ -120,6 +127,9 @@ paths:
             schema:
               $ref: '../Part2-API-Schemas/openapi.yaml#/components/schemas/SubmodelDescriptor'
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '201':
           description: Submodel Descriptor created successfully
@@ -138,6 +148,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '403':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'    
         default:
@@ -149,6 +161,8 @@ paths:
       operationId: DeleteSubmodelDescriptorById
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteSubmodelDescriptorById/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Submodel Descriptor deleted successfully
@@ -158,6 +172,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
   /description:

@@ -125,6 +125,8 @@ paths:
       operationId: GetAASXByPackageId
       x-semanticIds:
         - https://admin-shell.io/aas/API/GetAASXByPackageId/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '200':
           description: Requested AASX package
@@ -133,11 +135,15 @@ paths:
               schema:
                 type: string
               description: Filename of the package
+            ETag:
+              $ref: '../Part2-API-Schemas/openapi.yaml#/components/headers/ETag'
           content:
             application/asset-administration-shell-package:
               schema:
                 type: string
                 format: binary
+        '304':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-modified'
         '400':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/bad-request'
         '401':
@@ -180,6 +186,9 @@ paths:
               file:
                 contentType: application/asset-administration-shell-package
         required: true
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfNoneMatch'
       responses:
         '201':
           description: AASX package stored successfully
@@ -200,6 +209,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/unauthorized'
         '403':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:
@@ -211,6 +222,8 @@ paths:
       operationId: DeleteAASXByPackageId
       x-semanticIds:
         - https://admin-shell.io/aas/API/DeleteAASXByPackageId/3/2
+      parameters:
+        - $ref: '../Part2-API-Schemas/openapi.yaml#/components/parameters/IfMatch'
       responses:
         '204':
           description: Deleted successfully
@@ -222,6 +235,8 @@ paths:
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/forbidden'
         '404':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/not-found'
+        '412':
+          $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/precondition-failed'
         '500':
           $ref: '../Part2-API-Schemas/openapi.yaml#/components/responses/internal-server-error'
         default:

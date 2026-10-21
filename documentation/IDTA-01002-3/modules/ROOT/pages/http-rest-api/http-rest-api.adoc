@@ -110,6 +110,9 @@ See <<pagination>> for further explanations.
 * In general, only GET, POST, PUT, PATCH and DELETE are used.
 POST is used to create new objects and to invoke operations.
 
+* Concurrent changes of a resource can be detected with the optional conditional requests of HTTP (`ETag`, `If-Match`, `If-None-Match`).
+See <<conditional-requests>> for further explanations.
+
 [[superpaths]]
 * Some interfaces may be combined in a so-called "superpaths", e.g. the Asset Administration Shell Repository Interface may be combined with the AAS Interface and the Submodel Interface.
 This results in a complete path like "/shells/\{aas-identifier}/submodels/\{submodel-identifier}/*".
@@ -826,6 +829,140 @@ In case a syntax error is discovered by a receiver of an AAS query object, the q
 AAS queries are sent via POST requests, delivering the serialised query JSON in the request body, to the reserved query endpoint of an AAS service. This endpoint begins with the `/query` path segment, followed by a service-specific segment. For the Asset Administration Shell Repository, this is e.g. `/query/shells`. It is recommended that a server exposes its supported query profiles through the `/description` endpoint.
 
 
+[#conditional-requests]
+== Conditional Requests
+
+If several clients read and change the same resource, a client may overwrite a change of another client without noticing it ("lost update").
+To detect such concurrent changes, the HTTP/REST API uses the conditional requests of HTTP as defined in RFC 9110 xref:bibliography.adoc#bib16[[16\]]: entity tags in the `ETag` response header (RFC 9110, section 8.8.3) and the request headers `If-Match` (RFC 9110, section 13.1.1) and `If-None-Match` (RFC 9110, section 13.1.2).
+In addition, `If-None-Match` allows clients to revalidate representations they have already retrieved without transferring them again.
+
+Support of conditional requests is optional for servers and clients.
+It is not bound to a service specification or profile: a server conforms to a service specification or profile regardless of whether it supports conditional requests, and support is not indicated through the "/description" endpoint.
+A server may support conditional requests for some resources and not for others.
+A client recognizes that a server supports conditional requests for a resource by the `ETag` header in the responses for this resource.
+
+The OpenAPI documents of the service specifications and profiles declare the `ETag` header, the `If-Match` and `If-None-Match` headers, and the status codes 304 (Not Modified) and 412 (Precondition Failed) for the API operations to which conditional requests apply.
+All of them are optional.
+
+=== Applicable Resources
+
+Conditional requests apply to API operations on single resources and their parts, including the corresponding API operations through <<superpaths,superpaths>>:
+
+* Asset Administration Shells, including their asset information, thumbnails, and Submodel references
+* Submodels and SubmodelElements in all content representations (normal, "/$value", "/$metadata", "/$reference", "/$path") and the file content of SubmodelElements ("/attachment")
+* Concept Descriptions
+* Asset Administration Shell Descriptors and their Submodel Descriptors
+* Submodel Descriptors
+* the asset links of an Asset Administration Shell in the Discovery Service ("/lookup/shells/\{aasIdentifier}")
+* AASX packages
+
+Conditional requests do not apply to API operations returning a paginated list of resources, query operations, bulk operations, the "/description" and "/serialization" endpoints, signed ("/$signed") and historical ("/$history") representations, the invocation of operations together with their status and result endpoints, and the asynchronous AASX package endpoints.
+
+=== Entity Tags
+
+A server that supports conditional requests for a resource shall fulfill the following requirements:
+
+* The server shall return a strong entity tag in the `ETag` header of successful responses to GET requests for the resource.
+* The entity tag of a resource shall change whenever the resource or one of its nested elements changes.
+For example, the entity tag of a Submodel changes when one of its SubmodelElements changes, and the entity tag of an Asset Administration Shell Descriptor changes when one of its Submodel Descriptors changes.
+* A nested element may have the same entity tag as the resource containing it, e.g. a SubmodelElement may have the entity tag of its Submodel.
+In this case, a conditional request for the nested element fails if another part of the containing resource has changed, but a concurrent change of the nested element is never missed.
+* If the server returns different representations of the same resource to different clients, e.g. due to access rules, the entity tags of these representations shall differ.
+* The server should not issue an entity tag again for a resource that it has issued for an earlier state of this resource, even if the resource has been deleted and created again in the meantime.
+* The server may return the new entity tag in the `ETag` header of successful responses to PATCH and POST requests.
+For PUT requests, RFC 9110, section 9.3.4 applies: the server shall not return an entity tag unless the stored representation is identical to the received one.
+
+Entity tags are opaque to clients.
+A client shall not derive any information from the value of an entity tag and should only use an entity tag for the resource for which it has been returned.
+
+=== Conditional Writes
+
+PUT, PATCH, POST, and DELETE requests for a resource may contain an `If-Match` header with one or more entity tags or with `*`.
+This also applies to POST requests that create an element below an existing resource, e.g. PostSubmodelElement, PostSubmodelReference, or PostAllAssetLinksById.
+
+A server that supports conditional requests for the target resource shall evaluate the `If-Match` header before performing the request:
+
+* If one of the entity tags matches the current entity tag of the resource using the strong comparison (RFC 9110, section 8.8.3.2), the server performs the request.
+Weak entity tags (`W/"..."`) never match.
+* `If-Match: *` matches if the resource exists.
+It does not protect against concurrent changes.
+* Otherwise, the server shall respond with ClientPreconditionFailed (HTTP status code 412) and a Result object, and shall not change the resource.
+
+The evaluation of the precondition and the change of the resource shall be atomic, i.e. two requests with the same entity tag cannot both succeed.
+
+PUT requests may contain an `If-None-Match: *` header to create the resource only if it does not exist yet.
+A server that supports conditional requests for the target resource shall respond with ClientPreconditionFailed (HTTP status code 412) if the resource already exists and shall not change it.
+
+According to RFC 9110, section 13.2.1, preconditions are only evaluated if the request would succeed without them.
+Error responses such as ClientErrorBadRequest, ClientNotAuthorized, ClientForbidden, or ClientErrorResourceNotFound therefore take precedence over ClientPreconditionFailed.
+
+=== Conditional Reads
+
+GET requests for a resource may contain an `If-None-Match` header with one or more entity tags.
+A server that supports conditional requests for the resource shall respond with SuccessNotModified (HTTP status code 304) without content and with the current entity tag in the `ETag` header if one of the entity tags matches the current entity tag of the resource using the weak comparison (RFC 9110, section 8.8.3.2).
+The server shall only respond with SuccessNotModified if the client is authorized to read the resource.
+
+=== Servers and Clients without Support
+
+A server that does not support conditional requests for a resource does not return an `ETag` header for it and may ignore the `If-Match` and `If-None-Match` headers.
+A client shall therefore not assume that a request with an `If-Match` header is protected against concurrent changes if it has not received an entity tag for the resource.
+Clients shall be able to interact with servers that do not return entity tags.
+
+A server shall process requests without `If-Match` and `If-None-Match` headers as specified in this document, i.e. it shall not reject a request because it does not contain a precondition.
+
+====
+Note: browser-based clients can only read the `ETag` header and send the `If-Match` and `If-None-Match` headers for cross-origin requests if the server allows it via CORS, i.e. lists `ETag` in the `Access-Control-Expose-Headers` header and `If-Match` and `If-None-Match` in the `Access-Control-Allow-Headers` header.
+====
+
+=== Example
+
+The following example shows how a concurrent change of the value of a SubmodelElement is detected.
+The Submodel identifier is abbreviated.
+
+[source,http]
+----
+GET /submodels/aHR0cHM6Ly9leGFtcGxlLmNvbS9zbTE/submodel-elements/Temperature/$value HTTP/1.1
+
+HTTP/1.1 200 OK
+ETag: "17"
+Content-Type: application/json
+
+21.0
+----
+
+Client A updates the value with the entity tag it has received:
+
+[source,http]
+----
+PATCH /submodels/aHR0cHM6Ly9leGFtcGxlLmNvbS9zbTE/submodel-elements/Temperature/$value HTTP/1.1
+If-Match: "17"
+Content-Type: application/json
+
+21.5
+
+HTTP/1.1 204 No Content
+ETag: "18"
+----
+
+Client B has read the same value before and sends its update with the same entity tag.
+The server detects that the resource has changed in the meantime and rejects the request:
+
+[source,http]
+----
+PATCH /submodels/aHR0cHM6Ly9leGFtcGxlLmNvbS9zbTE/submodel-elements/Temperature/$value HTTP/1.1
+If-Match: "17"
+Content-Type: application/json
+
+22.0
+
+HTTP/1.1 412 Precondition Failed
+Content-Type: application/json
+
+{"messages": [{"code": "412", "messageType": "Error", "text": "The resource has been changed.", "timestamp": "2026-10-21T10:15:00Z"}]}
+----
+
+Client B reads the resource again, merges its change, and retries with the new entity tag.
+
 
 [#mapping-of-status-codes]
 == Mapping of Status Codes
@@ -840,12 +977,14 @@ The following table shows the mapping of the generic status codes to HTTP status
 |SuccessCreated |Successful creation of a new resource |201 (Created) |Successful request resulting in the creation of a new resource, e.g. SubmodelElement
 |SuccessAccepted |The reception of the request was successful |202 (Accepted) |The server has accepted the request, but the result will be supplied later
 |SuccessNoContent |Success with explicitly no content in the payload |204 (No Content) |Successful request with no content in return, e.g. used for updating existing resources
+|SuccessNotModified |The resource has not been modified |304 (Not Modified) |The current representation of the resource matches one of the entity tags in the If-None-Match header, see <<conditional-requests>>
 |ClientErrorBadRequest |Bad or malformed request |400 (Bad Request) |The server does not / cannot process the request due to a general client error, e.g. a malformed request
 |ClientNotAuthorized |Wrong or missing authorization credentials |401 (Unauthorized) |The client missed or provided invalid credentials
 |ClientForbidden |Authorization has been refused |403 (Forbidden) |The request content is basically valid and understood by the server, but the server refuses the action due to certain restrictions, e.g. profiles or roles
 |ClientErrorResourceNotFound |Resource not found |404 (Not Found) |The requested resource was not found
 |ClientMethodNotAllowed |Operation request is not allowed |405 (Method Not Allowed) |The server rejected the request for the requested resource, e.g. /invoke only for the operation submodel element
 |ClientResourceConflict |Conflict-creating resource (resource already exists) |409 (Conflict) |A resource already exists; might occur if a Submodel or SubmodelElement with the same Identifier or ShortId is contained in a POST request.
+|ClientPreconditionFailed |Precondition failed |412 (Precondition Failed) |The condition given in the If-Match or If-None-Match header does not hold for the current state of the resource, e.g. because the resource has been changed concurrently, see <<conditional-requests>>
 |ServerInternalError |Unexpected error |500 (Internal Server Error) |General server-internal error due to an unexpected condition
 |ServerNotImplemented |Not implemented |501 (Not Implemented) |The server does not support the functionality to fulfill the request
 |ServerErrorBadGateway |Bad Gateway |502 (Bad Gateway) |The primarily addressed server that was acting as gateway or proxy received an invalid response from subsequent systems/servers
