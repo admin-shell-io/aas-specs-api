@@ -1,0 +1,102 @@
+@startuml
+
+participant DPPClient as "Recycler"
+
+box "DPP Service"
+participant Client as "DPP Application"
+end box
+
+
+
+
+box "AAS Repository Service"
+  participant AASService as "AAS Repository Interface"
+end box
+
+box "Submodel Repository Service"
+  participant SMService as "Submodel Repository Interface"
+end box
+
+box "AAS Repository History Service"
+  participant AASHistoryService as "AAS Repository Interface"
+end box
+
+box "Submodel Repository History Service"
+  participant SMHistoryService as "Submodel Repository Interface"
+end box
+
+activate DPPClient
+DPPClient -> Client : UpdateDPPById(dppId, partialDPP)
+
+activate Client
+Client <- Client : map dppId to aasId
+Client <- Client : identify updatedAt value
+
+Client -> AASService : GetAssetAdministrationShellById(aasId) 
+activate AASService
+Client <-- AASService :  AAS
+Client -> Client : extract relevant Submodel IDs\n for which there are changes, which are removed, which are new
+Client -> AASService :PutAssetAdministrationShellById(aasId,updated AAS) \n: set updatedAt and increase version information for AAS
+activate AASHistoryService
+AASService -> AASHistoryService : PutAssetAdministrationShellById(aasId,AAS) \n- store version of AAS
+AASService <-- AASHistoryService : historized AAS
+
+loop in case complete Submodels are removed by the DPP update
+Client -> AASService: DeleteSubmodelReference
+AASService -> SMService: DeleteSubmodelById : if not used by other AAS
+AASService -> AASHistoryService : PutAssetAdministrationShellById(aasId,AAS) \n- store version of AAS
+AASService <-- AASHistoryService : historized AAS
+end
+deactivate AASHistoryService
+
+loop in case new Submodels are added by the DPP update
+Client <- Client : serialize the Submodel payload
+Client  -> SMService: PostSubmodel : create new Submodel
+SMService -> SMHistoryService : PutSubmodelById - store version 
+activate SMHistoryService
+SMService <-- SMHistoryService : historized Submodel
+deactivate SMHistoryService
+Client -> AASService: PostSubmodelReference \n: add reference to new Submodel to AAS
+AASService -> AASHistoryService : PutAssetAdministrationShellById(aasId,AAS) \n- store version of AAS
+AASService <-- AASHistoryService : historized AAS
+end
+
+deactivate AASService
+Client <- Client : serialize the Submodel payload
+Client -> SMService : PutSubmodelById(Submodel ID for DPP Metadata)
+activate SMService
+
+SMService -> SMHistoryService : PutSubmodelById - store version of DPP Metadata
+activate SMHistoryService
+SMService <-- SMHistoryService : historized DPP Metadata Submodel
+
+deactivate SMHistoryService
+Client <-- SMService : Submodel DPP Metadata (includes contentSpecificationIds) 
+deactivate SMService
+
+
+note left of Client
+  i.e. content Submodels with 
+  semanticId   as specified 
+  in contentSpecificationIds
+end note
+
+loop for all relevant Submodels
+Client <- Client : serialize the Submodel payload
+Client -> SMService :PutSubmodelById(ById)
+activate SMService
+
+activate SMHistoryService
+SMService -> SMHistoryService : PutSubmodelById - store version
+SMService <-- SMHistoryService : historized content Submodel
+deactivate SMHistoryService
+Client <-- SMService : content Submodel
+deactivate SMService
+end
+
+Client <- Client : serialize and assemble DPP \ndocument (see ReadDPPByProductId)
+DPPClient <-- Client : return DPP
+deactivate Client
+deactivate DPPClient
+
+@enduml
