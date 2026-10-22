@@ -59,38 +59,7 @@ Exceptions to this rule are API Operations requiring pagination and error cases.
 
 * By default, blobs are not part of the payload.
 Using ?extent=WithBLOBValue includes blobs for submodel elements of kind BLOB.
-* Submodels define a hierarchical structure.
-Certain operations use an idShortPath to access deeper parts in the hierarchy.
-To easily support this in the REST API, "." or "[index]" is used as a delimiter in the idShortPaths.
-Please see <<api-versioning>>.
-Since an idShortPath could include square brackets like "[index]", the idShortPath must be URL-encoded.
-* Identifiers of Identifiables are base64url-encoded to be passed to the HTTP/REST API (see https://www.base64url.com/).
-These may be identifiers for Asset Administration Shells, Submodels, or Concept Descriptions. +
-Identifiers may also be passed as base64url-encoded query parameters, e.g. for semanticId or assetId.
-Such query parameters are typically used when a list of objects may be retrieved in the resulting payload.
-A list of base64url-encoded ids is simply passed as comma-separated query parameters.
-* Please note that base64url-encoding differs slightly from base64-encoding and has been specifically defined for passing URLs.
-In particular, base64url-encoded values shall not contain or end with the `=` character (so-called 'padding') to keep them URL-safe.
-An appropriate base64url implementation needs to be used for encoding/decoding.
-See RFC 4648 for further details.
 
-====
-Note: Encoding JSON objects may lead to different encoded strings, depending e.g. whether control characters (white spaces, line-breaks etc.) are included or not. However, servers must be able to deal with included control characters and operate on the original content.
-====
-
-* When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
-* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter "?assetids=" can be specified.
-Such assetId may be a globalAssetId or specificAssetId.
-The corresponding key-value-pair is first serialized to JSON and then base64url-encoded.
-The resulting encoded string is the value of "?assetids=".
-
-====
-Note: In case more than one globalAssetId or specificAssetId is provided, their order shall not affect the result.
-====
-
-* In some operations, references are part of the query parameters e.g. "?semanticId=".
-The corresponding reference is first serialized to JSON and then base64url-encoded.
-The resulting encoded string is the value of "?semanticId=".
 * Even though the metamodel of the AAS distinguishes between the attributes "semanticId" and "supplementalSemanticId", the query parameter "?semanticId" targets both.
 * This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells).
 For the example "[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]", the resulting base64url-encoded value of the query parameter is +
@@ -126,6 +95,48 @@ A server supporting the HTTP/REST API may also provide a server global "/descrip
 * The recursive nature of the reference class (Reference/referredSemanticId points to Reference again) cannot be represented in SwaggerHub due to a bug in the SwaggerUI code. Therefore, the additional class "ReferenceParent" has been added. "ReferenceParent" shall not be used in productive operations and is only a placeholder for "Reference". When implementing generated code originating from the SwaggerHub schemas, please delete "ReferenceParent" and add its attributes to "Reference".
 
 * This document does not make any statement about the expected behavior when query parameters with cardinality 1 (e.g. level, extent, etc.) are present more than once in a URL, e.g., "/...?level=deep&level=core". It is up to the implementation how to handle such cases. It is strongly discouraged to make such calls as the result might not be deterministic.
+
+For design decisions with respect of encoding in API operation see <<encoding-asset-ids>>.
+
+[#encoding-asset-ids]
+== Encoding of Asset IDs and Semantic IDs
+
+The following rules shall apply for encoding of asset IDs and (supplemental) semantic Ids in API operations:
+
+* Submodels define a hierarchical structure.
+Certain operations use an idShortPath to access deeper parts in the hierarchy.
+To easily support this in the REST API, "." or "[index]" is used as a delimiter in the idShortPaths.
+Please see <<api-versioning>>.
+Since an idShortPath could include square brackets like "[index]", the idShortPath must be URL-encoded.
+* Identifiers of Identifiables are base64url-encoded to be passed to the HTTP/REST API (see https://www.base64url.com/).
+These may be identifiers for Asset Administration Shells, Submodels, or Concept Descriptions. +
+Identifiers may also be passed as base64url-encoded query parameters, e.g. for semanticId or assetId.
+Such query parameters are typically used when a list of objects may be retrieved in the resulting payload.
+A list of base64url-encoded ids is simply passed as comma-separated query parameters.
+* Please note that base64url-encoding differs slightly from base64-encoding and has been specifically defined for passing URLs.
+In particular, base64url-encoded values shall not contain or end with the `=` character (so-called 'padding') to keep them URL-safe.
+An appropriate base64url implementation needs to be used for encoding/decoding.
+See RFC 4648 for further details.
+
+[Note]
+====
+Note: Encoding JSON objects may lead to different encoded strings, depending e.g. whether control characters (white spaces, line-breaks etc.) are included or not. However, servers must be able to deal with included control characters and operate on the original content.
+====
+
+* When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
+* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter "?assetids=" can be specified.
+Such assetId may be a globalAssetId or specificAssetId.
+The corresponding key-value-pair is first serialized to JSON and then base64url-encoded.
+The resulting encoded string is the value of "?assetids=".
+
+[Note]
+====
+Note: In case more than one globalAssetId or specificAssetId is provided, their order shall not affect the result.
+====
+
+* In some operations, references are part of the query parameters e.g. "?semanticId=".
+The corresponding reference is first serialized to JSON and then base64url-encoded.
+The resulting encoded string is the value of "?semanticId=".
 
 [#api-versioning]
 == API Versioning
