@@ -106,12 +106,23 @@ The `github-pages` branch contains pre-bundled single-file variants of each Serv
 - Older versions without bundled files (v3.0, v3.1) → fallback to the original raw-GitHub URL, same behaviour as before.
 - Non-SSP entries (`Entire-API-Collection`, `Part1`, `Part2`) → never attempt the bundled lookup; load from the normal source.
 
-**Adding new versions (v3.3, v4.0, …):** No code changes required. Drop the new source `V<ver>_SSP-<n>.yaml` files on `github-pages`, run `npm run bundle`, and commit the resulting `bundled-*.yaml` files. The script globs `V*_SSP-*.yaml` and the HTML loader picks up any new bundled files automatically.
+**Adding new versions (v3.3, v4.0, …) — what is automated vs. manual:**
 
-**Regenerating:** If the source SSP YAMLs are updated, regenerate and commit the bundled files before pushing to `github-pages`:
+| Step | How |
+|------|-----|
+| Add/update the source `V<ver>_SSP-<n>.yaml` spec files on `github-pages` | **Manual** — these carry spec content, so a human decides what lands. |
+| Update `DEFAULT_VERSION` in `assets/js/versions.js` and the default spec paths in `index.html` / `swagger-ui.html` / `redoc.html` (only when a new *current* major/minor replaces the specs) | **Manual** — deliberate one-off config change. |
+| Regenerate the `bundled-V<ver>_SSP-<n>.yaml` files | **Automated** — see below. |
+
+Only the bundling is automated: the script globs `V*_SSP-*.yaml`, so new versions are picked up with no code changes. Everything that authors spec content or switches the default version stays manual on purpose.
+
+**Regenerating the bundled files (automated — default):** A GitHub Actions workflow, [`.github/workflows/bundle-specs.yml`](../.github/workflows/bundle-specs.yml), regenerates and commits the bundled files for you. It runs automatically whenever a source `V*_SSP-*.yaml`, either shared `openapi.yaml` schema, or the bundling tooling changes on `github-pages`. You no longer need to run the bundler by hand for normal updates. The workflow only ever regenerates derived `bundled-*.yaml` files — it never edits spec content and never touches `main`.
+
+> The workflow pushes the regenerated `bundled-*.yaml` files directly back to `github-pages`. Configure a repo/org secret named `BUNDLE_PUSH_TOKEN` using a PAT or fine-grained token with **Contents: write**. This dedicated token is required because a push made with the default `GITHUB_TOKEN` does not trigger a branch-based GitHub Pages rebuild. If `github-pages` is protected, also allow the token's identity to bypass the push restriction.
+
+**Regenerating (manual fallback):** If you need to regenerate locally (e.g. to debug), run from the repository root:
 
 ```bash
-# From the repository root
 npm install          # install @redocly/cli (Node >= 20 required)
 npm run bundle       # regenerates all bundled-V<ver>_SSP-*.yaml files
 git add */bundled-V*_SSP-*.yaml
