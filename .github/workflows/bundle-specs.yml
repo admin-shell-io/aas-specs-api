@@ -6,8 +6,7 @@ name: Bundle SSP specs
 #
 # Whenever a source SSP YAML (or the bundling tooling) changes on the
 # github-pages branch, this workflow regenerates all bundled-V<ver>_SSP-*.yaml
-# files with Redocly CLI and commits them back to github-pages. It can also be
-# run on demand via "Run workflow".
+# files with Redocly CLI and commits them back to github-pages.
 
 on:
   push:
@@ -16,12 +15,14 @@ on:
       # Source SSP YAMLs (filename starts with "V", so "bundled-V..." never matches,
       # which prevents the workflow's own commit from re-triggering it).
       - '**/V*_SSP-*.yaml'
+      # SSP bundles inline definitions from both shared schema files.
+      - 'Part1-MetaModel-Schemas/openapi.yaml'
+      - 'Part2-API-Schemas/openapi.yaml'
       # Re-bundle if the tooling itself changes.
       - 'scripts/bundle-specs.sh'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/bundle-specs.yml'
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -34,16 +35,24 @@ jobs:
   bundle:
     runs-on: ubuntu-latest
     steps:
+      - name: Check push token configuration
+        env:
+          BUNDLE_PUSH_TOKEN: ${{ secrets.BUNDLE_PUSH_TOKEN }}
+        run: |
+          if [[ -z "${BUNDLE_PUSH_TOKEN}" ]]; then
+            echo "::error::Required repository or organization secret BUNDLE_PUSH_TOKEN is not configured."
+            exit 1
+          fi
+
       - name: Checkout github-pages
         uses: actions/checkout@v4
         with:
           ref: github-pages
-          # Use a dedicated push token when available so the bot can push to a
-          # protected github-pages branch; otherwise fall back to GITHUB_TOKEN.
-          # Set a repo/org secret named BUNDLE_PUSH_TOKEN (a PAT or fine-grained
-          # token with "Contents: write") and, if the branch is protected, allow
-          # that identity to bypass the push restrictions.
-          token: ${{ secrets.BUNDLE_PUSH_TOKEN || github.token }}
+          # A dedicated token is required: pushes made with GITHUB_TOKEN do not
+          # trigger a branch-based GitHub Pages build. Configure the repo/org
+          # secret BUNDLE_PUSH_TOKEN with "Contents: write" and allow its
+          # identity to bypass github-pages protection where applicable.
+          token: ${{ secrets.BUNDLE_PUSH_TOKEN }}
           persist-credentials: true
 
       - name: Setup Node.js
@@ -71,5 +80,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: regenerate bundled SSP files [skip ci]"
+          git commit -m "chore: regenerate bundled SSP files"
           git push origin HEAD:github-pages
