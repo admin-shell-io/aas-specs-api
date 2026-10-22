@@ -363,7 +363,7 @@ This also depends on the serialization format that is used for the update.
 If Value-Only serialization is used then additionally, a Normal serialization patch is needed for updating the administrative data like "createdAt" attribute.
 For details on mapping see IDTA-01001.
 * Ensure that a previous version and the new version of the AAS and the affected Submodels are stored. 
-Only then the ReadDPPVersionByIdAndDate operation for retrieving the version of a DPP that was current at a specified point in time can be supported that is used for implementing ReadDPPVersionByIdAndDate (see <<readdppversionbyidanddate>>).
+Only then the ReadDPPVersionByIdAndDate operation for retrieving the version of a DPP that was current at a specified point in time can be supported (see <<readdppversionbyidanddate>>).
 See link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.3/spec-metamodel/common.html#administrative-information-attributesIDTA-01001[information on administrative information] in IDTA-01001.
 [Note]
 ====
@@ -371,6 +371,7 @@ Former version numbers of the AAS and its Submodels shall be distinguished from 
 So in the example <<image-seq-dpp-update-repo-history>> it is assumed that there are two repositories, one containing the current versions and one for the older versions.
 Although the API interfaces are the same only the History Repository is supporting the xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-007[history profile]
 whereas the "normal" Repository is for example supporting xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-001[the full profile].
+====
 
 <<image-seq-dpp-update-repo-history>> shows a possible sequence of steps to update a DPP by updating the corresponding AAS and its Submodels who are affected by the change.
 
