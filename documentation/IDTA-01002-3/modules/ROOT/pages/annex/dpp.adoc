@@ -112,42 +112,51 @@ The Life Cycle API (EN 18222, Clause 4, Table 16) defines the mandatory read ope
 
 .Mapping of DPP Life Cycle API Operations to AAS Service Operations
 [.table-with-appendix-table]
-[cols="22%,30%,48%"]
+[cols="23%,37%,40%"]
 |===
 h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 
 | ReadDPPById
-| GetAssetAdministrationShellById / GetAssetAdministrationShell or GetAssetAdministrationShellDescriptorById + GetSubmodel / GetSubmodelById (Value-Only or Normal) for each referenced and relevant Submodel
-| Shall retrieve the AAS by its identifier, fetch all referenced Submodels, and compose the DPP document as described in <<dpp-composition-read>>. The `representation` query parameter controls the serialization format (see <<dpp-serialization>>).
+a| GetAssetAdministrationShellById / GetAssetAdministrationShell or GetAssetAdministrationShellDescriptorById + GetSubmodel / GetSubmodelById (Value-Only or Normal) for each referenced and relevant Submodel
+a| Shall retrieve the AAS by its identifier, fetch all referenced Submodels, and compose the DPP document as described in <<dpp-composition-read>>. The `representation` query parameter controls the serialization format (see <<dpp-serialization>>).
 
 | ReadDPPByProductId
-| GetAllAssetAdministrationShellsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
-| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document. 
+a| GetAllAssetAdministrationShellsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink + GetAssetAdministrationShellDescriptorById + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
+a| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document. 
 
 [Note]
-===
+====
 Multiple AAS instances might be associated with the provided product identifier.
-===
+====
 
 | ReadDPPVersionByIdAndDate
-| GetAssetAdministrationShellVersionByIdAndDate / QueryAssetAdministrationShells / QueryAssetAdministrationShellDescriptors + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
-| Shall retrieve the version of the DPP that was current at the specified point in time (ISO 8601 UTC timestamp). The implementation shall select the latest version of each Submodel whose `updatedAt` timestamp is less than or equal to the requested date.
+a| GetAssetAdministrationShellVersionByIdAndDate / QueryAssetAdministrationShells  + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
+a| Shall retrieve the version of the DPP that was current at the specified point in time (ISO 8601 UTC timestamp). 
+The implementation shall select the latest version of each Submodel whose `updatedAt` timestamp is less than or equal to the requested date.
 
 | ReadDPPIdsByProductIds
-| GetAllAssetAdministrationShellIdsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink
-| Shall resolve a set of product identifiers to their corresponding DPP identifiers. The operation calls GetAllAssetAdministrationShellIdsByAssetId with the set of product identifiers and returns the union of all discovered DPP identifiers. Pagination via `limit` and `cursor` parameters should be supported.
+a| GetAllAssetAdministrationShellIdsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink
+a| Shall resolve a set of product identifiers to their corresponding DPP identifiers. 
+The operation calls GetAllAssetAdministrationShellIdsByAssetId with the set of product identifiers and returns the union of all discovered DPP identifiers. 
+Pagination via `limit` and `cursor` parameters should be supported.
 
 | CreateDPP
-| PostAssetAdministrationShell / PostAssetAdministrationShellDescriptor + CreateSubmodel (for DppMetadata and each content Submodel)
-| Shall decompose the submitted DPP document and create the corresponding AAS and Submodels as described in <<dpp-decomposition>>. The DppMetadata Submodel shall be created for every new DPP. Shall return the `digitalProductPassportId` with HTTP status 201.
+a| PostAssetAdministrationShell / PostAssetAdministrationShellDescriptor + CreateSubmodel (for DppMetadata and each content Submodel)
+a| Shall decompose the submitted DPP document and create the corresponding AAS and Submodels as described in <<dpp-decomposition>>. 
+The DppMetadata Submodel shall be created for every new DPP. Shall return the `digitalProductPassportId` with HTTP status 201.
 
 | UpdateDPPById
-| PutAssetAdministrationShellById / PutAssetAdministrationShellDescriptorById + PutSubmodelById (for affected Submodels)
-| Shall accept a partial DPP document (JSON Merge Patch per RFC 7396). If DPP header fields are present, the DppMetadata Submodel shall be updated. If content fields are present, the corresponding content Submodels shall be updated. The `lastUpdate` field of the DppMetadata Submodel shall be updated accordingly. All changes shall be archived per EN 18221.
+a| PutAssetAdministrationShellById / PutAssetAdministrationShellDescriptorById + PutSubmodelById (for affected Submodels)
+a| Shall accept a partial DPP document (JSON Merge Patch per RFC 7396). 
+If DPP header fields are present, the DppMetadata Submodel shall be updated. 
+If content fields are present, the corresponding content Submodels shall be updated. The `lastUpdate` field of the DppMetadata Submodel shall be updated accordingly. 
+All changes shall be archived per EN 18221.
 
 | DeleteDPPById
-| DeleteAssetAdministrationShellById / DeleteAssetAdministrationShellDescriptorById ( + DeleteSubmodelReference / DeleteSubmodelDescriptorById + DeleteSubmodelById for the Submodel "DppMetadata")
-| Shall delete the AAS and Submodels that contain the DPP metadata. Implementations shall ensure compliance with applicable regulations regarding archiving periods and the prohibition of deleting DPPs for products that are still in use. Shall return HTTP status 204.
+a| DeleteAssetAdministrationShellById / DeleteAssetAdministrationShellDescriptorById ( + DeleteSubmodelReference / DeleteSubmodelDescriptorById + DeleteSubmodelById for the Submodel "DppMetadata")
+a| Shall delete the AAS and Submodels that contain the DPP metadata. 
+Implementations shall ensure compliance with applicable regulations regarding archiving periods and the prohibition of deleting DPPs for products that are still in use. 
+Shall return HTTP status 204.
 |===
 
 
@@ -156,13 +165,8 @@ Multiple AAS instances might be associated with the provided product identifier.
 The DPP Registry API (EN 18222, Clause 5, Table 17) defines operations for registering DPPs at a centrally hosted DPP Registry. 
 When an AAS-based service acts as a data source for DPPs, it may also act as a client of the DPP Registry.
 
+For details on DPP registration see link:https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/dpp-registry_en[The DPP Registry].
 
-
-[Note]
-====
-Although the AAS supports an AAS Registry this kind of Registry is not necessarily the same as for the DPP Registry and should not be mixed up. 
-An AAS Registry can be used to implement a DPP Registry.
-====
 
 .Mapping of DPP Registry API Operations to AAS Service Operations
 [.table-with-appendix-table]
@@ -172,18 +176,15 @@ h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 
 | RegisterProductDPP
 | Direct call to the DPP Registry
-a| Upon creation of a new DPP, the implementation should register the DPP at the DPP Registry. 
+a| Upon creation of a new DPP - i.e. a DPP with a new DPP ID -, the implementation should register the DPP at the DPP Registry. 
 
 [Note]
 ====
-So far no Submodel Template Specification is available for posting the DPP registration information.
+So far the EC DPP registry APIs are not finalized (Status: October 2026), therefore no Submodel Template Specification is already available for posting the DPP registration information.
 ====
+
 |===
 
-[Note]
-====
-The DPP Registry is typically a centrally hosted service operated independently from individual DPP data providers. The exact mechanism for registration may depend on the specific DPP Registry implementation and the applicable regulatory framework.
-====
 
 
 == Fine Granular API Operations
@@ -228,7 +229,7 @@ h| DPP Format (EN 18223) h| AAS Serialization h| Description
 | *Compressed* (EN 18223, Clause 5.2)
 | Value-Only (with minor differences as defined in 
 link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only])
-)
+
 | The `elementId` is used as the JSON key. Metadata (`dictionaryReference`, `valueDataType`, `objectType`) is omitted. This is the default and mandatory format.
 
 | *Full / Expanded* (EN 18223, Annex A)
