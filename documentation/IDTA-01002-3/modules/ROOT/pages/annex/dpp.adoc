@@ -156,13 +156,8 @@ Multiple AAS instances might be associated with the provided product identifier.
 The DPP Registry API (EN 18222, Clause 5, Table 17) defines operations for registering DPPs at a centrally hosted DPP Registry. 
 When an AAS-based service acts as a data source for DPPs, it may also act as a client of the DPP Registry.
 
+For details on DPP registration see link:https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/dpp-registry_en[The DPP Registry].
 
-
-[Note]
-====
-Although the AAS supports an AAS Registry this kind of Registry is not necessarily the same as for the DPP Registry and should not be mixed up. 
-An AAS Registry can be used to implement a DPP Registry.
-====
 
 .Mapping of DPP Registry API Operations to AAS Service Operations
 [.table-with-appendix-table]
@@ -172,18 +167,15 @@ h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 
 | RegisterProductDPP
 | Direct call to the DPP Registry
-a| Upon creation of a new DPP, the implementation should register the DPP at the DPP Registry. 
+a| Upon creation of a new DPP - i.e. a DPP with a new DPP ID -, the implementation should register the DPP at the DPP Registry. 
 
 [Note]
 ====
-So far no Submodel Template Specification is available for posting the DPP registration information.
+So far the EC DPP registry APIs are not finalized (Status: October 2026), therefore no Submodel Template Specification is already available for posting the DPP registration information.
 ====
+
 |===
 
-[Note]
-====
-The DPP Registry is typically a centrally hosted service operated independently from individual DPP data providers. The exact mechanism for registration may depend on the specific DPP Registry implementation and the applicable regulatory framework.
-====
 
 
 == Fine Granular API Operations
@@ -228,7 +220,7 @@ h| DPP Format (EN 18223) h| AAS Serialization h| Description
 | *Compressed* (EN 18223, Clause 5.2)
 | Value-Only (with minor differences as defined in 
 link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/annex/dpp.html#section-json-serialization-value-only[IDTA-01001 Part 1 -- DPP Metamodel Mapping, Serialization Compressed vs. Value-Only])
-)
+
 | The `elementId` is used as the JSON key. Metadata (`dictionaryReference`, `valueDataType`, `objectType`) is omitted. This is the default and mandatory format.
 
 | *Full / Expanded* (EN 18223, Annex A)
@@ -351,13 +343,21 @@ Although the economic operator or DPP service provider may use the same update m
 
 To implement UpdateDPPById, an implementation shall perform the following steps for the AAS affected and its Submodels:
 
-* For all  AAS and Submodels changed the administration/updatedAt date shall be set. 
+* For all  AAS and Submodels changed the administration/updatedAt date shall be set. For Submodels newly created the administration/createdAt and administration/updatedAt date shall be set.
 The date value shall be identical.
-* For all  AAS and Submodels changed the administration/version and administration/revision should be set by increasing the version and setting the revision to '0' 
+* For all  AAS and Submodels changed the administration/version and administration/revision should be set by increasing the version and setting the revision to '0'. For new Submodels the administration/version should be set to '1'. 
 [Note]
 ====
 It is proposed to always assume that the result is a new major version of the AAS or Submodel 
-because UpdateDPPById does not contain version information: so it is not visible at a first glance whether it is a major or minor change.
+because UpdateDPPById does not contain version information because there are not rules standardized for versioning of DPPs.
+====
+* The DPP Update requests needs to be analyzed with respect to contained content specification IDS: are there any IDs added or removed? In this case the corresponding Submodels need to be created - or if already availabel only - referenced  or de-referenced, resp. 
+Whether a Submodel is completely deleted depends on whether the Submodel is reused by other AAS as well or is designed for reuse (for example a Submodel for asset type that is reused in AAS for asset instances).
+[Note]
+====
+There is the risk that a content specification ID is removed but the payload content associated to this content specification ID itself is not removed from the DPP. 
+Similarily, for newly added content specification IDs or changed content specification IDs (for example with respect to version used).
+These kind of inconsistencies may occur and need to be handeled. There are no explicit constraints defined for these cases in EN 18222.
 ====
 * Before calling the corresponding AAS API operations the serialization might need to be aligned.
 This also depends on the serialization format that is used for the update.
@@ -366,6 +366,11 @@ For details on mapping see IDTA-01001.
 * Ensure that a previous version and the new version of the AAS and the affected Submodels are stored. 
 Only then the ReadDPPVersionByIdAndDate operation for retrieving the version of a DPP that was current at a specified point in time can be supported (see <<readdppversionbyidanddate>>).
 See link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.3/spec-metamodel/common.html#administrative-information-attributesIDTA-01001[information on administrative information] in IDTA-01001.
+
+
+
+<<image-seq-dpp-update-repo-history>> shows a possible sequence of steps to update a DPP by updating the corresponding AAS and its Submodels who are affected by the change.
+
 [Note]
 ====
 Former version numbers of the AAS and its Submodels shall be distinguished from their current version. 
@@ -374,7 +379,7 @@ So in the example <<image-seq-dpp-update-repo-history>> it is assumed that there
 Although the API interfaces are the same only the History Repository is supporting the xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-007[history profile]
 whereas the "normal" Repository is for example supporting xref:http-rest-api/service-specifications-and-profiles.adoc#submodel-repository-service-specification-ssp-001[the full profile].
 
-Example <<image-seq-dpp-update-repo-history>> also assumed that a copy is stored after each change and not before the change: 
+Example <<image-seq-dpp-update-repo-history>> assumes that a copy is stored after each change and not before the change: 
 this is not required but only one possibility to implement it.
 ====
 
@@ -382,10 +387,6 @@ this is not required but only one possibility to implement it.
 ====
 Note: it is not mandatory that the historization is done as part of the Update or Create API Operations. 
 ====
-
-
-<<image-seq-dpp-update-repo-history>> shows a possible sequence of steps to update a DPP by updating the corresponding AAS and its Submodels who are affected by the change.
-
 
 .UpdateDPPById Sequence via AAS and Submodel (History) Repository
 [[image-seq-dpp-update-repo-history]]
