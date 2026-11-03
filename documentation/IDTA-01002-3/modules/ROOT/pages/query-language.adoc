@@ -95,6 +95,7 @@ The default return type is a list containing the respective AAS objects. For an 
 
 
 
+[#identification-of-fields]
 == Identification of Fields
 
 Elements relevant for comparisons are described using an adapted IdShortPath notation. The declaration starts with kind of element that shall serve as the root of the expression, followed with an optional '.' as the separator symbol and an optional IdShortPath, and a mandatory declaration of the AAS attribute that shall be examined, separated via '#'.
@@ -118,12 +119,31 @@ Can start at any possible Submodel Element, is *not* restricted to Submodel Elem
 | `$cd` a| Starting point for fields available in Concept Descriptions | `$cd#id`
 | `$aasdesc` a| Starting point for fields available in Asset Administration Shell Descriptors | `$aasdesc#submodelDescriptors[0].endpoints[0].protocolinformation.href`
 | `$smdesc` a| Starting point for fields available in Submodel Descriptors | `$smdesc#endpoints[0].protocolinformation.href`
+| `$event` a| Starting point for fields available in events, see Clause xref:eventing.adoc#eventing-retrieval-queryevents[QueryEvents] | `$event#type`, `$event#data.globalAssetIds[]`
 |===
 
 [NOTE]
 ====
-The prefixes `$aas`, `$sm`, `$sme`, `$cd`, `$aasdesc` and `$smdesc` correspond directly to the AAS Metamodel classes `AssetAdministrationShell`, `Submodel`, `SubmodelElement`, `ConceptDescription`, `AssetAdministrationShellDescriptor` and `SubmodelDescriptor`, and to the API resources `/shells`, `/submodels`, `.../submodel-elements/{idShortPath}`, `/concept-descriptions`, `/shell-descriptors` and `/submodel-descriptors` respectively. The normative cross-specification mapping is given in the "Terminology Across IDTA-01001, IDTA-01002 and IDTA-01004" section of IDTA-01001 (AAS Metamodel). All prefixes are lower-case; variants such as `$aasDesc` or `$SmDesc` MUST be rejected by conforming parsers.
+The prefixes `$aas`, `$sm`, `$sme`, `$cd`, `$aasdesc` and `$smdesc` correspond directly to the AAS Metamodel classes `AssetAdministrationShell`, `Submodel`, `SubmodelElement`, `ConceptDescription`, `AssetAdministrationShellDescriptor` and `SubmodelDescriptor`, and to the API resources `/shells`, `/submodels`, `.../submodel-elements/{idShortPath}`, `/concept-descriptions`, `/shell-descriptors` and `/submodel-descriptors` respectively. The prefix `$event` corresponds to the class xref:specification/interfaces-payload.adoc#Event[Event] and to the API resource `/events`. The normative cross-specification mapping is given in the "Terminology Across IDTA-01001, IDTA-01002 and IDTA-01004" section of IDTA-01001 (AAS Metamodel). All prefixes are lower-case; variants such as `$aasDesc` or `$SmDesc` MUST be rejected by conforming parsers.
 ====
+
+Attribute declarations for the root element `$event` refer to the attributes of the class xref:specification/interfaces-payload.adoc#Event[Event].
+Attributes of the event data are prefixed with `data.`; attributes of the AAS objects in the event data are declared as for the root elements `$aas`, `$sm`, `$sme`, and `$cd`.
+
+.Attribute Elements for Field Identifiers with the root element `$event`. `<index>` is an optional nonNegativeInteger value. No `<index>` shall be interpreted as 'anywhere in the list'.
+[width=100%, cols="40%,30%,30%"]
+|===
+h| Attribute h| Definition h| Example
+| `id`, `type`, `source`, `subject`, `time`, `dataschema` | Context attributes of the event | `$event#type`
+| `data.globalAssetIds[<index>]` | globalAssetIds of the event data | `$event#data.globalAssetIds[]`
+| `data.submodelSemanticId` | Shortcut for the semanticId of the Submodel of a SubmodelElement event, see Clause xref:references[References] | `$event#data.submodelSemanticId`
+| `data.submodelSemanticId.type`, `data.submodelSemanticId.keys[<index>].type`, `data.submodelSemanticId.keys[<index>].value` | Type and keys of the semanticId of the Submodel of a SubmodelElement event | `$event#data.submodelSemanticId.keys[0].value`
+| `data.assetAdministrationShell.<attribute>` | Attribute of the Asset Administration Shell of an AAS event, as for `$aas` | `$event#data.assetAdministrationShell.assetInformation.globalAssetId`
+| `data.submodel.<attribute>` | Attribute of the Submodel of a Submodel event, as for `$sm` | `$event#data.submodel.semanticId`
+| `data.submodelElement.<attribute>` | Attribute of the SubmodelElement of a SubmodelElement event, as for `$sme` | `$event#data.submodelElement.value`
+| `data.conceptDescription.<attribute>` | Attribute of the Concept Description of a Concept Description event, as for `$cd` | `$event#data.conceptDescription.id`
+| `data.assetAdministrationShells[<index>]`, `data.assetAdministrationShells[<index>].type`, `data.assetAdministrationShells[<index>].keys[<index>].type`, `data.assetAdministrationShells[<index>].keys[<index>].value` | References to the Asset Administration Shells of an asset event | `$event#data.assetAdministrationShells[].keys[0].value`
+|===
 
 Attribute declarations point to literal values that provide the input for comparisons. It is not possible to point to objects or lists, only atomic values. Attribute declarations present a subset of the attributes defined by the AAS Metamodel and the extension classes of Clause xref:specification/interfaces-payload.adoc[Data Types for Payload].
 

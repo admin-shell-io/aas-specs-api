@@ -277,13 +277,15 @@
 <SupplementalSemanticIdClauseFragment> ::= "supplementalSemanticIds" ( "[" <ArrayIndex>? "]" ( "." <ReferenceClauseFragment> )? )?
 <ReferenceClauseFragment> ::= "keys" ( "[" <ArrayIndex>? "]" )?
 
-<FieldIdentifier> ::= "\"" ( <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor> ) "\""
+<FieldIdentifier> ::= "\"" ( <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor> | <FieldIdentifierEvent> ) "\""
 <FieldIdentifierAAS> ::= "$aas#" ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" <ArrayIndex>? "]" ) ("." <ReferenceClause>)? )
 <FieldIdentifierSM> ::= "$sm#" ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id" )
 <FieldIdentifierSME> ::= "$sme" ( "." <idShortPath> )? "#" ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "value" | "valueType" | "language" )
 <FieldIdentifierCD> ::= "$cd#" ( "idShort" | "id" )
 <FieldIdentifierAasDescriptor> ::= "$aasdesc#" ( "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" <ArrayIndex>? "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" <ArrayIndex>? "]" ) "." <SmDescriptorClause> )
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
+<FieldIdentifierEvent> ::= "$event#" ( "id" | "type" | "source" | "subject" | "time" | "dataschema" | "data." <EventDataClause> )
+<EventDataClause> ::= "globalAssetIds" ( "[" <ArrayIndex>? "]" ) | "submodelSemanticId" ( "." <ReferenceClause> )? | "assetAdministrationShell." ( "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" <ArrayIndex>? "]" ) ("." <ReferenceClause>)? ) | "submodel." ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id" ) | "submodelElement." ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "value" | "valueType" | "language" ) | "conceptDescription." ( "idShort" | "id" ) | "assetAdministrationShells" ( "[" <ArrayIndex>? "]" ) ( "." <ReferenceClause> )?
 <SmDescriptorClause> ::= ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" <ArrayIndex>? "]" ) "." <EndpointClause> )
 <EndpointClause> ::= "interface" | "protocolinformation.href"
 <ReferenceClause> ::= ( "type" | "keys" ( "[" <ArrayIndex>? "]" ) ( ".type" | ".value" ) )

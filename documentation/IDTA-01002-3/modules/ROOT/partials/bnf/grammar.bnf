@@ -214,7 +214,7 @@
 <HexLiteral> ::= "16#" ( [0-9] | [A-F] )+
 <BoolLiteral> ::= "true" | "false"
 
-<FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor>
+<FieldIdentifier> ::= <FieldIdentifierAAS> | <FieldIdentifierSM> | <FieldIdentifierSME> | <FieldIdentifierCD> | <FieldIdentifierAasDescriptor> | <FieldIdentifierSmDescriptor> | <FieldIdentifierEvent>
 
 <FieldIdentifierAAS> ::= "$aas#" <FieldsAAS>
 <FieldIdentifierSM> ::= "$sm#" <FieldsSM>
@@ -222,11 +222,14 @@
 <FieldIdentifierCD> ::= "$cd#" <FieldsCD>
 <FieldIdentifierAasDescriptor> ::= "$aasdesc#" <FieldsAasDescriptor>
 <FieldIdentifierSmDescriptor> ::= "$smdesc#" <SmDescriptorClause>
+<FieldIdentifierEvent> ::= "$event#" <FieldsEvent>
 
 <FieldsAAS> ::= "idShort" | "id" | "assetInformation.assetKind" | "assetInformation.assetType" | "assetInformation.globalAssetId" | "assetInformation." <SpecificAssetIdsClause> | "submodels" ( "[" <ArrayIndex>? "]" ) ("." <ReferenceClause>)?
 <FieldsSM> ::= <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id"
 <FieldsSME> ::= <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "value" | "valueType" | "language"
 <FieldsCD> ::= "idShort" | "id"
+<FieldsEvent> ::= "id" | "type" | "source" | "subject" | "time" | "dataschema" | "data." <EventDataClause>
+<EventDataClause> ::= "globalAssetIds" ( "[" <ArrayIndex>? "]" ) | "submodelSemanticId" ( "." <ReferenceClause> )? | "assetAdministrationShell." <FieldsAAS> | "submodel." <FieldsSM> | "submodelElement." <FieldsSME> | "conceptDescription." <FieldsCD> | "assetAdministrationShells" ( "[" <ArrayIndex>? "]" ) ( "." <ReferenceClause> )?
 <FieldsAasDescriptor> ::= "idShort" | "id" | "assetKind" | "assetType" | "globalAssetId" | <SpecificAssetIdsClause>  | "endpoints" ( "[" <ArrayIndex>? "]" ) "." <EndpointClause> | "submodelDescriptors" ( "[" <ArrayIndex>? "]" ) "." <SmDescriptorClause>
 <SmDescriptorClause> ::= ( <SemanticIdClause> | <SupplementalSemanticIdClause> | "idShort" | "id" | "endpoints" ( "[" <ArrayIndex>? "]" ) "." <EndpointClause> )
 <EndpointClause> ::= "interface" | "protocolinformation.href"
