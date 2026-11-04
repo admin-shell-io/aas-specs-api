@@ -136,9 +136,9 @@ The corresponding reference is first serialized to JSON and then base64url-encod
 The resulting encoded string is the value of "?semanticId=".
 
 * Even though the metamodel of the AAS distinguishes between the attributes "semanticId" and "supplementalSemanticId", the query parameter "?semanticId" targets both.
-* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells).
-For the example "[\{"name": "globalAssetId","value": "http://example.company/myAsset"},\{"name": "myOwnInternalAssetId","value": "12345ABC"}]", the resulting base64url-encoded value of the query parameter is +
-"?assetIds=W3sibmFtZSI6ICJnbG9iYWxBc3NldElkIiwidmFsdWUiOiAiaHR0cDovL2V4YW1wbGUuY29tcGFueS9teUFzc2V0In0seyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifV0". +
+* This encoding (serialize to JSON + base64url) is also used for specificAssetIds, i.e. for GetAllAssetAdministrationShellIdsByAssetLink (`/lookup/shells`).
+For the example `[{"name": "globalAssetId","value": "http://example.company/myAsset"},{"name": "myOwnInternalAssetId","value": "12345ABC"}]`, the resulting base64url-encoded value of the query parameter is
+[.nowrap]`?assetIds=W3sibmFtZSI6ICJnbG9iYWxBc3NldElkIiwidmFsdWUiOiAiaHR0cDovL2V4YW1wbGUuY29tcGFueS9teUFzc2V0In0seyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifV0`
 If several key-value-pairs are included, all must be part of the key-value-pairs on the server.
 
 [#api-versioning]
