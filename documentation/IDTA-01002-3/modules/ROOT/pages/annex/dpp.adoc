@@ -121,8 +121,16 @@ a| GetAssetAdministrationShellById / GetAssetAdministrationShell or GetAssetAdmi
 a| Shall retrieve the AAS by its identifier, fetch all referenced Submodels, and compose the DPP document as described in <<dpp-composition-read>>. The `representation` query parameter controls the serialization format (see <<dpp-serialization>>).
 
 | ReadDPPByProductId
-a| GetAllAssetAdministrationShellsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink + GetAssetAdministrationShellDescriptorById + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
-a| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document. 
+a|
+* GetAllAssetAdministrationShellsByAssetId + GetSubmodel / GetSubmodelById
+* SearchAllAssetAdministrationShellIdsByAssetLink + GetAssetAdministrationShellDescriptorById / GetAssetAdministrationShellById + GetSubmodel / GetSubmodelById
+
+Submodel retrieval uses Value-Only or Normal serialization for each referenced and relevant Submodel.
+
+a| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document.
+When using GetAllAssetAdministrationShellsByAssetId, the returned AAS objects already provide the Submodel references; no descriptor lookup is required.
+When using SearchAllAssetAdministrationShellIdsByAssetLink, the returned AAS identifiers shall be used to retrieve either the corresponding AAS Descriptor from the AAS Registry or the AAS directly from an AAS Repository.
+The relevant Submodels shall then be retrieved and the DPP document composed as described in <<dpp-composition-read>>.
 
 [Note]
 ====
