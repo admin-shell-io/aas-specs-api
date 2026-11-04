@@ -117,20 +117,35 @@ The Life Cycle API (EN 18222, Clause 4, Table 16) defines the mandatory read ope
 h| DPP Operation (EN 18222) h| AAS Service Operation(s) h| Description
 
 | ReadDPPById
-a| GetAssetAdministrationShellById / GetAssetAdministrationShell or GetAssetAdministrationShellDescriptorById + GetSubmodel / GetSubmodelById (Value-Only or Normal) for each referenced and relevant Submodel
+a| **Repository only**
+
+GetAssetAdministrationShellById or GetAssetAdministrationShell + GetSubmodel or GetSubmodelById 
+
+
+**Registry + Submodel Repository**
+
+GetAssetAdministrationShellDescriptorById + GetSubmodel or GetSubmodelById 
+
+(Value-Only or Normal) for each referenced and relevant Submodel
+
 a| Shall retrieve the AAS by its identifier, fetch all referenced Submodels, and compose the DPP document as described in <<dpp-composition-read>>. The `representation` query parameter controls the serialization format (see <<dpp-serialization>>).
 
 | ReadDPPByProductId
-a|
-* GetAllAssetAdministrationShellsByAssetId + GetSubmodel / GetSubmodelById
-* SearchAllAssetAdministrationShellIdsByAssetLink + GetAssetAdministrationShellDescriptorById / GetAssetAdministrationShellById + GetSubmodel / GetSubmodelById
+a| 
+**Repository only**
 
-Submodel retrieval uses Value-Only or Normal serialization for each referenced and relevant Submodel.
+GetAllAssetAdministrationShellsByAssetId + GetSubmodel or GetSubmodelById 
 
-a| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document.
-When using GetAllAssetAdministrationShellsByAssetId, the returned AAS objects already provide the Submodel references; no descriptor lookup is required.
-When using SearchAllAssetAdministrationShellIdsByAssetLink, the returned AAS identifiers shall be used to retrieve either the corresponding AAS Descriptor from the AAS Registry or the AAS directly from an AAS Repository.
-The relevant Submodels shall then be retrieved and the DPP document composed as described in <<dpp-composition-read>>.
+or
+
+SearchAllAssetAdministrationShellIdsByAssetLink + GetAssetAdministrationShellById + GetSubmodel or GetSubmodelById 
+
+**Registry + Submodel Repository**
+
+SearchAllAssetAdministrationShellIdsByAssetLink + GetAssetAdministrationShellDescriptorById + GetSubmodel or GetSubmodelById 
+
+(Value-Only or Normal) for each referenced and relevant Submodel
+a| Shall resolve the product identifier to an AAS (via `globalAssetId`) and compose the DPP document. 
 
 [Note]
 ====
@@ -138,30 +153,80 @@ Multiple AAS instances might be associated with the provided product identifier.
 ====
 
 | ReadDPPVersionByIdAndDate
-a| GetAssetAdministrationShellVersionByIdAndDate / QueryAssetAdministrationShells  + GetSubmodel (Value-Only or Normal) for each referenced and relevant Submodel
+a| 
+**Repository (containing backup)**
+
+GetAssetAdministrationShellVersionByIdAndDate  + GetSubmodel or GetSubmodelById 
+
+or
+
+QueryAssetAdministrationShells  + GetSubmodel or GetSubmodelById 
+
+(Value-Only or Normal) for each referenced and relevant Submodel
 a| Shall retrieve the version of the DPP that was current at the specified point in time (ISO 8601 UTC timestamp). 
 The implementation shall select the latest version of each Submodel whose `updatedAt` timestamp is less than or equal to the requested date.
 
 | ReadDPPIdsByProductIds
-a| GetAllAssetAdministrationShellIdsByAssetId / SearchAllAssetAdministrationShellIdsByAssetLink
+a| 
+
+GetAllAssetAdministrationShellIdsByAssetId 
+
+or
+
+SearchAllAssetAdministrationShellIdsByAssetLink
 a| Shall resolve a set of product identifiers to their corresponding DPP identifiers. 
 The operation calls GetAllAssetAdministrationShellIdsByAssetId with the set of product identifiers and returns the union of all discovered DPP identifiers. 
 Pagination via `limit` and `cursor` parameters should be supported.
 
 | CreateDPP
-a| PostAssetAdministrationShell / PostAssetAdministrationShellDescriptor + CreateSubmodel (for DppMetadata and each content Submodel)
+a| 
+**Repository only**
+
+PostAssetAdministrationShell + CreateSubmodel  
+
+**Registry + Submodel Repository**
+
+PostAssetAdministrationShellDescriptor + CreateSubmodel 
+ 
+(for DppMetadata and each content Submodel)
 a| Shall decompose the submitted DPP document and create the corresponding AAS and Submodels as described in <<dpp-decomposition>>. 
 The DppMetadata Submodel shall be created for every new DPP. Shall return the `digitalProductPassportId` with HTTP status 201.
 
 | UpdateDPPById
-a| PutAssetAdministrationShellById / PutAssetAdministrationShellDescriptorById + PutSubmodelById (for affected Submodels)
+a| 
+**Repository only**
+
+PutAssetAdministrationShellById + PutSubmodelById
+
+**Registry + Submodel Repository**
+
+PutAssetAdministrationShellDescriptorById + PutSubmodelById 
+
+(for affected Submodels)
 a| Shall accept a partial DPP document (JSON Merge Patch per RFC 7396). 
 If DPP header fields are present, the DppMetadata Submodel shall be updated. 
 If content fields are present, the corresponding content Submodels shall be updated. The `lastUpdate` field of the DppMetadata Submodel shall be updated accordingly. 
 All changes shall be archived per EN 18221.
 
 | DeleteDPPById
-a| DeleteAssetAdministrationShellById / DeleteAssetAdministrationShellDescriptorById ( + DeleteSubmodelReference / DeleteSubmodelDescriptorById + DeleteSubmodelById for the Submodel "DppMetadata")
+a| 
+**Repository only**
+
+DeleteAssetAdministrationShellById 
+
+or (if only DPP parts of the AAS shall be deleted)
+
+DeleteSubmodelReference or DeleteSubmodelById for the Submodel "DppMetadata"
+
+**Registry + Submodel Repository**
+
+DeleteAssetAdministrationShellDescriptorById
+
+or (if only DPP parts of the AAS shall be deleted)
+
+DeleteSubmodelDescriptorById + DeleteSubmodelById for the Submodel "DppMetadata"
+
+
 a| Shall delete the AAS and Submodels that contain the DPP metadata. 
 Implementations shall ensure compliance with applicable regulations regarding archiving periods and the prohibition of deleting DPPs for products that are still in use. 
 Shall return HTTP status 204.
