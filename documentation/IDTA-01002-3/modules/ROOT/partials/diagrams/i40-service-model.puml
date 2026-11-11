@@ -39,7 +39,7 @@ package runtime {
 
 Service "0..1" - "*" service_spec
 Interface "1" - "*" API
-i_op "1" - "*" api_op
+i_op "1..*" - "*" api_op
 
 service_spec <|.  service_impl: <<realizes>>
 API <|.   api_impl: <<realizes>>
