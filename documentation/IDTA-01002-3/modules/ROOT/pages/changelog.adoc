@@ -24,6 +24,7 @@ Bugfixes:
 * OpenAPI: add the missing profiles `3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004`, `SSP-005`, `SSP-006`, `3/2/SubmodelRepositoryServiceSpecification/SSP-006`, `SSP-007` and `3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-003` to the example list of `ServiceDescription.profiles`, and align the list with `ServiceSpecificationProfileEnum` (add `3/1/DiscoveryServiceSpecification/SSP-002`, remove the undefined `3/1/AasxFileServerServiceSpecification/SSP-002`) (https://github.com/admin-shell-io/aas-specs-api/issues/720[#720])
 * Change version character of resource paths including "/V3.2/" to "/v3.2/" in constraints.adoc (https://github.com/admin-shell-io/aas-specs-api/issues/712[#712])
 * fix Submodel Repository Service Specification – History Profile (SSP-007): the SerializationModifier is applicable (Level: Core, Deep; Content: Normal; Extent: WithBLOBValue, WithoutBLOBValue) instead of "not applicable", and add the missing input parameter `serializationModifier` to the table GetSubmodelVersionByIdAndDate, openAPI specification was ok (https://github.com/admin-shell-io/aas-specs-api/issues/729[#729])
+* fix OpenAPI class `GetSubmodelsValueResult` (response of `GetAllSubmodels-ValueOnly`, `GET /submodels/$value`): `result` is an array of `SubmodelValue` again, as defined for the Result class ('List of returned items', cardinality 0..*) and as until V3.0.3, since a single `SubmodelValue` cannot hold several Submodels; the changelog entry of V3.0.4 for #251 is corrected accordingly, it only applies to `GetSubmodelElementsValueResult` (https://github.com/admin-shell-io/aas-specs-api/issues/713[#713])
 
 Minor changes:
 
@@ -393,7 +394,7 @@ Major:
 
 * Change: paging_metadata is required in OpenAPI to match the definition in this document.
 * Change: ValueOnly classes changed from array to object for AnnotatedRelationshipElementValue/value, EntityValue/statements
-* Change: Return type of the OpenAPI classes GetSubmodelsValueResult and GetSubmodelElementsValueResult from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251])
+* Change: Return type of the OpenAPI class GetSubmodelElementsValueResult from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251])
 
 
 === Interface Changes w.r.t. V3.0.3 to V3.0.4

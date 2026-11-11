@@ -732,7 +732,9 @@ components:
         - type: object
           properties:
             result:
-              $ref: "#/components/schemas/SubmodelValue"
+              type: array
+              items:
+                $ref: "#/components/schemas/SubmodelValue"
     hexLiteralPattern:
       type: string
       pattern: '^16#[0-9A-F]+$'
