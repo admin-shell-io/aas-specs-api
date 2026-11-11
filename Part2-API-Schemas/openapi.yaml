@@ -828,10 +828,13 @@ components:
               type: string
               enum: 
               - AssetAdministrationShellDescriptor
+              - Identifier
         result:
           type: array
           items:
-            $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+            oneOf:
+            - $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+            - type: string
       required:
         - paging_metadata
     QueryResultConceptDescription:
