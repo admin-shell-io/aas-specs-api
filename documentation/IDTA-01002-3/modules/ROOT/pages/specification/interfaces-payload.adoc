@@ -156,22 +156,25 @@ See the following example for descriptor endpoints, that expose two submodel end
   "endpoints": [
    {
       "protocolInformation": {
-        "endpointAddress": "https://localhost:1234/api/3/submodel",
-        "endpointProtocolVersion": "1.1"
+        "href": "https://localhost:1234/api/3/submodel",
+        "endpointProtocol": "HTTP",
+        "endpointProtocolVersion": [ "1.1" ]
       },
       "interface": "SUBMODEL-3.1"
    },
 	{
       "protocolInformation": {
-        "endpointAddress": "https://localhost:5678/api/2/submodel",
-        "endpointProtocolVersion": "1.1"
+        "href": "https://localhost:5678/api/2/submodel",
+        "endpointProtocol": "HTTP",
+        "endpointProtocolVersion": [ "1.1" ]
       },
       "interface": "SUBMODEL-2.0"
    },
    {
       "protocolInformation": {
-        "endpointAddress": "https://localhost:1234/api/3/submodel/$value",
-        "endpointProtocolVersion": "1.1"
+        "href": "https://localhost:1234/api/3/submodel/$value",
+        "endpointProtocol": "HTTP",
+        "endpointProtocolVersion": [ "1.1" ]
       },
       "interface": "SUBMODEL-VALUE-3.1"
    }
@@ -199,7 +202,7 @@ h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/ProtocolInformation/3
 h|Attribute h|Explanation h|Type h|Card.
 e|href |The endpoint address as a URL |xref:LocatorType[LocatorType] |1
 
-e|endpointProtocol |Either scheme of endpointAddress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
+e|endpointProtocol |Either scheme of href or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
 
 e|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.1/spec-metamodel/datatypes.html#NameType[NameType] |0..*
 
