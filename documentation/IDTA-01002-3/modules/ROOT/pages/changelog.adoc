@@ -13,8 +13,14 @@ Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they h
 
 Bugfixes:
 
+* Change version character of resource paths including "/V3.1/" to "/v3.1/" in constraints.adoc (https://github.com/admin-shell-io/aas-specs-api/issues/712[#712])
+
+* fix table GetAssetAdministrationShellById by removing limit and cursor, openAPI specification was ok (https://github.com/admin-shell-io/aas-specs-api/issues/677[#677])
 * fix: Added `Identifier` to the `resultType` enum of `QueryResultAssetAdministrationShellDescriptor` and allowed identifier strings as `result` items, as in the other query result schemas, so that the result of `QueryAssetAdministrationShellDescriptors` with `$select id` is valid. (https://github.com/admin-shell-io/aas-specs-api/issues/693[#693])
 * fix `ServiceSpecificationProfileEnum`: add the missing literals `3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-004`, `SSP-005`, `3/1/SubmodelRegistryServiceSpecification/SSP-004`, `3/1/DiscoveryServiceSpecification/SSP-002`, `3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-003`, `3/1/SubmodelRepositoryServiceSpecification/SSP-005` and `3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002`, as already listed in the OpenAPI, and correct the profile names in the explanations (Submodel Service Read and Value Profile were swapped, Submodel Repository SSP-003 is the Template Profile and SSP-004 the Template Read Profile, Concept Description Repository SSP-001 is the Full Profile). In the chapter Service Specifications and Profiles, correct the profile identifier of the Submodel Repository Read Profile and the names of the AAS Registry Query Profile, the Submodel Registry Query Profile and the Discovery Service Read Profile (https://github.com/admin-shell-io/aas-specs-api/issues/719[#719])
+* Constraint AASa-005: change `IdShortPath` to `idShortPath` (https://github.com/admin-shell-io/aas-specs-api/issues/702[#702])
+* Grammar for naming rules for operation names, missing model element names added (https://github.com/admin-shell-io/aas-specs-api/issues/680[#680])
+
 
 == Changes w.r.t. V3.1.2 to V3.1.3
 
