@@ -154,21 +154,24 @@ See the following example for descriptor endpoints, that expose two submodel end
   "endpoints": [
    {
       "protocolInformation": {
-        "endpointAddress": "https://localhost:1234/api/3/submodel",
+        "href": "https://localhost:1234/api/3/submodel",
+        "endpointProtocol": "HTTP",
         "endpointProtocolVersion": [ "1.1" ]
       },
       "interface": "SUBMODEL-3.2"
    },
 	{
       "protocolInformation": {
-        "endpointAddress": "https://localhost:5678/api/2/submodel",
+        "href": "https://localhost:5678/api/2/submodel",
+        "endpointProtocol": "HTTP",
         "endpointProtocolVersion": [ "1.1" ]
       },
       "interface": "SUBMODEL-2.0"
    },
    {
       "protocolInformation": {
-        "endpointAddress": "https://localhost:1234/api/3/submodel/$value",
+        "href": "https://localhost:1234/api/3/submodel/$value",
+        "endpointProtocol": "HTTP",
         "endpointProtocolVersion": [ "1.1" ]
       },
       "interface": "SUBMODEL-VALUE-3.2"
@@ -197,7 +200,7 @@ h|semanticId 3+|`\https://admin-shell.io/aas/API/DataTypes/ProtocolInformation/3
 h|Attribute h|Explanation h|Type h|Card.
 e|href |The endpoint address as a URL |xref:LocatorType[LocatorType] |1
 
-e|endpointProtocol |Either scheme of endpointAddress or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
+e|endpointProtocol |Either scheme of href or scheme + further information. Scheme denotes the highest level of doubtless transmission. |xref:SchemeType[SchemeType] |0..1
 
 e|endpointProtocolVersion |Array of strings, each entry represents one supported version at this very endpoint, the entry shall be formatted according to the regulations of the protocol specified in the href |link:https://industrialdigitaltwin.io/aas-specifications/IDTA-01001/v3.2/spec-metamodel/datatypes.html#NameType[NameType] |0..*
 
@@ -333,17 +336,16 @@ e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellServiceSpecificatio
 e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Submodel Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Submodel Service Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-001 |Indicates that the server implemented all features of the Submodel Service Specification Full Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-002 |Indicates that the server implemented all features of the Submodel Service Specification Read Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-003 |Indicates that the server implemented all features of the Submodel Service Specification Value Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/0/AasxFileServerServiceSpecification/SSP-001 |Indicates that the server implemented all details of the AASX File Server Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/AasxFileServerServiceSpecification/SSP-001 |Indicates that the server implemented all details of the AASX File Server Service Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-001 |Indicates that the server implemented all details of the AASX File Server Service Specification Full Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/1/AasxFileServerServiceSpecification/SSP-002 |Indicates that the server implemented all details of the AASX File Server Service Specification Read Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-002 |Indicates that the server implemented all details of the AASX File Server Service Specification Read Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/2/AasxFileServerServiceSpecification/SSP-002 |Indicates that the server implemented all details of the AASX File Server Service Specification Async Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRegistryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRegistryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Registry Service Specification Full Profile in version 3.2.
@@ -369,10 +371,11 @@ e|https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-00
 e|https://admin-shell.io/aas/API/3/0/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Discovery Service Specification Full Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Discovery Service Specification Read Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/1/DiscoveryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Discovery Service Specification Read Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Discovery Service Specification Read Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Full Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/0/AssetAdministrationShellRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.0.
 e|https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Read Profile in version 3.2.
@@ -380,24 +383,26 @@ e|https://admin-shell.io/aas/API/3/1/AssetAdministrationShellRepositoryServiceSp
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Query Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Signature Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification Identifiable Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Service Repository Specification Full Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Service Repository Specification Read Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Read Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Read Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Service Repository Specification Template Read Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Service Repository Specification Query Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Service Repository Specification Query Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-006 |Indicates that the server implemented all details of the Submodel Service Repository Specification Signature Profile in version 3.2.
-e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Profile in version 3.0.
-e|https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Profile in version 3.1.
-e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Query Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-006 |Indicates that the server implemented all details of the Asset Administration Shell Repository Service Specification History Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Repository Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Repository Service Specification Full Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Submodel Repository Service Specification Full Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Repository Service Specification Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Repository Service Specification Read Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Submodel Repository Service Specification Read Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Repository Service Specification Template Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Repository Service Specification Template Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Submodel Repository Service Specification Template Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Repository Service Specification Template Read Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Repository Service Specification Template Read Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-004 |Indicates that the server implemented all details of the Submodel Repository Service Specification Template Read Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/1/SubmodelRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Repository Service Specification Query Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-005 |Indicates that the server implemented all details of the Submodel Repository Service Specification Query Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-006 |Indicates that the server implemented all details of the Submodel Repository Service Specification Signature Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-007 |Indicates that the server implemented all details of the Submodel Repository Service Specification History Profile in version 3.2.
+e|https://admin-shell.io/aas/API/3/0/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Full Profile in version 3.0.
+e|https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Full Profile in version 3.1.
+e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-001 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Full Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/1/ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Query Profile in version 3.1.
 e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Query Profile in version 3.2.
 e|https://admin-shell.io/aas/API/3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-003 |Indicates that the server implemented all details of the Concept Description Repository Service Specification Signature Profile in version 3.2.
