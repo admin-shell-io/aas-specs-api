@@ -131,18 +131,10 @@ Naming rules for operations:
 
 The following rules shall apply for the operation names in Asset Administration Shell Interface, Submodel Interface, Shell Repository Interface, Submodel Repository Interface, Concept Description Repository Interface:
 
-[listing]
-....
-<Interface Operation> ::= <Method Verb><Model Element Name>[<Modifier>]["By"<By-Qualifier>]["RecentChanges"|"Signed"]
-
-<Method Verb> ::= "Get" | "GetAll" | "Query" |"Put" | "PutBulk" | "Post" | "PostAll" | "PostBulk" | "PostAsync"  | "Patch" | "CreateBulk" | "Delete" | "DeleteAll" | "DeleteBulk" | "Invoke" | "InvokeAsync" | "SearchAll" | "Generate"
-
-<Model Element Name> ::= "AssetAdministrationShell"["Ids"|"s"] | "AssetAdministrationShellDescriptor"["Ids"|"s"] | "SubmodelReference"["s"] | "AssetInformation" | "AssetLinks" | "Submodel"["Ids"|"s"] | "SubmodelDescriptor"["Ids"|"s"] | "SubmodelElement"["s"] | "ConceptDescription"["Ids"|"s"] | "Operation" | "Thumbnail" | "File" | "Serialization" | "AASX" | "AASXPackage"["Ids"] | "SelfDescription" 
-
-<Modifier> ::= "Value" | "Version" | "Sync" | "Async" | "AsyncStatus" | "AsyncResult"
-
-<By-Qualifier> ::= "Id" | "SemanticId" | "Path" | "AssetId" | "AssetLink" | "IdShort" | "IsCaseOf" | "DataSpecificationReference" | "PackageId" | "IdAndDate"
-....
+[source,bnf,linenums]
+----
+include::partial$bnf/grammar-naming-interface-operations.bnf[]
+----
 
 [.underline]#Examples:#
 
