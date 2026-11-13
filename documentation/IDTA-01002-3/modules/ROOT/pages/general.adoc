@@ -131,18 +131,10 @@ Naming rules for operations:
 
 The following rules shall apply for the operation names in Asset Administration Shell Interface, Submodel Interface, Shell Repository Interface, Submodel Repository Interface, Concept Description Repository Interface:
 
-[listing]
-....
-<Interface Operation> ::= <Method Verb><Model Element Name>[<Modifier>]["By"<By-Qualifier>]["RecentChanges" | "Signed"]
-
-<Method Verb> ::= "Get" | "GetAll" | "Query" |"Put" | "PutBulk" | "Post" | "PostBulk" | "Patch" | "Delete" | "DeleteBulk" | "Invoke" | "InvokeAsync" | "SearchAll"
-
-<Model Element Name> ::= "AssetAdministrationShell"["Ids"|"s"] | "AssetAdministrationShellDescriptor"["Ids"|"s"] | "SubmodelReference"["s"] | "AssetInformation" | "Submodel"["Ids"|"s"] | "SubmodelDescriptor"["Ids"|"s"] | "SubmodelElement"["s"] | "ConceptDescription"["Ids"|"s"] | "Operation" | "Thumbnail" | "File"
-
-<Modifier> ::= "Value" | "Version" | "Sync" | "Async" | "AsyncStatus" | "AsyncResult"
-
-<By-Qualifier> ::= "Id" | "SemanticId" | "Path" | "AssetId" | "IdShort" | "IsCaseOf" | "DataSpecificationReference" | "IdAndDate"
-....
+[source,bnf,linenums]
+----
+include::partial$bnf/grammar-naming-interface-operations.bnf[]
+----
 
 [.underline]#Examples:#
 
