@@ -15,7 +15,7 @@ TIMESTAMP_PREFIXES = (
     "$aasdesc#submodelDescriptors[12].",
 )
 TIMESTAMP_FIELDS = [
-    f"{prefix}{attribute}"
+    f"{prefix}administration.{attribute}"
     for prefix in TIMESTAMP_PREFIXES
     for attribute in ("createdAt", "updatedAt")
 ]
@@ -41,17 +41,21 @@ class AdministrationTimestampsTest(unittest.TestCase):
                 with self.subTest(definition=definition, field=field):
                     self.assertIsNotNone(self.patterns[definition].fullmatch(field))
 
+    def test_existing_whole_administration_fragment_is_preserved(self):
+        self.assertIsNotNone(self.patterns["FragmentFieldIdentifier"].fullmatch("$aasdesc#administration"))
+
     def test_invalid_timestamp_paths_are_rejected(self):
         invalid = [
             f"{prefix}{suffix}"
             for prefix in ("$aas#", "$sm#", "$cd#", "$aasdesc#", "$smdesc#")
             for suffix in (
-                "CreatedAt", "updatedat", "createdAt[]",
-                "updatedAt.value", "administration.version",
+                "createdAt", "updatedAt", "administration.CreatedAt",
+                "administration.updatedat", "administration.createdAt[]",
+                "administration.updatedAt.value", "administration.version",
             )
         ]
         invalid += [
-            f"{prefix}{attribute}"
+            f"{prefix}administration.{attribute}"
             for prefix in (
                 "$sme#", "$sme.OperationalData#", "$sme.OperationalData[]#",
                 "$aas#assetInformation.", "$aas#submodels[].",
@@ -67,9 +71,9 @@ class AdministrationTimestampsTest(unittest.TestCase):
                 with self.subTest(definition=definition, field=field):
                     self.assertIsNone(self.patterns[definition].fullmatch(field))
 
-    def test_full_administration_paths_are_rejected(self):
+    def test_shortcut_paths_are_rejected(self):
         fields = [
-            f"{prefix}administration.{attribute}"
+            f"{prefix}{attribute}"
             for prefix in TIMESTAMP_PREFIXES
             for attribute in ("createdAt", "updatedAt")
         ]
@@ -126,7 +130,7 @@ class AdministrationTimestampsTest(unittest.TestCase):
     def test_timestamp_references_in_access_rule_formulas(self):
         for root in ("aas", "sm", "cd"):
             for attribute in ("createdAt", "updatedAt"):
-                reference = f'${root}("urn:example:object")#{attribute}'
+                reference = f'${root}("urn:example:object")#administration.{attribute}'
                 with self.subTest(reference=reference):
                     self.assertIsNotNone(self.patterns["ReferenceIdentifier"].fullmatch(reference))
                     self.assert_valid({
@@ -146,18 +150,18 @@ class AdministrationTimestampsTest(unittest.TestCase):
 
     def test_timestamp_reference_scope_is_not_widened(self):
         for reference in (
-            '$sme("urn:example:object").Temperature#createdAt',
-            '$sme("urn:example:object").Temperature#updatedAt',
-            '$aasdesc("urn:example:object")#updatedAt',
-            '$smdesc("urn:example:object")#updatedAt',
-            '$sm("urn:example:object")#updatedAt[]',
+            '$sme("urn:example:object").Temperature#administration.createdAt',
+            '$sme("urn:example:object").Temperature#administration.updatedAt',
+            '$aasdesc("urn:example:object")#administration.updatedAt',
+            '$smdesc("urn:example:object")#administration.updatedAt',
+            '$sm("urn:example:object")#administration.updatedAt[]',
         ):
             with self.subTest(reference=reference):
                 self.assertIsNone(self.patterns["ReferenceIdentifier"].fullmatch(reference))
 
         for root in ("aas", "sm", "cd"):
             for attribute in ("createdAt", "updatedAt"):
-                reference = f'${root}("urn:example:object")#administration.{attribute}'
+                reference = f'${root}("urn:example:object")#{attribute}'
                 with self.subTest(reference=reference):
                     self.assertIsNone(self.patterns["ReferenceIdentifier"].fullmatch(reference))
 
