@@ -30,6 +30,7 @@ Bugfixes:
 * fix Submodel Repository Service Specification – History Profile (SSP-007): the SerializationModifier is applicable (Level: Core, Deep; Content: Normal; Extent: WithBLOBValue, WithoutBLOBValue) instead of `not applicable`, and add the missing input parameter `serializationModifier` to the table GetSubmodelVersionByIdAndDate, openAPI specification was ok (https://github.com/admin-shell-io/aas-specs-api/issues/729[#729])
 * Fix incorrect names for operations `GetAllAssetAdministrationShellsByIdShort`, `GetAllSubmodels, `GetSubmodelById`, `GetAllSubmodelsBySemanticId`, and `GetAllSubmodelsByIdShort` in AAS Repository Read Profile (https://github.com/admin-shell-io/aas-specs-api/issues/749[#749])
 * update information on EC DPP Registry (https://github.com/admin-shell-io/aas-specs-api/issues/751[#751])
+* fix the description of list-valued query parameters in chapter Design Decisions to match the OpenAPI (`style: form`, `explode: true`): a list is passed by repeating the query parameter, not as comma-separated values. For `assetIds`, each SpecificAssetId is serialized to JSON and base64url-encoded separately, instead of encoding the JSON array as a whole; the example is corrected accordingly, `GetAllAssetAdministrationShellsRecentChanges` (/shells/$recent-changes) and `GetAllAssetAdministrationShellDescriptors` (/shell-descriptors) are mentioned as well and the parameter name is written `assetIds` instead of `assetids`. No change in the OpenAPI files (https://github.com/admin-shell-io/aas-specs-api/issues/504[#504])
 
 
 Minor changes:

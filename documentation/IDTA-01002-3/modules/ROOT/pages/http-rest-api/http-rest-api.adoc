@@ -80,7 +80,7 @@ Note: Encoding JSON objects may lead to different encoded strings, depending e.g
 ====
 
 * When base64url or base64-encoding is mentioned in connection with string values (e.g. Identifiers), the UTF-8 decoded byte array representation of that string is used for the base64url or base64-encoding.
-* When retrieving AssetAdministrationShells (/shells, /lookup/shells), a query parameter "?assetIds=" can be specified.
+* When retrieving AssetAdministrationShells (/shells, /shells/$recent-changes, /lookup/shells) or AssetAdministrationShellDescriptors (/shell-descriptors), a query parameter "?assetIds=" can be specified.
 Such assetId may be a globalAssetId or specificAssetId.
 The corresponding key-value-pair is first serialized to JSON as a SpecificAssetId and then base64url-encoded.
 For the globalAssetId, the predefined name "globalAssetId" is used (see Constraint AASd-116 in IDTA-01001).
@@ -95,7 +95,7 @@ Note: In case more than one globalAssetId or specificAssetId is provided, their 
 The corresponding reference is first serialized to JSON and then base64url-encoded.
 The resulting encoded string is the value of "?semanticId=".
 * Even though the metamodel of the AAS distinguishes between the attributes "semanticId" and "supplementalSemanticId", the query parameter "?semanticId" targets both.
-* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellsByAssetId (/shells) and GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells).
+* This encoding (serialize to JSON + base64url) is also used for SpecificAssetIds, i.e. for GetAllAssetAdministrationShellsByAssetId (/shells), GetAllAssetAdministrationShellsRecentChanges (/shells/$recent-changes), GetAllAssetAdministrationShellIdsByAssetLink (/lookup/shells) and GetAllAssetAdministrationShellDescriptors (/shell-descriptors).
 Each SpecificAssetId is encoded separately and passed as a separate "?assetIds=" query parameter; the JSON array of SpecificAssetIds is not encoded as a whole.
 For the example with the two SpecificAssetIds "\{"name": "globalAssetId","value": "http://example.company/myAsset"}" and "\{"name": "myOwnInternalAssetId","value": "12345ABC"}", the resulting query parameters are +
 "?assetIds=eyJuYW1lIjogImdsb2JhbEFzc2V0SWQiLCJ2YWx1ZSI6ICJodHRwOi8vZXhhbXBsZS5jb21wYW55L215QXNzZXQifQ&assetIds=eyJuYW1lIjogIm15T3duSW50ZXJuYWxBc3NldElkIiwidmFsdWUiOiAiMTIzNDVBQkMifQ". +
@@ -622,9 +622,9 @@ base64url-encoded JSON-serialized key-value-pairs, one query parameter per key-v
 
 Pagination
 
-|GetAllAssetAdministrationShellRecentChanges |GET |/shells/$recent-changes a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
+|GetAllAssetAdministrationShellRecentChanges |GET |/shells/$recent-changes a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs, one query parameter per key-value-pair
 
-?assetids=…
+?assetIds=…&assetIds=…
 
 
 Pagination
@@ -634,9 +634,9 @@ Pagination
 |DeleteAllAssetLinksById |DELETE |/lookup/shells/\{aasIdentifier} |base64url-encoded identifier
 
 4+h|AAS Registry Interface
-|GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs
+|GetAllAssetAdministrationShellDescriptors |GET |/shell-descriptors a| _key_ and _keyIdentifier_ are mapped to base64url-encoded JSON-serialized key-value-pairs, one query parameter per key-value-pair
 
-?assetids=…
+?assetIds=…&assetIds=…
 
 Pagination
 
