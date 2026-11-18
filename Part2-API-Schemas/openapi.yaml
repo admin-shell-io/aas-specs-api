@@ -275,7 +275,7 @@ components:
       type: string
       format: date-time
     Descriptor: 
-      example: '{ "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
+      example: '{ "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/aas", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
       properties: 
         description: 
           type: array
@@ -466,7 +466,9 @@ components:
         - type: object
           properties:
             result:
-              $ref: "#/components/schemas/SubmodelValue"
+              type: array
+              items:
+                $ref: "#/components/schemas/SubmodelValue"
     hexLiteralPattern:
       type: string
       pattern: '^16#[0-9A-F]+$'
@@ -828,10 +830,13 @@ components:
               type: string
               enum: 
               - AssetAdministrationShellDescriptor
+              - Identifier
         result:
           type: array
           items:
-            $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+            oneOf:
+            - $ref: "#/components/schemas/AssetAdministrationShellDescriptor"
+            - type: string
       required:
         - paging_metadata
     QueryResultConceptDescription:
@@ -1063,7 +1068,7 @@ components:
         - id
         - endpoints
       type: object
-      example: '{ "id": "https://admin-shell.io/zvei/nameplate/1/0/Nameplate", "endpoints": [ { "href": { "href": "https://localhost:1234/api/v3.0/submodel", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
+      example: '{ "id": "https://admin-shell.io/zvei/nameplate/1/0/Nameplate", "endpoints": [ { "protocolInformation": { "href": "https://localhost:1234/api/v3.0/submodel", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"] }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "opc.tcp://localhost:4840" }, "interface": "AAS-3.0" }, { "protocolInformation": { "href": "https://localhost:5678", "endpointProtocol": "HTTP", "endpointProtocolVersion": ["1.1"], "subprotocol": "OPC UA Basic SOAP", "subprotocolBody": "ns=2;s=MyAAS", "subprotocolBodyEncoding": "application/soap+xml" }, "interface": "AAS-3.0" } ] }'
     SubmodelElementAttributes: 
       allOf: 
         - $ref: "https://api.swaggerhub.com/domains/Plattform_i40/Part1-MetaModel-Schemas/V3.1.3#/components/schemas/Referable"
