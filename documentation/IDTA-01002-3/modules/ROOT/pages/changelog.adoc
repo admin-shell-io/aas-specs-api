@@ -9,6 +9,35 @@
 Note: Changes in Metamodel (IDTA-01001) will not be listed here, although they have an impact on the payload of many operations.
 ====
 
+== Changes w.r.t. V3.2 to V3.2.1
+
+Bugfixes:
+
+* fix the description of list-valued query parameters in chapter Design Decisions to match the OpenAPI (`style: form`, `explode: true`): a list is passed by repeating the query parameter, not as comma-separated values. For `assetIds`, each SpecificAssetId is serialized to JSON and base64url-encoded separately, instead of encoding the JSON array as a whole; the example is corrected accordingly, `GetAllAssetAdministrationShellsRecentChanges` (/shells/$recent-changes) and `GetAllAssetAdministrationShellDescriptors` (/shell-descriptors) are mentioned as well and the parameter name is written `assetIds` instead of `assetids`. No change in the OpenAPI files (https://github.com/admin-shell-io/aas-specs-api/issues/504[#504])
+* fix table GetAssetAdministrationShellById by removing limit and cursor, openAPI specification was ok (https://github.com/admin-shell-io/aas-specs-api/issues/677[#677])
+* fix figure `Services, Interfaces & APIs and Operations`: the cardinality between Interface-Operation and API-Operation is `1..*` instead of `1` on the side of the Interface-Operation, since several interface operations may be mapped to the same API-Operation, as already described in the text (https://github.com/admin-shell-io/aas-specs-api/issues/679[#679])
+* Grammar for naming rules for operation names completed so that all operation names comply with it: add suffix `RecentChanges` and `Signed`, add the method verb `CreateBulk`, `DeleteAll`, `Generate`, `PostAsync` and `PostAll`, add the model element name `AssetLinks`, `AASX`, `AASXPackage`, `AASXPackageIds`, `File`, `Operation`, `SelfDescription`, `Serialization`, and `Thumbnail`, add the modifiers `Async`, `AsyncResult`, `AsyncStatus`, `Sync`, and `Version`, add the by-qualifier `AssetLink`, `IdAndDate`, and `PackageId`; remove the unused modifiers `IdShortPath` and `Reference`, the unused by-qualifier `ParentPathAndSemanticId` and the empty alternative of `<By-Qualifier>` (https://github.com/admin-shell-io/aas-specs-api/issues/680[#680], https://github.com/admin-shell-io/aas-specs-api/issues/728[#728], https://github.com/admin-shell-io/aas-specs-api/issues/750[#750])
+* DPP Annex: remove sequence diagrams for retrieving historical versions via Registry: there are no API operations `GetAssetAdministrationShellDescriptorByIdAndDate` etc. defined  (https://github.com/admin-shell-io/aas-specs-api/issues/681[#681])
+* fix: Added `Identifier` to the `resultType` enum of `QueryResultAssetAdministrationShellDescriptor` and allowed identifier strings as `result` items, as in the other query result schemas, so that the result of `QueryAssetAdministrationShellDescriptors` with `$select id` is valid. (https://github.com/admin-shell-io/aas-specs-api/issues/693[#693])
+* Constraint AASa-005: change `IdShortPath` to `idShortPath` (https://github.com/admin-shell-io/aas-specs-api/issues/702[#702])
+* fix the example of `endpoints` in chapter Endpoint: `endpointAddress` renamed to `href` and `endpointProtocol` added, as defined in ProtocolInformation; the explanation of `endpointProtocol` in the table ProtocolInformation now refers to `href` instead of `endpointAddress` (https://github.com/admin-shell-io/aas-specs-api/issues/711[#711])
+* OpenAPI: fix the endpoint examples of `SubmodelDescriptor` (`protocolInformation` instead of `href` as key of the first endpoint) and `Descriptor` (`endpointProtocol` added) (https://github.com/admin-shell-io/aas-specs-api/issues/711[#711])
+* Change version character of resource paths including `/V3.2/` to `/v3.2/` in constraints.adoc (https://github.com/admin-shell-io/aas-specs-api/issues/712[#712])
+* fix OpenAPI class `GetSubmodelsValueResult` (response of `GetAllSubmodels-ValueOnly`): `result` is now an array of `SubmodelValue` instead of a single `SubmodelValue`, so that a page can hold several Submodels (https://github.com/admin-shell-io/aas-specs-api/issues/713[#713])
+* fix changelog V3.0.3 to V3.0.4: the change from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251]) only applies to `GetSubmodelElementsValueResult`, not to `GetSubmodelsValueResult` (https://github.com/admin-shell-io/aas-specs-api/issues/713[#713])
+* fix table GetAllSubmodelsRecentChanges by marking the input parameters `semanticId` and `idShort` as optional, and add the missing optional input parameter `idShort` to the table GetAllAssetAdministrationShellsRecentChanges, openAPI specification was ok (https://github.com/admin-shell-io/aas-specs-api/issues/717[#717])
+* fix `ServiceSpecificationProfileEnum`: add the missing literals `3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-006`, `3/2/SubmodelRepositoryServiceSpecification/SSP-007`, `3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-001` (replacing a duplicate of `3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-002`) and `3/1/DiscoveryServiceSpecification/SSP-002`, remove the undefined literal `3/1/AasxFileServerServiceSpecification/SSP-002`, and correct the profile names in the explanations (Submodel Service Read and Value Profile were swapped, AAS Repository SSP-001 is the Full Profile, AASX File Server SSP-002 is the Async Profile, Discovery SSP-002 refers to version 3.2, Concept Description Repository SSP-001 is the Full Profile). In the chapter Service Specifications and Profiles, correct the profile identifier of the Submodel Repository Read Profile and the names of the AAS Registry Query Profile, the Submodel Registry Query Profile and the Discovery Service Read Profile (https://github.com/admin-shell-io/aas-specs-api/issues/719[#719])
+* OpenAPI: add the missing profiles `3/2/AssetAdministrationShellRepositoryServiceSpecification/SSP-004`, `SSP-005`, `SSP-006`, `3/2/SubmodelRepositoryServiceSpecification/SSP-006`, `SSP-007` and `3/2/ConceptDescriptionRepositoryServiceSpecification/SSP-003` to the example list of `ServiceDescription.profiles`, and align the list with `ServiceSpecificationProfileEnum` (add `3/1/DiscoveryServiceSpecification/SSP-002`, remove the undefined `3/1/AasxFileServerServiceSpecification/SSP-002`) (https://github.com/admin-shell-io/aas-specs-api/issues/720[#720])
+* fix Submodel Repository Service Specification – History Profile (SSP-007): the SerializationModifier is applicable (Level: Core, Deep; Content: Normal; Extent: WithBLOBValue, WithoutBLOBValue) instead of `not applicable`, and add the missing input parameter `serializationModifier` to the table GetSubmodelVersionByIdAndDate, openAPI specification was ok (https://github.com/admin-shell-io/aas-specs-api/issues/729[#729])
+* Fix incorrect names for operations `GetAllAssetAdministrationShellsByIdShort`, `GetAllSubmodels, `GetSubmodelById`, `GetAllSubmodelsBySemanticId`, and `GetAllSubmodelsByIdShort` in AAS Repository Read Profile (https://github.com/admin-shell-io/aas-specs-api/issues/749[#749])
+* update information on EC DPP Registry (https://github.com/admin-shell-io/aas-specs-api/issues/751[#751])
+
+
+Minor changes:
+
+* DPP Annex: improve readability of table `Mapping of DPP Life Cycle API Operations to AAS Service Operations` and make consistent
+
+
 == Changes w.r.t. V3.1.3 to V3.2
 
 Major Changes:
@@ -373,7 +402,7 @@ Major:
 
 * Change: paging_metadata is required in OpenAPI to match the definition in this document.
 * Change: ValueOnly classes changed from array to object for AnnotatedRelationshipElementValue/value, EntityValue/statements
-* Change: Return type of the OpenAPI classes GetSubmodelsValueResult and GetSubmodelElementsValueResult from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251])
+* Change: Return type of the OpenAPI class GetSubmodelElementsValueResult from array to object (https://github.com/admin-shell-io/aas-specs-api/issues/251[#251])
 
 
 === Interface Changes w.r.t. V3.0.3 to V3.0.4
@@ -453,7 +482,7 @@ Minor:
 |*BWC* |*Interface Change* |*Kind of Change* |*Comment*
 | | GetOperationAsnycStatus    | Changed    | Replace payload type ‘OperationResult’ with ‘BaseOperationResult’ that OpenAPI descriptions already contained ‘BaseOperationResult’ from V3.0 on.
 | | ServiceSpecificationProfileEnum    | Remove    |
-Removed profiles https://admin-shell.io/aas/API/3/2/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/2/RepositoryServiceSpecification/SSP-002.
+Removed profiles https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-001 and https://admin-shell.io/aas/API/3/0/RepositoryServiceSpecification/SSP-002.
 Both profiles were not included in the V3.0.1 ServiceDescription class in the OpenAPI definition and only left-overs from previous drafts.
 
 | | PutAssetAdministrationShell    | Change    | Output parameter "payload" changed from "mandatory=yes" to "mandatory=no"

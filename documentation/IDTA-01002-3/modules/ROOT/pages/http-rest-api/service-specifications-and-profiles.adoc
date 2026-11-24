@@ -523,7 +523,7 @@ See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../
 
 [%autowidth, width="100%", cols="36%,64%",options="header",]
 |===
-h|Name: h|AAS Registry Bulk Profile
+h|Name: h|AAS Registry Query Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/2/AssetAdministrationShellRegistryServiceSpecification/SSP-004`
 h|Feature h|Appearance
 |APIs and API Operations a|
@@ -656,7 +656,7 @@ See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../
 
 [%autowidth, width="100%", cols="36%,64%",options="header",]
 |===
-h|Name: h|Submodel Registry Bulk Profile
+h|Name: h|Submodel Registry Query Profile
 h|Profile Identifier: |`\https://admin-shell.io/aas/API/3/2/SubmodelRegistryServiceSpecification/SSP-004`
 h|Feature h|Appearance
 |APIs and API Operations a|
@@ -715,7 +715,7 @@ See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../
 
 [%autowidth,width="100%",cols="36%,64%",options="header",]
 |===
-h|Name: h|Discovery Service Full Profile
+h|Name: h|Discovery Service Read Profile
 h|Profile Identifier: |`https://admin-shell.io/aas/API/3/2/DiscoveryServiceSpecification/SSP-002`
 h|Feature h|Appearance
 |API and API Operations a|
@@ -840,7 +840,7 @@ xref:specification/interfaces.adoc#GetAllAssetAdministrationShells[GetAllAssetAd
 xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsRecentChanges[GetAllAssetAdministrationShellsRecentChanges] +
 xref:specification/interfaces.adoc#GetAssetAdministrationShellById[GetAssetAdministrationShellById] +
 xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByAssetId[GetAllAssetAdministrationShellsByAssetId] +
-xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByIdShort[]
+xref:specification/interfaces.adoc#GetAllAssetAdministrationShellsByIdShort[GetAllAssetAdministrationShellsByIdShort]
 
 _AAS API by superpath:_ +
 xref:specification/interfaces.adoc#GetAssetAdministrationShell[GetAssetAdministrationShell] +
@@ -849,10 +849,10 @@ xref:specification/interfaces.adoc#GetAssetInformation[GetAllSubmodelReferences]
 xref:specification/interfaces.adoc#GetThumbnail[GetAllSubmodelReferences]
 
 __Submodel Repository API by superpath:__ +
-xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodelReferences] +
-xref:specification/interfaces.adoc#GetSubmodelById[GetAllSubmodelReferences] +
-xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelReferences] +
-xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelReferences]
+xref:specification/interfaces.adoc#GetAllSubmodels[GetAllSubmodels] +
+xref:specification/interfaces.adoc#GetSubmodelById[GetSubmodelById] +
+xref:specification/interfaces.adoc#GetAllSubmodelsBySemanticId[GetAllSubmodelsBySemanticId] +
+xref:specification/interfaces.adoc#GetAllSubmodelsByIdShort[GetAllSubmodelsByIdShort]
 
 __Submodel API by superpath:__ +
 xref:specification/interfaces.adoc#GetAllSubmodelElements[GetAllSubmodelElements] +
@@ -1075,7 +1075,7 @@ See: https://industrialdigitaltwin.io/aas-specs-api/docs/swagger-ui.html?url=../
 [%autowidth,width="100%",cols="36%,64%",options="header",]
 |===
 h|Name: |Submodel Repository Read Profile
-h|Profile Identifier |`\https://admin-shell.io/aas/API/3/2/SubmodelServiceSpecification/SSP-002`
+h|Profile Identifier |`\https://admin-shell.io/aas/API/3/2/SubmodelRepositoryServiceSpecification/SSP-002`
 h|Feature h|Appearance
 |API and API Operations a|
 _Submodel Repository API:_ +
@@ -1285,7 +1285,13 @@ xref:specification/interfaces.adoc#GetSubmodelVersionByIdAndDate[GetSubmodelVers
 
 _Description API:_ +
 xref:specification/interfaces.adoc#GetSelfDescription[GetDescription]
-|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a| not applicable
+|xref:specification/interfaces-operation-parameters.adoc#SerializationModifier[SerializationModifier] a|
+Level: Core, Deep
+
+Content: Normal
+
+Extent: WithBLOBValue, WithoutBLOBValue
+
 |SerializationFormat |JSON
 |xref:http-rest-api/http-rest-api.adoc#pagination[Pagination] | not supported
 |===
