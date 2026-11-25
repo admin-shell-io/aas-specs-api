@@ -1,0 +1,32 @@
+@startjson
+<style>
+jsonDiagram {
+  highlight {
+    BackGroundColor #DDEBF7
+  }
+}
+</style>
+#highlight "data"
+#highlight "data" / "globalAssetIds"
+#highlight "data" / "assetAdministrationShell"
+{
+  "specversion": "1.0",
+  "id": "<unique within source>",
+  "type": "io.admin-shell.aas.<modification>.v1",
+  "source": "<URI of the service>",
+  "subject": "<id of the AssetAdministrationShell>",
+  "time": "<DateTimeUtc>",
+  "datacontenttype": "application/json",
+  "dataschema": "https://admin-shell.io/aas/API/Events/AssetAdministrationShellEventData/3/3",
+  "data": {
+    "globalAssetIds": [ "<globalAssetId of the AAS, if set>" ],
+    "assetAdministrationShell": {
+      "modelType": "AssetAdministrationShell",
+      "id": "<id>",
+      "assetInformation": "<AssetInformation>",
+      "submodels": "<ModelReferences to Submodels>",
+      "...": "all other attributes"
+    }
+  }
+}
+@endjson

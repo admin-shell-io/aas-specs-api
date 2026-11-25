@@ -685,6 +685,16 @@ Note: Same endpoint as for the Asset Administration Shell Registry Interface bul
 Note: Same endpoint as for the Asset Administration Shell Registry Interface bulk result. 
 ====
 
+4+h|Event Interface
+|GetAllEvents |GET |/events a|
+?type=, ?aasIdentifier=, ?submodelIdentifier=, ?cdIdentifier=, ?globalAssetId=, ?semanticId=, ?since=, ?lastEventId=
+
+aasIdentifier, submodelIdentifier, cdIdentifier, and globalAssetId are base64url-encoded identifiers; semanticId is a base64url-encoded JSON-serialized Reference
+
+Parameters with several values are repeated, e.g. ?type=…&type=…
+
+Pagination
+
 4+h|Descriptor Interface
 s|GetDescription s|GET s|/description s|Provide additional information on interface endpoint; may also be used at a server endpoint to list all descriptions available on that server
 |===

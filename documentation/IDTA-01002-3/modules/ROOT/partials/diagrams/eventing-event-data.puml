@@ -1,0 +1,92 @@
+@startuml
+!pragma useIntermediatePackages false
+hide circle
+skinparam classAttributeIconSize 0
+hide methods
+hide empty members
+left to right direction
+
+class Event {
+  +specversion: string [1] = "1.0"
+  +id: string [1]
+  +source: string [1]
+  +subject: string [1]
+  +type: string [1]
+  +time: DateTimeUtc [1]
+  +datacontenttype: string [0..1] = "application/json"
+  +dataschema: string [1]
+  +data: EventData [1]
+}
+
+note bottom of Event
+  **type** = io.admin-shell.<object>.<modification>.v1
+  <modification> = created | updated | deleted
+  **source** = URI identifying the service
+  **subject** = identification of the modified object
+  **dataschema** = https://admin-shell.io/aas/API/Events/<data class>/3/3
+  **time** = point in time at which the modification was persisted
+  **data**: for deleted events the state before the modification
+end note
+
+abstract class EventData <<abstract>>
+
+class AssetAdministrationShellEventData {
+  +globalAssetIds: Identifier [0..*]
+  +assetAdministrationShell: AssetAdministrationShell [1]
+}
+note right of AssetAdministrationShellEventData
+  **type**: io.admin-shell.aas.<modification>.v1
+  **subject**: id of the AAS
+  **dataschema**: .../Events/AssetAdministrationShellEventData/3/3
+  **globalAssetIds**: globalAssetId of the AAS
+  (at most one entry)
+  **assetAdministrationShell**: complete AAS
+  as returned by GetAssetAdministrationShellById
+end note
+
+class SubmodelEventData {
+  +globalAssetIds: Identifier [0..*]
+  +submodel: Submodel [1]
+}
+note right of SubmodelEventData
+  **type**: io.admin-shell.submodel.<modification>.v1
+  **subject**: id of the Submodel
+  **dataschema**: .../Events/SubmodelEventData/3/3
+  **globalAssetIds**: globalAssetIds of all AAS
+  of the service that reference the Submodel
+  **submodel**: Content Metadata, i.e. all
+  attributes except submodelElements
+end note
+
+class ConceptDescriptionEventData {
+  +conceptDescription: ConceptDescription [1]
+}
+note right of ConceptDescriptionEventData
+  **type**: io.admin-shell.conceptdescription.<modification>.v1
+  **subject**: id of the CD
+  **dataschema**: .../Events/ConceptDescriptionEventData/3/3
+  **conceptDescription**: complete CD
+  as returned by GetConceptDescriptionById
+end note
+
+class AssetEventData {
+  +globalAssetIds: Identifier [1..*]
+  +assetAdministrationShells: Reference [0..*]
+}
+note right of AssetEventData
+  **type**: io.admin-shell.asset.<modification>.v1
+  **subject**: globalAssetId of the asset
+  **dataschema**: .../Events/AssetEventData/3/3
+  **globalAssetIds**: globalAssetId of the asset
+  (exactly one entry)
+  **assetAdministrationShells**: ModelReferences
+  to the AAS linked to the asset
+end note
+
+Event *-- "1" EventData : data
+EventData <|-- AssetAdministrationShellEventData
+EventData <|-- SubmodelEventData
+EventData <|-- ConceptDescriptionEventData
+EventData <|-- AssetEventData
+
+@enduml

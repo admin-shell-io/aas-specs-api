@@ -1,0 +1,26 @@
+@startjson
+<style>
+jsonDiagram {
+  highlight {
+    BackGroundColor #DDEBF7
+  }
+}
+</style>
+#highlight "data"
+#highlight "data" / "globalAssetIds"
+#highlight "data" / "assetAdministrationShells"
+{
+  "specversion": "1.0",
+  "id": "<unique within source>",
+  "type": "io.admin-shell.asset.<modification>.v1",
+  "source": "<URI of the service>",
+  "subject": "<globalAssetId of the asset>",
+  "time": "<DateTimeUtc>",
+  "datacontenttype": "application/json",
+  "dataschema": "https://admin-shell.io/aas/API/Events/AssetEventData/3/3",
+  "data": {
+    "globalAssetIds": [ "<globalAssetId of the asset>" ],
+    "assetAdministrationShells": [ "<ModelReference to linked AAS>", "..." ]
+  }
+}
+@endjson
