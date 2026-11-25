@@ -1,0 +1,31 @@
+@startjson
+<style>
+jsonDiagram {
+  highlight {
+    BackGroundColor #DDEBF7
+  }
+}
+</style>
+#highlight "data"
+#highlight "data" / "globalAssetIds"
+#highlight "data" / "submodel"
+{
+  "specversion": "1.0",
+  "id": "<unique within source>",
+  "type": "io.admin-shell.submodel.<modification>.v1",
+  "source": "<URI of the service>",
+  "subject": "<id of the Submodel>",
+  "time": "<DateTimeUtc>",
+  "datacontenttype": "application/json",
+  "dataschema": "https://admin-shell.io/aas/API/Events/SubmodelEventData/3/3",
+  "data": {
+    "globalAssetIds": [ "<globalAssetId of a referencing AAS>", "..." ],
+    "submodel": {
+      "modelType": "Submodel",
+      "id": "<id>",
+      "semanticId": "<Reference>",
+      "...": "all other attributes except submodelElements"
+    }
+  }
+}
+@endjson
